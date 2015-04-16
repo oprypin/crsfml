@@ -12,3 +12,7 @@
 !/patches/
 !/patches/*.sh
 !/patches/*.patch
+!/examples/
+!/examples/*.cr
+!/examples/resources/
+!/examples/resources/*
