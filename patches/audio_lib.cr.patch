@@ -1,6 +1,6 @@
---- generate/csfml_system_lib.cr	2015-04-16 23:49:18.491177799 +0300
-+++ src/csfml_system_lib.cr	2015-04-17 00:00:00.924539824 +0300
-@@ -1,11 +1,40 @@
+--- generate/audio_lib.cr	2015-04-17 01:20:35.694755745 +0300
++++ src/csfml/audio_lib.cr	2015-04-17 01:20:35.741422414 +0300
+@@ -1,3 +1,26 @@
 +# Copyright (C) 2015 Oleh Prypin <blaxpirit@gmail.com>
 +# 
 +# This file is part of CrSFML.
@@ -22,22 +22,8 @@
 +# 3. This notice may not be removed or altered from any source distribution.
 +
 +
- @[Link("csfml-system")]
++require "./system_lib"
++
+ @[Link("csfml-audio")]
  
  lib CSFML
-+  ifdef x86_64
-+    alias Size_t = UInt64
-+  else
-+    alias Size_t = UInt32
-+  end
-+
-   struct Time
-     # Represents a time value
-     microseconds: Int64
-   end
-   
-+  alias BitMaskU32 = UInt32
-+  
-   fun time_as_seconds = sfTime_asSeconds(time: Time): Float32
-     # Return a time value as a number of seconds
-     # 

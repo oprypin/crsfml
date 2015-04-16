@@ -1,5 +1,5 @@
---- generate/csfml_graphics_lib.cr	2015-04-16 23:49:18.494511133 +0300
-+++ src/csfml_graphics_lib.cr	2015-04-16 23:59:58.964539736 +0300
+--- generate/graphics_lib.cr	2015-04-17 01:20:35.694755745 +0300
++++ src/csfml/graphics_lib.cr	2015-04-17 01:20:35.744755747 +0300
 @@ -1,3 +1,27 @@
 +# Copyright (C) 2015 Oleh Prypin <blaxpirit@gmail.com>
 +# 
@@ -22,8 +22,8 @@
 +# 3. This notice may not be removed or altered from any source distribution.
 +
 +
-+require "./csfml_system_lib"
-+require "./csfml_window_lib"
++require "./system_lib"
++require "./window_lib"
 +
  @[Link("csfml-graphics")]
  

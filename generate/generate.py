@@ -402,13 +402,13 @@ ast = parse_file('headers_gen.h')
 Visitor().visit(ast)
 
 for mod, lines in libs.items():
-    with open('csfml_{}_lib.cr'.format(mod), 'w') as f:
+    with open('{}_lib.cr'.format(mod), 'w') as f:
         f.write('@[Link("csfml-{}")]\n\nlib CSFML\n'.format(mod))
         f.write('\n'.join('  '+l for l in lines))
         f.write('\nend')
 for mod, classes in objs.items():
-    with open('csfml_{}.cr'.format(mod), 'w') as f:
-        f.write('require "./csfml_{}_lib"'.format(mod))
+    with open('{}.cr'.format(mod), 'w') as f:
+        f.write('require "./{}_lib"'.format(mod))
         for lines in clss.values():
             f.write('\n\n')
             f.write('\n'.join(lines))

@@ -5,10 +5,9 @@ python3 headers.py
 python3 replacements.py headers_gen.h
 python3 generate.py
 cd ..
-cp -r generate/*.cr src/
+cp -r generate/*.cr src/csfml/
 
-cd src
-for f in ../patches/*.patch; do
+cd src/csfml/
+for f in ../../patches/*.patch; do
     patch < $f
 done
-cd ..

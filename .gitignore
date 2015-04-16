@@ -5,7 +5,8 @@
 !*.md
 !LICENSE
 !/src/
-!/src/*.cr
+!/src/csfml/
+!/src/csfml/*.cr
 !/generate/
 !/generate/*.sh
 !/generate/*.py

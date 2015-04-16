@@ -1,6 +1,6 @@
---- generate/csfml_window_lib.cr	2015-04-16 23:49:18.491177799 +0300
-+++ src/csfml_window_lib.cr	2015-04-17 00:00:02.651206568 +0300
-@@ -1,6 +1,35 @@
+--- generate/system_lib.cr	2015-04-17 01:20:35.698089078 +0300
++++ src/csfml/system_lib.cr	2015-04-17 01:20:35.748089081 +0300
+@@ -1,11 +1,40 @@
 +# Copyright (C) 2015 Oleh Prypin <blaxpirit@gmail.com>
 +# 
 +# This file is part of CrSFML.
@@ -22,17 +22,22 @@
 +# 3. This notice may not be removed or altered from any source distribution.
 +
 +
-+require "./csfml_system_lib"
-+
- @[Link("csfml-window")]
+ @[Link("csfml-system")]
  
  lib CSFML
-+  ifdef windows || macosx
-+    alias WindowHandle = Void*
++  ifdef x86_64
++    alias Size_t = UInt64
 +  else
-+    alias WindowHandle = UInt64#ulong
++    alias Size_t = UInt32
 +  end
 +
-   type Context = Void*
+   struct Time
+     # Represents a time value
+     microseconds: Int64
+   end
    
-   type Window = Void*
++  alias BitMaskU32 = UInt32
++  
+   fun time_as_seconds = sfTime_asSeconds(time: Time): Float32
+     # Return a time value as a number of seconds
+     # 

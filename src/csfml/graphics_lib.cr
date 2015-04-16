@@ -19,8 +19,8 @@
 # 3. This notice may not be removed or altered from any source distribution.
 
 
-require "./csfml_system_lib"
-require "./csfml_window_lib"
+require "./system_lib"
+require "./window_lib"
 
 @[Link("csfml-graphics")]
 
