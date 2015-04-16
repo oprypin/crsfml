@@ -1,0 +1,14 @@
+*
+!.gitignore
+
+!README*
+!*.md
+!LICENSE
+!/src/
+!/src/*.cr
+!/generate/
+!/generate/*.sh
+!/generate/*.py
+!/patches/
+!/patches/*.sh
+!/patches/*.patch
