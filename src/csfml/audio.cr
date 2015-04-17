@@ -237,14 +237,14 @@ module SF
       @owned = true
       @this = CSFML.sound_buffer_create_from_stream(stream)
     end
-    def initialize(psamples, sample_count: Size_t, channel_count: Int32, sample_rate: Int32)
+    def initialize(samples, sample_count: Size_t, channel_count: Int32, sample_rate: Int32)
       if samples
         csamples = samples; psamples = pointerof(csamples)
       else
         psamples = nil
       end
       @owned = true
-      @this = CSFML.sound_buffer_create_from_samples(psamples, sample_count, channel_count, sample_rate)
+      @this = CSFML.sound_buffer_create_from_samples(samples, sample_count, channel_count, sample_rate)
     end
     def copy()
       self.wrap_ptr(CSFML.sound_buffer_copy(@this))

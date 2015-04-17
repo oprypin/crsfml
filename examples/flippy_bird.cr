@@ -1,33 +1,28 @@
-require "csfml/window_lib"
-require "csfml/graphics_lib"
-
-def sf_unicode(s)
-  chars = s.chars
-  chars << '\0'
-end
+require "csfml/window"
+require "csfml/graphics"
 
 mode = CSFML::VideoMode.new(width: 800, height: 600, bits_per_pixel: 32)
-window = CSFML.render_window_create_unicode(mode, sf_unicode("pɹıq ʎddılɟ"), CSFML::WindowStyle::Default, nil)
-CSFML.render_window_set_vertical_sync_enabled window, 1
+window = SF::RenderWindow.new(mode, "pɹıq ʎddılɟ", CSFML::WindowStyle::Default, nil)
+window.vertical_sync_enabled = 1
 
-bird_texture = CSFML.texture_create_from_file("resources/bird.png", nil)
-sz = CSFML.texture_get_size bird_texture
+bird_texture = SF::Texture.new("resources/bird.png", nil)
+sz = bird_texture.size
 
-bird = CSFML.sprite_create
-CSFML.sprite_set_texture bird, bird_texture, 1
-CSFML.sprite_set_origin bird, CSFML::Vector2f.new(x: sz.x / 2.0f32, y: sz.y / 2.0f32)
-CSFML.sprite_set_scale bird, CSFML::Vector2f.new(x: 2.5f32, y: 2.5f32)
-CSFML.sprite_set_position bird, CSFML::Vector2f.new(x: 250f32, y: 300f32)
+bird = SF::Sprite.new()
+bird.set_texture bird_texture, 1
+bird.origin = CSFML::Vector2f.new(x: sz.x / 2.0f32, y: sz.y / 2.0f32)
+bird.scale = CSFML::Vector2f.new(x: 2.5f32, y: 2.5f32)
+bird.position = CSFML::Vector2f.new(x: 250f32, y: 300f32)
 
 speed = 0.0f32
 
-while CSFML.render_window_is_open(window) != 0
+while window.open != 0
   while CSFML.render_window_poll_event(window, out event) != 0
     if event.type == CSFML::EventType::Closed
-      CSFML.render_window_close(window)
+      window.close()
     elsif event.type == CSFML::EventType::KeyPressed
       if event.key.code == CSFML::KeyCode::Escape
-        CSFML.render_window_close(window)
+        window.close()
       else
         speed = -9.0f32
       end
@@ -35,10 +30,10 @@ while CSFML.render_window_is_open(window) != 0
   end
   
   speed += 0.3f32
-  CSFML.sprite_move bird, CSFML::Vector2f.new(x: 0.0f32, y: speed)
-  CSFML.sprite_set_rotation bird, speed*8.0f32 < 90.0f32 ? speed*8.0f32 : 90.0f32
+  bird.move CSFML::Vector2f.new(x: 0.0f32, y: speed)
+  bird.rotation = speed*8.0f32 < 90.0f32 ? speed*8.0f32 : 90.0f32
   
-  CSFML.render_window_clear window, CSFML::Color.new(r: 112u8, g: 197u8, b: 206u8)
-  CSFML.render_window_draw_sprite window, bird, nil
-  CSFML.render_window_display window
+  window.clear CSFML::Color.new(r: 112u8, g: 197u8, b: 206u8)
+  window.draw_sprite bird, nil
+  window.display()
 end

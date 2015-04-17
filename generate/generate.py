@@ -284,10 +284,12 @@ def handle_function(main, params):
             conv.append('{0} = {0}.to_f32'.format(n))
         if n in const and t not in classes:
             conv += 'if {0}\n  c{0} = {0}; p{0} = pointerof(c{0})\nelse\n  p{0} = nil\nend'.format(n).splitlines()
-            n = 'p'+n
-            t = None#t+'|Nil'
+            t = None
         params[i] = (n, t)
     sparams = ', '.join('{}: {}'.format(n, t) if t else n for n, t in params)
+    for i, (n, t) in enumerate(params):
+        if n in const and t is None:
+            n = 'p'+n
     if nfname == 'destroy':
         nfname = 'finalize'
     obj(cls, 'def {nfname}({sparams})'.format(**locals()))

@@ -54,7 +54,7 @@ module SF
     def to_unsafe
       @this
     end
-    def initialize(mode: VideoMode, title: String, style: WindowStyle, psettings)
+    def initialize(mode: VideoMode, title: String, style: WindowStyle, settings)
       title = title.chars; title << '\0'
       if settings
         csettings = settings; psettings = pointerof(csettings)
@@ -62,16 +62,16 @@ module SF
         psettings = nil
       end
       @owned = true
-      @this = CSFML.window_create_unicode(mode, title, style, psettings)
+      @this = CSFML.window_create_unicode(mode, title, style, settings)
     end
-    def initialize(handle: WindowHandle, psettings)
+    def initialize(handle: WindowHandle, settings)
       if settings
         csettings = settings; psettings = pointerof(csettings)
       else
         psettings = nil
       end
       @owned = true
-      @this = CSFML.window_create_from_handle(handle, psettings)
+      @this = CSFML.window_create_from_handle(handle, settings)
     end
     def finalize()
       CSFML.window_destroy(@this) if @owned
@@ -107,13 +107,13 @@ module SF
       title = title.chars; title << '\0'
       CSFML.window_set_unicode_title(@this, title)
     end
-    def set_icon(width: Int32, height: Int32, ppixels)
+    def set_icon(width: Int32, height: Int32, pixels)
       if pixels
         cpixels = pixels; ppixels = pointerof(cpixels)
       else
         ppixels = nil
       end
-      CSFML.window_set_icon(@this, width, height, ppixels)
+      CSFML.window_set_icon(@this, width, height, pixels)
     end
     def visible=(visible: Int32)
       CSFML.window_set_visible(@this, visible)
