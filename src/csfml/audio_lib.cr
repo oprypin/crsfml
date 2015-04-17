@@ -88,7 +88,7 @@ lib CSFML
     # 
     # Returns: Listener's upward vector (not normalized)
   
-  enum SoundStatus: UInt32
+  enum SoundStatus
     # Enumeration of statuses for sounds and musics
     Stopped, Paused, Playing
   end

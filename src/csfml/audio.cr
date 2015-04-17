@@ -1,3 +1,24 @@
+# Copyright (C) 2015 Oleh Prypin <blaxpirit@gmail.com>
+# 
+# This file is part of CrSFML.
+# 
+# This software is provided 'as-is', without any express or implied
+# warranty. In no event will the authors be held liable for any damages
+# arising from the use of this software.
+# 
+# Permission is granted to anyone to use this software for any purpose,
+# including commercial applications, and to alter it and redistribute it
+# freely, subject to the following restrictions:
+# 
+# 1. The origin of this software must not be misrepresented; you must not
+#    claim that you wrote the original software. If you use this software
+#    in a product, an acknowledgement in the product documentation would be
+#    appreciated but is not required.
+# 2. Altered source versions must be plainly marked as such, and must not be
+#    misrepresented as being the original software.
+# 3. This notice may not be removed or altered from any source distribution.
+
+
 require "./audio_lib"
 
 module SF
@@ -9,6 +30,7 @@ module SF
     def self.wrap_ptr(p)
       result = self.allocate()
       result.this = p
+      result
     end
     def to_unsafe
       @this
@@ -107,6 +129,7 @@ module SF
     def self.wrap_ptr(p)
       result = self.allocate()
       result.this = p
+      result
     end
     def to_unsafe
       @this
@@ -197,6 +220,7 @@ module SF
     def self.wrap_ptr(p)
       result = self.allocate()
       result.this = p
+      result
     end
     def to_unsafe
       @this
@@ -213,10 +237,14 @@ module SF
       @owned = true
       @this = CSFML.sound_buffer_create_from_stream(stream)
     end
-    def initialize(samples, sample_count: Size_t, channel_count: Int32, sample_rate: Int32)
-      samples = pointerof(samples) if samples
+    def initialize(psamples, sample_count: Size_t, channel_count: Int32, sample_rate: Int32)
+      if samples
+        csamples = samples; psamples = pointerof(csamples)
+      else
+        psamples = nil
+      end
       @owned = true
-      @this = CSFML.sound_buffer_create_from_samples(samples, sample_count, channel_count, sample_rate)
+      @this = CSFML.sound_buffer_create_from_samples(psamples, sample_count, channel_count, sample_rate)
     end
     def copy()
       self.wrap_ptr(CSFML.sound_buffer_copy(@this))
@@ -248,6 +276,7 @@ module SF
     def self.wrap_ptr(p)
       result = self.allocate()
       result.this = p
+      result
     end
     def to_unsafe
       @this
@@ -277,6 +306,7 @@ module SF
     def self.wrap_ptr(p)
       result = self.allocate()
       result.this = p
+      result
     end
     def to_unsafe
       @this
@@ -312,6 +342,7 @@ module SF
     def self.wrap_ptr(p)
       result = self.allocate()
       result.this = p
+      result
     end
     def to_unsafe
       @this

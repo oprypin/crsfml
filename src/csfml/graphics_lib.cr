@@ -25,13 +25,13 @@ require "./window_lib"
 @[Link("csfml-graphics")]
 
 lib CSFML
-  enum BlendFactor: UInt32
+  enum BlendFactor
     # Enumeration of the blending factors
     Zero, One, SrcColor, OneMinusSrcColor, DstColor, OneMinusDstColor, SrcAlpha,
     OneMinusSrcAlpha, DstAlpha, OneMinusDstAlpha
   end
   
-  enum BlendEquation: UInt32
+  enum BlendEquation
     # Enumeration of the blending equations
     Add, Subtract
   end
@@ -1264,7 +1264,7 @@ lib CSFML
     # Arguments:
     # - image: Image object
   
-  enum PrimitiveType: UInt32
+  enum PrimitiveType
     # Types of primitives that a sf::VertexArray can render
     # 
     # Points and lines have no area, therefore their thickness

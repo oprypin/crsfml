@@ -120,7 +120,10 @@ def handle_enum(name, items):
     nname = rename_sf(name)
     if all(value is not None for name, value in nitems):
         nitems.sort(key=lambda kv: int(kv[1]))
-    lib('enum {}: UInt32'.format(nname))
+    s = 'enum {}'.format(nname)
+    if nname in ['WindowStyle', 'TextStyle']:
+        s += ': UInt32'
+    lib(s)
     d = get_doc()
     if d: lib(d)
     lib(*(textwrap.wrap(', '.join(
@@ -177,6 +180,7 @@ def handle_class(name):
     obj(pname, 'def self.wrap_ptr(p)\n'.format(pname))
     obj(pname, '  result = self.allocate()'.format(pname))
     obj(pname, '  result.this = p'.format(pname))
+    obj(pname, '  result'.format(pname))
     obj(pname, 'end'.format(pname))
     obj(pname, 'def to_unsafe\n'.format(pname))
     obj(pname, '  @this'.format(pname))
@@ -279,7 +283,8 @@ def handle_function(main, params):
             t = None
             conv.append('{0} = {0}.to_f32'.format(n))
         if n in const and t not in classes:
-            conv.append('{0} = pointerof({0}) if {0}'.format(n))
+            conv += 'if {0}\n  c{0} = {0}; p{0} = pointerof(c{0})\nelse\n  p{0} = nil\nend'.format(n).splitlines()
+            n = 'p'+n
             t = None#t+'|Nil'
         params[i] = (n, t)
     sparams = ', '.join('{}: {}'.format(n, t) if t else n for n, t in params)

@@ -63,7 +63,7 @@ lib CSFML
   JoystickCount = 8
   JoystickButtonCount = 32
   JoystickAxisCount = 8
-  enum JoystickAxis: UInt32
+  enum JoystickAxis
     # Axes supported by SFML joysticks
     X, Y, Z, R, U, V, PovX, PovY
   end
@@ -138,7 +138,7 @@ lib CSFML
     # call it if you have no window yet (or no window at all):
     # in this case the joysticks states are not updated automatically.
   
-  enum KeyCode: UInt32
+  enum KeyCode
     # Key codes
     Unknown = -1, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U,
     V, W, X, Y, Z, Num0, Num1, Num2, Num3, Num4, Num5, Num6, Num7, Num8, Num9,
@@ -159,7 +159,7 @@ lib CSFML
     # 
     # Returns: True if the key is pressed, False otherwise
   
-  enum MouseButton: UInt32
+  enum MouseButton
     # Mouse buttons
     Left, Right, Middle, XButton1, XButton2, Count
   end
@@ -193,7 +193,7 @@ lib CSFML
     # - position: New position of the mouse
     # - relative_to: Reference window
   
-  enum SensorType: UInt32
+  enum SensorType
     # Sensor Types
     Accelerometer, Gyroscope, Magnetometer, Gravity, UserAcceleration,
     Orientation, Count
@@ -228,7 +228,7 @@ lib CSFML
     # 
     # Returns: The current sensor value
   
-  enum EventType: UInt32
+  enum EventType
     # Definition of all the event types
     Closed, Resized, LostFocus, GainedFocus, TextEntered, KeyPressed,
     KeyReleased, MouseWheelMoved, MouseButtonPressed, MouseButtonReleased,

@@ -1,3 +1,24 @@
+# Copyright (C) 2015 Oleh Prypin <blaxpirit@gmail.com>
+# 
+# This file is part of CrSFML.
+# 
+# This software is provided 'as-is', without any express or implied
+# warranty. In no event will the authors be held liable for any damages
+# arising from the use of this software.
+# 
+# Permission is granted to anyone to use this software for any purpose,
+# including commercial applications, and to alter it and redistribute it
+# freely, subject to the following restrictions:
+# 
+# 1. The origin of this software must not be misrepresented; you must not
+#    claim that you wrote the original software. If you use this software
+#    in a product, an acknowledgement in the product documentation would be
+#    appreciated but is not required.
+# 2. Altered source versions must be plainly marked as such, and must not be
+#    misrepresented as being the original software.
+# 3. This notice may not be removed or altered from any source distribution.
+
+
 require "./window_lib"
 
 module SF
@@ -7,6 +28,7 @@ module SF
     def self.wrap_ptr(p)
       result = self.allocate()
       result.this = p
+      result
     end
     def to_unsafe
       @this
@@ -27,20 +49,29 @@ module SF
     def self.wrap_ptr(p)
       result = self.allocate()
       result.this = p
+      result
     end
     def to_unsafe
       @this
     end
-    def initialize(mode: VideoMode, title: String, style: WindowStyle, settings)
+    def initialize(mode: VideoMode, title: String, style: WindowStyle, psettings)
       title = title.chars; title << '\0'
-      settings = pointerof(settings) if settings
+      if settings
+        csettings = settings; psettings = pointerof(csettings)
+      else
+        psettings = nil
+      end
       @owned = true
-      @this = CSFML.window_create_unicode(mode, title, style, settings)
+      @this = CSFML.window_create_unicode(mode, title, style, psettings)
     end
-    def initialize(handle: WindowHandle, settings)
-      settings = pointerof(settings) if settings
+    def initialize(handle: WindowHandle, psettings)
+      if settings
+        csettings = settings; psettings = pointerof(csettings)
+      else
+        psettings = nil
+      end
       @owned = true
-      @this = CSFML.window_create_from_handle(handle, settings)
+      @this = CSFML.window_create_from_handle(handle, psettings)
     end
     def finalize()
       CSFML.window_destroy(@this) if @owned
@@ -76,9 +107,13 @@ module SF
       title = title.chars; title << '\0'
       CSFML.window_set_unicode_title(@this, title)
     end
-    def set_icon(width: Int32, height: Int32, pixels)
-      pixels = pointerof(pixels) if pixels
-      CSFML.window_set_icon(@this, width, height, pixels)
+    def set_icon(width: Int32, height: Int32, ppixels)
+      if pixels
+        cpixels = pixels; ppixels = pointerof(cpixels)
+      else
+        ppixels = nil
+      end
+      CSFML.window_set_icon(@this, width, height, ppixels)
     end
     def visible=(visible: Int32)
       CSFML.window_set_visible(@this, visible)

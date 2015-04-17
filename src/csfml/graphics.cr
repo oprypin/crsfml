@@ -1,3 +1,24 @@
+# Copyright (C) 2015 Oleh Prypin <blaxpirit@gmail.com>
+# 
+# This file is part of CrSFML.
+# 
+# This software is provided 'as-is', without any express or implied
+# warranty. In no event will the authors be held liable for any damages
+# arising from the use of this software.
+# 
+# Permission is granted to anyone to use this software for any purpose,
+# including commercial applications, and to alter it and redistribute it
+# freely, subject to the following restrictions:
+# 
+# 1. The origin of this software must not be misrepresented; you must not
+#    claim that you wrote the original software. If you use this software
+#    in a product, an acknowledgement in the product documentation would be
+#    appreciated but is not required.
+# 2. Altered source versions must be plainly marked as such, and must not be
+#    misrepresented as being the original software.
+# 3. This notice may not be removed or altered from any source distribution.
+
+
 require "./graphics_lib"
 
 module SF
@@ -19,6 +40,7 @@ module SF
     def self.wrap_ptr(p)
       result = self.allocate()
       result.this = p
+      result
     end
     def to_unsafe
       @this
@@ -133,6 +155,7 @@ module SF
     def self.wrap_ptr(p)
       result = self.allocate()
       result.this = p
+      result
     end
     def to_unsafe
       @this
@@ -243,6 +266,7 @@ module SF
     def self.wrap_ptr(p)
       result = self.allocate()
       result.this = p
+      result
     end
     def to_unsafe
       @this
@@ -292,6 +316,7 @@ module SF
     def self.wrap_ptr(p)
       result = self.allocate()
       result.this = p
+      result
     end
     def to_unsafe
       @this
@@ -304,10 +329,14 @@ module SF
       @owned = true
       @this = CSFML.image_create_from_color(width, height, color)
     end
-    def initialize(width: Int32, height: Int32, pixels)
-      pixels = pointerof(pixels) if pixels
+    def initialize(width: Int32, height: Int32, ppixels)
+      if pixels
+        cpixels = pixels; ppixels = pointerof(cpixels)
+      else
+        ppixels = nil
+      end
       @owned = true
-      @this = CSFML.image_create_from_pixels(width, height, pixels)
+      @this = CSFML.image_create_from_pixels(width, height, ppixels)
     end
     def initialize(filename: String)
       @owned = true
@@ -360,6 +389,7 @@ module SF
     def self.wrap_ptr(p)
       result = self.allocate()
       result.this = p
+      result
     end
     def to_unsafe
       @this
@@ -428,6 +458,7 @@ module SF
     def self.wrap_ptr(p)
       result = self.allocate()
       result.this = p
+      result
     end
     def to_unsafe
       @this
@@ -538,6 +569,7 @@ module SF
     def self.wrap_ptr(p)
       result = self.allocate()
       result.this = p
+      result
     end
     def to_unsafe
       @this
@@ -579,38 +611,74 @@ module SF
     def map_coords_to_pixel(point: Vector2f, view: View)
       CSFML.render_texture_map_coords_to_pixel(@this, point, view)
     end
-    def draw_sprite(object: Sprite, states)
-      states = pointerof(states) if states
-      CSFML.render_texture_draw_sprite(@this, object, states)
+    def draw_sprite(object: Sprite, pstates)
+      if states
+        cstates = states; pstates = pointerof(cstates)
+      else
+        pstates = nil
+      end
+      CSFML.render_texture_draw_sprite(@this, object, pstates)
     end
-    def draw_text(object: Text, states)
-      states = pointerof(states) if states
-      CSFML.render_texture_draw_text(@this, object, states)
+    def draw_text(object: Text, pstates)
+      if states
+        cstates = states; pstates = pointerof(cstates)
+      else
+        pstates = nil
+      end
+      CSFML.render_texture_draw_text(@this, object, pstates)
     end
-    def draw_shape(object: Shape, states)
-      states = pointerof(states) if states
-      CSFML.render_texture_draw_shape(@this, object, states)
+    def draw_shape(object: Shape, pstates)
+      if states
+        cstates = states; pstates = pointerof(cstates)
+      else
+        pstates = nil
+      end
+      CSFML.render_texture_draw_shape(@this, object, pstates)
     end
-    def draw_circle_shape(object: CircleShape, states)
-      states = pointerof(states) if states
-      CSFML.render_texture_draw_circle_shape(@this, object, states)
+    def draw_circle_shape(object: CircleShape, pstates)
+      if states
+        cstates = states; pstates = pointerof(cstates)
+      else
+        pstates = nil
+      end
+      CSFML.render_texture_draw_circle_shape(@this, object, pstates)
     end
-    def draw_convex_shape(object: ConvexShape, states)
-      states = pointerof(states) if states
-      CSFML.render_texture_draw_convex_shape(@this, object, states)
+    def draw_convex_shape(object: ConvexShape, pstates)
+      if states
+        cstates = states; pstates = pointerof(cstates)
+      else
+        pstates = nil
+      end
+      CSFML.render_texture_draw_convex_shape(@this, object, pstates)
     end
-    def draw_rectangle_shape(object: RectangleShape, states)
-      states = pointerof(states) if states
-      CSFML.render_texture_draw_rectangle_shape(@this, object, states)
+    def draw_rectangle_shape(object: RectangleShape, pstates)
+      if states
+        cstates = states; pstates = pointerof(cstates)
+      else
+        pstates = nil
+      end
+      CSFML.render_texture_draw_rectangle_shape(@this, object, pstates)
     end
-    def draw_vertex_array(object: VertexArray, states)
-      states = pointerof(states) if states
-      CSFML.render_texture_draw_vertex_array(@this, object, states)
+    def draw_vertex_array(object: VertexArray, pstates)
+      if states
+        cstates = states; pstates = pointerof(cstates)
+      else
+        pstates = nil
+      end
+      CSFML.render_texture_draw_vertex_array(@this, object, pstates)
     end
-    def draw_primitives(vertices, vertex_count: Int32, type: PrimitiveType, states)
-      vertices = pointerof(vertices) if vertices
-      states = pointerof(states) if states
-      CSFML.render_texture_draw_primitives(@this, vertices, vertex_count, type, states)
+    def draw_primitives(pvertices, vertex_count: Int32, type: PrimitiveType, pstates)
+      if vertices
+        cvertices = vertices; pvertices = pointerof(cvertices)
+      else
+        pvertices = nil
+      end
+      if states
+        cstates = states; pstates = pointerof(cstates)
+      else
+        pstates = nil
+      end
+      CSFML.render_texture_draw_primitives(@this, pvertices, vertex_count, type, pstates)
     end
     def push_gl_states()
       CSFML.render_texture_push_gl_states(@this)
@@ -642,20 +710,29 @@ module SF
     def self.wrap_ptr(p)
       result = self.allocate()
       result.this = p
+      result
     end
     def to_unsafe
       @this
     end
-    def initialize(mode: VideoMode, title: String, style: WindowStyle, settings)
+    def initialize(mode: VideoMode, title: String, style: WindowStyle, psettings)
       title = title.chars; title << '\0'
-      settings = pointerof(settings) if settings
+      if settings
+        csettings = settings; psettings = pointerof(csettings)
+      else
+        psettings = nil
+      end
       @owned = true
-      @this = CSFML.render_window_create_unicode(mode, title, style, settings)
+      @this = CSFML.render_window_create_unicode(mode, title, style, psettings)
     end
-    def initialize(handle: WindowHandle, settings)
-      settings = pointerof(settings) if settings
+    def initialize(handle: WindowHandle, psettings)
+      if settings
+        csettings = settings; psettings = pointerof(csettings)
+      else
+        psettings = nil
+      end
       @owned = true
-      @this = CSFML.render_window_create_from_handle(handle, settings)
+      @this = CSFML.render_window_create_from_handle(handle, psettings)
     end
     def finalize()
       CSFML.render_window_destroy(@this) if @owned
@@ -691,9 +768,13 @@ module SF
       title = title.chars; title << '\0'
       CSFML.render_window_set_unicode_title(@this, title)
     end
-    def set_icon(width: Int32, height: Int32, pixels)
-      pixels = pointerof(pixels) if pixels
-      CSFML.render_window_set_icon(@this, width, height, pixels)
+    def set_icon(width: Int32, height: Int32, ppixels)
+      if pixels
+        cpixels = pixels; ppixels = pointerof(cpixels)
+      else
+        ppixels = nil
+      end
+      CSFML.render_window_set_icon(@this, width, height, ppixels)
     end
     def visible=(visible: Int32)
       CSFML.render_window_set_visible(@this, visible)
@@ -750,38 +831,74 @@ module SF
     def map_coords_to_pixel(point: Vector2f, view: View)
       CSFML.render_window_map_coords_to_pixel(@this, point, view)
     end
-    def draw_sprite(object: Sprite, states)
-      states = pointerof(states) if states
-      CSFML.render_window_draw_sprite(@this, object, states)
+    def draw_sprite(object: Sprite, pstates)
+      if states
+        cstates = states; pstates = pointerof(cstates)
+      else
+        pstates = nil
+      end
+      CSFML.render_window_draw_sprite(@this, object, pstates)
     end
-    def draw_text(object: Text, states)
-      states = pointerof(states) if states
-      CSFML.render_window_draw_text(@this, object, states)
+    def draw_text(object: Text, pstates)
+      if states
+        cstates = states; pstates = pointerof(cstates)
+      else
+        pstates = nil
+      end
+      CSFML.render_window_draw_text(@this, object, pstates)
     end
-    def draw_shape(object: Shape, states)
-      states = pointerof(states) if states
-      CSFML.render_window_draw_shape(@this, object, states)
+    def draw_shape(object: Shape, pstates)
+      if states
+        cstates = states; pstates = pointerof(cstates)
+      else
+        pstates = nil
+      end
+      CSFML.render_window_draw_shape(@this, object, pstates)
     end
-    def draw_circle_shape(object: CircleShape, states)
-      states = pointerof(states) if states
-      CSFML.render_window_draw_circle_shape(@this, object, states)
+    def draw_circle_shape(object: CircleShape, pstates)
+      if states
+        cstates = states; pstates = pointerof(cstates)
+      else
+        pstates = nil
+      end
+      CSFML.render_window_draw_circle_shape(@this, object, pstates)
     end
-    def draw_convex_shape(object: ConvexShape, states)
-      states = pointerof(states) if states
-      CSFML.render_window_draw_convex_shape(@this, object, states)
+    def draw_convex_shape(object: ConvexShape, pstates)
+      if states
+        cstates = states; pstates = pointerof(cstates)
+      else
+        pstates = nil
+      end
+      CSFML.render_window_draw_convex_shape(@this, object, pstates)
     end
-    def draw_rectangle_shape(object: RectangleShape, states)
-      states = pointerof(states) if states
-      CSFML.render_window_draw_rectangle_shape(@this, object, states)
+    def draw_rectangle_shape(object: RectangleShape, pstates)
+      if states
+        cstates = states; pstates = pointerof(cstates)
+      else
+        pstates = nil
+      end
+      CSFML.render_window_draw_rectangle_shape(@this, object, pstates)
     end
-    def draw_vertex_array(object: VertexArray, states)
-      states = pointerof(states) if states
-      CSFML.render_window_draw_vertex_array(@this, object, states)
+    def draw_vertex_array(object: VertexArray, pstates)
+      if states
+        cstates = states; pstates = pointerof(cstates)
+      else
+        pstates = nil
+      end
+      CSFML.render_window_draw_vertex_array(@this, object, pstates)
     end
-    def draw_primitives(vertices, vertex_count: Int32, type: PrimitiveType, states)
-      vertices = pointerof(vertices) if vertices
-      states = pointerof(states) if states
-      CSFML.render_window_draw_primitives(@this, vertices, vertex_count, type, states)
+    def draw_primitives(pvertices, vertex_count: Int32, type: PrimitiveType, pstates)
+      if vertices
+        cvertices = vertices; pvertices = pointerof(cvertices)
+      else
+        pvertices = nil
+      end
+      if states
+        cstates = states; pstates = pointerof(cstates)
+      else
+        pstates = nil
+      end
+      CSFML.render_window_draw_primitives(@this, pvertices, vertex_count, type, pstates)
     end
     def push_gl_states()
       CSFML.render_window_push_gl_states(@this)
@@ -801,6 +918,7 @@ module SF
     def self.wrap_ptr(p)
       result = self.allocate()
       result.this = p
+      result
     end
     def to_unsafe
       @this
@@ -905,6 +1023,7 @@ module SF
     def self.wrap_ptr(p)
       result = self.allocate()
       result.this = p
+      result
     end
     def to_unsafe
       @this
@@ -990,6 +1109,7 @@ module SF
     def self.wrap_ptr(p)
       result = self.allocate()
       result.this = p
+      result
     end
     def to_unsafe
       @this
@@ -1097,6 +1217,7 @@ module SF
     def self.wrap_ptr(p)
       result = self.allocate()
       result.this = p
+      result
     end
     def to_unsafe
       @this
@@ -1105,25 +1226,41 @@ module SF
       @owned = true
       @this = CSFML.texture_create(width, height)
     end
-    def initialize(filename: String, area)
-      area = pointerof(area) if area
+    def initialize(filename: String, parea)
+      if area
+        carea = area; parea = pointerof(carea)
+      else
+        parea = nil
+      end
       @owned = true
-      @this = CSFML.texture_create_from_file(filename, area)
+      @this = CSFML.texture_create_from_file(filename, parea)
     end
-    def initialize(data: Void*, size_in_bytes: Size_t, area)
-      area = pointerof(area) if area
+    def initialize(data: Void*, size_in_bytes: Size_t, parea)
+      if area
+        carea = area; parea = pointerof(carea)
+      else
+        parea = nil
+      end
       @owned = true
-      @this = CSFML.texture_create_from_memory(data, size_in_bytes, area)
+      @this = CSFML.texture_create_from_memory(data, size_in_bytes, parea)
     end
-    def initialize(stream: InputStream*, area)
-      area = pointerof(area) if area
+    def initialize(stream: InputStream*, parea)
+      if area
+        carea = area; parea = pointerof(carea)
+      else
+        parea = nil
+      end
       @owned = true
-      @this = CSFML.texture_create_from_stream(stream, area)
+      @this = CSFML.texture_create_from_stream(stream, parea)
     end
-    def initialize(image: Image, area)
-      area = pointerof(area) if area
+    def initialize(image: Image, parea)
+      if area
+        carea = area; parea = pointerof(carea)
+      else
+        parea = nil
+      end
       @owned = true
-      @this = CSFML.texture_create_from_image(image, area)
+      @this = CSFML.texture_create_from_image(image, parea)
     end
     def copy()
       self.wrap_ptr(CSFML.texture_copy(@this))
@@ -1137,9 +1274,13 @@ module SF
     def copy_to_image()
       self.wrap_ptr(CSFML.texture_copy_to_image(@this))
     end
-    def update(pixels, width: Int32, height: Int32, x: Int32, y: Int32)
-      pixels = pointerof(pixels) if pixels
-      CSFML.texture_update_from_pixels(@this, pixels, width, height, x, y)
+    def update(ppixels, width: Int32, height: Int32, x: Int32, y: Int32)
+      if pixels
+        cpixels = pixels; ppixels = pointerof(cpixels)
+      else
+        ppixels = nil
+      end
+      CSFML.texture_update_from_pixels(@this, ppixels, width, height, x, y)
     end
     def update(image: Image, x: Int32, y: Int32)
       CSFML.texture_update_from_image(@this, image, x, y)
@@ -1171,6 +1312,7 @@ module SF
     def self.wrap_ptr(p)
       result = self.allocate()
       result.this = p
+      result
     end
     def to_unsafe
       @this
@@ -1232,6 +1374,7 @@ module SF
     def self.wrap_ptr(p)
       result = self.allocate()
       result.this = p
+      result
     end
     def to_unsafe
       @this
@@ -1276,6 +1419,7 @@ module SF
     def self.wrap_ptr(p)
       result = self.allocate()
       result.this = p
+      result
     end
     def to_unsafe
       @this
@@ -1369,13 +1513,21 @@ module SF
   def int_rect_contains(x: Int32, y: Int32)
     CSFML.int_rect_contains(@this, x, y)
   end
-  def float_rect_intersects(rect2, intersection: FloatRect*)
-    rect2 = pointerof(rect2) if rect2
-    CSFML.float_rect_intersects(@this, rect2, intersection)
+  def float_rect_intersects(prect2, intersection: FloatRect*)
+    if rect2
+      crect2 = rect2; prect2 = pointerof(crect2)
+    else
+      prect2 = nil
+    end
+    CSFML.float_rect_intersects(@this, prect2, intersection)
   end
-  def int_rect_intersects(rect2, intersection: IntRect*)
-    rect2 = pointerof(rect2) if rect2
-    CSFML.int_rect_intersects(@this, rect2, intersection)
+  def int_rect_intersects(prect2, intersection: IntRect*)
+    if rect2
+      crect2 = rect2; prect2 = pointerof(crect2)
+    else
+      prect2 = nil
+    end
+    CSFML.int_rect_intersects(@this, prect2, intersection)
   end
   def transform_from_matrix(a01, a02, a10, a11, a12, a20, a21, a22)
     a01 = a01.to_f32
@@ -1400,9 +1552,13 @@ module SF
   def transform_transform_rect(rectangle: FloatRect)
     CSFML.transform_transform_rect(@this, rectangle)
   end
-  def transform_combine(other)
-    other = pointerof(other) if other
-    CSFML.transform_combine(@this, other)
+  def transform_combine(pother)
+    if other
+      cother = other; pother = pointerof(cother)
+    else
+      pother = nil
+    end
+    CSFML.transform_combine(@this, pother)
   end
   def transform_translate(x, y)
     x = x.to_f32
