@@ -40,7 +40,8 @@ module SF
     def finalize()
       CSFML.context_destroy(@this) if @owned
     end
-    def active=(active: Int32)
+    def active=(active: Bool)
+      active = active ? 1 : 0
       CSFML.context_set_active(@this, active)
     end
   end
@@ -62,7 +63,7 @@ module SF
         psettings = nil
       end
       @owned = true
-      @this = CSFML.window_create_unicode(mode, title, style, settings)
+      @this = CSFML.window_create_unicode(mode, title, style, psettings)
     end
     def initialize(handle: WindowHandle, settings)
       if settings
@@ -71,7 +72,7 @@ module SF
         psettings = nil
       end
       @owned = true
-      @this = CSFML.window_create_from_handle(handle, settings)
+      @this = CSFML.window_create_from_handle(handle, psettings)
     end
     def finalize()
       CSFML.window_destroy(@this) if @owned
@@ -79,25 +80,25 @@ module SF
     def close()
       CSFML.window_close(@this)
     end
-    def open()
-      CSFML.window_is_open(@this)
+    def open
+      CSFML.window_is_open(@this) != 0
     end
-    def settings()
+    def settings
       CSFML.window_get_settings(@this)
     end
     def poll_event(event: Event*)
-      CSFML.window_poll_event(@this, event)
+      CSFML.window_poll_event(@this, event) != 0
     end
     def wait_event(event: Event*)
-      CSFML.window_wait_event(@this, event)
+      CSFML.window_wait_event(@this, event) != 0
     end
-    def position()
+    def position
       CSFML.window_get_position(@this)
     end
     def position=(position: Vector2i)
       CSFML.window_set_position(@this, position)
     end
-    def size()
+    def size
       CSFML.window_get_size(@this)
     end
     def size=(size: Vector2i)
@@ -113,28 +114,33 @@ module SF
       else
         ppixels = nil
       end
-      CSFML.window_set_icon(@this, width, height, pixels)
+      CSFML.window_set_icon(@this, width, height, ppixels)
     end
-    def visible=(visible: Int32)
+    def visible=(visible: Bool)
+      visible = visible ? 1 : 0
       CSFML.window_set_visible(@this, visible)
     end
-    def mouse_cursor_visible=(visible: Int32)
+    def mouse_cursor_visible=(visible: Bool)
+      visible = visible ? 1 : 0
       CSFML.window_set_mouse_cursor_visible(@this, visible)
     end
-    def vertical_sync_enabled=(enabled: Int32)
+    def vertical_sync_enabled=(enabled: Bool)
+      enabled = enabled ? 1 : 0
       CSFML.window_set_vertical_sync_enabled(@this, enabled)
     end
-    def key_repeat_enabled=(enabled: Int32)
+    def key_repeat_enabled=(enabled: Bool)
+      enabled = enabled ? 1 : 0
       CSFML.window_set_key_repeat_enabled(@this, enabled)
     end
-    def active=(active: Int32)
-      CSFML.window_set_active(@this, active)
+    def active=(active: Bool)
+      active = active ? 1 : 0
+      CSFML.window_set_active(@this, active) != 0
     end
     def request_focus()
       CSFML.window_request_focus(@this)
     end
     def has_focus()
-      CSFML.window_has_focus(@this)
+      CSFML.window_has_focus(@this) != 0
     end
     def display()
       CSFML.window_display(@this)
@@ -146,7 +152,7 @@ module SF
       threshold = threshold.to_f32
       CSFML.window_set_joystick_threshold(@this, threshold)
     end
-    def system_handle()
+    def system_handle
       CSFML.window_get_system_handle(@this)
     end
   end
@@ -191,55 +197,56 @@ module SF
      
   alias ContextSettings = CSFML::ContextSettings
      
-  def joystick_is_connected()
-    CSFML.joystick_is_connected(@this)
+  def joystick_is_connected(joystick: Int32)
+    CSFML.joystick_is_connected(joystick) != 0
   end
-  def joystick_get_button_count()
-    CSFML.joystick_get_button_count(@this)
+  def joystick_get_button_count(joystick: Int32)
+    CSFML.joystick_get_button_count(joystick)
   end
-  def joystick_has_axis(axis: JoystickAxis)
-    CSFML.joystick_has_axis(@this, axis)
+  def joystick_has_axis(joystick: Int32, axis: JoystickAxis)
+    CSFML.joystick_has_axis(joystick, axis) != 0
   end
-  def joystick_is_button_pressed(button: Int32)
-    CSFML.joystick_is_button_pressed(@this, button)
+  def joystick_is_button_pressed(joystick: Int32, button: Int32)
+    CSFML.joystick_is_button_pressed(joystick, button) != 0
   end
-  def joystick_get_axis_position(axis: JoystickAxis)
-    CSFML.joystick_get_axis_position(@this, axis)
+  def joystick_get_axis_position(joystick: Int32, axis: JoystickAxis)
+    CSFML.joystick_get_axis_position(joystick, axis)
   end
-  def joystick_get_identification()
-    CSFML.joystick_get_identification(@this)
+  def joystick_get_identification(joystick: Int32)
+    CSFML.joystick_get_identification(joystick)
   end
   def joystick_update()
     CSFML.joystick_update()
   end
-  def keyboard_is_key_pressed()
-    CSFML.keyboard_is_key_pressed(@this)
+  def keyboard_is_key_pressed(key: KeyCode)
+    CSFML.keyboard_is_key_pressed(key) != 0
   end
-  def mouse_is_button_pressed()
-    CSFML.mouse_is_button_pressed(@this)
+  def mouse_is_button_pressed(button: MouseButton)
+    CSFML.mouse_is_button_pressed(button) != 0
   end
   def mouse_get_position()
     CSFML.mouse_get_position(@this)
   end
-  def mouse_set_position(relative_to: Window)
-    CSFML.mouse_set_position(@this, relative_to)
+  def mouse_set_position(position: Vector2i, relative_to: Window)
+    CSFML.mouse_set_position(position, relative_to)
   end
-  def sensor_is_available()
-    CSFML.sensor_is_available(@this)
+  def sensor_is_available(sensor: SensorType)
+    CSFML.sensor_is_available(sensor) != 0
   end
-  def sensor_set_enabled(enabled: Int32)
-    CSFML.sensor_set_enabled(@this, enabled)
+  def sensor_set_enabled(sensor: SensorType, enabled: Bool)
+    enabled = enabled ? 1 : 0
+    CSFML.sensor_set_enabled(sensor, enabled)
   end
-  def sensor_get_value()
-    CSFML.sensor_get_value(@this)
+  def sensor_get_value(sensor: SensorType)
+    CSFML.sensor_get_value(sensor)
   end
   def get_desktop_mode()
     CSFML.video_mode_get_desktop_mode()
   end
-  def video_mode_get_fullscreen_modes()
-    CSFML.video_mode_get_fullscreen_modes(@this)
+  def video_mode_get_fullscreen_modes(count: Size_t*)
+    CSFML.video_mode_get_fullscreen_modes(count)
   end
-  def valid()
-    CSFML.video_mode_is_valid(@this)
+  def validmode: VideoMode
+    CSFML.video_mode_is_valid(mode) != 0
   end
 end

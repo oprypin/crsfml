@@ -45,7 +45,7 @@ module SF
     def finalize()
       CSFML.clock_destroy(@this) if @owned
     end
-    def elapsed_time()
+    def elapsed_time
       CSFML.clock_get_elapsed_time(@this)
     end
     def restart()
@@ -83,25 +83,26 @@ module SF
      
   alias Vector3f = CSFML::Vector3f
      
-  def as_seconds()
-    CSFML.time_as_seconds(@this)
+  def as_seconds(time: Time)
+    CSFML.time_as_seconds(time)
   end
-  def as_milliseconds()
-    CSFML.time_as_milliseconds(@this)
+  def as_milliseconds(time: Time)
+    CSFML.time_as_milliseconds(time)
   end
-  def as_microseconds()
-    CSFML.time_as_microseconds(@this)
+  def as_microseconds(time: Time)
+    CSFML.time_as_microseconds(time)
   end
-  def seconds()
-    CSFML.seconds(@this)
+  def seconds(amount)
+    amount = amount.to_f32
+    CSFML.seconds(amount)
   end
-  def milliseconds()
-    CSFML.milliseconds(@this)
+  def milliseconds(amount: Int32)
+    CSFML.milliseconds(amount)
   end
-  def microseconds()
-    CSFML.microseconds(@this)
+  def microseconds(amount: Int64)
+    CSFML.microseconds(amount)
   end
-  def sleep()
-    CSFML.sleep(@this)
+  def sleep(duration: Time)
+    CSFML.sleep(duration)
   end
 end

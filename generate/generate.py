@@ -57,9 +57,9 @@ def rename_type(name, var=''):
         'char': 'UInt8',
         'int': 'Int32',
         #'size_t': 'int',
+        'sfBool': 'Int32',
         'unsigned int': 'Int32',
         'float': 'Float32',
-        'sfBool': 'Int32',
         'sfVector2u': 'sfVector2i',
     }.get(name, name)
     if ptr and 'sf' in name:
@@ -144,8 +144,6 @@ def handle_struct(name, items):
     if d: lib(d)
     
     for t, n in items:
-        if t in ['sfEventType']:
-            continue
         t = rename_type(t)
         if t=='UInt32' and n=='unicode':
             t = 'Char'
@@ -194,7 +192,7 @@ def handle_function(main, params):
     nfname = rename_sf(ofname)
     fname = rename_identifier(rename_sf(ofname))
     nfname = re.sub(r'(.+)_create(From.+|Unicode)?$', r'\1_initialize', nfname)
-    nfname = re.sub(r'(.+)(With|From).+', r'\1', nfname)
+    nfname = re.sub(r'(.+)([Ww]ith|[Ff]rom).+', r'\1', nfname)
     nfname = re.sub(r'([gs]et.+)RenderWindow$', r'\1', nfname)
     if nfname != 'Shader_setCurrentTextureParameter':
         nfname = re.sub(r'_set(.+)Parameter$', r'_setParameter', nfname)
@@ -211,9 +209,12 @@ def handle_function(main, params):
     nfname = rename_identifier(nfname)
     nftype = rename_type(ftype)
     main_sgn = 'fun {fname} = {ofname}({sparams}): {nftype}'
+    getter = False
     if nfname.startswith('get_') and len(params)==1:
+        getter = True
         nfname = nfname[4:]
-    elif nfname.startswith('is_') and len(params)==1:
+    if nfname.startswith('is_') and len(params)==1:
+        getter = True
         nfname = nfname[3:]
     elif nfname.startswith('set_') and len(params)==2:
         nfname = nfname[4:]+'='
@@ -236,6 +237,7 @@ def handle_function(main, params):
     aparams = []
     const = []
     sgn = main_sgn
+    
     for ptype, pname in params:
         rtype = rename_type(ptype, pname)
         rname = rename_identifier(pname) or 'p{}'.format(i)
@@ -266,37 +268,43 @@ def handle_function(main, params):
     if not public:
         return
     
-    if nfname == 'initialize':
-        params = aparams[:]
+    if nfname == 'initialize' or (aparams and aparams[0][1] not in classes):
+        cut = False
+        oparams = aparams[:]
     else:
-        params = aparams[1:]
+        cut = True
+        oparams = aparams[1:]
+        params = params[1:]
     conv = []
-    for i, (n, t) in enumerate(params):
+    for i, (n, t) in enumerate(oparams):
         if t == 'UInt8*':
             t = 'String'
         elif t == 'Char*':
             t = 'String'
             conv.append('{0} = {0}.chars; {0} << \'\\0\''.format(n))
-        #if t in aliases:
-            #t = 'CSFML::'+t
+        elif params[i][0] == 'sfBool':
+            t = 'Bool'
+            conv.append('{0} = {0} ? 1 : 0'.format(n))
         elif t == 'Float32':
             t = None
             conv.append('{0} = {0}.to_f32'.format(n))
         if n in const and t not in classes:
             conv += 'if {0}\n  c{0} = {0}; p{0} = pointerof(c{0})\nelse\n  p{0} = nil\nend'.format(n).splitlines()
             t = None
-        params[i] = (n, t)
-    sparams = ', '.join('{}: {}'.format(n, t) if t else n for n, t in params)
-    for i, (n, t) in enumerate(params):
+        oparams[i] = (n, t)
+    sparams = ', '.join('{}: {}'.format(n, t) if t else n for n, t in oparams)
+    if not getter: sparams = '('+sparams+')'
+    for i, (n, t) in enumerate(oparams):
         if n in const and t is None:
             n = 'p'+n
+        oparams[i] = (n, t)
     if nfname == 'destroy':
         nfname = 'finalize'
-    obj(cls, 'def {nfname}({sparams})'.format(**locals()))
+    obj(cls, 'def {nfname}{sparams}'.format(**locals()))
     for line in conv:
         obj(cls, '  '+line)
     if aparams:
-        lparams = ', '.join(([] if nfname == 'initialize' else ['@this']) + [n for n, t in params])
+        lparams = ', '.join(([] if not cut else ['@this']) + [n for n, t in oparams])
     else:
         lparams = ''
     call = 'CSFML.{fname}({lparams})'.format(**locals())
@@ -307,6 +315,8 @@ def handle_function(main, params):
         call += ' if @owned'
     elif nftype in classes:
         call = 'self.wrap_ptr({})'.format(call)
+    elif ftype == 'sfBool':
+        call += ' != 0'
     obj(cls, '  '+call)
     obj(cls, 'end')
 

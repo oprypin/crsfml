@@ -1,5 +1,5 @@
---- generate/graphics.cr	2015-04-18 00:42:08.697722096 +0300
-+++ src/csfml/graphics.cr	2015-04-18 00:52:28.247699628 +0300
+--- generate/graphics.cr	2015-04-18 18:47:34.516175637 +0300
++++ src/csfml/graphics.cr	2015-04-18 18:47:34.566175636 +0300
 @@ -1,3 +1,24 @@
 +# Copyright (C) 2015 Oleh Prypin <blaxpirit@gmail.com>
 +# 

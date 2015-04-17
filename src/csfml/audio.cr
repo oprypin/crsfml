@@ -50,13 +50,14 @@ module SF
     def finalize()
       CSFML.music_destroy(@this) if @owned
     end
-    def loop=(loop: Int32)
+    def loop=(loop: Bool)
+      loop = loop ? 1 : 0
       CSFML.music_set_loop(@this, loop)
     end
-    def loop()
-      CSFML.music_get_loop(@this)
+    def loop
+      CSFML.music_get_loop(@this) != 0
     end
-    def duration()
+    def duration
       CSFML.music_get_duration(@this)
     end
     def play()
@@ -68,16 +69,16 @@ module SF
     def stop()
       CSFML.music_stop(@this)
     end
-    def channel_count()
+    def channel_count
       CSFML.music_get_channel_count(@this)
     end
-    def sample_rate()
+    def sample_rate
       CSFML.music_get_sample_rate(@this)
     end
-    def status()
+    def status
       CSFML.music_get_status(@this)
     end
-    def playing_offset()
+    def playing_offset
       CSFML.music_get_playing_offset(@this)
     end
     def pitch=(pitch)
@@ -91,7 +92,8 @@ module SF
     def position=(position: Vector3f)
       CSFML.music_set_position(@this, position)
     end
-    def relative_to_listener=(relative: Int32)
+    def relative_to_listener=(relative: Bool)
+      relative = relative ? 1 : 0
       CSFML.music_set_relative_to_listener(@this, relative)
     end
     def min_distance=(distance)
@@ -105,22 +107,22 @@ module SF
     def playing_offset=(time_offset: Time)
       CSFML.music_set_playing_offset(@this, time_offset)
     end
-    def pitch()
+    def pitch
       CSFML.music_get_pitch(@this)
     end
-    def volume()
+    def volume
       CSFML.music_get_volume(@this)
     end
-    def position()
+    def position
       CSFML.music_get_position(@this)
     end
-    def relative_to_listener()
-      CSFML.music_is_relative_to_listener(@this)
+    def relative_to_listener
+      CSFML.music_is_relative_to_listener(@this) != 0
     end
-    def min_distance()
+    def min_distance
       CSFML.music_get_min_distance(@this)
     end
-    def attenuation()
+    def attenuation
       CSFML.music_get_attenuation(@this)
     end
   end
@@ -156,16 +158,17 @@ module SF
     def buffer=(buffer: SoundBuffer)
       CSFML.sound_set_buffer(@this, buffer)
     end
-    def buffer()
+    def buffer
       self.wrap_ptr(CSFML.sound_get_buffer(@this))
     end
-    def loop=(loop: Int32)
+    def loop=(loop: Bool)
+      loop = loop ? 1 : 0
       CSFML.sound_set_loop(@this, loop)
     end
-    def loop()
-      CSFML.sound_get_loop(@this)
+    def loop
+      CSFML.sound_get_loop(@this) != 0
     end
-    def status()
+    def status
       CSFML.sound_get_status(@this)
     end
     def pitch=(pitch)
@@ -179,7 +182,8 @@ module SF
     def position=(position: Vector3f)
       CSFML.sound_set_position(@this, position)
     end
-    def relative_to_listener=(relative: Int32)
+    def relative_to_listener=(relative: Bool)
+      relative = relative ? 1 : 0
       CSFML.sound_set_relative_to_listener(@this, relative)
     end
     def min_distance=(distance)
@@ -193,25 +197,25 @@ module SF
     def playing_offset=(time_offset: Time)
       CSFML.sound_set_playing_offset(@this, time_offset)
     end
-    def pitch()
+    def pitch
       CSFML.sound_get_pitch(@this)
     end
-    def volume()
+    def volume
       CSFML.sound_get_volume(@this)
     end
-    def position()
+    def position
       CSFML.sound_get_position(@this)
     end
-    def relative_to_listener()
-      CSFML.sound_is_relative_to_listener(@this)
+    def relative_to_listener
+      CSFML.sound_is_relative_to_listener(@this) != 0
     end
-    def min_distance()
+    def min_distance
       CSFML.sound_get_min_distance(@this)
     end
-    def attenuation()
+    def attenuation
       CSFML.sound_get_attenuation(@this)
     end
-    def playing_offset()
+    def playing_offset
       CSFML.sound_get_playing_offset(@this)
     end
   end
@@ -244,7 +248,7 @@ module SF
         psamples = nil
       end
       @owned = true
-      @this = CSFML.sound_buffer_create_from_samples(samples, sample_count, channel_count, sample_rate)
+      @this = CSFML.sound_buffer_create_from_samples(psamples, sample_count, channel_count, sample_rate)
     end
     def copy()
       self.wrap_ptr(CSFML.sound_buffer_copy(@this))
@@ -253,21 +257,21 @@ module SF
       CSFML.sound_buffer_destroy(@this) if @owned
     end
     def save_to_file(filename: String)
-      CSFML.sound_buffer_save_to_file(@this, filename)
+      CSFML.sound_buffer_save_to_file(@this, filename) != 0
     end
-    def samples()
+    def samples
       CSFML.sound_buffer_get_samples(@this)
     end
-    def sample_count()
+    def sample_count
       CSFML.sound_buffer_get_sample_count(@this)
     end
-    def sample_rate()
+    def sample_rate
       CSFML.sound_buffer_get_sample_rate(@this)
     end
-    def channel_count()
+    def channel_count
       CSFML.sound_buffer_get_channel_count(@this)
     end
-    def duration()
+    def duration
       CSFML.sound_buffer_get_duration(@this)
     end
   end
@@ -294,10 +298,10 @@ module SF
     def stop()
       CSFML.sound_buffer_recorder_stop(@this)
     end
-    def sample_rate()
+    def sample_rate
       CSFML.sound_buffer_recorder_get_sample_rate(@this)
     end
-    def buffer()
+    def buffer
       self.wrap_ptr(CSFML.sound_buffer_recorder_get_buffer(@this))
     end
   end
@@ -319,21 +323,21 @@ module SF
       CSFML.sound_recorder_destroy(@this) if @owned
     end
     def start(sample_rate: Int32)
-      CSFML.sound_recorder_start(@this, sample_rate)
+      CSFML.sound_recorder_start(@this, sample_rate) != 0
     end
     def stop()
       CSFML.sound_recorder_stop(@this)
     end
-    def sample_rate()
+    def sample_rate
       CSFML.sound_recorder_get_sample_rate(@this)
     end
     def processing_interval=(interval: Time)
       CSFML.sound_recorder_set_processing_interval(@this, interval)
     end
     def device=(name: String)
-      CSFML.sound_recorder_set_device(@this, name)
+      CSFML.sound_recorder_set_device(@this, name) != 0
     end
-    def device()
+    def device
       CSFML.sound_recorder_get_device(@this)
     end
   end
@@ -349,35 +353,36 @@ module SF
     end
   end
 
-  def listener_set_global_volume()
-    CSFML.listener_set_global_volume(@this)
+  def listener_set_global_volume(volume)
+    volume = volume.to_f32
+    CSFML.listener_set_global_volume(volume)
   end
   def listener_get_global_volume()
     CSFML.listener_get_global_volume()
   end
-  def listener_set_position()
-    CSFML.listener_set_position(@this)
+  def listener_set_position(position: Vector3f)
+    CSFML.listener_set_position(position)
   end
   def listener_get_position()
     CSFML.listener_get_position()
   end
-  def listener_set_direction()
-    CSFML.listener_set_direction(@this)
+  def listener_set_direction(direction: Vector3f)
+    CSFML.listener_set_direction(direction)
   end
   def listener_get_direction()
     CSFML.listener_get_direction()
   end
-  def listener_set_up_vector()
-    CSFML.listener_set_up_vector(@this)
+  def listener_set_up_vector(up_vector: Vector3f)
+    CSFML.listener_set_up_vector(up_vector)
   end
   def listener_get_up_vector()
     CSFML.listener_get_up_vector()
   end
   def sound_recorder_is_available()
-    CSFML.sound_recorder_is_available()
+    CSFML.sound_recorder_is_available() != 0
   end
-  def sound_recorder_get_available_devices()
-    CSFML.sound_recorder_get_available_devices(@this)
+  def sound_recorder_get_available_devices(count: Size_t*)
+    CSFML.sound_recorder_get_available_devices(count)
   end
   def sound_recorder_get_default_device()
     CSFML.sound_recorder_get_default_device()

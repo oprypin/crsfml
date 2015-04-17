@@ -16,4 +16,4 @@
 !/examples/
 !/examples/*.cr
 !/examples/resources/
-!/examples/resources/*
+!/examples/resources/**

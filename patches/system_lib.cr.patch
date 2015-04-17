@@ -1,5 +1,5 @@
---- generate/system_lib.cr	2015-04-18 00:42:08.694388762 +0300
-+++ src/csfml/system_lib.cr	2015-04-18 00:42:08.751055427 +0300
+--- generate/system_lib.cr	2015-04-18 18:47:34.512842304 +0300
++++ src/csfml/system_lib.cr	2015-04-18 18:47:34.569508968 +0300
 @@ -1,6 +1,33 @@
 +# Copyright (C) 2015 Oleh Prypin <blaxpirit@gmail.com>
 +# 

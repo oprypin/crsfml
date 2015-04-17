@@ -240,6 +240,7 @@ lib CSFML
   
   struct KeyEvent
     # Keyboard event parameters
+    type: EventType
     code: KeyCode
     alt: Int32
     control: Int32
@@ -249,17 +250,20 @@ lib CSFML
   
   struct TextEvent
     # Text event parameters
+    type: EventType
     unicode: Char
   end
   
   struct MouseMoveEvent
     # Mouse move event parameters
+    type: EventType
     x: Int32
     y: Int32
   end
   
   struct MouseButtonEvent
     # Mouse buttons events parameters
+    type: EventType
     button: MouseButton
     x: Int32
     y: Int32
@@ -267,6 +271,7 @@ lib CSFML
   
   struct MouseWheelEvent
     # Mouse wheel events parameters
+    type: EventType
     delta: Int32
     x: Int32
     y: Int32
@@ -274,6 +279,7 @@ lib CSFML
   
   struct JoystickMoveEvent
     # Joystick axis move event parameters
+    type: EventType
     joystick_id: Int32
     axis: JoystickAxis
     position: Float32
@@ -281,23 +287,27 @@ lib CSFML
   
   struct JoystickButtonEvent
     # Joystick buttons events parameters
+    type: EventType
     joystick_id: Int32
     button: Int32
   end
   
   struct JoystickConnectEvent
     # Joystick connection/disconnection event parameters
+    type: EventType
     joystick_id: Int32
   end
   
   struct SizeEvent
     # Size events parameters
+    type: EventType
     width: Int32
     height: Int32
   end
   
   struct TouchEvent
     # Touch events parameters
+    type: EventType
     finger: Int32
     x: Int32
     y: Int32
@@ -305,6 +315,7 @@ lib CSFML
   
   struct SensorEvent
     # Sensor event parameters
+    type: EventType
     sensor_type: SensorType
     x: Float32
     y: Float32
