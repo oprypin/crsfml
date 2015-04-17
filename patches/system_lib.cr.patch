@@ -1,6 +1,6 @@
---- generate/system_lib.cr	2015-04-17 01:20:35.698089078 +0300
-+++ src/csfml/system_lib.cr	2015-04-17 01:20:35.748089081 +0300
-@@ -1,11 +1,40 @@
+--- generate/system_lib.cr	2015-04-17 12:21:32.306000283 +0300
++++ src/csfml/system_lib.cr	2015-04-17 12:21:32.362666947 +0300
+@@ -1,6 +1,33 @@
 +# Copyright (C) 2015 Oleh Prypin <blaxpirit@gmail.com>
 +# 
 +# This file is part of CrSFML.
@@ -34,10 +34,3 @@
    struct Time
      # Represents a time value
      microseconds: Int64
-   end
-   
-+  alias BitMaskU32 = UInt32
-+  
-   fun time_as_seconds = sfTime_asSeconds(time: Time): Float32
-     # Return a time value as a number of seconds
-     # 

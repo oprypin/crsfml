@@ -7,7 +7,7 @@ def sf_unicode(s)
 end
 
 mode = CSFML::VideoMode.new(width: 800, height: 600, bits_per_pixel: 32)
-window = CSFML.render_window_create_unicode(mode, sf_unicode("pɹıq ʎddılɟ"), 7u32, nil) # TODO 7 == CSFML::WindowStyle::Default
+window = CSFML.render_window_create_unicode(mode, sf_unicode("pɹıq ʎddılɟ"), CSFML::WindowStyle::Default, nil)
 CSFML.render_window_set_vertical_sync_enabled window, 1
 
 bird_texture = CSFML.texture_create_from_file("resources/bird.png", nil)

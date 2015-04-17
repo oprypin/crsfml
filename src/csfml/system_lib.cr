@@ -33,13 +33,11 @@ lib CSFML
     microseconds: Int64
   end
   
-  alias BitMaskU32 = UInt32
-  
   fun time_as_seconds = sfTime_asSeconds(time: Time): Float32
     # Return a time value as a number of seconds
     # 
     # Arguments:
-    # - time:  Time value
+    # - time: Time value
     # 
     # Returns: Time in seconds
   
@@ -47,7 +45,7 @@ lib CSFML
     # Return a time value as a number of milliseconds
     # 
     # Arguments:
-    # - time:  Time value
+    # - time: Time value
     # 
     # Returns: Time in milliseconds
   
@@ -55,7 +53,7 @@ lib CSFML
     # Return a time value as a number of microseconds
     # 
     # Arguments:
-    # - time:  Time value
+    # - time: Time value
     # 
     # Returns: Time in microseconds
   
@@ -63,7 +61,7 @@ lib CSFML
     # Construct a time value from a number of seconds
     # 
     # Arguments:
-    # - amount:  Number of seconds
+    # - amount: Number of seconds
     # 
     # Returns: Time value constructed from the amount of seconds
   
@@ -71,7 +69,7 @@ lib CSFML
     # Construct a time value from a number of milliseconds
     # 
     # Arguments:
-    # - amount:  Number of milliseconds
+    # - amount: Number of milliseconds
     # 
     # Returns: Time value constructed from the amount of milliseconds
   
@@ -79,7 +77,7 @@ lib CSFML
     # Construct a time value from a number of microseconds
     # 
     # Arguments:
-    # - amount:  Number of microseconds
+    # - amount: Number of microseconds
     # 
     # Returns: Time value constructed from the amount of microseconds
   
@@ -98,15 +96,15 @@ lib CSFML
     # Create a new clock by copying an existing one
     # 
     # Arguments:
-    # - clock:  Clock to copy
+    # - clock: Clock to copy
     # 
     # Returns: A new Clock object which is a copy of `clock`
   
-  fun clock_destroy = sfClock_destroy(clock: Clock): Void
+  fun clock_destroy = sfClock_destroy(clock: Clock)
     # Destroy a clock
     # 
     # Arguments:
-    # - clock:  Clock to destroy
+    # - clock: Clock to destroy
   
   fun clock_get_elapsed_time = sfClock_getElapsedTime(clock: Clock): Time
     # Get the time elapsed in a clock
@@ -116,7 +114,7 @@ lib CSFML
     # Clock_restart has not been called).
     # 
     # Arguments:
-    # - clock:  Clock object
+    # - clock: Clock object
     # 
     # Returns: Time elapsed
   
@@ -127,7 +125,7 @@ lib CSFML
     # It also returns the time elapsed since the clock was started.
     # 
     # Arguments:
-    # - clock:  Clock object
+    # - clock: Clock object
     # 
     # Returns: Time elapsed
   
@@ -144,14 +142,14 @@ lib CSFML
     user_data: Void*
   end
   
-  fun sleep = sfSleep(duration: Time): Void
+  fun sleep = sfSleep(duration: Time)
     # Make the current thread sleep for a given duration
     # 
     # Sleep is the best way to block a program or one of its
     # threads, as it doesn't consume any CPU power.
     # 
     # Arguments:
-    # - duration:  Time to sleep
+    # - duration: Time to sleep
   
   struct Vector2i
     # 2-component vector of integers

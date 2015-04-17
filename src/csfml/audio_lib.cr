@@ -24,7 +24,7 @@ require "./system_lib"
 @[Link("csfml-audio")]
 
 lib CSFML
-  fun listener_set_global_volume = sfListener_setGlobalVolume(volume: Float32): Void
+  fun listener_set_global_volume = sfListener_setGlobalVolume(volume: Float32)
     # Change the global volume of all the sounds and musics
     # 
     # The volume is a number between 0 and 100; it is combined with
@@ -32,27 +32,27 @@ lib CSFML
     # The default value for the volume is 100 (maximum).
     # 
     # Arguments:
-    # - volume:  New global volume, in the range [0, 100]
+    # - volume: New global volume, in the range [0, 100]
   
   fun listener_get_global_volume = sfListener_getGlobalVolume(): Float32
     # Get the current value of the global volume
     # 
     # Returns: Current global volume, in the range [0, 100]
   
-  fun listener_set_position = sfListener_setPosition(position: Vector3f): Void
+  fun listener_set_position = sfListener_setPosition(position: Vector3f)
     # Set the position of the listener in the scene
     # 
     # The default listener's position is (0, 0, 0).
     # 
     # Arguments:
-    # - position:  New position of the listener
+    # - position: New position of the listener
   
   fun listener_get_position = sfListener_getPosition(): Vector3f
     # Get the current position of the listener in the scene
     # 
     # Returns: The listener's position
   
-  fun listener_set_direction = sfListener_setDirection(direction: Vector3f): Void
+  fun listener_set_direction = sfListener_setDirection(direction: Vector3f)
     # Set the orientation of the forward vector in the scene
     # 
     # The direction (also called "at vector") is the vector
@@ -63,14 +63,14 @@ lib CSFML
     # The default listener's direction is (0, 0, -1).
     # 
     # Arguments:
-    # - direction:  New listener's direction
+    # - direction: New listener's direction
   
   fun listener_get_direction = sfListener_getDirection(): Vector3f
     # Get the current forward vector of the listener in the scene
     # 
     # Returns: Listener's forward vector (not normalized)
   
-  fun listener_set_up_vector = sfListener_setUpVector(up_vector: Vector3f): Void
+  fun listener_set_up_vector = sfListener_setUpVector(up_vector: Vector3f)
     # Set the upward vector of the listener in the scene
     # 
     # The up vector is the vector that points upward from the
@@ -81,14 +81,14 @@ lib CSFML
     # not necessary to change it, especially in 2D scenarios.
     # 
     # Arguments:
-    # - up_vector:  New listener's up vector
+    # - up_vector: New listener's up vector
   
   fun listener_get_up_vector = sfListener_getUpVector(): Vector3f
     # Get the current upward vector of the listener in the scene
     # 
     # Returns: Listener's upward vector (not normalized)
   
-  enum SoundStatus
+  enum SoundStatus: UInt32
     # Enumeration of statuses for sounds and musics
     Stopped, Paused, Playing
   end
@@ -115,7 +115,7 @@ lib CSFML
     # w64, mat4, mat5 pvf, htk, sds, avr, sd2, caf, wve, mpc2k, rf64.
     # 
     # Arguments:
-    # - filename:  Path of the music file to open
+    # - filename: Path of the music file to open
     # 
     # Returns: A new Music object (NULL if failed)
   
@@ -129,8 +129,8 @@ lib CSFML
     # w64, mat4, mat5 pvf, htk, sds, avr, sd2, caf, wve, mpc2k, rf64.
     # 
     # Arguments:
-    # - data:         Pointer to the file data in memory
-    # - size_in_bytes:  Size of the data to load, in bytes
+    # - data: Pointer to the file data in memory
+    # - size_in_bytes: Size of the data to load, in bytes
     # 
     # Returns: A new Music object (NULL if failed)
   
@@ -144,17 +144,17 @@ lib CSFML
     # w64, mat4, mat5 pvf, htk, sds, avr, sd2, caf, wve, mpc2k, rf64.
     # 
     # Arguments:
-    # - stream:  Source stream to read from
+    # - stream: Source stream to read from
     # 
     # Returns: A new Music object (NULL if failed)
   
-  fun music_destroy = sfMusic_destroy(music: Music): Void
+  fun music_destroy = sfMusic_destroy(music: Music)
     # Destroy a music
     # 
     # Arguments:
-    # - music:  Music to destroy
+    # - music: Music to destroy
   
-  fun music_set_loop = sfMusic_setLoop(music: Music, loop: Int32): Void
+  fun music_set_loop = sfMusic_setLoop(music: Music, loop: Int32)
     # Set whether or not a music should loop after reaching the end
     # 
     # If set, the music will restart from beginning after
@@ -163,14 +163,14 @@ lib CSFML
     # The default looping state for musics is false.
     # 
     # Arguments:
-    # - music:  Music object
-    # - loop:   True to play in loop, False to play once
+    # - music: Music object
+    # - loop: True to play in loop, False to play once
   
   fun music_get_loop = sfMusic_getLoop(music: Music): Int32
     # Tell whether or not a music is in loop mode
     # 
     # Arguments:
-    # - music:  Music object
+    # - music: Music object
     # 
     # Returns: True if the music is looping, False otherwise
   
@@ -178,11 +178,11 @@ lib CSFML
     # Get the total duration of a music
     # 
     # Arguments:
-    # - music:  Music object
+    # - music: Music object
     # 
     # Returns: Music duration
   
-  fun music_play = sfMusic_play(music: Music): Void
+  fun music_play = sfMusic_play(music: Music)
     # Start or resume playing a music
     # 
     # This function starts the music if it was stopped, resumes
@@ -192,18 +192,18 @@ lib CSFML
     # the rest of the program while the music is played.
     # 
     # Arguments:
-    # - music:  Music object
+    # - music: Music object
   
-  fun music_pause = sfMusic_pause(music: Music): Void
+  fun music_pause = sfMusic_pause(music: Music)
     # Pause a music
     # 
     # This function pauses the music if it was playing,
     # otherwise (music already paused or stopped) it has no effect.
     # 
     # Arguments:
-    # - music:  Music object
+    # - music: Music object
   
-  fun music_stop = sfMusic_stop(music: Music): Void
+  fun music_stop = sfMusic_stop(music: Music)
     # Stop playing a music
     # 
     # This function stops the music if it was playing or paused,
@@ -211,7 +211,7 @@ lib CSFML
     # It also resets the playing position (unlike Music_pause).
     # 
     # Arguments:
-    # - music:  Music object
+    # - music: Music object
   
   fun music_get_channel_count = sfMusic_getChannelCount(music: Music): Int32
     # Return the number of channels of a music
@@ -219,7 +219,7 @@ lib CSFML
     # 1 channel means a mono sound, 2 means stereo, etc.
     # 
     # Arguments:
-    # - music:  Music object
+    # - music: Music object
     # 
     # Returns: Number of channels
   
@@ -230,7 +230,7 @@ lib CSFML
     # second. The higher, the better the quality.
     # 
     # Arguments:
-    # - music:  Music object
+    # - music: Music object
     # 
     # Returns: Sample rate, in number of samples per second
   
@@ -238,7 +238,7 @@ lib CSFML
     # Get the current status of a music (stopped, paused, playing)
     # 
     # Arguments:
-    # - music:  Music object
+    # - music: Music object
     # 
     # Returns: Current status
   
@@ -246,11 +246,11 @@ lib CSFML
     # Get the current playing position of a music
     # 
     # Arguments:
-    # - music:  Music object
+    # - music: Music object
     # 
     # Returns: Current playing position
   
-  fun music_set_pitch = sfMusic_setPitch(music: Music, pitch: Float32): Void
+  fun music_set_pitch = sfMusic_setPitch(music: Music, pitch: Float32)
     # Set the pitch of a music
     # 
     # The pitch represents the perceived fundamental frequency
@@ -260,20 +260,20 @@ lib CSFML
     # The default value for the pitch is 1.
     # 
     # Arguments:
-    # - music:  Music object
-    # - pitch:  New pitch to apply to the music
+    # - music: Music object
+    # - pitch: New pitch to apply to the music
   
-  fun music_set_volume = sfMusic_setVolume(music: Music, volume: Float32): Void
+  fun music_set_volume = sfMusic_setVolume(music: Music, volume: Float32)
     # Set the volume of a music
     # 
     # The volume is a value between 0 (mute) and 100 (full volume).
     # The default value for the volume is 100.
     # 
     # Arguments:
-    # - music:   Music object
-    # - volume:  Volume of the music
+    # - music: Music object
+    # - volume: Volume of the music
   
-  fun music_set_position = sfMusic_setPosition(music: Music, position: Vector3f): Void
+  fun music_set_position = sfMusic_setPosition(music: Music, position: Vector3f)
     # Set the 3D position of a music in the audio scene
     # 
     # Only musics with one channel (mono musics) can be
@@ -281,10 +281,10 @@ lib CSFML
     # The default position of a music is (0, 0, 0).
     # 
     # Arguments:
-    # - music:     Music object
-    # - position:  Position of the music in the scene
+    # - music: Music object
+    # - position: Position of the music in the scene
   
-  fun music_set_relative_to_listener = sfMusic_setRelativeToListener(music: Music, relative: Int32): Void
+  fun music_set_relative_to_listener = sfMusic_setRelativeToListener(music: Music, relative: Int32)
     # Make a musics's position relative to the listener or absolute
     # 
     # Making a music relative to the listener will ensure that it will always
@@ -294,10 +294,10 @@ lib CSFML
     # The default value is false (position is absolute).
     # 
     # Arguments:
-    # - music:     Music object
-    # - relative:  True to set the position relative, False to set it absolute
+    # - music: Music object
+    # - relative: True to set the position relative, False to set it absolute
   
-  fun music_set_min_distance = sfMusic_setMinDistance(music: Music, distance: Float32): Void
+  fun music_set_min_distance = sfMusic_setMinDistance(music: Music, distance: Float32)
     # Set the minimum distance of a music
     # 
     # The "minimum distance" of a music is the maximum
@@ -308,10 +308,10 @@ lib CSFML
     # The default value of the minimum distance is 1.
     # 
     # Arguments:
-    # - music:     Music object
-    # - distance:  New minimum distance of the music
+    # - music: Music object
+    # - distance: New minimum distance of the music
   
-  fun music_set_attenuation = sfMusic_setAttenuation(music: Music, attenuation: Float32): Void
+  fun music_set_attenuation = sfMusic_setAttenuation(music: Music, attenuation: Float32)
     # Set the attenuation factor of a music
     # 
     # The attenuation is a multiplicative factor which makes
@@ -324,24 +324,24 @@ lib CSFML
     # The default value of the attenuation is 1.
     # 
     # Arguments:
-    # - music:        Music object
-    # - attenuation:  New attenuation factor of the music
+    # - music: Music object
+    # - attenuation: New attenuation factor of the music
   
-  fun music_set_playing_offset = sfMusic_setPlayingOffset(music: Music, time_offset: Time): Void
+  fun music_set_playing_offset = sfMusic_setPlayingOffset(music: Music, time_offset: Time)
     # Change the current playing position of a music
     # 
     # The playing position can be changed when the music is
     # either paused or playing.
     # 
     # Arguments:
-    # - music:       Music object
-    # - time_offset:  New playing position
+    # - music: Music object
+    # - time_offset: New playing position
   
   fun music_get_pitch = sfMusic_getPitch(music: Music): Float32
     # Get the pitch of a music
     # 
     # Arguments:
-    # - music:  Music object
+    # - music: Music object
     # 
     # Returns: Pitch of the music
   
@@ -349,7 +349,7 @@ lib CSFML
     # Get the volume of a music
     # 
     # Arguments:
-    # - music:  Music object
+    # - music: Music object
     # 
     # Returns: Volume of the music, in the range [0, 100]
   
@@ -357,7 +357,7 @@ lib CSFML
     # Get the 3D position of a music in the audio scene
     # 
     # Arguments:
-    # - music:  Music object
+    # - music: Music object
     # 
     # Returns: Position of the music in the world
   
@@ -366,7 +366,7 @@ lib CSFML
     # listener or is absolute
     # 
     # Arguments:
-    # - music:  Music object
+    # - music: Music object
     # 
     # Returns: True if the position is relative, False if it's absolute
   
@@ -374,7 +374,7 @@ lib CSFML
     # Get the minimum distance of a music
     # 
     # Arguments:
-    # - music:  Music object
+    # - music: Music object
     # 
     # Returns: Minimum distance of the music
   
@@ -382,7 +382,7 @@ lib CSFML
     # Get the attenuation factor of a music
     # 
     # Arguments:
-    # - music:  Music object
+    # - music: Music object
     # 
     # Returns: Attenuation factor of the music
   
@@ -395,17 +395,17 @@ lib CSFML
     # Create a new sound by copying an existing one
     # 
     # Arguments:
-    # - sound:  Sound to copy
+    # - sound: Sound to copy
     # 
     # Returns: A new Sound object which is a copy of `sound`
   
-  fun sound_destroy = sfSound_destroy(sound: Sound): Void
+  fun sound_destroy = sfSound_destroy(sound: Sound)
     # Destroy a sound
     # 
     # Arguments:
-    # - sound:  Sound to destroy
+    # - sound: Sound to destroy
   
-  fun sound_play = sfSound_play(sound: Sound): Void
+  fun sound_play = sfSound_play(sound: Sound)
     # Start or resume playing a sound
     # 
     # This function starts the sound if it was stopped, resumes
@@ -415,18 +415,18 @@ lib CSFML
     # the rest of the program while the sound is played.
     # 
     # Arguments:
-    # - sound:  Sound object
+    # - sound: Sound object
   
-  fun sound_pause = sfSound_pause(sound: Sound): Void
+  fun sound_pause = sfSound_pause(sound: Sound)
     # Pause a sound
     # 
     # This function pauses the sound if it was playing,
     # otherwise (sound already paused or stopped) it has no effect.
     # 
     # Arguments:
-    # - sound:  Sound object
+    # - sound: Sound object
   
-  fun sound_stop = sfSound_stop(sound: Sound): Void
+  fun sound_stop = sfSound_stop(sound: Sound)
     # Stop playing a sound
     # 
     # This function stops the sound if it was playing or paused,
@@ -434,9 +434,9 @@ lib CSFML
     # It also resets the playing position (unlike Sound_pause).
     # 
     # Arguments:
-    # - sound:  Sound object
+    # - sound: Sound object
   
-  fun sound_set_buffer = sfSound_setBuffer(sound: Sound, buffer: SoundBuffer): Void
+  fun sound_set_buffer = sfSound_setBuffer(sound: Sound, buffer: SoundBuffer)
     # Set the source buffer containing the audio data to play
     # 
     # It is important to note that the sound buffer is not copied,
@@ -444,18 +444,18 @@ lib CSFML
     # as it is attached to the sound.
     # 
     # Arguments:
-    # - sound:   Sound object
-    # - buffer:  Sound buffer to attach to the sound
+    # - sound: Sound object
+    # - buffer: Sound buffer to attach to the sound
   
   fun sound_get_buffer = sfSound_getBuffer(sound: Sound): SoundBuffer
     # Get the audio buffer attached to a sound
     # 
     # Arguments:
-    # - sound:  Sound object
+    # - sound: Sound object
     # 
     # Returns: Sound buffer attached to the sound (can be NULL)
   
-  fun sound_set_loop = sfSound_setLoop(sound: Sound, loop: Int32): Void
+  fun sound_set_loop = sfSound_setLoop(sound: Sound, loop: Int32)
     # Set whether or not a sound should loop after reaching the end
     # 
     # If set, the sound will restart from beginning after
@@ -464,14 +464,14 @@ lib CSFML
     # The default looping state for sounds is false.
     # 
     # Arguments:
-    # - sound:  Sound object
-    # - loop:   True to play in loop, False to play once
+    # - sound: Sound object
+    # - loop: True to play in loop, False to play once
   
   fun sound_get_loop = sfSound_getLoop(sound: Sound): Int32
     # Tell whether or not a sound is in loop mode
     # 
     # Arguments:
-    # - sound:  Sound object
+    # - sound: Sound object
     # 
     # Returns: True if the sound is looping, False otherwise
   
@@ -479,11 +479,11 @@ lib CSFML
     # Get the current status of a sound (stopped, paused, playing)
     # 
     # Arguments:
-    # - sound:  Sound object
+    # - sound: Sound object
     # 
     # Returns: Current status
   
-  fun sound_set_pitch = sfSound_setPitch(sound: Sound, pitch: Float32): Void
+  fun sound_set_pitch = sfSound_setPitch(sound: Sound, pitch: Float32)
     # Set the pitch of a sound
     # 
     # The pitch represents the perceived fundamental frequency
@@ -493,20 +493,20 @@ lib CSFML
     # The default value for the pitch is 1.
     # 
     # Arguments:
-    # - sound:  Sound object
-    # - pitch:  New pitch to apply to the sound
+    # - sound: Sound object
+    # - pitch: New pitch to apply to the sound
   
-  fun sound_set_volume = sfSound_setVolume(sound: Sound, volume: Float32): Void
+  fun sound_set_volume = sfSound_setVolume(sound: Sound, volume: Float32)
     # Set the volume of a sound
     # 
     # The volume is a value between 0 (mute) and 100 (full volume).
     # The default value for the volume is 100.
     # 
     # Arguments:
-    # - sound:   Sound object
-    # - volume:  Volume of the sound
+    # - sound: Sound object
+    # - volume: Volume of the sound
   
-  fun sound_set_position = sfSound_setPosition(sound: Sound, position: Vector3f): Void
+  fun sound_set_position = sfSound_setPosition(sound: Sound, position: Vector3f)
     # Set the 3D position of a sound in the audio scene
     # 
     # Only sounds with one channel (mono sounds) can be
@@ -514,10 +514,10 @@ lib CSFML
     # The default position of a sound is (0, 0, 0).
     # 
     # Arguments:
-    # - sound:     Sound object
-    # - position:  Position of the sound in the scene
+    # - sound: Sound object
+    # - position: Position of the sound in the scene
   
-  fun sound_set_relative_to_listener = sfSound_setRelativeToListener(sound: Sound, relative: Int32): Void
+  fun sound_set_relative_to_listener = sfSound_setRelativeToListener(sound: Sound, relative: Int32)
     # Make the sound's position relative to the listener or absolute
     # 
     # Making a sound relative to the listener will ensure that it will always
@@ -527,10 +527,10 @@ lib CSFML
     # The default value is false (position is absolute).
     # 
     # Arguments:
-    # - sound:     Sound object
-    # - relative:  True to set the position relative, False to set it absolute
+    # - sound: Sound object
+    # - relative: True to set the position relative, False to set it absolute
   
-  fun sound_set_min_distance = sfSound_setMinDistance(sound: Sound, distance: Float32): Void
+  fun sound_set_min_distance = sfSound_setMinDistance(sound: Sound, distance: Float32)
     # Set the minimum distance of a sound
     # 
     # The "minimum distance" of a sound is the maximum
@@ -541,10 +541,10 @@ lib CSFML
     # The default value of the minimum distance is 1.
     # 
     # Arguments:
-    # - sound:     Sound object
-    # - distance:  New minimum distance of the sound
+    # - sound: Sound object
+    # - distance: New minimum distance of the sound
   
-  fun sound_set_attenuation = sfSound_setAttenuation(sound: Sound, attenuation: Float32): Void
+  fun sound_set_attenuation = sfSound_setAttenuation(sound: Sound, attenuation: Float32)
     # Set the attenuation factor of a sound
     # 
     # The attenuation is a multiplicative factor which makes
@@ -557,24 +557,24 @@ lib CSFML
     # The default value of the attenuation is 1.
     # 
     # Arguments:
-    # - sound:        Sound object
-    # - attenuation:  New attenuation factor of the sound
+    # - sound: Sound object
+    # - attenuation: New attenuation factor of the sound
   
-  fun sound_set_playing_offset = sfSound_setPlayingOffset(sound: Sound, time_offset: Time): Void
+  fun sound_set_playing_offset = sfSound_setPlayingOffset(sound: Sound, time_offset: Time)
     # Change the current playing position of a sound
     # 
     # The playing position can be changed when the sound is
     # either paused or playing.
     # 
     # Arguments:
-    # - sound:       Sound object
-    # - time_offset:  New playing position
+    # - sound: Sound object
+    # - time_offset: New playing position
   
   fun sound_get_pitch = sfSound_getPitch(sound: Sound): Float32
     # Get the pitch of a sound
     # 
     # Arguments:
-    # - sound:  Sound object
+    # - sound: Sound object
     # 
     # Returns: Pitch of the sound
   
@@ -582,7 +582,7 @@ lib CSFML
     # Get the volume of a sound
     # 
     # Arguments:
-    # - sound:  Sound object
+    # - sound: Sound object
     # 
     # Returns: Volume of the sound, in the range [0, 100]
   
@@ -590,7 +590,7 @@ lib CSFML
     # Get the 3D position of a sound in the audio scene
     # 
     # Arguments:
-    # - sound:  Sound object
+    # - sound: Sound object
     # 
     # Returns: Position of the sound in the world
   
@@ -599,7 +599,7 @@ lib CSFML
     # listener or is absolute
     # 
     # Arguments:
-    # - sound:  Sound object
+    # - sound: Sound object
     # 
     # Returns: True if the position is relative, False if it's absolute
   
@@ -607,7 +607,7 @@ lib CSFML
     # Get the minimum distance of a sound
     # 
     # Arguments:
-    # - sound:  Sound object
+    # - sound: Sound object
     # 
     # Returns: Minimum distance of the sound
   
@@ -615,7 +615,7 @@ lib CSFML
     # Get the attenuation factor of a sound
     # 
     # Arguments:
-    # - sound:  Sound object
+    # - sound: Sound object
     # 
     # Returns: Attenuation factor of the sound
   
@@ -623,7 +623,7 @@ lib CSFML
     # Get the current playing position of a sound
     # 
     # Arguments:
-    # - sound:  Sound object
+    # - sound: Sound object
     # 
     # Returns: Current playing position
   
@@ -635,7 +635,7 @@ lib CSFML
     # w64, mat4, mat5 pvf, htk, sds, avr, sd2, caf, wve, mpc2k, rf64.
     # 
     # Arguments:
-    # - filename:  Path of the sound file to load
+    # - filename: Path of the sound file to load
     # 
     # Returns: A new SoundBuffer object (NULL if failed)
   
@@ -647,8 +647,8 @@ lib CSFML
     # w64, mat4, mat5 pvf, htk, sds, avr, sd2, caf, wve, mpc2k, rf64.
     # 
     # Arguments:
-    # - data:         Pointer to the file data in memory
-    # - size_in_bytes:  Size of the data to load, in bytes
+    # - data: Pointer to the file data in memory
+    # - size_in_bytes: Size of the data to load, in bytes
     # 
     # Returns: A new SoundBuffer object (NULL if failed)
   
@@ -660,7 +660,7 @@ lib CSFML
     # w64, mat4, mat5 pvf, htk, sds, avr, sd2, caf, wve, mpc2k, rf64.
     # 
     # Arguments:
-    # - stream:  Source stream to read from
+    # - stream: Source stream to read from
     # 
     # Returns: A new SoundBuffer object (NULL if failed)
   
@@ -671,10 +671,10 @@ lib CSFML
     # (Int16).
     # 
     # Arguments:
-    # - samples:       Pointer to the array of samples in memory
-    # - sample_count:   Number of samples in the array
-    # - channel_count:  Number of channels (1 = mono, 2 = stereo, ...)
-    # - sample_rate:    Sample rate (number of samples to play per second)
+    # - samples: Pointer to the array of samples in memory
+    # - sample_count: Number of samples in the array
+    # - channel_count: Number of channels (1 = mono, 2 = stereo, ...)
+    # - sample_rate: Sample rate (number of samples to play per second)
     # 
     # Returns: A new SoundBuffer object (NULL if failed)
   
@@ -682,15 +682,15 @@ lib CSFML
     # Create a new sound buffer by copying an existing one
     # 
     # Arguments:
-    # - sound_buffer:  Sound buffer to copy
+    # - sound_buffer: Sound buffer to copy
     # 
     # Returns: A new SoundBuffer object which is a copy of `sound_buffer`
   
-  fun sound_buffer_destroy = sfSoundBuffer_destroy(sound_buffer: SoundBuffer): Void
+  fun sound_buffer_destroy = sfSoundBuffer_destroy(sound_buffer: SoundBuffer)
     # Destroy a sound buffer
     # 
     # Arguments:
-    # - sound_buffer:  Sound buffer to destroy
+    # - sound_buffer: Sound buffer to destroy
   
   fun sound_buffer_save_to_file = sfSoundBuffer_saveToFile(sound_buffer: SoundBuffer, filename: UInt8*): Int32
     # Save a sound buffer to an audio file
@@ -700,8 +700,8 @@ lib CSFML
     # w64, mat4, mat5 pvf, htk, sds, avr, sd2, caf, wve, mpc2k, rf64.
     # 
     # Arguments:
-    # - sound_buffer:  Sound buffer object
-    # - filename:     Path of the sound file to write
+    # - sound_buffer: Sound buffer object
+    # - filename: Path of the sound file to write
     # 
     # Returns: True if saving succeeded, False if it failed
   
@@ -713,7 +713,7 @@ lib CSFML
     # is given by the SoundBuffer_getSampleCount function.
     # 
     # Arguments:
-    # - sound_buffer:  Sound buffer object
+    # - sound_buffer: Sound buffer object
     # 
     # Returns: Read-only pointer to the array of sound samples
   
@@ -724,7 +724,7 @@ lib CSFML
     # SoundBuffer_getSamples function.
     # 
     # Arguments:
-    # - sound_buffer:  Sound buffer object
+    # - sound_buffer: Sound buffer object
     # 
     # Returns: Number of samples
   
@@ -736,7 +736,7 @@ lib CSFML
     # samples/s is CD quality).
     # 
     # Arguments:
-    # - sound_buffer:  Sound buffer object
+    # - sound_buffer: Sound buffer object
     # 
     # Returns: Sample rate (number of samples per second)
   
@@ -747,7 +747,7 @@ lib CSFML
     # be 1, 2 for stereo, etc.
     # 
     # Arguments:
-    # - sound_buffer:  Sound buffer object
+    # - sound_buffer: Sound buffer object
     # 
     # Returns: Number of channels
   
@@ -755,7 +755,7 @@ lib CSFML
     # Get the total duration of a sound buffer
     # 
     # Arguments:
-    # - sound_buffer:  Sound buffer object
+    # - sound_buffer: Sound buffer object
     # 
     # Returns: Sound duration
   
@@ -764,13 +764,13 @@ lib CSFML
     # 
     # Returns: A new SoundBufferRecorder object (NULL if failed)
   
-  fun sound_buffer_recorder_destroy = sfSoundBufferRecorder_destroy(sound_buffer_recorder: SoundBufferRecorder): Void
+  fun sound_buffer_recorder_destroy = sfSoundBufferRecorder_destroy(sound_buffer_recorder: SoundBufferRecorder)
     # Destroy a sound buffer recorder
     # 
     # Arguments:
-    # - sound_buffer_recorder:  Sound buffer recorder to destroy
+    # - sound_buffer_recorder: Sound buffer recorder to destroy
   
-  fun sound_buffer_recorder_start = sfSoundBufferRecorder_start(sound_buffer_recorder: SoundBufferRecorder, sample_rate: Int32): Void
+  fun sound_buffer_recorder_start = sfSoundBufferRecorder_start(sound_buffer_recorder: SoundBufferRecorder, sample_rate: Int32)
     # Start the capture of a sound recorder recorder
     # 
     # The `sample_rate` parameter defines the number of audio samples
@@ -781,14 +781,14 @@ lib CSFML
     # Please note that only one capture can happen at the same time.
     # 
     # Arguments:
-    # - sound_buffer_recorder:  Sound buffer recorder object
-    # - sample_rate:           Desired capture rate, in number of samples per second
+    # - sound_buffer_recorder: Sound buffer recorder object
+    # - sample_rate: Desired capture rate, in number of samples per second
   
-  fun sound_buffer_recorder_stop = sfSoundBufferRecorder_stop(sound_buffer_recorder: SoundBufferRecorder): Void
+  fun sound_buffer_recorder_stop = sfSoundBufferRecorder_stop(sound_buffer_recorder: SoundBufferRecorder)
     # Stop the capture of a sound recorder
     # 
     # Arguments:
-    # - sound_buffer_recorder:  Sound buffer recorder object
+    # - sound_buffer_recorder: Sound buffer recorder object
   
   fun sound_buffer_recorder_get_sample_rate = sfSoundBufferRecorder_getSampleRate(sound_buffer_recorder: SoundBufferRecorder): Int32
     # Get the sample rate of a sound buffer recorder
@@ -798,7 +798,7 @@ lib CSFML
     # (for example, 44100 samples/sec is CD quality).
     # 
     # Arguments:
-    # - sound_buffer_recorder:  Sound buffer recorder object
+    # - sound_buffer_recorder: Sound buffer recorder object
     # 
     # Returns: Sample rate, in samples per second
   
@@ -811,7 +811,7 @@ lib CSFML
     # make any modification to it.
     # 
     # Arguments:
-    # - sound_buffer_recorder:  Sound buffer recorder object
+    # - sound_buffer_recorder: Sound buffer recorder object
     # 
     # Returns: Read-only access to the sound buffer
   
@@ -822,18 +822,18 @@ lib CSFML
     # Construct a new sound recorder from callback functions
     # 
     # Arguments:
-    # - on_start:    Callback function which will be called when a new capture starts (can be NULL)
-    # - on_process:  Callback function which will be called each time there's audio data to process
-    # - on_stop:     Callback function which will be called when the current capture stops (can be NULL)
-    # - user_data:   Data to pass to the callback function (can be NULL)
+    # - on_start: Callback function which will be called when a new capture starts (can be NULL)
+    # - on_process: Callback function which will be called each time there's audio data to process
+    # - on_stop: Callback function which will be called when the current capture stops (can be NULL)
+    # - user_data: Data to pass to the callback function (can be NULL)
     # 
     # Returns: A new SoundRecorder object (NULL if failed)
   
-  fun sound_recorder_destroy = sfSoundRecorder_destroy(sound_recorder: SoundRecorder): Void
+  fun sound_recorder_destroy = sfSoundRecorder_destroy(sound_recorder: SoundRecorder)
     # Destroy a sound recorder
     # 
     # Arguments:
-    # - sound_recorder:  Sound recorder to destroy
+    # - sound_recorder: Sound recorder to destroy
   
   fun sound_recorder_start = sfSoundRecorder_start(sound_recorder: SoundRecorder, sample_rate: Int32): Int32
     # Start the capture of a sound recorder
@@ -846,16 +846,16 @@ lib CSFML
     # Please note that only one capture can happen at the same time.
     # 
     # Arguments:
-    # - sound_recorder:  Sound recorder object
-    # - sample_rate:     Desired capture rate, in number of samples per second
+    # - sound_recorder: Sound recorder object
+    # - sample_rate: Desired capture rate, in number of samples per second
     # 
     # Returns: True, if start of capture was successful
   
-  fun sound_recorder_stop = sfSoundRecorder_stop(sound_recorder: SoundRecorder): Void
+  fun sound_recorder_stop = sfSoundRecorder_stop(sound_recorder: SoundRecorder)
     # Stop the capture of a sound recorder
     # 
     # Arguments:
-    # - sound_recorder:  Sound recorder object
+    # - sound_recorder: Sound recorder object
   
   fun sound_recorder_get_sample_rate = sfSoundRecorder_getSampleRate(sound_recorder: SoundRecorder): Int32
     # Get the sample rate of a sound recorder
@@ -865,7 +865,7 @@ lib CSFML
     # (for example, 44100 samples/sec is CD quality).
     # 
     # Arguments:
-    # - sound_recorder:  Sound recorder object
+    # - sound_recorder: Sound recorder object
     # 
     # Returns: Sample rate, in samples per second
   
@@ -878,7 +878,7 @@ lib CSFML
     # 
     # Returns: True if audio capture is supported, False otherwise
   
-  fun sound_recorder_set_processing_interval = sfSoundRecorder_setProcessingInterval(sound_recorder: SoundRecorder, interval: Time): Void
+  fun sound_recorder_set_processing_interval = sfSoundRecorder_setProcessingInterval(sound_recorder: SoundRecorder, interval: Time)
     # Set the processing interval
     # 
     # The processing interval controls the period
@@ -892,8 +892,8 @@ lib CSFML
     # The default processing interval is 100 ms.
     # 
     # Arguments:
-    # - sound_recorder:  Sound recorder object
-    # - interval:  Processing interval
+    # - sound_recorder: Sound recorder object
+    # - interval: Processing interval
   
   fun sound_recorder_get_available_devices = sfSoundRecorder_getAvailableDevices(count: Size_t*): UInt8**
     # Get a list of the names of all availabe audio capture devices
@@ -903,7 +903,7 @@ lib CSFML
     # If no devices are available then NULL is returned.
     # 
     # Arguments:
-    # - count:  Pointer to a variable that will be filled with the number of modes in the array
+    # - count: Pointer to a variable that will be filled with the number of modes in the array
     # 
     # Returns: An array of strings containing the names
   
@@ -924,8 +924,8 @@ lib CSFML
     # opening the device fails, it stops the recording.
     # 
     # Arguments:
-    # - sound_recorder:  Sound recorder object
-    # - The:  name of the audio capture device
+    # - sound_recorder: Sound recorder object
+    # - The: name of the audio capture device
     # 
     # Returns: True, if it was able to set the requested device
   
@@ -933,7 +933,7 @@ lib CSFML
     # Get the name of the current audio capture device
     # 
     # Arguments:
-    # - sound_recorder:  Sound recorder object
+    # - sound_recorder: Sound recorder object
     # 
     # Returns: The name of the current audio capture device
   

@@ -81,7 +81,9 @@ def rename_identifier(name):
         #'bind': 'bindGL',
     #}.get(name, name)
     #name = name.replace('String', 'Str').replace('string', 'str')
-    return re.sub('[A-Z]', lambda m: '_'+m.group(0).lower(), name).strip('_')
+    name = re.sub('[A-Z](?![A-Z]|$)', lambda m: '_'+m.group(0).lower(), name)
+    name = re.sub('[A-Z]+', lambda m: '_'+m.group(0).lower()+'_', name)
+    return name.replace('__', '_').strip('_')
 
 def common_start(strings):
     if not strings:
@@ -102,6 +104,7 @@ def get_doc(indent=2):
     return r
 
 
+aliases = set()
 def handle_enum(name, items):
     if name is None:
         for name, value in items:
@@ -117,7 +120,7 @@ def handle_enum(name, items):
     nname = rename_sf(name)
     if all(value is not None for name, value in nitems):
         nitems.sort(key=lambda kv: int(kv[1]))
-    lib('enum {}'.format(nname))
+    lib('enum {}: UInt32'.format(nname))
     d = get_doc()
     if d: lib(d)
     lib(*(textwrap.wrap(', '.join(
@@ -125,6 +128,9 @@ def handle_enum(name, items):
         for name, value in nitems
     ), 78, initial_indent='  ', subsequent_indent='  ')))
     lib('end')
+    
+    obj(nname, 'alias {0} = CSFML::{0}'.format(nname), ' ')
+    aliases.add(nname)
 
 def handle_struct(name, items):
     if name=='sfVector2u':
@@ -134,14 +140,17 @@ def handle_struct(name, items):
     d = get_doc()
     if d: lib(d)
     
-    for typ, name in items:
-        if typ in ['sfEventType']:
+    for t, n in items:
+        if t in ['sfEventType']:
             continue
-        typ = rename_type(typ)
-        if typ=='UInt32' and name=='unicode':
-            typ = 'Char'
-        lib('  {}: {}'.format(rename_identifier(name), typ))
+        t = rename_type(t)
+        if t=='UInt32' and n=='unicode':
+            t = 'Char'
+        lib('  {}: {}'.format(rename_identifier(n), t))
     lib('end')
+    
+    obj(name, 'alias {0} = CSFML::{0}'.format(name), ' ')
+    aliases.add(name)
 
 def handle_union(name, items):
     name = rename_type(name)
@@ -163,74 +172,85 @@ def handle_class(name):
     d = get_doc()
     if d: lib(d)
     lib()
+    
+    obj(pname, 'class {}'.format(pname))
+    obj(pname, 'def self.wrap_ptr(p)\n'.format(pname))
+    obj(pname, '  result = self.allocate()'.format(pname))
+    obj(pname, '  result.this = p'.format(pname))
+    obj(pname, 'end'.format(pname))
+    obj(pname, 'def to_unsafe\n'.format(pname))
+    obj(pname, '  @this'.format(pname))
+    obj(pname, 'end'.format(pname))
+    if d: obj(pname, d)
 
 
 def handle_function(main, params):
-    public = '*'
+    public = True
     ftype, ofname = main
     nfname = rename_sf(ofname)
     fname = rename_identifier(rename_sf(ofname))
-    nfname = re.sub(r'(.+)_create.*', r'new\1', nfname)
-    nfname = re.sub(r'(.+)_from.+', r'\1', nfname)
-    nfname = re.sub(r'(.+)With.+', r'\1', nfname)
+    nfname = re.sub(r'(.+)_create(From.+|Unicode)?$', r'\1_initialize', nfname)
+    nfname = re.sub(r'(.+)(With|From).+', r'\1', nfname)
     nfname = re.sub(r'([gs]et.+)RenderWindow$', r'\1', nfname)
     if nfname != 'Shader_setCurrentTextureParameter':
         nfname = re.sub(r'_set(.+)Parameter$', r'_setParameter', nfname)
-    if 'unicode' in fname.lower():
-        nfname += '_U32'
-    if params:
-        p1 = rename_type(params[0][0])+'_'
-        if nfname.startswith(p1):
-            nfname = nfname[len(p1):]
+    cls = ''
+    p1 = rename_type(params[0][0] if params else ftype)
+    if 'initialize' in nfname:
+        cls = rename_type(ftype)
+        nfname = 'initialize'
+    elif ofname.startswith(p1+'_', 2):
+        nfname = nfname[len(p1)+1:]
+        cls = p1
+    if cls not in classes:
+        cls = ''
     nfname = rename_identifier(nfname)
     nftype = rename_type(ftype)
     main_sgn = 'fun {fname} = {ofname}({sparams}): {nftype}'
-    pragmas = []
-    if nfname=='destroy':
-        pragmas.append('destroy')
-    if nfname.startswith('get') and nfname[3].isupper() and len(params)==1:
-        nfname = nfname[3].lower()+nfname[4:]
-    elif nfname.startswith('is') and nfname[2].isupper() and len(params)==1:
-        nfname = nfname[2].lower()+nfname[3:]
-    elif nfname.startswith('set') and nfname[3].isupper() and len(params)==2:
-        nfname = nfname[3].lower()+nfname[4:]+'='
-    if nfname.startswith('unicode'):
-        nfname = nfname[7].lower()+nfname[8:]
-    if nftype=='void':
+    if nfname.startswith('get_') and len(params)==1:
+        nfname = nfname[4:]
+    elif nfname.startswith('is_') and len(params)==1:
+        nfname = nfname[3:]
+    elif nfname.startswith('set_') and len(params)==2:
+        nfname = nfname[4:]+'='
+    if nfname.startswith('unicode_'):
+        nfname = nfname[8:]
+    if nftype=='Void':
         main_sgn = main_sgn[:-10]
-    if nftype=='cstring' and nfname in ['str', 'title']:
-        nfname += 'C'
+    if nftype=='UInt8*' and nfname in ['str', 'title']:
+        nfname += '_c'
+        public = False
     if nftype=='UInt32*':
         nftype = 'Char*'
-        public = ''
     if nftype=='UInt32':
-        if nfname in ['style']: nftype = 'BitMaskU32'
+        if nfname in ['style']:
+            rtype = 'WindowStyle' if 'Window' in ofname else 'TextStyle'
         else: nftype = 'Char'
     #if nftype.startswith('ptr ') or nftype=='pointer':
-        #public = ''
+        #public = False
 
     aparams = []
-    replv = []
+    const = []
     sgn = main_sgn
     for ptype, pname in params:
         rtype = rename_type(ptype, pname)
         rname = rename_identifier(pname) or 'p{}'.format(i)
-        if rtype=='cstring' and rname in ['str', 'title']:
-            if not nfname.endswith('C'):
-                nfname += 'C'
         if rtype=='UInt32*':
             rtype = 'Char*'
-            public = ''
-        if rtype=='UInt32':
-            if rname in ['style']: rtype = 'BitMaskU32'
+        elif rtype=='UInt32':
+            if rname in ['style']:
+                rtype = 'WindowStyle' if 'Window' in ofname else 'TextStyle'
             else: rtype = 'Char'
-        if ptype.startswith('const') and rtype.startswith('var '):
-            rrtype = rtype[4:]
-            replv.append(rname)
-        else:
-            rrtype = rtype
+        elif rtype=='UInt8*' and rname in ['str', 'title']:
+            if not nfname.rstrip('=').endswith('_c'):
+                nfname = nfname.rstrip('=') + '_c' + '='*nfname.count('=')
+                public = False
+        elif ptype.startswith('const'):
+            if ptype.endswith('*') and ' sf' in ptype:
+                const.append(rname)
+        rrtype = rtype
         #if rtype.startswith('ptr ') or rtype=='pointer':
-            #public = ''
+            #public = False
         aparams.append((rname, rrtype))
     sparams = ', '.join('{}: {}'.format(*p) for p in aparams)
 
@@ -238,6 +258,50 @@ def handle_function(main, params):
     lib(main_sgn.format(**locals()))
     if d: lib(d)
     lib()
+    
+    if not public:
+        return
+    
+    if nfname == 'initialize':
+        params = aparams[:]
+    else:
+        params = aparams[1:]
+    conv = []
+    for i, (n, t) in enumerate(params):
+        if t == 'UInt8*':
+            t = 'String'
+        elif t == 'Char*':
+            t = 'String'
+            conv.append('{0} = {0}.chars; {0} << \'\\0\''.format(n))
+        #if t in aliases:
+            #t = 'CSFML::'+t
+        elif t == 'Float32':
+            t = None
+            conv.append('{0} = {0}.to_f32'.format(n))
+        if n in const and t not in classes:
+            conv.append('{0} = pointerof({0}) if {0}'.format(n))
+            t = None#t+'|Nil'
+        params[i] = (n, t)
+    sparams = ', '.join('{}: {}'.format(n, t) if t else n for n, t in params)
+    if nfname == 'destroy':
+        nfname = 'finalize'
+    obj(cls, 'def {nfname}({sparams})'.format(**locals()))
+    for line in conv:
+        obj(cls, '  '+line)
+    if aparams:
+        lparams = ', '.join(([] if nfname == 'initialize' else ['@this']) + [n for n, t in params])
+    else:
+        lparams = ''
+    call = 'CSFML.{fname}({lparams})'.format(**locals())
+    if nfname == 'initialize':
+        obj(cls, '  @owned = true')
+        call = '@this = '+call
+    elif nfname == 'finalize':
+        call += ' if @owned'
+    elif nftype in classes:
+        call = 'self.wrap_ptr({})'.format(call)
+    obj(cls, '  '+call)
+    obj(cls, 'end')
 
 
 def handle_functiondef(main, params):
@@ -363,6 +427,7 @@ class Visitor(c_ast.NodeVisitor):
                 doc = re.sub(r'\\return ', r'Returns: ', doc)
                 doc = re.sub(r'\bsf([A-Z])', r'\1', doc)
                 doc = re.sub(r'\b([a-z][a-z0-9]*[A-Z][a-zA-Z0-9]+)\b', lambda m: rename_identifier(m.group(0)), doc)
+                doc = re.sub(r' +', ' ', doc)
             else:
                 global cmodule
                 cmodule = name.split('_')[1].lower()
@@ -396,7 +461,7 @@ def obj(cls, *args):
         lst = objs[cmodule][cls]
     except KeyError:
         objs[cmodule][cls] = lst = []
-    lst.extend(itertools.chain.from_iterable(a.splitlines() for a in args))
+    lst += itertools.chain.from_iterable(a.splitlines() for a in args)
 
 ast = parse_file('headers_gen.h')
 Visitor().visit(ast)
@@ -408,7 +473,15 @@ for mod, lines in libs.items():
         f.write('\nend')
 for mod, classes in objs.items():
     with open('{}.cr'.format(mod), 'w') as f:
-        f.write('require "./{}_lib"'.format(mod))
-        for lines in clss.values():
-            f.write('\n\n')
-            f.write('\n'.join(lines))
+        f.write('require "./{}_lib"\n\n'.format(mod))
+        f.write('module SF\n  extend self\n\n')
+        for cls, lines in classes.items():
+            if not cls:
+                continue
+            f.write('\n'.join('    '+l for l in lines)[2:])
+            if lines[-1] != ' ':
+                f.write('\n  end\n')
+            f.write('\n')
+        if '' in classes:
+            f.write('\n'.join('  '+l for l in classes['']))
+        f.write('\nend')

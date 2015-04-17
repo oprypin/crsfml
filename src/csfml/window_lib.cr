@@ -41,18 +41,18 @@ lib CSFML
     # 
     # Returns: New Context object
   
-  fun context_destroy = sfContext_destroy(context: Context): Void
+  fun context_destroy = sfContext_destroy(context: Context)
     # Destroy a context
     # 
     # Arguments:
-    # - context:  Context to destroy
+    # - context: Context to destroy
   
-  fun context_set_active = sfContext_setActive(context: Context, active: Int32): Void
+  fun context_set_active = sfContext_setActive(context: Context, active: Int32)
     # Activate or deactivate explicitely a context
     # 
     # Arguments:
-    # - context:  Context object
-    # - active:   True to activate, False to deactivate
+    # - context: Context object
+    # - active: True to activate, False to deactivate
   
   struct JoystickIdentification
     name: UInt8*
@@ -63,7 +63,7 @@ lib CSFML
   JoystickCount = 8
   JoystickButtonCount = 32
   JoystickAxisCount = 8
-  enum JoystickAxis
+  enum JoystickAxis: UInt32
     # Axes supported by SFML joysticks
     X, Y, Z, R, U, V, PovX, PovY
   end
@@ -72,7 +72,7 @@ lib CSFML
     # Check if a joystick is connected
     # 
     # Arguments:
-    # - joystick:  Index of the joystick to check
+    # - joystick: Index of the joystick to check
     # 
     # Returns: True if the joystick is connected, False otherwise
   
@@ -82,7 +82,7 @@ lib CSFML
     # If the joystick is not connected, this function returns 0.
     # 
     # Arguments:
-    # - joystick:  Index of the joystick
+    # - joystick: Index of the joystick
     # 
     # Returns: Number of buttons supported by the joystick
   
@@ -92,8 +92,8 @@ lib CSFML
     # If the joystick is not connected, this function returns false.
     # 
     # Arguments:
-    # - joystick:  Index of the joystick
-    # - axis:      Axis to check
+    # - joystick: Index of the joystick
+    # - axis: Axis to check
     # 
     # Returns: True if the joystick supports the axis, False otherwise
   
@@ -103,8 +103,8 @@ lib CSFML
     # If the joystick is not connected, this function returns false.
     # 
     # Arguments:
-    # - joystick:  Index of the joystick
-    # - button:    Button to check
+    # - joystick: Index of the joystick
+    # - button: Button to check
     # 
     # Returns: True if the button is pressed, False otherwise
   
@@ -114,8 +114,8 @@ lib CSFML
     # If the joystick is not connected, this function returns 0.
     # 
     # Arguments:
-    # - joystick:  Index of the joystick
-    # - axis:      Axis to check
+    # - joystick: Index of the joystick
+    # - axis: Axis to check
     # 
     # Returns: Current position of the axis, in range [-100 .. 100]
   
@@ -126,11 +126,11 @@ lib CSFML
     # the next time the function is called.
     # 
     # Arguments:
-    # - joystick:  Index of the joystick
+    # - joystick: Index of the joystick
     # 
     # Returns: Structure containing joystick information.
   
-  fun joystick_update = sfJoystick_update(): Void
+  fun joystick_update = sfJoystick_update()
     # Update the states of all joysticks
     # 
     # This function is used internally by SFML, so you normally
@@ -138,7 +138,7 @@ lib CSFML
     # call it if you have no window yet (or no window at all):
     # in this case the joysticks states are not updated automatically.
   
-  enum KeyCode
+  enum KeyCode: UInt32
     # Key codes
     Unknown = -1, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U,
     V, W, X, Y, Z, Num0, Num1, Num2, Num3, Num4, Num5, Num6, Num7, Num8, Num9,
@@ -155,11 +155,11 @@ lib CSFML
     # Check if a key is pressed
     # 
     # Arguments:
-    # - key:  Key to check
+    # - key: Key to check
     # 
     # Returns: True if the key is pressed, False otherwise
   
-  enum MouseButton
+  enum MouseButton: UInt32
     # Mouse buttons
     Left, Right, Middle, XButton1, XButton2, Count
   end
@@ -168,7 +168,7 @@ lib CSFML
     # Check if a mouse button is pressed
     # 
     # Arguments:
-    # - button:  Button to check
+    # - button: Button to check
     # 
     # Returns: True if the button is pressed, False otherwise
   
@@ -179,21 +179,21 @@ lib CSFML
     # cursor relative to the given window, or desktop if NULL is passed.
     # 
     # Arguments:
-    # - relative_to:  Reference window
+    # - relative_to: Reference window
     # 
     # Returns: Position of the mouse cursor, relative to the given window
   
-  fun mouse_set_position = sfMouse_setPosition(position: Vector2i, relative_to: Window): Void
+  fun mouse_set_position = sfMouse_setPosition(position: Vector2i, relative_to: Window)
     # Set the current position of the mouse
     # 
     # This function sets the current position of the mouse
     # cursor relative to the given window, or desktop if NULL is passed.
     # 
     # Arguments:
-    # - position:    New position of the mouse
-    # - relative_to:  Reference window
+    # - position: New position of the mouse
+    # - relative_to: Reference window
   
-  enum SensorType
+  enum SensorType: UInt32
     # Sensor Types
     Accelerometer, Gyroscope, Magnetometer, Gravity, UserAcceleration,
     Orientation, Count
@@ -203,11 +203,11 @@ lib CSFML
     # Check if a sensor is available on the underlying platform
     # 
     # Arguments:
-    # - sensor:  Sensor to check
+    # - sensor: Sensor to check
     # 
     # Returns: True if the sensor is available, False otherwise
   
-  fun sensor_set_enabled = sfSensor_setEnabled(sensor: SensorType, enabled: Int32): Void
+  fun sensor_set_enabled = sfSensor_setEnabled(sensor: SensorType, enabled: Int32)
     # Enable or disable a sensor
     # 
     # All sensors are disabled by default, to avoid consuming too
@@ -217,18 +217,18 @@ lib CSFML
     # This function does nothing if the sensor is unavailable.
     # 
     # Arguments:
-    # - sensor:  Sensor to enable
-    # - enabled:  True to enable, False to disable
+    # - sensor: Sensor to enable
+    # - enabled: True to enable, False to disable
   
   fun sensor_get_value = sfSensor_getValue(sensor: SensorType): Vector3f
     # Get the current sensor value
     # 
     # Arguments:
-    # - sensor:  Sensor to read
+    # - sensor: Sensor to read
     # 
     # Returns: The current sensor value
   
-  enum EventType
+  enum EventType: UInt32
     # Definition of all the event types
     Closed, Resized, LostFocus, GainedFocus, TextEntered, KeyPressed,
     KeyReleased, MouseWheelMoved, MouseButtonPressed, MouseButtonReleased,
@@ -353,7 +353,7 @@ lib CSFML
     # width, height and bits-per-pixel).
     # 
     # Arguments:
-    # - count:  Pointer to a variable that will be filled with the number of modes in the array
+    # - count: Pointer to a variable that will be filled with the number of modes in the array
     # 
     # Returns: Pointer to an array containing all the supported fullscreen modes
   
@@ -365,11 +365,11 @@ lib CSFML
     # with no restriction.
     # 
     # Arguments:
-    # - mode:  Video mode
+    # - mode: Video mode
     # 
     # Returns: True if the video mode is valid for fullscreen mode
   
-  enum WindowStyle
+  enum WindowStyle: UInt32
     # Enumeration of window creation styles
     None = 0, Titlebar = 1, Resize = 2, Close = 4, Default = 7, Fullscreen = 8
   end
@@ -383,7 +383,7 @@ lib CSFML
     minor_version: Int32
   end
   
-  fun window_create = sfWindow_create(mode: VideoMode, title: UInt8*, style: BitMaskU32, settings: ContextSettings*): Window
+  fun window_create = sfWindow_create(mode: VideoMode, title: UInt8*, style: WindowStyle, settings: ContextSettings*): Window
     # Construct a new window
     # 
     # This function creates the window with the size and pixel
@@ -397,14 +397,14 @@ lib CSFML
     # depth-buffer bits, etc.
     # 
     # Arguments:
-    # - mode:      Video mode to use (defines the width, height and depth of the rendering area of the window)
-    # - title:     Title of the window
-    # - style:     Window style
-    # - settings:  Additional settings for the underlying OpenGL context
+    # - mode: Video mode to use (defines the width, height and depth of the rendering area of the window)
+    # - title: Title of the window
+    # - style: Window style
+    # - settings: Additional settings for the underlying OpenGL context
     # 
     # Returns: A new Window object
   
-  fun window_create_unicode = sfWindow_createUnicode(mode: VideoMode, title: Char*, style: BitMaskU32, settings: ContextSettings*): Window
+  fun window_create_unicode = sfWindow_createUnicode(mode: VideoMode, title: Char*, style: WindowStyle, settings: ContextSettings*): Window
     # Construct a new window (with a UTF-32 title)
     # 
     # This function creates the window with the size and pixel
@@ -418,10 +418,10 @@ lib CSFML
     # depth-buffer bits, etc.
     # 
     # Arguments:
-    # - mode:      Video mode to use (defines the width, height and depth of the rendering area of the window)
-    # - title:     Title of the window (UTF-32)
-    # - style:     Window style
-    # - settings:  Additional settings for the underlying OpenGL context
+    # - mode: Video mode to use (defines the width, height and depth of the rendering area of the window)
+    # - title: Title of the window (UTF-32)
+    # - style: Window style
+    # - settings: Additional settings for the underlying OpenGL context
     # 
     # Returns: A new Window object
   
@@ -436,18 +436,18 @@ lib CSFML
     # depth-buffer bits, etc.
     # 
     # Arguments:
-    # - handle:    Platform-specific handle of the control
-    # - settings:  Additional settings for the underlying OpenGL context
+    # - handle: Platform-specific handle of the control
+    # - settings: Additional settings for the underlying OpenGL context
     # 
     # Returns: A new Window object
   
-  fun window_destroy = sfWindow_destroy(window: Window): Void
+  fun window_destroy = sfWindow_destroy(window: Window)
     # Destroy a window
     # 
     # Arguments:
-    # - window:  Window to destroy
+    # - window: Window to destroy
   
-  fun window_close = sfWindow_close(window: Window): Void
+  fun window_close = sfWindow_close(window: Window)
     # Close a window and destroy all the attached resources
     # 
     # After calling this function, the Window object remains
@@ -457,7 +457,7 @@ lib CSFML
     # every time), and will have no effect on closed windows.
     # 
     # Arguments:
-    # - window:  Window object
+    # - window: Window object
   
   fun window_is_open = sfWindow_isOpen(window: Window): Int32
     # Tell whether or not a window is opened
@@ -467,7 +467,7 @@ lib CSFML
     # True.
     # 
     # Arguments:
-    # - window:  Window object
+    # - window: Window object
     # 
     # Returns: True if the window is opened, False if it has been closed
   
@@ -480,7 +480,7 @@ lib CSFML
     # SFML chose the closest match.
     # 
     # Arguments:
-    # - window:  Window object
+    # - window: Window object
     # 
     # Returns: Structure containing the OpenGL context settings
   
@@ -494,8 +494,8 @@ lib CSFML
     # to make sure that you process every pending event.
     # 
     # Arguments:
-    # - window:  Window object
-    # - event:   Event to be returned
+    # - window: Window object
+    # - event: Event to be returned
     # 
     # Returns: True if an event was returned, or False if the event queue was empty
   
@@ -511,8 +511,8 @@ lib CSFML
     # sleep as long as no new event is received.
     # 
     # Arguments:
-    # - window:  Window object
-    # - event:   Event to be returned
+    # - window: Window object
+    # - event: Event to be returned
     # 
     # Returns: False if any error occured
   
@@ -520,11 +520,11 @@ lib CSFML
     # Get the position of a window
     # 
     # Arguments:
-    # - window:  Window object
+    # - window: Window object
     # 
     # Returns: Position in pixels
   
-  fun window_set_position = sfWindow_setPosition(window: Window, position: Vector2i): Void
+  fun window_set_position = sfWindow_setPosition(window: Window, position: Vector2i)
     # Change the position of a window on screen
     # 
     # This function only works for top-level windows
@@ -532,8 +532,8 @@ lib CSFML
     # the handle of a child window/control).
     # 
     # Arguments:
-    # - window:    Window object
-    # - position:  New position of the window, in pixels
+    # - window: Window object
+    # - position: New position of the window, in pixels
   
   fun window_get_size = sfWindow_getSize(window: Window): Vector2i
     # Get the size of the rendering region of a window
@@ -542,58 +542,58 @@ lib CSFML
     # of the window.
     # 
     # Arguments:
-    # - window:  Window object
+    # - window: Window object
     # 
     # Returns: Size in pixels
   
-  fun window_set_size = sfWindow_setSize(window: Window, size: Vector2i): Void
+  fun window_set_size = sfWindow_setSize(window: Window, size: Vector2i)
     # Change the size of the rendering region of a window
     # 
     # Arguments:
-    # - window:  Window object
-    # - size:    New size, in pixels
+    # - window: Window object
+    # - size: New size, in pixels
   
-  fun window_set_title = sfWindow_setTitle(window: Window, title: UInt8*): Void
+  fun window_set_title = sfWindow_setTitle(window: Window, title: UInt8*)
     # Change the title of a window
     # 
     # Arguments:
-    # - window:  Window object
-    # - title:   New title
+    # - window: Window object
+    # - title: New title
   
-  fun window_set_unicode_title = sfWindow_setUnicodeTitle(window: Window, title: Char*): Void
+  fun window_set_unicode_title = sfWindow_setUnicodeTitle(window: Window, title: Char*)
     # Change the title of a window (with a UTF-32 string)
     # 
     # Arguments:
-    # - window:  Window object
-    # - title:   New title
+    # - window: Window object
+    # - title: New title
   
-  fun window_set_icon = sfWindow_setIcon(window: Window, width: Int32, height: Int32, pixels: UInt8*): Void
+  fun window_set_icon = sfWindow_setIcon(window: Window, width: Int32, height: Int32, pixels: UInt8*)
     # Change a window's icon
     # 
     # `pixels` must be an array of `width` x `height` pixels
     # in 32-bits RGBA format.
     # 
     # Arguments:
-    # - window:  Window object
-    # - width:   Icon's width, in pixels
-    # - height:  Icon's height, in pixels
-    # - pixels:  Pointer to the array of pixels in memory
+    # - window: Window object
+    # - width: Icon's width, in pixels
+    # - height: Icon's height, in pixels
+    # - pixels: Pointer to the array of pixels in memory
   
-  fun window_set_visible = sfWindow_setVisible(window: Window, visible: Int32): Void
+  fun window_set_visible = sfWindow_setVisible(window: Window, visible: Int32)
     # Show or hide a window
     # 
     # Arguments:
-    # - window:   Window object
-    # - visible:  True to show the window, False to hide it
+    # - window: Window object
+    # - visible: True to show the window, False to hide it
   
-  fun window_set_mouse_cursor_visible = sfWindow_setMouseCursorVisible(window: Window, visible: Int32): Void
+  fun window_set_mouse_cursor_visible = sfWindow_setMouseCursorVisible(window: Window, visible: Int32)
     # Show or hide the mouse cursor
     # 
     # Arguments:
-    # - window:   Window object
-    # - visible:  True to show, False to hide
+    # - window: Window object
+    # - visible: True to show, False to hide
   
-  fun window_set_vertical_sync_enabled = sfWindow_setVerticalSyncEnabled(window: Window, enabled: Int32): Void
+  fun window_set_vertical_sync_enabled = sfWindow_setVerticalSyncEnabled(window: Window, enabled: Int32)
     # Enable or disable vertical synchronization
     # 
     # Activating vertical synchronization will limit the number
@@ -602,10 +602,10 @@ lib CSFML
     # to a good value (but not constant across different computers).
     # 
     # Arguments:
-    # - window:   Window object
-    # - enabled:  True to enable v-sync, False to deactivate
+    # - window: Window object
+    # - enabled: True to enable v-sync, False to deactivate
   
-  fun window_set_key_repeat_enabled = sfWindow_setKeyRepeatEnabled(window: Window, enabled: Int32): Void
+  fun window_set_key_repeat_enabled = sfWindow_setKeyRepeatEnabled(window: Window, enabled: Int32)
     # Enable or disable automatic key-repeat
     # 
     # If key repeat is enabled, you will receive repeated
@@ -615,8 +615,8 @@ lib CSFML
     # Key repeat is enabled by default.
     # 
     # Arguments:
-    # - window:   Window object
-    # - enabled:  True to enable, False to disable
+    # - window: Window object
+    # - enabled: True to enable, False to disable
   
   fun window_set_active = sfWindow_setActive(window: Window, active: Int32): Int32
     # Activate or deactivate a window as the current target
@@ -630,12 +630,12 @@ lib CSFML
     # This is not to be confused with Window_requestFocus().
     # 
     # Arguments:
-    # - window:  Window object
-    # - active:  True to activate, False to deactivate
+    # - window: Window object
+    # - active: True to activate, False to deactivate
     # 
     # Returns: True if operation was successful, False otherwise
   
-  fun window_request_focus = sfWindow_requestFocus(window: Window): Void
+  fun window_request_focus = sfWindow_requestFocus(window: Window)
     # Request the current window to be made the active
     # foreground window
     # 
@@ -655,7 +655,7 @@ lib CSFML
     # 
     # Returns: True if window has focus, false otherwise
   
-  fun window_display = sfWindow_display(window: Window): Void
+  fun window_display = sfWindow_display(window: Window)
     # Display on screen what has been rendered to the
     # window so far
     # 
@@ -664,9 +664,9 @@ lib CSFML
     # it on screen.
     # 
     # Arguments:
-    # - window:  Window object
+    # - window: Window object
   
-  fun window_set_framerate_limit = sfWindow_setFramerateLimit(window: Window, limit: Int32): Void
+  fun window_set_framerate_limit = sfWindow_setFramerateLimit(window: Window, limit: Int32)
     # Limit the framerate to a maximum fixed frequency
     # 
     # If a limit is set, the window will use a small delay after
@@ -674,18 +674,18 @@ lib CSFML
     # lasted long enough to match the framerate limit.
     # 
     # Arguments:
-    # - window:  Window object
-    # - limit:   Framerate limit, in frames per seconds (use 0 to disable limit)
+    # - window: Window object
+    # - limit: Framerate limit, in frames per seconds (use 0 to disable limit)
   
-  fun window_set_joystick_threshold = sfWindow_setJoystickThreshold(window: Window, threshold: Float32): Void
+  fun window_set_joystick_threshold = sfWindow_setJoystickThreshold(window: Window, threshold: Float32)
     # Change the joystick threshold
     # 
     # The joystick threshold is the value below which
     # no JoyMoved event will be generated.
     # 
     # Arguments:
-    # - window:     Window object
-    # - threshold:  New threshold, in the range [0, 100]
+    # - window: Window object
+    # - threshold: New threshold, in the range [0, 100]
   
   fun window_get_system_handle = sfWindow_getSystemHandle(window: Window): WindowHandle
     # Get the OS-specific handle of the window
@@ -697,7 +697,7 @@ lib CSFML
     # or implement a temporary workaround until a bug is fixed.
     # 
     # Arguments:
-    # - window:  Window object
+    # - window: Window object
     # 
     # Returns: System handle of the window
   
