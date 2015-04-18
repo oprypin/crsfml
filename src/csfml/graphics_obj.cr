@@ -5337,8 +5337,8 @@ end
   # * `relative_to`: Reference window
   # 
   # *Returns*: Position of the mouse cursor, relative to the given render window
-  def mouse_get_position()
-    CSFML.mouse_get_position_render_window(@this)
+  def mouse_get_position(relative_to: RenderWindow)
+    CSFML.mouse_get_position_render_window(relative_to)
   end
   
   # Set the current position of the mouse relative to a render window

@@ -20,6 +20,25 @@
 
 module SF
   extend self
+
+  class RenderWindow
+    def events
+      event = SF::Event.new()
+      while poll_event(pointerof(event))
+        yield event
+      end
+    end
+  end
+  
+  def float_rect_intersects(rect1: FloatRect, rect2: FloatRect)
+    intersection = SF::FloatRect.new()
+    float_rect_intersects(rect1, rect2, pointerof(intersection)) ? intersection : nil
+  end
+  
+  def int_rect_intersects(rect1: IntRect, rect2: IntRect)
+    intersection = SF::IntRect.new()
+    int_rect_intersects(rect1, rect2, pointerof(intersection)) ? intersection : nil
+  end
 end
 
 require "./graphics_obj"

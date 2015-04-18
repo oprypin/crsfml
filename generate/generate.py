@@ -270,7 +270,7 @@ def handle_function(main, params):
     if not public:
         return
     
-    if nfname == 'initialize' or (aparams and aparams[0][1] not in classes):
+    if nfname == 'initialize' or (aparams and (aparams[0][1] not in classes or not ofname.startswith(aparams[0][1], 2))):
         cut = False
         oparams = aparams[:]
     else:

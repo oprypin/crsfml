@@ -631,8 +631,8 @@ end
   # * `relative_to`: Reference window
   # 
   # *Returns*: Position of the mouse cursor, relative to the given window
-  def mouse_get_position()
-    CSFML.mouse_get_position(@this)
+  def mouse_get_position(relative_to: Window)
+    CSFML.mouse_get_position(relative_to)
   end
   
   # Set the current position of the mouse
