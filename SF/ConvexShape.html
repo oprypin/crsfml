@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link href="../css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+
+  <h1>class SF::ConvexShape</h1>
+
+
+
+
+
+
+
+  <h2>Superclass hierarchy</h2>
+  <div style="padding-left: 0px">Object</div><div style="padding-left: 20px">Reference</div><div style="padding-left: 40px"><a href="../SF/ConvexShape.html">SF::ConvexShape</a></div>
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr">csfml/graphics_obj.cr</a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>Class Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#wrap_ptr%28p%29-class-method" class="signature"><strong>.wrap_ptr</strong>(p)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new-class-method" class="signature"><strong>.new</strong></a>
+        
+          <div class="summary"><p>Create a new convex shape</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#copy-instance-method" class="signature"><strong>#copy</strong></a>
+        
+          <div class="summary"><p>Copy an existing convex shape</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#fill_color-instance-method" class="signature"><strong>#fill_color</strong></a>
+        
+          <div class="summary"><p>Get the fill color of a convex shape</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#fill_color%3D%28color%20%3A%20Color%29-instance-method" class="signature"><strong>#fill_color=</strong>(color : Color)</a>
+        
+          <div class="summary"><p>Set the fill color of a convex shape</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#finalize-instance-method" class="signature"><strong>#finalize</strong></a>
+        
+          <div class="summary"><p>Destroy an existing convex Shape</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_point%28index%20%3A%20Int32%29-instance-method" class="signature"><strong>#get_point</strong>(index : Int32)</a>
+        
+          <div class="summary"><p>Get a point of a convex shape</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#global_bounds-instance-method" class="signature"><strong>#global_bounds</strong></a>
+        
+          <div class="summary"><p>Get the global bounding rectangle of a convex shape</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#inverse_transform-instance-method" class="signature"><strong>#inverse_transform</strong></a>
+        
+          <div class="summary"><p>Get the inverse of the combined transform of a convex shape</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#local_bounds-instance-method" class="signature"><strong>#local_bounds</strong></a>
+        
+          <div class="summary"><p>Get the local bounding rectangle of a convex shape</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#move%28offset%20%3A%20Vector2f%29-instance-method" class="signature"><strong>#move</strong>(offset : Vector2f)</a>
+        
+          <div class="summary"><p>Move a convex shape by a given offset</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#origin-instance-method" class="signature"><strong>#origin</strong></a>
+        
+          <div class="summary"><p>Get the local origin of a convex shape</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#origin%3D%28origin%20%3A%20Vector2f%29-instance-method" class="signature"><strong>#origin=</strong>(origin : Vector2f)</a>
+        
+          <div class="summary"><p>Set the local origin of a convex shape</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#outline_color-instance-method" class="signature"><strong>#outline_color</strong></a>
+        
+          <div class="summary"><p>Get the outline color of a convex shape</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#outline_color%3D%28color%20%3A%20Color%29-instance-method" class="signature"><strong>#outline_color=</strong>(color : Color)</a>
+        
+          <div class="summary"><p>Set the outline color of a convex shape</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#outline_thickness-instance-method" class="signature"><strong>#outline_thickness</strong></a>
+        
+          <div class="summary"><p>Get the outline thickness of a convex shape</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#outline_thickness%3D%28thickness%29-instance-method" class="signature"><strong>#outline_thickness=</strong>(thickness)</a>
+        
+          <div class="summary"><p>Set the thickness of a convex shape's outline</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#point_count-instance-method" class="signature"><strong>#point_count</strong></a>
+        
+          <div class="summary"><p>Get the total number of points of a convex shape</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#point_count%3D%28count%20%3A%20Int32%29-instance-method" class="signature"><strong>#point_count=</strong>(count : Int32)</a>
+        
+          <div class="summary"><p>Set the number of points of a convex shap</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#position-instance-method" class="signature"><strong>#position</strong></a>
+        
+          <div class="summary"><p>Get the position of a convex shape</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#position%3D%28position%20%3A%20Vector2f%29-instance-method" class="signature"><strong>#position=</strong>(position : Vector2f)</a>
+        
+          <div class="summary"><p>Set the position of a convex shape</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#rotate%28angle%29-instance-method" class="signature"><strong>#rotate</strong>(angle)</a>
+        
+          <div class="summary"><p>Rotate a convex shape</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#rotation-instance-method" class="signature"><strong>#rotation</strong></a>
+        
+          <div class="summary"><p>Get the orientation of a convex shape</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#rotation%3D%28angle%29-instance-method" class="signature"><strong>#rotation=</strong>(angle)</a>
+        
+          <div class="summary"><p>Set the orientation of a convex shape</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#scale%28factors%20%3A%20Vector2f%29-instance-method" class="signature"><strong>#scale</strong>(factors : Vector2f)</a>
+        
+          <div class="summary"><p>Scale a convex shape</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#scale-instance-method" class="signature"><strong>#scale</strong></a>
+        
+          <div class="summary"><p>Get the current scale of a convex shape</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#scale%3D%28scale%20%3A%20Vector2f%29-instance-method" class="signature"><strong>#scale=</strong>(scale : Vector2f)</a>
+        
+          <div class="summary"><p>Set the scale factors of a convex shape</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#set_point%28index%20%3A%20Int32%2C%20point%20%3A%20Vector2f%29-instance-method" class="signature"><strong>#set_point</strong>(index : Int32, point : Vector2f)</a>
+        
+          <div class="summary"><p>Set the position of a point in a convex shape</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#set_texture%28texture%20%3A%20Texture%2C%20reset_rect%20%3A%20Bool%29-instance-method" class="signature"><strong>#set_texture</strong>(texture : Texture, reset_rect : Bool)</a>
+        
+          <div class="summary"><p>Change the source texture of a convex shape</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#texture-instance-method" class="signature"><strong>#texture</strong></a>
+        
+          <div class="summary"><p>Get the source texture of a convex shape</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#texture_rect-instance-method" class="signature"><strong>#texture_rect</strong></a>
+        
+          <div class="summary"><p>Get the sub-rectangle of the texture displayed by a convex shape</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#texture_rect%3D%28rect%20%3A%20IntRect%29-instance-method" class="signature"><strong>#texture_rect=</strong>(rect : IntRect)</a>
+        
+          <div class="summary"><p>Set the sub-rectangle of the texture that a convex shape will display</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#transform-instance-method" class="signature"><strong>#transform</strong></a>
+        
+          <div class="summary"><p>Get the combined transform of a convex shape</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+
+  <h2>Class Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="wrap_ptr%28p%29-class-method">
+        
+        def self.<strong>wrap_ptr</strong>(p)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L463" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new-class-method">
+        
+        def self.<strong>new</strong>
+      </div>
+      
+        <div class="doc"><p>Create a new convex shape</p>
+
+<p><em>Returns</em>: A new ConvexShape object, or NULL if it failed</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L475" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="copy-instance-method">
+        
+        def <strong>copy</strong>
+      </div>
+      
+        <div class="doc"><p>Copy an existing convex shape</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shape</code>: Shape to copy</li></ul>
+
+<p><em>Returns</em>: Copied object</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L487" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="fill_color-instance-method">
+        
+        def <strong>fill_color</strong>
+      </div>
+      
+        <div class="doc"><p>Get the fill color of a convex shape</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shape</code>: Shape object</li></ul>
+
+<p><em>Returns</em>: Fill color of the shape</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L783" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="fill_color%3D%28color%20%3A%20Color%29-instance-method">
+        
+        def <strong>fill_color=</strong>(color : <a href="../SF/Color.html">Color</a>)
+      </div>
+      
+        <div class="doc"><p>Set the fill color of a convex shape</p>
+
+<p>This color is modulated (multiplied) with the shape's
+texture if any. It can be used to colorize the shape,
+or change its global opacity.
+You can use Transparent to make the inside of
+the shape transparent, and have the outline alone.
+By default, the shape's fill color is opaque white.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shape</code>: Shape object</li><li><code>color</code>: New color of the shape</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L718" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="finalize-instance-method">
+        
+        def <strong>finalize</strong>
+      </div>
+      
+        <div class="doc"><p>Destroy an existing convex Shape</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code><a href="../SF/Shape.html">Shape</a></code>: Shape to delete</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L496" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="get_point%28index%20%3A%20Int32%29-instance-method">
+        
+        def <strong>get_point</strong>(index : Int32)
+      </div>
+      
+        <div class="doc"><p>Get a point of a convex shape</p>
+
+<p>The result is undefined if <code>index</code> is out of the valid range.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shape</code>: Shape object</li><li><code>index</code>: Index of the point to get, in range [0 .. get_point_count() - 1]</li></ul>
+
+<p><em>Returns</em>: Index-th point of the shape</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L830" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="global_bounds-instance-method">
+        
+        def <strong>global_bounds</strong>
+      </div>
+      
+        <div class="doc"><p>Get the global bounding rectangle of a convex shape</p>
+
+<p>The returned rectangle is in global coordinates, which means
+that it takes in account the transformations (translation,
+rotation, scale, ...) that are applied to the entity.
+In other words, this function returns the bounds of the
+sprite in the global 2D world's coordinate system.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shape</code>: Shape object</li></ul>
+
+<p><em>Returns</em>: Global bounding rectangle of the entity</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L893" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="inverse_transform-instance-method">
+        
+        def <strong>inverse_transform</strong>
+      </div>
+      
+        <div class="doc"><p>Get the inverse of the combined transform of a convex shape</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shape</code>: shape object</li></ul>
+
+<p><em>Returns</em>: Inverse of the combined transformations applied to the object</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L664" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="local_bounds-instance-method">
+        
+        def <strong>local_bounds</strong>
+      </div>
+      
+        <div class="doc"><p>Get the local bounding rectangle of a convex shape</p>
+
+<p>The returned rectangle is in local coordinates, which means
+that it ignores the transformations (translation, rotation,
+scale, ...) that are applied to the entity.
+In other words, this function returns the bounds of the
+entity in the entity's coordinate system.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shape</code>: Shape object</li></ul>
+
+<p><em>Returns</em>: Local bounding rectangle of the entity</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L876" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="move%28offset%20%3A%20Vector2f%29-instance-method">
+        
+        def <strong>move</strong>(offset : <a href="../SF/Vector2f.html">Vector2f</a>)
+      </div>
+      
+        <div class="doc"><p>Move a convex shape by a given offset</p>
+
+<p>This function adds to the current position of the object,
+unlike ConvexShape_setPosition which overwrites it.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shape</code>: Shape object</li><li><code>offset</code>: Offset</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L615" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="origin-instance-method">
+        
+        def <strong>origin</strong>
+      </div>
+      
+        <div class="doc"><p>Get the local origin of a convex shape</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shape</code>: Shape object</li></ul>
+
+<p><em>Returns</em>: Current origin</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L602" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="origin%3D%28origin%20%3A%20Vector2f%29-instance-method">
+        
+        def <strong>origin=</strong>(origin : <a href="../SF/Vector2f.html">Vector2f</a>)
+      </div>
+      
+        <div class="doc"><p>Set the local origin of a convex shape</p>
+
+<p>The origin of an object defines the center point for
+all transformations (position, scale, rotation).
+The coordinates of this point must be relative to the
+top-left corner of the object, and ignore all
+transformations (position, scale, rotation).
+The default origin of a circle Shape object is (0, 0).</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shape</code>: Shape object</li><li><code><a href="../SF/ConvexShape.html#origin-instance-method">#origin</a></code>: New origin</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L556" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="outline_color-instance-method">
+        
+        def <strong>outline_color</strong>
+      </div>
+      
+        <div class="doc"><p>Get the outline color of a convex shape</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shape</code>: Shape object</li></ul>
+
+<p><em>Returns</em>: Outline color of the shape</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L794" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="outline_color%3D%28color%20%3A%20Color%29-instance-method">
+        
+        def <strong>outline_color=</strong>(color : <a href="../SF/Color.html">Color</a>)
+      </div>
+      
+        <div class="doc"><p>Set the outline color of a convex shape</p>
+
+<p>You can use Transparent to disable the outline.
+By default, the shape's outline color is opaque white.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shape</code>: Shape object</li><li><code>color</code>: New outline color of the shape</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L731" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="outline_thickness-instance-method">
+        
+        def <strong>outline_thickness</strong>
+      </div>
+      
+        <div class="doc"><p>Get the outline thickness of a convex shape</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shape</code>: Shape object</li></ul>
+
+<p><em>Returns</em>: Outline thickness of the shape</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L805" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="outline_thickness%3D%28thickness%29-instance-method">
+        
+        def <strong>outline_thickness=</strong>(thickness)
+      </div>
+      
+        <div class="doc"><p>Set the thickness of a convex shape's outline</p>
+
+<p>This number cannot be negative. Using zero disables
+the outline.
+By default, the outline thickness is 0.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shape</code>: Shape object</li><li><code>thickness</code>: New outline thickness</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L745" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="point_count-instance-method">
+        
+        def <strong>point_count</strong>
+      </div>
+      
+        <div class="doc"><p>Get the total number of points of a convex shape</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shape</code>: Shape object</li></ul>
+
+<p><em>Returns</em>: Number of points of the shape</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L816" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="point_count%3D%28count%20%3A%20Int32%29-instance-method">
+        
+        def <strong>point_count=</strong>(count : Int32)
+      </div>
+      
+        <div class="doc"><p>Set the number of points of a convex shap</p>
+
+<p><code>count</code> must be greater than 2 to define a valid shape.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shape</code>: Shape object</li><li><code>count</code>: New number of points of the shape</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L842" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="position-instance-method">
+        
+        def <strong>position</strong>
+      </div>
+      
+        <div class="doc"><p>Get the position of a convex shape</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shape</code>: Shape object</li></ul>
+
+<p><em>Returns</em>: Current position</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L567" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="position%3D%28position%20%3A%20Vector2f%29-instance-method">
+        
+        def <strong>position=</strong>(position : <a href="../SF/Vector2f.html">Vector2f</a>)
+      </div>
+      
+        <div class="doc"><p>Set the position of a convex shape</p>
+
+<p>This function completely overwrites the previous position.
+See ConvexShape_move to apply an offset based on the previous position instead.
+The default position of a circle Shape object is (0, 0).</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shape</code>: Shape object</li><li><code><a href="../SF/ConvexShape.html#position-instance-method">#position</a></code>: New position</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L510" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="rotate%28angle%29-instance-method">
+        
+        def <strong>rotate</strong>(angle)
+      </div>
+      
+        <div class="doc"><p>Rotate a convex shape</p>
+
+<p>This function adds to the current rotation of the object,
+unlike ConvexShape_setRotation which overwrites it.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shape</code>: Shape object</li><li><code>angle</code>: Angle of rotation, in degrees</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L628" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="rotation-instance-method">
+        
+        def <strong>rotation</strong>
+      </div>
+      
+        <div class="doc"><p>Get the orientation of a convex shape</p>
+
+<p>The rotation is always in the range [0, 360].</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shape</code>: Shape object</li></ul>
+
+<p><em>Returns</em>: Current rotation, in degrees</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L580" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="rotation%3D%28angle%29-instance-method">
+        
+        def <strong>rotation=</strong>(angle)
+      </div>
+      
+        <div class="doc"><p>Set the orientation of a convex shape</p>
+
+<p>This function completely overwrites the previous rotation.
+See ConvexShape_rotate to add an angle based on the previous rotation instead.
+The default rotation of a circle Shape object is 0.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shape</code>: Shape object</li><li><code>angle</code>: New rotation, in degrees</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L524" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="scale%28factors%20%3A%20Vector2f%29-instance-method">
+        
+        def <strong>scale</strong>(factors : <a href="../SF/Vector2f.html">Vector2f</a>)
+      </div>
+      
+        <div class="doc"><p>Scale a convex shape</p>
+
+<p>This function multiplies the current scale of the object,
+unlike ConvexShape_setScale which overwrites it.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shape</code>: Shape object</li><li><code>factors</code>: Scale factors</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L642" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="scale-instance-method">
+        
+        def <strong>scale</strong>
+      </div>
+      
+        <div class="doc"><p>Get the current scale of a convex shape</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shape</code>: Shape object</li></ul>
+
+<p><em>Returns</em>: Current scale factors</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L591" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="scale%3D%28scale%20%3A%20Vector2f%29-instance-method">
+        
+        def <strong>scale=</strong>(scale : <a href="../SF/Vector2f.html">Vector2f</a>)
+      </div>
+      
+        <div class="doc"><p>Set the scale factors of a convex shape</p>
+
+<p>This function completely overwrites the previous scale.
+See ConvexShape_scale to add a factor based on the previous scale instead.
+The default scale of a circle Shape object is (1, 1).</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shape</code>: Shape object</li><li><code><a href="../SF/ConvexShape.html#scale-instance-method">#scale</a></code>: New scale factors</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L539" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="set_point%28index%20%3A%20Int32%2C%20point%20%3A%20Vector2f%29-instance-method">
+        
+        def <strong>set_point</strong>(index : Int32, point : <a href="../SF/Vector2f.html">Vector2f</a>)
+      </div>
+      
+        <div class="doc"><p>Set the position of a point in a convex shape</p>
+
+<p>Don't forget that the polygon must remain convex, and
+the points need to stay ordered!
+set_point_count must be called first in order to set the total
+number of points. The result is undefined if <code>index</code> is out
+of the valid range.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shape</code>: Shape object</li><li><code>index</code>: Index of the point to change, in range [0 .. GetPointCount() - 1]</li><li><code>point</code>: New point</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L859" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="set_texture%28texture%20%3A%20Texture%2C%20reset_rect%20%3A%20Bool%29-instance-method">
+        
+        def <strong>set_texture</strong>(texture : <a href="../SF/Texture.html">Texture</a>, reset_rect : Bool)
+      </div>
+      
+        <div class="doc"><p>Change the source texture of a convex shape</p>
+
+<p>The <code><a href="../SF/ConvexShape.html#texture-instance-method">#texture</a></code> argument refers to a texture that must
+exist as long as the shape uses it. Indeed, the shape
+doesn't store its own copy of the texture, but rather keeps
+a pointer to the one that you passed to this function.
+If the source texture is destroyed and the shape tries to
+use it, the behaviour is undefined.
+<code><a href="../SF/ConvexShape.html#texture-instance-method">#texture</a></code> can be NULL to disable texturing.
+If <code>reset_rect</code> is true, the TextureRect property of
+the shape is automatically adjusted to the size of the new
+texture. If it is false, the texture rect is left unchanged.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shape</code>: Shape object</li><li><code><a href="../SF/ConvexShape.html#texture-instance-method">#texture</a></code>: New texture</li><li><code>reset_rect</code>: Should the texture rect be reset to the size of the new texture?</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L686" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="texture-instance-method">
+        
+        def <strong>texture</strong>
+      </div>
+      
+        <div class="doc"><p>Get the source texture of a convex shape</p>
+
+<p>If the shape has no source texture, a NULL pointer is returned.
+The returned pointer is const, which means that you can't
+modify the texture when you retrieve it with this function.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shape</code>: Shape object</li></ul>
+
+<p><em>Returns</em>: Pointer to the shape's texture</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L761" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="texture_rect-instance-method">
+        
+        def <strong>texture_rect</strong>
+      </div>
+      
+        <div class="doc"><p>Get the sub-rectangle of the texture displayed by a convex shape</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shape</code>: Shape object</li></ul>
+
+<p><em>Returns</em>: Texture rectangle of the shape</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L772" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="texture_rect%3D%28rect%20%3A%20IntRect%29-instance-method">
+        
+        def <strong>texture_rect=</strong>(rect : <a href="../SF/IntRect.html">IntRect</a>)
+      </div>
+      
+        <div class="doc"><p>Set the sub-rectangle of the texture that a convex shape will display</p>
+
+<p>The texture rect is useful when you don't want to display
+the whole texture, but rather a part of it.
+By default, the texture rect covers the entire texture.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shape</code>: Shape object</li><li><code>rect</code>: Rectangle defining the region of the texture to display</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L701" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="to_unsafe-instance-method">
+        
+        def <strong>to_unsafe</strong>
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L468" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="transform-instance-method">
+        
+        def <strong>transform</strong>
+      </div>
+      
+        <div class="doc"><p>Get the combined transform of a convex shape</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shape</code>: shape object</li></ul>
+
+<p><em>Returns</em>: Transform combining the position/rotation/scale/origin of the object</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L653" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+
+
+</body>
+</html>

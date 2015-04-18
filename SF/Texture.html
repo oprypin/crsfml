@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link href="../css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+
+  <h1>class SF::Texture</h1>
+
+
+
+
+
+
+
+  <h2>Superclass hierarchy</h2>
+  <div style="padding-left: 0px">Object</div><div style="padding-left: 20px">Reference</div><div style="padding-left: 40px"><a href="../SF/Texture.html">SF::Texture</a></div>
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr">csfml/graphics_obj.cr</a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>Class Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#wrap_ptr%28p%29-class-method" class="signature"><strong>.wrap_ptr</strong>(p)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size_in_bytes%20%3A%20Size_t%2C%20area%29-class-method" class="signature"><strong>.new</strong>(data : ::Pointer(Void), size_in_bytes : Size_t, area)</a>
+        
+          <div class="summary"><p>Create a new texture from a file in memory</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28width%20%3A%20Int32%2C%20height%20%3A%20Int32%29-class-method" class="signature"><strong>.new</strong>(width : Int32, height : Int32)</a>
+        
+          <div class="summary"><p>Create a new texture</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28filename%20%3A%20String%2C%20area%29-class-method" class="signature"><strong>.new</strong>(filename : String, area)</a>
+        
+          <div class="summary"><p>Create a new texture from a file</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28stream%20%3A%20%3A%3APointer%28InputStream%29%2C%20area%29-class-method" class="signature"><strong>.new</strong>(stream : ::Pointer(InputStream), area)</a>
+        
+          <div class="summary"><p>Create a new texture from a custom stream</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28image%20%3A%20Image%2C%20area%29-class-method" class="signature"><strong>.new</strong>(image : Image, area)</a>
+        
+          <div class="summary"><p>Create a new texture from an image</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#bind-instance-method" class="signature"><strong>#bind</strong></a>
+        
+          <div class="summary"><p>Bind a texture for rendering</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#copy-instance-method" class="signature"><strong>#copy</strong></a>
+        
+          <div class="summary"><p>Copy an existing texture</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#copy_to_image-instance-method" class="signature"><strong>#copy_to_image</strong></a>
+        
+          <div class="summary"><p>Copy a texture's pixels to an image</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#finalize-instance-method" class="signature"><strong>#finalize</strong></a>
+        
+          <div class="summary"><p>Destroy an existing texture</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#repeated-instance-method" class="signature"><strong>#repeated</strong></a>
+        
+          <div class="summary"><p>Tell whether a texture is repeated or not</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#repeated%3D%28repeated%20%3A%20Bool%29-instance-method" class="signature"><strong>#repeated=</strong>(repeated : Bool)</a>
+        
+          <div class="summary"><p>Enable or disable repeating for a texture</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#size-instance-method" class="signature"><strong>#size</strong></a>
+        
+          <div class="summary"><p>Return the size of the texture</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#smooth-instance-method" class="signature"><strong>#smooth</strong></a>
+        
+          <div class="summary"><p>Tell whether the smooth filter is enabled or not for a texture</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#smooth%3D%28smooth%20%3A%20Bool%29-instance-method" class="signature"><strong>#smooth=</strong>(smooth : Bool)</a>
+        
+          <div class="summary"><p>Enable or disable the smooth filter on a texture</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#update%28image%20%3A%20Image%2C%20x%20%3A%20Int32%2C%20y%20%3A%20Int32%29-instance-method" class="signature"><strong>#update</strong>(image : Image, x : Int32, y : Int32)</a>
+        
+          <div class="summary"><p>Update a texture from an image</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#update%28pixels%2C%20width%20%3A%20Int32%2C%20height%20%3A%20Int32%2C%20x%20%3A%20Int32%2C%20y%20%3A%20Int32%29-instance-method" class="signature"><strong>#update</strong>(pixels, width : Int32, height : Int32, x : Int32, y : Int32)</a>
+        
+          <div class="summary"><p>Update a texture from an array of pixels</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#update%28window%20%3A%20Window%2C%20x%20%3A%20Int32%2C%20y%20%3A%20Int32%29-instance-method" class="signature"><strong>#update</strong>(window : Window, x : Int32, y : Int32)</a>
+        
+          <div class="summary"><p>Update a texture from the contents of a window</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#update%28render_window%20%3A%20RenderWindow%2C%20x%20%3A%20Int32%2C%20y%20%3A%20Int32%29-instance-method" class="signature"><strong>#update</strong>(render_window : RenderWindow, x : Int32, y : Int32)</a>
+        
+          <div class="summary"><p>Update a texture from the contents of a render-window</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+
+  <h2>Class Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="wrap_ptr%28p%29-class-method">
+        
+        def self.<strong>wrap_ptr</strong>(p)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4164" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size_in_bytes%20%3A%20Size_t%2C%20area%29-class-method">
+        
+        def self.<strong>new</strong>(data : ::Pointer(Void), size_in_bytes : Size_t, area)
+      </div>
+      
+        <div class="doc"><p>Create a new texture from a file in memory</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>data</code>: Pointer to the file data in memory</li><li><code>size_in_bytes</code>: Size of the data to load, in bytes</li><li><code>area</code>: Area of the source image to load (NULL to load the entire image)</li></ul>
+
+<p><em>Returns</em>: A new Texture object, or NULL if it failed</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4213" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28width%20%3A%20Int32%2C%20height%20%3A%20Int32%29-class-method">
+        
+        def self.<strong>new</strong>(width : Int32, height : Int32)
+      </div>
+      
+        <div class="doc"><p>Create a new texture</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>width</code>: Texture width</li><li><code>height</code>: Texture height</li></ul>
+
+<p><em>Returns</em>: A new Texture object, or NULL if it failed</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4181" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28filename%20%3A%20String%2C%20area%29-class-method">
+        
+        def self.<strong>new</strong>(filename : String, area)
+      </div>
+      
+        <div class="doc"><p>Create a new texture from a file</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>filename</code>: Path of the image file to load</li><li><code>area</code>: Area of the source image to load (NULL to load the entire image)</li></ul>
+
+<p><em>Returns</em>: A new Texture object, or NULL if it failed</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4194" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28stream%20%3A%20%3A%3APointer%28InputStream%29%2C%20area%29-class-method">
+        
+        def self.<strong>new</strong>(stream : ::Pointer(<a href="../SF/InputStream.html">InputStream</a>), area)
+      </div>
+      
+        <div class="doc"><p>Create a new texture from a custom stream</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>stream</code>: Source stream to read from</li><li><code>area</code>: Area of the source image to load (NULL to load the entire image)</li></ul>
+
+<p><em>Returns</em>: A new Texture object, or NULL if it failed</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4231" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28image%20%3A%20Image%2C%20area%29-class-method">
+        
+        def self.<strong>new</strong>(image : <a href="../SF/Image.html">Image</a>, area)
+      </div>
+      
+        <div class="doc"><p>Create a new texture from an image</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>image</code>: Image to upload to the texture</li><li><code>area</code>: Area of the source image to load (NULL to load the entire image)</li></ul>
+
+<p><em>Returns</em>: A new Texture object, or NULL if it failed</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4249" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="bind-instance-method">
+        
+        def <strong>bind</strong>
+      </div>
+      
+        <div class="doc"><p>Bind a texture for rendering</p>
+
+<p>This function is not part of the graphics API, it mustn't be
+used when drawing SFML entities. It must be used only if you
+mix Texture with OpenGL code.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>texture</code>: Pointer to the texture to bind, can be null to use no texture</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4424" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="copy-instance-method">
+        
+        def <strong>copy</strong>
+      </div>
+      
+        <div class="doc"><p>Copy an existing texture</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>texture</code>: Texture to copy</li></ul>
+
+<p><em>Returns</em>: Copied object</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4266" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="copy_to_image-instance-method">
+        
+        def <strong>copy_to_image</strong>
+      </div>
+      
+        <div class="doc"><p>Copy a texture's pixels to an image</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>texture</code>: Texture to copy</li></ul>
+
+<p><em>Returns</em>: Image containing the texture's pixels</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4297" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="finalize-instance-method">
+        
+        def <strong>finalize</strong>
+      </div>
+      
+        <div class="doc"><p>Destroy an existing texture</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>texture</code>: Texture to delete</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4275" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="repeated-instance-method">
+        
+        def <strong>repeated</strong>
+      </div>
+      
+        <div class="doc"><p>Tell whether a texture is repeated or not</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>texture</code>: The texture object</li></ul>
+
+<p><em>Returns</em>: True if repeat mode is enabled, False if it is disabled</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4410" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="repeated%3D%28repeated%20%3A%20Bool%29-instance-method">
+        
+        def <strong>repeated=</strong>(repeated : Bool)
+      </div>
+      
+        <div class="doc"><p>Enable or disable repeating for a texture</p>
+
+<p>Repeating is involved when using texture coordinates
+outside the texture rectangle [0, 0, width, height].
+In this case, if repeat mode is enabled, the whole texture
+will be repeated as many times as needed to reach the
+coordinate (for example, if the X texture coordinate is
+3 * width, the texture will be repeated 3 times).
+If repeat mode is disabled, the "extra space" will instead
+be filled with border pixels.
+Warning: on very old graphics cards, white pixels may appear
+when the texture is repeated. With such cards, repeat mode
+can be used reliably only if the texture has power-of-two
+dimensions (such as 256x128).
+Repeating is disabled by default.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>texture</code>: The texture object</li><li><code><a href="../SF/Texture.html#repeated-instance-method">#repeated</a></code>: True to repeat the texture, false to disable repeating</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4398" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="size-instance-method">
+        
+        def <strong>size</strong>
+      </div>
+      
+        <div class="doc"><p>Return the size of the texture</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>texture</code>: Texture to read</li></ul>
+
+<p><em>Returns</em>: Size in pixels</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4286" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="smooth-instance-method">
+        
+        def <strong>smooth</strong>
+      </div>
+      
+        <div class="doc"><p>Tell whether the smooth filter is enabled or not for a texture</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>texture</code>: The texture object</li></ul>
+
+<p><em>Returns</em>: True if smoothing is enabled, False if it is disabled</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4374" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="smooth%3D%28smooth%20%3A%20Bool%29-instance-method">
+        
+        def <strong>smooth=</strong>(smooth : Bool)
+      </div>
+      
+        <div class="doc"><p>Enable or disable the smooth filter on a texture</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>texture</code>: The texture object</li><li><code><a href="../SF/Texture.html#smooth-instance-method">#smooth</a></code>: True to enable smoothing, False to disable it</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4362" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="to_unsafe-instance-method">
+        
+        def <strong>to_unsafe</strong>
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4169" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="update%28image%20%3A%20Image%2C%20x%20%3A%20Int32%2C%20y%20%3A%20Int32%29-instance-method">
+        
+        def <strong>update</strong>(image : <a href="../SF/Image.html">Image</a>, x : Int32, y : Int32)
+      </div>
+      
+        <div class="doc"><p>Update a texture from an image</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>texture</code>: Texture to update</li><li><code>image</code>: Image to copy to the texture</li><li><code>x</code>: X offset in the texture where to copy the source pixels</li><li><code>y</code>: Y offset in the texture where to copy the source pixels</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4328" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="update%28pixels%2C%20width%20%3A%20Int32%2C%20height%20%3A%20Int32%2C%20x%20%3A%20Int32%2C%20y%20%3A%20Int32%29-instance-method">
+        
+        def <strong>update</strong>(pixels, width : Int32, height : Int32, x : Int32, y : Int32)
+      </div>
+      
+        <div class="doc"><p>Update a texture from an array of pixels</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>texture</code>: Texture to update</li><li><code>pixels</code>: Array of pixels to copy to the texture</li><li><code>width</code>: Width of the pixel region contained in <code>pixels</code></li><li><code>height</code>: Height of the pixel region contained in <code>pixels</code></li><li><code>x</code>: X offset in the texture where to copy the source pixels</li><li><code>y</code>: Y offset in the texture where to copy the source pixels</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4311" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="update%28window%20%3A%20Window%2C%20x%20%3A%20Int32%2C%20y%20%3A%20Int32%29-instance-method">
+        
+        def <strong>update</strong>(window : <a href="../SF/Window.html">Window</a>, x : Int32, y : Int32)
+      </div>
+      
+        <div class="doc"><p>Update a texture from the contents of a window</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>texture</code>: Texture to update</li><li><code>window</code>: Window to copy to the texture</li><li><code>x</code>: X offset in the texture where to copy the source pixels</li><li><code>y</code>: Y offset in the texture where to copy the source pixels</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4340" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="update%28render_window%20%3A%20RenderWindow%2C%20x%20%3A%20Int32%2C%20y%20%3A%20Int32%29-instance-method">
+        
+        def <strong>update</strong>(render_window : <a href="../SF/RenderWindow.html">RenderWindow</a>, x : Int32, y : Int32)
+      </div>
+      
+        <div class="doc"><p>Update a texture from the contents of a render-window</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>texture</code>: Texture to update</li><li><code>render_window</code>: Render-window to copy to the texture</li><li><code>x</code>: X offset in the texture where to copy the source pixels</li><li><code>y</code>: Y offset in the texture where to copy the source pixels</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4352" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+
+
+</body>
+</html>

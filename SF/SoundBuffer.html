@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link href="../css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+
+  <h1>class SF::SoundBuffer</h1>
+
+
+
+
+
+
+
+  <h2>Superclass hierarchy</h2>
+  <div style="padding-left: 0px">Object</div><div style="padding-left: 20px">Reference</div><div style="padding-left: 40px"><a href="../SF/SoundBuffer.html">SF::SoundBuffer</a></div>
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr">csfml/audio_obj.cr</a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>Class Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#wrap_ptr%28p%29-class-method" class="signature"><strong>.wrap_ptr</strong>(p)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28samples%2C%20sample_count%20%3A%20Size_t%2C%20channel_count%20%3A%20Int32%2C%20sample_rate%20%3A%20Int32%29-class-method" class="signature"><strong>.new</strong>(samples, sample_count : Size_t, channel_count : Int32, sample_rate : Int32)</a>
+        
+          <div class="summary"><p>Create a new sound buffer and load it from an array of samples in memory</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size_in_bytes%20%3A%20Size_t%29-class-method" class="signature"><strong>.new</strong>(data : ::Pointer(Void), size_in_bytes : Size_t)</a>
+        
+          <div class="summary"><p>Create a new sound buffer and load it from a file in memory</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28filename%20%3A%20String%29-class-method" class="signature"><strong>.new</strong>(filename : String)</a>
+        
+          <div class="summary"><p>Create a new sound buffer and load it from a file</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28stream%20%3A%20%3A%3APointer%28InputStream%29%29-class-method" class="signature"><strong>.new</strong>(stream : ::Pointer(InputStream))</a>
+        
+          <div class="summary"><p>Create a new sound buffer and load it from a custom stream</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#channel_count-instance-method" class="signature"><strong>#channel_count</strong></a>
+        
+          <div class="summary"><p>Get the number of channels used by a sound buffer</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#copy-instance-method" class="signature"><strong>#copy</strong></a>
+        
+          <div class="summary"><p>Create a new sound buffer by copying an existing one</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#duration-instance-method" class="signature"><strong>#duration</strong></a>
+        
+          <div class="summary"><p>Get the total duration of a sound buffer</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#finalize-instance-method" class="signature"><strong>#finalize</strong></a>
+        
+          <div class="summary"><p>Destroy a sound buffer</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#sample_count-instance-method" class="signature"><strong>#sample_count</strong></a>
+        
+          <div class="summary"><p>Get the number of samples stored in a sound buffer</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#sample_rate-instance-method" class="signature"><strong>#sample_rate</strong></a>
+        
+          <div class="summary"><p>Get the sample rate of a sound buffer</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#samples-instance-method" class="signature"><strong>#samples</strong></a>
+        
+          <div class="summary"><p>Get the array of audio samples stored in a sound buffer</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#save_to_file%28filename%20%3A%20String%29-instance-method" class="signature"><strong>#save_to_file</strong>(filename : String)</a>
+        
+          <div class="summary"><p>Save a sound buffer to an audio file</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+
+  <h2>Class Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="wrap_ptr%28p%29-class-method">
+        
+        def self.<strong>wrap_ptr</strong>(p)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L727" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28samples%2C%20sample_count%20%3A%20Size_t%2C%20channel_count%20%3A%20Int32%2C%20sample_rate%20%3A%20Int32%29-class-method">
+        
+        def self.<strong>new</strong>(samples, sample_count : Size_t, channel_count : Int32, sample_rate : Int32)
+      </div>
+      
+        <div class="doc"><p>Create a new sound buffer and load it from an array of samples in memory</p>
+
+<p>The assumed format of the audio samples is 16 bits signed integer
+(Int16).</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code><a href="../SF/SoundBuffer.html#samples-instance-method">#samples</a></code>: Pointer to the array of samples in memory</li><li><code><a href="../SF/SoundBuffer.html#sample_count-instance-method">#sample_count</a></code>: Number of samples in the array</li><li><code><a href="../SF/SoundBuffer.html#channel_count-instance-method">#channel_count</a></code>: Number of channels (1 = mono, 2 = stereo, ...)</li><li><code><a href="../SF/SoundBuffer.html#sample_rate-instance-method">#sample_rate</a></code>: Sample rate (number of samples to play per second)</li></ul>
+
+<p><em>Returns</em>: A new SoundBuffer object (NULL if failed)</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L798" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size_in_bytes%20%3A%20Size_t%29-class-method">
+        
+        def self.<strong>new</strong>(data : ::Pointer(Void), size_in_bytes : Size_t)
+      </div>
+      
+        <div class="doc"><p>Create a new sound buffer and load it from a file in memory</p>
+
+<p>Here is a complete list of all the supported audio formats:
+ogg, wav, flac, aiff, au, raw, paf, svx, nist, voc, ircam,
+w64, mat4, mat5 pvf, htk, sds, avr, sd2, caf, wve, mpc2k, rf64.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>data</code>: Pointer to the file data in memory</li><li><code>size_in_bytes</code>: Size of the data to load, in bytes</li></ul>
+
+<p><em>Returns</em>: A new SoundBuffer object (NULL if failed)</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L764" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28filename%20%3A%20String%29-class-method">
+        
+        def self.<strong>new</strong>(filename : String)
+      </div>
+      
+        <div class="doc"><p>Create a new sound buffer and load it from a file</p>
+
+<p>Here is a complete list of all the supported audio formats:
+ogg, wav, flac, aiff, au, raw, paf, svx, nist, voc, ircam,
+w64, mat4, mat5 pvf, htk, sds, avr, sd2, caf, wve, mpc2k, rf64.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>filename</code>: Path of the sound file to load</li></ul>
+
+<p><em>Returns</em>: A new SoundBuffer object (NULL if failed)</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L747" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28stream%20%3A%20%3A%3APointer%28InputStream%29%29-class-method">
+        
+        def self.<strong>new</strong>(stream : ::Pointer(<a href="../SF/InputStream.html">InputStream</a>))
+      </div>
+      
+        <div class="doc"><p>Create a new sound buffer and load it from a custom stream</p>
+
+<p>Here is a complete list of all the supported audio formats:
+ogg, wav, flac, aiff, au, raw, paf, svx, nist, voc, ircam,
+w64, mat4, mat5 pvf, htk, sds, avr, sd2, caf, wve, mpc2k, rf64.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>stream</code>: Source stream to read from</li></ul>
+
+<p><em>Returns</em>: A new SoundBuffer object (NULL if failed)</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L780" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="channel_count-instance-method">
+        
+        def <strong>channel_count</strong>
+      </div>
+      
+        <div class="doc"><p>Get the number of channels used by a sound buffer</p>
+
+<p>If the sound is mono then the number of channels will
+be 1, 2 for stereo, etc.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_buffer</code>: Sound buffer object</li></ul>
+
+<p><em>Returns</em>: Number of channels</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L898" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="copy-instance-method">
+        
+        def <strong>copy</strong>
+      </div>
+      
+        <div class="doc"><p>Create a new sound buffer by copying an existing one</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_buffer</code>: Sound buffer to copy</li></ul>
+
+<p><em>Returns</em>: A new SoundBuffer object which is a copy of <code>sound_buffer</code></p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L815" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="duration-instance-method">
+        
+        def <strong>duration</strong>
+      </div>
+      
+        <div class="doc"><p>Get the total duration of a sound buffer</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_buffer</code>: Sound buffer object</li></ul>
+
+<p><em>Returns</em>: Sound duration</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L909" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="finalize-instance-method">
+        
+        def <strong>finalize</strong>
+      </div>
+      
+        <div class="doc"><p>Destroy a sound buffer</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_buffer</code>: Sound buffer to destroy</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L824" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="sample_count-instance-method">
+        
+        def <strong>sample_count</strong>
+      </div>
+      
+        <div class="doc"><p>Get the number of samples stored in a sound buffer</p>
+
+<p>The array of samples can be accessed with the
+SoundBuffer_getSamples function.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_buffer</code>: Sound buffer object</li></ul>
+
+<p><em>Returns</em>: Number of samples</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L869" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="sample_rate-instance-method">
+        
+        def <strong>sample_rate</strong>
+      </div>
+      
+        <div class="doc"><p>Get the sample rate of a sound buffer</p>
+
+<p>The sample rate is the number of samples played per second.
+The higher, the better the quality (for example, 44100
+samples/s is CD quality).</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_buffer</code>: Sound buffer object</li></ul>
+
+<p><em>Returns</em>: Sample rate (number of samples per second)</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L884" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="samples-instance-method">
+        
+        def <strong>samples</strong>
+      </div>
+      
+        <div class="doc"><p>Get the array of audio samples stored in a sound buffer</p>
+
+<p>The format of the returned samples is 16 bits signed integer
+(Int16). The total number of samples in this array
+is given by the SoundBuffer_getSampleCount function.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_buffer</code>: Sound buffer object</li></ul>
+
+<p><em>Returns</em>: Read-only pointer to the array of sound samples</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L855" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="save_to_file%28filename%20%3A%20String%29-instance-method">
+        
+        def <strong>save_to_file</strong>(filename : String)
+      </div>
+      
+        <div class="doc"><p>Save a sound buffer to an audio file</p>
+
+<p>Here is a complete list of all the supported audio formats:
+ogg, wav, flac, aiff, au, raw, paf, svx, nist, voc, ircam,
+w64, mat4, mat5 pvf, htk, sds, avr, sd2, caf, wve, mpc2k, rf64.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_buffer</code>: Sound buffer object</li><li><code>filename</code>: Path of the sound file to write</li></ul>
+
+<p><em>Returns</em>: True if saving succeeded, False if it failed</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L840" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="to_unsafe-instance-method">
+        
+        def <strong>to_unsafe</strong>
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L732" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+
+
+</body>
+</html>

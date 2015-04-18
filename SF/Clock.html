@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link href="../css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+
+  <h1>class SF::Clock</h1>
+
+
+
+
+
+
+
+  <h2>Superclass hierarchy</h2>
+  <div style="padding-left: 0px">Object</div><div style="padding-left: 20px">Reference</div><div style="padding-left: 40px"><a href="../SF/Clock.html">SF::Clock</a></div>
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/system_obj.cr">csfml/system_obj.cr</a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>Class Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#wrap_ptr%28p%29-class-method" class="signature"><strong>.wrap_ptr</strong>(p)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new-class-method" class="signature"><strong>.new</strong></a>
+        
+          <div class="summary"><p>Create a new clock and start it</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#copy-instance-method" class="signature"><strong>#copy</strong></a>
+        
+          <div class="summary"><p>Create a new clock by copying an existing one</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#elapsed_time-instance-method" class="signature"><strong>#elapsed_time</strong></a>
+        
+          <div class="summary"><p>Get the time elapsed in a clock</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#finalize-instance-method" class="signature"><strong>#finalize</strong></a>
+        
+          <div class="summary"><p>Destroy a clock</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#restart-instance-method" class="signature"><strong>#restart</strong></a>
+        
+          <div class="summary"><p>Restart a clock</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+
+  <h2>Class Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="wrap_ptr%28p%29-class-method">
+        
+        def self.<strong>wrap_ptr</strong>(p)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/system_obj.cr#L10" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new-class-method">
+        
+        def self.<strong>new</strong>
+      </div>
+      
+        <div class="doc"><p>Create a new clock and start it</p>
+
+<p><em>Returns</em>: A new Clock object</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/system_obj.cr#L22" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="copy-instance-method">
+        
+        def <strong>copy</strong>
+      </div>
+      
+        <div class="doc"><p>Create a new clock by copying an existing one</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>clock</code>: Clock to copy</li></ul>
+
+<p><em>Returns</em>: A new Clock object which is a copy of <code>clock</code></p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/system_obj.cr#L34" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="elapsed_time-instance-method">
+        
+        def <strong>elapsed_time</strong>
+      </div>
+      
+        <div class="doc"><p>Get the time elapsed in a clock</p>
+
+<p>This function returns the time elapsed since the last call
+to Clock_restart (or the construction of the object if
+Clock_restart has not been called).</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>clock</code>: Clock object</li></ul>
+
+<p><em>Returns</em>: Time elapsed</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/system_obj.cr#L58" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="finalize-instance-method">
+        
+        def <strong>finalize</strong>
+      </div>
+      
+        <div class="doc"><p>Destroy a clock</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>clock</code>: Clock to destroy</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/system_obj.cr#L43" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="restart-instance-method">
+        
+        def <strong>restart</strong>
+      </div>
+      
+        <div class="doc"><p>Restart a clock</p>
+
+<p>This function puts the time counter back to zero.
+It also returns the time elapsed since the clock was started.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>clock</code>: Clock object</li></ul>
+
+<p><em>Returns</em>: Time elapsed</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/system_obj.cr#L72" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="to_unsafe-instance-method">
+        
+        def <strong>to_unsafe</strong>
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/system_obj.cr#L15" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+
+
+</body>
+</html>

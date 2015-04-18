@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link href="../css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+
+  <h1>class SF::SoundBufferRecorder</h1>
+
+
+
+
+
+
+
+  <h2>Superclass hierarchy</h2>
+  <div style="padding-left: 0px">Object</div><div style="padding-left: 20px">Reference</div><div style="padding-left: 40px"><a href="../SF/SoundBufferRecorder.html">SF::SoundBufferRecorder</a></div>
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr">csfml/audio_obj.cr</a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>Class Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#wrap_ptr%28p%29-class-method" class="signature"><strong>.wrap_ptr</strong>(p)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new-class-method" class="signature"><strong>.new</strong></a>
+        
+          <div class="summary"><p>Create a new sound buffer recorder</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#buffer-instance-method" class="signature"><strong>#buffer</strong></a>
+        
+          <div class="summary"><p>Get the sound buffer containing the captured audio data</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#finalize-instance-method" class="signature"><strong>#finalize</strong></a>
+        
+          <div class="summary"><p>Destroy a sound buffer recorder</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#sample_rate-instance-method" class="signature"><strong>#sample_rate</strong></a>
+        
+          <div class="summary"><p>Get the sample rate of a sound buffer recorder</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#start%28sample_rate%20%3A%20Int32%29-instance-method" class="signature"><strong>#start</strong>(sample_rate : Int32)</a>
+        
+          <div class="summary"><p>Start the capture of a sound recorder recorder</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#stop-instance-method" class="signature"><strong>#stop</strong></a>
+        
+          <div class="summary"><p>Stop the capture of a sound recorder</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+
+  <h2>Class Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="wrap_ptr%28p%29-class-method">
+        
+        def self.<strong>wrap_ptr</strong>(p)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L916" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new-class-method">
+        
+        def self.<strong>new</strong>
+      </div>
+      
+        <div class="doc"><p>Create a new sound buffer recorder</p>
+
+<p><em>Returns</em>: A new SoundBufferRecorder object (NULL if failed)</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L928" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="buffer-instance-method">
+        
+        def <strong>buffer</strong>
+      </div>
+      
+        <div class="doc"><p>Get the sound buffer containing the captured audio data</p>
+
+<p>The sound buffer is valid only after the capture has ended.
+This function provides a read-only access to the internal
+sound buffer, but it can be copied if you need to
+make any modification to it.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_buffer_recorder</code>: Sound buffer recorder object</li></ul>
+
+<p><em>Returns</em>: Read-only access to the sound buffer</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L995" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="finalize-instance-method">
+        
+        def <strong>finalize</strong>
+      </div>
+      
+        <div class="doc"><p>Destroy a sound buffer recorder</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_buffer_recorder</code>: Sound buffer recorder to destroy</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L938" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="sample_rate-instance-method">
+        
+        def <strong>sample_rate</strong>
+      </div>
+      
+        <div class="doc"><p>Get the sample rate of a sound buffer recorder</p>
+
+<p>The sample rate defines the number of audio samples
+captured per second. The higher, the better the quality
+(for example, 44100 samples/sec is CD quality).</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_buffer_recorder</code>: Sound buffer recorder object</li></ul>
+
+<p><em>Returns</em>: Sample rate, in samples per second</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L979" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="start%28sample_rate%20%3A%20Int32%29-instance-method">
+        
+        def <strong>start</strong>(sample_rate : Int32)
+      </div>
+      
+        <div class="doc"><p>Start the capture of a sound recorder recorder</p>
+
+<p>The <code><a href="../SF/SoundBufferRecorder.html#sample_rate-instance-method">#sample_rate</a></code> parameter defines the number of audio samples
+captured per second. The higher, the better the quality
+(for example, 44100 samples/sec is CD quality).
+This function uses its own thread so that it doesn't block
+the rest of the program while the capture runs.
+Please note that only one capture can happen at the same time.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_buffer_recorder</code>: Sound buffer recorder object</li><li><code><a href="../SF/SoundBufferRecorder.html#sample_rate-instance-method">#sample_rate</a></code>: Desired capture rate, in number of samples per second</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L955" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="stop-instance-method">
+        
+        def <strong>stop</strong>
+      </div>
+      
+        <div class="doc"><p>Stop the capture of a sound recorder</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_buffer_recorder</code>: Sound buffer recorder object</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L964" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="to_unsafe-instance-method">
+        
+        def <strong>to_unsafe</strong>
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L921" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+
+
+</body>
+</html>

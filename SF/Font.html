@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link href="../css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+
+  <h1>class SF::Font</h1>
+
+
+
+
+
+
+
+  <h2>Superclass hierarchy</h2>
+  <div style="padding-left: 0px">Object</div><div style="padding-left: 20px">Reference</div><div style="padding-left: 40px"><a href="../SF/Font.html">SF::Font</a></div>
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr">csfml/graphics_obj.cr</a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>Class Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#wrap_ptr%28p%29-class-method" class="signature"><strong>.wrap_ptr</strong>(p)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size_in_bytes%20%3A%20Size_t%29-class-method" class="signature"><strong>.new</strong>(data : ::Pointer(Void), size_in_bytes : Size_t)</a>
+        
+          <div class="summary"><p>Create a new image font a file in memory</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28filename%20%3A%20String%29-class-method" class="signature"><strong>.new</strong>(filename : String)</a>
+        
+          <div class="summary"><p>Create a new font from a file</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28stream%20%3A%20%3A%3APointer%28InputStream%29%29-class-method" class="signature"><strong>.new</strong>(stream : ::Pointer(InputStream))</a>
+        
+          <div class="summary"><p>Create a new image font a custom stream</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#copy-instance-method" class="signature"><strong>#copy</strong></a>
+        
+          <div class="summary"><p>Copy an existing font</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#finalize-instance-method" class="signature"><strong>#finalize</strong></a>
+        
+          <div class="summary"><p>Destroy an existing font</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_glyph%28code_point%20%3A%20Char%2C%20character_size%20%3A%20Int32%2C%20bold%20%3A%20Bool%29-instance-method" class="signature"><strong>#get_glyph</strong>(code_point : Char, character_size : Int32, bold : Bool)</a>
+        
+          <div class="summary"><p>Get a glyph in a font</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_kerning%28first%20%3A%20Char%2C%20second%20%3A%20Char%2C%20character_size%20%3A%20Int32%29-instance-method" class="signature"><strong>#get_kerning</strong>(first : Char, second : Char, character_size : Int32)</a>
+        
+          <div class="summary"><p>Get the kerning value corresponding to a given pair of characters in a font</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_line_spacing%28character_size%20%3A%20Int32%29-instance-method" class="signature"><strong>#get_line_spacing</strong>(character_size : Int32)</a>
+        
+          <div class="summary"><p>Get the line spacing value</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_texture%28character_size%20%3A%20Int32%29-instance-method" class="signature"><strong>#get_texture</strong>(character_size : Int32)</a>
+        
+          <div class="summary"><p>Get the texture containing the glyphs of a given size in a font</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_underline_position%28character_size%20%3A%20Int32%29-instance-method" class="signature"><strong>#get_underline_position</strong>(character_size : Int32)</a>
+        
+          <div class="summary"><p>Get the position of the underline</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_underline_thickness%28character_size%20%3A%20Int32%29-instance-method" class="signature"><strong>#get_underline_thickness</strong>(character_size : Int32)</a>
+        
+          <div class="summary"><p>Get the thickness of the underline</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#info-instance-method" class="signature"><strong>#info</strong></a>
+        
+          <div class="summary"><p>Get the font information</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+
+  <h2>Class Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="wrap_ptr%28p%29-class-method">
+        
+        def self.<strong>wrap_ptr</strong>(p)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L900" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size_in_bytes%20%3A%20Size_t%29-class-method">
+        
+        def self.<strong>new</strong>(data : ::Pointer(Void), size_in_bytes : Size_t)
+      </div>
+      
+        <div class="doc"><p>Create a new image font a file in memory</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>data</code>: Pointer to the file data in memory</li><li><code>size_in_bytes</code>: Size of the data to load, in bytes</li></ul>
+
+<p><em>Returns</em>: A new Font object, or NULL if it failed</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L929" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28filename%20%3A%20String%29-class-method">
+        
+        def self.<strong>new</strong>(filename : String)
+      </div>
+      
+        <div class="doc"><p>Create a new font from a file</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>filename</code>: Path of the font file to load</li></ul>
+
+<p><em>Returns</em>: A new Font object, or NULL if it failed</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L916" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28stream%20%3A%20%3A%3APointer%28InputStream%29%29-class-method">
+        
+        def self.<strong>new</strong>(stream : ::Pointer(<a href="../SF/InputStream.html">InputStream</a>))
+      </div>
+      
+        <div class="doc"><p>Create a new image font a custom stream</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>stream</code>: Source stream to read from</li></ul>
+
+<p><em>Returns</em>: A new Font object, or NULL if it failed</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L941" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="copy-instance-method">
+        
+        def <strong>copy</strong>
+      </div>
+      
+        <div class="doc"><p>Copy an existing font</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>font</code>: Font to copy</li></ul>
+
+<p><em>Returns</em>: Copied object</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L953" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="finalize-instance-method">
+        
+        def <strong>finalize</strong>
+      </div>
+      
+        <div class="doc"><p>Destroy an existing font</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>font</code>: Font to delete</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L962" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="get_glyph%28code_point%20%3A%20Char%2C%20character_size%20%3A%20Int32%2C%20bold%20%3A%20Bool%29-instance-method">
+        
+        def <strong>get_glyph</strong>(code_point : Char, character_size : Int32, bold : Bool)
+      </div>
+      
+        <div class="doc"><p>Get a glyph in a font</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>font</code>: Source font</li><li><code>code_point</code>: Unicode code point of the character to get</li><li><code>character_size</code>: Character size, in pixels</li><li><code>bold</code>: Retrieve the bold version or the regular one?</li></ul>
+
+<p><em>Returns</em>: The corresponding glyph</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L976" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="get_kerning%28first%20%3A%20Char%2C%20second%20%3A%20Char%2C%20character_size%20%3A%20Int32%29-instance-method">
+        
+        def <strong>get_kerning</strong>(first : Char, second : Char, character_size : Int32)
+      </div>
+      
+        <div class="doc"><p>Get the kerning value corresponding to a given pair of characters in a font</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>font</code>: Source font</li><li><code>first</code>: Unicode code point of the first character</li><li><code>second</code>: Unicode code point of the second character</li><li><code>character_size</code>: Character size, in pixels</li></ul>
+
+<p><em>Returns</em>: Kerning offset, in pixels</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L991" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="get_line_spacing%28character_size%20%3A%20Int32%29-instance-method">
+        
+        def <strong>get_line_spacing</strong>(character_size : Int32)
+      </div>
+      
+        <div class="doc"><p>Get the line spacing value</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>font</code>: Source font</li><li><code>character_size</code>: Character size, in pixels</li></ul>
+
+<p><em>Returns</em>: Line spacing, in pixels</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1003" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="get_texture%28character_size%20%3A%20Int32%29-instance-method">
+        
+        def <strong>get_texture</strong>(character_size : Int32)
+      </div>
+      
+        <div class="doc"><p>Get the texture containing the glyphs of a given size in a font</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>font</code>: Source font</li><li><code>character_size</code>: Character size, in pixels</li></ul>
+
+<p><em>Returns</em>: Read-only pointer to the texture</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1044" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="get_underline_position%28character_size%20%3A%20Int32%29-instance-method">
+        
+        def <strong>get_underline_position</strong>(character_size : Int32)
+      </div>
+      
+        <div class="doc"><p>Get the position of the underline</p>
+
+<p>Underline position is the vertical offset to apply between the
+baseline and the underline.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>font</code>: Source font</li><li><code>character_size</code>: Reference character size</li></ul>
+
+<p><em>Returns</em>: Underline position, in pixels</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1018" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="get_underline_thickness%28character_size%20%3A%20Int32%29-instance-method">
+        
+        def <strong>get_underline_thickness</strong>(character_size : Int32)
+      </div>
+      
+        <div class="doc"><p>Get the thickness of the underline</p>
+
+<p>Underline thickness is the vertical size of the underline.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>font</code>: Source font</li><li><code>character_size</code>: Reference character size</li></ul>
+
+<p><em>Returns</em>: Underline thickness, in pixels</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1032" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="info-instance-method">
+        
+        def <strong>info</strong>
+      </div>
+      
+        <div class="doc"><p>Get the font information</p>
+
+<p>The returned structure will remain valid only if the font
+is still valid. If the font is invalid an invalid structure
+is returned.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>font</code>: Source font</li></ul>
+
+<p><em>Returns</em>: A structure that holds the font information</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1059" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="to_unsafe-instance-method">
+        
+        def <strong>to_unsafe</strong>
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L905" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+
+
+</body>
+</html>

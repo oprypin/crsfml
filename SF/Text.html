@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link href="../css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+
+  <h1>class SF::Text</h1>
+
+
+
+
+
+
+
+  <h2>Superclass hierarchy</h2>
+  <div style="padding-left: 0px">Object</div><div style="padding-left: 20px">Reference</div><div style="padding-left: 40px"><a href="../SF/Text.html">SF::Text</a></div>
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr">csfml/graphics_obj.cr</a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>Class Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#wrap_ptr%28p%29-class-method" class="signature"><strong>.wrap_ptr</strong>(p)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new-class-method" class="signature"><strong>.new</strong></a>
+        
+          <div class="summary"><p>Create a new text</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#character_size-instance-method" class="signature"><strong>#character_size</strong></a>
+        
+          <div class="summary"><p>Get the size of the characters of a text</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#character_size%3D%28size%20%3A%20Int32%29-instance-method" class="signature"><strong>#character_size=</strong>(size : Int32)</a>
+        
+          <div class="summary"><p>Set the character size of a text</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#color-instance-method" class="signature"><strong>#color</strong></a>
+        
+          <div class="summary"><p>Get the global color of a text</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#color%3D%28color%20%3A%20Color%29-instance-method" class="signature"><strong>#color=</strong>(color : Color)</a>
+        
+          <div class="summary"><p>Set the global color of a text</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#copy-instance-method" class="signature"><strong>#copy</strong></a>
+        
+          <div class="summary"><p>Copy an existing text</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#finalize-instance-method" class="signature"><strong>#finalize</strong></a>
+        
+          <div class="summary"><p>Destroy an existing text</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#find_character_pos%28index%20%3A%20Size_t%29-instance-method" class="signature"><strong>#find_character_pos</strong>(index : Size_t)</a>
+        
+          <div class="summary"><p>Return the position of the <code>index</code>-th character in a text</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#font-instance-method" class="signature"><strong>#font</strong></a>
+        
+          <div class="summary"><p>Get the font used by a text</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#font%3D%28font%20%3A%20Font%29-instance-method" class="signature"><strong>#font=</strong>(font : Font)</a>
+        
+          <div class="summary"><p>Set the font of a text</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#global_bounds-instance-method" class="signature"><strong>#global_bounds</strong></a>
+        
+          <div class="summary"><p>Get the global bounding rectangle of a text</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#inverse_transform-instance-method" class="signature"><strong>#inverse_transform</strong></a>
+        
+          <div class="summary"><p>Get the inverse of the combined transform of a text</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#local_bounds-instance-method" class="signature"><strong>#local_bounds</strong></a>
+        
+          <div class="summary"><p>Get the local bounding rectangle of a text</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#move%28offset%20%3A%20Vector2f%29-instance-method" class="signature"><strong>#move</strong>(offset : Vector2f)</a>
+        
+          <div class="summary"><p>Move a text by a given offset</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#origin-instance-method" class="signature"><strong>#origin</strong></a>
+        
+          <div class="summary"><p>Get the local origin of a text</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#origin%3D%28origin%20%3A%20Vector2f%29-instance-method" class="signature"><strong>#origin=</strong>(origin : Vector2f)</a>
+        
+          <div class="summary"><p>Set the local origin of a text</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#position-instance-method" class="signature"><strong>#position</strong></a>
+        
+          <div class="summary"><p>Get the position of a text</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#position%3D%28position%20%3A%20Vector2f%29-instance-method" class="signature"><strong>#position=</strong>(position : Vector2f)</a>
+        
+          <div class="summary"><p>Set the position of a text</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#rotate%28angle%29-instance-method" class="signature"><strong>#rotate</strong>(angle)</a>
+        
+          <div class="summary"><p>Rotate a text</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#rotation-instance-method" class="signature"><strong>#rotation</strong></a>
+        
+          <div class="summary"><p>Get the orientation of a text</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#rotation%3D%28angle%29-instance-method" class="signature"><strong>#rotation=</strong>(angle)</a>
+        
+          <div class="summary"><p>Set the orientation of a text</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#scale-instance-method" class="signature"><strong>#scale</strong></a>
+        
+          <div class="summary"><p>Get the current scale of a text</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#scale%28factors%20%3A%20Vector2f%29-instance-method" class="signature"><strong>#scale</strong>(factors : Vector2f)</a>
+        
+          <div class="summary"><p>Scale a text</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#scale%3D%28scale%20%3A%20Vector2f%29-instance-method" class="signature"><strong>#scale=</strong>(scale : Vector2f)</a>
+        
+          <div class="summary"><p>Set the scale factors of a text</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#string-instance-method" class="signature"><strong>#string</strong></a>
+        
+          <div class="summary"><p>Get the string of a text (returns a unicode string)</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#string%3D%28string%20%3A%20String%29-instance-method" class="signature"><strong>#string=</strong>(string : String)</a>
+        
+          <div class="summary"><p>Set the string of a text (from a unicode string)</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#style-instance-method" class="signature"><strong>#style</strong></a>
+        
+          <div class="summary"><p>Get the style of a text</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#style%3D%28style%20%3A%20TextStyle%29-instance-method" class="signature"><strong>#style=</strong>(style : TextStyle)</a>
+        
+          <div class="summary"><p>Set the style of a text</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#transform-instance-method" class="signature"><strong>#transform</strong></a>
+        
+          <div class="summary"><p>Get the combined transform of a text</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+
+  <h2>Class Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="wrap_ptr%28p%29-class-method">
+        
+        def self.<strong>wrap_ptr</strong>(p)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L3755" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new-class-method">
+        
+        def self.<strong>new</strong>
+      </div>
+      
+        <div class="doc"><p>Create a new text</p>
+
+<p><em>Returns</em>: A new Text object, or NULL if it failed</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L3767" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="character_size-instance-method">
+        
+        def <strong>character_size</strong>
+      </div>
+      
+        <div class="doc"><p>Get the size of the characters of a text</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>text</code>: Text object</li></ul>
+
+<p><em>Returns</em>: Size of the characters</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4082" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="character_size%3D%28size%20%3A%20Int32%29-instance-method">
+        
+        def <strong>character_size=</strong>(size : Int32)
+      </div>
+      
+        <div class="doc"><p>Set the character size of a text</p>
+
+<p>The default size is 30.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>text</code>: Text object</li><li><code>size</code>: New character size, in pixels</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4008" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="color-instance-method">
+        
+        def <strong>color</strong>
+      </div>
+      
+        <div class="doc"><p>Get the global color of a text</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>text</code>: Text object</li></ul>
+
+<p><em>Returns</em>: Global color of the text</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4104" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="color%3D%28color%20%3A%20Color%29-instance-method">
+        
+        def <strong>color=</strong>(color : <a href="../SF/Color.html">Color</a>)
+      </div>
+      
+        <div class="doc"><p>Set the global color of a text</p>
+
+<p>By default, the text's color is opaque white.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>text</code>: Text object</li><li><code><a href="../SF/Text.html#color-instance-method">#color</a></code>: New color of the text</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4034" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="copy-instance-method">
+        
+        def <strong>copy</strong>
+      </div>
+      
+        <div class="doc"><p>Copy an existing text</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>text</code>: Text to copy</li></ul>
+
+<p><em>Returns</em>: Copied object</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L3779" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="finalize-instance-method">
+        
+        def <strong>finalize</strong>
+      </div>
+      
+        <div class="doc"><p>Destroy an existing text</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>text</code>: Text to delete</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L3788" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="find_character_pos%28index%20%3A%20Size_t%29-instance-method">
+        
+        def <strong>find_character_pos</strong>(index : Size_t)
+      </div>
+      
+        <div class="doc"><p>Return the position of the <code>index</code>-th character in a text</p>
+
+<p>This function computes the visual position of a character
+from its index in the string. The returned position is
+in global coordinates (translation, rotation, scale and
+origin are applied).
+If <code>index</code> is out of range, the position of the end of
+the string is returned.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>text</code>: Text object</li><li><code>index</code>: Index of the character</li></ul>
+
+<p><em>Returns</em>: Position of the character</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4123" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="font-instance-method">
+        
+        def <strong>font</strong>
+      </div>
+      
+        <div class="doc"><p>Get the font used by a text</p>
+
+<p>If the text has no font attached, a NULL pointer is returned.
+The returned pointer is const, which means that you can't
+modify the font when you retrieve it with this function.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>text</code>: Text object</li></ul>
+
+<p><em>Returns</em>: Pointer to the font</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4071" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="font%3D%28font%20%3A%20Font%29-instance-method">
+        
+        def <strong>font=</strong>(font : <a href="../SF/Font.html">Font</a>)
+      </div>
+      
+        <div class="doc"><p>Set the font of a text</p>
+
+<p>The <code><a href="../SF/Text.html#font-instance-method">#font</a></code> argument refers to a texture that must
+exist as long as the text uses it. Indeed, the text
+doesn't store its own copy of the font, but rather keeps
+a pointer to the one that you passed to this function.
+If the font is destroyed and the text tries to
+use it, the behaviour is undefined.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>text</code>: Text object</li><li><code><a href="../SF/Text.html#font-instance-method">#font</a></code>: New font</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L3996" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="global_bounds-instance-method">
+        
+        def <strong>global_bounds</strong>
+      </div>
+      
+        <div class="doc"><p>Get the global bounding rectangle of a text</p>
+
+<p>The returned rectangle is in global coordinates, which means
+that it takes in account the transformations (translation,
+rotation, scale, ...) that are applied to the entity.
+In other words, this function returns the bounds of the
+text in the global 2D world's coordinate system.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>text</code>: Text object</li></ul>
+
+<p><em>Returns</em>: Global bounding rectangle of the entity</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4157" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="inverse_transform-instance-method">
+        
+        def <strong>inverse_transform</strong>
+      </div>
+      
+        <div class="doc"><p>Get the inverse of the combined transform of a text</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>text</code>: Text object</li></ul>
+
+<p><em>Returns</em>: Inverse of the combined transformations applied to the object</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L3956" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="local_bounds-instance-method">
+        
+        def <strong>local_bounds</strong>
+      </div>
+      
+        <div class="doc"><p>Get the local bounding rectangle of a text</p>
+
+<p>The returned rectangle is in local coordinates, which means
+that it ignores the transformations (translation, rotation,
+scale, ...) that are applied to the entity.
+In other words, this function returns the bounds of the
+entity in the entity's coordinate system.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>text</code>: Text object</li></ul>
+
+<p><em>Returns</em>: Local bounding rectangle of the entity</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4140" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="move%28offset%20%3A%20Vector2f%29-instance-method">
+        
+        def <strong>move</strong>(offset : <a href="../SF/Vector2f.html">Vector2f</a>)
+      </div>
+      
+        <div class="doc"><p>Move a text by a given offset</p>
+
+<p>This function adds to the current position of the object,
+unlike Text_setPosition which overwrites it.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>text</code>: Text object</li><li><code>offset</code>: Offset</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L3907" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="origin-instance-method">
+        
+        def <strong>origin</strong>
+      </div>
+      
+        <div class="doc"><p>Get the local origin of a text</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>text</code>: Text object</li></ul>
+
+<p><em>Returns</em>: Current origin</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L3894" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="origin%3D%28origin%20%3A%20Vector2f%29-instance-method">
+        
+        def <strong>origin=</strong>(origin : <a href="../SF/Vector2f.html">Vector2f</a>)
+      </div>
+      
+        <div class="doc"><p>Set the local origin of a text</p>
+
+<p>The origin of an object defines the center point for
+all transformations (position, scale, rotation).
+The coordinates of this point must be relative to the
+top-left corner of the object, and ignore all
+transformations (position, scale, rotation).
+The default origin of a text object is (0, 0).</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>text</code>: Text object</li><li><code><a href="../SF/Text.html#origin-instance-method">#origin</a></code>: New origin</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L3848" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="position-instance-method">
+        
+        def <strong>position</strong>
+      </div>
+      
+        <div class="doc"><p>Get the position of a text</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>text</code>: Text object</li></ul>
+
+<p><em>Returns</em>: Current position</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L3859" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="position%3D%28position%20%3A%20Vector2f%29-instance-method">
+        
+        def <strong>position=</strong>(position : <a href="../SF/Vector2f.html">Vector2f</a>)
+      </div>
+      
+        <div class="doc"><p>Set the position of a text</p>
+
+<p>This function completely overwrites the previous position.
+See Text_move to apply an offset based on the previous position instead.
+The default position of a text Text object is (0, 0).</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>text</code>: Text object</li><li><code><a href="../SF/Text.html#position-instance-method">#position</a></code>: New position</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L3802" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="rotate%28angle%29-instance-method">
+        
+        def <strong>rotate</strong>(angle)
+      </div>
+      
+        <div class="doc"><p>Rotate a text</p>
+
+<p>This function adds to the current rotation of the object,
+unlike Text_setRotation which overwrites it.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>text</code>: Text object</li><li><code>angle</code>: Angle of rotation, in degrees</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L3920" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="rotation-instance-method">
+        
+        def <strong>rotation</strong>
+      </div>
+      
+        <div class="doc"><p>Get the orientation of a text</p>
+
+<p>The rotation is always in the range [0, 360].</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>text</code>: Text object</li></ul>
+
+<p><em>Returns</em>: Current rotation, in degrees</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L3872" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="rotation%3D%28angle%29-instance-method">
+        
+        def <strong>rotation=</strong>(angle)
+      </div>
+      
+        <div class="doc"><p>Set the orientation of a text</p>
+
+<p>This function completely overwrites the previous rotation.
+See Text_rotate to add an angle based on the previous rotation instead.
+The default rotation of a text Text object is 0.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>text</code>: Text object</li><li><code>angle</code>: New rotation, in degrees</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L3816" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="scale-instance-method">
+        
+        def <strong>scale</strong>
+      </div>
+      
+        <div class="doc"><p>Get the current scale of a text</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>text</code>: Text object</li></ul>
+
+<p><em>Returns</em>: Current scale factors</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L3883" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="scale%28factors%20%3A%20Vector2f%29-instance-method">
+        
+        def <strong>scale</strong>(factors : <a href="../SF/Vector2f.html">Vector2f</a>)
+      </div>
+      
+        <div class="doc"><p>Scale a text</p>
+
+<p>This function multiplies the current scale of the object,
+unlike Text_setScale which overwrites it.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>text</code>: Text object</li><li><code>factors</code>: Scale factors</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L3934" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="scale%3D%28scale%20%3A%20Vector2f%29-instance-method">
+        
+        def <strong>scale=</strong>(scale : <a href="../SF/Vector2f.html">Vector2f</a>)
+      </div>
+      
+        <div class="doc"><p>Set the scale factors of a text</p>
+
+<p>This function completely overwrites the previous scale.
+See Text_scale to add a factor based on the previous scale instead.
+The default scale of a text Text object is (1, 1).</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>text</code>: Text object</li><li><code><a href="../SF/Text.html#scale-instance-method">#scale</a></code>: New scale factors</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L3831" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="string-instance-method">
+        
+        def <strong>string</strong>
+      </div>
+      
+        <div class="doc"><p>Get the string of a text (returns a unicode string)</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>text</code>: Text object</li></ul>
+
+<p><em>Returns</em>: String as UTF-32</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4056" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="string%3D%28string%20%3A%20String%29-instance-method">
+        
+        def <strong>string=</strong>(string : String)
+      </div>
+      
+        <div class="doc"><p>Set the string of a text (from a unicode string)</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>text</code>: Text object</li><li><code><a href="../SF/Text.html#string-instance-method">#string</a></code>: New string</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L3978" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="style-instance-method">
+        
+        def <strong>style</strong>
+      </div>
+      
+        <div class="doc"><p>Get the style of a text</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>text</code>: Text object</li></ul>
+
+<p><em>Returns</em>: Current string style (see TextStyle enum)</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4093" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="style%3D%28style%20%3A%20TextStyle%29-instance-method">
+        
+        def <strong>style=</strong>(style : <a href="../SF/TextStyle.html">TextStyle</a>)
+      </div>
+      
+        <div class="doc"><p>Set the style of a text</p>
+
+<p>You can pass a combination of one or more styles, for
+example TextBold | TextItalic.
+The default style is TextRegular.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>text</code>: Text object</li><li><code><a href="../SF/Text.html#style-instance-method">#style</a></code>: New style</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4022" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="to_unsafe-instance-method">
+        
+        def <strong>to_unsafe</strong>
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L3760" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="transform-instance-method">
+        
+        def <strong>transform</strong>
+      </div>
+      
+        <div class="doc"><p>Get the combined transform of a text</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>text</code>: Text object</li></ul>
+
+<p><em>Returns</em>: Transform combining the position/rotation/scale/origin of the object</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L3945" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+
+
+</body>
+</html>

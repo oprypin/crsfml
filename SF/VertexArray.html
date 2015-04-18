@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link href="../css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+
+  <h1>class SF::VertexArray</h1>
+
+
+
+
+
+
+
+  <h2>Superclass hierarchy</h2>
+  <div style="padding-left: 0px">Object</div><div style="padding-left: 20px">Reference</div><div style="padding-left: 40px"><a href="../SF/VertexArray.html">SF::VertexArray</a></div>
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr">csfml/graphics_obj.cr</a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>Class Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#wrap_ptr%28p%29-class-method" class="signature"><strong>.wrap_ptr</strong>(p)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new-class-method" class="signature"><strong>.new</strong></a>
+        
+          <div class="summary"><p>Create a new vertex array</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#append%28vertex%20%3A%20Vertex%29-instance-method" class="signature"><strong>#append</strong>(vertex : Vertex)</a>
+        
+          <div class="summary"><p>Add a vertex to a vertex array array</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#bounds-instance-method" class="signature"><strong>#bounds</strong></a>
+        
+          <div class="summary"><p>Compute the bounding rectangle of a vertex array</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#clear-instance-method" class="signature"><strong>#clear</strong></a>
+        
+          <div class="summary"><p>Clear a vertex array</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#copy-instance-method" class="signature"><strong>#copy</strong></a>
+        
+          <div class="summary"><p>Copy an existing vertex array</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#finalize-instance-method" class="signature"><strong>#finalize</strong></a>
+        
+          <div class="summary"><p>Destroy an existing vertex array</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_vertex%28index%20%3A%20Int32%29-instance-method" class="signature"><strong>#get_vertex</strong>(index : Int32)</a>
+        
+          <div class="summary"><p>Get access to a vertex by its index</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#primitive_type-instance-method" class="signature"><strong>#primitive_type</strong></a>
+        
+          <div class="summary"><p>Get the type of primitives drawn by a vertex array</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#primitive_type%3D%28type%20%3A%20PrimitiveType%29-instance-method" class="signature"><strong>#primitive_type=</strong>(type : PrimitiveType)</a>
+        
+          <div class="summary"><p>Set the type of primitives of a vertex array</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#resize%28vertex_count%20%3A%20Int32%29-instance-method" class="signature"><strong>#resize</strong>(vertex_count : Int32)</a>
+        
+          <div class="summary"><p>Resize the vertex array</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#vertex_count-instance-method" class="signature"><strong>#vertex_count</strong></a>
+        
+          <div class="summary"><p>Return the vertex count of a vertex array</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+
+  <h2>Class Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="wrap_ptr%28p%29-class-method">
+        
+        def self.<strong>wrap_ptr</strong>(p)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4639" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new-class-method">
+        
+        def self.<strong>new</strong>
+      </div>
+      
+        <div class="doc"><p>Create a new vertex array</p>
+
+<p><em>Returns</em>: A new VertexArray object</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4651" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="append%28vertex%20%3A%20Vertex%29-instance-method">
+        
+        def <strong>append</strong>(vertex : <a href="../SF/Vertex.html">Vertex</a>)
+      </div>
+      
+        <div class="doc"><p>Add a vertex to a vertex array array</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>vertex_array</code>: Vertex array objet</li><li><code>vertex</code>: Vertex to add</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4739" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="bounds-instance-method">
+        
+        def <strong>bounds</strong>
+      </div>
+      
+        <div class="doc"><p>Compute the bounding rectangle of a vertex array</p>
+
+<p>This function returns the axis-aligned rectangle that
+contains all the vertices of the array.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>vertex_array</code>: Vertex array objet</li></ul>
+
+<p><em>Returns</em>: Bounding rectangle of the vertex array</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4782" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="clear-instance-method">
+        
+        def <strong>clear</strong>
+      </div>
+      
+        <div class="doc"><p>Clear a vertex array</p>
+
+<p>This function removes all the vertices from the array.
+It doesn't deallocate the corresponding memory, so that
+adding new vertices after clearing doesn't involve
+reallocating all the memory.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>vertex_array</code>: Vertex array object</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4713" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="copy-instance-method">
+        
+        def <strong>copy</strong>
+      </div>
+      
+        <div class="doc"><p>Copy an existing vertex array</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>vertex_array</code>: Vertex array to copy</li></ul>
+
+<p><em>Returns</em>: Copied object</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4663" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="finalize-instance-method">
+        
+        def <strong>finalize</strong>
+      </div>
+      
+        <div class="doc"><p>Destroy an existing vertex array</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>vertex_array</code>: Vertex array to delete</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4672" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="get_vertex%28index%20%3A%20Int32%29-instance-method">
+        
+        def <strong>get_vertex</strong>(index : Int32)
+      </div>
+      
+        <div class="doc"><p>Get access to a vertex by its index</p>
+
+<p>This function doesn't check <code>index</code>, it must be in range
+[0, vertex count - 1]. The behaviour is undefined
+otherwise.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>vertex_array</code>: Vertex array object</li><li><code>index</code>: Index of the vertex to get</li></ul>
+
+<p><em>Returns</em>: Pointer to the index-th vertex</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4699" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="primitive_type-instance-method">
+        
+        def <strong>primitive_type</strong>
+      </div>
+      
+        <div class="doc"><p>Get the type of primitives drawn by a vertex array</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>vertex_array</code>: Vertex array objet</li></ul>
+
+<p><em>Returns</em>: Primitive type</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4768" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="primitive_type%3D%28type%20%3A%20PrimitiveType%29-instance-method">
+        
+        def <strong>primitive_type=</strong>(type : <a href="../SF/PrimitiveType.html">PrimitiveType</a>)
+      </div>
+      
+        <div class="doc"><p>Set the type of primitives of a vertex array</p>
+
+<p>This function defines how the vertices must be interpreted
+when it's time to draw them:
+- As points
+- As lines
+- As triangles
+- As quads
+The default primitive type is Points.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>vertex_array</code>: Vertex array objet</li><li><code>type</code>: Type of primitive</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4757" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="resize%28vertex_count%20%3A%20Int32%29-instance-method">
+        
+        def <strong>resize</strong>(vertex_count : Int32)
+      </div>
+      
+        <div class="doc"><p>Resize the vertex array</p>
+
+<p>If <code><a href="../SF/VertexArray.html#vertex_count-instance-method">#vertex_count</a></code> is greater than the current size, the previous
+vertices are kept and new (default-constructed) vertices are
+added.
+If <code><a href="../SF/VertexArray.html#vertex_count-instance-method">#vertex_count</a></code> is less than the current size, existing vertices
+are removed from the array.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>vertex_array</code>: Vertex array objet</li><li><code><a href="../SF/VertexArray.html#vertex_count-instance-method">#vertex_count</a></code>: New size of the array (number of vertices)</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4729" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="to_unsafe-instance-method">
+        
+        def <strong>to_unsafe</strong>
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4644" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="vertex_count-instance-method">
+        
+        def <strong>vertex_count</strong>
+      </div>
+      
+        <div class="doc"><p>Return the vertex count of a vertex array</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>vertex_array</code>: Vertex array object</li></ul>
+
+<p><em>Returns</em>: Number of vertices in the array</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4683" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link href="../css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+
+  <h1>class SF::Image</h1>
+
+
+
+
+
+
+
+  <h2>Superclass hierarchy</h2>
+  <div style="padding-left: 0px">Object</div><div style="padding-left: 20px">Reference</div><div style="padding-left: 40px"><a href="../SF/Image.html">SF::Image</a></div>
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr">csfml/graphics_obj.cr</a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>Class Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#wrap_ptr%28p%29-class-method" class="signature"><strong>.wrap_ptr</strong>(p)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28width%20%3A%20Int32%2C%20height%20%3A%20Int32%2C%20color%20%3A%20Color%29-class-method" class="signature"><strong>.new</strong>(width : Int32, height : Int32, color : Color)</a>
+        
+          <div class="summary"><p>Create an image and fill it with a unique color</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28width%20%3A%20Int32%2C%20height%20%3A%20Int32%2C%20pixels%29-class-method" class="signature"><strong>.new</strong>(width : Int32, height : Int32, pixels)</a>
+        
+          <div class="summary"><p>Create an image from an array of pixels</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28width%20%3A%20Int32%2C%20height%20%3A%20Int32%29-class-method" class="signature"><strong>.new</strong>(width : Int32, height : Int32)</a>
+        
+          <div class="summary"><p>Create an image</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size%20%3A%20Size_t%29-class-method" class="signature"><strong>.new</strong>(data : ::Pointer(Void), size : Size_t)</a>
+        
+          <div class="summary"><p>Create an image from a file in memory</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28filename%20%3A%20String%29-class-method" class="signature"><strong>.new</strong>(filename : String)</a>
+        
+          <div class="summary"><p>Create an image from a file on disk</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28stream%20%3A%20%3A%3APointer%28InputStream%29%29-class-method" class="signature"><strong>.new</strong>(stream : ::Pointer(InputStream))</a>
+        
+          <div class="summary"><p>Create an image from a custom stream</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#copy-instance-method" class="signature"><strong>#copy</strong></a>
+        
+          <div class="summary"><p>Copy an existing image</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#copy_image%28source%20%3A%20Image%2C%20dest_x%20%3A%20Int32%2C%20dest_y%20%3A%20Int32%2C%20source_rect%20%3A%20IntRect%2C%20apply_alpha%20%3A%20Bool%29-instance-method" class="signature"><strong>#copy_image</strong>(source : Image, dest_x : Int32, dest_y : Int32, source_rect : IntRect, apply_alpha : Bool)</a>
+        
+          <div class="summary"><p>Copy pixels from an image onto another</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#create_mask%28color%20%3A%20Color%2C%20alpha%20%3A%20UInt8%29-instance-method" class="signature"><strong>#create_mask</strong>(color : Color, alpha : UInt8)</a>
+        
+          <div class="summary"><p>Create a transparency mask from a specified color-key</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#finalize-instance-method" class="signature"><strong>#finalize</strong></a>
+        
+          <div class="summary"><p>Destroy an existing image</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#flip_horizontally-instance-method" class="signature"><strong>#flip_horizontally</strong></a>
+        
+          <div class="summary"><p>Flip an image horizontally (left <-> right)</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#flip_vertically-instance-method" class="signature"><strong>#flip_vertically</strong></a>
+        
+          <div class="summary"><p>Flip an image vertically (top <-> bottom)</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_pixel%28x%20%3A%20Int32%2C%20y%20%3A%20Int32%29-instance-method" class="signature"><strong>#get_pixel</strong>(x : Int32, y : Int32)</a>
+        
+          <div class="summary"><p>Get the color of a pixel in an image</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#pixels_ptr-instance-method" class="signature"><strong>#pixels_ptr</strong></a>
+        
+          <div class="summary"><p>Get a read-only pointer to the array of pixels of an image</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#save_to_file%28filename%20%3A%20String%29-instance-method" class="signature"><strong>#save_to_file</strong>(filename : String)</a>
+        
+          <div class="summary"><p>Save an image to a file on disk</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#set_pixel%28x%20%3A%20Int32%2C%20y%20%3A%20Int32%2C%20color%20%3A%20Color%29-instance-method" class="signature"><strong>#set_pixel</strong>(x : Int32, y : Int32, color : Color)</a>
+        
+          <div class="summary"><p>Change the color of a pixel in an image</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#size-instance-method" class="signature"><strong>#size</strong></a>
+        
+          <div class="summary"><p>Return the size of an image</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+
+  <h2>Class Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="wrap_ptr%28p%29-class-method">
+        
+        def self.<strong>wrap_ptr</strong>(p)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1066" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28width%20%3A%20Int32%2C%20height%20%3A%20Int32%2C%20color%20%3A%20Color%29-class-method">
+        
+        def self.<strong>new</strong>(width : Int32, height : Int32, color : <a href="../SF/Color.html">Color</a>)
+      </div>
+      
+        <div class="doc"><p>Create an image and fill it with a unique color</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>width</code>: Width of the image</li><li><code>height</code>: Height of the image</li><li><code>color</code>: Fill color</li></ul>
+
+<p><em>Returns</em>: A new Image object</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1099" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28width%20%3A%20Int32%2C%20height%20%3A%20Int32%2C%20pixels%29-class-method">
+        
+        def self.<strong>new</strong>(width : Int32, height : Int32, pixels)
+      </div>
+      
+        <div class="doc"><p>Create an image from an array of pixels</p>
+
+<p>The <code>pixel</code> array is assumed to contain 32-bits RGBA pixels,
+and have the given <code>width</code> and <code>height</code>. If not, this is
+an undefined behaviour.
+If <code>pixels</code> is null, an empty image is created.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>width</code>: Width of the image</li><li><code>height</code>: Height of the image</li><li><code>pixels</code>: Array of pixels to copy to the image</li></ul>
+
+<p><em>Returns</em>: A new Image object</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1118" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28width%20%3A%20Int32%2C%20height%20%3A%20Int32%29-class-method">
+        
+        def self.<strong>new</strong>(width : Int32, height : Int32)
+      </div>
+      
+        <div class="doc"><p>Create an image</p>
+
+<p>This image is filled with black pixels.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>width</code>: Width of the image</li><li><code>height</code>: Height of the image</li></ul>
+
+<p><em>Returns</em>: A new Image object</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1085" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size%20%3A%20Size_t%29-class-method">
+        
+        def self.<strong>new</strong>(data : ::Pointer(Void), size : Size_t)
+      </div>
+      
+        <div class="doc"><p>Create an image from a file in memory</p>
+
+<p>The supported image formats are bmp, png, tga, jpg, gif,
+psd, hdr and pic. Some format options are not supported,
+like progressive jpeg.
+If this function fails, the image is left unchanged.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>data</code>: Pointer to the file data in memory</li><li><code><a href="../SF/Image.html#size-instance-method">#size</a></code>: Size of the data to load, in bytes</li></ul>
+
+<p><em>Returns</em>: A new Image object, or NULL if it failed</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1158" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28filename%20%3A%20String%29-class-method">
+        
+        def self.<strong>new</strong>(filename : String)
+      </div>
+      
+        <div class="doc"><p>Create an image from a file on disk</p>
+
+<p>The supported image formats are bmp, png, tga, jpg, gif,
+psd, hdr and pic. Some format options are not supported,
+like progressive jpeg.
+If this function fails, the image is left unchanged.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>filename</code>: Path of the image file to load</li></ul>
+
+<p><em>Returns</em>: A new Image object, or NULL if it failed</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1140" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28stream%20%3A%20%3A%3APointer%28InputStream%29%29-class-method">
+        
+        def self.<strong>new</strong>(stream : ::Pointer(<a href="../SF/InputStream.html">InputStream</a>))
+      </div>
+      
+        <div class="doc"><p>Create an image from a custom stream</p>
+
+<p>The supported image formats are bmp, png, tga, jpg, gif,
+psd, hdr and pic. Some format options are not supported,
+like progressive jpeg.
+If this function fails, the image is left unchanged.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>stream</code>: Source stream to read from</li></ul>
+
+<p><em>Returns</em>: A new Image object, or NULL if it failed</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1175" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="copy-instance-method">
+        
+        def <strong>copy</strong>
+      </div>
+      
+        <div class="doc"><p>Copy an existing image</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>image</code>: Image to copy</li></ul>
+
+<p><em>Returns</em>: Copied object</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1187" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="copy_image%28source%20%3A%20Image%2C%20dest_x%20%3A%20Int32%2C%20dest_y%20%3A%20Int32%2C%20source_rect%20%3A%20IntRect%2C%20apply_alpha%20%3A%20Bool%29-instance-method">
+        
+        def <strong>copy_image</strong>(source : <a href="../SF/Image.html">Image</a>, dest_x : Int32, dest_y : Int32, source_rect : <a href="../SF/IntRect.html">IntRect</a>, apply_alpha : Bool)
+      </div>
+      
+        <div class="doc"><p>Copy pixels from an image onto another</p>
+
+<p>This function does a slow pixel copy and should not be
+used intensively. It can be used to prepare a complex
+static image from several others, but if you need this
+kind of feature in real-time you'd better use RenderTexture.</p>
+
+<p>If <code>source_rect</code> is empty, the whole image is copied.
+If <code>apply_alpha</code> is set to true, the transparency of
+source pixels is applied. If it is false, the pixels are
+copied unchanged with their alpha value.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>image</code>: Image object</li><li><code>source</code>: Source image to copy</li><li><code>destX</code>: X coordinate of the destination position</li><li><code>destY</code>: Y coordinate of the destination position</li><li><code>source_rect</code>: Sub-rectangle of the source image to copy</li><li><code>apply_alpha</code>: Should the copy take in account the source transparency?</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1263" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="create_mask%28color%20%3A%20Color%2C%20alpha%20%3A%20UInt8%29-instance-method">
+        
+        def <strong>create_mask</strong>(color : <a href="../SF/Color.html">Color</a>, alpha : UInt8)
+      </div>
+      
+        <div class="doc"><p>Create a transparency mask from a specified color-key</p>
+
+<p>This function sets the alpha value of every pixel matching
+the given color to <code>alpha</code> (0 by default), so that they
+become transparent.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>image</code>: Image object</li><li><code>color</code>: Color to make transparent</li><li><code>alpha</code>: Alpha value to assign to transparent pixels</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1239" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="finalize-instance-method">
+        
+        def <strong>finalize</strong>
+      </div>
+      
+        <div class="doc"><p>Destroy an existing image</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>image</code>: Image to delete</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1196" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="flip_horizontally-instance-method">
+        
+        def <strong>flip_horizontally</strong>
+      </div>
+      
+        <div class="doc"><p>Flip an image horizontally (left <-> right)</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>image</code>: Image object</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1324" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="flip_vertically-instance-method">
+        
+        def <strong>flip_vertically</strong>
+      </div>
+      
+        <div class="doc"><p>Flip an image vertically (top <-> bottom)</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>image</code>: Image object</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1333" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="get_pixel%28x%20%3A%20Int32%2C%20y%20%3A%20Int32%29-instance-method">
+        
+        def <strong>get_pixel</strong>(x : Int32, y : Int32)
+      </div>
+      
+        <div class="doc"><p>Get the color of a pixel in an image</p>
+
+<p>This function doesn't check the validity of the pixel
+coordinates, using out-of-range values will result in
+an undefined behaviour.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>image</code>: Image object</li><li><code>x</code>: X coordinate of pixel to get</li><li><code>y</code>: Y coordinate of pixel to get</li></ul>
+
+<p><em>Returns</em>: Color of the pixel at coordinates (x, y)</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1297" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="pixels_ptr-instance-method">
+        
+        def <strong>pixels_ptr</strong>
+      </div>
+      
+        <div class="doc"><p>Get a read-only pointer to the array of pixels of an image</p>
+
+<p>The returned value points to an array of RGBA pixels made of
+8 bits integers components. The size of the array is
+get_width() * get_height() * 4.
+Warning: the returned pointer may become invalid if you
+modify the image, so you should never store it for too long.
+If the image is empty, a null pointer is returned.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>image</code>: Image object</li></ul>
+
+<p><em>Returns</em>: Read-only pointer to the array of pixels</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1315" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="save_to_file%28filename%20%3A%20String%29-instance-method">
+        
+        def <strong>save_to_file</strong>(filename : String)
+      </div>
+      
+        <div class="doc"><p>Save an image to a file on disk</p>
+
+<p>The format of the image is automatically deduced from
+the extension. The supported image formats are bmp, png,
+tga and jpg. The destination file is overwritten
+if it already exists. This function fails if the image is empty.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>image</code>: Image object</li><li><code>filename</code>: Path of the file to save</li></ul>
+
+<p><em>Returns</em>: True if saving was successful</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1213" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="set_pixel%28x%20%3A%20Int32%2C%20y%20%3A%20Int32%2C%20color%20%3A%20Color%29-instance-method">
+        
+        def <strong>set_pixel</strong>(x : Int32, y : Int32, color : <a href="../SF/Color.html">Color</a>)
+      </div>
+      
+        <div class="doc"><p>Change the color of a pixel in an image</p>
+
+<p>This function doesn't check the validity of the pixel
+coordinates, using out-of-range values will result in
+an undefined behaviour.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>image</code>: Image object</li><li><code>x</code>: X coordinate of pixel to change</li><li><code>y</code>: Y coordinate of pixel to change</li><li><code>color</code>: New color of the pixel</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1280" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="size-instance-method">
+        
+        def <strong>size</strong>
+      </div>
+      
+        <div class="doc"><p>Return the size of an image</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>image</code>: Image object</li></ul>
+
+<p><em>Returns</em>: Size in pixels</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1224" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="to_unsafe-instance-method">
+        
+        def <strong>to_unsafe</strong>
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1071" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+
+
+</body>
+</html>

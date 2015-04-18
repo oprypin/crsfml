@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link href="../css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+
+  <h1>class SF::SoundRecorder</h1>
+
+
+
+
+
+
+
+  <h2>Superclass hierarchy</h2>
+  <div style="padding-left: 0px">Object</div><div style="padding-left: 20px">Reference</div><div style="padding-left: 40px"><a href="../SF/SoundRecorder.html">SF::SoundRecorder</a></div>
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr">csfml/audio_obj.cr</a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>Class Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#wrap_ptr%28p%29-class-method" class="signature"><strong>.wrap_ptr</strong>(p)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28on_start%20%3A%20SoundRecorderStartCallback%2C%20on_process%20%3A%20SoundRecorderProcessCallback%2C%20on_stop%20%3A%20SoundRecorderStopCallback%2C%20user_data%20%3A%20%3A%3APointer%28Void%29%29-class-method" class="signature"><strong>.new</strong>(on_start : SoundRecorderStartCallback, on_process : SoundRecorderProcessCallback, on_stop : SoundRecorderStopCallback, user_data : ::Pointer(Void))</a>
+        
+          <div class="summary"><p>Construct a new sound recorder from callback functions</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#device-instance-method" class="signature"><strong>#device</strong></a>
+        
+          <div class="summary"><p>Get the name of the current audio capture device</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#device%3D%28name%20%3A%20String%29-instance-method" class="signature"><strong>#device=</strong>(name : String)</a>
+        
+          <div class="summary"><p>Set the audio capture device</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#finalize-instance-method" class="signature"><strong>#finalize</strong></a>
+        
+          <div class="summary"><p>Destroy a sound recorder</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#processing_interval%3D%28interval%20%3A%20Time%29-instance-method" class="signature"><strong>#processing_interval=</strong>(interval : Time)</a>
+        
+          <div class="summary"><p>Set the processing interval</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#sample_rate-instance-method" class="signature"><strong>#sample_rate</strong></a>
+        
+          <div class="summary"><p>Get the sample rate of a sound recorder</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#start%28sample_rate%20%3A%20Int32%29-instance-method" class="signature"><strong>#start</strong>(sample_rate : Int32)</a>
+        
+          <div class="summary"><p>Start the capture of a sound recorder</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#stop-instance-method" class="signature"><strong>#stop</strong></a>
+        
+          <div class="summary"><p>Stop the capture of a sound recorder</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+
+  <h2>Class Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="wrap_ptr%28p%29-class-method">
+        
+        def self.<strong>wrap_ptr</strong>(p)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L1002" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28on_start%20%3A%20SoundRecorderStartCallback%2C%20on_process%20%3A%20SoundRecorderProcessCallback%2C%20on_stop%20%3A%20SoundRecorderStopCallback%2C%20user_data%20%3A%20%3A%3APointer%28Void%29%29-class-method">
+        
+        def self.<strong>new</strong>(on_start : SoundRecorderStartCallback, on_process : SoundRecorderProcessCallback, on_stop : SoundRecorderStopCallback, user_data : ::Pointer(Void))
+      </div>
+      
+        <div class="doc"><p>Construct a new sound recorder from callback functions</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>on_start</code>: Callback function which will be called when a new capture starts (can be NULL)</li><li><code>on_process</code>: Callback function which will be called each time there's audio data to process</li><li><code>on_stop</code>: Callback function which will be called when the current capture stops (can be NULL)</li><li><code>user_data</code>: Data to pass to the callback function (can be NULL)</li></ul>
+
+<p><em>Returns</em>: A new SoundRecorder object (NULL if failed)</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L1021" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="device-instance-method">
+        
+        def <strong>device</strong>
+      </div>
+      
+        <div class="doc"><p>Get the name of the current audio capture device</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_recorder</code>: Sound recorder object</li></ul>
+
+<p><em>Returns</em>: The name of the current audio capture device</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L1122" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="device%3D%28name%20%3A%20String%29-instance-method">
+        
+        def <strong>device=</strong>(name : String)
+      </div>
+      
+        <div class="doc"><p>Set the audio capture device</p>
+
+<p>This function sets the audio capture device to the device
+with the given name. It can be called on the fly (i.e:
+while recording). If you do so while recording and
+opening the device fails, it stops the recording.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_recorder</code>: Sound recorder object</li><li><code>The</code>: name of the audio capture device</li></ul>
+
+<p><em>Returns</em>: True, if it was able to set the requested device</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L1111" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="finalize-instance-method">
+        
+        def <strong>finalize</strong>
+      </div>
+      
+        <div class="doc"><p>Destroy a sound recorder</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_recorder</code>: Sound recorder to destroy</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L1031" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="processing_interval%3D%28interval%20%3A%20Time%29-instance-method">
+        
+        def <strong>processing_interval=</strong>(interval : <a href="../SF/Time.html">Time</a>)
+      </div>
+      
+        <div class="doc"><p>Set the processing interval</p>
+
+<p>The processing interval controls the period
+between calls to the on_process_samples function. You may
+want to use a small interval if you want to process the
+recorded data in real time, for example.</p>
+
+<p>Note: this is only a hint, the actual period may vary.
+So don't rely on this parameter to implement precise timing.</p>
+
+<p>The default processing interval is 100 ms.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_recorder</code>: Sound recorder object</li><li><code>interval</code>: Processing interval</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L1094" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="sample_rate-instance-method">
+        
+        def <strong>sample_rate</strong>
+      </div>
+      
+        <div class="doc"><p>Get the sample rate of a sound recorder</p>
+
+<p>The sample rate defines the number of audio samples
+captured per second. The higher, the better the quality
+(for example, 44100 samples/sec is CD quality).</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_recorder</code>: Sound recorder object</li></ul>
+
+<p><em>Returns</em>: Sample rate, in samples per second</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L1074" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="start%28sample_rate%20%3A%20Int32%29-instance-method">
+        
+        def <strong>start</strong>(sample_rate : Int32)
+      </div>
+      
+        <div class="doc"><p>Start the capture of a sound recorder</p>
+
+<p>The <code><a href="../SF/SoundRecorder.html#sample_rate-instance-method">#sample_rate</a></code> parameter defines the number of audio samples
+captured per second. The higher, the better the quality
+(for example, 44100 samples/sec is CD quality).
+This function uses its own thread so that it doesn't block
+the rest of the program while the capture runs.
+Please note that only one capture can happen at the same time.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_recorder</code>: Sound recorder object</li><li><code><a href="../SF/SoundRecorder.html#sample_rate-instance-method">#sample_rate</a></code>: Desired capture rate, in number of samples per second</li></ul>
+
+<p><em>Returns</em>: True, if start of capture was successful</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L1050" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="stop-instance-method">
+        
+        def <strong>stop</strong>
+      </div>
+      
+        <div class="doc"><p>Stop the capture of a sound recorder</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_recorder</code>: Sound recorder object</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L1059" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="to_unsafe-instance-method">
+        
+        def <strong>to_unsafe</strong>
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L1007" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+
+
+</body>
+</html>

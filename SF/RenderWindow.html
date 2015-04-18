@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link href="../css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+
+  <h1>class SF::RenderWindow</h1>
+
+
+
+
+
+
+
+  <h2>Superclass hierarchy</h2>
+  <div style="padding-left: 0px">Object</div><div style="padding-left: 20px">Reference</div><div style="padding-left: 40px"><a href="../SF/RenderWindow.html">SF::RenderWindow</a></div>
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics.cr">csfml/graphics.cr</a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr">csfml/graphics_obj.cr</a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>Class Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#wrap_ptr%28p%29-class-method" class="signature"><strong>.wrap_ptr</strong>(p)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28mode%20%3A%20VideoMode%2C%20title%20%3A%20String%2C%20style%20%3A%20WindowStyle%2C%20settings%29-class-method" class="signature"><strong>.new</strong>(mode : VideoMode, title : String, style : WindowStyle, settings)</a>
+        
+          <div class="summary"><p>Construct a new render window (with a UTF-32 title)</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28handle%20%3A%20WindowHandle%2C%20settings%29-class-method" class="signature"><strong>.new</strong>(handle : WindowHandle, settings)</a>
+        
+          <div class="summary"><p>Construct a render window from an existing control</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#active%3D%28active%20%3A%20Bool%29-instance-method" class="signature"><strong>#active=</strong>(active : Bool)</a>
+        
+          <div class="summary"><p>Activate or deactivate a render window as the current target for rendering</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#capture-instance-method" class="signature"><strong>#capture</strong></a>
+        
+          <div class="summary"><p>Copy the current contents of a render window to an image</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#clear%28color%20%3A%20Color%29-instance-method" class="signature"><strong>#clear</strong>(color : Color)</a>
+        
+          <div class="summary"><p>Clear a render window with the given color</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#close-instance-method" class="signature"><strong>#close</strong></a>
+        
+          <div class="summary"><p>Close a render window (but doesn't destroy the internal data)</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#default_view-instance-method" class="signature"><strong>#default_view</strong></a>
+        
+          <div class="summary"><p>Get the default view of a render window</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#display-instance-method" class="signature"><strong>#display</strong></a>
+        
+          <div class="summary"><p>Display a render window on screen</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#draw_circle_shape%28object%20%3A%20CircleShape%2C%20states%29-instance-method" class="signature"><strong>#draw_circle_shape</strong>(object : CircleShape, states)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#draw_convex_shape%28object%20%3A%20ConvexShape%2C%20states%29-instance-method" class="signature"><strong>#draw_convex_shape</strong>(object : ConvexShape, states)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#draw_primitives%28vertices%2C%20vertex_count%20%3A%20Int32%2C%20type%20%3A%20PrimitiveType%2C%20states%29-instance-method" class="signature"><strong>#draw_primitives</strong>(vertices, vertex_count : Int32, type : PrimitiveType, states)</a>
+        
+          <div class="summary"><p>Draw primitives defined by an array of vertices to a render window</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#draw_rectangle_shape%28object%20%3A%20RectangleShape%2C%20states%29-instance-method" class="signature"><strong>#draw_rectangle_shape</strong>(object : RectangleShape, states)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#draw_shape%28object%20%3A%20Shape%2C%20states%29-instance-method" class="signature"><strong>#draw_shape</strong>(object : Shape, states)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#draw_sprite%28object%20%3A%20Sprite%2C%20states%29-instance-method" class="signature"><strong>#draw_sprite</strong>(object : Sprite, states)</a>
+        
+          <div class="summary"><p>Draw a drawable object to the render-target</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#draw_text%28object%20%3A%20Text%2C%20states%29-instance-method" class="signature"><strong>#draw_text</strong>(object : Text, states)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#draw_vertex_array%28object%20%3A%20VertexArray%2C%20states%29-instance-method" class="signature"><strong>#draw_vertex_array</strong>(object : VertexArray, states)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#events%28%26block%29-instance-method" class="signature"><strong>#events</strong>(&block)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#finalize-instance-method" class="signature"><strong>#finalize</strong></a>
+        
+          <div class="summary"><p>Destroy an existing render window</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#framerate_limit%3D%28limit%20%3A%20Int32%29-instance-method" class="signature"><strong>#framerate_limit=</strong>(limit : Int32)</a>
+        
+          <div class="summary"><p>Limit the framerate to a maximum fixed frequency for a render window</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_viewport%28view%20%3A%20View%29-instance-method" class="signature"><strong>#get_viewport</strong>(view : View)</a>
+        
+          <div class="summary"><p>Get the viewport of a view applied to this target</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#has_focus-instance-method" class="signature"><strong>#has_focus</strong></a>
+        
+          <div class="summary"><p>Check whether the render window has the input focus</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#joystick_threshold%3D%28threshold%29-instance-method" class="signature"><strong>#joystick_threshold=</strong>(threshold)</a>
+        
+          <div class="summary"><p>Change the joystick threshold, ie.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#key_repeat_enabled%3D%28enabled%20%3A%20Bool%29-instance-method" class="signature"><strong>#key_repeat_enabled=</strong>(enabled : Bool)</a>
+        
+          <div class="summary"><p>Enable or disable automatic key-repeat for keydown events</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#map_coords_to_pixel%28point%20%3A%20Vector2f%2C%20view%20%3A%20View%29-instance-method" class="signature"><strong>#map_coords_to_pixel</strong>(point : Vector2f, view : View)</a>
+        
+          <div class="summary"><p>Convert a point from world coordinates to window coordinates</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#map_pixel_to_coords%28point%20%3A%20Vector2i%2C%20view%20%3A%20View%29-instance-method" class="signature"><strong>#map_pixel_to_coords</strong>(point : Vector2i, view : View)</a>
+        
+          <div class="summary"><p>Convert a point from window coordinates to world coordinates</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#mouse_cursor_visible%3D%28show%20%3A%20Bool%29-instance-method" class="signature"><strong>#mouse_cursor_visible=</strong>(show : Bool)</a>
+        
+          <div class="summary"><p>Show or hide the mouse cursor on a render window</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#open-instance-method" class="signature"><strong>#open</strong></a>
+        
+          <div class="summary"><p>Tell whether or not a render window is opened</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#poll_event%28event%20%3A%20%3A%3APointer%28Event%29%29-instance-method" class="signature"><strong>#poll_event</strong>(event : ::Pointer(Event))</a>
+        
+          <div class="summary"><p>Get the event on top of event queue of a render window, if any, and pop it</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#pop_gl_states-instance-method" class="signature"><strong>#pop_gl_states</strong></a>
+        
+          <div class="summary"><p>Restore the previously saved OpenGL render states and matrices</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#position-instance-method" class="signature"><strong>#position</strong></a>
+        
+          <div class="summary"><p>Get the position of a render window</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#position%3D%28position%20%3A%20Vector2i%29-instance-method" class="signature"><strong>#position=</strong>(position : Vector2i)</a>
+        
+          <div class="summary"><p>Change the position of a render window on screen</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#push_gl_states-instance-method" class="signature"><strong>#push_gl_states</strong></a>
+        
+          <div class="summary"><p>Save the current OpenGL render states and matrices</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#request_focus-instance-method" class="signature"><strong>#request_focus</strong></a>
+        
+          <div class="summary"><p>Request the current render window to be made the active foreground window</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#reset_gl_states-instance-method" class="signature"><strong>#reset_gl_states</strong></a>
+        
+          <div class="summary"><p>Reset the internal OpenGL states so that the target is ready for drawing</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#set_icon%28width%20%3A%20Int32%2C%20height%20%3A%20Int32%2C%20pixels%29-instance-method" class="signature"><strong>#set_icon</strong>(width : Int32, height : Int32, pixels)</a>
+        
+          <div class="summary"><p>Change a render window's icon</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#settings-instance-method" class="signature"><strong>#settings</strong></a>
+        
+          <div class="summary"><p>Get the creation settings of a render window</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#size-instance-method" class="signature"><strong>#size</strong></a>
+        
+          <div class="summary"><p>Get the size of the rendering region of a render window</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#size%3D%28size%20%3A%20Vector2i%29-instance-method" class="signature"><strong>#size=</strong>(size : Vector2i)</a>
+        
+          <div class="summary"><p>Change the size of the rendering region of a render window</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#system_handle-instance-method" class="signature"><strong>#system_handle</strong></a>
+        
+          <div class="summary"><p>Retrieve the OS-specific handle of a render window</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#title%3D%28title%20%3A%20String%29-instance-method" class="signature"><strong>#title=</strong>(title : String)</a>
+        
+          <div class="summary"><p>Change the title of a render window (with a UTF-32 string)</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#vertical_sync_enabled%3D%28enabled%20%3A%20Bool%29-instance-method" class="signature"><strong>#vertical_sync_enabled=</strong>(enabled : Bool)</a>
+        
+          <div class="summary"><p>Enable / disable vertical synchronization on a render window</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#view-instance-method" class="signature"><strong>#view</strong></a>
+        
+          <div class="summary"><p>Get the current active view of a render window</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#view%3D%28view%20%3A%20View%29-instance-method" class="signature"><strong>#view=</strong>(view : View)</a>
+        
+          <div class="summary"><p>Change the current active view of a render window</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#visible%3D%28visible%20%3A%20Bool%29-instance-method" class="signature"><strong>#visible=</strong>(visible : Bool)</a>
+        
+          <div class="summary"><p>Show or hide a render window</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#wait_event%28event%20%3A%20%3A%3APointer%28Event%29%29-instance-method" class="signature"><strong>#wait_event</strong>(event : ::Pointer(Event))</a>
+        
+          <div class="summary"><p>Wait for an event and return it</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+
+  <h2>Class Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="wrap_ptr%28p%29-class-method">
+        
+        def self.<strong>wrap_ptr</strong>(p)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2433" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28mode%20%3A%20VideoMode%2C%20title%20%3A%20String%2C%20style%20%3A%20WindowStyle%2C%20settings%29-class-method">
+        
+        def self.<strong>new</strong>(mode : <a href="../SF/VideoMode.html">VideoMode</a>, title : String, style : <a href="../SF/WindowStyle.html">WindowStyle</a>, settings)
+      </div>
+      
+        <div class="doc"><p>Construct a new render window (with a UTF-32 title)</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>mode</code>: Video mode to use</li><li><code>title</code>: Title of the window (UTF-32)</li><li><code>style</code>: Window style</li><li><code><a href="../SF/RenderWindow.html#settings-instance-method">#settings</a></code>: Creation settings (pass NULL to use default values)</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2450" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28handle%20%3A%20WindowHandle%2C%20settings%29-class-method">
+        
+        def self.<strong>new</strong>(handle : WindowHandle, settings)
+      </div>
+      
+        <div class="doc"><p>Construct a render window from an existing control</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>handle</code>: Platform-specific handle of the control</li><li><code><a href="../SF/RenderWindow.html#settings-instance-method">#settings</a></code>: Creation settings (pass NULL to use default values)</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2467" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="active%3D%28active%20%3A%20Bool%29-instance-method">
+        
+        def <strong>active=</strong>(active : Bool)
+      </div>
+      
+        <div class="doc"><p>Activate or deactivate a render window as the current target for rendering</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>render_window</code>: Render window object</li><li><code>active</code>: True to activate, False to deactivate</li></ul>
+
+<p><em>Returns</em>: True if operation was successful, false otherwise</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2665" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="capture-instance-method">
+        
+        def <strong>capture</strong>
+      </div>
+      
+        <div class="doc"><p>Copy the current contents of a render window to an image</p>
+
+<p>This is a slow operation, whose main purpose is to make
+screenshots of the application. If you want to update an
+image with the contents of the window and then use it for
+drawing, you should rather use a Texture and its
+update(Window*) function.
+You can also draw things directly to a texture with the
+RenderWindow class.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>render_window</code>: Render window object</li></ul>
+
+<p><em>Returns</em>: New image containing the captured contents</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L3006" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="clear%28color%20%3A%20Color%29-instance-method">
+        
+        def <strong>clear</strong>(color : <a href="../SF/Color.html">Color</a>)
+      </div>
+      
+        <div class="doc"><p>Clear a render window with the given color</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>render_window</code>: Render window object</li><li><code>color</code>: Fill color</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2741" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="close-instance-method">
+        
+        def <strong>close</strong>
+      </div>
+      
+        <div class="doc"><p>Close a render window (but doesn't destroy the internal data)</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>render_window</code>: Render window to close</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2491" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="default_view-instance-method">
+        
+        def <strong>default_view</strong>
+      </div>
+      
+        <div class="doc"><p>Get the default view of a render window</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>render_window</code>: Render window object</li></ul>
+
+<p><em>Returns</em>: Default view of the render window</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2773" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="display-instance-method">
+        
+        def <strong>display</strong>
+      </div>
+      
+        <div class="doc"><p>Display a render window on screen</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>render_window</code>: Render window object</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2699" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="draw_circle_shape%28object%20%3A%20CircleShape%2C%20states%29-instance-method">
+        
+        def <strong>draw_circle_shape</strong>(object : <a href="../SF/CircleShape.html">CircleShape</a>, states)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2881" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="draw_convex_shape%28object%20%3A%20ConvexShape%2C%20states%29-instance-method">
+        
+        def <strong>draw_convex_shape</strong>(object : <a href="../SF/ConvexShape.html">ConvexShape</a>, states)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2890" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="draw_primitives%28vertices%2C%20vertex_count%20%3A%20Int32%2C%20type%20%3A%20PrimitiveType%2C%20states%29-instance-method">
+        
+        def <strong>draw_primitives</strong>(vertices, vertex_count : Int32, type : <a href="../SF/PrimitiveType.html">PrimitiveType</a>, states)
+      </div>
+      
+        <div class="doc"><p>Draw primitives defined by an array of vertices to a render window</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>render_window</code>: render window object</li><li><code>vertices</code>: Pointer to the vertices</li><li><code>vertex_count</code>: Number of vertices in the array</li><li><code>type</code>: Type of primitives to draw</li><li><code>states</code>: Render states to use for drawing (NULL to use the default states)</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2926" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="draw_rectangle_shape%28object%20%3A%20RectangleShape%2C%20states%29-instance-method">
+        
+        def <strong>draw_rectangle_shape</strong>(object : <a href="../SF/RectangleShape.html">RectangleShape</a>, states)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2899" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="draw_shape%28object%20%3A%20Shape%2C%20states%29-instance-method">
+        
+        def <strong>draw_shape</strong>(object : <a href="../SF/Shape.html">Shape</a>, states)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2872" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="draw_sprite%28object%20%3A%20Sprite%2C%20states%29-instance-method">
+        
+        def <strong>draw_sprite</strong>(object : <a href="../SF/Sprite.html">Sprite</a>, states)
+      </div>
+      
+        <div class="doc"><p>Draw a drawable object to the render-target</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>render_window</code>: render window object</li><li><code>object</code>: Object to draw</li><li><code>states</code>: Render states to use for drawing (NULL to use the default states)</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2854" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="draw_text%28object%20%3A%20Text%2C%20states%29-instance-method">
+        
+        def <strong>draw_text</strong>(object : <a href="../SF/Text.html">Text</a>, states)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2863" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="draw_vertex_array%28object%20%3A%20VertexArray%2C%20states%29-instance-method">
+        
+        def <strong>draw_vertex_array</strong>(object : <a href="../SF/VertexArray.html">VertexArray</a>, states)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2908" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="events%28%26block%29-instance-method">
+        
+        def <strong>events</strong>(&block)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics.cr#L25" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="finalize-instance-method">
+        
+        def <strong>finalize</strong>
+      </div>
+      
+        <div class="doc"><p>Destroy an existing render window</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>render_window</code>: Render window to destroy</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2482" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="framerate_limit%3D%28limit%20%3A%20Int32%29-instance-method">
+        
+        def <strong>framerate_limit=</strong>(limit : Int32)
+      </div>
+      
+        <div class="doc"><p>Limit the framerate to a maximum fixed frequency for a render window</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>render_window</code>: Render window object</li><li><code>limit</code>: Framerate limit, in frames per seconds (use 0 to disable limit)</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2709" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="get_viewport%28view%20%3A%20View%29-instance-method">
+        
+        def <strong>get_viewport</strong>(view : <a href="../SF/View.html">View</a>)
+      </div>
+      
+        <div class="doc"><p>Get the viewport of a view applied to this target</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>render_window</code>: Render window object</li><li><code><a href="../SF/RenderWindow.html#view-instance-method">#view</a></code>: Target view</li></ul>
+
+<p><em>Returns</em>: Viewport rectangle, expressed in pixels in the current target</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2785" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="has_focus-instance-method">
+        
+        def <strong>has_focus</strong>
+      </div>
+      
+        <div class="doc"><p>Check whether the render window has the input focus</p>
+
+<p>At any given time, only one window may have the input focus
+to receive input events such as keystrokes or most mouse
+events.</p>
+
+<p><em>Returns</em>: True if window has focus, false otherwise</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2690" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="joystick_threshold%3D%28threshold%29-instance-method">
+        
+        def <strong>joystick_threshold=</strong>(threshold)
+      </div>
+      
+        <div class="doc"><p>Change the joystick threshold, ie. the value below which no move event will be generated</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>render_window</code>: Render window object</li><li><code>threshold</code>: New threshold, in range [0, 100]</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2719" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="key_repeat_enabled%3D%28enabled%20%3A%20Bool%29-instance-method">
+        
+        def <strong>key_repeat_enabled=</strong>(enabled : Bool)
+      </div>
+      
+        <div class="doc"><p>Enable or disable automatic key-repeat for keydown events</p>
+
+<p>Automatic key-repeat is enabled by default</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>render_window</code>: Render window object</li><li><code>enabled</code>: True to enable, False to disable</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2652" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="map_coords_to_pixel%28point%20%3A%20Vector2f%2C%20view%20%3A%20View%29-instance-method">
+        
+        def <strong>map_coords_to_pixel</strong>(point : <a href="../SF/Vector2f.html">Vector2f</a>, view : <a href="../SF/View.html">View</a>)
+      </div>
+      
+        <div class="doc"><p>Convert a point from world coordinates to window coordinates</p>
+
+<p>This function finds the pixel of the render-window that matches
+the given 2D point. In other words, it goes through the same process
+as the graphics card, to compute the final position of a rendered point.</p>
+
+<p>Initially, both coordinate systems (world units and target pixels)
+match perfectly. But if you define a custom view or resize your
+render-window, this assertion is not true anymore, ie. a point
+located at (150, 75) in your 2D world may map to the pixel
+(10, 50) of your render-window -- if the view is translated by (140, 25).</p>
+
+<p>This version uses a custom view for calculations, see the other
+overload of the function if you want to use the current view of the
+render-window.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>render_window</code>: Render window object</li><li><code>point</code>: Point to convert</li><li><code><a href="../SF/RenderWindow.html#view-instance-method">#view</a></code>: The view to use for converting the point</li></ul>
+
+<p><em>Returns</em>: The converted point, in target coordinates (pixels)</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2843" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="map_pixel_to_coords%28point%20%3A%20Vector2i%2C%20view%20%3A%20View%29-instance-method">
+        
+        def <strong>map_pixel_to_coords</strong>(point : <a href="../SF/Vector2i.html">Vector2i</a>, view : <a href="../SF/View.html">View</a>)
+      </div>
+      
+        <div class="doc"><p>Convert a point from window coordinates to world coordinates</p>
+
+<p>This function finds the 2D position that matches the
+given pixel of the render-window. In other words, it does
+the inverse of what the graphics card does, to find the
+initial position of a rendered pixel.</p>
+
+<p>Initially, both coordinate systems (world units and target pixels)
+match perfectly. But if you define a custom view or resize your
+render-window, this assertion is not true anymore, ie. a point
+located at (10, 50) in your render-window may map to the point
+(150, 75) in your 2D world -- if the view is translated by (140, 25).</p>
+
+<p>This function is typically used to find which point (or object) is
+located below the mouse cursor.</p>
+
+<p>This version uses a custom view for calculations, see the other
+overload of the function if you want to use the current view of the
+render-window.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>render_window</code>: Render window object</li><li><code>point</code>: Pixel to convert</li><li><code><a href="../SF/RenderWindow.html#view-instance-method">#view</a></code>: The view to use for converting the point</li></ul>
+
+<p><em>Returns</em>: The converted point, in "world" units</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2816" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="mouse_cursor_visible%3D%28show%20%3A%20Bool%29-instance-method">
+        
+        def <strong>mouse_cursor_visible=</strong>(show : Bool)
+      </div>
+      
+        <div class="doc"><p>Show or hide the mouse cursor on a render window</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>render_window</code>: Render window object</li><li><code>show</code>: True to show, False to hide</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2628" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="open-instance-method">
+        
+        def <strong>open</strong>
+      </div>
+      
+        <div class="doc"><p>Tell whether or not a render window is opened</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>render_window</code>: Render window object</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2500" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="poll_event%28event%20%3A%20%3A%3APointer%28Event%29%29-instance-method">
+        
+        def <strong>poll_event</strong>(event : ::Pointer(<a href="../SF/Event.html">Event</a>))
+      </div>
+      
+        <div class="doc"><p>Get the event on top of event queue of a render window, if any, and pop it</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>render_window</code>: Render window object</li><li><code>event</code>: Event to fill, if any</li></ul>
+
+<p><em>Returns</em>: True if an event was returned, False if event queue was empty</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2523" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="pop_gl_states-instance-method">
+        
+        def <strong>pop_gl_states</strong>
+      </div>
+      
+        <div class="doc"><p>Restore the previously saved OpenGL render states and matrices</p>
+
+<p>See the description of push_gl_states to get a detailed
+description of these functions.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>render_window</code>: render window object</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2972" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="position-instance-method">
+        
+        def <strong>position</strong>
+      </div>
+      
+        <div class="doc"><p>Get the position of a render window</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>render_window</code>: Render window object</li></ul>
+
+<p><em>Returns</em>: Position in pixels</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2546" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="position%3D%28position%20%3A%20Vector2i%29-instance-method">
+        
+        def <strong>position=</strong>(position : <a href="../SF/Vector2i.html">Vector2i</a>)
+      </div>
+      
+        <div class="doc"><p>Change the position of a render window on screen</p>
+
+<p>Only works for top-level windows</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>render_window</code>: Render window object</li><li><code><a href="../SF/RenderWindow.html#position-instance-method">#position</a></code>: New position, in pixels</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2558" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="push_gl_states-instance-method">
+        
+        def <strong>push_gl_states</strong>
+      </div>
+      
+        <div class="doc"><p>Save the current OpenGL render states and matrices</p>
+
+<p>This function can be used when you mix SFML drawing
+and direct OpenGL rendering. Combined with pop_gl_states,
+it ensures that:
+- SFML's internal states are not messed up by your OpenGL code
+- your OpenGL states are not modified by a call to a SFML function</p>
+
+<p>Note that this function is quite expensive: it saves all the
+possible OpenGL states and matrices, even the ones you
+don't care about. Therefore it should be used wisely.
+It is provided for convenience, but the best results will
+be achieved if you handle OpenGL states yourself (because
+you know which states have really changed, and need to be
+saved and restored). Take a look at the reset_gl_states
+function if you do so.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>render_window</code>: render window object</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2960" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="request_focus-instance-method">
+        
+        def <strong>request_focus</strong>
+      </div>
+      
+        <div class="doc"><p>Request the current render window to be made the active
+foreground window</p>
+
+<p>At any given time, only one window may have the input focus
+to receive input events such as keystrokes or mouse events.
+If a window requests focus, it only hints to the operating
+system, that it would like to be focused. The operating system
+is free to deny the request.
+This is not to be confused with Window_setActive().</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2679" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="reset_gl_states-instance-method">
+        
+        def <strong>reset_gl_states</strong>
+      </div>
+      
+        <div class="doc"><p>Reset the internal OpenGL states so that the target is ready for drawing</p>
+
+<p>This function can be used when you mix SFML drawing
+and direct OpenGL rendering, if you choose not to use
+push_gl_states/pop_gl_states. It makes sure that all OpenGL
+states needed by SFML are set, so that subsequent RenderWindow_draw*()
+calls will work as expected.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>render_window</code>: render window object</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2987" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="set_icon%28width%20%3A%20Int32%2C%20height%20%3A%20Int32%2C%20pixels%29-instance-method">
+        
+        def <strong>set_icon</strong>(width : Int32, height : Int32, pixels)
+      </div>
+      
+        <div class="doc"><p>Change a render window's icon</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>render_window</code>: Render window object</li><li><code>width</code>: Icon's width, in pixels</li><li><code>height</code>: Icon's height, in pixels</li><li><code>pixels</code>: Pointer to the pixels in memory, format must be RGBA 32 bits</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2602" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="settings-instance-method">
+        
+        def <strong>settings</strong>
+      </div>
+      
+        <div class="doc"><p>Get the creation settings of a render window</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>render_window</code>: Render window object</li></ul>
+
+<p><em>Returns</em>: Settings used to create the window</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2511" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="size-instance-method">
+        
+        def <strong>size</strong>
+      </div>
+      
+        <div class="doc"><p>Get the size of the rendering region of a render window</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>render_window</code>: Render window object</li></ul>
+
+<p><em>Returns</em>: Size in pixels</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2569" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="size%3D%28size%20%3A%20Vector2i%29-instance-method">
+        
+        def <strong>size=</strong>(size : <a href="../SF/Vector2i.html">Vector2i</a>)
+      </div>
+      
+        <div class="doc"><p>Change the size of the rendering region of a render window</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>render_window</code>: Render window object</li><li><code><a href="../SF/RenderWindow.html#size-instance-method">#size</a></code>: New size, in pixels</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2579" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="system_handle-instance-method">
+        
+        def <strong>system_handle</strong>
+      </div>
+      
+        <div class="doc"><p>Retrieve the OS-specific handle of a render window</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>render_window</code>: Render window object</li></ul>
+
+<p><em>Returns</em>: Window handle</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2731" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="title%3D%28title%20%3A%20String%29-instance-method">
+        
+        def <strong>title=</strong>(title : String)
+      </div>
+      
+        <div class="doc"><p>Change the title of a render window (with a UTF-32 string)</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>render_window</code>: Render window object</li><li><code>title</code>: New title</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2589" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="to_unsafe-instance-method">
+        
+        def <strong>to_unsafe</strong>
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2438" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="vertical_sync_enabled%3D%28enabled%20%3A%20Bool%29-instance-method">
+        
+        def <strong>vertical_sync_enabled=</strong>(enabled : Bool)
+      </div>
+      
+        <div class="doc"><p>Enable / disable vertical synchronization on a render window</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>render_window</code>: Render window object</li><li><code>enabled</code>: True to enable v-sync, False to deactivate</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2639" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="view-instance-method">
+        
+        def <strong>view</strong>
+      </div>
+      
+        <div class="doc"><p>Get the current active view of a render window</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>render_window</code>: Render window object</li></ul>
+
+<p><em>Returns</em>: Current active view</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2762" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="view%3D%28view%20%3A%20View%29-instance-method">
+        
+        def <strong>view=</strong>(view : <a href="../SF/View.html">View</a>)
+      </div>
+      
+        <div class="doc"><p>Change the current active view of a render window</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>render_window</code>: Render window object</li><li><code><a href="../SF/RenderWindow.html#view-instance-method">#view</a></code>: Pointer to the new view</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2751" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="visible%3D%28visible%20%3A%20Bool%29-instance-method">
+        
+        def <strong>visible=</strong>(visible : Bool)
+      </div>
+      
+        <div class="doc"><p>Show or hide a render window</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>render_window</code>: Render window object</li><li><code>visible</code>: True to show the window, False to hide it</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2617" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="wait_event%28event%20%3A%20%3A%3APointer%28Event%29%29-instance-method">
+        
+        def <strong>wait_event</strong>(event : ::Pointer(<a href="../SF/Event.html">Event</a>))
+      </div>
+      
+        <div class="doc"><p>Wait for an event and return it</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>render_window</code>: Render window object</li><li><code>event</code>: Event to fill</li></ul>
+
+<p><em>Returns</em>: False if an error occured</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2535" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+
+
+</body>
+</html>
