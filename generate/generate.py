@@ -497,7 +497,7 @@ for mod, lines in libs.items():
         f.write('\n'.join('  '+l for l in lines[1:]))
         f.write('\nend')
 for mod, classes in objs.items():
-    with open('{}.cr'.format(mod), 'w') as f:
+    with open('{}_obj.cr'.format(mod), 'w') as f:
         f.write('require "./{}_lib"\n\n'.format(mod))
         f.write('module SF\n  extend self\n\n')
         for cls, lines in classes.items():

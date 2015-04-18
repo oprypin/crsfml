@@ -8,6 +8,6 @@ cd ..
 cp -r generate/*.cr src/csfml/
 
 cd src/csfml/
-for f in ../../patches/*.patch; do
+for f in ../../generate/patches/*.patch; do
     patch < $f
 done

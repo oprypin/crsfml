@@ -1,3 +1,4 @@
+require "csfml/window"
 require "csfml/graphics"
 
 mode = CSFML::VideoMode.new(width: 800, height: 600, bits_per_pixel: 32)
