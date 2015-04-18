@@ -1,6 +1,6 @@
---- generate/system_lib.cr	2015-04-18 18:47:34.512842304 +0300
-+++ src/csfml/system_lib.cr	2015-04-18 18:47:34.569508968 +0300
-@@ -1,6 +1,33 @@
+--- generate/system_lib.cr	2015-04-18 21:03:32.005879800 +0300
++++ src/csfml/system_lib.cr	2015-04-18 21:23:55.859168748 +0300
+@@ -1,6 +1,34 @@
 +# Copyright (C) 2015 Oleh Prypin <blaxpirit@gmail.com>
 +# 
 +# This file is part of CrSFML.
@@ -31,6 +31,7 @@
 +    alias Size_t = UInt32
 +  end
 +
++
+   # Represents a time value
    struct Time
-     # Represents a time value
      microseconds: Int64

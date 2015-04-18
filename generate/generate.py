@@ -95,7 +95,7 @@ def common_start(strings):
     return first
 
 
-def get_doc(indent=2):
+def get_doc(indent=0):
     global doc
     if doc is None:
         return None
@@ -123,25 +123,26 @@ def handle_enum(name, items):
     s = 'enum {}'.format(nname)
     if nname in ['WindowStyle', 'TextStyle']:
         s += ': UInt32'
-    lib(s)
     d = get_doc()
     if d: lib(d)
+    lib(s)
     lib(*(textwrap.wrap(', '.join(
         ('{} = {}'.format(name, value) if value is not None else name)
         for name, value in nitems
     ), 78, initial_indent='  ', subsequent_indent='  ')))
     lib('end')
     
-    obj(nname, 'alias {0} = CSFML::{0}'.format(nname), ' ')
+    if d: obj(nname, d)
+    obj(nname, 'alias {0} = CSFML::{0}'.format(nname))
     aliases.add(nname)
 
 def handle_struct(name, items):
     if name=='sfVector2u':
         return
     name = rename_type(name)
-    lib('struct {}'.format(name))
     d = get_doc()
     if d: lib(d)
+    lib('struct {}'.format(name))
     
     for t, n in items:
         t = rename_type(t)
@@ -150,29 +151,33 @@ def handle_struct(name, items):
         lib('  {}: {}'.format(rename_identifier(n), t))
     lib('end')
     
-    obj(name, 'alias {0} = CSFML::{0}'.format(name), ' ')
+    if d: obj(name, d)
+    obj(name, 'alias {0} = CSFML::{0}'.format(name))
     aliases.add(name)
 
 def handle_union(name, items):
     name = rename_type(name)
-    lib('union {}'.format(name))
     d = get_doc()
     if d: lib(d)
+    lib('union {}'.format(name))
     
-    for typ, name in items:
-        typ = rename_type(typ)
-        lib('  {}: {}'.format(name, typ))
+    for t, n in items:
+        t = rename_type(t)
+        lib('  {}: {}'.format(n, t))
     lib('end')
+
+    if d: obj(name, d)
+    obj(name, 'alias {0} = CSFML::{0}'.format(name))
+    aliases.add(name)
 
 
 classes = set()
 def handle_class(name):
     pname = rename_sf(name)
     classes.add(pname)
-    lib('type {0} = Void*'.format(pname))
     d = get_doc()
     if d: lib(d)
-    lib()
+    lib('type {0} = Void*'.format(pname), '')
     
     obj(pname, 'class {}'.format(pname))
     obj(pname, 'def self.wrap_ptr(p)\n'.format(pname))
@@ -182,7 +187,7 @@ def handle_class(name):
     obj(pname, 'end'.format(pname))
     obj(pname, 'def to_unsafe\n'.format(pname))
     obj(pname, '  @this'.format(pname))
-    obj(pname, 'end'.format(pname))
+    obj(pname, 'end'.format(pname), '')
     if d: obj(pname, d)
 
 
@@ -201,22 +206,20 @@ def handle_function(main, params):
     if 'initialize' in nfname:
         cls = rename_type(ftype)
         nfname = 'initialize'
-    elif ofname.startswith(p1+'_', 2):
+    elif ofname.startswith(p1+'_', 2) and p1 in classes:
         nfname = nfname[len(p1)+1:]
         cls = p1
-    if cls not in classes:
-        cls = ''
     nfname = rename_identifier(nfname)
     nftype = rename_type(ftype)
     main_sgn = 'fun {fname} = {ofname}({sparams}): {nftype}'
     getter = False
-    if nfname.startswith('get_') and len(params)==1:
+    if nfname.startswith('get_') and len(params)==1 and cls:
         getter = True
         nfname = nfname[4:]
-    if nfname.startswith('is_') and len(params)==1:
+    if nfname.startswith('is_') and len(params)==1 and cls:
         getter = True
         nfname = nfname[3:]
-    elif nfname.startswith('set_') and len(params)==2:
+    elif nfname.startswith('set_') and len(params)==2 and cls:
         nfname = nfname[4:]+'='
     if nfname.startswith('unicode_'):
         nfname = nfname[8:]
@@ -261,9 +264,8 @@ def handle_function(main, params):
     sparams = ', '.join('{}: {}'.format(*p) for p in aparams)
 
     d = get_doc()
-    lib(main_sgn.format(**locals()))
     if d: lib(d)
-    lib()
+    lib(main_sgn.format(**locals()), '')
     
     if not public:
         return
@@ -300,6 +302,7 @@ def handle_function(main, params):
         oparams[i] = (n, t)
     if nfname == 'destroy':
         nfname = 'finalize'
+    if d: obj(cls, d)
     obj(cls, 'def {nfname}{sparams}'.format(**locals()))
     for line in conv:
         obj(cls, '  '+line)
@@ -318,7 +321,7 @@ def handle_function(main, params):
     elif ftype == 'sfBool':
         call += ' != 0'
     obj(cls, '  '+call)
-    obj(cls, 'end')
+    obj(cls, 'end', '')
 
 
 def handle_functiondef(main, params):
@@ -437,11 +440,11 @@ class Visitor(c_ast.NodeVisitor):
                 doc = docs[int(name[3:])-1].strip()
                 doc = re.sub(r'(Example:\s+)?\\code(.|\n)+?\\endcode\n', r'', doc)
                 doc = re.sub(r'\\brief ', r'', doc)
-                doc = re.sub(r'\\param', r'Arguments:\n\\param', doc, 1)
-                doc = re.sub(r'\\param ([a-zA-Z0-9_]+)', r'- \1: ', doc)
+                doc = re.sub(r'\\param', r'*Arguments*:\n\n\\param', doc, 1)
+                doc = re.sub(r'\\param ([a-zA-Z0-9_]+)', r'* `\1`: ', doc)
                 doc = re.sub(r'\\li ', r'- ', doc)
                 doc = re.sub(r'\\a ([a-zA-Z0-9_]+)', r'`\1`', doc)
-                doc = re.sub(r'\\return ', r'Returns: ', doc)
+                doc = re.sub(r'\\return ', r'*Returns*: ', doc)
                 doc = re.sub(r'\bsf([A-Z])', r'\1', doc)
                 doc = re.sub(r'\b([a-z][a-z0-9]*[A-Z][a-zA-Z0-9]+)\b', lambda m: rename_identifier(m.group(0)), doc)
                 doc = re.sub(r' +', ' ', doc)
@@ -467,26 +470,31 @@ class Visitor(c_ast.NodeVisitor):
 
 
 
-libs = collections.defaultdict(list)
+libs = collections.defaultdict(lambda: [[]])
 def lib(*args):
-    libs[cmodule].extend(itertools.chain.from_iterable(a.splitlines() for a in args))
+    libs[cmodule].extend(itertools.chain.from_iterable(a.splitlines() or [''] for a in args))
     if not args or args[0].startswith('end'):
         libs[cmodule].append('')
+def lib_pre(*args):
+    libs[cmodule][0].extend(itertools.chain.from_iterable(a.splitlines() or [''] for a in args))
+    if not args or args[0].startswith('end'):
+        libs[cmodule][0].append('')
 objs = collections.defaultdict(collections.OrderedDict)
 def obj(cls, *args):
     try:
         lst = objs[cmodule][cls]
     except KeyError:
         objs[cmodule][cls] = lst = []
-    lst += itertools.chain.from_iterable(a.splitlines() for a in args)
+    lst += itertools.chain.from_iterable(a.splitlines() or [''] for a in args)
 
 ast = parse_file('headers_gen.h')
 Visitor().visit(ast)
 
 for mod, lines in libs.items():
     with open('{}_lib.cr'.format(mod), 'w') as f:
+        f.write('\n'.join(lines[0]))
         f.write('@[Link("csfml-{}")]\n\nlib CSFML\n'.format(mod))
-        f.write('\n'.join('  '+l for l in lines))
+        f.write('\n'.join('  '+l for l in lines[1:]))
         f.write('\nend')
 for mod, classes in objs.items():
     with open('{}.cr'.format(mod), 'w') as f:
@@ -495,9 +503,13 @@ for mod, classes in objs.items():
         for cls, lines in classes.items():
             if not cls:
                 continue
-            f.write('\n'.join('    '+l for l in lines)[2:])
-            if lines[-1] != ' ':
-                f.write('\n  end\n')
+            ind = 2
+            for l in lines:
+                f.write(' '*ind + l + '\n')
+                if not l.startswith('#'):
+                    ind = 4
+            if not lines[-1].startswith(('alias')):
+                f.write('end\n')
             f.write('\n')
         if '' in classes:
             f.write('\n'.join('  '+l for l in classes['']))

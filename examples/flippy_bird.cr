@@ -18,7 +18,8 @@ bird.position = SF::Vector2f.new(x: 250f32, y: 300f32)
 speed = 0.0f32
 
 while window.open
-  while CSFML.render_window_poll_event(window, out event) != 0
+  event = SF::Event.new()
+  while window.poll_event(pointerof(event))
     if event.type == CSFML::EventType::Closed
       window.close()
     elsif event.type == CSFML::EventType::KeyPressed

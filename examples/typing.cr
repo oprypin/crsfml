@@ -13,7 +13,8 @@ text.font = font
 text.color = SF.color(0u8, 0u8, 0u8)
 
 while window.open
-  while CSFML.render_window_poll_event(window, out event) != 0
+  event = SF::Event.new()
+  while window.poll_event(pointerof(event))
     if event.type == CSFML::EventType::KeyPressed
       if event.key.code == CSFML::KeyCode::Escape
         window.close()
