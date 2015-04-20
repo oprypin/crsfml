@@ -755,7 +755,7 @@ module SF
     Keyboard_F14 = CSFML::KeyCode::F14
     Keyboard_F15 = CSFML::KeyCode::F15
     Keyboard_Pause = CSFML::KeyCode::Pause
-    Keyboard_Count = CSFML::KeyCode::Count
+    Keyboard_Count = CSFML::KeyCode::Count.value
 
   class Keyboard
     # Check if a key is pressed
@@ -785,7 +785,7 @@ module SF
     Mouse_Middle = CSFML::MouseButton::Middle
     Mouse_XButton1 = CSFML::MouseButton::XButton1
     Mouse_XButton2 = CSFML::MouseButton::XButton2
-    Mouse_ButtonCount = CSFML::MouseButton::Count
+    Mouse_ButtonCount = CSFML::MouseButton::Count.value
 
   class Mouse
     # Check if a mouse button is pressed
@@ -844,7 +844,7 @@ module SF
     Sensor_Gravity = CSFML::SensorType::Gravity
     Sensor_UserAcceleration = CSFML::SensorType::UserAcceleration
     Sensor_Orientation = CSFML::SensorType::Orientation
-    Sensor_Count = CSFML::SensorType::Count
+    Sensor_Count = CSFML::SensorType::Count.value
 
   class Sensor
     # Check if a sensor is available on the underlying platform
@@ -936,7 +936,7 @@ module SF
     Event_TouchMoved = CSFML::EventType::TouchMoved
     Event_TouchEnded = CSFML::EventType::TouchEnded
     Event_SensorChanged = CSFML::EventType::SensorChanged
-    Event_Count = CSFML::EventType::Count
+    Event_Count = CSFML::EventType::Count.value
 
   # Keyboard event parameters
   alias KeyEvent = CSFML::KeyEvent

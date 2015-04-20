@@ -317,12 +317,12 @@ lib CSFML
     size: SizeEvent
     key: KeyEvent
     text: TextEvent
-    mouseMove: MouseMoveEvent
-    mouseButton: MouseButtonEvent
-    mouseWheel: MouseWheelEvent
-    joystickMove: JoystickMoveEvent
-    joystickButton: JoystickButtonEvent
-    joystickConnect: JoystickConnectEvent
+    mouse_move: MouseMoveEvent
+    mouse_button: MouseButtonEvent
+    mouse_wheel: MouseWheelEvent
+    joystick_move: JoystickMoveEvent
+    joystick_button: JoystickButtonEvent
+    joystick_connect: JoystickConnectEvent
     touch: TouchEvent
     sensor: SensorEvent
   end

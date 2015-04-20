@@ -12,7 +12,7 @@ text = SF::Text.new("_", font)
 text.color = SF::Color_Black
 
 while window.open
-  window.each_event do |event|
+  while event = window.poll_event()
     case event.type
     when SF::Event_KeyPressed
       case event.key.code

@@ -144,7 +144,8 @@ def handle_enum(name, items):
         cls = enum_relations[nname]
         if cls: cls += '_'
         sub = subname(name)
-        obj(nname, '{cls}{name} = CSFML::{nname}::{sub}'.format(**locals()))
+        suffix = '.value' if name.endswith('Count') else ''
+        obj(nname, '{cls}{name} = CSFML::{nname}::{sub}{suffix}'.format(**locals()))
 
 def handle_struct(name, items):
     if name=='sfVector2u':
@@ -172,7 +173,7 @@ def handle_union(name, items):
     
     for t, n in items:
         t = rename_type(t)
-        lib('  {}: {}'.format(n, t))
+        lib('  {}: {}'.format(rename_identifier(n), t))
     lib('end')
 
     if d: obj(name, d)
@@ -232,7 +233,7 @@ def handle_function(main, params):
         nfname = nfname[8:]
     if nftype=='Void':
         main_sgn = main_sgn[:-10]
-    if nftype=='UInt8*' and nfname in ['str', 'title']:
+    if nftype=='UInt8*' and nfname in ['string', 'title']:
         nfname += '_c'
         public = False
     if nftype=='UInt32*':
@@ -257,7 +258,7 @@ def handle_function(main, params):
             if rname in ['style']:
                 rtype = 'WindowStyle' if 'Window' in ofname else 'TextStyle'
             else: rtype = 'Char'
-        elif rtype=='UInt8*' and rname in ['str', 'title']:
+        elif rtype=='UInt8*' and rname in ['string', 'title']:
             if not nfname.rstrip('=').endswith('_c'):
                 nfname = nfname.rstrip('=') + '_c' + '='*nfname.count('=')
                 public = False
@@ -321,18 +322,26 @@ def handle_function(main, params):
     call = 'CSFML.{fname}({lparams})'.format(**locals())
     if nfname == 'initialize':
         obj(cls, '  @owned = true')
-        call = '@this = '+call
+        obj(cls, '  @this = '+call)
     elif nfname == 'finalize':
-        call += ' if @owned'
+        obj(cls, '  {} if @owned'.format(call))
     elif nftype in classes:
         obj(cls, '  result = {}.allocate()'.format(nftype))
         if nfname == 'copy':
-            call = 'result.transfer_ptr({})'.format(call)
+            obj(cls, '  result.transfer_ptr({})'.format(call))
         else:
-            call = 'result.wrap_ptr({})'.format(call)
+            obj(cls, '  result.wrap_ptr({})'.format(call))
+    elif nftype == 'Char*':
+        obj(cls, '  ptr = {}'.format(call))
+        obj(cls, '  result = ""; i = 0')
+        obj(cls, '  while ptr[i] != \'\\0\'')
+        obj(cls, '    result += ptr[i]; i += 1')
+        obj(cls, '  end')
+        obj(cls, '  result')
     elif ftype == 'sfBool':
-        call += ' != 0'
-    obj(cls, '  '+call)
+        obj(cls, '  {} != 0'.format(call))
+    else:
+        obj(cls, '  '+call)
     obj(cls, 'end', '')
 
 

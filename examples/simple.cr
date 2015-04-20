@@ -5,7 +5,7 @@ require "csfml/graphics"
 window = SF::Window.new(SF.video_mode(800, 600), "CrSFML works!")
 
 while window.open
-  window.each_event do |event|
+  while event = window.poll_event()
     if event.type == SF::Event_Closed
       window.close()
     end

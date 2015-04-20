@@ -18,6 +18,7 @@
 #    misrepresented as being the original software.
 # 3. This notice may not be removed or altered from any source distribution.
 
+require "./window_lib"
 
 module SF
   extend self
@@ -27,13 +28,17 @@ module SF
   end
   
   class Mouse
-    def self.get_position()
+    def self.position
       CSFML.mouse_get_position(nil)
     end
-    def self.set_position(position: Vector2i)
+    def self.position=(position: Vector2i)
       CSFML.mouse_set_position(position, nil)
     end
   end
+  
+  Joystick_Count = CSFML::JoystickCount
+  Joystick_ButtonCount = CSFML::JoystickButtonCount
+  Joystick_AxisCount = CSFML::JoystickAxisCount
   
   def video_mode()
     VideoMode.new()
@@ -43,7 +48,7 @@ module SF
     VideoMode.new(width: mode_width, height: mode_height, bits_per_pixel: bits_per_pixel)
   end
   
-  def self.get_fullscreen_modes
+  def self.fullscreen_modes
     ptr = CSFML.video_mode_get_fullscreen_modes(out count)
     result = [] of VideoMode
     (0...count).each do |i|
@@ -57,9 +62,14 @@ module SF
       initialize(mode, title, style, settings)
     end
     
-    def each_event
-      while CSFML.window_poll_event(@this, out event) != 0
-        yield event
+    def poll_event()
+      if CSFML.window_poll_event(@this, out event) != 0
+        event
+      end
+    end
+    def wait_event()
+      if CSFML.window_wait_event(@this, out event) != 0
+        event
       end
     end
   end

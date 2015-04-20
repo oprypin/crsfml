@@ -206,7 +206,7 @@ SF.scale pointerof(transform), 20, 20
 states = SF.render_states(transform: transform)
 
 while window.open
-  window.each_event do |event|
+  while event = window.poll_event()
     if event.type == SF::Event_Closed ||\
     (event.type == SF::Event_KeyPressed && event.key.code == SF::Keyboard_Escape)
       window.close()

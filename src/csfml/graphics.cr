@@ -37,11 +37,11 @@ module SF
   Color_Cyan = color(0, 255, 255)
   Color_Transparent = color(0, 0, 0, 0)
   
-  def int_rect(left, top, width, height)
-    IntRect.new(left.to_i32, top.to_i32, width.to_i32, height.to_i32)
-  end
   def float_rect(left, top, width, height)
-    IntRect.new(left.to_f32, top.to_f32, width.to_f32, height.to_f32)
+    FloatRect.new(left: left.to_f32, top: top.to_f32, width: width.to_f32, height: height.to_f32)
+  end
+  def int_rect(left, top, width, height)
+    IntRect.new(left: left.to_i32, top: top.to_i32, width: width.to_i32, height: height.to_i32)
   end
 
   def self.intersects(rect1: FloatRect, rect2: FloatRect)
@@ -187,7 +187,7 @@ module SF
     end
   end
   
-  def vertex(position=SF.vector2f(0, 0), color=White, tex_coords=SF.vector2f(0, 0))
+  def vertex(position=SF.vector2f(0, 0), color=Color_White, tex_coords=SF.vector2f(0, 0))
     Vertex.new(position: position, color: color, tex_coords: tex_coords)
   end
   
@@ -224,9 +224,14 @@ module SF
       drawable.draw(self, states)
     end
     
-    def each_event
-      while CSFML.render_window_poll_event(@this, out event) != 0
-        yield event
+    def poll_event()
+      if CSFML.render_window_poll_event(@this, out event) != 0
+        event
+      end
+    end
+    def wait_event()
+      if CSFML.render_window_wait_event(@this, out event) != 0
+        event
       end
     end
     

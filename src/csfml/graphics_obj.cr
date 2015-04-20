@@ -4027,18 +4027,6 @@ module SF
       CSFML.text_get_inverse_transform(@this)
     end
     
-    # Set the string of a text (from an ANSI string)
-    # 
-    # A text's string is empty by default.
-    # 
-    # *Arguments*:
-    # 
-    # * `text`: Text object
-    # * `string`: New string
-    def string=(string: String)
-      CSFML.text_set_string(@this, string)
-    end
-    
     # Set the string of a text (from a unicode string)
     # 
     # *Arguments*:
@@ -4105,17 +4093,6 @@ module SF
       CSFML.text_set_color(@this, color)
     end
     
-    # Get the string of a text (returns an ANSI string)
-    # 
-    # *Arguments*:
-    # 
-    # * `text`: Text object
-    # 
-    # *Returns*: String as a locale-dependant ANSI string
-    def string
-      CSFML.text_get_string(@this)
-    end
-    
     # Get the string of a text (returns a unicode string)
     # 
     # *Arguments*:
@@ -4124,7 +4101,12 @@ module SF
     # 
     # *Returns*: String as UTF-32
     def string
-      CSFML.text_get_unicode_string(@this)
+      ptr = CSFML.text_get_unicode_string(@this)
+      result = ""; i = 0
+      while ptr[i] != '\0'
+        result += ptr[i]; i += 1
+      end
+      result
     end
     
     # Get the font used by a text
