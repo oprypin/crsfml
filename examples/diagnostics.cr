@@ -1,0 +1,247 @@
+require "csfml/system"
+require "csfml/window"
+require "csfml/graphics"
+require "csfml/audio"
+
+$font = SF::Font.new("resources/font/Ubuntu-R.ttf")
+
+$window = SF::RenderWindow.new(
+  SF.video_mode(800, 600), "Diagnostic information",
+  settings: SF.context_settings(depth: 32, antialiasing: 8)
+)
+$window.framerate_limit = 30
+
+
+def display_fullscreen_modes()
+  text = SF::Text.new("Fullscreen modes:", $font, 20)
+
+  SF.fullscreen_modes
+  .group_by { |mode| {mode.width, mode.height} }
+  .each do |wh, devices|
+    bpps = devices.map { |device| device.bits_per_pixel } .join('/')
+    text.string += "\n - #{wh[0]} x #{wh[1]} @ #{bpps} bpp"
+  end
+
+  $window.clear()
+  $window.draw(text)
+  $window.display()
+  wait()
+end
+
+def display_audio_devices()
+  text = SF::Text.new("Audio devices:", $font, 25)
+  SF::SoundRecorder.available_devices.each do |device|
+    text.string += "\n - #{device}"
+  end
+
+  $window.clear()
+  $window.draw(text)
+  $window.display()
+  wait()
+end
+
+def test_mouse()
+  $window.mouse_cursor_visible = false
+  
+  wheel_delta = 0
+  while true
+    while event = $window.poll_event()
+      case event.type
+      when SF::Event_Closed
+        $window.mouse_cursor_visible = true
+        return
+      when SF::Event_MouseWheelMoved
+        wheel_delta += event.mouse_wheel.delta
+      end
+    end
+    wheel_delta *= 0.9
+    
+    $window.clear()
+    m = SF::Mouse.get_position($window)
+    
+    shape = SF::CircleShape.new(15)
+    shape.origin = SF.vector2f(15, 15)
+    shape.position = SF.vector2f(m.x, m.y)
+    shape.fill_color = SF.color(0, 200, 0)
+    shape.scale SF.vector2f(0.9, 1.1)
+    $window.draw shape
+    
+    shape = SF::CircleShape.new(8)
+    shape.origin = SF.vector2f(8, 8)
+    shape.fill_color = SF.color(255, 128, 0)
+    
+    buttons = {
+      SF::Mouse_Left => {-0.7, -0.7}
+      SF::Mouse_Right => {0.7, -0.7}
+      SF::Mouse_Middle => {0, -1}
+      SF::Mouse_XButton1 => {-1, 0}
+      SF::Mouse_XButton2 => {1, 0}
+    }
+    buttons.each do |btn, delta|
+      if SF::Mouse.is_button_pressed(btn)
+        shape.position = SF.vector2f(m.x + delta[0]*20, m.y + delta[1]*20)
+        $window.draw shape
+      end
+    end
+    
+    shape = SF::ConvexShape.new()
+    shape.point_count = 3
+    shape.fill_color = SF.color(128, 0, 255)
+    shape[0] = SF.vector2f(-8, 0)
+    shape[1] = SF.vector2f(8, 0)
+    shape[2] = SF.vector2f(0, -wheel_delta*5)
+    shape.position = SF.vector2f(m.x, m.y-4)
+    $window.draw shape
+
+    $window.display()
+  end
+end
+
+def test_controller()
+  unless js = (0...SF::Joystick_Count).find { |js| SF::Joystick.is_connected(js) }
+    return
+  end
+  
+  while true
+    while event = $window.poll_event()
+      case event.type
+      when SF::Event_Closed
+        return
+      end
+    end
+    
+    $window.clear()
+    
+    text = SF::Text.new(String.new(SF::Joystick.get_identification(js).name), $font, 20)
+    $window.draw text
+    
+    shape = SF::CircleShape.new(15)
+    shape.origin = SF.vector2f(15, 15)
+
+    text = SF::Text.new("", $font, 20)
+    text.color = SF.color(0, 0, 0)
+    
+    button_pos = [
+      {5 + 0, 1}
+      {5 + 1, 0}
+      {5 - 1, 0}
+      {5 + 0, -1}
+      {-5, -3}, {5, -3}
+      {-2, -0.5}, {2, -0.5}
+      {0, 0}
+      {-2.5, 2}, {2.5, 2}
+    ]
+    (0...SF::Joystick.get_button_count(js)).each do |btn|
+      text.string = (btn+1).to_s
+      text.origin = SF.vector2f(text.local_bounds.width * 0.6, text.local_bounds.height * 0.85)
+      begin
+        delta = button_pos[btn]
+      rescue
+        delta = {0, button_pos.length - btn - 1}
+      end
+      shape.position = SF.vector2f(400 + delta[0]*30, 300 + delta[1]*30)
+      text.position = shape.position
+      shape.fill_color = SF::Joystick.is_button_pressed(js, btn) ? SF.color(255, 128, 0): SF.color(0, 128, 0)
+      
+      $window.draw shape
+      $window.draw text if SF::Joystick.is_button_pressed(js, btn)
+    end
+    
+    shape = SF::CircleShape.new(10)
+    shape.origin = SF.vector2f(10, 10)
+    shape.fill_color = SF.color(128, 0, 255)
+    
+    axis_pos = [
+      {-2.5, 2, :h}, {-2.5, 2, :v}
+      {-5, -4.5, :v}, {5, -4.5, :v}
+      {2.5, 2, :h}, {2.5, 2, :v}
+      {-5, 0, :h}, {-5, 0, :v}
+    ]
+    axi = 0
+    axis_pos.group_by { |a| {a[0], a[1]} } .each do |delta, group|
+      dx = 0
+      dy = 0
+      any = false
+      group.each do |a|
+        ax = SF::JoystickAxis.new(axi)
+        axi += 1
+        next unless SF::Joystick.has_axis(js, ax)
+        p = SF::Joystick.get_axis_position(js, ax)
+        dx = p if a[2] == :h
+        dy = p if a[2] == :v
+        any = true
+      end
+      next unless any
+      shape.position = SF.vector2f(400 + delta[0]*30 + dx*0.3, 300 + delta[1]*30 + dy*0.3)
+      
+      $window.draw shape
+    end
+    
+    $window.display()
+  end
+end
+
+def wait()
+  while event = $window.wait_event()
+    break if [SF::Event_KeyPressed, SF::Event_MouseButtonPressed, SF::Event_JoystickButtonPressed, SF::Event_Closed].includes? event.type
+  end
+end
+
+
+class Button < SF::RectangleShape
+  include SF::TransformableM
+  
+  def initialize(message, width, height, color=SF.color(0, 128, 0))
+    super(SF.vector2f(width, height))
+    @text = SF::Text.new(message, $font, (height*0.8).to_i)
+    self.fill_color = color
+    @text.position = SF.vector2f((width - @text.global_bounds.width)*0.5, -height/20)
+  end
+  
+  def draw(target, states: RenderStates)
+    new_trans = states.transform
+    SF.combine(pointerof(new_trans), transform)
+    states.transform = new_trans
+    
+    super(target, states)
+    target.draw(@text, states)
+  end
+end
+
+w = 400
+h = 50
+x = 200
+y = 25
+actions = {
+  Button.new("Mouse", w, h) => -> { test_mouse }
+  Button.new("Controller", w, h) => -> { test_controller }
+  Button.new("Fullscreen modes", w, h) => -> { display_fullscreen_modes }
+  Button.new("Audio devices", w, h) => -> { display_audio_devices }
+}
+
+actions.each_key do |btn|
+  btn.position = SF.vector2f(x, y)
+  y += h + h/2
+end
+
+while $window.open
+  while event = $window.poll_event()
+    case event.type
+    when SF::Event_Closed
+      $window.close()
+    when SF::Event_MouseButtonPressed
+      actions.each_key do |btn|
+        if SF.contains(btn.global_bounds, event.mouse_button.x.to_f - btn.position.x, event.mouse_button.y.to_f - btn.position.y)
+          actions[btn].call
+          break
+        end
+      end
+    end
+  end
+
+  $window.clear()
+  actions.each_key do |btn|
+    $window.draw(btn)
+  end
+  $window.display()
+end

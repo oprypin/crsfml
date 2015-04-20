@@ -14,10 +14,6 @@ Examples
 - Use a `Texture` and a `Sprite`
     - Move, scale, rotate, draw
 
-### [low_level](low_level.cr)
-
-**flippy_bird** using low-level API.
-
 ### [snakes](snakes.cr)
 
 - Setup antialiasing
@@ -36,6 +32,14 @@ Examples
 - Keyboard events, `TextEntered`
 - Unicode string
 
+### [diagnostics](diagnostics.cr)
+
+- Listing controllers, screen modes, audio devices
+- Mouse state and events
+- Controller state and events
+- Drawing with shapes
+- Simple GUI (just buttons)
+
 ### [sound_capture](sound_capture.cr)
 
 Sound Capture example [from SFML][sound_capture]
@@ -43,6 +47,10 @@ Sound Capture example [from SFML][sound_capture]
 - Record sound
 - Play sound
 - Save sound
+
+### [low_level](low_level.cr)
+
+**flippy_bird** using low-level API.
 
 
 Acknowledgements
