@@ -1,20 +1,47 @@
 require "./system_lib"
+require "./common_obj"
 
 module SF
   extend self
 
   # Represents a time value
   alias Time = CSFML::Time
+    # Return a time value as a number of seconds
+    # 
+    # *Arguments*:
+    # 
+    # * `time`: Time value
+    # 
+    # *Returns*: Time in seconds
+    def self.as_seconds(time: Time)
+      CSFML.time_as_seconds(time)
+    end
+    
+    # Return a time value as a number of milliseconds
+    # 
+    # *Arguments*:
+    # 
+    # * `time`: Time value
+    # 
+    # *Returns*: Time in milliseconds
+    def self.as_milliseconds(time: Time)
+      CSFML.time_as_milliseconds(time)
+    end
+    
+    # Return a time value as a number of microseconds
+    # 
+    # *Arguments*:
+    # 
+    # * `time`: Time value
+    # 
+    # *Returns*: Time in microseconds
+    def self.as_microseconds(time: Time)
+      CSFML.time_as_microseconds(time)
+    end
+    
 
   class Clock
-    def self.wrap_ptr(p)
-      result = self.allocate()
-      result.this = p
-      result
-    end
-    def to_unsafe
-      @this
-    end
+    include Wrapper
     
     # Create a new clock and start it
     # 
@@ -32,7 +59,8 @@ module SF
     # 
     # *Returns*: A new Clock object which is a copy of `clock`
     def copy()
-      self.wrap_ptr(CSFML.clock_copy(@this))
+      result = Clock.allocate()
+      result.transfer_ptr(CSFML.clock_copy(@this))
     end
     
     # Destroy a clock
@@ -73,31 +101,17 @@ module SF
       CSFML.clock_restart(@this)
     end
     
-end
+  end
 
   class Mutex
-    def self.wrap_ptr(p)
-      result = self.allocate()
-      result.this = p
-      result
-    end
-    def to_unsafe
-      @this
-    end
+    include Wrapper
     
-end
+  end
 
   class Thread
-    def self.wrap_ptr(p)
-      result = self.allocate()
-      result.this = p
-      result
-    end
-    def to_unsafe
-      @this
-    end
+    include Wrapper
     
-end
+  end
 
   # Set of callbacks that allow users to define custom file streams
   alias InputStream = CSFML::InputStream
@@ -111,39 +125,6 @@ end
   # 3-component vector of floats
   alias Vector3f = CSFML::Vector3f
 
-  # Return a time value as a number of seconds
-  # 
-  # *Arguments*:
-  # 
-  # * `time`: Time value
-  # 
-  # *Returns*: Time in seconds
-  def time_as_seconds(time: Time)
-    CSFML.time_as_seconds(time)
-  end
-  
-  # Return a time value as a number of milliseconds
-  # 
-  # *Arguments*:
-  # 
-  # * `time`: Time value
-  # 
-  # *Returns*: Time in milliseconds
-  def time_as_milliseconds(time: Time)
-    CSFML.time_as_milliseconds(time)
-  end
-  
-  # Return a time value as a number of microseconds
-  # 
-  # *Arguments*:
-  # 
-  # * `time`: Time value
-  # 
-  # *Returns*: Time in microseconds
-  def time_as_microseconds(time: Time)
-    CSFML.time_as_microseconds(time)
-  end
-  
   # Construct a time value from a number of seconds
   # 
   # *Arguments*:

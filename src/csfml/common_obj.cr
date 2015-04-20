@@ -18,17 +18,28 @@
 #    misrepresented as being the original software.
 # 3. This notice may not be removed or altered from any source distribution.
 
-module SF
-  extend self
-  
-  def vector2f(x, y)
-    Vector2f.new(x: x.to_f32, y: y.to_f32)
-  end
-  def vector2i(x, y)
-    Vector2i.new(x: x.to_i32, y: y.to_i32)
-  end
-  
-  Time_Zero = milliseconds(0)
-end
 
-require "./system_obj"
+# Every wrapper class has these methods
+module SF
+  module Wrapper
+    # Get the underlying pointer
+    def to_unsafe
+      @this
+    end
+    
+    # Put the pointer into the wrapper object.
+    # The pointer will **not** be freed on GC.
+    def wrap_ptr(ptr)
+      @this = ptr
+      self
+    end
+
+    # Transfer ownership of the pointer to the wrapper object.
+    # The pointer will be freed on GC.
+    def transfer_ptr(ptr)
+      @this = ptr
+      @owned = true
+      self
+    end
+  end
+end

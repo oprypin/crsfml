@@ -1,37 +1,37 @@
 require "csfml/window"
 require "csfml/graphics"
 
-mode = CSFML::VideoMode.new(width: 800, height: 600, bits_per_pixel: 32)
-window = SF::RenderWindow.new(mode, "Typing", CSFML::WindowStyle::Default, nil)
+mode = SF.video_mode(800, 600)
+window = SF::RenderWindow.new(SF.video_mode(800, 600), "Typing")
 
 str = ""
 
 font = SF::Font.new("resources/font/Ubuntu-R.ttf")
 
-text = SF::Text.new()
-text.string = "_"
-text.font = font
-text.color = SF.color(0u8, 0u8, 0u8)
+text = SF::Text.new("_", font)
+text.color = SF::Color_Black
 
 while window.open
-  window.events do |event|
-    if event.type == CSFML::EventType::KeyPressed
-      if event.key.code == CSFML::KeyCode::Escape
+  window.each_event do |event|
+    case event.type
+    when SF::Event_KeyPressed
+      case event.key.code
+      when SF::Keyboard_Escape
         window.close()
-      elsif event.key.code == CSFML::KeyCode::Back
+      when SF::Keyboard_Back
         str = str[0...-1]
-      elsif event.key.code == CSFML::KeyCode::Return
+      when SF::Keyboard_Return
         str += '\n'
       end
-    elsif event.type == CSFML::EventType::TextEntered
+    when SF::Event_TextEntered
       str += event.text.unicode if event.text.unicode >= ' '
       text.string = str + "_"
-    elsif event.type == CSFML::EventType::Closed
+    when SF::Event_Closed
       window.close()
     end
   end
 
-  window.clear SF.color(255u8, 255u8, 255u8)
-  window.draw_text text, nil
+  window.clear SF::Color_White
+  window.draw text
   window.display()
 end

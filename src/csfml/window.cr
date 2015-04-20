@@ -22,20 +22,46 @@
 module SF
   extend self
 
-  class Window
-    def events
-      while CSFML.window_poll_event(@this, out event) != 0
-        yield event
-      end
-    end
-  end
-  
   def context_settings(depth=0, stencil=0, antialiasing=0, major=2, minor=0)
     ContextSettings.new(depth_bits: depth, stencil_bits: stencil, antialiasing_level: antialiasing, major_version: major, minor_version: minor)
   end
   
-  def mouse_get_position()
-    CSFML.mouse_get_position(nil)
+  class Mouse
+    def self.get_position()
+      CSFML.mouse_get_position(nil)
+    end
+    def self.set_position(position: Vector2i)
+      CSFML.mouse_set_position(position, nil)
+    end
+  end
+  
+  def video_mode()
+    VideoMode.new()
+  end
+  
+  def video_mode(mode_width: Int, mode_height: Int, bits_per_pixel=32)
+    VideoMode.new(width: mode_width, height: mode_height, bits_per_pixel: bits_per_pixel)
+  end
+  
+  def self.get_fullscreen_modes
+    ptr = CSFML.video_mode_get_fullscreen_modes(out count)
+    result = [] of VideoMode
+    (0...count).each do |i|
+      result.push ptr[i]
+    end
+    result
+  end
+  
+  class Window
+    def initialize(mode: VideoMode, title: String, style=CSFML::WindowStyle::Default, settings=SF.context_settings())
+      initialize(mode, title, style, settings)
+    end
+    
+    def each_event
+      while CSFML.window_poll_event(@this, out event) != 0
+        yield event
+      end
+    end
   end
 end
 

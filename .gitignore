@@ -8,10 +8,8 @@
 !/src/csfml/
 !/src/csfml/*.cr
 !/generate/
-!/generate/**/*.sh
+!/generate/*.sh
 !/generate/*.py
-!/generate/patches/
-!/generate/patches/*.patch
 !/examples/
 !/examples/*.cr
 !/examples/resources/

@@ -1,3 +1,4 @@
+require "./common_lib"
 require "./system_lib"
 require "./window_lib"
 

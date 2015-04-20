@@ -1,9 +1,0 @@
---- generate/graphics_lib.cr	2015-04-18 21:24:32.415834090 +0300
-+++ src/csfml/graphics_lib.cr	2015-04-18 21:31:24.745819136 +0300
-@@ -1,3 +1,6 @@
-+require "./system_lib"
-+require "./window_lib"
-+
- @[Link("csfml-graphics")]
- 
- lib CSFML

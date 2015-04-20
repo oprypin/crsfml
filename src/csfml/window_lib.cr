@@ -1,14 +1,9 @@
+require "./common_lib"
 require "./system_lib"
 
 @[Link("csfml-window")]
 
 lib CSFML
-  ifdef windows || macosx
-    alias WindowHandle = Void*
-  else
-    alias WindowHandle = UInt64#ulong
-  end
-
   type Context = Void*
   
   type Window = Void*

@@ -1,4 +1,4 @@
-Run *generate.sh* on Linux to (re)generate *lib* and *obj* source files based on CSFML's header files (and apply minor patches).
+Run *generate.sh* on Linux to (re)generate *lib* and *obj* source files based on CSFML's header files.
 
 This automatic generator expects the header files to be under *CSFML/include/SFML*. It requires [Python][] 3.3+ and [pycparser][].
 

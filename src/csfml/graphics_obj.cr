@@ -1,33 +1,143 @@
 require "./graphics_lib"
+require "./common_obj"
 
 module SF
   extend self
 
   # Enumeration of the blending factors
+  #
+  # * BlendMode_Zero
+  # * BlendMode_One
+  # * BlendMode_SrcColor
+  # * BlendMode_OneMinusSrcColor
+  # * BlendMode_DstColor
+  # * BlendMode_OneMinusDstColor
+  # * BlendMode_SrcAlpha
+  # * BlendMode_OneMinusSrcAlpha
+  # * BlendMode_DstAlpha
+  # * BlendMode_OneMinusDstAlpha
   alias BlendFactor = CSFML::BlendFactor
+    BlendMode_Zero = CSFML::BlendFactor::Zero
+    BlendMode_One = CSFML::BlendFactor::One
+    BlendMode_SrcColor = CSFML::BlendFactor::SrcColor
+    BlendMode_OneMinusSrcColor = CSFML::BlendFactor::OneMinusSrcColor
+    BlendMode_DstColor = CSFML::BlendFactor::DstColor
+    BlendMode_OneMinusDstColor = CSFML::BlendFactor::OneMinusDstColor
+    BlendMode_SrcAlpha = CSFML::BlendFactor::SrcAlpha
+    BlendMode_OneMinusSrcAlpha = CSFML::BlendFactor::OneMinusSrcAlpha
+    BlendMode_DstAlpha = CSFML::BlendFactor::DstAlpha
+    BlendMode_OneMinusDstAlpha = CSFML::BlendFactor::OneMinusDstAlpha
 
   # Enumeration of the blending equations
+  #
+  # * BlendMode_Add
+  # * BlendMode_Subtract
   alias BlendEquation = CSFML::BlendEquation
+    BlendMode_Add = CSFML::BlendEquation::Add
+    BlendMode_Subtract = CSFML::BlendEquation::Subtract
 
   # Blending mode for drawing
   alias BlendMode = CSFML::BlendMode
 
   # Utility class for manpulating RGBA colors
   alias Color = CSFML::Color
+    # Add two colors
+    # 
+    # *Arguments*:
+    # 
+    # * `color1`: First color
+    # * `color2`: Second color
+    # 
+    # *Returns*: Component-wise saturated addition of the two colors
+    def self.add(color1: Color, color2: Color)
+      CSFML.color_add(color1, color2)
+    end
+    
+    # Modulate two colors
+    # 
+    # *Arguments*:
+    # 
+    # * `color1`: First color
+    # * `color2`: Second color
+    # 
+    # *Returns*: Component-wise multiplication of the two colors
+    def self.modulate(color1: Color, color2: Color)
+      CSFML.color_modulate(color1, color2)
+    end
+    
 
   alias FloatRect = CSFML::FloatRect
+    # Check if a point is inside a rectangle's area
+    # 
+    # *Arguments*:
+    # 
+    # * `rect`: Rectangle to test
+    # * `x`: X coordinate of the point to test
+    # * `y`: Y coordinate of the point to test
+    # 
+    # *Returns*: True if the point is inside
+    def self.contains(rect, x, y)
+      if rect
+        crect = rect; prect = pointerof(crect)
+      else
+        prect = nil
+      end
+      x = x.to_f32
+      y = y.to_f32
+      CSFML.float_rect_contains(prect, x, y) != 0
+    end
+    
+    # Check intersection between two rectangles
+    # 
+    # *Arguments*:
+    # 
+    # * `rect1`: First rectangle to test
+    # * `rect2`: Second rectangle to test
+    # * `intersection`: Rectangle to be filled with overlapping rect (can be NULL)
+    # 
+    # *Returns*: True if rectangles overlap
+    def self.intersects(rect1, rect2, intersection: FloatRect*)
+      if rect1
+        crect1 = rect1; prect1 = pointerof(crect1)
+      else
+        prect1 = nil
+      end
+      if rect2
+        crect2 = rect2; prect2 = pointerof(crect2)
+      else
+        prect2 = nil
+      end
+      CSFML.float_rect_intersects(prect1, prect2, intersection) != 0
+    end
+    
 
   alias IntRect = CSFML::IntRect
+    def self.contains(rect, x: Int32, y: Int32)
+      if rect
+        crect = rect; prect = pointerof(crect)
+      else
+        prect = nil
+      end
+      CSFML.int_rect_contains(prect, x, y) != 0
+    end
+    
+    def self.intersects(rect1, rect2, intersection: IntRect*)
+      if rect1
+        crect1 = rect1; prect1 = pointerof(crect1)
+      else
+        prect1 = nil
+      end
+      if rect2
+        crect2 = rect2; prect2 = pointerof(crect2)
+      else
+        prect2 = nil
+      end
+      CSFML.int_rect_intersects(prect1, prect2, intersection) != 0
+    end
+    
 
   class CircleShape
-    def self.wrap_ptr(p)
-      result = self.allocate()
-      result.this = p
-      result
-    end
-    def to_unsafe
-      @this
-    end
+    include Wrapper
     
     # Create a new circle shape
     # 
@@ -45,7 +155,8 @@ module SF
     # 
     # *Returns*: Copied object
     def copy()
-      self.wrap_ptr(CSFML.circle_shape_copy(@this))
+      result = CircleShape.allocate()
+      result.transfer_ptr(CSFML.circle_shape_copy(@this))
     end
     
     # Destroy an existing circle Shape
@@ -319,7 +430,8 @@ module SF
     # 
     # *Returns*: Pointer to the shape's texture
     def texture
-      self.wrap_ptr(CSFML.circle_shape_get_texture(@this))
+      result = Texture.allocate()
+      result.wrap_ptr(CSFML.circle_shape_get_texture(@this))
     end
     
     # Get the sub-rectangle of the texture displayed by a circle shape
@@ -457,17 +569,10 @@ module SF
       CSFML.circle_shape_get_global_bounds(@this)
     end
     
-end
+  end
 
   class ConvexShape
-    def self.wrap_ptr(p)
-      result = self.allocate()
-      result.this = p
-      result
-    end
-    def to_unsafe
-      @this
-    end
+    include Wrapper
     
     # Create a new convex shape
     # 
@@ -485,7 +590,8 @@ end
     # 
     # *Returns*: Copied object
     def copy()
-      self.wrap_ptr(CSFML.convex_shape_copy(@this))
+      result = ConvexShape.allocate()
+      result.transfer_ptr(CSFML.convex_shape_copy(@this))
     end
     
     # Destroy an existing convex Shape
@@ -759,7 +865,8 @@ end
     # 
     # *Returns*: Pointer to the shape's texture
     def texture
-      self.wrap_ptr(CSFML.convex_shape_get_texture(@this))
+      result = Texture.allocate()
+      result.wrap_ptr(CSFML.convex_shape_get_texture(@this))
     end
     
     # Get the sub-rectangle of the texture displayed by a convex shape
@@ -894,17 +1001,10 @@ end
       CSFML.convex_shape_get_global_bounds(@this)
     end
     
-end
+  end
 
   class Font
-    def self.wrap_ptr(p)
-      result = self.allocate()
-      result.this = p
-      result
-    end
-    def to_unsafe
-      @this
-    end
+    include Wrapper
     
     # Create a new font from a file
     # 
@@ -951,7 +1051,8 @@ end
     # 
     # *Returns*: Copied object
     def copy()
-      self.wrap_ptr(CSFML.font_copy(@this))
+      result = Font.allocate()
+      result.transfer_ptr(CSFML.font_copy(@this))
     end
     
     # Destroy an existing font
@@ -1042,7 +1143,8 @@ end
     # 
     # *Returns*: Read-only pointer to the texture
     def get_texture(character_size: Int32)
-      self.wrap_ptr(CSFML.font_get_texture(@this, character_size))
+      result = Texture.allocate()
+      result.wrap_ptr(CSFML.font_get_texture(@this, character_size))
     end
     
     # Get the font information
@@ -1060,17 +1162,10 @@ end
       CSFML.font_get_info(@this)
     end
     
-end
+  end
 
   class Image
-    def self.wrap_ptr(p)
-      result = self.allocate()
-      result.this = p
-      result
-    end
-    def to_unsafe
-      @this
-    end
+    include Wrapper
     
     # Create an image
     # 
@@ -1185,7 +1280,8 @@ end
     # 
     # *Returns*: Copied object
     def copy()
-      self.wrap_ptr(CSFML.image_copy(@this))
+      result = Image.allocate()
+      result.transfer_ptr(CSFML.image_copy(@this))
     end
     
     # Destroy an existing image
@@ -1334,17 +1430,10 @@ end
       CSFML.image_flip_vertically(@this)
     end
     
-end
+  end
 
   class Shader
-    def self.wrap_ptr(p)
-      result = self.allocate()
-      result.this = p
-      result
-    end
-    def to_unsafe
-      @this
-    end
+    include Wrapper
     
     # Load both the vertex and fragment shaders from files
     # 
@@ -1621,17 +1710,21 @@ end
       CSFML.shader_bind(@this)
     end
     
-end
+    # Tell whether or not the system supports shaders
+    # 
+    # This function should always be called before using
+    # the shader features. If it returns false, then
+    # any attempt to use Shader will fail.
+    # 
+    # *Returns*: True if the system can use shaders, False otherwise
+    def self.is_available()
+      CSFML.shader_is_available() != 0
+    end
+    
+  end
 
   class RectangleShape
-    def self.wrap_ptr(p)
-      result = self.allocate()
-      result.this = p
-      result
-    end
-    def to_unsafe
-      @this
-    end
+    include Wrapper
     
     # Create a new rectangle shape
     # 
@@ -1649,7 +1742,8 @@ end
     # 
     # *Returns*: Copied object
     def copy()
-      self.wrap_ptr(CSFML.rectangle_shape_copy(@this))
+      result = RectangleShape.allocate()
+      result.transfer_ptr(CSFML.rectangle_shape_copy(@this))
     end
     
     # Destroy an existing rectangle shape
@@ -1923,7 +2017,8 @@ end
     # 
     # *Returns*: Pointer to the shape's texture
     def texture
-      self.wrap_ptr(CSFML.rectangle_shape_get_texture(@this))
+      result = Texture.allocate()
+      result.wrap_ptr(CSFML.rectangle_shape_get_texture(@this))
     end
     
     # Get the sub-rectangle of the texture displayed by a rectangle shape
@@ -2050,17 +2145,10 @@ end
       CSFML.rectangle_shape_get_global_bounds(@this)
     end
     
-end
+  end
 
   class RenderTexture
-    def self.wrap_ptr(p)
-      result = self.allocate()
-      result.this = p
-      result
-    end
-    def to_unsafe
-      @this
-    end
+    include Wrapper
     
     # Construct a new render texture
     # 
@@ -2147,7 +2235,8 @@ end
     # 
     # *Returns*: Current active view
     def view
-      self.wrap_ptr(CSFML.render_texture_get_view(@this))
+      result = View.allocate()
+      result.wrap_ptr(CSFML.render_texture_get_view(@this))
     end
     
     # Get the default view of a render texture
@@ -2158,7 +2247,8 @@ end
     # 
     # *Returns*: Default view of the rendertexture
     def default_view
-      self.wrap_ptr(CSFML.render_texture_get_default_view(@this))
+      result = View.allocate()
+      result.wrap_ptr(CSFML.render_texture_get_default_view(@this))
     end
     
     # Get the viewport of a view applied to this target
@@ -2380,7 +2470,8 @@ end
     # 
     # *Returns*: Pointer to the target texture
     def texture
-      self.wrap_ptr(CSFML.render_texture_get_texture(@this))
+      result = Texture.allocate()
+      result.wrap_ptr(CSFML.render_texture_get_texture(@this))
     end
     
     # Enable or disable the smooth filter on a render texture
@@ -2427,17 +2518,10 @@ end
       CSFML.render_texture_is_repeated(@this) != 0
     end
     
-end
+  end
 
   class RenderWindow
-    def self.wrap_ptr(p)
-      result = self.allocate()
-      result.this = p
-      result
-    end
-    def to_unsafe
-      @this
-    end
+    include Wrapper
     
     # Construct a new render window (with a UTF-32 title)
     # 
@@ -2760,7 +2844,8 @@ end
     # 
     # *Returns*: Current active view
     def view
-      self.wrap_ptr(CSFML.render_window_get_view(@this))
+      result = View.allocate()
+      result.wrap_ptr(CSFML.render_window_get_view(@this))
     end
     
     # Get the default view of a render window
@@ -2771,7 +2856,8 @@ end
     # 
     # *Returns*: Default view of the render window
     def default_view
-      self.wrap_ptr(CSFML.render_window_get_default_view(@this))
+      result = View.allocate()
+      result.wrap_ptr(CSFML.render_window_get_default_view(@this))
     end
     
     # Get the viewport of a view applied to this target
@@ -3004,20 +3090,14 @@ end
     # 
     # *Returns*: New image containing the captured contents
     def capture()
-      self.wrap_ptr(CSFML.render_window_capture(@this))
+      result = Image.allocate()
+      result.wrap_ptr(CSFML.render_window_capture(@this))
     end
     
-end
+  end
 
   class Shape
-    def self.wrap_ptr(p)
-      result = self.allocate()
-      result.this = p
-      result
-    end
-    def to_unsafe
-      @this
-    end
+    include Wrapper
     
     # Create a new shape
     # 
@@ -3304,7 +3384,8 @@ end
     # 
     # *Returns*: Pointer to the shape's texture
     def texture
-      self.wrap_ptr(CSFML.shape_get_texture(@this))
+      result = Texture.allocate()
+      result.wrap_ptr(CSFML.shape_get_texture(@this))
     end
     
     # Get the sub-rectangle of the texture displayed by a shape
@@ -3419,17 +3500,10 @@ end
       CSFML.shape_update(@this)
     end
     
-end
+  end
 
   class Sprite
-    def self.wrap_ptr(p)
-      result = self.allocate()
-      result.this = p
-      result
-    end
-    def to_unsafe
-      @this
-    end
+    include Wrapper
     
     # Create a new sprite
     # 
@@ -3447,7 +3521,8 @@ end
     # 
     # *Returns*: Copied object
     def copy()
-      self.wrap_ptr(CSFML.sprite_copy(@this))
+      result = Sprite.allocate()
+      result.transfer_ptr(CSFML.sprite_copy(@this))
     end
     
     # Destroy an existing sprite
@@ -3690,7 +3765,8 @@ end
     # 
     # *Returns*: Pointer to the sprite's texture
     def texture
-      self.wrap_ptr(CSFML.sprite_get_texture(@this))
+      result = Texture.allocate()
+      result.wrap_ptr(CSFML.sprite_get_texture(@this))
     end
     
     # Get the sub-rectangle of the texture displayed by a sprite
@@ -3749,17 +3825,10 @@ end
       CSFML.sprite_get_global_bounds(@this)
     end
     
-end
+  end
 
   class Text
-    def self.wrap_ptr(p)
-      result = self.allocate()
-      result.this = p
-      result
-    end
-    def to_unsafe
-      @this
-    end
+    include Wrapper
     
     # Create a new text
     # 
@@ -3777,7 +3846,8 @@ end
     # 
     # *Returns*: Copied object
     def copy()
-      self.wrap_ptr(CSFML.text_copy(@this))
+      result = Text.allocate()
+      result.transfer_ptr(CSFML.text_copy(@this))
     end
     
     # Destroy an existing text
@@ -4069,7 +4139,8 @@ end
     # 
     # *Returns*: Pointer to the font
     def font
-      self.wrap_ptr(CSFML.text_get_font(@this))
+      result = Font.allocate()
+      result.wrap_ptr(CSFML.text_get_font(@this))
     end
     
     # Get the size of the characters of a text
@@ -4158,17 +4229,10 @@ end
       CSFML.text_get_global_bounds(@this)
     end
     
-end
+  end
 
   class Texture
-    def self.wrap_ptr(p)
-      result = self.allocate()
-      result.this = p
-      result
-    end
-    def to_unsafe
-      @this
-    end
+    include Wrapper
     
     # Create a new texture
     # 
@@ -4264,7 +4328,8 @@ end
     # 
     # *Returns*: Copied object
     def copy()
-      self.wrap_ptr(CSFML.texture_copy(@this))
+      result = Texture.allocate()
+      result.transfer_ptr(CSFML.texture_copy(@this))
     end
     
     # Destroy an existing texture
@@ -4295,7 +4360,8 @@ end
     # 
     # *Returns*: Image containing the texture's pixels
     def copy_to_image()
-      self.wrap_ptr(CSFML.texture_copy_to_image(@this))
+      result = Image.allocate()
+      result.wrap_ptr(CSFML.texture_copy_to_image(@this))
     end
     
     # Update a texture from an array of pixels
@@ -4425,17 +4491,17 @@ end
       CSFML.texture_bind(@this)
     end
     
-end
+    # Get the maximum texture size allowed
+    # 
+    # *Returns*: Maximum size allowed for textures, in pixels
+    def self.get_maximum_size()
+      CSFML.texture_get_maximum_size()
+    end
+    
+  end
 
   class Transformable
-    def self.wrap_ptr(p)
-      result = self.allocate()
-      result.this = p
-      result
-    end
-    def to_unsafe
-      @this
-    end
+    include Wrapper
     
     # Create a new transformable
     # 
@@ -4453,7 +4519,8 @@ end
     # 
     # *Returns*: Copied object
     def copy()
-      self.wrap_ptr(CSFML.transformable_copy(@this))
+      result = Transformable.allocate()
+      result.transfer_ptr(CSFML.transformable_copy(@this))
     end
     
     # Destroy an existing transformable
@@ -4633,17 +4700,10 @@ end
       CSFML.transformable_get_inverse_transform(@this)
     end
     
-end
+  end
 
   class VertexArray
-    def self.wrap_ptr(p)
-      result = self.allocate()
-      result.this = p
-      result
-    end
-    def to_unsafe
-      @this
-    end
+    include Wrapper
     
     # Create a new vertex array
     # 
@@ -4661,7 +4721,8 @@ end
     # 
     # *Returns*: Copied object
     def copy()
-      self.wrap_ptr(CSFML.vertex_array_copy(@this))
+      result = VertexArray.allocate()
+      result.transfer_ptr(CSFML.vertex_array_copy(@this))
     end
     
     # Destroy an existing vertex array
@@ -4783,17 +4844,10 @@ end
       CSFML.vertex_array_get_bounds(@this)
     end
     
-end
+  end
 
   class View
-    def self.wrap_ptr(p)
-      result = self.allocate()
-      result.this = p
-      result
-    end
-    def to_unsafe
-      @this
-    end
+    include Wrapper
     
     # Create a default view
     # 
@@ -4825,7 +4879,8 @@ end
     # 
     # *Returns*: Copied object
     def copy()
-      self.wrap_ptr(CSFML.view_copy(@this))
+      result = View.allocate()
+      result.transfer_ptr(CSFML.view_copy(@this))
     end
     
     # Destroy an existing view
@@ -4982,10 +5037,186 @@ end
       CSFML.view_zoom(@this, factor)
     end
     
-end
+  end
 
   # Encapsulate a 3x3 transform matrix
   alias Transform = CSFML::Transform
+    # Return the 4x4 matrix of a transform
+    # 
+    # This function fills an array of 16 floats with the transform
+    # converted as a 4x4 matrix, which is directly compatible with
+    # OpenGL functions.
+    # 
+    # 
+    # *Arguments*:
+    # 
+    # * `transform`: Transform object
+    # * `matrix`: Pointer to the 16-element array to fill with the matrix
+    def self.get_matrix(transform, matrix: Float32*)
+      if transform
+        ctransform = transform; ptransform = pointerof(ctransform)
+      else
+        ptransform = nil
+      end
+      CSFML.transform_get_matrix(ptransform, matrix)
+    end
+    
+    # Return the inverse of a transform
+    # 
+    # If the inverse cannot be computed, a new identity transform
+    # is returned.
+    # 
+    # *Arguments*:
+    # 
+    # * `transform`: Transform object
+    # *Returns*: The inverse matrix
+    def self.get_inverse(transform)
+      if transform
+        ctransform = transform; ptransform = pointerof(ctransform)
+      else
+        ptransform = nil
+      end
+      CSFML.transform_get_inverse(ptransform)
+    end
+    
+    # Apply a transform to a 2D point
+    # 
+    # *Arguments*:
+    # 
+    # * `transform`: Transform object
+    # * `point`: Point to transform
+    # 
+    # *Returns*: Transformed point
+    def self.transform_point(transform, point: Vector2f)
+      if transform
+        ctransform = transform; ptransform = pointerof(ctransform)
+      else
+        ptransform = nil
+      end
+      CSFML.transform_transform_point(ptransform, point)
+    end
+    
+    # Apply a transform to a rectangle
+    # 
+    # Since SFML doesn't provide support for oriented rectangles,
+    # the result of this function is always an axis-aligned
+    # rectangle. Which means that if the transform contains a
+    # rotation, the bounding rectangle of the transformed rectangle
+    # is returned.
+    # 
+    # *Arguments*:
+    # 
+    # * `transform`: Transform object
+    # * `rectangle`: Rectangle to transform
+    # 
+    # *Returns*: Transformed rectangle
+    def self.transform_rect(transform, rectangle: FloatRect)
+      if transform
+        ctransform = transform; ptransform = pointerof(ctransform)
+      else
+        ptransform = nil
+      end
+      CSFML.transform_transform_rect(ptransform, rectangle)
+    end
+    
+    # Combine two transforms
+    # 
+    # The result is a transform that is equivalent to applying
+    # `transform` followed by `other`. Mathematically, it is
+    # equivalent to a matrix multiplication.
+    # 
+    # *Arguments*:
+    # 
+    # * `transform`: Transform object
+    # * `right`: Transform to combine to `transform`
+    def self.combine(transform: Transform*, other)
+      if other
+        cother = other; pother = pointerof(cother)
+      else
+        pother = nil
+      end
+      CSFML.transform_combine(transform, pother)
+    end
+    
+    # Combine a transform with a translation
+    # 
+    # *Arguments*:
+    # 
+    # * `transform`: Transform object
+    # * `x`: Offset to apply on X axis
+    # * `y`: Offset to apply on Y axis
+    def self.translate(transform: Transform*, x, y)
+      x = x.to_f32
+      y = y.to_f32
+      CSFML.transform_translate(transform, x, y)
+    end
+    
+    # Combine the current transform with a rotation
+    # 
+    # *Arguments*:
+    # 
+    # * `transform`: Transform object
+    # * `angle`: Rotation angle, in degrees
+    def self.rotate(transform: Transform*, angle)
+      angle = angle.to_f32
+      CSFML.transform_rotate(transform, angle)
+    end
+    
+    # Combine the current transform with a rotation
+    # 
+    # The center of rotation is provided for convenience as a second
+    # argument, so that you can build rotations around arbitrary points
+    # more easily (and efficiently) than the usual
+    # [translate(-center), rotate(angle), translate(center)].
+    # 
+    # *Arguments*:
+    # 
+    # * `transform`: Transform object
+    # * `angle`: Rotation angle, in degrees
+    # * `centerX`: X coordinate of the center of rotation
+    # * `centerY`: Y coordinate of the center of rotation
+    def self.rotate(transform: Transform*, angle, center_x, center_y)
+      angle = angle.to_f32
+      center_x = center_x.to_f32
+      center_y = center_y.to_f32
+      CSFML.transform_rotate_with_center(transform, angle, center_x, center_y)
+    end
+    
+    # Combine the current transform with a scaling
+    # 
+    # *Arguments*:
+    # 
+    # * `transform`: Transform object
+    # * `scaleX`: Scaling factor on the X axis
+    # * `scaleY`: Scaling factor on the Y axis
+    def self.scale(transform: Transform*, scale_x, scale_y)
+      scale_x = scale_x.to_f32
+      scale_y = scale_y.to_f32
+      CSFML.transform_scale(transform, scale_x, scale_y)
+    end
+    
+    # Combine the current transform with a scaling
+    # 
+    # The center of scaling is provided for convenience as a second
+    # argument, so that you can build scaling around arbitrary points
+    # more easily (and efficiently) than the usual
+    # [translate(-center), scale(factors), translate(center)]
+    # 
+    # *Arguments*:
+    # 
+    # * `transform`: Transform object
+    # * `scaleX`: Scaling factor on X axis
+    # * `scaleY`: Scaling factor on Y axis
+    # * `centerX`: X coordinate of the center of scaling
+    # * `centerY`: Y coordinate of the center of scaling
+    def self.scale(transform: Transform*, scale_x, scale_y, center_x, center_y)
+      scale_x = scale_x.to_f32
+      scale_y = scale_y.to_f32
+      center_x = center_x.to_f32
+      center_y = center_y.to_f32
+      CSFML.transform_scale_with_center(transform, scale_x, scale_y, center_x, center_y)
+    end
+    
 
   alias FontInfo = CSFML::FontInfo
 
@@ -4997,14 +5228,87 @@ end
   # Points and lines have no area, therefore their thickness
   # will always be 1 pixel, regardless the current transform
   # and view.
+  #
+  # * Points
+  # * Lines
+  # * LinesStrip
+  # * Triangles
+  # * TrianglesStrip
+  # * TrianglesFan
+  # * Quads
   alias PrimitiveType = CSFML::PrimitiveType
+    Points = CSFML::PrimitiveType::Points
+    Lines = CSFML::PrimitiveType::Lines
+    LinesStrip = CSFML::PrimitiveType::LinesStrip
+    Triangles = CSFML::PrimitiveType::Triangles
+    TrianglesStrip = CSFML::PrimitiveType::TrianglesStrip
+    TrianglesFan = CSFML::PrimitiveType::TrianglesFan
+    Quads = CSFML::PrimitiveType::Quads
 
   # Define the states used for drawing to a RenderTarget
   alias RenderStates = CSFML::RenderStates
 
   alias Vertex = CSFML::Vertex
 
+  class Mouse
+    # Get the current position of the mouse relative to a render-window
+    # 
+    # This function returns the current position of the mouse
+    # cursor relative to the given render-window, or desktop if NULL is passed.
+    # 
+    # *Arguments*:
+    # 
+    # * `relative_to`: Reference window
+    # 
+    # *Returns*: Position of the mouse cursor, relative to the given render window
+    def self.get_position(relative_to: RenderWindow)
+      CSFML.mouse_get_position_render_window(relative_to)
+    end
+    
+    # Set the current position of the mouse relative to a render window
+    # 
+    # This function sets the current position of the mouse
+    # cursor relative to the given render-window, or desktop if NULL is passed.
+    # 
+    # *Arguments*:
+    # 
+    # * `position`: New position of the mouse
+    # * `relative_to`: Reference window
+    def self.set_position(position: Vector2i, relative_to: RenderWindow)
+      CSFML.mouse_set_position_render_window(position, relative_to)
+    end
+    
+  end
+
+  class Touch
+    # Get the current position of a touch in window coordinates
+    # 
+    # This function returns the current touch position
+    # relative to the given render window, or desktop if NULL is passed.
+    # 
+    # *Arguments*:
+    # 
+    # * `finger`: Finger index
+    # * `relative_to`: Reference window
+    # 
+    # *Returns*: Current position of `finger`, or undefined if it's not down
+    def self.get_position(finger: Int32, relative_to: RenderWindow)
+      CSFML.touch_get_position_render_window(finger, relative_to)
+    end
+    
+  end
+
+  # * Text_Regular
+  # * Text_Bold
+  # * Text_Italic
+  # * Text_Underlined
+  # * Text_StrikeThrough
   alias TextStyle = CSFML::TextStyle
+    Text_Regular = CSFML::TextStyle::Regular
+    Text_Bold = CSFML::TextStyle::Bold
+    Text_Italic = CSFML::TextStyle::Italic
+    Text_Underlined = CSFML::TextStyle::Underlined
+    Text_StrikeThrough = CSFML::TextStyle::StrikeThrough
 
   # Construct a color from its 3 RGB components
   # 
@@ -5033,96 +5337,6 @@ end
     CSFML.color_from_rgba(red, green, blue, alpha)
   end
   
-  # Add two colors
-  # 
-  # *Arguments*:
-  # 
-  # * `color1`: First color
-  # * `color2`: Second color
-  # 
-  # *Returns*: Component-wise saturated addition of the two colors
-  def color_add(color1: Color, color2: Color)
-    CSFML.color_add(color1, color2)
-  end
-  
-  # Modulate two colors
-  # 
-  # *Arguments*:
-  # 
-  # * `color1`: First color
-  # * `color2`: Second color
-  # 
-  # *Returns*: Component-wise multiplication of the two colors
-  def color_modulate(color1: Color, color2: Color)
-    CSFML.color_modulate(color1, color2)
-  end
-  
-  # Check if a point is inside a rectangle's area
-  # 
-  # *Arguments*:
-  # 
-  # * `rect`: Rectangle to test
-  # * `x`: X coordinate of the point to test
-  # * `y`: Y coordinate of the point to test
-  # 
-  # *Returns*: True if the point is inside
-  def float_rect_contains(rect, x, y)
-    if rect
-      crect = rect; prect = pointerof(crect)
-    else
-      prect = nil
-    end
-    x = x.to_f32
-    y = y.to_f32
-    CSFML.float_rect_contains(prect, x, y) != 0
-  end
-  
-  def int_rect_contains(rect, x: Int32, y: Int32)
-    if rect
-      crect = rect; prect = pointerof(crect)
-    else
-      prect = nil
-    end
-    CSFML.int_rect_contains(prect, x, y) != 0
-  end
-  
-  # Check intersection between two rectangles
-  # 
-  # *Arguments*:
-  # 
-  # * `rect1`: First rectangle to test
-  # * `rect2`: Second rectangle to test
-  # * `intersection`: Rectangle to be filled with overlapping rect (can be NULL)
-  # 
-  # *Returns*: True if rectangles overlap
-  def float_rect_intersects(rect1, rect2, intersection: FloatRect*)
-    if rect1
-      crect1 = rect1; prect1 = pointerof(crect1)
-    else
-      prect1 = nil
-    end
-    if rect2
-      crect2 = rect2; prect2 = pointerof(crect2)
-    else
-      prect2 = nil
-    end
-    CSFML.float_rect_intersects(prect1, prect2, intersection) != 0
-  end
-  
-  def int_rect_intersects(rect1, rect2, intersection: IntRect*)
-    if rect1
-      crect1 = rect1; prect1 = pointerof(crect1)
-    else
-      prect1 = nil
-    end
-    if rect2
-      crect2 = rect2; prect2 = pointerof(crect2)
-    else
-      prect2 = nil
-    end
-    CSFML.int_rect_intersects(prect1, prect2, intersection) != 0
-  end
-  
   # Create a new transform from a matrix
   # 
   # *Arguments*:
@@ -5149,242 +5363,6 @@ end
     a21 = a21.to_f32
     a22 = a22.to_f32
     CSFML.transform_from_matrix(a00, a01, a02, a10, a11, a12, a20, a21, a22)
-  end
-  
-  # Return the 4x4 matrix of a transform
-  # 
-  # This function fills an array of 16 floats with the transform
-  # converted as a 4x4 matrix, which is directly compatible with
-  # OpenGL functions.
-  # 
-  # 
-  # *Arguments*:
-  # 
-  # * `transform`: Transform object
-  # * `matrix`: Pointer to the 16-element array to fill with the matrix
-  def transform_get_matrix(transform, matrix: Float32*)
-    if transform
-      ctransform = transform; ptransform = pointerof(ctransform)
-    else
-      ptransform = nil
-    end
-    CSFML.transform_get_matrix(ptransform, matrix)
-  end
-  
-  # Return the inverse of a transform
-  # 
-  # If the inverse cannot be computed, a new identity transform
-  # is returned.
-  # 
-  # *Arguments*:
-  # 
-  # * `transform`: Transform object
-  # *Returns*: The inverse matrix
-  def transform_get_inverse(transform)
-    if transform
-      ctransform = transform; ptransform = pointerof(ctransform)
-    else
-      ptransform = nil
-    end
-    CSFML.transform_get_inverse(ptransform)
-  end
-  
-  # Apply a transform to a 2D point
-  # 
-  # *Arguments*:
-  # 
-  # * `transform`: Transform object
-  # * `point`: Point to transform
-  # 
-  # *Returns*: Transformed point
-  def transform_transform_point(transform, point: Vector2f)
-    if transform
-      ctransform = transform; ptransform = pointerof(ctransform)
-    else
-      ptransform = nil
-    end
-    CSFML.transform_transform_point(ptransform, point)
-  end
-  
-  # Apply a transform to a rectangle
-  # 
-  # Since SFML doesn't provide support for oriented rectangles,
-  # the result of this function is always an axis-aligned
-  # rectangle. Which means that if the transform contains a
-  # rotation, the bounding rectangle of the transformed rectangle
-  # is returned.
-  # 
-  # *Arguments*:
-  # 
-  # * `transform`: Transform object
-  # * `rectangle`: Rectangle to transform
-  # 
-  # *Returns*: Transformed rectangle
-  def transform_transform_rect(transform, rectangle: FloatRect)
-    if transform
-      ctransform = transform; ptransform = pointerof(ctransform)
-    else
-      ptransform = nil
-    end
-    CSFML.transform_transform_rect(ptransform, rectangle)
-  end
-  
-  # Combine two transforms
-  # 
-  # The result is a transform that is equivalent to applying
-  # `transform` followed by `other`. Mathematically, it is
-  # equivalent to a matrix multiplication.
-  # 
-  # *Arguments*:
-  # 
-  # * `transform`: Transform object
-  # * `right`: Transform to combine to `transform`
-  def transform_combine(transform: Transform*, other)
-    if other
-      cother = other; pother = pointerof(cother)
-    else
-      pother = nil
-    end
-    CSFML.transform_combine(transform, pother)
-  end
-  
-  # Combine a transform with a translation
-  # 
-  # *Arguments*:
-  # 
-  # * `transform`: Transform object
-  # * `x`: Offset to apply on X axis
-  # * `y`: Offset to apply on Y axis
-  def transform_translate(transform: Transform*, x, y)
-    x = x.to_f32
-    y = y.to_f32
-    CSFML.transform_translate(transform, x, y)
-  end
-  
-  # Combine the current transform with a rotation
-  # 
-  # *Arguments*:
-  # 
-  # * `transform`: Transform object
-  # * `angle`: Rotation angle, in degrees
-  def transform_rotate(transform: Transform*, angle)
-    angle = angle.to_f32
-    CSFML.transform_rotate(transform, angle)
-  end
-  
-  # Combine the current transform with a rotation
-  # 
-  # The center of rotation is provided for convenience as a second
-  # argument, so that you can build rotations around arbitrary points
-  # more easily (and efficiently) than the usual
-  # [translate(-center), rotate(angle), translate(center)].
-  # 
-  # *Arguments*:
-  # 
-  # * `transform`: Transform object
-  # * `angle`: Rotation angle, in degrees
-  # * `centerX`: X coordinate of the center of rotation
-  # * `centerY`: Y coordinate of the center of rotation
-  def transform_rotate(transform: Transform*, angle, center_x, center_y)
-    angle = angle.to_f32
-    center_x = center_x.to_f32
-    center_y = center_y.to_f32
-    CSFML.transform_rotate_with_center(transform, angle, center_x, center_y)
-  end
-  
-  # Combine the current transform with a scaling
-  # 
-  # *Arguments*:
-  # 
-  # * `transform`: Transform object
-  # * `scaleX`: Scaling factor on the X axis
-  # * `scaleY`: Scaling factor on the Y axis
-  def transform_scale(transform: Transform*, scale_x, scale_y)
-    scale_x = scale_x.to_f32
-    scale_y = scale_y.to_f32
-    CSFML.transform_scale(transform, scale_x, scale_y)
-  end
-  
-  # Combine the current transform with a scaling
-  # 
-  # The center of scaling is provided for convenience as a second
-  # argument, so that you can build scaling around arbitrary points
-  # more easily (and efficiently) than the usual
-  # [translate(-center), scale(factors), translate(center)]
-  # 
-  # *Arguments*:
-  # 
-  # * `transform`: Transform object
-  # * `scaleX`: Scaling factor on X axis
-  # * `scaleY`: Scaling factor on Y axis
-  # * `centerX`: X coordinate of the center of scaling
-  # * `centerY`: Y coordinate of the center of scaling
-  def transform_scale(transform: Transform*, scale_x, scale_y, center_x, center_y)
-    scale_x = scale_x.to_f32
-    scale_y = scale_y.to_f32
-    center_x = center_x.to_f32
-    center_y = center_y.to_f32
-    CSFML.transform_scale_with_center(transform, scale_x, scale_y, center_x, center_y)
-  end
-  
-  # Get the current position of the mouse relative to a render-window
-  # 
-  # This function returns the current position of the mouse
-  # cursor relative to the given render-window, or desktop if NULL is passed.
-  # 
-  # *Arguments*:
-  # 
-  # * `relative_to`: Reference window
-  # 
-  # *Returns*: Position of the mouse cursor, relative to the given render window
-  def mouse_get_position(relative_to: RenderWindow)
-    CSFML.mouse_get_position_render_window(relative_to)
-  end
-  
-  # Set the current position of the mouse relative to a render window
-  # 
-  # This function sets the current position of the mouse
-  # cursor relative to the given render-window, or desktop if NULL is passed.
-  # 
-  # *Arguments*:
-  # 
-  # * `position`: New position of the mouse
-  # * `relative_to`: Reference window
-  def mouse_set_position(position: Vector2i, relative_to: RenderWindow)
-    CSFML.mouse_set_position_render_window(position, relative_to)
-  end
-  
-  # Get the current position of a touch in window coordinates
-  # 
-  # This function returns the current touch position
-  # relative to the given render window, or desktop if NULL is passed.
-  # 
-  # *Arguments*:
-  # 
-  # * `finger`: Finger index
-  # * `relative_to`: Reference window
-  # 
-  # *Returns*: Current position of `finger`, or undefined if it's not down
-  def touch_get_position(finger: Int32, relative_to: RenderWindow)
-    CSFML.touch_get_position_render_window(finger, relative_to)
-  end
-  
-  # Tell whether or not the system supports shaders
-  # 
-  # This function should always be called before using
-  # the shader features. If it returns false, then
-  # any attempt to use Shader will fail.
-  # 
-  # *Returns*: True if the system can use shaders, False otherwise
-  def shader_is_available()
-    CSFML.shader_is_available() != 0
-  end
-  
-  # Get the maximum texture size allowed
-  # 
-  # *Returns*: Maximum size allowed for textures, in pixels
-  def texture_get_maximum_size()
-    CSFML.texture_get_maximum_size()
   end
   
 end

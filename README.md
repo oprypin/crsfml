@@ -20,7 +20,7 @@ Introduction
 
 Each SFML module is implemented with 3 source files.
 
-- *lib*-files are an auto-generated (with minor patches) definition of CSFML API: `lib CSFML`. These can be used directly, by themselves or in combination
+- *lib*-files are an auto-generated definition of CSFML API: `lib CSFML`. These can be used directly, by themselves or in combination
 with wrappers.
 - *obj*-files are auto-generated convenient object and function wrappers. These make up the `module SF`. The main file for each SFML module just imports these and adds some more convenience functionality, like overloaded functions that were dropped in CSFML compared to SFML, and ways to avoid dealing with the remaining exposed pointers.
 
@@ -28,16 +28,14 @@ The API attempts to be similar to SFML's, but some general changes are present:
 
 - There is a clear separation between "classes" and "structs". Classes are wrapped, and structs are taken directly from `lib`s, making them limited, for example, instead of instance methods they have functions in the root of the namespace.
 - To construct an object (`sf::SomeType x(param)`):
-    - `x = SF::SomeType.new(param)` for "classes".
-    - `x = SF::SomeType.new(member_name: param)` for structs.
+    - `x = SF::SomeType.new(param)` for classes.
+    - `x = SF::some_type(param)` for structs.
     - Member functions, such as `loadFromFile`, that are used for initialization, are just overloaded `initialize`.
 - Everything is renamed to `snake_case`.
 - Getter, setter functions are changed:
     - `x.getSomeProperty()` and `x.isSomeProperty()` both become `x.some_property`.
     - `x.setSomeProperty(v)` becomes `x.some_property = v`.
-- `enum` names were taken from CSFML, but changed to remove their common prefix to resemble SFML's values.
-    - Expect surprises in their naming.
-    - For some reason `SF::SomeEnum::Value` does not work, so use `CSFML::SomeEnum::Value`.
+- Static public attributes, such as `sf::Text::Italic` become `SF::Text_Italic`
     - A few `enum`s are just represented as a list of constants, because they are not really enumerations.
     - SFML sometimes uses `enum` values as bitmasks. You can combine them using the `|` operator.
 - Unicode just works.

@@ -1,20 +1,109 @@
 require "./audio_lib"
+require "./common_obj"
 
 module SF
   extend self
 
+  class Listener
+    # Change the global volume of all the sounds and musics
+    # 
+    # The volume is a number between 0 and 100; it is combined with
+    # the individual volume of each sound / music.
+    # The default value for the volume is 100 (maximum).
+    # 
+    # *Arguments*:
+    # 
+    # * `volume`: New global volume, in the range [0, 100]
+    def self.set_global_volume(volume)
+      volume = volume.to_f32
+      CSFML.listener_set_global_volume(volume)
+    end
+    
+    # Get the current value of the global volume
+    # 
+    # *Returns*: Current global volume, in the range [0, 100]
+    def self.get_global_volume()
+      CSFML.listener_get_global_volume()
+    end
+    
+    # Set the position of the listener in the scene
+    # 
+    # The default listener's position is (0, 0, 0).
+    # 
+    # *Arguments*:
+    # 
+    # * `position`: New position of the listener
+    def self.set_position(position: Vector3f)
+      CSFML.listener_set_position(position)
+    end
+    
+    # Get the current position of the listener in the scene
+    # 
+    # *Returns*: The listener's position
+    def self.get_position()
+      CSFML.listener_get_position()
+    end
+    
+    # Set the orientation of the forward vector in the scene
+    # 
+    # The direction (also called "at vector") is the vector
+    # pointing forward from the listener's perspective. Together
+    # with the up vector, it defines the 3D orientation of the
+    # listener in the scene. The direction vector doesn't
+    # have to be normalized.
+    # The default listener's direction is (0, 0, -1).
+    # 
+    # *Arguments*:
+    # 
+    # * `direction`: New listener's direction
+    def self.set_direction(direction: Vector3f)
+      CSFML.listener_set_direction(direction)
+    end
+    
+    # Get the current forward vector of the listener in the scene
+    # 
+    # *Returns*: Listener's forward vector (not normalized)
+    def self.get_direction()
+      CSFML.listener_get_direction()
+    end
+    
+    # Set the upward vector of the listener in the scene
+    # 
+    # The up vector is the vector that points upward from the
+    # listener's perspective. Together with the direction, it
+    # defines the 3D orientation of the listener in the scene.
+    # The up vector doesn't have to be normalized.
+    # The default listener's up vector is (0, 1, 0). It is usually
+    # not necessary to change it, especially in 2D scenarios.
+    # 
+    # *Arguments*:
+    # 
+    # * `up_vector`: New listener's up vector
+    def self.set_up_vector(up_vector: Vector3f)
+      CSFML.listener_set_up_vector(up_vector)
+    end
+    
+    # Get the current upward vector of the listener in the scene
+    # 
+    # *Returns*: Listener's upward vector (not normalized)
+    def self.get_up_vector()
+      CSFML.listener_get_up_vector()
+    end
+    
+  end
+
   # Enumeration of statuses for sounds and musics
+  #
+  # * SoundSource_Stopped
+  # * SoundSource_Paused
+  # * SoundSource_Playing
   alias SoundStatus = CSFML::SoundStatus
+    SoundSource_Stopped = CSFML::SoundStatus::Stopped
+    SoundSource_Paused = CSFML::SoundStatus::Paused
+    SoundSource_Playing = CSFML::SoundStatus::Playing
 
   class Music
-    def self.wrap_ptr(p)
-      result = self.allocate()
-      result.this = p
-      result
-    end
-    def to_unsafe
-      @this
-    end
+    include Wrapper
     
     # Create a new music and load it from a file
     # 
@@ -387,17 +476,10 @@ module SF
       CSFML.music_get_attenuation(@this)
     end
     
-end
+  end
 
   class Sound
-    def self.wrap_ptr(p)
-      result = self.allocate()
-      result.this = p
-      result
-    end
-    def to_unsafe
-      @this
-    end
+    include Wrapper
     
     # Create a new sound
     # 
@@ -415,7 +497,8 @@ end
     # 
     # *Returns*: A new Sound object which is a copy of `sound`
     def copy()
-      self.wrap_ptr(CSFML.sound_copy(@this))
+      result = Sound.allocate()
+      result.transfer_ptr(CSFML.sound_copy(@this))
     end
     
     # Destroy a sound
@@ -489,7 +572,8 @@ end
     # 
     # *Returns*: Sound buffer attached to the sound (can be NULL)
     def buffer
-      self.wrap_ptr(CSFML.sound_get_buffer(@this))
+      result = SoundBuffer.allocate()
+      result.wrap_ptr(CSFML.sound_get_buffer(@this))
     end
     
     # Set whether or not a sound should loop after reaching the end
@@ -721,17 +805,10 @@ end
       CSFML.sound_get_playing_offset(@this)
     end
     
-end
+  end
 
   class SoundBuffer
-    def self.wrap_ptr(p)
-      result = self.allocate()
-      result.this = p
-      result
-    end
-    def to_unsafe
-      @this
-    end
+    include Wrapper
     
     # Create a new sound buffer and load it from a file
     # 
@@ -813,7 +890,8 @@ end
     # 
     # *Returns*: A new SoundBuffer object which is a copy of `sound_buffer`
     def copy()
-      self.wrap_ptr(CSFML.sound_buffer_copy(@this))
+      result = SoundBuffer.allocate()
+      result.transfer_ptr(CSFML.sound_buffer_copy(@this))
     end
     
     # Destroy a sound buffer
@@ -910,17 +988,10 @@ end
       CSFML.sound_buffer_get_duration(@this)
     end
     
-end
+  end
 
   class SoundBufferRecorder
-    def self.wrap_ptr(p)
-      result = self.allocate()
-      result.this = p
-      result
-    end
-    def to_unsafe
-      @this
-    end
+    include Wrapper
     
     # Create a new sound buffer recorder
     # 
@@ -993,20 +1064,14 @@ end
     # 
     # *Returns*: Read-only access to the sound buffer
     def buffer
-      self.wrap_ptr(CSFML.sound_buffer_recorder_get_buffer(@this))
+      result = SoundBuffer.allocate()
+      result.wrap_ptr(CSFML.sound_buffer_recorder_get_buffer(@this))
     end
     
-end
+  end
 
   class SoundRecorder
-    def self.wrap_ptr(p)
-      result = self.allocate()
-      result.this = p
-      result
-    end
-    def to_unsafe
-      @this
-    end
+    include Wrapper
     
     # Construct a new sound recorder from callback functions
     # 
@@ -1075,6 +1140,17 @@ end
       CSFML.sound_recorder_get_sample_rate(@this)
     end
     
+    # Check if the system supports audio capture
+    # 
+    # This function should always be called before using
+    # the audio capture features. If it returns false, then
+    # any attempt to use SoundRecorder will fail.
+    # 
+    # *Returns*: True if audio capture is supported, False otherwise
+    def self.is_available()
+      CSFML.sound_recorder_is_available() != 0
+    end
+    
     # Set the processing interval
     # 
     # The processing interval controls the period
@@ -1093,6 +1169,31 @@ end
     # * `interval`: Processing interval
     def processing_interval=(interval: Time)
       CSFML.sound_recorder_set_processing_interval(@this, interval)
+    end
+    
+    # Get a list of the names of all availabe audio capture devices
+    # 
+    # This function returns an array of strings (null terminated),
+    # containing the names of all availabe audio capture devices.
+    # If no devices are available then NULL is returned.
+    # 
+    # *Arguments*:
+    # 
+    # * `count`: Pointer to a variable that will be filled with the number of modes in the array
+    # 
+    # *Returns*: An array of strings containing the names
+    def self.get_available_devices(count: Size_t*)
+      CSFML.sound_recorder_get_available_devices(count)
+    end
+    
+    # Get the name of the default audio capture device
+    # 
+    # This function returns the name of the default audio
+    # capture device. If none is available, NULL is returned.
+    # 
+    # *Returns*: The name of the default audio capture device (null terminated)
+    def self.get_default_device()
+      CSFML.sound_recorder_get_default_device()
     end
     
     # Set the audio capture device
@@ -1123,139 +1224,12 @@ end
       CSFML.sound_recorder_get_device(@this)
     end
     
-end
+  end
 
   class SoundStream
-    def self.wrap_ptr(p)
-      result = self.allocate()
-      result.this = p
-      result
-    end
-    def to_unsafe
-      @this
-    end
+    include Wrapper
     
-end
+  end
 
-  # Change the global volume of all the sounds and musics
-  # 
-  # The volume is a number between 0 and 100; it is combined with
-  # the individual volume of each sound / music.
-  # The default value for the volume is 100 (maximum).
-  # 
-  # *Arguments*:
-  # 
-  # * `volume`: New global volume, in the range [0, 100]
-  def listener_set_global_volume(volume)
-    volume = volume.to_f32
-    CSFML.listener_set_global_volume(volume)
-  end
-  
-  # Get the current value of the global volume
-  # 
-  # *Returns*: Current global volume, in the range [0, 100]
-  def listener_get_global_volume()
-    CSFML.listener_get_global_volume()
-  end
-  
-  # Set the position of the listener in the scene
-  # 
-  # The default listener's position is (0, 0, 0).
-  # 
-  # *Arguments*:
-  # 
-  # * `position`: New position of the listener
-  def listener_set_position(position: Vector3f)
-    CSFML.listener_set_position(position)
-  end
-  
-  # Get the current position of the listener in the scene
-  # 
-  # *Returns*: The listener's position
-  def listener_get_position()
-    CSFML.listener_get_position()
-  end
-  
-  # Set the orientation of the forward vector in the scene
-  # 
-  # The direction (also called "at vector") is the vector
-  # pointing forward from the listener's perspective. Together
-  # with the up vector, it defines the 3D orientation of the
-  # listener in the scene. The direction vector doesn't
-  # have to be normalized.
-  # The default listener's direction is (0, 0, -1).
-  # 
-  # *Arguments*:
-  # 
-  # * `direction`: New listener's direction
-  def listener_set_direction(direction: Vector3f)
-    CSFML.listener_set_direction(direction)
-  end
-  
-  # Get the current forward vector of the listener in the scene
-  # 
-  # *Returns*: Listener's forward vector (not normalized)
-  def listener_get_direction()
-    CSFML.listener_get_direction()
-  end
-  
-  # Set the upward vector of the listener in the scene
-  # 
-  # The up vector is the vector that points upward from the
-  # listener's perspective. Together with the direction, it
-  # defines the 3D orientation of the listener in the scene.
-  # The up vector doesn't have to be normalized.
-  # The default listener's up vector is (0, 1, 0). It is usually
-  # not necessary to change it, especially in 2D scenarios.
-  # 
-  # *Arguments*:
-  # 
-  # * `up_vector`: New listener's up vector
-  def listener_set_up_vector(up_vector: Vector3f)
-    CSFML.listener_set_up_vector(up_vector)
-  end
-  
-  # Get the current upward vector of the listener in the scene
-  # 
-  # *Returns*: Listener's upward vector (not normalized)
-  def listener_get_up_vector()
-    CSFML.listener_get_up_vector()
-  end
-  
-  # Check if the system supports audio capture
-  # 
-  # This function should always be called before using
-  # the audio capture features. If it returns false, then
-  # any attempt to use SoundRecorder will fail.
-  # 
-  # *Returns*: True if audio capture is supported, False otherwise
-  def sound_recorder_is_available()
-    CSFML.sound_recorder_is_available() != 0
-  end
-  
-  # Get a list of the names of all availabe audio capture devices
-  # 
-  # This function returns an array of strings (null terminated),
-  # containing the names of all availabe audio capture devices.
-  # If no devices are available then NULL is returned.
-  # 
-  # *Arguments*:
-  # 
-  # * `count`: Pointer to a variable that will be filled with the number of modes in the array
-  # 
-  # *Returns*: An array of strings containing the names
-  def sound_recorder_get_available_devices(count: Size_t*)
-    CSFML.sound_recorder_get_available_devices(count)
-  end
-  
-  # Get the name of the default audio capture device
-  # 
-  # This function returns the name of the default audio
-  # capture device. If none is available, NULL is returned.
-  # 
-  # *Returns*: The name of the default audio capture device (null terminated)
-  def sound_recorder_get_default_device()
-    CSFML.sound_recorder_get_default_device()
-  end
-  
+
 end

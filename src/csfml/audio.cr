@@ -20,6 +20,24 @@
 
 module SF
   extend self
+  
+  class Sound
+    def initialize(buffer: SoundBuffer)
+      initialize()
+      self.buffer = buffer
+    end
+  end
+  
+  class SoundRecorder
+    def self.get_available_devices
+      ptr = CSFML.sound_recorder_get_available_devices(out count)
+      result = [] of String
+      (0...count).each do |i|
+        result.push ptr[i].to_s
+      end
+      result
+    end
+  end
 end
 
 require "./audio_obj"

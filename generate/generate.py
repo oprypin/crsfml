@@ -103,8 +103,7 @@ def get_doc(indent=0):
     doc = None
     return r
 
-
-aliases = set()
+enum_relations = {'JoystickAxis': 'Joystick', 'MouseButton': 'Mouse', 'BlendEquation': 'BlendMode', 'EventType': 'Event', 'BlendFactor': 'BlendMode', 'KeyCode': 'Keyboard', 'TextStyle': 'Text', 'SensorType': 'Sensor', 'SoundStatus': 'SoundSource', 'PrimitiveType': '', 'WindowStyle': ''}
 def handle_enum(name, items):
     if name is None:
         for name, value in items:
@@ -117,6 +116,9 @@ def handle_enum(name, items):
     nitems = [nitem[c:] for nitem in nitems]
     nitems = list(zip(nitems, (value for name, value in items)))
     
+    def subname(name):
+        return {'ButtonCount': 'Count', 'DefaultStyle': 'Default'}.get(name, name)
+
     nname = rename_sf(name)
     if all(value is not None for name, value in nitems):
         nitems.sort(key=lambda kv: int(kv[1]))
@@ -127,14 +129,22 @@ def handle_enum(name, items):
     if d: lib(d)
     lib(s)
     lib(*(textwrap.wrap(', '.join(
-        ('{} = {}'.format(name, value) if value is not None else name)
+        ('{} = {}'.format(subname(name), value) if value is not None else subname(name))
         for name, value in nitems
     ), 78, initial_indent='  ', subsequent_indent='  ')))
     lib('end')
     
-    if d: obj(nname, d)
+    if d: obj(nname, d, '#')
+    for name, value in nitems:
+        cls = enum_relations[nname]
+        if cls: cls += '_'
+        obj(nname, '# * {cls}{name}'.format(**locals()))
     obj(nname, 'alias {0} = CSFML::{0}'.format(nname))
-    aliases.add(nname)
+    for name, value in nitems:
+        cls = enum_relations[nname]
+        if cls: cls += '_'
+        sub = subname(name)
+        obj(nname, '{cls}{name} = CSFML::{nname}::{sub}'.format(**locals()))
 
 def handle_struct(name, items):
     if name=='sfVector2u':
@@ -153,7 +163,6 @@ def handle_struct(name, items):
     
     if d: obj(name, d)
     obj(name, 'alias {0} = CSFML::{0}'.format(name))
-    aliases.add(name)
 
 def handle_union(name, items):
     name = rename_type(name)
@@ -168,7 +177,6 @@ def handle_union(name, items):
 
     if d: obj(name, d)
     obj(name, 'alias {0} = CSFML::{0}'.format(name))
-    aliases.add(name)
 
 
 classes = set()
@@ -180,15 +188,8 @@ def handle_class(name):
     lib('type {0} = Void*'.format(pname), '')
     
     obj(pname, 'class {}'.format(pname))
-    obj(pname, 'def self.wrap_ptr(p)\n'.format(pname))
-    obj(pname, '  result = self.allocate()'.format(pname))
-    obj(pname, '  result.this = p'.format(pname))
-    obj(pname, '  result'.format(pname))
-    obj(pname, 'end'.format(pname))
-    obj(pname, 'def to_unsafe\n'.format(pname))
-    obj(pname, '  @this'.format(pname))
-    obj(pname, 'end'.format(pname), '')
     if d: obj(pname, d)
+    obj(pname, 'include Wrapper', '')
 
 
 def handle_function(main, params):
@@ -197,7 +198,7 @@ def handle_function(main, params):
     nfname = rename_sf(ofname)
     fname = rename_identifier(rename_sf(ofname))
     nfname = re.sub(r'(.+)_create(From.+|Unicode)?$', r'\1_initialize', nfname)
-    nfname = re.sub(r'(.+)([Ww]ith|[Ff]rom).+', r'\1', nfname)
+    nfname = re.sub(r'(.+?)_?([Ww]ith|[Ff]rom).+', r'\1', nfname)
     nfname = re.sub(r'([gs]et.+)RenderWindow$', r'\1', nfname)
     if nfname != 'Shader_setCurrentTextureParameter':
         nfname = re.sub(r'_set(.+)Parameter$', r'_setParameter', nfname)
@@ -209,6 +210,12 @@ def handle_function(main, params):
     elif ofname.startswith(p1+'_', 2) and p1 in classes:
         nfname = nfname[len(p1)+1:]
         cls = p1
+    elif '_' in nfname:
+        nfname = 'self.'+nfname.split('_', 1)[1]
+        cls = ofname.split('_')[0][2:]
+        if cls not in objs[cmodule]:
+            obj(cls, "class "+cls)
+
     nfname = rename_identifier(nfname)
     nftype = rename_type(ftype)
     main_sgn = 'fun {fname} = {ofname}({sparams}): {nftype}'
@@ -302,6 +309,7 @@ def handle_function(main, params):
         oparams[i] = (n, t)
     if nfname == 'destroy':
         nfname = 'finalize'
+    
     if d: obj(cls, d)
     obj(cls, 'def {nfname}{sparams}'.format(**locals()))
     for line in conv:
@@ -317,7 +325,11 @@ def handle_function(main, params):
     elif nfname == 'finalize':
         call += ' if @owned'
     elif nftype in classes:
-        call = 'self.wrap_ptr({})'.format(call)
+        obj(cls, '  result = {}.allocate()'.format(nftype))
+        if nfname == 'copy':
+            call = 'result.transfer_ptr({})'.format(call)
+        else:
+            call = 'result.wrap_ptr({})'.format(call)
     elif ftype == 'sfBool':
         call += ' != 0'
     obj(cls, '  '+call)
@@ -490,27 +502,34 @@ def obj(cls, *args):
 ast = parse_file('headers_gen.h')
 Visitor().visit(ast)
 
+deps = {'system': [], 'window': ['system'], 'graphics': ['system', 'window'], 'audio': ['system']}
 for mod, lines in libs.items():
     with open('{}_lib.cr'.format(mod), 'w') as f:
         f.write('\n'.join(lines[0]))
-        f.write('@[Link("csfml-{}")]\n\nlib CSFML\n'.format(mod))
+        f.write('require "./common_lib"\n')
+        for d in deps[mod]:
+            f.write('require "./{}_lib"\n'.format(d))
+        f.write('\n@[Link("csfml-{}")]\n\n'.format(mod))
+        f.write('lib CSFML\n')
         f.write('\n'.join('  '+l for l in lines[1:]))
-        f.write('\nend')
+        f.write('\nend\n')
 for mod, classes in objs.items():
     with open('{}_obj.cr'.format(mod), 'w') as f:
-        f.write('require "./{}_lib"\n\n'.format(mod))
+        f.write('require "./{}_lib"\n'.format(mod))
+        f.write('require "./common_obj"\n\n')
         f.write('module SF\n  extend self\n\n')
         for cls, lines in classes.items():
             if not cls:
                 continue
             ind = 2
-            for l in lines:
+            for i, l in enumerate(lines):
                 f.write(' '*ind + l + '\n')
-                if not l.startswith('#'):
+                if ind == 2 and not l.startswith('#'):
+                    ii = i
                     ind = 4
-            if not lines[-1].startswith(('alias')):
-                f.write('end\n')
+            if not lines[ii].startswith(('alias')):
+                f.write('  end\n')
             f.write('\n')
         if '' in classes:
             f.write('\n'.join('  '+l for l in classes['']))
-        f.write('\nend')
+        f.write('\nend\n')

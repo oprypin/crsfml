@@ -2,39 +2,39 @@ require "csfml/system"
 require "csfml/window"
 require "csfml/graphics"
 
-mode = SF::VideoMode.new(width: 800, height: 600, bits_per_pixel: 32)
-window = SF::RenderWindow.new(mode, "pɹıq ʎddılɟ", CSFML::WindowStyle::Default, nil)
+mode = SF.video_mode(800, 600)
+window = SF::RenderWindow.new(mode, "pɹıq ʎddılɟ")
 window.vertical_sync_enabled = true
 
-bird_texture = SF::Texture.new("resources/bird.png", nil)
+bird_texture = SF::Texture.new("resources/bird.png")
 sz = bird_texture.size
 
-bird = SF::Sprite.new()
-bird.set_texture bird_texture, true
-bird.origin = SF::Vector2f.new(x: sz.x / 2.0f32, y: sz.y / 2.0f32)
-bird.scale = SF::Vector2f.new(x: 2.5f32, y: 2.5f32)
-bird.position = SF::Vector2f.new(x: 250f32, y: 300f32)
+bird = SF::Sprite.new(bird_texture)
+bird.origin = SF.vector2f(sz.x / 2.0, sz.y / 2.0)
+bird.scale = SF.vector2f(2.5, 2.5)
+bird.position = SF.vector2f(250, 300)
 
-speed = 0.0f32
+speed = 0.0
 
 while window.open
-  window.events do |event|
-    if event.type == CSFML::EventType::Closed
+  window.each_event do |event|
+    case event.type
+    when SF::Event_Closed
       window.close()
-    elsif event.type == CSFML::EventType::KeyPressed
-      if event.key.code == CSFML::KeyCode::Escape
+    when SF::Event_KeyPressed
+      if event.key.code == SF::Keyboard_Escape
         window.close()
       else
-        speed = -9.0f32
+        speed = -9.0
       end
     end
   end
   
-  speed += 0.3f32
-  bird.move CSFML::Vector2f.new(x: 0.0f32, y: speed)
-  bird.rotation = speed*8.0f32 < 90.0f32 ? speed*8.0f32 : 90.0f32
+  speed += 0.3
+  bird.move SF.vector2f(0.0, speed)
+  bird.rotation = speed*8.0 < 90.0 ? speed*8.0 : 90.0
   
-  window.clear CSFML::Color.new(r: 112u8, g: 197u8, b: 206u8)
-  window.draw_sprite bird, nil
+  window.clear SF.color(112, 197, 206)
+  window.draw bird
   window.display()
 end

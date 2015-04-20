@@ -1,13 +1,8 @@
+require "./common_lib"
+
 @[Link("csfml-system")]
 
 lib CSFML
-  ifdef x86_64
-    alias Size_t = UInt64
-  else
-    alias Size_t = UInt32
-  end
-
-
   # Represents a time value
   struct Time
     microseconds: Int64
