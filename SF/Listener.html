@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link href="../css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+
+  <h1>class SF::Listener</h1>
+
+
+
+
+
+
+
+  <h2>Superclass hierarchy</h2>
+  <div style="padding-left: 0px">Object</div><div style="padding-left: 20px">Reference</div><div style="padding-left: 40px"><a href="../SF/Listener.html">SF::Listener</a></div>
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/audio_obj.cr">csfml/audio_obj.cr</a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>Class Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#get_direction-class-method" class="signature"><strong>.get_direction</strong></a>
+        
+          <div class="summary"><p>Get the current forward vector of the listener in the scene</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_global_volume-class-method" class="signature"><strong>.get_global_volume</strong></a>
+        
+          <div class="summary"><p>Get the current value of the global volume</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_position-class-method" class="signature"><strong>.get_position</strong></a>
+        
+          <div class="summary"><p>Get the current position of the listener in the scene</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_up_vector-class-method" class="signature"><strong>.get_up_vector</strong></a>
+        
+          <div class="summary"><p>Get the current upward vector of the listener in the scene</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#set_direction%28direction%20%3A%20Vector3f%29-class-method" class="signature"><strong>.set_direction</strong>(direction : Vector3f)</a>
+        
+          <div class="summary"><p>Set the orientation of the forward vector in the scene</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#set_global_volume%28volume%29-class-method" class="signature"><strong>.set_global_volume</strong>(volume)</a>
+        
+          <div class="summary"><p>Change the global volume of all the sounds and musics</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#set_position%28position%20%3A%20Vector3f%29-class-method" class="signature"><strong>.set_position</strong>(position : Vector3f)</a>
+        
+          <div class="summary"><p>Set the position of the listener in the scene</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#set_up_vector%28up_vector%20%3A%20Vector3f%29-class-method" class="signature"><strong>.set_up_vector</strong>(up_vector : Vector3f)</a>
+        
+          <div class="summary"><p>Set the upward vector of the listener in the scene</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+
+
+
+  <h2>Class Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="get_direction-class-method">
+        
+        def self.<strong>get_direction</strong>
+      </div>
+      
+        <div class="doc"><p>Get the current forward vector of the listener in the scene</p>
+
+<p><em>Returns</em>: Listener's forward vector (not normalized)</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/audio_obj.cr#L66" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="get_global_volume-class-method">
+        
+        def self.<strong>get_global_volume</strong>
+      </div>
+      
+        <div class="doc"><p>Get the current value of the global volume</p>
+
+<p><em>Returns</em>: Current global volume, in the range [0, 100]</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/audio_obj.cr#L25" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="get_position-class-method">
+        
+        def self.<strong>get_position</strong>
+      </div>
+      
+        <div class="doc"><p>Get the current position of the listener in the scene</p>
+
+<p><em>Returns</em>: The listener's position</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/audio_obj.cr#L43" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="get_up_vector-class-method">
+        
+        def self.<strong>get_up_vector</strong>
+      </div>
+      
+        <div class="doc"><p>Get the current upward vector of the listener in the scene</p>
+
+<p><em>Returns</em>: Listener's upward vector (not normalized)</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/audio_obj.cr#L89" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="set_direction%28direction%20%3A%20Vector3f%29-class-method">
+        
+        def self.<strong>set_direction</strong>(direction : <a href="../SF/Vector3f.html">Vector3f</a>)
+      </div>
+      
+        <div class="doc"><p>Set the orientation of the forward vector in the scene</p>
+
+<p>The direction (also called "at vector") is the vector
+pointing forward from the listener's perspective. Together
+with the up vector, it defines the 3D orientation of the
+listener in the scene. The direction vector doesn't
+have to be normalized.
+The default listener's direction is (0, 0, -1).</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>direction</code>: New listener's direction</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/audio_obj.cr#L59" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="set_global_volume%28volume%29-class-method">
+        
+        def self.<strong>set_global_volume</strong>(volume)
+      </div>
+      
+        <div class="doc"><p>Change the global volume of all the sounds and musics</p>
+
+<p>The volume is a number between 0 and 100; it is combined with
+the individual volume of each sound / music.
+The default value for the volume is 100 (maximum).</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>volume</code>: New global volume, in the range [0, 100]</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/audio_obj.cr#L17" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="set_position%28position%20%3A%20Vector3f%29-class-method">
+        
+        def self.<strong>set_position</strong>(position : <a href="../SF/Vector3f.html">Vector3f</a>)
+      </div>
+      
+        <div class="doc"><p>Set the position of the listener in the scene</p>
+
+<p>The default listener's position is (0, 0, 0).</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>position</code>: New position of the listener</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/audio_obj.cr#L36" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="set_up_vector%28up_vector%20%3A%20Vector3f%29-class-method">
+        
+        def self.<strong>set_up_vector</strong>(up_vector : <a href="../SF/Vector3f.html">Vector3f</a>)
+      </div>
+      
+        <div class="doc"><p>Set the upward vector of the listener in the scene</p>
+
+<p>The up vector is the vector that points upward from the
+listener's perspective. Together with the direction, it
+defines the 3D orientation of the listener in the scene.
+The up vector doesn't have to be normalized.
+The default listener's up vector is (0, 1, 0). It is usually
+not necessary to change it, especially in 2D scenarios.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>up_vector</code>: New listener's up vector</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/audio_obj.cr#L82" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+
+
+
+
+</body>
+</html>

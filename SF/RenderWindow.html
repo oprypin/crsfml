@@ -20,6 +20,11 @@
 
 
 
+  <h2>Included Modules</h2>
+  
+    <a href="../SF/Wrapper.html">SF::Wrapper</a>
+  
+
 
 
 
@@ -30,12 +35,12 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics.cr">csfml/graphics.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics.cr">csfml/graphics.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr">csfml/graphics_obj.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr">csfml/graphics_obj.cr</a>
     
     <br/>
   
@@ -48,14 +53,14 @@
   <ul>
     
       <li class="entry-summary">
-        <a href="#wrap_ptr%28p%29-class-method" class="signature"><strong>.wrap_ptr</strong>(p)</a>
+        <a href="#new%28mode%20%3A%20VideoMode%2C%20title%20%3A%20String%2C%20style%20%3A%20WindowStyle%2C%20settings%29-class-method" class="signature"><strong>.new</strong>(mode : VideoMode, title : String, style : WindowStyle, settings)</a>
+        
+          <div class="summary"><p>Construct a new render window (with a UTF-32 title)</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#new%28mode%20%3A%20VideoMode%2C%20title%20%3A%20String%2C%20style%20%3A%20WindowStyle%2C%20settings%29-class-method" class="signature"><strong>.new</strong>(mode : VideoMode, title : String, style : WindowStyle, settings)</a>
-        
-          <div class="summary"><p>Construct a new render window (with a UTF-32 title)</p></div>
+        <a href="#new%28mode%20%3A%20VideoMode%2C%20title%20%3A%20String%2C%20style%20%3D%20CSFML%3A%3AWindowStyle%3A%3ADefault%2C%20settings%20%3D%20SF.context_settings%29-class-method" class="signature"><strong>.new</strong>(mode : VideoMode, title : String, style = CSFML::WindowStyle::Default, settings = SF.context_settings)</a>
         
       </li>
     
@@ -88,6 +93,11 @@
       </li>
     
       <li class="entry-summary">
+        <a href="#clear-instance-method" class="signature"><strong>#clear</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#clear%28color%20%3A%20Color%29-instance-method" class="signature"><strong>#clear</strong>(color : Color)</a>
         
           <div class="summary"><p>Clear a render window with the given color</p></div>
@@ -112,6 +122,11 @@
         <a href="#display-instance-method" class="signature"><strong>#display</strong></a>
         
           <div class="summary"><p>Display a render window on screen</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#draw%28drawable%2C%20states%20%3D%20RenderStates_Default%29-instance-method" class="signature"><strong>#draw</strong>(drawable, states = RenderStates_Default)</a>
         
       </li>
     
@@ -160,7 +175,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#events%28%26block%29-instance-method" class="signature"><strong>#events</strong>(&block)</a>
+        <a href="#each_event%28%26block%29-instance-method" class="signature"><strong>#each_event</strong>(&block)</a>
         
       </li>
     
@@ -326,11 +341,6 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
-        
-      </li>
-    
-      <li class="entry-summary">
         <a href="#vertical_sync_enabled%3D%28enabled%20%3A%20Bool%29-instance-method" class="signature"><strong>#vertical_sync_enabled=</strong>(enabled : Bool)</a>
         
           <div class="summary"><p>Enable / disable vertical synchronization on a render window</p></div>
@@ -375,19 +385,6 @@
   <h2>Class Method Detail</h2>
   
     <div class="entry-detail">
-      <div class="signature" id="wrap_ptr%28p%29-class-method">
-        
-        def self.<strong>wrap_ptr</strong>(p)
-      </div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2433" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
       <div class="signature" id="new%28mode%20%3A%20VideoMode%2C%20title%20%3A%20String%2C%20style%20%3A%20WindowStyle%2C%20settings%29-class-method">
         
         def self.<strong>new</strong>(mode : <a href="../SF/VideoMode.html">VideoMode</a>, title : String, style : <a href="../SF/WindowStyle.html">WindowStyle</a>, settings)
@@ -401,7 +398,20 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2450" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2534" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28mode%20%3A%20VideoMode%2C%20title%20%3A%20String%2C%20style%20%3D%20CSFML%3A%3AWindowStyle%3A%3ADefault%2C%20settings%20%3D%20SF.context_settings%29-class-method">
+        
+        def self.<strong>new</strong>(mode : <a href="../SF/VideoMode.html">VideoMode</a>, title : String, style = <span class="t">CSFML</span><span class="t">::</span><span class="t">WindowStyle</span><span class="t">::</span><span class="t">Default</span>, settings = <span class="t">SF</span>.context_settings)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics.cr#L219" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -420,7 +430,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2467" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2551" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -446,7 +456,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2665" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2749" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -475,7 +485,20 @@ RenderWindow class.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L3006" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L3092" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="clear-instance-method">
+        
+        def <strong>clear</strong>
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics.cr#L233" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -494,7 +517,7 @@ RenderWindow class.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2741" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2825" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -513,7 +536,7 @@ RenderWindow class.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2491" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2575" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -534,7 +557,7 @@ RenderWindow class.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2773" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2858" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -553,7 +576,20 @@ RenderWindow class.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2699" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2783" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="draw%28drawable%2C%20states%20%3D%20RenderStates_Default%29-instance-method">
+        
+        def <strong>draw</strong>(drawable, states = <span class="t">RenderStates_Default</span>)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics.cr#L223" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -566,7 +602,7 @@ RenderWindow class.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2881" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2967" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -579,7 +615,7 @@ RenderWindow class.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2890" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2976" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -598,7 +634,7 @@ RenderWindow class.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2926" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L3012" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -611,7 +647,7 @@ RenderWindow class.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2899" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2985" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -624,7 +660,7 @@ RenderWindow class.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2872" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2958" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -643,7 +679,7 @@ RenderWindow class.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2854" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2940" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -656,7 +692,7 @@ RenderWindow class.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2863" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2949" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -669,20 +705,20 @@ RenderWindow class.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2908" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2994" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="events%28%26block%29-instance-method">
+      <div class="signature" id="each_event%28%26block%29-instance-method">
         
-        def <strong>events</strong>(&block)
+        def <strong>each_event</strong>(&block)
       </div>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics.cr#L25" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics.cr#L227" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -701,7 +737,7 @@ RenderWindow class.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2482" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2566" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -720,7 +756,7 @@ RenderWindow class.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2709" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2793" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -741,7 +777,7 @@ RenderWindow class.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2785" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2871" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -762,7 +798,7 @@ events.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2690" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2774" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -781,7 +817,7 @@ events.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2719" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2803" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -802,7 +838,7 @@ events.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2652" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2736" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -837,7 +873,7 @@ render-window.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2843" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2929" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -876,7 +912,7 @@ render-window.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2816" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2902" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -895,7 +931,7 @@ render-window.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2628" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2712" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -914,7 +950,7 @@ render-window.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2500" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2584" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -935,7 +971,7 @@ render-window.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2523" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2607" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -957,7 +993,7 @@ description of these functions.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2972" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L3058" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -978,7 +1014,7 @@ description of these functions.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2546" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2630" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -999,7 +1035,7 @@ description of these functions.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2558" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2642" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -1033,7 +1069,7 @@ function if you do so.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2960" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L3046" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -1056,7 +1092,7 @@ This is not to be confused with Window_setActive().</p></div>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2679" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2763" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -1081,7 +1117,7 @@ calls will work as expected.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2987" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L3073" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -1100,7 +1136,7 @@ calls will work as expected.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2602" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2686" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -1121,7 +1157,7 @@ calls will work as expected.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2511" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2595" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -1142,7 +1178,7 @@ calls will work as expected.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2569" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2653" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -1161,7 +1197,7 @@ calls will work as expected.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2579" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2663" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -1182,7 +1218,7 @@ calls will work as expected.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2731" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2815" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -1201,20 +1237,7 @@ calls will work as expected.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2589" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="to_unsafe-instance-method">
-        
-        def <strong>to_unsafe</strong>
-      </div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2438" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2673" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -1233,7 +1256,7 @@ calls will work as expected.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2639" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2723" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -1254,7 +1277,7 @@ calls will work as expected.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2762" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2846" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -1273,7 +1296,7 @@ calls will work as expected.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2751" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2835" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -1292,7 +1315,7 @@ calls will work as expected.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2617" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2701" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -1313,7 +1336,7 @@ calls will work as expected.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L2535" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L2619" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>

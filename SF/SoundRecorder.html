@@ -20,6 +20,11 @@
 
 
 
+  <h2>Included Modules</h2>
+  
+    <a href="../SF/Wrapper.html">SF::Wrapper</a>
+  
+
 
 
 
@@ -30,7 +35,12 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr">csfml/audio_obj.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/audio.cr">csfml/audio.cr</a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/audio_obj.cr">csfml/audio_obj.cr</a>
     
     <br/>
   
@@ -43,7 +53,28 @@
   <ul>
     
       <li class="entry-summary">
-        <a href="#wrap_ptr%28p%29-class-method" class="signature"><strong>.wrap_ptr</strong>(p)</a>
+        <a href="#get_available_devices-class-method" class="signature"><strong>.get_available_devices</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_available_devices%28count%20%3A%20%3A%3APointer%28Size_t%29%29-class-method" class="signature"><strong>.get_available_devices</strong>(count : ::Pointer(Size_t))</a>
+        
+          <div class="summary"><p>Get a list of the names of all availabe audio capture devices</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_default_device-class-method" class="signature"><strong>.get_default_device</strong></a>
+        
+          <div class="summary"><p>Get the name of the default audio capture device</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#is_available-class-method" class="signature"><strong>.is_available</strong></a>
+        
+          <div class="summary"><p>Check if the system supports audio capture</p></div>
         
       </li>
     
@@ -110,11 +141,6 @@
         
       </li>
     
-      <li class="entry-summary">
-        <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
-        
-      </li>
-    
   </ul>
 
 
@@ -125,14 +151,80 @@
   <h2>Class Method Detail</h2>
   
     <div class="entry-detail">
-      <div class="signature" id="wrap_ptr%28p%29-class-method">
+      <div class="signature" id="get_available_devices-class-method">
         
-        def self.<strong>wrap_ptr</strong>(p)
+        def self.<strong>get_available_devices</strong>
       </div>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L1002" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/audio.cr#L32" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="get_available_devices%28count%20%3A%20%3A%3APointer%28Size_t%29%29-class-method">
+        
+        def self.<strong>get_available_devices</strong>(count : ::Pointer(Size_t))
+      </div>
+      
+        <div class="doc"><p>Get a list of the names of all availabe audio capture devices</p>
+
+<p>This function returns an array of strings (null terminated),
+containing the names of all availabe audio capture devices.
+If no devices are available then NULL is returned.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>count</code>: Pointer to a variable that will be filled with the number of modes in the array</li></ul>
+
+<p><em>Returns</em>: An array of strings containing the names</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/audio_obj.cr#L1185" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="get_default_device-class-method">
+        
+        def self.<strong>get_default_device</strong>
+      </div>
+      
+        <div class="doc"><p>Get the name of the default audio capture device</p>
+
+<p>This function returns the name of the default audio
+capture device. If none is available, NULL is returned.</p>
+
+<p><em>Returns</em>: The name of the default audio capture device (null terminated)</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/audio_obj.cr#L1195" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="is_available-class-method">
+        
+        def self.<strong>is_available</strong>
+      </div>
+      
+        <div class="doc"><p>Check if the system supports audio capture</p>
+
+<p>This function should always be called before using
+the audio capture features. If it returns false, then
+any attempt to use SoundRecorder will fail.</p>
+
+<p><em>Returns</em>: True if audio capture is supported, False otherwise</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/audio_obj.cr#L1150" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -153,7 +245,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L1021" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/audio_obj.cr#L1086" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -179,7 +271,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L1122" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/audio_obj.cr#L1223" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -205,7 +297,7 @@ opening the device fails, it stops the recording.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L1111" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/audio_obj.cr#L1212" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -224,7 +316,7 @@ opening the device fails, it stops the recording.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L1031" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/audio_obj.cr#L1096" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -253,7 +345,7 @@ So don't rely on this parameter to implement precise timing.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L1094" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/audio_obj.cr#L1170" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -278,7 +370,7 @@ captured per second. The higher, the better the quality
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L1074" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/audio_obj.cr#L1139" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -306,7 +398,7 @@ Please note that only one capture can happen at the same time.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L1050" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/audio_obj.cr#L1115" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -325,20 +417,7 @@ Please note that only one capture can happen at the same time.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L1059" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="to_unsafe-instance-method">
-        
-        def <strong>to_unsafe</strong>
-      </div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L1007" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/audio_obj.cr#L1124" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>

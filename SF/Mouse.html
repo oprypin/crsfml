@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link href="../css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+
+  <h1>class SF::Mouse</h1>
+
+
+
+
+
+
+
+  <h2>Superclass hierarchy</h2>
+  <div style="padding-left: 0px">Object</div><div style="padding-left: 20px">Reference</div><div style="padding-left: 40px"><a href="../SF/Mouse.html">SF::Mouse</a></div>
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr">csfml/graphics_obj.cr</a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/window.cr">csfml/window.cr</a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/window_obj.cr">csfml/window_obj.cr</a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>Class Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#get_position-class-method" class="signature"><strong>.get_position</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_position%28relative_to%20%3A%20Window%29-class-method" class="signature"><strong>.get_position</strong>(relative_to : Window)</a>
+        
+          <div class="summary"><p>Get the current position of the mouse</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_position%28relative_to%20%3A%20RenderWindow%29-class-method" class="signature"><strong>.get_position</strong>(relative_to : RenderWindow)</a>
+        
+          <div class="summary"><p>Get the current position of the mouse relative to a render-window</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#is_button_pressed%28button%20%3A%20MouseButton%29-class-method" class="signature"><strong>.is_button_pressed</strong>(button : MouseButton)</a>
+        
+          <div class="summary"><p>Check if a mouse button is pressed</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#set_position%28position%20%3A%20Vector2i%29-class-method" class="signature"><strong>.set_position</strong>(position : Vector2i)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#set_position%28position%20%3A%20Vector2i%2C%20relative_to%20%3A%20RenderWindow%29-class-method" class="signature"><strong>.set_position</strong>(position : Vector2i, relative_to : RenderWindow)</a>
+        
+          <div class="summary"><p>Set the current position of the mouse relative to a render window</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#set_position%28position%20%3A%20Vector2i%2C%20relative_to%20%3A%20Window%29-class-method" class="signature"><strong>.set_position</strong>(position : Vector2i, relative_to : Window)</a>
+        
+          <div class="summary"><p>Set the current position of the mouse</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+
+
+
+  <h2>Class Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="get_position-class-method">
+        
+        def self.<strong>get_position</strong>
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/window.cr#L30" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="get_position%28relative_to%20%3A%20Window%29-class-method">
+        
+        def self.<strong>get_position</strong>(relative_to : <a href="../SF/Window.html">Window</a>)
+      </div>
+      
+        <div class="doc"><p>Get the current position of the mouse</p>
+
+<p>This function returns the current position of the mouse
+cursor relative to the given window, or desktop if NULL is passed.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>relative_to</code>: Reference window</li></ul>
+
+<p><em>Returns</em>: Position of the mouse cursor, relative to the given window</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/window_obj.cr#L812" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="get_position%28relative_to%20%3A%20RenderWindow%29-class-method">
+        
+        def self.<strong>get_position</strong>(relative_to : <a href="../SF/RenderWindow.html">RenderWindow</a>)
+      </div>
+      
+        <div class="doc"><p>Get the current position of the mouse relative to a render-window</p>
+
+<p>This function returns the current position of the mouse
+cursor relative to the given render-window, or desktop if NULL is passed.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>relative_to</code>: Reference window</li></ul>
+
+<p><em>Returns</em>: Position of the mouse cursor, relative to the given render window</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L5264" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="is_button_pressed%28button%20%3A%20MouseButton%29-class-method">
+        
+        def self.<strong>is_button_pressed</strong>(button : <a href="../SF/MouseButton.html">MouseButton</a>)
+      </div>
+      
+        <div class="doc"><p>Check if a mouse button is pressed</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>button</code>: Button to check</li></ul>
+
+<p><em>Returns</em>: True if the button is pressed, False otherwise</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/window_obj.cr#L798" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="set_position%28position%20%3A%20Vector2i%29-class-method">
+        
+        def self.<strong>set_position</strong>(position : <a href="../SF/Vector2i.html">Vector2i</a>)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/window.cr#L33" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="set_position%28position%20%3A%20Vector2i%2C%20relative_to%20%3A%20RenderWindow%29-class-method">
+        
+        def self.<strong>set_position</strong>(position : <a href="../SF/Vector2i.html">Vector2i</a>, relative_to : <a href="../SF/RenderWindow.html">RenderWindow</a>)
+      </div>
+      
+        <div class="doc"><p>Set the current position of the mouse relative to a render window</p>
+
+<p>This function sets the current position of the mouse
+cursor relative to the given render-window, or desktop if NULL is passed.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>position</code>: New position of the mouse</li><li><code>relative_to</code>: Reference window</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L5277" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="set_position%28position%20%3A%20Vector2i%2C%20relative_to%20%3A%20Window%29-class-method">
+        
+        def self.<strong>set_position</strong>(position : <a href="../SF/Vector2i.html">Vector2i</a>, relative_to : <a href="../SF/Window.html">Window</a>)
+      </div>
+      
+        <div class="doc"><p>Set the current position of the mouse</p>
+
+<p>This function sets the current position of the mouse
+cursor relative to the given window, or desktop if NULL is passed.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>position</code>: New position of the mouse</li><li><code>relative_to</code>: Reference window</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/window_obj.cr#L825" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+
+
+
+
+</body>
+</html>

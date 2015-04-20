@@ -20,6 +20,11 @@
 
 
 
+  <h2>Included Modules</h2>
+  
+    <a href="../SF/Wrapper.html">SF::Wrapper</a>
+  
+
 
 
 
@@ -30,7 +35,12 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr">csfml/graphics_obj.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics.cr">csfml/graphics.cr</a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr">csfml/graphics_obj.cr</a>
     
     <br/>
   
@@ -43,7 +53,9 @@
   <ul>
     
       <li class="entry-summary">
-        <a href="#wrap_ptr%28p%29-class-method" class="signature"><strong>.wrap_ptr</strong>(p)</a>
+        <a href="#get_maximum_size-class-method" class="signature"><strong>.get_maximum_size</strong></a>
+        
+          <div class="summary"><p>Get the maximum texture size allowed</p></div>
         
       </li>
     
@@ -79,6 +91,11 @@
         <a href="#new%28image%20%3A%20Image%2C%20area%29-class-method" class="signature"><strong>.new</strong>(image : Image, area)</a>
         
           <div class="summary"><p>Create a new texture from an image</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28filename%20%3A%20String%29-class-method" class="signature"><strong>.new</strong>(filename : String)</a>
         
       </li>
     
@@ -153,11 +170,6 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
-        
-      </li>
-    
-      <li class="entry-summary">
         <a href="#update%28image%20%3A%20Image%2C%20x%20%3A%20Int32%2C%20y%20%3A%20Int32%29-instance-method" class="signature"><strong>#update</strong>(image : Image, x : Int32, y : Int32)</a>
         
           <div class="summary"><p>Update a texture from an image</p></div>
@@ -195,14 +207,18 @@
   <h2>Class Method Detail</h2>
   
     <div class="entry-detail">
-      <div class="signature" id="wrap_ptr%28p%29-class-method">
+      <div class="signature" id="get_maximum_size-class-method">
         
-        def self.<strong>wrap_ptr</strong>(p)
+        def self.<strong>get_maximum_size</strong>
       </div>
+      
+        <div class="doc"><p>Get the maximum texture size allowed</p>
+
+<p><em>Returns</em>: Maximum size allowed for textures, in pixels</p></div>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4164" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L4497" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -223,7 +239,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4213" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L4277" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -244,7 +260,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4181" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L4245" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -265,7 +281,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4194" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L4258" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -286,7 +302,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4231" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L4295" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -307,7 +323,20 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4249" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L4313" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28filename%20%3A%20String%29-class-method">
+        
+        def self.<strong>new</strong>(filename : String)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics.cr#L152" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -335,7 +364,7 @@ mix Texture with OpenGL code.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4424" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L4490" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -356,7 +385,7 @@ mix Texture with OpenGL code.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4266" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L4330" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -377,7 +406,7 @@ mix Texture with OpenGL code.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4297" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L4362" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -396,7 +425,7 @@ mix Texture with OpenGL code.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4275" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L4340" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -417,7 +446,7 @@ mix Texture with OpenGL code.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4410" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L4476" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -450,7 +479,7 @@ Repeating is disabled by default.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4398" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L4464" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -471,7 +500,7 @@ Repeating is disabled by default.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4286" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L4351" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -492,7 +521,7 @@ Repeating is disabled by default.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4374" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L4440" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -511,20 +540,7 @@ Repeating is disabled by default.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4362" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="to_unsafe-instance-method">
-        
-        def <strong>to_unsafe</strong>
-      </div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4169" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L4428" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -543,7 +559,7 @@ Repeating is disabled by default.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4328" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L4394" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -562,7 +578,7 @@ Repeating is disabled by default.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4311" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L4377" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -581,7 +597,7 @@ Repeating is disabled by default.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4340" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L4406" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -600,7 +616,7 @@ Repeating is disabled by default.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L4352" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L4418" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>

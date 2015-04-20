@@ -20,6 +20,11 @@
 
 
 
+  <h2>Included Modules</h2>
+  
+    <a href="../SF/Wrapper.html">SF::Wrapper</a>
+  
+
 
 
 
@@ -30,7 +35,7 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr">csfml/graphics_obj.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr">csfml/graphics_obj.cr</a>
     
     <br/>
   
@@ -43,7 +48,9 @@
   <ul>
     
       <li class="entry-summary">
-        <a href="#wrap_ptr%28p%29-class-method" class="signature"><strong>.wrap_ptr</strong>(p)</a>
+        <a href="#is_available-class-method" class="signature"><strong>.is_available</strong></a>
+        
+          <div class="summary"><p>Tell whether or not the system supports shaders</p></div>
         
       </li>
     
@@ -90,16 +97,16 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#set_parameter%28name%20%3A%20String%2C%20transform%20%3A%20Transform%29-instance-method" class="signature"><strong>#set_parameter</strong>(name : String, transform : Transform)</a>
+        <a href="#set_parameter%28name%20%3A%20String%2C%20vector%20%3A%20Vector3f%29-instance-method" class="signature"><strong>#set_parameter</strong>(name : String, vector : Vector3f)</a>
         
-          <div class="summary"><p>Change a matrix parameter of a shader</p></div>
+          <div class="summary"><p>Change a 3-components vector parameter of a shader</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#set_parameter%28name%20%3A%20String%2C%20vector%20%3A%20Vector3f%29-instance-method" class="signature"><strong>#set_parameter</strong>(name : String, vector : Vector3f)</a>
+        <a href="#set_parameter%28name%20%3A%20String%2C%20transform%20%3A%20Transform%29-instance-method" class="signature"><strong>#set_parameter</strong>(name : String, transform : Transform)</a>
         
-          <div class="summary"><p>Change a 3-components vector parameter of a shader</p></div>
+          <div class="summary"><p>Change a matrix parameter of a shader</p></div>
         
       </li>
     
@@ -111,9 +118,9 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#set_parameter%28name%20%3A%20String%2C%20texture%20%3A%20Texture%29-instance-method" class="signature"><strong>#set_parameter</strong>(name : String, texture : Texture)</a>
+        <a href="#set_parameter%28name%20%3A%20String%2C%20vector%20%3A%20Vector2f%29-instance-method" class="signature"><strong>#set_parameter</strong>(name : String, vector : Vector2f)</a>
         
-          <div class="summary"><p>Change a texture parameter of a shader</p></div>
+          <div class="summary"><p>Change a 2-components vector parameter of a shader</p></div>
         
       </li>
     
@@ -139,9 +146,9 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#set_parameter%28name%20%3A%20String%2C%20vector%20%3A%20Vector2f%29-instance-method" class="signature"><strong>#set_parameter</strong>(name : String, vector : Vector2f)</a>
+        <a href="#set_parameter%28name%20%3A%20String%2C%20texture%20%3A%20Texture%29-instance-method" class="signature"><strong>#set_parameter</strong>(name : String, texture : Texture)</a>
         
-          <div class="summary"><p>Change a 2-components vector parameter of a shader</p></div>
+          <div class="summary"><p>Change a texture parameter of a shader</p></div>
         
       </li>
     
@@ -149,11 +156,6 @@
         <a href="#set_parameter%28name%20%3A%20String%2C%20color%20%3A%20Color%29-instance-method" class="signature"><strong>#set_parameter</strong>(name : String, color : Color)</a>
         
           <div class="summary"><p>Change a color parameter of a shader</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
         
       </li>
     
@@ -167,14 +169,22 @@
   <h2>Class Method Detail</h2>
   
     <div class="entry-detail">
-      <div class="signature" id="wrap_ptr%28p%29-class-method">
+      <div class="signature" id="is_available-class-method">
         
-        def self.<strong>wrap_ptr</strong>(p)
+        def self.<strong>is_available</strong>
       </div>
+      
+        <div class="doc"><p>Tell whether or not the system supports shaders</p>
+
+<p>This function should always be called before using
+the shader features. If it returns false, then
+any attempt to use Shader will fail.</p>
+
+<p><em>Returns</em>: True if the system can use shaders, False otherwise</p></div>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1340" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L1720" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -203,7 +213,7 @@ writing your own shaders.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1386" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L1475" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -232,7 +242,7 @@ it before writing your own shaders.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1407" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L1496" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -260,7 +270,7 @@ mix Shader with OpenGL code.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1620" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L1709" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -285,7 +295,7 @@ The corresponding parameter in the shader must be a 2D texture
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1606" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L1695" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -304,30 +314,7 @@ The corresponding parameter in the shader must be a 2D texture
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1417" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="set_parameter%28name%20%3A%20String%2C%20transform%20%3A%20Transform%29-instance-method">
-        
-        def <strong>set_parameter</strong>(name : String, transform : <a href="../SF/Transform.html">Transform</a>)
-      </div>
-      
-        <div class="doc"><p>Change a matrix parameter of a shader</p>
-
-<p><code>name</code> is the name of the variable to change in the shader.
-The corresponding parameter in the shader must be a 4x4 matrix
-(mat4 GLSL type).</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>shader</code>: Shader object</li><li><code>name</code>: Name of the parameter in the shader</li><li><code>transform</code>: Transform to assign</li></ul></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1567" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L1506" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -350,7 +337,30 @@ The corresponding parameter in the shader must be a 3x1 vector
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1529" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L1618" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="set_parameter%28name%20%3A%20String%2C%20transform%20%3A%20Transform%29-instance-method">
+        
+        def <strong>set_parameter</strong>(name : String, transform : <a href="../SF/Transform.html">Transform</a>)
+      </div>
+      
+        <div class="doc"><p>Change a matrix parameter of a shader</p>
+
+<p><code>name</code> is the name of the variable to change in the shader.
+The corresponding parameter in the shader must be a 4x4 matrix
+(mat4 GLSL type).</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shader</code>: Shader object</li><li><code>name</code>: Name of the parameter in the shader</li><li><code>transform</code>: Transform to assign</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L1656" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -373,7 +383,99 @@ The corresponding parameter in the shader must be a float
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1433" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L1522" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="set_parameter%28name%20%3A%20String%2C%20vector%20%3A%20Vector2f%29-instance-method">
+        
+        def <strong>set_parameter</strong>(name : String, vector : <a href="../SF/Vector2f.html">Vector2f</a>)
+      </div>
+      
+        <div class="doc"><p>Change a 2-components vector parameter of a shader</p>
+
+<p><code>name</code> is the name of the variable to change in the shader.
+The corresponding parameter in the shader must be a 2x1 vector
+(vec2 GLSL type).</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shader</code>: Shader object</li><li><code>name</code>: Name of the parameter in the shader</li><li><code>vector</code>: Vector to assign</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L1602" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="set_parameter%28name%20%3A%20String%2C%20x%2C%20y%2C%20z%29-instance-method">
+        
+        def <strong>set_parameter</strong>(name : String, x, y, z)
+      </div>
+      
+        <div class="doc"><p>Change a 3-components vector parameter of a shader</p>
+
+<p><code>name</code> is the name of the variable to change in the shader.
+The corresponding parameter in the shader must be a 3x1 vector
+(vec3 GLSL type).</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shader</code>: Shader object</li><li><code>name</code>: Name of the parameter in the shader</li><li><code>x</code>: First component of the value to assign</li><li><code>y</code>: Second component of the value to assign</li><li><code>z</code>: Third component of the value to assign</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L1560" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="set_parameter%28name%20%3A%20String%2C%20x%2C%20y%2C%20z%2C%20w%29-instance-method">
+        
+        def <strong>set_parameter</strong>(name : String, x, y, z, w)
+      </div>
+      
+        <div class="doc"><p>Change a 4-components vector parameter of a shader</p>
+
+<p><code>name</code> is the name of the variable to change in the shader.
+The corresponding parameter in the shader must be a 4x1 vector
+(vec4 GLSL type).</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shader</code>: Shader object</li><li><code>name</code>: Name of the parameter in the shader</li><li><code>x</code>: First component of the value to assign</li><li><code>y</code>: Second component of the value to assign</li><li><code>z</code>: Third component of the value to assign</li><li><code>w</code>: Fourth component of the value to assign</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L1582" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="set_parameter%28name%20%3A%20String%2C%20x%2C%20y%29-instance-method">
+        
+        def <strong>set_parameter</strong>(name : String, x, y)
+      </div>
+      
+        <div class="doc"><p>Change a 2-components vector parameter of a shader</p>
+
+<p><code>name</code> is the name of the variable to change in the shader.
+The corresponding parameter in the shader must be a 2x1 vector
+(vec2 GLSL type).</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shader</code>: Shader object</li><li><code>name</code>: Name of the parameter in the shader</li><li><code>x</code>: First component of the value to assign</li><li><code>y</code>: Second component of the value to assign</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L1540" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -403,99 +505,7 @@ Shader_setCurrentTextureParameter:</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1589" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="set_parameter%28name%20%3A%20String%2C%20x%2C%20y%2C%20z%29-instance-method">
-        
-        def <strong>set_parameter</strong>(name : String, x, y, z)
-      </div>
-      
-        <div class="doc"><p>Change a 3-components vector parameter of a shader</p>
-
-<p><code>name</code> is the name of the variable to change in the shader.
-The corresponding parameter in the shader must be a 3x1 vector
-(vec3 GLSL type).</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>shader</code>: Shader object</li><li><code>name</code>: Name of the parameter in the shader</li><li><code>x</code>: First component of the value to assign</li><li><code>y</code>: Second component of the value to assign</li><li><code>z</code>: Third component of the value to assign</li></ul></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1471" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="set_parameter%28name%20%3A%20String%2C%20x%2C%20y%2C%20z%2C%20w%29-instance-method">
-        
-        def <strong>set_parameter</strong>(name : String, x, y, z, w)
-      </div>
-      
-        <div class="doc"><p>Change a 4-components vector parameter of a shader</p>
-
-<p><code>name</code> is the name of the variable to change in the shader.
-The corresponding parameter in the shader must be a 4x1 vector
-(vec4 GLSL type).</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>shader</code>: Shader object</li><li><code>name</code>: Name of the parameter in the shader</li><li><code>x</code>: First component of the value to assign</li><li><code>y</code>: Second component of the value to assign</li><li><code>z</code>: Third component of the value to assign</li><li><code>w</code>: Fourth component of the value to assign</li></ul></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1493" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="set_parameter%28name%20%3A%20String%2C%20x%2C%20y%29-instance-method">
-        
-        def <strong>set_parameter</strong>(name : String, x, y)
-      </div>
-      
-        <div class="doc"><p>Change a 2-components vector parameter of a shader</p>
-
-<p><code>name</code> is the name of the variable to change in the shader.
-The corresponding parameter in the shader must be a 2x1 vector
-(vec2 GLSL type).</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>shader</code>: Shader object</li><li><code>name</code>: Name of the parameter in the shader</li><li><code>x</code>: First component of the value to assign</li><li><code>y</code>: Second component of the value to assign</li></ul></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1451" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="set_parameter%28name%20%3A%20String%2C%20vector%20%3A%20Vector2f%29-instance-method">
-        
-        def <strong>set_parameter</strong>(name : String, vector : <a href="../SF/Vector2f.html">Vector2f</a>)
-      </div>
-      
-        <div class="doc"><p>Change a 2-components vector parameter of a shader</p>
-
-<p><code>name</code> is the name of the variable to change in the shader.
-The corresponding parameter in the shader must be a 2x1 vector
-(vec2 GLSL type).</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>shader</code>: Shader object</li><li><code>name</code>: Name of the parameter in the shader</li><li><code>vector</code>: Vector to assign</li></ul></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1513" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L1678" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -524,20 +534,7 @@ to a vec4(1.0, 0.5, 0.0, 1.0) in the shader.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1551" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="to_unsafe-instance-method">
-        
-        def <strong>to_unsafe</strong>
-      </div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L1345" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L1640" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>

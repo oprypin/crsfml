@@ -11,6 +11,10 @@
 
 
 
+  <h2>Overview</h2>
+
+  <p>Every wrapper class has these methods</p>
+
 
 
 
@@ -32,49 +36,1221 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio.cr">csfml/audio.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/audio.cr">csfml/audio.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr">csfml/audio_obj.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/common_obj.cr">csfml/common_obj.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics.cr">csfml/graphics.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/audio_obj.cr">csfml/audio_obj.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr">csfml/graphics_obj.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics.cr">csfml/graphics.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/system.cr">csfml/system.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr">csfml/graphics_obj.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/system_obj.cr">csfml/system_obj.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics.cr">csfml/graphics.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/window.cr">csfml/window.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/system.cr">csfml/system.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/window_obj.cr">csfml/window_obj.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/system_obj.cr">csfml/system_obj.cr</a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/window.cr">csfml/window.cr</a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/window_obj.cr">csfml/window_obj.cr</a>
     
     <br/>
   
 
 
 
+  
+    <h2>Constant Summary</h2>
+  
+  <ul>
+    
+      <li class="entry-const">
+        <strong>BlendAdd</strong> = <code>blend_mode(<span class="t">CSFML</span><span class="t">::</span><span class="t">BlendFactor</span><span class="t">::</span><span class="t">SrcAlpha</span>, <span class="t">CSFML</span><span class="t">::</span><span class="t">BlendFactor</span><span class="t">::</span><span class="t">One</span>, <span class="t">CSFML</span><span class="t">::</span><span class="t">BlendEquation</span><span class="t">::</span><span class="t">Add</span>, <span class="t">CSFML</span><span class="t">::</span><span class="t">BlendFactor</span><span class="t">::</span><span class="t">One</span>, <span class="t">CSFML</span><span class="t">::</span><span class="t">BlendFactor</span><span class="t">::</span><span class="t">One</span>, <span class="t">CSFML</span><span class="t">::</span><span class="t">BlendEquation</span><span class="t">::</span><span class="t">Add</span>)</code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>BlendAlpha</strong> = <code>blend_mode(<span class="t">CSFML</span><span class="t">::</span><span class="t">BlendFactor</span><span class="t">::</span><span class="t">SrcAlpha</span>, <span class="t">CSFML</span><span class="t">::</span><span class="t">BlendFactor</span><span class="t">::</span><span class="t">OneMinusSrcAlpha</span>, <span class="t">CSFML</span><span class="t">::</span><span class="t">BlendEquation</span><span class="t">::</span><span class="t">Add</span>, <span class="t">CSFML</span><span class="t">::</span><span class="t">BlendFactor</span><span class="t">::</span><span class="t">One</span>, <span class="t">CSFML</span><span class="t">::</span><span class="t">BlendFactor</span><span class="t">::</span><span class="t">OneMinusSrcAlpha</span>, <span class="t">CSFML</span><span class="t">::</span><span class="t">BlendEquation</span><span class="t">::</span><span class="t">Add</span>)</code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>BlendMode_Add</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">BlendEquation</span><span class="t">::</span><span class="t">Add</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>BlendMode_DstAlpha</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">BlendFactor</span><span class="t">::</span><span class="t">DstAlpha</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>BlendMode_DstColor</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">BlendFactor</span><span class="t">::</span><span class="t">DstColor</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>BlendMode_One</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">BlendFactor</span><span class="t">::</span><span class="t">One</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>BlendMode_OneMinusDstAlpha</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">BlendFactor</span><span class="t">::</span><span class="t">OneMinusDstAlpha</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>BlendMode_OneMinusDstColor</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">BlendFactor</span><span class="t">::</span><span class="t">OneMinusDstColor</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>BlendMode_OneMinusSrcAlpha</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">BlendFactor</span><span class="t">::</span><span class="t">OneMinusSrcAlpha</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>BlendMode_OneMinusSrcColor</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">BlendFactor</span><span class="t">::</span><span class="t">OneMinusSrcColor</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>BlendMode_SrcAlpha</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">BlendFactor</span><span class="t">::</span><span class="t">SrcAlpha</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>BlendMode_SrcColor</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">BlendFactor</span><span class="t">::</span><span class="t">SrcColor</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>BlendMode_Subtract</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">BlendEquation</span><span class="t">::</span><span class="t">Subtract</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>BlendMode_Zero</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">BlendFactor</span><span class="t">::</span><span class="t">Zero</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>BlendMultiply</strong> = <code>blend_mode(<span class="t">CSFML</span><span class="t">::</span><span class="t">BlendFactor</span><span class="t">::</span><span class="t">DstColor</span>, <span class="t">CSFML</span><span class="t">::</span><span class="t">BlendFactor</span><span class="t">::</span><span class="t">Zero</span>)</code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>BlendNone</strong> = <code>blend_mode(<span class="t">CSFML</span><span class="t">::</span><span class="t">BlendFactor</span><span class="t">::</span><span class="t">One</span>, <span class="t">CSFML</span><span class="t">::</span><span class="t">BlendFactor</span><span class="t">::</span><span class="t">Zero</span>)</code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Close</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">WindowStyle</span><span class="t">::</span><span class="t">Close</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Color_Black</strong> = <code>color(<span class="n">0</span>, <span class="n">0</span>, <span class="n">0</span>)</code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Color_Blue</strong> = <code>color(<span class="n">0</span>, <span class="n">0</span>, <span class="n">255</span>)</code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Color_Cyan</strong> = <code>color(<span class="n">0</span>, <span class="n">255</span>, <span class="n">255</span>)</code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Color_Green</strong> = <code>color(<span class="n">0</span>, <span class="n">255</span>, <span class="n">0</span>)</code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Color_Magenta</strong> = <code>color(<span class="n">255</span>, <span class="n">0</span>, <span class="n">255</span>)</code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Color_Red</strong> = <code>color(<span class="n">255</span>, <span class="n">0</span>, <span class="n">0</span>)</code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Color_Transparent</strong> = <code>color(<span class="n">0</span>, <span class="n">0</span>, <span class="n">0</span>, <span class="n">0</span>)</code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Color_White</strong> = <code>color(<span class="n">255</span>, <span class="n">255</span>, <span class="n">255</span>)</code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Color_Yellow</strong> = <code>color(<span class="n">255</span>, <span class="n">255</span>, <span class="n">0</span>)</code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>DefaultStyle</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">WindowStyle</span><span class="t">::</span><span class="t">Default</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Event_Closed</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">EventType</span><span class="t">::</span><span class="t">Closed</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Event_Count</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">EventType</span><span class="t">::</span><span class="t">Count</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Event_GainedFocus</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">EventType</span><span class="t">::</span><span class="t">GainedFocus</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Event_JoystickButtonPressed</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">EventType</span><span class="t">::</span><span class="t">JoystickButtonPressed</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Event_JoystickButtonReleased</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">EventType</span><span class="t">::</span><span class="t">JoystickButtonReleased</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Event_JoystickConnected</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">EventType</span><span class="t">::</span><span class="t">JoystickConnected</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Event_JoystickDisconnected</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">EventType</span><span class="t">::</span><span class="t">JoystickDisconnected</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Event_JoystickMoved</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">EventType</span><span class="t">::</span><span class="t">JoystickMoved</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Event_KeyPressed</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">EventType</span><span class="t">::</span><span class="t">KeyPressed</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Event_KeyReleased</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">EventType</span><span class="t">::</span><span class="t">KeyReleased</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Event_LostFocus</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">EventType</span><span class="t">::</span><span class="t">LostFocus</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Event_MouseButtonPressed</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">EventType</span><span class="t">::</span><span class="t">MouseButtonPressed</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Event_MouseButtonReleased</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">EventType</span><span class="t">::</span><span class="t">MouseButtonReleased</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Event_MouseEntered</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">EventType</span><span class="t">::</span><span class="t">MouseEntered</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Event_MouseLeft</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">EventType</span><span class="t">::</span><span class="t">MouseLeft</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Event_MouseMoved</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">EventType</span><span class="t">::</span><span class="t">MouseMoved</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Event_MouseWheelMoved</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">EventType</span><span class="t">::</span><span class="t">MouseWheelMoved</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Event_Resized</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">EventType</span><span class="t">::</span><span class="t">Resized</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Event_SensorChanged</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">EventType</span><span class="t">::</span><span class="t">SensorChanged</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Event_TextEntered</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">EventType</span><span class="t">::</span><span class="t">TextEntered</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Event_TouchBegan</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">EventType</span><span class="t">::</span><span class="t">TouchBegan</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Event_TouchEnded</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">EventType</span><span class="t">::</span><span class="t">TouchEnded</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Event_TouchMoved</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">EventType</span><span class="t">::</span><span class="t">TouchMoved</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Fullscreen</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">WindowStyle</span><span class="t">::</span><span class="t">Fullscreen</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Joystick_PovX</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">JoystickAxis</span><span class="t">::</span><span class="t">PovX</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Joystick_PovY</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">JoystickAxis</span><span class="t">::</span><span class="t">PovY</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Joystick_R</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">JoystickAxis</span><span class="t">::</span><span class="t">R</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Joystick_U</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">JoystickAxis</span><span class="t">::</span><span class="t">U</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Joystick_V</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">JoystickAxis</span><span class="t">::</span><span class="t">V</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Joystick_X</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">JoystickAxis</span><span class="t">::</span><span class="t">X</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Joystick_Y</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">JoystickAxis</span><span class="t">::</span><span class="t">Y</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Joystick_Z</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">JoystickAxis</span><span class="t">::</span><span class="t">Z</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_A</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">A</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Add</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Add</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_B</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">B</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Back</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Back</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_BackSlash</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">BackSlash</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_C</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">C</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Comma</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Comma</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Count</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Count</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_D</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">D</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Dash</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Dash</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Delete</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Delete</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Divide</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Divide</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Down</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Down</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_E</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">E</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_End</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">End</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Equal</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Equal</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Escape</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Escape</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_F</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">F</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_F1</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">F1</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_F10</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">F10</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_F11</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">F11</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_F12</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">F12</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_F13</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">F13</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_F14</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">F14</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_F15</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">F15</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_F2</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">F2</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_F3</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">F3</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_F4</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">F4</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_F5</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">F5</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_F6</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">F6</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_F7</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">F7</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_F8</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">F8</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_F9</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">F9</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_G</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">G</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_H</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">H</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Home</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Home</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_I</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">I</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Insert</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Insert</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_J</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">J</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_K</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">K</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_L</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">L</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_LAlt</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">LAlt</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_LBracket</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">LBracket</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_LControl</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">LControl</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Left</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Left</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_LShift</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">LShift</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_LSystem</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">LSystem</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_M</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">M</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Menu</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Menu</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Multiply</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Multiply</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_N</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">N</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Num0</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Num0</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Num1</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Num1</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Num2</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Num2</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Num3</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Num3</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Num4</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Num4</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Num5</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Num5</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Num6</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Num6</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Num7</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Num7</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Num8</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Num8</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Num9</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Num9</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Numpad0</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Numpad0</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Numpad1</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Numpad1</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Numpad2</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Numpad2</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Numpad3</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Numpad3</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Numpad4</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Numpad4</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Numpad5</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Numpad5</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Numpad6</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Numpad6</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Numpad7</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Numpad7</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Numpad8</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Numpad8</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Numpad9</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Numpad9</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_O</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">O</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_P</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">P</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_PageDown</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">PageDown</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_PageUp</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">PageUp</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Pause</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Pause</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Period</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Period</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Q</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Q</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Quote</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Quote</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_R</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">R</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_RAlt</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">RAlt</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_RBracket</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">RBracket</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_RControl</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">RControl</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Return</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Return</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Right</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Right</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_RShift</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">RShift</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_RSystem</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">RSystem</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_S</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">S</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_SemiColon</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">SemiColon</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Slash</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Slash</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Space</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Space</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Subtract</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Subtract</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_T</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">T</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Tab</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Tab</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Tilde</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Tilde</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_U</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">U</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Unknown</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Unknown</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Up</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Up</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_V</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">V</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_W</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">W</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_X</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">X</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Y</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Y</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Keyboard_Z</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Z</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Lines</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">PrimitiveType</span><span class="t">::</span><span class="t">Lines</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>LinesStrip</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">PrimitiveType</span><span class="t">::</span><span class="t">LinesStrip</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Mouse_ButtonCount</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">MouseButton</span><span class="t">::</span><span class="t">Count</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Mouse_Left</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">MouseButton</span><span class="t">::</span><span class="t">Left</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Mouse_Middle</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">MouseButton</span><span class="t">::</span><span class="t">Middle</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Mouse_Right</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">MouseButton</span><span class="t">::</span><span class="t">Right</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Mouse_XButton1</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">MouseButton</span><span class="t">::</span><span class="t">XButton1</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Mouse_XButton2</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">MouseButton</span><span class="t">::</span><span class="t">XButton2</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>None</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">WindowStyle</span><span class="t">::</span><span class="t">None</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Points</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">PrimitiveType</span><span class="t">::</span><span class="t">Points</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Quads</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">PrimitiveType</span><span class="t">::</span><span class="t">Quads</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>RenderStates_Default</strong> = <code>render_states</code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Resize</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">WindowStyle</span><span class="t">::</span><span class="t">Resize</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Sensor_Accelerometer</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">SensorType</span><span class="t">::</span><span class="t">Accelerometer</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Sensor_Count</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">SensorType</span><span class="t">::</span><span class="t">Count</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Sensor_Gravity</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">SensorType</span><span class="t">::</span><span class="t">Gravity</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Sensor_Gyroscope</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">SensorType</span><span class="t">::</span><span class="t">Gyroscope</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Sensor_Magnetometer</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">SensorType</span><span class="t">::</span><span class="t">Magnetometer</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Sensor_Orientation</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">SensorType</span><span class="t">::</span><span class="t">Orientation</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Sensor_UserAcceleration</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">SensorType</span><span class="t">::</span><span class="t">UserAcceleration</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>SoundSource_Paused</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">SoundStatus</span><span class="t">::</span><span class="t">Paused</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>SoundSource_Playing</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">SoundStatus</span><span class="t">::</span><span class="t">Playing</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>SoundSource_Stopped</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">SoundStatus</span><span class="t">::</span><span class="t">Stopped</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Text_Bold</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">TextStyle</span><span class="t">::</span><span class="t">Bold</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Text_Italic</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">TextStyle</span><span class="t">::</span><span class="t">Italic</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Text_Regular</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">TextStyle</span><span class="t">::</span><span class="t">Regular</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Text_StrikeThrough</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">TextStyle</span><span class="t">::</span><span class="t">StrikeThrough</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Text_Underlined</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">TextStyle</span><span class="t">::</span><span class="t">Underlined</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Time_Zero</strong> = <code>milliseconds(<span class="n">0</span>)</code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Titlebar</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">WindowStyle</span><span class="t">::</span><span class="t">Titlebar</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Transform_Identity</strong> = <code>transform</code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Triangles</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">PrimitiveType</span><span class="t">::</span><span class="t">Triangles</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>TrianglesFan</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">PrimitiveType</span><span class="t">::</span><span class="t">TrianglesFan</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>TrianglesStrip</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">PrimitiveType</span><span class="t">::</span><span class="t">TrianglesStrip</span></code>
+        
+      </li>
+    
+  </ul>
 
+
+
+  <h2>Class Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#add%28color1%20%3A%20Color%2C%20color2%20%3A%20Color%29-class-method" class="signature"><strong>.add</strong>(color1 : Color, color2 : Color)</a>
+        
+          <div class="summary"><p>Add two colors</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#as_microseconds%28time%20%3A%20Time%29-class-method" class="signature"><strong>.as_microseconds</strong>(time : Time)</a>
+        
+          <div class="summary"><p>Return a time value as a number of microseconds</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#as_milliseconds%28time%20%3A%20Time%29-class-method" class="signature"><strong>.as_milliseconds</strong>(time : Time)</a>
+        
+          <div class="summary"><p>Return a time value as a number of milliseconds</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#as_seconds%28time%20%3A%20Time%29-class-method" class="signature"><strong>.as_seconds</strong>(time : Time)</a>
+        
+          <div class="summary"><p>Return a time value as a number of seconds</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#combine%28transform%20%3A%20%3A%3APointer%28Transform%29%2C%20other%29-class-method" class="signature"><strong>.combine</strong>(transform : ::Pointer(Transform), other)</a>
+        
+          <div class="summary"><p>Combine two transforms</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#contains%28rect%2C%20x%20%3A%20Int32%2C%20y%20%3A%20Int32%29-class-method" class="signature"><strong>.contains</strong>(rect, x : Int32, y : Int32)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#contains%28rect%2C%20x%2C%20y%29-class-method" class="signature"><strong>.contains</strong>(rect, x, y)</a>
+        
+          <div class="summary"><p>Check if a point is inside a rectangle's area</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_desktop_mode-class-method" class="signature"><strong>.get_desktop_mode</strong></a>
+        
+          <div class="summary"><p>Get the current desktop video mode</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_fullscreen_modes-class-method" class="signature"><strong>.get_fullscreen_modes</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_fullscreen_modes%28count%20%3A%20%3A%3APointer%28Size_t%29%29-class-method" class="signature"><strong>.get_fullscreen_modes</strong>(count : ::Pointer(Size_t))</a>
+        
+          <div class="summary"><p>Retrieve all the video modes supported in fullscreen mode</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_inverse%28transform%29-class-method" class="signature"><strong>.get_inverse</strong>(transform)</a>
+        
+          <div class="summary"><p>Return the inverse of a transform</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_matrix%28transform%20%3A%20Transform%29-class-method" class="signature"><strong>.get_matrix</strong>(transform : Transform)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_matrix%28transform%2C%20matrix%20%3A%20%3A%3APointer%28Float32%29%29-class-method" class="signature"><strong>.get_matrix</strong>(transform, matrix : ::Pointer(Float32))</a>
+        
+          <div class="summary"><p>Return the 4x4 matrix of a transform</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#intersects%28rect1%20%3A%20FloatRect%2C%20rect2%20%3A%20FloatRect%29-class-method" class="signature"><strong>.intersects</strong>(rect1 : FloatRect, rect2 : FloatRect)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#intersects%28rect1%2C%20rect2%2C%20intersection%20%3A%20%3A%3APointer%28IntRect%29%29-class-method" class="signature"><strong>.intersects</strong>(rect1, rect2, intersection : ::Pointer(IntRect))</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#intersects%28rect1%2C%20rect2%2C%20intersection%20%3A%20%3A%3APointer%28FloatRect%29%29-class-method" class="signature"><strong>.intersects</strong>(rect1, rect2, intersection : ::Pointer(FloatRect))</a>
+        
+          <div class="summary"><p>Check intersection between two rectangles</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#intersects%28rect1%20%3A%20IntRect%2C%20rect2%20%3A%20IntRect%29-class-method" class="signature"><strong>.intersects</strong>(rect1 : IntRect, rect2 : IntRect)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#is_valid%28mode%20%3A%20VideoMode%29-class-method" class="signature"><strong>.is_valid</strong>(mode : VideoMode)</a>
+        
+          <div class="summary"><p>Tell whether or not a video mode is valid</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#modulate%28color1%20%3A%20Color%2C%20color2%20%3A%20Color%29-class-method" class="signature"><strong>.modulate</strong>(color1 : Color, color2 : Color)</a>
+        
+          <div class="summary"><p>Modulate two colors</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#rotate%28transform%20%3A%20%3A%3APointer%28Transform%29%2C%20angle%29-class-method" class="signature"><strong>.rotate</strong>(transform : ::Pointer(Transform), angle)</a>
+        
+          <div class="summary"><p>Combine the current transform with a rotation</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#rotate%28transform%20%3A%20%3A%3APointer%28Transform%29%2C%20angle%2C%20center_x%2C%20center_y%29-class-method" class="signature"><strong>.rotate</strong>(transform : ::Pointer(Transform), angle, center_x, center_y)</a>
+        
+          <div class="summary"><p>Combine the current transform with a rotation</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#scale%28transform%20%3A%20%3A%3APointer%28Transform%29%2C%20scale_x%2C%20scale_y%29-class-method" class="signature"><strong>.scale</strong>(transform : ::Pointer(Transform), scale_x, scale_y)</a>
+        
+          <div class="summary"><p>Combine the current transform with a scaling</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#scale%28transform%20%3A%20%3A%3APointer%28Transform%29%2C%20scale_x%2C%20scale_y%2C%20center_x%2C%20center_y%29-class-method" class="signature"><strong>.scale</strong>(transform : ::Pointer(Transform), scale_x, scale_y, center_x, center_y)</a>
+        
+          <div class="summary"><p>Combine the current transform with a scaling</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#transform_point%28transform%2C%20point%20%3A%20Vector2f%29-class-method" class="signature"><strong>.transform_point</strong>(transform, point : Vector2f)</a>
+        
+          <div class="summary"><p>Apply a transform to a 2D point</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#transform_rect%28transform%2C%20rectangle%20%3A%20FloatRect%29-class-method" class="signature"><strong>.transform_rect</strong>(transform, rectangle : FloatRect)</a>
+        
+          <div class="summary"><p>Apply a transform to a rectangle</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#translate%28transform%20%3A%20%3A%3APointer%28Transform%29%2C%20x%2C%20y%29-class-method" class="signature"><strong>.translate</strong>(transform : ::Pointer(Transform), x, y)</a>
+        
+          <div class="summary"><p>Combine a transform with a translation</p></div>
+        
+      </li>
+    
+  </ul>
 
 
 
@@ -82,9 +1258,17 @@
   <ul>
     
       <li class="entry-summary">
-        <a href="#color%28red%20%3A%20UInt8%2C%20green%20%3A%20UInt8%2C%20blue%20%3A%20UInt8%29-instance-method" class="signature"><strong>#color</strong>(red : UInt8, green : UInt8, blue : UInt8)</a>
+        <a href="#blend_mode-instance-method" class="signature"><strong>#blend_mode</strong></a>
         
-          <div class="summary"><p>Construct a color from its 3 RGB components</p></div>
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#blend_mode%28source_factor%20%3A%20BlendFactor%2C%20destination_factor%20%3A%20BlendFactor%2C%20blend_equation%20%3D%20CSFML%3A%3ABlendEquation%3A%3AAdd%29-instance-method" class="signature"><strong>#blend_mode</strong>(source_factor : BlendFactor, destination_factor : BlendFactor, blend_equation = CSFML::BlendEquation::Add)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#blend_mode%28color_source_factor%20%3A%20BlendFactor%2C%20color_destination_factor%20%3A%20BlendFactor%2C%20color_blend_equation%20%3A%20BlendEquation%2C%20alpha_source_factor%20%3A%20BlendFactor%2C%20alpha_destination_factor%20%3A%20BlendFactor%2C%20alpha_blend_equation%20%3A%20BlendEquation%29-instance-method" class="signature"><strong>#blend_mode</strong>(color_source_factor : BlendFactor, color_destination_factor : BlendFactor, color_blend_equation : BlendEquation, alpha_source_factor : BlendFactor, alpha_destination_factor : BlendFactor, alpha_blend_equation : BlendEquation)</a>
         
       </li>
     
@@ -96,16 +1280,14 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#color_add%28color1%20%3A%20Color%2C%20color2%20%3A%20Color%29-instance-method" class="signature"><strong>#color_add</strong>(color1 : Color, color2 : Color)</a>
+        <a href="#color%28red%20%3A%20UInt8%2C%20green%20%3A%20UInt8%2C%20blue%20%3A%20UInt8%29-instance-method" class="signature"><strong>#color</strong>(red : UInt8, green : UInt8, blue : UInt8)</a>
         
-          <div class="summary"><p>Add two colors</p></div>
+          <div class="summary"><p>Construct a color from its 3 RGB components</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#color_modulate%28color1%20%3A%20Color%2C%20color2%20%3A%20Color%29-instance-method" class="signature"><strong>#color_modulate</strong>(color1 : Color, color2 : Color)</a>
-        
-          <div class="summary"><p>Modulate two colors</p></div>
+        <a href="#color%28red%2C%20green%2C%20blue%2C%20alpha%20%3D%20255%29-instance-method" class="signature"><strong>#color</strong>(red, green, blue, alpha = 255)</a>
         
       </li>
     
@@ -115,148 +1297,12 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#float_rect_contains%28rect%2C%20x%2C%20y%29-instance-method" class="signature"><strong>#float_rect_contains</strong>(rect, x, y)</a>
-        
-          <div class="summary"><p>Check if a point is inside a rectangle's area</p></div>
+        <a href="#float_rect%28left%2C%20top%2C%20width%2C%20height%29-instance-method" class="signature"><strong>#float_rect</strong>(left, top, width, height)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#float_rect_intersects%28rect1%2C%20rect2%2C%20intersection%20%3A%20%3A%3APointer%28FloatRect%29%29-instance-method" class="signature"><strong>#float_rect_intersects</strong>(rect1, rect2, intersection : ::Pointer(FloatRect))</a>
-        
-          <div class="summary"><p>Check intersection between two rectangles</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#float_rect_intersects%28rect1%20%3A%20FloatRect%2C%20rect2%20%3A%20FloatRect%29-instance-method" class="signature"><strong>#float_rect_intersects</strong>(rect1 : FloatRect, rect2 : FloatRect)</a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#int_rect_contains%28rect%2C%20x%20%3A%20Int32%2C%20y%20%3A%20Int32%29-instance-method" class="signature"><strong>#int_rect_contains</strong>(rect, x : Int32, y : Int32)</a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#int_rect_intersects%28rect1%20%3A%20IntRect%2C%20rect2%20%3A%20IntRect%29-instance-method" class="signature"><strong>#int_rect_intersects</strong>(rect1 : IntRect, rect2 : IntRect)</a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#int_rect_intersects%28rect1%2C%20rect2%2C%20intersection%20%3A%20%3A%3APointer%28IntRect%29%29-instance-method" class="signature"><strong>#int_rect_intersects</strong>(rect1, rect2, intersection : ::Pointer(IntRect))</a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#joystick_get_axis_position%28joystick%20%3A%20Int32%2C%20axis%20%3A%20JoystickAxis%29-instance-method" class="signature"><strong>#joystick_get_axis_position</strong>(joystick : Int32, axis : JoystickAxis)</a>
-        
-          <div class="summary"><p>Get the current position of a joystick axis</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#joystick_get_button_count%28joystick%20%3A%20Int32%29-instance-method" class="signature"><strong>#joystick_get_button_count</strong>(joystick : Int32)</a>
-        
-          <div class="summary"><p>Return the number of buttons supported by a joystick</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#joystick_get_identification%28joystick%20%3A%20Int32%29-instance-method" class="signature"><strong>#joystick_get_identification</strong>(joystick : Int32)</a>
-        
-          <div class="summary"><p>Get the joystick information</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#joystick_has_axis%28joystick%20%3A%20Int32%2C%20axis%20%3A%20JoystickAxis%29-instance-method" class="signature"><strong>#joystick_has_axis</strong>(joystick : Int32, axis : JoystickAxis)</a>
-        
-          <div class="summary"><p>Check if a joystick supports a given axis</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#joystick_is_button_pressed%28joystick%20%3A%20Int32%2C%20button%20%3A%20Int32%29-instance-method" class="signature"><strong>#joystick_is_button_pressed</strong>(joystick : Int32, button : Int32)</a>
-        
-          <div class="summary"><p>Check if a joystick button is pressed</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#joystick_is_connected%28joystick%20%3A%20Int32%29-instance-method" class="signature"><strong>#joystick_is_connected</strong>(joystick : Int32)</a>
-        
-          <div class="summary"><p>Check if a joystick is connected</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#joystick_update-instance-method" class="signature"><strong>#joystick_update</strong></a>
-        
-          <div class="summary"><p>Update the states of all joysticks</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#keyboard_is_key_pressed%28key%20%3A%20KeyCode%29-instance-method" class="signature"><strong>#keyboard_is_key_pressed</strong>(key : KeyCode)</a>
-        
-          <div class="summary"><p>Check if a key is pressed</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#listener_get_direction-instance-method" class="signature"><strong>#listener_get_direction</strong></a>
-        
-          <div class="summary"><p>Get the current forward vector of the listener in the scene</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#listener_get_global_volume-instance-method" class="signature"><strong>#listener_get_global_volume</strong></a>
-        
-          <div class="summary"><p>Get the current value of the global volume</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#listener_get_position-instance-method" class="signature"><strong>#listener_get_position</strong></a>
-        
-          <div class="summary"><p>Get the current position of the listener in the scene</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#listener_get_up_vector-instance-method" class="signature"><strong>#listener_get_up_vector</strong></a>
-        
-          <div class="summary"><p>Get the current upward vector of the listener in the scene</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#listener_set_direction%28direction%20%3A%20Vector3f%29-instance-method" class="signature"><strong>#listener_set_direction</strong>(direction : Vector3f)</a>
-        
-          <div class="summary"><p>Set the orientation of the forward vector in the scene</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#listener_set_global_volume%28volume%29-instance-method" class="signature"><strong>#listener_set_global_volume</strong>(volume)</a>
-        
-          <div class="summary"><p>Change the global volume of all the sounds and musics</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#listener_set_position%28position%20%3A%20Vector3f%29-instance-method" class="signature"><strong>#listener_set_position</strong>(position : Vector3f)</a>
-        
-          <div class="summary"><p>Set the position of the listener in the scene</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#listener_set_up_vector%28up_vector%20%3A%20Vector3f%29-instance-method" class="signature"><strong>#listener_set_up_vector</strong>(up_vector : Vector3f)</a>
-        
-          <div class="summary"><p>Set the upward vector of the listener in the scene</p></div>
+        <a href="#int_rect%28left%2C%20top%2C%20width%2C%20height%29-instance-method" class="signature"><strong>#int_rect</strong>(left, top, width, height)</a>
         
       </li>
     
@@ -275,42 +1321,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#mouse_get_position%28relative_to%20%3A%20RenderWindow%29-instance-method" class="signature"><strong>#mouse_get_position</strong>(relative_to : RenderWindow)</a>
-        
-          <div class="summary"><p>Get the current position of the mouse relative to a render-window</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#mouse_get_position%28relative_to%20%3A%20Window%29-instance-method" class="signature"><strong>#mouse_get_position</strong>(relative_to : Window)</a>
-        
-          <div class="summary"><p>Get the current position of the mouse</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#mouse_get_position-instance-method" class="signature"><strong>#mouse_get_position</strong></a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#mouse_is_button_pressed%28button%20%3A%20MouseButton%29-instance-method" class="signature"><strong>#mouse_is_button_pressed</strong>(button : MouseButton)</a>
-        
-          <div class="summary"><p>Check if a mouse button is pressed</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#mouse_set_position%28position%20%3A%20Vector2i%2C%20relative_to%20%3A%20RenderWindow%29-instance-method" class="signature"><strong>#mouse_set_position</strong>(position : Vector2i, relative_to : RenderWindow)</a>
-        
-          <div class="summary"><p>Set the current position of the mouse relative to a render window</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#mouse_set_position%28position%20%3A%20Vector2i%2C%20relative_to%20%3A%20Window%29-instance-method" class="signature"><strong>#mouse_set_position</strong>(position : Vector2i, relative_to : Window)</a>
-        
-          <div class="summary"><p>Set the current position of the mouse</p></div>
+        <a href="#render_states%28blend_mode%20%3D%20BlendAlpha%2C%20transform%20%3D%20Transform_Identity%2C%20texture%20%3D%20nil%2C%20shader%20%3D%20nil%29-instance-method" class="signature"><strong>#render_states</strong>(blend_mode = BlendAlpha, transform = Transform_Identity, texture = nil, shader = nil)</a>
         
       </li>
     
@@ -322,93 +1333,9 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#sensor_get_value%28sensor%20%3A%20SensorType%29-instance-method" class="signature"><strong>#sensor_get_value</strong>(sensor : SensorType)</a>
-        
-          <div class="summary"><p>Get the current sensor value</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#sensor_is_available%28sensor%20%3A%20SensorType%29-instance-method" class="signature"><strong>#sensor_is_available</strong>(sensor : SensorType)</a>
-        
-          <div class="summary"><p>Check if a sensor is available on the underlying platform</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#sensor_set_enabled%28sensor%20%3A%20SensorType%2C%20enabled%20%3A%20Bool%29-instance-method" class="signature"><strong>#sensor_set_enabled</strong>(sensor : SensorType, enabled : Bool)</a>
-        
-          <div class="summary"><p>Enable or disable a sensor</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#shader_is_available-instance-method" class="signature"><strong>#shader_is_available</strong></a>
-        
-          <div class="summary"><p>Tell whether or not the system supports shaders</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
         <a href="#sleep%28duration%20%3A%20Time%29-instance-method" class="signature"><strong>#sleep</strong>(duration : Time)</a>
         
           <div class="summary"><p>Make the current thread sleep for a given duration</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#sound_recorder_get_available_devices%28count%20%3A%20%3A%3APointer%28Size_t%29%29-instance-method" class="signature"><strong>#sound_recorder_get_available_devices</strong>(count : ::Pointer(Size_t))</a>
-        
-          <div class="summary"><p>Get a list of the names of all availabe audio capture devices</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#sound_recorder_get_default_device-instance-method" class="signature"><strong>#sound_recorder_get_default_device</strong></a>
-        
-          <div class="summary"><p>Get the name of the default audio capture device</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#sound_recorder_is_available-instance-method" class="signature"><strong>#sound_recorder_is_available</strong></a>
-        
-          <div class="summary"><p>Check if the system supports audio capture</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#texture_get_maximum_size-instance-method" class="signature"><strong>#texture_get_maximum_size</strong></a>
-        
-          <div class="summary"><p>Get the maximum texture size allowed</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#time_as_microseconds%28time%20%3A%20Time%29-instance-method" class="signature"><strong>#time_as_microseconds</strong>(time : Time)</a>
-        
-          <div class="summary"><p>Return a time value as a number of microseconds</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#time_as_milliseconds%28time%20%3A%20Time%29-instance-method" class="signature"><strong>#time_as_milliseconds</strong>(time : Time)</a>
-        
-          <div class="summary"><p>Return a time value as a number of milliseconds</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#time_as_seconds%28time%20%3A%20Time%29-instance-method" class="signature"><strong>#time_as_seconds</strong>(time : Time)</a>
-        
-          <div class="summary"><p>Return a time value as a number of seconds</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#touch_get_position%28finger%20%3A%20Int32%2C%20relative_to%20%3A%20RenderWindow%29-instance-method" class="signature"><strong>#touch_get_position</strong>(finger : Int32, relative_to : RenderWindow)</a>
-        
-          <div class="summary"><p>Get the current position of a touch in window coordinates</p></div>
         
       </li>
     
@@ -420,93 +1347,32 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#transform_combine%28transform%20%3A%20%3A%3APointer%28Transform%29%2C%20other%29-instance-method" class="signature"><strong>#transform_combine</strong>(transform : ::Pointer(Transform), other)</a>
-        
-          <div class="summary"><p>Combine two transforms</p></div>
+        <a href="#transform-instance-method" class="signature"><strong>#transform</strong></a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#transform_get_inverse%28transform%29-instance-method" class="signature"><strong>#transform_get_inverse</strong>(transform)</a>
-        
-          <div class="summary"><p>Return the inverse of a transform</p></div>
+        <a href="#vector2f%28x%2C%20y%29-instance-method" class="signature"><strong>#vector2f</strong>(x, y)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#transform_get_matrix%28transform%2C%20matrix%20%3A%20%3A%3APointer%28Float32%29%29-instance-method" class="signature"><strong>#transform_get_matrix</strong>(transform, matrix : ::Pointer(Float32))</a>
-        
-          <div class="summary"><p>Return the 4x4 matrix of a transform</p></div>
+        <a href="#vector2i%28x%2C%20y%29-instance-method" class="signature"><strong>#vector2i</strong>(x, y)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#transform_rotate%28transform%20%3A%20%3A%3APointer%28Transform%29%2C%20angle%29-instance-method" class="signature"><strong>#transform_rotate</strong>(transform : ::Pointer(Transform), angle)</a>
-        
-          <div class="summary"><p>Combine the current transform with a rotation</p></div>
+        <a href="#vertex%28position%20%3D%20SF.vector2f%280%2C%200%29%2C%20color%20%3D%20White%2C%20tex_coords%20%3D%20SF.vector2f%280%2C%200%29%29-instance-method" class="signature"><strong>#vertex</strong>(position = SF.vector2f(0, 0), color = White, tex_coords = SF.vector2f(0, 0))</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#transform_rotate%28transform%20%3A%20%3A%3APointer%28Transform%29%2C%20angle%2C%20center_x%2C%20center_y%29-instance-method" class="signature"><strong>#transform_rotate</strong>(transform : ::Pointer(Transform), angle, center_x, center_y)</a>
-        
-          <div class="summary"><p>Combine the current transform with a rotation</p></div>
+        <a href="#video_mode-instance-method" class="signature"><strong>#video_mode</strong></a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#transform_scale%28transform%20%3A%20%3A%3APointer%28Transform%29%2C%20scale_x%2C%20scale_y%2C%20center_x%2C%20center_y%29-instance-method" class="signature"><strong>#transform_scale</strong>(transform : ::Pointer(Transform), scale_x, scale_y, center_x, center_y)</a>
-        
-          <div class="summary"><p>Combine the current transform with a scaling</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#transform_scale%28transform%20%3A%20%3A%3APointer%28Transform%29%2C%20scale_x%2C%20scale_y%29-instance-method" class="signature"><strong>#transform_scale</strong>(transform : ::Pointer(Transform), scale_x, scale_y)</a>
-        
-          <div class="summary"><p>Combine the current transform with a scaling</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#transform_transform_point%28transform%2C%20point%20%3A%20Vector2f%29-instance-method" class="signature"><strong>#transform_transform_point</strong>(transform, point : Vector2f)</a>
-        
-          <div class="summary"><p>Apply a transform to a 2D point</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#transform_transform_rect%28transform%2C%20rectangle%20%3A%20FloatRect%29-instance-method" class="signature"><strong>#transform_transform_rect</strong>(transform, rectangle : FloatRect)</a>
-        
-          <div class="summary"><p>Apply a transform to a rectangle</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#transform_translate%28transform%20%3A%20%3A%3APointer%28Transform%29%2C%20x%2C%20y%29-instance-method" class="signature"><strong>#transform_translate</strong>(transform : ::Pointer(Transform), x, y)</a>
-        
-          <div class="summary"><p>Combine a transform with a translation</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#video_mode_get_desktop_mode-instance-method" class="signature"><strong>#video_mode_get_desktop_mode</strong></a>
-        
-          <div class="summary"><p>Get the current desktop video mode</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#video_mode_get_fullscreen_modes%28count%20%3A%20%3A%3APointer%28Size_t%29%29-instance-method" class="signature"><strong>#video_mode_get_fullscreen_modes</strong>(count : ::Pointer(Size_t))</a>
-        
-          <div class="summary"><p>Retrieve all the video modes supported in fullscreen mode</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#video_mode_is_valid%28mode%20%3A%20VideoMode%29-instance-method" class="signature"><strong>#video_mode_is_valid</strong>(mode : VideoMode)</a>
-        
-          <div class="summary"><p>Tell whether or not a video mode is valid</p></div>
+        <a href="#video_mode%28mode_width%20%3A%20Int%2C%20mode_height%20%3A%20Int%2C%20bits_per_pixel%20%3D%2032%29-instance-method" class="signature"><strong>#video_mode</strong>(mode_width : Int, mode_height : Int, bits_per_pixel = 32)</a>
         
       </li>
     
@@ -517,27 +1383,567 @@
 
 
 
+  <h2>Class Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="add%28color1%20%3A%20Color%2C%20color2%20%3A%20Color%29-class-method">
+        
+        def self.<strong>add</strong>(color1 : <a href="SF/Color.html">Color</a>, color2 : <a href="SF/Color.html">Color</a>)
+      </div>
+      
+        <div class="doc"><p>Add two colors</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>color1</code>: First color</li><li><code>color2</code>: Second color</li></ul>
+
+<p><em>Returns</em>: Component-wise saturated addition of the two colors</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L52" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="as_microseconds%28time%20%3A%20Time%29-class-method">
+        
+        def self.<strong>as_microseconds</strong>(time : <a href="SF/Time.html">Time</a>)
+      </div>
+      
+        <div class="doc"><p>Return a time value as a number of microseconds</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>time</code>: Time value</li></ul>
+
+<p><em>Returns</em>: Time in microseconds</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/system_obj.cr#L38" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="as_milliseconds%28time%20%3A%20Time%29-class-method">
+        
+        def self.<strong>as_milliseconds</strong>(time : <a href="SF/Time.html">Time</a>)
+      </div>
+      
+        <div class="doc"><p>Return a time value as a number of milliseconds</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>time</code>: Time value</li></ul>
+
+<p><em>Returns</em>: Time in milliseconds</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/system_obj.cr#L27" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="as_seconds%28time%20%3A%20Time%29-class-method">
+        
+        def self.<strong>as_seconds</strong>(time : <a href="SF/Time.html">Time</a>)
+      </div>
+      
+        <div class="doc"><p>Return a time value as a number of seconds</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>time</code>: Time value</li></ul>
+
+<p><em>Returns</em>: Time in seconds</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/system_obj.cr#L16" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="combine%28transform%20%3A%20%3A%3APointer%28Transform%29%2C%20other%29-class-method">
+        
+        def self.<strong>combine</strong>(transform : ::Pointer(<a href="SF/Transform.html">Transform</a>), other)
+      </div>
+      
+        <div class="doc"><p>Combine two transforms</p>
+
+<p>The result is a transform that is equivalent to applying
+<code><a href="SF.html#transform-instance-method">#transform</a></code> followed by <code>other</code>. Mathematically, it is
+equivalent to a matrix multiplication.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code><a href="SF.html#transform-instance-method">#transform</a></code>: Transform object</li><li><code>right</code>: Transform to combine to <code><a href="SF.html#transform-instance-method">#transform</a></code></li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L5132" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="contains%28rect%2C%20x%20%3A%20Int32%2C%20y%20%3A%20Int32%29-class-method">
+        
+        def self.<strong>contains</strong>(rect, x : Int32, y : Int32)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L115" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="contains%28rect%2C%20x%2C%20y%29-class-method">
+        
+        def self.<strong>contains</strong>(rect, x, y)
+      </div>
+      
+        <div class="doc"><p>Check if a point is inside a rectangle's area</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>rect</code>: Rectangle to test</li><li><code>x</code>: X coordinate of the point to test</li><li><code>y</code>: Y coordinate of the point to test</li></ul>
+
+<p><em>Returns</em>: True if the point is inside</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L79" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="get_desktop_mode-class-method">
+        
+        def self.<strong>get_desktop_mode</strong>
+      </div>
+      
+        <div class="doc"><p>Get the current desktop video mode</p>
+
+<p><em>Returns</em>: Current desktop video mode</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/window_obj.cr#L984" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="get_fullscreen_modes-class-method">
+        
+        def self.<strong>get_fullscreen_modes</strong>
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/window.cr#L46" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="get_fullscreen_modes%28count%20%3A%20%3A%3APointer%28Size_t%29%29-class-method">
+        
+        def self.<strong>get_fullscreen_modes</strong>(count : ::Pointer(Size_t))
+      </div>
+      
+        <div class="doc"><p>Retrieve all the video modes supported in fullscreen mode</p>
+
+<p>When creating a fullscreen window, the video mode is restricted
+to be compatible with what the graphics driver and monitor
+support. This function returns the complete list of all video
+modes that can be used in fullscreen mode.
+The returned array is sorted from best to worst, so that
+the first element will always give the best mode (higher
+width, height and bits-per-pixel).</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>count</code>: Pointer to a variable that will be filled with the number of modes in the array</li></ul>
+
+<p><em>Returns</em>: Pointer to an array containing all the supported fullscreen modes</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/window_obj.cr#L1003" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="get_inverse%28transform%29-class-method">
+        
+        def self.<strong>get_inverse</strong>(transform)
+      </div>
+      
+        <div class="doc"><p>Return the inverse of a transform</p>
+
+<p>If the inverse cannot be computed, a new identity transform
+is returned.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code><a href="SF.html#transform-instance-method">#transform</a></code>: Transform object</li></ul>
+
+<p><em>Returns</em>: The inverse matrix</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L5073" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="get_matrix%28transform%20%3A%20Transform%29-class-method">
+        
+        def self.<strong>get_matrix</strong>(transform : <a href="SF/Transform.html">Transform</a>)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics.cr#L61" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="get_matrix%28transform%2C%20matrix%20%3A%20%3A%3APointer%28Float32%29%29-class-method">
+        
+        def self.<strong>get_matrix</strong>(transform, matrix : ::Pointer(Float32))
+      </div>
+      
+        <div class="doc"><p>Return the 4x4 matrix of a transform</p>
+
+<p>This function fills an array of 16 floats with the transform
+converted as a 4x4 matrix, which is directly compatible with
+OpenGL functions.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code><a href="SF.html#transform-instance-method">#transform</a></code>: Transform object</li><li><code>matrix</code>: Pointer to the 16-element array to fill with the matrix</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L5055" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="intersects%28rect1%20%3A%20FloatRect%2C%20rect2%20%3A%20FloatRect%29-class-method">
+        
+        def self.<strong>intersects</strong>(rect1 : <a href="SF/FloatRect.html">FloatRect</a>, rect2 : <a href="SF/FloatRect.html">FloatRect</a>)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics.cr#L47" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="intersects%28rect1%2C%20rect2%2C%20intersection%20%3A%20%3A%3APointer%28IntRect%29%29-class-method">
+        
+        def self.<strong>intersects</strong>(rect1, rect2, intersection : ::Pointer(<a href="SF/IntRect.html">IntRect</a>))
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L124" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="intersects%28rect1%2C%20rect2%2C%20intersection%20%3A%20%3A%3APointer%28FloatRect%29%29-class-method">
+        
+        def self.<strong>intersects</strong>(rect1, rect2, intersection : ::Pointer(<a href="SF/FloatRect.html">FloatRect</a>))
+      </div>
+      
+        <div class="doc"><p>Check intersection between two rectangles</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>rect1</code>: First rectangle to test</li><li><code>rect2</code>: Second rectangle to test</li><li><code>intersection</code>: Rectangle to be filled with overlapping rect (can be NULL)</li></ul>
+
+<p><em>Returns</em>: True if rectangles overlap</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L99" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="intersects%28rect1%20%3A%20IntRect%2C%20rect2%20%3A%20IntRect%29-class-method">
+        
+        def self.<strong>intersects</strong>(rect1 : <a href="SF/IntRect.html">IntRect</a>, rect2 : <a href="SF/IntRect.html">IntRect</a>)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics.cr#L51" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="is_valid%28mode%20%3A%20VideoMode%29-class-method">
+        
+        def self.<strong>is_valid</strong>(mode : <a href="SF/VideoMode.html">VideoMode</a>)
+      </div>
+      
+        <div class="doc"><p>Tell whether or not a video mode is valid</p>
+
+<p>The validity of video modes is only relevant when using
+fullscreen windows; otherwise any video mode can be used
+with no restriction.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>mode</code>: Video mode</li></ul>
+
+<p><em>Returns</em>: True if the video mode is valid for fullscreen mode</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/window_obj.cr#L1018" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="modulate%28color1%20%3A%20Color%2C%20color2%20%3A%20Color%29-class-method">
+        
+        def self.<strong>modulate</strong>(color1 : <a href="SF/Color.html">Color</a>, color2 : <a href="SF/Color.html">Color</a>)
+      </div>
+      
+        <div class="doc"><p>Modulate two colors</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>color1</code>: First color</li><li><code>color2</code>: Second color</li></ul>
+
+<p><em>Returns</em>: Component-wise multiplication of the two colors</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L64" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="rotate%28transform%20%3A%20%3A%3APointer%28Transform%29%2C%20angle%29-class-method">
+        
+        def self.<strong>rotate</strong>(transform : ::Pointer(<a href="SF/Transform.html">Transform</a>), angle)
+      </div>
+      
+        <div class="doc"><p>Combine the current transform with a rotation</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code><a href="SF.html#transform-instance-method">#transform</a></code>: Transform object</li><li><code>angle</code>: Rotation angle, in degrees</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L5160" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="rotate%28transform%20%3A%20%3A%3APointer%28Transform%29%2C%20angle%2C%20center_x%2C%20center_y%29-class-method">
+        
+        def self.<strong>rotate</strong>(transform : ::Pointer(<a href="SF/Transform.html">Transform</a>), angle, center_x, center_y)
+      </div>
+      
+        <div class="doc"><p>Combine the current transform with a rotation</p>
+
+<p>The center of rotation is provided for convenience as a second
+argument, so that you can build rotations around arbitrary points
+more easily (and efficiently) than the usual
+[translate(-center), rotate(angle), translate(center)].</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code><a href="SF.html#transform-instance-method">#transform</a></code>: Transform object</li><li><code>angle</code>: Rotation angle, in degrees</li><li><code>centerX</code>: X coordinate of the center of rotation</li><li><code>centerY</code>: Y coordinate of the center of rotation</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L5178" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="scale%28transform%20%3A%20%3A%3APointer%28Transform%29%2C%20scale_x%2C%20scale_y%29-class-method">
+        
+        def self.<strong>scale</strong>(transform : ::Pointer(<a href="SF/Transform.html">Transform</a>), scale_x, scale_y)
+      </div>
+      
+        <div class="doc"><p>Combine the current transform with a scaling</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code><a href="SF.html#transform-instance-method">#transform</a></code>: Transform object</li><li><code>scaleX</code>: Scaling factor on the X axis</li><li><code>scaleY</code>: Scaling factor on the Y axis</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L5192" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="scale%28transform%20%3A%20%3A%3APointer%28Transform%29%2C%20scale_x%2C%20scale_y%2C%20center_x%2C%20center_y%29-class-method">
+        
+        def self.<strong>scale</strong>(transform : ::Pointer(<a href="SF/Transform.html">Transform</a>), scale_x, scale_y, center_x, center_y)
+      </div>
+      
+        <div class="doc"><p>Combine the current transform with a scaling</p>
+
+<p>The center of scaling is provided for convenience as a second
+argument, so that you can build scaling around arbitrary points
+more easily (and efficiently) than the usual
+[translate(-center), scale(factors), translate(center)]</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code><a href="SF.html#transform-instance-method">#transform</a></code>: Transform object</li><li><code>scaleX</code>: Scaling factor on X axis</li><li><code>scaleY</code>: Scaling factor on Y axis</li><li><code>centerX</code>: X coordinate of the center of scaling</li><li><code>centerY</code>: Y coordinate of the center of scaling</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L5212" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="transform_point%28transform%2C%20point%20%3A%20Vector2f%29-class-method">
+        
+        def self.<strong>transform_point</strong>(transform, point : <a href="SF/Vector2f.html">Vector2f</a>)
+      </div>
+      
+        <div class="doc"><p>Apply a transform to a 2D point</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code><a href="SF.html#transform-instance-method">#transform</a></code>: Transform object</li><li><code>point</code>: Point to transform</li></ul>
+
+<p><em>Returns</em>: Transformed point</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L5090" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="transform_rect%28transform%2C%20rectangle%20%3A%20FloatRect%29-class-method">
+        
+        def self.<strong>transform_rect</strong>(transform, rectangle : <a href="SF/FloatRect.html">FloatRect</a>)
+      </div>
+      
+        <div class="doc"><p>Apply a transform to a rectangle</p>
+
+<p>Since SFML doesn't provide support for oriented rectangles,
+the result of this function is always an axis-aligned
+rectangle. Which means that if the transform contains a
+rotation, the bounding rectangle of the transformed rectangle
+is returned.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code><a href="SF.html#transform-instance-method">#transform</a></code>: Transform object</li><li><code>rectangle</code>: Rectangle to transform</li></ul>
+
+<p><em>Returns</em>: Transformed rectangle</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L5113" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="translate%28transform%20%3A%20%3A%3APointer%28Transform%29%2C%20x%2C%20y%29-class-method">
+        
+        def self.<strong>translate</strong>(transform : ::Pointer(<a href="SF/Transform.html">Transform</a>), x, y)
+      </div>
+      
+        <div class="doc"><p>Combine a transform with a translation</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code><a href="SF.html#transform-instance-method">#transform</a></code>: Transform object</li><li><code>x</code>: Offset to apply on X axis</li><li><code>y</code>: Offset to apply on Y axis</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L5148" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
 
 
   <h2>Instance Method Detail</h2>
   
     <div class="entry-detail">
-      <div class="signature" id="color%28red%20%3A%20UInt8%2C%20green%20%3A%20UInt8%2C%20blue%20%3A%20UInt8%29-instance-method">
+      <div class="signature" id="blend_mode-instance-method">
         
-        def <strong>color</strong>(red : UInt8, green : UInt8, blue : UInt8)
+        def <strong>blend_mode</strong>
       </div>
-      
-        <div class="doc"><p>Construct a color from its 3 RGB components</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>red</code>: Red component (0 .. 255)</li><li><code>green</code>: Green component (0 .. 255)</li><li><code>blue</code>: Blue component (0 .. 255)</li></ul>
-
-<p><em>Returns</em>: Color constructed from the components</p></div>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L5018" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics.cr#L95" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="blend_mode%28source_factor%20%3A%20BlendFactor%2C%20destination_factor%20%3A%20BlendFactor%2C%20blend_equation%20%3D%20CSFML%3A%3ABlendEquation%3A%3AAdd%29-instance-method">
+        
+        def <strong>blend_mode</strong>(source_factor : <a href="SF/BlendFactor.html">BlendFactor</a>, destination_factor : <a href="SF/BlendFactor.html">BlendFactor</a>, blend_equation = <span class="t">CSFML</span><span class="t">::</span><span class="t">BlendEquation</span><span class="t">::</span><span class="t">Add</span>)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics.cr#L77" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="blend_mode%28color_source_factor%20%3A%20BlendFactor%2C%20color_destination_factor%20%3A%20BlendFactor%2C%20color_blend_equation%20%3A%20BlendEquation%2C%20alpha_source_factor%20%3A%20BlendFactor%2C%20alpha_destination_factor%20%3A%20BlendFactor%2C%20alpha_blend_equation%20%3A%20BlendEquation%29-instance-method">
+        
+        def <strong>blend_mode</strong>(color_source_factor : <a href="SF/BlendFactor.html">BlendFactor</a>, color_destination_factor : <a href="SF/BlendFactor.html">BlendFactor</a>, color_blend_equation : <a href="SF/BlendEquation.html">BlendEquation</a>, alpha_source_factor : <a href="SF/BlendFactor.html">BlendFactor</a>, alpha_destination_factor : <a href="SF/BlendFactor.html">BlendFactor</a>, alpha_blend_equation : <a href="SF/BlendEquation.html">BlendEquation</a>)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics.cr#L66" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -558,49 +1964,41 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L5032" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L5336" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="color_add%28color1%20%3A%20Color%2C%20color2%20%3A%20Color%29-instance-method">
+      <div class="signature" id="color%28red%20%3A%20UInt8%2C%20green%20%3A%20UInt8%2C%20blue%20%3A%20UInt8%29-instance-method">
         
-        def <strong>color_add</strong>(color1 : <a href="SF/Color.html">Color</a>, color2 : <a href="SF/Color.html">Color</a>)
+        def <strong>color</strong>(red : UInt8, green : UInt8, blue : UInt8)
       </div>
       
-        <div class="doc"><p>Add two colors</p>
+        <div class="doc"><p>Construct a color from its 3 RGB components</p>
 
 <p><em>Arguments</em>:</p>
 
-<ul><li><code>color1</code>: First color</li><li><code>color2</code>: Second color</li></ul>
+<ul><li><code>red</code>: Red component (0 .. 255)</li><li><code>green</code>: Green component (0 .. 255)</li><li><code>blue</code>: Blue component (0 .. 255)</li></ul>
 
-<p><em>Returns</em>: Component-wise saturated addition of the two colors</p></div>
+<p><em>Returns</em>: Color constructed from the components</p></div>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L5044" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L5322" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="color_modulate%28color1%20%3A%20Color%2C%20color2%20%3A%20Color%29-instance-method">
+      <div class="signature" id="color%28red%2C%20green%2C%20blue%2C%20alpha%20%3D%20255%29-instance-method">
         
-        def <strong>color_modulate</strong>(color1 : <a href="SF/Color.html">Color</a>, color2 : <a href="SF/Color.html">Color</a>)
+        def <strong>color</strong>(red, green, blue, alpha = <span class="n">255</span>)
       </div>
-      
-        <div class="doc"><p>Modulate two colors</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>color1</code>: First color</li><li><code>color2</code>: Second color</li></ul>
-
-<p><em>Returns</em>: Component-wise multiplication of the two colors</p></div>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L5056" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics.cr#L26" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -613,443 +2011,33 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/window.cr#L33" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/window.cr#L25" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="float_rect_contains%28rect%2C%20x%2C%20y%29-instance-method">
+      <div class="signature" id="float_rect%28left%2C%20top%2C%20width%2C%20height%29-instance-method">
         
-        def <strong>float_rect_contains</strong>(rect, x, y)
+        def <strong>float_rect</strong>(left, top, width, height)
       </div>
-      
-        <div class="doc"><p>Check if a point is inside a rectangle's area</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>rect</code>: Rectangle to test</li><li><code>x</code>: X coordinate of the point to test</li><li><code>y</code>: Y coordinate of the point to test</li></ul>
-
-<p><em>Returns</em>: True if the point is inside</p></div>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L5069" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics.cr#L43" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="float_rect_intersects%28rect1%2C%20rect2%2C%20intersection%20%3A%20%3A%3APointer%28FloatRect%29%29-instance-method">
+      <div class="signature" id="int_rect%28left%2C%20top%2C%20width%2C%20height%29-instance-method">
         
-        def <strong>float_rect_intersects</strong>(rect1, rect2, intersection : ::Pointer(<a href="SF/FloatRect.html">FloatRect</a>))
-      </div>
-      
-        <div class="doc"><p>Check intersection between two rectangles</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>rect1</code>: First rectangle to test</li><li><code>rect2</code>: Second rectangle to test</li><li><code>intersection</code>: Rectangle to be filled with overlapping rect (can be NULL)</li></ul>
-
-<p><em>Returns</em>: True if rectangles overlap</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L5098" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="float_rect_intersects%28rect1%20%3A%20FloatRect%2C%20rect2%20%3A%20FloatRect%29-instance-method">
-        
-        def <strong>float_rect_intersects</strong>(rect1 : <a href="SF/FloatRect.html">FloatRect</a>, rect2 : <a href="SF/FloatRect.html">FloatRect</a>)
+        def <strong>int_rect</strong>(left, top, width, height)
       </div>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics.cr#L33" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="int_rect_contains%28rect%2C%20x%20%3A%20Int32%2C%20y%20%3A%20Int32%29-instance-method">
-        
-        def <strong>int_rect_contains</strong>(rect, x : Int32, y : Int32)
-      </div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L5080" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="int_rect_intersects%28rect1%20%3A%20IntRect%2C%20rect2%20%3A%20IntRect%29-instance-method">
-        
-        def <strong>int_rect_intersects</strong>(rect1 : <a href="SF/IntRect.html">IntRect</a>, rect2 : <a href="SF/IntRect.html">IntRect</a>)
-      </div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics.cr#L38" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="int_rect_intersects%28rect1%2C%20rect2%2C%20intersection%20%3A%20%3A%3APointer%28IntRect%29%29-instance-method">
-        
-        def <strong>int_rect_intersects</strong>(rect1, rect2, intersection : ::Pointer(<a href="SF/IntRect.html">IntRect</a>))
-      </div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L5112" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="joystick_get_axis_position%28joystick%20%3A%20Int32%2C%20axis%20%3A%20JoystickAxis%29-instance-method">
-        
-        def <strong>joystick_get_axis_position</strong>(joystick : Int32, axis : <a href="SF/JoystickAxis.html">JoystickAxis</a>)
-      </div>
-      
-        <div class="doc"><p>Get the current position of a joystick axis</p>
-
-<p>If the joystick is not connected, this function returns 0.</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>joystick</code>: Index of the joystick</li><li><code>axis</code>: Axis to check</li></ul>
-
-<p><em>Returns</em>: Current position of the axis, in range [-100 .. 100]</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/window_obj.cr#L574" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="joystick_get_button_count%28joystick%20%3A%20Int32%29-instance-method">
-        
-        def <strong>joystick_get_button_count</strong>(joystick : Int32)
-      </div>
-      
-        <div class="doc"><p>Return the number of buttons supported by a joystick</p>
-
-<p>If the joystick is not connected, this function returns 0.</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>joystick</code>: Index of the joystick</li></ul>
-
-<p><em>Returns</em>: Number of buttons supported by the joystick</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/window_obj.cr#L532" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="joystick_get_identification%28joystick%20%3A%20Int32%29-instance-method">
-        
-        def <strong>joystick_get_identification</strong>(joystick : Int32)
-      </div>
-      
-        <div class="doc"><p>Get the joystick information</p>
-
-<p>The result of this function will only remain valid until
-the next time the function is called.</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>joystick</code>: Index of the joystick</li></ul>
-
-<p><em>Returns</em>: Structure containing joystick information.</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/window_obj.cr#L588" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="joystick_has_axis%28joystick%20%3A%20Int32%2C%20axis%20%3A%20JoystickAxis%29-instance-method">
-        
-        def <strong>joystick_has_axis</strong>(joystick : Int32, axis : <a href="SF/JoystickAxis.html">JoystickAxis</a>)
-      </div>
-      
-        <div class="doc"><p>Check if a joystick supports a given axis</p>
-
-<p>If the joystick is not connected, this function returns false.</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>joystick</code>: Index of the joystick</li><li><code>axis</code>: Axis to check</li></ul>
-
-<p><em>Returns</em>: True if the joystick supports the axis, False otherwise</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/window_obj.cr#L546" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="joystick_is_button_pressed%28joystick%20%3A%20Int32%2C%20button%20%3A%20Int32%29-instance-method">
-        
-        def <strong>joystick_is_button_pressed</strong>(joystick : Int32, button : Int32)
-      </div>
-      
-        <div class="doc"><p>Check if a joystick button is pressed</p>
-
-<p>If the joystick is not connected, this function returns false.</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>joystick</code>: Index of the joystick</li><li><code>button</code>: Button to check</li></ul>
-
-<p><em>Returns</em>: True if the button is pressed, False otherwise</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/window_obj.cr#L560" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="joystick_is_connected%28joystick%20%3A%20Int32%29-instance-method">
-        
-        def <strong>joystick_is_connected</strong>(joystick : Int32)
-      </div>
-      
-        <div class="doc"><p>Check if a joystick is connected</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>joystick</code>: Index of the joystick to check</li></ul>
-
-<p><em>Returns</em>: True if the joystick is connected, False otherwise</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/window_obj.cr#L519" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="joystick_update-instance-method">
-        
-        def <strong>joystick_update</strong>
-      </div>
-      
-        <div class="doc"><p>Update the states of all joysticks</p>
-
-<p>This function is used internally by SFML, so you normally
-don't have to call it explicitely. However, you may need to
-call it if you have no window yet (or no window at all):
-in this case the joysticks states are not updated automatically.</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/window_obj.cr#L598" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="keyboard_is_key_pressed%28key%20%3A%20KeyCode%29-instance-method">
-        
-        def <strong>keyboard_is_key_pressed</strong>(key : <a href="SF/KeyCode.html">KeyCode</a>)
-      </div>
-      
-        <div class="doc"><p>Check if a key is pressed</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>key</code>: Key to check</li></ul>
-
-<p><em>Returns</em>: True if the key is pressed, False otherwise</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/window_obj.cr#L609" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="listener_get_direction-instance-method">
-        
-        def <strong>listener_get_direction</strong>
-      </div>
-      
-        <div class="doc"><p>Get the current forward vector of the listener in the scene</p>
-
-<p><em>Returns</em>: Listener's forward vector (not normalized)</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L1198" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="listener_get_global_volume-instance-method">
-        
-        def <strong>listener_get_global_volume</strong>
-      </div>
-      
-        <div class="doc"><p>Get the current value of the global volume</p>
-
-<p><em>Returns</em>: Current global volume, in the range [0, 100]</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L1157" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="listener_get_position-instance-method">
-        
-        def <strong>listener_get_position</strong>
-      </div>
-      
-        <div class="doc"><p>Get the current position of the listener in the scene</p>
-
-<p><em>Returns</em>: The listener's position</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L1175" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="listener_get_up_vector-instance-method">
-        
-        def <strong>listener_get_up_vector</strong>
-      </div>
-      
-        <div class="doc"><p>Get the current upward vector of the listener in the scene</p>
-
-<p><em>Returns</em>: Listener's upward vector (not normalized)</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L1221" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="listener_set_direction%28direction%20%3A%20Vector3f%29-instance-method">
-        
-        def <strong>listener_set_direction</strong>(direction : <a href="SF/Vector3f.html">Vector3f</a>)
-      </div>
-      
-        <div class="doc"><p>Set the orientation of the forward vector in the scene</p>
-
-<p>The direction (also called "at vector") is the vector
-pointing forward from the listener's perspective. Together
-with the up vector, it defines the 3D orientation of the
-listener in the scene. The direction vector doesn't
-have to be normalized.
-The default listener's direction is (0, 0, -1).</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>direction</code>: New listener's direction</li></ul></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L1191" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="listener_set_global_volume%28volume%29-instance-method">
-        
-        def <strong>listener_set_global_volume</strong>(volume)
-      </div>
-      
-        <div class="doc"><p>Change the global volume of all the sounds and musics</p>
-
-<p>The volume is a number between 0 and 100; it is combined with
-the individual volume of each sound / music.
-The default value for the volume is 100 (maximum).</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>volume</code>: New global volume, in the range [0, 100]</li></ul></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L1149" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="listener_set_position%28position%20%3A%20Vector3f%29-instance-method">
-        
-        def <strong>listener_set_position</strong>(position : <a href="SF/Vector3f.html">Vector3f</a>)
-      </div>
-      
-        <div class="doc"><p>Set the position of the listener in the scene</p>
-
-<p>The default listener's position is (0, 0, 0).</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>position</code>: New position of the listener</li></ul></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L1168" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="listener_set_up_vector%28up_vector%20%3A%20Vector3f%29-instance-method">
-        
-        def <strong>listener_set_up_vector</strong>(up_vector : <a href="SF/Vector3f.html">Vector3f</a>)
-      </div>
-      
-        <div class="doc"><p>Set the upward vector of the listener in the scene</p>
-
-<p>The up vector is the vector that points upward from the
-listener's perspective. Together with the direction, it
-defines the 3D orientation of the listener in the scene.
-The up vector doesn't have to be normalized.
-The default listener's up vector is (0, 1, 0). It is usually
-not necessary to change it, especially in 2D scenarios.</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>up_vector</code>: New listener's up vector</li></ul></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L1214" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics.cr#L40" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -1070,7 +2058,7 @@ not necessary to change it, especially in 2D scenarios.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/system_obj.cr#L177" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/system_obj.cr#L158" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -1091,133 +2079,20 @@ not necessary to change it, especially in 2D scenarios.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/system_obj.cr#L166" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/system_obj.cr#L147" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="mouse_get_position%28relative_to%20%3A%20RenderWindow%29-instance-method">
+      <div class="signature" id="render_states%28blend_mode%20%3D%20BlendAlpha%2C%20transform%20%3D%20Transform_Identity%2C%20texture%20%3D%20nil%2C%20shader%20%3D%20nil%29-instance-method">
         
-        def <strong>mouse_get_position</strong>(relative_to : <a href="SF/RenderWindow.html">RenderWindow</a>)
-      </div>
-      
-        <div class="doc"><p>Get the current position of the mouse relative to a render-window</p>
-
-<p>This function returns the current position of the mouse
-cursor relative to the given render-window, or desktop if NULL is passed.</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>relative_to</code>: Reference window</li></ul>
-
-<p><em>Returns</em>: Position of the mouse cursor, relative to the given render window</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L5340" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="mouse_get_position%28relative_to%20%3A%20Window%29-instance-method">
-        
-        def <strong>mouse_get_position</strong>(relative_to : <a href="SF/Window.html">Window</a>)
-      </div>
-      
-        <div class="doc"><p>Get the current position of the mouse</p>
-
-<p>This function returns the current position of the mouse
-cursor relative to the given window, or desktop if NULL is passed.</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>relative_to</code>: Reference window</li></ul>
-
-<p><em>Returns</em>: Position of the mouse cursor, relative to the given window</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/window_obj.cr#L634" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="mouse_get_position-instance-method">
-        
-        def <strong>mouse_get_position</strong>
+        def <strong>render_states</strong>(blend_mode = <span class="t">BlendAlpha</span>, transform = <span class="t">Transform_Identity</span>, texture = <span class="n">nil</span>, shader = <span class="n">nil</span>)
       </div>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/window.cr#L37" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="mouse_is_button_pressed%28button%20%3A%20MouseButton%29-instance-method">
-        
-        def <strong>mouse_is_button_pressed</strong>(button : <a href="SF/MouseButton.html">MouseButton</a>)
-      </div>
-      
-        <div class="doc"><p>Check if a mouse button is pressed</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>button</code>: Button to check</li></ul>
-
-<p><em>Returns</em>: True if the button is pressed, False otherwise</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/window_obj.cr#L620" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="mouse_set_position%28position%20%3A%20Vector2i%2C%20relative_to%20%3A%20RenderWindow%29-instance-method">
-        
-        def <strong>mouse_set_position</strong>(position : <a href="SF/Vector2i.html">Vector2i</a>, relative_to : <a href="SF/RenderWindow.html">RenderWindow</a>)
-      </div>
-      
-        <div class="doc"><p>Set the current position of the mouse relative to a render window</p>
-
-<p>This function sets the current position of the mouse
-cursor relative to the given render-window, or desktop if NULL is passed.</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>position</code>: New position of the mouse</li><li><code>relative_to</code>: Reference window</li></ul></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L5353" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="mouse_set_position%28position%20%3A%20Vector2i%2C%20relative_to%20%3A%20Window%29-instance-method">
-        
-        def <strong>mouse_set_position</strong>(position : <a href="SF/Vector2i.html">Vector2i</a>, relative_to : <a href="SF/Window.html">Window</a>)
-      </div>
-      
-        <div class="doc"><p>Set the current position of the mouse</p>
-
-<p>This function sets the current position of the mouse
-cursor relative to the given window, or desktop if NULL is passed.</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>position</code>: New position of the mouse</li><li><code>relative_to</code>: Reference window</li></ul></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/window_obj.cr#L647" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics.cr#L99" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -1238,95 +2113,7 @@ cursor relative to the given window, or desktop if NULL is passed.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/system_obj.cr#L154" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="sensor_get_value%28sensor%20%3A%20SensorType%29-instance-method">
-        
-        def <strong>sensor_get_value</strong>(sensor : <a href="SF/SensorType.html">SensorType</a>)
-      </div>
-      
-        <div class="doc"><p>Get the current sensor value</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>sensor</code>: Sensor to read</li></ul>
-
-<p><em>Returns</em>: The current sensor value</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/window_obj.cr#L686" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="sensor_is_available%28sensor%20%3A%20SensorType%29-instance-method">
-        
-        def <strong>sensor_is_available</strong>(sensor : <a href="SF/SensorType.html">SensorType</a>)
-      </div>
-      
-        <div class="doc"><p>Check if a sensor is available on the underlying platform</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>sensor</code>: Sensor to check</li></ul>
-
-<p><em>Returns</em>: True if the sensor is available, False otherwise</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/window_obj.cr#L658" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="sensor_set_enabled%28sensor%20%3A%20SensorType%2C%20enabled%20%3A%20Bool%29-instance-method">
-        
-        def <strong>sensor_set_enabled</strong>(sensor : <a href="SF/SensorType.html">SensorType</a>, enabled : Bool)
-      </div>
-      
-        <div class="doc"><p>Enable or disable a sensor</p>
-
-<p>All sensors are disabled by default, to avoid consuming too
-much battery power. Once a sensor is enabled, it starts
-sending events of the corresponding type.</p>
-
-<p>This function does nothing if the sensor is unavailable.</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>sensor</code>: Sensor to enable</li><li><code>enabled</code>: True to enable, False to disable</li></ul></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/window_obj.cr#L674" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="shader_is_available-instance-method">
-        
-        def <strong>shader_is_available</strong>
-      </div>
-      
-        <div class="doc"><p>Tell whether or not the system supports shaders</p>
-
-<p>This function should always be called before using
-the shader features. If it returns false, then
-any attempt to use Shader will fail.</p>
-
-<p><em>Returns</em>: True if the system can use shaders, False otherwise</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L5379" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/system_obj.cr#L135" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -1348,177 +2135,7 @@ threads, as it doesn't consume any CPU power.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/system_obj.cr#L189" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="sound_recorder_get_available_devices%28count%20%3A%20%3A%3APointer%28Size_t%29%29-instance-method">
-        
-        def <strong>sound_recorder_get_available_devices</strong>(count : ::Pointer(Size_t))
-      </div>
-      
-        <div class="doc"><p>Get a list of the names of all availabe audio capture devices</p>
-
-<p>This function returns an array of strings (null terminated),
-containing the names of all availabe audio capture devices.
-If no devices are available then NULL is returned.</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>count</code>: Pointer to a variable that will be filled with the number of modes in the array</li></ul>
-
-<p><em>Returns</em>: An array of strings containing the names</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L1247" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="sound_recorder_get_default_device-instance-method">
-        
-        def <strong>sound_recorder_get_default_device</strong>
-      </div>
-      
-        <div class="doc"><p>Get the name of the default audio capture device</p>
-
-<p>This function returns the name of the default audio
-capture device. If none is available, NULL is returned.</p>
-
-<p><em>Returns</em>: The name of the default audio capture device (null terminated)</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L1257" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="sound_recorder_is_available-instance-method">
-        
-        def <strong>sound_recorder_is_available</strong>
-      </div>
-      
-        <div class="doc"><p>Check if the system supports audio capture</p>
-
-<p>This function should always be called before using
-the audio capture features. If it returns false, then
-any attempt to use SoundRecorder will fail.</p>
-
-<p><em>Returns</em>: True if audio capture is supported, False otherwise</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/audio_obj.cr#L1232" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="texture_get_maximum_size-instance-method">
-        
-        def <strong>texture_get_maximum_size</strong>
-      </div>
-      
-        <div class="doc"><p>Get the maximum texture size allowed</p>
-
-<p><em>Returns</em>: Maximum size allowed for textures, in pixels</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L5386" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="time_as_microseconds%28time%20%3A%20Time%29-instance-method">
-        
-        def <strong>time_as_microseconds</strong>(time : <a href="SF/Time.html">Time</a>)
-      </div>
-      
-        <div class="doc"><p>Return a time value as a number of microseconds</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>time</code>: Time value</li></ul>
-
-<p><em>Returns</em>: Time in microseconds</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/system_obj.cr#L143" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="time_as_milliseconds%28time%20%3A%20Time%29-instance-method">
-        
-        def <strong>time_as_milliseconds</strong>(time : <a href="SF/Time.html">Time</a>)
-      </div>
-      
-        <div class="doc"><p>Return a time value as a number of milliseconds</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>time</code>: Time value</li></ul>
-
-<p><em>Returns</em>: Time in milliseconds</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/system_obj.cr#L132" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="time_as_seconds%28time%20%3A%20Time%29-instance-method">
-        
-        def <strong>time_as_seconds</strong>(time : <a href="SF/Time.html">Time</a>)
-      </div>
-      
-        <div class="doc"><p>Return a time value as a number of seconds</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>time</code>: Time value</li></ul>
-
-<p><em>Returns</em>: Time in seconds</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/system_obj.cr#L121" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="touch_get_position%28finger%20%3A%20Int32%2C%20relative_to%20%3A%20RenderWindow%29-instance-method">
-        
-        def <strong>touch_get_position</strong>(finger : Int32, relative_to : <a href="SF/RenderWindow.html">RenderWindow</a>)
-      </div>
-      
-        <div class="doc"><p>Get the current position of a touch in window coordinates</p>
-
-<p>This function returns the current touch position
-relative to the given render window, or desktop if NULL is passed.</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>finger</code>: Finger index</li><li><code>relative_to</code>: Reference window</li></ul>
-
-<p><em>Returns</em>: Current position of <code>finger</code>, or undefined if it's not down</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L5368" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/system_obj.cr#L170" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -1539,301 +2156,85 @@ relative to the given render window, or desktop if NULL is passed.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L5141" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics_obj.cr#L5355" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="transform_combine%28transform%20%3A%20%3A%3APointer%28Transform%29%2C%20other%29-instance-method">
+      <div class="signature" id="transform-instance-method">
         
-        def <strong>transform_combine</strong>(transform : ::Pointer(<a href="SF/Transform.html">Transform</a>), other)
+        def <strong>transform</strong>
       </div>
-      
-        <div class="doc"><p>Combine two transforms</p>
-
-<p>The result is a transform that is equivalent to applying
-<code><a href="SF.html#transform%28a00%2C%20a01%2C%20a02%2C%20a10%2C%20a11%2C%20a12%2C%20a20%2C%20a21%2C%20a22%29-instance-method">#transform</a></code> followed by <code>other</code>. Mathematically, it is
-equivalent to a matrix multiplication.</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code><a href="SF.html#transform%28a00%2C%20a01%2C%20a02%2C%20a10%2C%20a11%2C%20a12%2C%20a20%2C%20a21%2C%20a22%29-instance-method">#transform</a></code>: Transform object</li><li><code>right</code>: Transform to combine to <code><a href="SF.html#transform%28a00%2C%20a01%2C%20a02%2C%20a10%2C%20a11%2C%20a12%2C%20a20%2C%20a21%2C%20a22%29-instance-method">#transform</a></code></li></ul></div>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L5242" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics.cr#L56" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="transform_get_inverse%28transform%29-instance-method">
+      <div class="signature" id="vector2f%28x%2C%20y%29-instance-method">
         
-        def <strong>transform_get_inverse</strong>(transform)
+        def <strong>vector2f</strong>(x, y)
       </div>
-      
-        <div class="doc"><p>Return the inverse of a transform</p>
-
-<p>If the inverse cannot be computed, a new identity transform
-is returned.</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code><a href="SF.html#transform%28a00%2C%20a01%2C%20a02%2C%20a10%2C%20a11%2C%20a12%2C%20a20%2C%20a21%2C%20a22%29-instance-method">#transform</a></code>: Transform object</li></ul>
-
-<p><em>Returns</em>: The inverse matrix</p></div>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L5183" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/system.cr#L24" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="transform_get_matrix%28transform%2C%20matrix%20%3A%20%3A%3APointer%28Float32%29%29-instance-method">
+      <div class="signature" id="vector2i%28x%2C%20y%29-instance-method">
         
-        def <strong>transform_get_matrix</strong>(transform, matrix : ::Pointer(Float32))
+        def <strong>vector2i</strong>(x, y)
       </div>
-      
-        <div class="doc"><p>Return the 4x4 matrix of a transform</p>
-
-<p>This function fills an array of 16 floats with the transform
-converted as a 4x4 matrix, which is directly compatible with
-OpenGL functions.</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code><a href="SF.html#transform%28a00%2C%20a01%2C%20a02%2C%20a10%2C%20a11%2C%20a12%2C%20a20%2C%20a21%2C%20a22%29-instance-method">#transform</a></code>: Transform object</li><li><code>matrix</code>: Pointer to the 16-element array to fill with the matrix</li></ul></div>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L5165" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/system.cr#L27" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="transform_rotate%28transform%20%3A%20%3A%3APointer%28Transform%29%2C%20angle%29-instance-method">
+      <div class="signature" id="vertex%28position%20%3D%20SF.vector2f%280%2C%200%29%2C%20color%20%3D%20White%2C%20tex_coords%20%3D%20SF.vector2f%280%2C%200%29%29-instance-method">
         
-        def <strong>transform_rotate</strong>(transform : ::Pointer(<a href="SF/Transform.html">Transform</a>), angle)
+        def <strong>vertex</strong>(position = <span class="t">SF</span>.vector2f(<span class="n">0</span>, <span class="n">0</span>), color = <span class="t">White</span>, tex_coords = <span class="t">SF</span>.vector2f(<span class="n">0</span>, <span class="n">0</span>))
       </div>
-      
-        <div class="doc"><p>Combine the current transform with a rotation</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code><a href="SF.html#transform%28a00%2C%20a01%2C%20a02%2C%20a10%2C%20a11%2C%20a12%2C%20a20%2C%20a21%2C%20a22%29-instance-method">#transform</a></code>: Transform object</li><li><code>angle</code>: Rotation angle, in degrees</li></ul></div>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L5270" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/graphics.cr#L190" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="transform_rotate%28transform%20%3A%20%3A%3APointer%28Transform%29%2C%20angle%2C%20center_x%2C%20center_y%29-instance-method">
+      <div class="signature" id="video_mode-instance-method">
         
-        def <strong>transform_rotate</strong>(transform : ::Pointer(<a href="SF/Transform.html">Transform</a>), angle, center_x, center_y)
+        def <strong>video_mode</strong>
       </div>
-      
-        <div class="doc"><p>Combine the current transform with a rotation</p>
-
-<p>The center of rotation is provided for convenience as a second
-argument, so that you can build rotations around arbitrary points
-more easily (and efficiently) than the usual
-[translate(-center), rotate(angle), translate(center)].</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code><a href="SF.html#transform%28a00%2C%20a01%2C%20a02%2C%20a10%2C%20a11%2C%20a12%2C%20a20%2C%20a21%2C%20a22%29-instance-method">#transform</a></code>: Transform object</li><li><code>angle</code>: Rotation angle, in degrees</li><li><code>centerX</code>: X coordinate of the center of rotation</li><li><code>centerY</code>: Y coordinate of the center of rotation</li></ul></div>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L5288" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/window.cr#L38" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="transform_scale%28transform%20%3A%20%3A%3APointer%28Transform%29%2C%20scale_x%2C%20scale_y%2C%20center_x%2C%20center_y%29-instance-method">
+      <div class="signature" id="video_mode%28mode_width%20%3A%20Int%2C%20mode_height%20%3A%20Int%2C%20bits_per_pixel%20%3D%2032%29-instance-method">
         
-        def <strong>transform_scale</strong>(transform : ::Pointer(<a href="SF/Transform.html">Transform</a>), scale_x, scale_y, center_x, center_y)
+        def <strong>video_mode</strong>(mode_width : Int, mode_height : Int, bits_per_pixel = <span class="n">32</span>)
       </div>
-      
-        <div class="doc"><p>Combine the current transform with a scaling</p>
-
-<p>The center of scaling is provided for convenience as a second
-argument, so that you can build scaling around arbitrary points
-more easily (and efficiently) than the usual
-[translate(-center), scale(factors), translate(center)]</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code><a href="SF.html#transform%28a00%2C%20a01%2C%20a02%2C%20a10%2C%20a11%2C%20a12%2C%20a20%2C%20a21%2C%20a22%29-instance-method">#transform</a></code>: Transform object</li><li><code>scaleX</code>: Scaling factor on X axis</li><li><code>scaleY</code>: Scaling factor on Y axis</li><li><code>centerX</code>: X coordinate of the center of scaling</li><li><code>centerY</code>: Y coordinate of the center of scaling</li></ul></div>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L5322" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="transform_scale%28transform%20%3A%20%3A%3APointer%28Transform%29%2C%20scale_x%2C%20scale_y%29-instance-method">
-        
-        def <strong>transform_scale</strong>(transform : ::Pointer(<a href="SF/Transform.html">Transform</a>), scale_x, scale_y)
-      </div>
-      
-        <div class="doc"><p>Combine the current transform with a scaling</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code><a href="SF.html#transform%28a00%2C%20a01%2C%20a02%2C%20a10%2C%20a11%2C%20a12%2C%20a20%2C%20a21%2C%20a22%29-instance-method">#transform</a></code>: Transform object</li><li><code>scaleX</code>: Scaling factor on the X axis</li><li><code>scaleY</code>: Scaling factor on the Y axis</li></ul></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L5302" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="transform_transform_point%28transform%2C%20point%20%3A%20Vector2f%29-instance-method">
-        
-        def <strong>transform_transform_point</strong>(transform, point : <a href="SF/Vector2f.html">Vector2f</a>)
-      </div>
-      
-        <div class="doc"><p>Apply a transform to a 2D point</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code><a href="SF.html#transform%28a00%2C%20a01%2C%20a02%2C%20a10%2C%20a11%2C%20a12%2C%20a20%2C%20a21%2C%20a22%29-instance-method">#transform</a></code>: Transform object</li><li><code>point</code>: Point to transform</li></ul>
-
-<p><em>Returns</em>: Transformed point</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L5200" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="transform_transform_rect%28transform%2C%20rectangle%20%3A%20FloatRect%29-instance-method">
-        
-        def <strong>transform_transform_rect</strong>(transform, rectangle : <a href="SF/FloatRect.html">FloatRect</a>)
-      </div>
-      
-        <div class="doc"><p>Apply a transform to a rectangle</p>
-
-<p>Since SFML doesn't provide support for oriented rectangles,
-the result of this function is always an axis-aligned
-rectangle. Which means that if the transform contains a
-rotation, the bounding rectangle of the transformed rectangle
-is returned.</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code><a href="SF.html#transform%28a00%2C%20a01%2C%20a02%2C%20a10%2C%20a11%2C%20a12%2C%20a20%2C%20a21%2C%20a22%29-instance-method">#transform</a></code>: Transform object</li><li><code>rectangle</code>: Rectangle to transform</li></ul>
-
-<p><em>Returns</em>: Transformed rectangle</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L5223" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="transform_translate%28transform%20%3A%20%3A%3APointer%28Transform%29%2C%20x%2C%20y%29-instance-method">
-        
-        def <strong>transform_translate</strong>(transform : ::Pointer(<a href="SF/Transform.html">Transform</a>), x, y)
-      </div>
-      
-        <div class="doc"><p>Combine a transform with a translation</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code><a href="SF.html#transform%28a00%2C%20a01%2C%20a02%2C%20a10%2C%20a11%2C%20a12%2C%20a20%2C%20a21%2C%20a22%29-instance-method">#transform</a></code>: Transform object</li><li><code>x</code>: Offset to apply on X axis</li><li><code>y</code>: Offset to apply on Y axis</li></ul></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/graphics_obj.cr#L5258" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="video_mode_get_desktop_mode-instance-method">
-        
-        def <strong>video_mode_get_desktop_mode</strong>
-      </div>
-      
-        <div class="doc"><p>Get the current desktop video mode</p>
-
-<p><em>Returns</em>: Current desktop video mode</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/window_obj.cr#L693" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="video_mode_get_fullscreen_modes%28count%20%3A%20%3A%3APointer%28Size_t%29%29-instance-method">
-        
-        def <strong>video_mode_get_fullscreen_modes</strong>(count : ::Pointer(Size_t))
-      </div>
-      
-        <div class="doc"><p>Retrieve all the video modes supported in fullscreen mode</p>
-
-<p>When creating a fullscreen window, the video mode is restricted
-to be compatible with what the graphics driver and monitor
-support. This function returns the complete list of all video
-modes that can be used in fullscreen mode.
-The returned array is sorted from best to worst, so that
-the first element will always give the best mode (higher
-width, height and bits-per-pixel).</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>count</code>: Pointer to a variable that will be filled with the number of modes in the array</li></ul>
-
-<p><em>Returns</em>: Pointer to an array containing all the supported fullscreen modes</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/window_obj.cr#L712" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="video_mode_is_valid%28mode%20%3A%20VideoMode%29-instance-method">
-        
-        def <strong>video_mode_is_valid</strong>(mode : <a href="SF/VideoMode.html">VideoMode</a>)
-      </div>
-      
-        <div class="doc"><p>Tell whether or not a video mode is valid</p>
-
-<p>The validity of video modes is only relevant when using
-fullscreen windows; otherwise any video mode can be used
-with no restriction.</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>mode</code>: Video mode</li></ul>
-
-<p><em>Returns</em>: True if the video mode is valid for fullscreen mode</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/e79799d0cd93e37472a26c7282dabd7c6a2ca02c/src/csfml/window_obj.cr#L727" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/window.cr#L42" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>

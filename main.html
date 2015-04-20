@@ -1,10 +1,62 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <link href="css/style.css" rel="stylesheet" type="text/css" />
-</head>
-<body>
+<h1>CrSFML</h1>
 
-</body>
-</html>
+<h4><a target="_blank" href="http://crystal-lang.org/">Crystal</a> bindings to <a target="_blank" href="http://www.sfml-dev.org/" title="Simple and Fast Multimedia Library">Simple and Fast Multimedia Library</a> (through <a target="_blank" href="http://www.sfml-dev.org/download/csfml/">CSFML</a>).</h4>
+
+<p><strong>See <a target="_blank" href="https://github.com/BlaXpirit/crsfml/tree/966e8ac8cba7a1626b569287d21d8324310c2b6b/#introduction">introduction</a>, <a target="_blank" href="https://github.com/BlaXpirit/crsfml/tree/966e8ac8cba7a1626b569287d21d8324310c2b6b/examples">examples</a>, <a target="_blank" href="http://blaxpirit.github.io/crsfml/">documentation</a>.</strong></p>
+
+<p><em>CrSFML</em> supports CSFML 2.2. It has been tested on Linux 64-bit. It should work on other major systems if Crystal supports them.</p>
+
+<p><a target="_blank" href="http://www.sfml-dev.org/download/csfml/">CSFML</a> 2.2, which requires <a target="_blank" href="http://www.sfml-dev.org/" title="Simple and Fast Multimedia Library">SFML</a> 2.2, must be installed to use it.</p>
+
+<h2><a target="_blank" href="https://github.com/BlaXpirit/crsfml/wiki/Troubleshooting">Troubleshooting</a></h2>
+
+<h2>Introduction</h2>
+
+<p><em>CrSFML</em> allows you to use <a target="_blank" href="http://www.sfml-dev.org/" title="Simple and Fast Multimedia Library">SFML</a>, which is a library made in C++. So most information and <a target="_blank" href="http://www.sfml-dev.org/tutorials/">tutorials</a> for SFML revolve around C++. It is a good idea to get familiar with SFML itself first.</p>
+
+<p>Each SFML module is implemented with 3 source files.</p>
+
+<ul>
+<li><em>lib</em>-files are an auto-generated definition of CSFML API: <code>lib CSFML</code>. These can be used directly, by themselves or in combination
+with wrappers.</li>
+<li><em>obj</em>-files are auto-generated convenient object and function wrappers. These make up the <code>module SF</code>. The main file for each SFML module just imports these and adds some more convenience functionality, like overloaded functions that were dropped in CSFML compared to SFML, and ways to avoid dealing with the remaining exposed pointers.</li>
+</ul>
+
+<p>The API attempts to be similar to SFML's, but some general changes are present:</p>
+
+<ul>
+<li>There is a clear separation between "classes" and "structs". Classes are wrapped, and structs are taken directly from <code>lib</code>s, making them limited, for example, instead of instance methods they have functions in the root of the namespace.</li>
+<li>To construct an object (<code>sf::SomeType x(param)</code>):
+<ul>
+<li><code>x = SF::SomeType.new(param)</code> for classes.</li>
+<li><code>x = SF::some_type(param)</code> for structs.</li>
+<li>Member functions, such as <code>loadFromFile</code>, that are used for initialization, are just overloaded <code>initialize</code>.</li>
+</ul></li>
+<li>Everything is renamed to <code>snake_case</code>.</li>
+<li>Getter, setter functions are changed:
+<ul>
+<li><code>x.getSomeProperty()</code> and <code>x.isSomeProperty()</code> both become <code>x.some_property</code>.</li>
+<li><code>x.setSomeProperty(v)</code> becomes <code>x.some_property = v</code>.</li>
+</ul></li>
+<li>Static public attributes, such as <code>sf::Text::Italic</code> become <code>SF::Text_Italic</code>
+<ul>
+<li>A few <code>enum</code>s are just represented as a list of constants, because they are not really enumerations.</li>
+<li>SFML sometimes uses <code>enum</code> values as bitmasks. You can combine them using the <code>|</code> operator.</li>
+</ul></li>
+<li>Unicode just works.</li>
+<li>Type differences:
+<ul>
+<li><code>unsigned int</code> is mapped as <code>Int32</code>, etc., so you don't have to bother with unsigned types. This shouldn't cause problems, but it might.</li>
+</ul></li>
+<li>Most of the <a target="_blank" href="http://blaxpirit.github.io/crsfml/">documentation</a> is taken directly from CSFML, so don't be surprised if it talks in C/C++ terms.</li>
+</ul>
+
+<p>See <a target="_blank" href="https://github.com/BlaXpirit/crsfml/tree/966e8ac8cba7a1626b569287d21d8324310c2b6b/examples">examples</a> to learn more.</p>
+
+<h2>Acknowledgements</h2>
+
+<p><a target="_blank" href="https://github.com/BlaXpirit/crsfml/tree/966e8ac8cba7a1626b569287d21d8324310c2b6b/LICENSE">License</a>: zlib/libpng</p>
+
+<p>This library uses and is based on <a target="_blank" href="http://www.sfml-dev.org/" title="Simple and Fast Multimedia Library">SFML</a> and <a target="_blank" href="http://www.sfml-dev.org/download/csfml/">CSFML</a>.</p>
+
+<p><a target="_blank" href="http://crystal-lang.org/">Crystal</a> and <a target="_blank" href="http://python.org/">Python</a> programming languages are used.</p>
