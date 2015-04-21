@@ -64,10 +64,6 @@ lib CSFML
   
   type Clock = Void*
   
-  type Mutex = Void*
-  
-  type Thread = Void*
-  
   # Create a new clock and start it
   # 
   # *Returns*: A new Clock object

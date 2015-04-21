@@ -98,9 +98,12 @@ module SF
   # * SoundSource_Paused
   # * SoundSource_Playing
   alias SoundStatus = CSFML::SoundStatus
-    SoundSource_Stopped = CSFML::SoundStatus::Stopped
-    SoundSource_Paused = CSFML::SoundStatus::Paused
-    SoundSource_Playing = CSFML::SoundStatus::Playing
+
+  class SoundSource
+    Stopped = CSFML::SoundStatus::Stopped
+    Paused = CSFML::SoundStatus::Paused
+    Playing = CSFML::SoundStatus::Playing
+  end
 
   class Music
     include Wrapper

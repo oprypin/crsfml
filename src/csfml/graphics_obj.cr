@@ -17,30 +17,35 @@ module SF
   # * BlendMode_DstAlpha
   # * BlendMode_OneMinusDstAlpha
   alias BlendFactor = CSFML::BlendFactor
-    BlendMode_Zero = CSFML::BlendFactor::Zero
-    BlendMode_One = CSFML::BlendFactor::One
-    BlendMode_SrcColor = CSFML::BlendFactor::SrcColor
-    BlendMode_OneMinusSrcColor = CSFML::BlendFactor::OneMinusSrcColor
-    BlendMode_DstColor = CSFML::BlendFactor::DstColor
-    BlendMode_OneMinusDstColor = CSFML::BlendFactor::OneMinusDstColor
-    BlendMode_SrcAlpha = CSFML::BlendFactor::SrcAlpha
-    BlendMode_OneMinusSrcAlpha = CSFML::BlendFactor::OneMinusSrcAlpha
-    BlendMode_DstAlpha = CSFML::BlendFactor::DstAlpha
-    BlendMode_OneMinusDstAlpha = CSFML::BlendFactor::OneMinusDstAlpha
+
+  struct CSFML::BlendMode
+    Zero = CSFML::BlendFactor::Zero
+    One = CSFML::BlendFactor::One
+    SrcColor = CSFML::BlendFactor::SrcColor
+    OneMinusSrcColor = CSFML::BlendFactor::OneMinusSrcColor
+    DstColor = CSFML::BlendFactor::DstColor
+    OneMinusDstColor = CSFML::BlendFactor::OneMinusDstColor
+    SrcAlpha = CSFML::BlendFactor::SrcAlpha
+    OneMinusSrcAlpha = CSFML::BlendFactor::OneMinusSrcAlpha
+    DstAlpha = CSFML::BlendFactor::DstAlpha
+    OneMinusDstAlpha = CSFML::BlendFactor::OneMinusDstAlpha
+    Add = CSFML::BlendEquation::Add
+    Subtract = CSFML::BlendEquation::Subtract
+  end
 
   # Enumeration of the blending equations
   #
   # * BlendMode_Add
   # * BlendMode_Subtract
   alias BlendEquation = CSFML::BlendEquation
-    BlendMode_Add = CSFML::BlendEquation::Add
-    BlendMode_Subtract = CSFML::BlendEquation::Subtract
 
   # Blending mode for drawing
   alias BlendMode = CSFML::BlendMode
 
   # Utility class for manpulating RGBA colors
   alias Color = CSFML::Color
+
+  struct Color
     # Add two colors
     # 
     # *Arguments*:
@@ -49,8 +54,8 @@ module SF
     # * `color2`: Second color
     # 
     # *Returns*: Component-wise saturated addition of the two colors
-    def self.add(color1: Color, color2: Color)
-      CSFML.color_add(color1, color2)
+    def add(color2: Color)
+      CSFML.color_add(self, color2)
     end
     
     # Modulate two colors
@@ -61,12 +66,17 @@ module SF
     # * `color2`: Second color
     # 
     # *Returns*: Component-wise multiplication of the two colors
-    def self.modulate(color1: Color, color2: Color)
-      CSFML.color_modulate(color1, color2)
+    def modulate(color2: Color)
+      CSFML.color_modulate(self, color2)
     end
     
+  end
 
   alias FloatRect = CSFML::FloatRect
+
+  alias IntRect = CSFML::IntRect
+
+  struct FloatRect
     # Check if a point is inside a rectangle's area
     # 
     # *Arguments*:
@@ -76,15 +86,11 @@ module SF
     # * `y`: Y coordinate of the point to test
     # 
     # *Returns*: True if the point is inside
-    def self.contains(rect, x, y)
-      if rect
-        crect = rect; prect = pointerof(crect)
-      else
-        prect = nil
-      end
+    def contains(x, y)
       x = x.to_f32
       y = y.to_f32
-      CSFML.float_rect_contains(prect, x, y) != 0
+      cself = self
+      CSFML.float_rect_contains(pointerof(cself), x, y) != 0
     end
     
     # Check intersection between two rectangles
@@ -96,45 +102,35 @@ module SF
     # * `intersection`: Rectangle to be filled with overlapping rect (can be NULL)
     # 
     # *Returns*: True if rectangles overlap
-    def self.intersects(rect1, rect2, intersection: FloatRect*)
-      if rect1
-        crect1 = rect1; prect1 = pointerof(crect1)
-      else
-        prect1 = nil
-      end
+    def intersects(rect2, intersection: FloatRect*)
       if rect2
         crect2 = rect2; prect2 = pointerof(crect2)
       else
         prect2 = nil
       end
-      CSFML.float_rect_intersects(prect1, prect2, intersection) != 0
+      cself = self
+      CSFML.float_rect_intersects(pointerof(cself), prect2, intersection) != 0
     end
     
+  end
 
-  alias IntRect = CSFML::IntRect
-    def self.contains(rect, x: Int32, y: Int32)
-      if rect
-        crect = rect; prect = pointerof(crect)
-      else
-        prect = nil
-      end
-      CSFML.int_rect_contains(prect, x, y) != 0
+  struct IntRect
+    def contains(x: Int32, y: Int32)
+      cself = self
+      CSFML.int_rect_contains(pointerof(cself), x, y) != 0
     end
     
-    def self.intersects(rect1, rect2, intersection: IntRect*)
-      if rect1
-        crect1 = rect1; prect1 = pointerof(crect1)
-      else
-        prect1 = nil
-      end
+    def intersects(rect2, intersection: IntRect*)
       if rect2
         crect2 = rect2; prect2 = pointerof(crect2)
       else
         prect2 = nil
       end
-      CSFML.int_rect_intersects(prect1, prect2, intersection) != 0
+      cself = self
+      CSFML.int_rect_intersects(pointerof(cself), prect2, intersection) != 0
     end
     
+  end
 
   class CircleShape
     include Wrapper
@@ -3830,6 +3826,11 @@ module SF
   class Text
     include Wrapper
     
+    Regular = CSFML::TextStyle::Regular
+    Bold = CSFML::TextStyle::Bold
+    Italic = CSFML::TextStyle::Italic
+    Underlined = CSFML::TextStyle::Underlined
+    StrikeThrough = CSFML::TextStyle::StrikeThrough
     # Create a new text
     # 
     # *Returns*: A new Text object, or NULL if it failed
@@ -5023,6 +5024,8 @@ module SF
 
   # Encapsulate a 3x3 transform matrix
   alias Transform = CSFML::Transform
+
+  struct Transform
     # Return the 4x4 matrix of a transform
     # 
     # This function fills an array of 16 floats with the transform
@@ -5034,13 +5037,9 @@ module SF
     # 
     # * `transform`: Transform object
     # * `matrix`: Pointer to the 16-element array to fill with the matrix
-    def self.get_matrix(transform, matrix: Float32*)
-      if transform
-        ctransform = transform; ptransform = pointerof(ctransform)
-      else
-        ptransform = nil
-      end
-      CSFML.transform_get_matrix(ptransform, matrix)
+    def get_matrix(matrix: Float32*)
+      cself = self
+      CSFML.transform_get_matrix(pointerof(cself), matrix)
     end
     
     # Return the inverse of a transform
@@ -5052,13 +5051,9 @@ module SF
     # 
     # * `transform`: Transform object
     # *Returns*: The inverse matrix
-    def self.get_inverse(transform)
-      if transform
-        ctransform = transform; ptransform = pointerof(ctransform)
-      else
-        ptransform = nil
-      end
-      CSFML.transform_get_inverse(ptransform)
+    def inverse
+      cself = self
+      CSFML.transform_get_inverse(pointerof(cself))
     end
     
     # Apply a transform to a 2D point
@@ -5069,13 +5064,9 @@ module SF
     # * `point`: Point to transform
     # 
     # *Returns*: Transformed point
-    def self.transform_point(transform, point: Vector2f)
-      if transform
-        ctransform = transform; ptransform = pointerof(ctransform)
-      else
-        ptransform = nil
-      end
-      CSFML.transform_transform_point(ptransform, point)
+    def transform_point(point: Vector2f)
+      cself = self
+      CSFML.transform_transform_point(pointerof(cself), point)
     end
     
     # Apply a transform to a rectangle
@@ -5092,13 +5083,9 @@ module SF
     # * `rectangle`: Rectangle to transform
     # 
     # *Returns*: Transformed rectangle
-    def self.transform_rect(transform, rectangle: FloatRect)
-      if transform
-        ctransform = transform; ptransform = pointerof(ctransform)
-      else
-        ptransform = nil
-      end
-      CSFML.transform_transform_rect(ptransform, rectangle)
+    def transform_rect(rectangle: FloatRect)
+      cself = self
+      CSFML.transform_transform_rect(pointerof(cself), rectangle)
     end
     
     # Combine two transforms
@@ -5111,13 +5098,15 @@ module SF
     # 
     # * `transform`: Transform object
     # * `right`: Transform to combine to `transform`
-    def self.combine(transform: Transform*, other)
+    def combine(other)
       if other
         cother = other; pother = pointerof(cother)
       else
         pother = nil
       end
-      CSFML.transform_combine(transform, pother)
+      cself = self
+      CSFML.transform_combine(pointerof(cself), pother)
+      self.matrix = cself.matrix
     end
     
     # Combine a transform with a translation
@@ -5127,10 +5116,12 @@ module SF
     # * `transform`: Transform object
     # * `x`: Offset to apply on X axis
     # * `y`: Offset to apply on Y axis
-    def self.translate(transform: Transform*, x, y)
+    def translate(x, y)
       x = x.to_f32
       y = y.to_f32
-      CSFML.transform_translate(transform, x, y)
+      cself = self
+      CSFML.transform_translate(pointerof(cself), x, y)
+      self.matrix = cself.matrix
     end
     
     # Combine the current transform with a rotation
@@ -5139,9 +5130,11 @@ module SF
     # 
     # * `transform`: Transform object
     # * `angle`: Rotation angle, in degrees
-    def self.rotate(transform: Transform*, angle)
+    def rotate(angle)
       angle = angle.to_f32
-      CSFML.transform_rotate(transform, angle)
+      cself = self
+      CSFML.transform_rotate(pointerof(cself), angle)
+      self.matrix = cself.matrix
     end
     
     # Combine the current transform with a rotation
@@ -5157,11 +5150,13 @@ module SF
     # * `angle`: Rotation angle, in degrees
     # * `centerX`: X coordinate of the center of rotation
     # * `centerY`: Y coordinate of the center of rotation
-    def self.rotate(transform: Transform*, angle, center_x, center_y)
+    def rotate(angle, center_x, center_y)
       angle = angle.to_f32
       center_x = center_x.to_f32
       center_y = center_y.to_f32
-      CSFML.transform_rotate_with_center(transform, angle, center_x, center_y)
+      cself = self
+      CSFML.transform_rotate_with_center(pointerof(cself), angle, center_x, center_y)
+      self.matrix = cself.matrix
     end
     
     # Combine the current transform with a scaling
@@ -5171,10 +5166,12 @@ module SF
     # * `transform`: Transform object
     # * `scaleX`: Scaling factor on the X axis
     # * `scaleY`: Scaling factor on the Y axis
-    def self.scale(transform: Transform*, scale_x, scale_y)
+    def scale(scale_x, scale_y)
       scale_x = scale_x.to_f32
       scale_y = scale_y.to_f32
-      CSFML.transform_scale(transform, scale_x, scale_y)
+      cself = self
+      CSFML.transform_scale(pointerof(cself), scale_x, scale_y)
+      self.matrix = cself.matrix
     end
     
     # Combine the current transform with a scaling
@@ -5191,14 +5188,17 @@ module SF
     # * `scaleY`: Scaling factor on Y axis
     # * `centerX`: X coordinate of the center of scaling
     # * `centerY`: Y coordinate of the center of scaling
-    def self.scale(transform: Transform*, scale_x, scale_y, center_x, center_y)
+    def scale(scale_x, scale_y, center_x, center_y)
       scale_x = scale_x.to_f32
       scale_y = scale_y.to_f32
       center_x = center_x.to_f32
       center_y = center_y.to_f32
-      CSFML.transform_scale_with_center(transform, scale_x, scale_y, center_x, center_y)
+      cself = self
+      CSFML.transform_scale_with_center(pointerof(cself), scale_x, scale_y, center_x, center_y)
+      self.matrix = cself.matrix
     end
     
+  end
 
   alias FontInfo = CSFML::FontInfo
 
@@ -5219,13 +5219,6 @@ module SF
   # * TrianglesFan
   # * Quads
   alias PrimitiveType = CSFML::PrimitiveType
-    Points = CSFML::PrimitiveType::Points
-    Lines = CSFML::PrimitiveType::Lines
-    LinesStrip = CSFML::PrimitiveType::LinesStrip
-    Triangles = CSFML::PrimitiveType::Triangles
-    TrianglesStrip = CSFML::PrimitiveType::TrianglesStrip
-    TrianglesFan = CSFML::PrimitiveType::TrianglesFan
-    Quads = CSFML::PrimitiveType::Quads
 
   # Define the states used for drawing to a RenderTarget
   alias RenderStates = CSFML::RenderStates
@@ -5286,11 +5279,6 @@ module SF
   # * Text_Underlined
   # * Text_StrikeThrough
   alias TextStyle = CSFML::TextStyle
-    Text_Regular = CSFML::TextStyle::Regular
-    Text_Bold = CSFML::TextStyle::Bold
-    Text_Italic = CSFML::TextStyle::Italic
-    Text_Underlined = CSFML::TextStyle::Underlined
-    Text_StrikeThrough = CSFML::TextStyle::StrikeThrough
 
   # Construct a color from its 3 RGB components
   # 
@@ -5347,4 +5335,11 @@ module SF
     CSFML.transform_from_matrix(a00, a01, a02, a10, a11, a12, a20, a21, a22)
   end
   
+  Points = CSFML::PrimitiveType::Points
+  Lines = CSFML::PrimitiveType::Lines
+  LinesStrip = CSFML::PrimitiveType::LinesStrip
+  Triangles = CSFML::PrimitiveType::Triangles
+  TrianglesStrip = CSFML::PrimitiveType::TrianglesStrip
+  TrianglesFan = CSFML::PrimitiveType::TrianglesFan
+  Quads = CSFML::PrimitiveType::Quads
 end

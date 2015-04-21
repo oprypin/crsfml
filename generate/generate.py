@@ -134,23 +134,28 @@ def handle_enum(name, items):
     ), 78, initial_indent='  ', subsequent_indent='  ')))
     lib('end')
     
-    if d: obj(nname, d, '#')
+    if d: obj(nname+'ALIAS', d, '#')
     for name, value in nitems:
         cls = enum_relations[nname]
         if cls: cls += '_'
-        obj(nname, '# * {cls}{name}'.format(**locals()))
-    obj(nname, 'alias {0} = CSFML::{0}'.format(nname))
+        obj(nname+'ALIAS', '# * {cls}{name}'.format(**locals()))
+    obj(nname+'ALIAS', 'alias {0} = CSFML::{0}'.format(nname))
     for name, value in nitems:
-        cls = enum_relations[nname]
-        if cls: cls += '_'
+        orcls = cls = enum_relations[nname]
+        if cls and cls in structs:
+            cls = 'CSFML::'+cls
+        if cls and cls not in objs[cmodule]:
+            obj(cls, ('struct' if orcls in structs else 'class')+' '+cls)
         sub = subname(name)
         suffix = '.value' if name.endswith('Count') else ''
-        obj(nname, '{cls}{name} = CSFML::{nname}::{sub}{suffix}'.format(**locals()))
+        obj(cls, '{name} = CSFML::{nname}::{sub}{suffix}'.format(**locals()))
 
+structs = {'Event': None, 'BlendMode': None}
 def handle_struct(name, items):
     if name=='sfVector2u':
         return
     name = rename_type(name)
+    structs[name] = [rename_identifier(n) for t, n in items]
     d = get_doc()
     if d: lib(d)
     lib('struct {}'.format(name))
@@ -162,11 +167,12 @@ def handle_struct(name, items):
         lib('  {}: {}'.format(rename_identifier(n), t))
     lib('end')
     
-    if d: obj(name, d)
-    obj(name, 'alias {0} = CSFML::{0}'.format(name))
+    if d: obj(name+'ALIAS', d)
+    obj(name+'ALIAS', 'alias {0} = CSFML::{0}'.format(name))
 
 def handle_union(name, items):
     name = rename_type(name)
+    structs[name] = None
     d = get_doc()
     if d: lib(d)
     lib('union {}'.format(name))
@@ -176,8 +182,8 @@ def handle_union(name, items):
         lib('  {}: {}'.format(rename_identifier(n), t))
     lib('end')
 
-    if d: obj(name, d)
-    obj(name, 'alias {0} = CSFML::{0}'.format(name))
+    if d: obj(name+'ALIAS', d)
+    obj(name+'ALIAS', 'alias {0} = CSFML::{0}'.format(name))
 
 
 classes = set()
@@ -195,6 +201,7 @@ def handle_class(name):
 
 def handle_function(main, params):
     public = True
+    orparams = params
     ftype, ofname = main
     nfname = rename_sf(ofname)
     fname = rename_identifier(rename_sf(ofname))
@@ -208,14 +215,14 @@ def handle_function(main, params):
     if 'initialize' in nfname:
         cls = rename_type(ftype)
         nfname = 'initialize'
-    elif ofname.startswith(p1+'_', 2) and p1 in classes:
-        nfname = nfname[len(p1)+1:]
-        cls = p1
+    elif ofname.startswith(p1.rstrip('*')+'_', 2):
+        nfname = nfname[len(p1.rstrip('*'))+1:]
+        cls = p1.rstrip('*')
     elif '_' in nfname:
         nfname = 'self.'+nfname.split('_', 1)[1]
         cls = ofname.split('_')[0][2:]
-        if cls not in objs[cmodule]:
-            obj(cls, "class "+cls)
+    if cls and cls not in objs[cmodule]:
+        obj(cls, ('struct' if cls in structs else 'class')+' '+cls)
 
     nfname = rename_identifier(nfname)
     nftype = rename_type(ftype)
@@ -262,7 +269,7 @@ def handle_function(main, params):
             if not nfname.rstrip('=').endswith('_c'):
                 nfname = nfname.rstrip('=') + '_c' + '='*nfname.count('=')
                 public = False
-        elif ptype.startswith('const'):
+        elif ptype.startswith('const '):
             if ptype.endswith('*') and ' sf' in ptype:
                 const.append(rname)
         rrtype = rtype
@@ -278,7 +285,7 @@ def handle_function(main, params):
     if not public:
         return
     
-    if nfname == 'initialize' or (aparams and (aparams[0][1] not in classes or not ofname.startswith(aparams[0][1], 2))):
+    if nfname == 'initialize' or (aparams and (not ofname.startswith(aparams[0][1].rstrip('*'), 2))):
         cut = False
         oparams = aparams[:]
     else:
@@ -316,7 +323,9 @@ def handle_function(main, params):
     for line in conv:
         obj(cls, '  '+line)
     if aparams:
-        lparams = ', '.join(([] if not cut else ['@this']) + [n for n, t in oparams])
+        lparams = ', '.join(([] if not cut else ['@this' if cls in classes else ('pointerof(cself)' if p1.endswith('*') else 'self')]) + [n for n, t in oparams])
+        if cls not in classes and p1.endswith('*'):
+            obj(cls, '  cself = self')
     else:
         lparams = ''
     call = 'CSFML.{fname}({lparams})'.format(**locals())
@@ -342,6 +351,9 @@ def handle_function(main, params):
         obj(cls, '  {} != 0'.format(call))
     else:
         obj(cls, '  '+call)
+    if cut and cls in structs and orparams and not orparams[0][0].startswith('const') and '*' in orparams[0][0]:
+        for p in structs[cls]:
+            obj(cls, '  self.{0} = cself.{0}'.format(p))
     obj(cls, 'end', '')
 
 

@@ -6,6 +6,8 @@ module SF
 
   # Represents a time value
   alias Time = CSFML::Time
+
+  struct Time
     # Return a time value as a number of seconds
     # 
     # *Arguments*:
@@ -13,8 +15,8 @@ module SF
     # * `time`: Time value
     # 
     # *Returns*: Time in seconds
-    def self.as_seconds(time: Time)
-      CSFML.time_as_seconds(time)
+    def as_seconds()
+      CSFML.time_as_seconds(self)
     end
     
     # Return a time value as a number of milliseconds
@@ -24,8 +26,8 @@ module SF
     # * `time`: Time value
     # 
     # *Returns*: Time in milliseconds
-    def self.as_milliseconds(time: Time)
-      CSFML.time_as_milliseconds(time)
+    def as_milliseconds()
+      CSFML.time_as_milliseconds(self)
     end
     
     # Return a time value as a number of microseconds
@@ -35,10 +37,11 @@ module SF
     # * `time`: Time value
     # 
     # *Returns*: Time in microseconds
-    def self.as_microseconds(time: Time)
-      CSFML.time_as_microseconds(time)
+    def as_microseconds()
+      CSFML.time_as_microseconds(self)
     end
     
+  end
 
   class Clock
     include Wrapper
@@ -100,16 +103,6 @@ module SF
     def restart()
       CSFML.clock_restart(@this)
     end
-    
-  end
-
-  class Mutex
-    include Wrapper
-    
-  end
-
-  class Thread
-    include Wrapper
     
   end
 

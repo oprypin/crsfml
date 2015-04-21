@@ -15,7 +15,7 @@ $window.framerate_limit = 30
 def display_fullscreen_modes()
   text = SF::Text.new("Fullscreen modes:", $font, 20)
 
-  SF.fullscreen_modes
+  SF::VideoMode.fullscreen_modes
   .group_by { |mode| {mode.width, mode.height} }
   .each do |wh, devices|
     bpps = devices.map { |device| device.bits_per_pixel } .join('/')
@@ -47,10 +47,10 @@ def test_mouse()
   while true
     while event = $window.poll_event()
       case event.type
-      when SF::Event_Closed
+      when SF::Event::Closed
         $window.mouse_cursor_visible = true
         return
-      when SF::Event_MouseWheelMoved
+      when SF::Event::MouseWheelMoved
         wheel_delta += event.mouse_wheel.delta
       end
     end
@@ -71,11 +71,11 @@ def test_mouse()
     shape.fill_color = SF.color(255, 128, 0)
     
     buttons = {
-      SF::Mouse_Left => {-0.7, -0.7}
-      SF::Mouse_Right => {0.7, -0.7}
-      SF::Mouse_Middle => {0, -1}
-      SF::Mouse_XButton1 => {-1, 0}
-      SF::Mouse_XButton2 => {1, 0}
+      SF::Mouse::Left => {-0.7, -0.7}
+      SF::Mouse::Right => {0.7, -0.7}
+      SF::Mouse::Middle => {0, -1}
+      SF::Mouse::XButton1 => {-1, 0}
+      SF::Mouse::XButton2 => {1, 0}
     }
     buttons.each do |btn, delta|
       if SF::Mouse.is_button_pressed(btn)
@@ -98,14 +98,14 @@ def test_mouse()
 end
 
 def test_controller()
-  unless js = (0...SF::Joystick_Count).find { |js| SF::Joystick.is_connected(js) }
+  unless js = (0...SF::Joystick::Count).find { |js| SF::Joystick.is_connected(js) }
     return
   end
   
   while true
     while event = $window.poll_event()
       case event.type
-      when SF::Event_Closed
+      when SF::Event::Closed
         return
       end
     end
@@ -183,7 +183,7 @@ end
 
 def wait()
   while event = $window.wait_event()
-    break if [SF::Event_KeyPressed, SF::Event_MouseButtonPressed, SF::Event_JoystickButtonPressed, SF::Event_Closed].includes? event.type
+    break if [SF::Event::KeyPressed, SF::Event::MouseButtonPressed, SF::Event::JoystickButtonPressed, SF::Event::Closed].includes? event.type
   end
 end
 
@@ -199,9 +199,7 @@ class Button < SF::RectangleShape
   end
   
   def draw(target, states: RenderStates)
-    new_trans = states.transform
-    SF.combine(pointerof(new_trans), transform)
-    states.transform = new_trans
+    states.transform.combine(transform)
     
     super(target, states)
     target.draw(@text, states)
@@ -227,11 +225,11 @@ end
 while $window.open
   while event = $window.poll_event()
     case event.type
-    when SF::Event_Closed
+    when SF::Event::Closed
       $window.close()
-    when SF::Event_MouseButtonPressed
+    when SF::Event::MouseButtonPressed
       actions.each_key do |btn|
-        if SF.contains(btn.global_bounds, event.mouse_button.x.to_f - btn.position.x, event.mouse_button.y.to_f - btn.position.y)
+        if btn.global_bounds.contains(event.mouse_button.x.to_f - btn.position.x, event.mouse_button.y.to_f - btn.position.y)
           actions[btn].call
           break
         end

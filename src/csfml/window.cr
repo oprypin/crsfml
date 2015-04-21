@@ -36,9 +36,11 @@ module SF
     end
   end
   
-  Joystick_Count = CSFML::JoystickCount
-  Joystick_ButtonCount = CSFML::JoystickButtonCount
-  Joystick_AxisCount = CSFML::JoystickAxisCount
+  class Joystick
+    Count = CSFML::JoystickCount
+    ButtonCount = CSFML::JoystickButtonCount
+    AxisCount = CSFML::JoystickAxisCount
+  end
   
   def video_mode()
     VideoMode.new()
@@ -48,13 +50,15 @@ module SF
     VideoMode.new(width: mode_width, height: mode_height, bits_per_pixel: bits_per_pixel)
   end
   
-  def self.fullscreen_modes
-    ptr = CSFML.video_mode_get_fullscreen_modes(out count)
-    result = [] of VideoMode
-    (0...count).each do |i|
-      result.push ptr[i]
+  struct CSFML::VideoMode
+    def self.fullscreen_modes
+      ptr = CSFML.video_mode_get_fullscreen_modes(out count)
+      result = [] of VideoMode
+      (0...count).each do |i|
+        result.push ptr[i]
+      end
+      result
     end
-    result
   end
   
   class Window

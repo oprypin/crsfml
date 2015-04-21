@@ -19,10 +19,10 @@ speed = 0.0
 while window.open
   while event = window.poll_event()
     case event.type
-    when SF::Event_Closed
+    when SF::Event::Closed
       window.close()
-    when SF::Event_KeyPressed
-      if event.key.code == SF::Keyboard_Escape
+    when SF::Event::KeyPressed
+      if event.key.code == SF::Keyboard::Escape
         window.close()
       else
         speed = -9.0

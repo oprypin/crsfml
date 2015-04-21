@@ -38,7 +38,7 @@ else
   sound = SF::Sound.new(buffer)
   sound.play()
 
-  while sound.status == SF::SoundSource_Playing
+  while sound.status == SF::SoundSource::Playing
     puts "Playing... #{sound.playing_offset.as_seconds} sec"
     SF.sleep SF.milliseconds(100)
   end

@@ -26,16 +26,17 @@ module SF
   def color(red, green, blue, alpha=255)
     Color.new(r: red.to_u8, g: green.to_u8, b: blue.to_u8, a: alpha.to_u8)
   end
-  
-  Color_Black = color(0, 0, 0)
-  Color_White = color(255, 255, 255)
-  Color_Red = color(255, 0, 0)
-  Color_Green = color(0, 255, 0)
-  Color_Blue = color(0, 0, 255)
-  Color_Yellow = color(255, 255, 0)
-  Color_Magenta = color(255, 0, 255)
-  Color_Cyan = color(0, 255, 255)
-  Color_Transparent = color(0, 0, 0, 0)
+  struct CSFML::Color
+    Black = SF.color(0, 0, 0)
+    White = SF.color(255, 255, 255)
+    Red = SF.color(255, 0, 0)
+    Green = SF.color(0, 255, 0)
+    Blue = SF.color(0, 0, 255)
+    Yellow = SF.color(255, 255, 0)
+    Magenta = SF.color(255, 0, 255)
+    Cyan = SF.color(0, 255, 255)
+    Transparent = SF.color(0, 0, 0, 0)
+  end
   
   def float_rect(left, top, width, height)
     FloatRect.new(left: left.to_f32, top: top.to_f32, width: width.to_f32, height: height.to_f32)
@@ -44,19 +45,27 @@ module SF
     IntRect.new(left: left.to_i32, top: top.to_i32, width: width.to_i32, height: height.to_i32)
   end
 
-  def self.intersects(rect1: FloatRect, rect2: FloatRect)
-    intersection = FloatRect.new()
-    float_rect_intersects(rect1, rect2, pointerof(intersection)) ? intersection : nil
+  struct CSFML::FloatRect
+    def intersects(other: self)
+      intersection = FloatRect.new()
+      float_rect_intersects(@self, other, pointerof(intersection)) ? intersection : nil
+    end
   end
-  def self.intersects(rect1: IntRect, rect2: IntRect)
-    intersection = IntRect.new()
-    int_rect_intersects(rect1, rect2, pointerof(intersection)) ? intersection : nil
+  
+  struct CSFML::IntRect
+    def intersects(other: self)
+      intersection = IntRect.new()
+      int_rect_intersects(@self, other, pointerof(intersection)) ? intersection : nil
+    end
   end
+    
   
   def transform()
     transform(1.0, 0.0, 0.0,  0.0, 1.0, 0.0,  0.0, 0.0, 1.0)
   end
-  Transform_Identity = transform()
+  struct CSFML::Transform
+    Identity = SF.transform()
+  end
   
   def self.get_matrix(transform: Transform)
     CSFML.transform_get_matrix(pointerof(transform), out result)
@@ -96,7 +105,7 @@ module SF
     BlendAlpha
   end
   
-  def render_states(blend_mode=BlendAlpha, transform=Transform_Identity, texture=nil, shader=nil)
+  def render_states(blend_mode=BlendAlpha, transform=Transform::Identity, texture=nil, shader=nil)
     result = RenderStates.new()
     result.blend_mode = blend_mode
     result.transform = transform
@@ -187,7 +196,7 @@ module SF
     end
   end
   
-  def vertex(position=SF.vector2f(0, 0), color=Color_White, tex_coords=SF.vector2f(0, 0))
+  def vertex(position=SF.vector2f(0, 0), color=Color::White, tex_coords=SF.vector2f(0, 0))
     Vertex.new(position: position, color: color, tex_coords: tex_coords)
   end
   
@@ -236,7 +245,7 @@ module SF
     end
     
     def clear()
-      clear(Color_Black)
+      clear(Color::Black)
     end
   end
 end

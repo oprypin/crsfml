@@ -25,7 +25,7 @@ import re
 
 inc_path = 'CSFML/include'
 
-skip = 'Thread Mutex'.split()
+skip = 'Thread Mutex WindowHandle'.split()
 
 
 src = ['''
@@ -75,7 +75,7 @@ def visit_header(file_path):
                 continue
             if '__int64' in line or 'HWND__' in line:
                 continue
-            if line.startswith('typedef') and line.rstrip(';').endswith('sfWindowHandle'):
+            if line.startswith('typedef') and line.rstrip(';').endswith(tuple(skip)):
                 continue
             if '_API' in line:
                 line = re.sub(r'CSFML_[A-Z]+_API ?', '', line)

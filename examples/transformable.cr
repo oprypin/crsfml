@@ -17,9 +17,7 @@ class Logo
   end
   
   def draw(target, states: RenderStates)
-    new_trans = states.transform
-    SF.combine(pointerof(new_trans), transform)
-    states.transform = new_trans
+    states.transform.combine(transform)
     target.draw(@shape, states)
     target.draw(@text, states)
   end
@@ -38,12 +36,12 @@ clock = SF::Clock.new()
 while window.open
   while event = window.poll_event()
     case event.type
-    when SF::Event_Closed
+    when SF::Event::Closed
       window.close()
     end
   end
   
-  t = SF.as_seconds(clock.elapsed_time)
+  t = clock.elapsed_time.as_seconds
   
   logo.rotation = t*50
   logo.scale = SF.vector2f(Math.sin(t), Math.cos(t))

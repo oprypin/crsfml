@@ -35,9 +35,7 @@ The API attempts to be similar to SFML's, but some general changes are present:
 - Getter, setter functions are changed:
     - `x.getSomeProperty()` and `x.isSomeProperty()` both become `x.some_property`.
     - `x.setSomeProperty(v)` becomes `x.some_property = v`.
-- Static public attributes, such as `sf::Text::Italic` become `SF::Text_Italic`
-    - A few `enum`s are just represented as a list of constants, because they are not really enumerations.
-    - SFML sometimes uses `enum` values as bitmasks. You can combine them using the `|` operator.
+- SFML sometimes uses `enum` values as bitmasks. You can combine them using the `|` operator.
 - Unicode just works.
 - Type differences:
     - `unsigned int` is mapped as `Int32`, etc., so you don't have to bother with unsigned types. This shouldn't cause problems, but it might.

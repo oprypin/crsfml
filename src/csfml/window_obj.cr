@@ -445,16 +445,16 @@ module SF
   # * Joystick_PovX
   # * Joystick_PovY
   alias JoystickAxis = CSFML::JoystickAxis
-    Joystick_X = CSFML::JoystickAxis::X
-    Joystick_Y = CSFML::JoystickAxis::Y
-    Joystick_Z = CSFML::JoystickAxis::Z
-    Joystick_R = CSFML::JoystickAxis::R
-    Joystick_U = CSFML::JoystickAxis::U
-    Joystick_V = CSFML::JoystickAxis::V
-    Joystick_PovX = CSFML::JoystickAxis::PovX
-    Joystick_PovY = CSFML::JoystickAxis::PovY
 
   class Joystick
+    X = CSFML::JoystickAxis::X
+    Y = CSFML::JoystickAxis::Y
+    Z = CSFML::JoystickAxis::Z
+    R = CSFML::JoystickAxis::R
+    U = CSFML::JoystickAxis::U
+    V = CSFML::JoystickAxis::V
+    PovX = CSFML::JoystickAxis::PovX
+    PovY = CSFML::JoystickAxis::PovY
     # Check if a joystick is connected
     # 
     # *Arguments*:
@@ -653,111 +653,111 @@ module SF
   # * Keyboard_Pause
   # * Keyboard_Count
   alias KeyCode = CSFML::KeyCode
-    Keyboard_Unknown = CSFML::KeyCode::Unknown
-    Keyboard_A = CSFML::KeyCode::A
-    Keyboard_B = CSFML::KeyCode::B
-    Keyboard_C = CSFML::KeyCode::C
-    Keyboard_D = CSFML::KeyCode::D
-    Keyboard_E = CSFML::KeyCode::E
-    Keyboard_F = CSFML::KeyCode::F
-    Keyboard_G = CSFML::KeyCode::G
-    Keyboard_H = CSFML::KeyCode::H
-    Keyboard_I = CSFML::KeyCode::I
-    Keyboard_J = CSFML::KeyCode::J
-    Keyboard_K = CSFML::KeyCode::K
-    Keyboard_L = CSFML::KeyCode::L
-    Keyboard_M = CSFML::KeyCode::M
-    Keyboard_N = CSFML::KeyCode::N
-    Keyboard_O = CSFML::KeyCode::O
-    Keyboard_P = CSFML::KeyCode::P
-    Keyboard_Q = CSFML::KeyCode::Q
-    Keyboard_R = CSFML::KeyCode::R
-    Keyboard_S = CSFML::KeyCode::S
-    Keyboard_T = CSFML::KeyCode::T
-    Keyboard_U = CSFML::KeyCode::U
-    Keyboard_V = CSFML::KeyCode::V
-    Keyboard_W = CSFML::KeyCode::W
-    Keyboard_X = CSFML::KeyCode::X
-    Keyboard_Y = CSFML::KeyCode::Y
-    Keyboard_Z = CSFML::KeyCode::Z
-    Keyboard_Num0 = CSFML::KeyCode::Num0
-    Keyboard_Num1 = CSFML::KeyCode::Num1
-    Keyboard_Num2 = CSFML::KeyCode::Num2
-    Keyboard_Num3 = CSFML::KeyCode::Num3
-    Keyboard_Num4 = CSFML::KeyCode::Num4
-    Keyboard_Num5 = CSFML::KeyCode::Num5
-    Keyboard_Num6 = CSFML::KeyCode::Num6
-    Keyboard_Num7 = CSFML::KeyCode::Num7
-    Keyboard_Num8 = CSFML::KeyCode::Num8
-    Keyboard_Num9 = CSFML::KeyCode::Num9
-    Keyboard_Escape = CSFML::KeyCode::Escape
-    Keyboard_LControl = CSFML::KeyCode::LControl
-    Keyboard_LShift = CSFML::KeyCode::LShift
-    Keyboard_LAlt = CSFML::KeyCode::LAlt
-    Keyboard_LSystem = CSFML::KeyCode::LSystem
-    Keyboard_RControl = CSFML::KeyCode::RControl
-    Keyboard_RShift = CSFML::KeyCode::RShift
-    Keyboard_RAlt = CSFML::KeyCode::RAlt
-    Keyboard_RSystem = CSFML::KeyCode::RSystem
-    Keyboard_Menu = CSFML::KeyCode::Menu
-    Keyboard_LBracket = CSFML::KeyCode::LBracket
-    Keyboard_RBracket = CSFML::KeyCode::RBracket
-    Keyboard_SemiColon = CSFML::KeyCode::SemiColon
-    Keyboard_Comma = CSFML::KeyCode::Comma
-    Keyboard_Period = CSFML::KeyCode::Period
-    Keyboard_Quote = CSFML::KeyCode::Quote
-    Keyboard_Slash = CSFML::KeyCode::Slash
-    Keyboard_BackSlash = CSFML::KeyCode::BackSlash
-    Keyboard_Tilde = CSFML::KeyCode::Tilde
-    Keyboard_Equal = CSFML::KeyCode::Equal
-    Keyboard_Dash = CSFML::KeyCode::Dash
-    Keyboard_Space = CSFML::KeyCode::Space
-    Keyboard_Return = CSFML::KeyCode::Return
-    Keyboard_Back = CSFML::KeyCode::Back
-    Keyboard_Tab = CSFML::KeyCode::Tab
-    Keyboard_PageUp = CSFML::KeyCode::PageUp
-    Keyboard_PageDown = CSFML::KeyCode::PageDown
-    Keyboard_End = CSFML::KeyCode::End
-    Keyboard_Home = CSFML::KeyCode::Home
-    Keyboard_Insert = CSFML::KeyCode::Insert
-    Keyboard_Delete = CSFML::KeyCode::Delete
-    Keyboard_Add = CSFML::KeyCode::Add
-    Keyboard_Subtract = CSFML::KeyCode::Subtract
-    Keyboard_Multiply = CSFML::KeyCode::Multiply
-    Keyboard_Divide = CSFML::KeyCode::Divide
-    Keyboard_Left = CSFML::KeyCode::Left
-    Keyboard_Right = CSFML::KeyCode::Right
-    Keyboard_Up = CSFML::KeyCode::Up
-    Keyboard_Down = CSFML::KeyCode::Down
-    Keyboard_Numpad0 = CSFML::KeyCode::Numpad0
-    Keyboard_Numpad1 = CSFML::KeyCode::Numpad1
-    Keyboard_Numpad2 = CSFML::KeyCode::Numpad2
-    Keyboard_Numpad3 = CSFML::KeyCode::Numpad3
-    Keyboard_Numpad4 = CSFML::KeyCode::Numpad4
-    Keyboard_Numpad5 = CSFML::KeyCode::Numpad5
-    Keyboard_Numpad6 = CSFML::KeyCode::Numpad6
-    Keyboard_Numpad7 = CSFML::KeyCode::Numpad7
-    Keyboard_Numpad8 = CSFML::KeyCode::Numpad8
-    Keyboard_Numpad9 = CSFML::KeyCode::Numpad9
-    Keyboard_F1 = CSFML::KeyCode::F1
-    Keyboard_F2 = CSFML::KeyCode::F2
-    Keyboard_F3 = CSFML::KeyCode::F3
-    Keyboard_F4 = CSFML::KeyCode::F4
-    Keyboard_F5 = CSFML::KeyCode::F5
-    Keyboard_F6 = CSFML::KeyCode::F6
-    Keyboard_F7 = CSFML::KeyCode::F7
-    Keyboard_F8 = CSFML::KeyCode::F8
-    Keyboard_F9 = CSFML::KeyCode::F9
-    Keyboard_F10 = CSFML::KeyCode::F10
-    Keyboard_F11 = CSFML::KeyCode::F11
-    Keyboard_F12 = CSFML::KeyCode::F12
-    Keyboard_F13 = CSFML::KeyCode::F13
-    Keyboard_F14 = CSFML::KeyCode::F14
-    Keyboard_F15 = CSFML::KeyCode::F15
-    Keyboard_Pause = CSFML::KeyCode::Pause
-    Keyboard_Count = CSFML::KeyCode::Count.value
 
   class Keyboard
+    Unknown = CSFML::KeyCode::Unknown
+    A = CSFML::KeyCode::A
+    B = CSFML::KeyCode::B
+    C = CSFML::KeyCode::C
+    D = CSFML::KeyCode::D
+    E = CSFML::KeyCode::E
+    F = CSFML::KeyCode::F
+    G = CSFML::KeyCode::G
+    H = CSFML::KeyCode::H
+    I = CSFML::KeyCode::I
+    J = CSFML::KeyCode::J
+    K = CSFML::KeyCode::K
+    L = CSFML::KeyCode::L
+    M = CSFML::KeyCode::M
+    N = CSFML::KeyCode::N
+    O = CSFML::KeyCode::O
+    P = CSFML::KeyCode::P
+    Q = CSFML::KeyCode::Q
+    R = CSFML::KeyCode::R
+    S = CSFML::KeyCode::S
+    T = CSFML::KeyCode::T
+    U = CSFML::KeyCode::U
+    V = CSFML::KeyCode::V
+    W = CSFML::KeyCode::W
+    X = CSFML::KeyCode::X
+    Y = CSFML::KeyCode::Y
+    Z = CSFML::KeyCode::Z
+    Num0 = CSFML::KeyCode::Num0
+    Num1 = CSFML::KeyCode::Num1
+    Num2 = CSFML::KeyCode::Num2
+    Num3 = CSFML::KeyCode::Num3
+    Num4 = CSFML::KeyCode::Num4
+    Num5 = CSFML::KeyCode::Num5
+    Num6 = CSFML::KeyCode::Num6
+    Num7 = CSFML::KeyCode::Num7
+    Num8 = CSFML::KeyCode::Num8
+    Num9 = CSFML::KeyCode::Num9
+    Escape = CSFML::KeyCode::Escape
+    LControl = CSFML::KeyCode::LControl
+    LShift = CSFML::KeyCode::LShift
+    LAlt = CSFML::KeyCode::LAlt
+    LSystem = CSFML::KeyCode::LSystem
+    RControl = CSFML::KeyCode::RControl
+    RShift = CSFML::KeyCode::RShift
+    RAlt = CSFML::KeyCode::RAlt
+    RSystem = CSFML::KeyCode::RSystem
+    Menu = CSFML::KeyCode::Menu
+    LBracket = CSFML::KeyCode::LBracket
+    RBracket = CSFML::KeyCode::RBracket
+    SemiColon = CSFML::KeyCode::SemiColon
+    Comma = CSFML::KeyCode::Comma
+    Period = CSFML::KeyCode::Period
+    Quote = CSFML::KeyCode::Quote
+    Slash = CSFML::KeyCode::Slash
+    BackSlash = CSFML::KeyCode::BackSlash
+    Tilde = CSFML::KeyCode::Tilde
+    Equal = CSFML::KeyCode::Equal
+    Dash = CSFML::KeyCode::Dash
+    Space = CSFML::KeyCode::Space
+    Return = CSFML::KeyCode::Return
+    Back = CSFML::KeyCode::Back
+    Tab = CSFML::KeyCode::Tab
+    PageUp = CSFML::KeyCode::PageUp
+    PageDown = CSFML::KeyCode::PageDown
+    End = CSFML::KeyCode::End
+    Home = CSFML::KeyCode::Home
+    Insert = CSFML::KeyCode::Insert
+    Delete = CSFML::KeyCode::Delete
+    Add = CSFML::KeyCode::Add
+    Subtract = CSFML::KeyCode::Subtract
+    Multiply = CSFML::KeyCode::Multiply
+    Divide = CSFML::KeyCode::Divide
+    Left = CSFML::KeyCode::Left
+    Right = CSFML::KeyCode::Right
+    Up = CSFML::KeyCode::Up
+    Down = CSFML::KeyCode::Down
+    Numpad0 = CSFML::KeyCode::Numpad0
+    Numpad1 = CSFML::KeyCode::Numpad1
+    Numpad2 = CSFML::KeyCode::Numpad2
+    Numpad3 = CSFML::KeyCode::Numpad3
+    Numpad4 = CSFML::KeyCode::Numpad4
+    Numpad5 = CSFML::KeyCode::Numpad5
+    Numpad6 = CSFML::KeyCode::Numpad6
+    Numpad7 = CSFML::KeyCode::Numpad7
+    Numpad8 = CSFML::KeyCode::Numpad8
+    Numpad9 = CSFML::KeyCode::Numpad9
+    F1 = CSFML::KeyCode::F1
+    F2 = CSFML::KeyCode::F2
+    F3 = CSFML::KeyCode::F3
+    F4 = CSFML::KeyCode::F4
+    F5 = CSFML::KeyCode::F5
+    F6 = CSFML::KeyCode::F6
+    F7 = CSFML::KeyCode::F7
+    F8 = CSFML::KeyCode::F8
+    F9 = CSFML::KeyCode::F9
+    F10 = CSFML::KeyCode::F10
+    F11 = CSFML::KeyCode::F11
+    F12 = CSFML::KeyCode::F12
+    F13 = CSFML::KeyCode::F13
+    F14 = CSFML::KeyCode::F14
+    F15 = CSFML::KeyCode::F15
+    Pause = CSFML::KeyCode::Pause
+    Count = CSFML::KeyCode::Count.value
     # Check if a key is pressed
     # 
     # *Arguments*:
@@ -780,14 +780,14 @@ module SF
   # * Mouse_XButton2
   # * Mouse_ButtonCount
   alias MouseButton = CSFML::MouseButton
-    Mouse_Left = CSFML::MouseButton::Left
-    Mouse_Right = CSFML::MouseButton::Right
-    Mouse_Middle = CSFML::MouseButton::Middle
-    Mouse_XButton1 = CSFML::MouseButton::XButton1
-    Mouse_XButton2 = CSFML::MouseButton::XButton2
-    Mouse_ButtonCount = CSFML::MouseButton::Count.value
 
   class Mouse
+    Left = CSFML::MouseButton::Left
+    Right = CSFML::MouseButton::Right
+    Middle = CSFML::MouseButton::Middle
+    XButton1 = CSFML::MouseButton::XButton1
+    XButton2 = CSFML::MouseButton::XButton2
+    ButtonCount = CSFML::MouseButton::Count.value
     # Check if a mouse button is pressed
     # 
     # *Arguments*:
@@ -838,15 +838,15 @@ module SF
   # * Sensor_Orientation
   # * Sensor_Count
   alias SensorType = CSFML::SensorType
-    Sensor_Accelerometer = CSFML::SensorType::Accelerometer
-    Sensor_Gyroscope = CSFML::SensorType::Gyroscope
-    Sensor_Magnetometer = CSFML::SensorType::Magnetometer
-    Sensor_Gravity = CSFML::SensorType::Gravity
-    Sensor_UserAcceleration = CSFML::SensorType::UserAcceleration
-    Sensor_Orientation = CSFML::SensorType::Orientation
-    Sensor_Count = CSFML::SensorType::Count.value
 
   class Sensor
+    Accelerometer = CSFML::SensorType::Accelerometer
+    Gyroscope = CSFML::SensorType::Gyroscope
+    Magnetometer = CSFML::SensorType::Magnetometer
+    Gravity = CSFML::SensorType::Gravity
+    UserAcceleration = CSFML::SensorType::UserAcceleration
+    Orientation = CSFML::SensorType::Orientation
+    Count = CSFML::SensorType::Count.value
     # Check if a sensor is available on the underlying platform
     # 
     # *Arguments*:
@@ -914,29 +914,32 @@ module SF
   # * Event_SensorChanged
   # * Event_Count
   alias EventType = CSFML::EventType
-    Event_Closed = CSFML::EventType::Closed
-    Event_Resized = CSFML::EventType::Resized
-    Event_LostFocus = CSFML::EventType::LostFocus
-    Event_GainedFocus = CSFML::EventType::GainedFocus
-    Event_TextEntered = CSFML::EventType::TextEntered
-    Event_KeyPressed = CSFML::EventType::KeyPressed
-    Event_KeyReleased = CSFML::EventType::KeyReleased
-    Event_MouseWheelMoved = CSFML::EventType::MouseWheelMoved
-    Event_MouseButtonPressed = CSFML::EventType::MouseButtonPressed
-    Event_MouseButtonReleased = CSFML::EventType::MouseButtonReleased
-    Event_MouseMoved = CSFML::EventType::MouseMoved
-    Event_MouseEntered = CSFML::EventType::MouseEntered
-    Event_MouseLeft = CSFML::EventType::MouseLeft
-    Event_JoystickButtonPressed = CSFML::EventType::JoystickButtonPressed
-    Event_JoystickButtonReleased = CSFML::EventType::JoystickButtonReleased
-    Event_JoystickMoved = CSFML::EventType::JoystickMoved
-    Event_JoystickConnected = CSFML::EventType::JoystickConnected
-    Event_JoystickDisconnected = CSFML::EventType::JoystickDisconnected
-    Event_TouchBegan = CSFML::EventType::TouchBegan
-    Event_TouchMoved = CSFML::EventType::TouchMoved
-    Event_TouchEnded = CSFML::EventType::TouchEnded
-    Event_SensorChanged = CSFML::EventType::SensorChanged
-    Event_Count = CSFML::EventType::Count.value
+
+  struct CSFML::Event
+    Closed = CSFML::EventType::Closed
+    Resized = CSFML::EventType::Resized
+    LostFocus = CSFML::EventType::LostFocus
+    GainedFocus = CSFML::EventType::GainedFocus
+    TextEntered = CSFML::EventType::TextEntered
+    KeyPressed = CSFML::EventType::KeyPressed
+    KeyReleased = CSFML::EventType::KeyReleased
+    MouseWheelMoved = CSFML::EventType::MouseWheelMoved
+    MouseButtonPressed = CSFML::EventType::MouseButtonPressed
+    MouseButtonReleased = CSFML::EventType::MouseButtonReleased
+    MouseMoved = CSFML::EventType::MouseMoved
+    MouseEntered = CSFML::EventType::MouseEntered
+    MouseLeft = CSFML::EventType::MouseLeft
+    JoystickButtonPressed = CSFML::EventType::JoystickButtonPressed
+    JoystickButtonReleased = CSFML::EventType::JoystickButtonReleased
+    JoystickMoved = CSFML::EventType::JoystickMoved
+    JoystickConnected = CSFML::EventType::JoystickConnected
+    JoystickDisconnected = CSFML::EventType::JoystickDisconnected
+    TouchBegan = CSFML::EventType::TouchBegan
+    TouchMoved = CSFML::EventType::TouchMoved
+    TouchEnded = CSFML::EventType::TouchEnded
+    SensorChanged = CSFML::EventType::SensorChanged
+    Count = CSFML::EventType::Count.value
+  end
 
   # Keyboard event parameters
   alias KeyEvent = CSFML::KeyEvent
@@ -978,10 +981,12 @@ module SF
   # and provides functions for getting modes supported
   # by the display device
   alias VideoMode = CSFML::VideoMode
+
+  struct VideoMode
     # Get the current desktop video mode
     # 
     # *Returns*: Current desktop video mode
-    def self.get_desktop_mode()
+    def get_desktop_mode()
       CSFML.video_mode_get_desktop_mode()
     end
     
@@ -1001,6 +1006,7 @@ module SF
     # 
     # *Returns*: Pointer to an array containing all the supported fullscreen modes
     def self.get_fullscreen_modes(count: Size_t*)
+      cself = self
       CSFML.video_mode_get_fullscreen_modes(count)
     end
     
@@ -1015,10 +1021,11 @@ module SF
     # * `mode`: Video mode
     # 
     # *Returns*: True if the video mode is valid for fullscreen mode
-    def self.is_valid(mode: VideoMode)
-      CSFML.video_mode_is_valid(mode) != 0
+    def valid
+      CSFML.video_mode_is_valid(self) != 0
     end
     
+  end
 
   # Enumeration of window creation styles
   #
@@ -1029,15 +1036,14 @@ module SF
   # * DefaultStyle
   # * Fullscreen
   alias WindowStyle = CSFML::WindowStyle
-    None = CSFML::WindowStyle::None
-    Titlebar = CSFML::WindowStyle::Titlebar
-    Resize = CSFML::WindowStyle::Resize
-    Close = CSFML::WindowStyle::Close
-    DefaultStyle = CSFML::WindowStyle::Default
-    Fullscreen = CSFML::WindowStyle::Fullscreen
 
   # Structure defining the window's creation settings
   alias ContextSettings = CSFML::ContextSettings
 
-
+  None = CSFML::WindowStyle::None
+  Titlebar = CSFML::WindowStyle::Titlebar
+  Resize = CSFML::WindowStyle::Resize
+  Close = CSFML::WindowStyle::Close
+  DefaultStyle = CSFML::WindowStyle::Default
+  Fullscreen = CSFML::WindowStyle::Fullscreen
 end

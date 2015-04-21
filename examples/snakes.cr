@@ -200,34 +200,34 @@ snake2 = Snake.new(field, {field.size[0] / 2 + 5, field.size[1] / 2}, random_col
 field.add snake1
 field.add snake2
 
-transform = SF::Transform_Identity
-SF.scale pointerof(transform), 20, 20
+transform = SF::Transform::Identity
+transform.scale 20, 20
 
 states = SF.render_states(transform: transform)
 
 while window.open
   while event = window.poll_event()
-    if event.type == SF::Event_Closed ||\
-    (event.type == SF::Event_KeyPressed && event.key.code == SF::Keyboard_Escape)
+    if event.type == SF::Event::Closed ||\
+    (event.type == SF::Event::KeyPressed && event.key.code == SF::Keyboard::Escape)
       window.close()
-    elsif event.type == SF::Event_KeyPressed
+    elsif event.type == SF::Event::KeyPressed
       case event.key.code
-        when SF::Keyboard_A
+        when SF::Keyboard::A
           snake1.turn Left
-        when SF::Keyboard_W
+        when SF::Keyboard::W
           snake1.turn Up
-        when SF::Keyboard_D
+        when SF::Keyboard::D
           snake1.turn Right
-        when SF::Keyboard_S
+        when SF::Keyboard::S
           snake1.turn Down
 
-        when SF::Keyboard_Left
+        when SF::Keyboard::Left
           snake2.turn Left
-        when SF::Keyboard_Up
+        when SF::Keyboard::Up
           snake2.turn Up
-        when SF::Keyboard_Right
+        when SF::Keyboard::Right
           snake2.turn Right
-        when SF::Keyboard_Down
+        when SF::Keyboard::Down
           snake2.turn Down
       end
     end
@@ -235,7 +235,7 @@ while window.open
   
   field.step()
   
-  window.clear SF::Color_Black
+  window.clear SF::Color::Black
   window.draw field, states
   
   window.display()
