@@ -36,12 +36,534 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/window_obj.cr">csfml/window_obj.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/window_obj.cr">csfml/window_obj.cr</a>
     
     <br/>
   
 
 
+
+  
+    <h2>Constant Summary</h2>
+  
+  <ul>
+    
+      <li class="entry-const">
+        <strong>A</strong> = <code><span class="n">0</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Add</strong> = <code><span class="n">67</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>B</strong> = <code><span class="n">1</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Back</strong> = <code><span class="n">59</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>BackSlash</strong> = <code><span class="n">53</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>C</strong> = <code><span class="n">2</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Comma</strong> = <code><span class="n">49</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Count</strong> = <code><span class="n">101</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>D</strong> = <code><span class="n">3</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Dash</strong> = <code><span class="n">56</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Delete</strong> = <code><span class="n">66</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Divide</strong> = <code><span class="n">70</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Down</strong> = <code><span class="n">74</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>E</strong> = <code><span class="n">4</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>End</strong> = <code><span class="n">63</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Equal</strong> = <code><span class="n">55</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Escape</strong> = <code><span class="n">36</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>F</strong> = <code><span class="n">5</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>F1</strong> = <code><span class="n">85</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>F10</strong> = <code><span class="n">94</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>F11</strong> = <code><span class="n">95</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>F12</strong> = <code><span class="n">96</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>F13</strong> = <code><span class="n">97</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>F14</strong> = <code><span class="n">98</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>F15</strong> = <code><span class="n">99</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>F2</strong> = <code><span class="n">86</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>F3</strong> = <code><span class="n">87</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>F4</strong> = <code><span class="n">88</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>F5</strong> = <code><span class="n">89</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>F6</strong> = <code><span class="n">90</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>F7</strong> = <code><span class="n">91</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>F8</strong> = <code><span class="n">92</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>F9</strong> = <code><span class="n">93</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>G</strong> = <code><span class="n">6</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>H</strong> = <code><span class="n">7</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Home</strong> = <code><span class="n">64</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>I</strong> = <code><span class="n">8</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Insert</strong> = <code><span class="n">65</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>J</strong> = <code><span class="n">9</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>K</strong> = <code><span class="n">10</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>L</strong> = <code><span class="n">11</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>LAlt</strong> = <code><span class="n">39</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>LBracket</strong> = <code><span class="n">46</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>LControl</strong> = <code><span class="n">37</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Left</strong> = <code><span class="n">71</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>LShift</strong> = <code><span class="n">38</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>LSystem</strong> = <code><span class="n">40</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>M</strong> = <code><span class="n">12</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Menu</strong> = <code><span class="n">45</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Multiply</strong> = <code><span class="n">69</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>N</strong> = <code><span class="n">13</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Num0</strong> = <code><span class="n">26</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Num1</strong> = <code><span class="n">27</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Num2</strong> = <code><span class="n">28</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Num3</strong> = <code><span class="n">29</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Num4</strong> = <code><span class="n">30</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Num5</strong> = <code><span class="n">31</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Num6</strong> = <code><span class="n">32</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Num7</strong> = <code><span class="n">33</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Num8</strong> = <code><span class="n">34</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Num9</strong> = <code><span class="n">35</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Numpad0</strong> = <code><span class="n">75</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Numpad1</strong> = <code><span class="n">76</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Numpad2</strong> = <code><span class="n">77</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Numpad3</strong> = <code><span class="n">78</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Numpad4</strong> = <code><span class="n">79</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Numpad5</strong> = <code><span class="n">80</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Numpad6</strong> = <code><span class="n">81</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Numpad7</strong> = <code><span class="n">82</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Numpad8</strong> = <code><span class="n">83</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Numpad9</strong> = <code><span class="n">84</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>O</strong> = <code><span class="n">14</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>P</strong> = <code><span class="n">15</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>PageDown</strong> = <code><span class="n">62</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>PageUp</strong> = <code><span class="n">61</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Pause</strong> = <code><span class="n">100</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Period</strong> = <code><span class="n">50</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Q</strong> = <code><span class="n">16</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Quote</strong> = <code><span class="n">51</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>R</strong> = <code><span class="n">17</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>RAlt</strong> = <code><span class="n">43</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>RBracket</strong> = <code><span class="n">47</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>RControl</strong> = <code><span class="n">41</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Return</strong> = <code><span class="n">58</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Right</strong> = <code><span class="n">72</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>RShift</strong> = <code><span class="n">42</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>RSystem</strong> = <code><span class="n">44</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>S</strong> = <code><span class="n">18</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>SemiColon</strong> = <code><span class="n">48</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Slash</strong> = <code><span class="n">52</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Space</strong> = <code><span class="n">57</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Subtract</strong> = <code><span class="n">68</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>T</strong> = <code><span class="n">19</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Tab</strong> = <code><span class="n">60</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Tilde</strong> = <code><span class="n">54</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>U</strong> = <code><span class="n">20</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Unknown</strong> = <code><span class="n">-1</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Up</strong> = <code><span class="n">73</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>V</strong> = <code><span class="n">21</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>W</strong> = <code><span class="n">22</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>X</strong> = <code><span class="n">23</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Y</strong> = <code><span class="n">24</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Z</strong> = <code><span class="n">25</span></code>
+        
+      </li>
+    
+  </ul>
 
 
 

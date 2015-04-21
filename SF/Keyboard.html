@@ -30,12 +30,534 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/window_obj.cr">csfml/window_obj.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/window_obj.cr">csfml/window_obj.cr</a>
     
     <br/>
   
 
 
+
+  
+    <h2>Constant Summary</h2>
+  
+  <ul>
+    
+      <li class="entry-const">
+        <strong>A</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">A</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Add</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Add</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>B</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">B</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Back</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Back</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>BackSlash</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">BackSlash</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>C</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">C</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Comma</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Comma</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Count</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Count</span>.value</code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>D</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">D</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Dash</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Dash</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Delete</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Delete</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Divide</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Divide</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Down</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Down</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>E</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">E</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>End</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">End</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Equal</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Equal</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Escape</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Escape</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>F</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">F</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>F1</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">F1</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>F10</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">F10</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>F11</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">F11</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>F12</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">F12</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>F13</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">F13</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>F14</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">F14</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>F15</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">F15</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>F2</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">F2</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>F3</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">F3</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>F4</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">F4</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>F5</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">F5</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>F6</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">F6</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>F7</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">F7</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>F8</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">F8</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>F9</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">F9</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>G</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">G</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>H</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">H</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Home</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Home</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>I</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">I</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Insert</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Insert</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>J</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">J</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>K</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">K</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>L</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">L</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>LAlt</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">LAlt</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>LBracket</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">LBracket</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>LControl</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">LControl</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Left</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Left</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>LShift</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">LShift</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>LSystem</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">LSystem</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>M</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">M</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Menu</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Menu</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Multiply</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Multiply</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>N</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">N</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Num0</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Num0</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Num1</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Num1</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Num2</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Num2</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Num3</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Num3</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Num4</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Num4</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Num5</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Num5</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Num6</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Num6</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Num7</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Num7</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Num8</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Num8</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Num9</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Num9</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Numpad0</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Numpad0</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Numpad1</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Numpad1</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Numpad2</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Numpad2</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Numpad3</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Numpad3</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Numpad4</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Numpad4</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Numpad5</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Numpad5</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Numpad6</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Numpad6</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Numpad7</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Numpad7</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Numpad8</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Numpad8</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Numpad9</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Numpad9</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>O</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">O</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>P</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">P</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>PageDown</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">PageDown</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>PageUp</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">PageUp</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Pause</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Pause</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Period</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Period</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Q</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Q</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Quote</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Quote</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>R</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">R</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>RAlt</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">RAlt</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>RBracket</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">RBracket</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>RControl</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">RControl</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Return</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Return</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Right</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Right</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>RShift</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">RShift</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>RSystem</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">RSystem</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>S</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">S</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>SemiColon</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">SemiColon</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Slash</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Slash</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Space</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Space</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Subtract</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Subtract</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>T</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">T</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Tab</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Tab</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Tilde</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Tilde</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>U</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">U</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Unknown</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Unknown</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Up</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Up</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>V</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">V</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>W</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">W</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>X</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">X</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Y</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Y</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Z</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">KeyCode</span><span class="t">::</span><span class="t">Z</span></code>
+        
+      </li>
+    
+  </ul>
 
 
 
@@ -76,7 +598,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/966e8ac8cba7a1626b569287d21d8324310c2b6b/src/csfml/window_obj.cr#L768" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/window_obj.cr#L768" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>

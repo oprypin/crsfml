@@ -2,7 +2,7 @@
 
 <h4><a target="_blank" href="http://crystal-lang.org/">Crystal</a> bindings to <a target="_blank" href="http://www.sfml-dev.org/" title="Simple and Fast Multimedia Library">Simple and Fast Multimedia Library</a> (through <a target="_blank" href="http://www.sfml-dev.org/download/csfml/">CSFML</a>).</h4>
 
-<p><strong>See <a target="_blank" href="https://github.com/BlaXpirit/crsfml/tree/966e8ac8cba7a1626b569287d21d8324310c2b6b/#introduction">introduction</a>, <a target="_blank" href="https://github.com/BlaXpirit/crsfml/tree/966e8ac8cba7a1626b569287d21d8324310c2b6b/examples">examples</a>, <a target="_blank" href="http://blaxpirit.github.io/crsfml/">documentation</a>.</strong></p>
+<p><strong>See <a target="_blank" href="https://github.com/BlaXpirit/crsfml/tree/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/#introduction">introduction</a>, <a target="_blank" href="https://github.com/BlaXpirit/crsfml/tree/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/examples">examples</a>, <a target="_blank" href="http://blaxpirit.github.io/crsfml/">documentation</a>.</strong></p>
 
 <p><em>CrSFML</em> supports CSFML 2.2. It has been tested on Linux 64-bit. It should work on other major systems if Crystal supports them.</p>
 
@@ -38,11 +38,7 @@ with wrappers.</li>
 <li><code>x.getSomeProperty()</code> and <code>x.isSomeProperty()</code> both become <code>x.some_property</code>.</li>
 <li><code>x.setSomeProperty(v)</code> becomes <code>x.some_property = v</code>.</li>
 </ul></li>
-<li>Static public attributes, such as <code>sf::Text::Italic</code> become <code>SF::Text_Italic</code>
-<ul>
-<li>A few <code>enum</code>s are just represented as a list of constants, because they are not really enumerations.</li>
 <li>SFML sometimes uses <code>enum</code> values as bitmasks. You can combine them using the <code>|</code> operator.</li>
-</ul></li>
 <li>Unicode just works.</li>
 <li>Type differences:
 <ul>
@@ -51,11 +47,11 @@ with wrappers.</li>
 <li>Most of the <a target="_blank" href="http://blaxpirit.github.io/crsfml/">documentation</a> is taken directly from CSFML, so don't be surprised if it talks in C/C++ terms.</li>
 </ul>
 
-<p>See <a target="_blank" href="https://github.com/BlaXpirit/crsfml/tree/966e8ac8cba7a1626b569287d21d8324310c2b6b/examples">examples</a> to learn more.</p>
+<p>See <a target="_blank" href="https://github.com/BlaXpirit/crsfml/tree/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/examples">examples</a> to learn more.</p>
 
 <h2>Acknowledgements</h2>
 
-<p><a target="_blank" href="https://github.com/BlaXpirit/crsfml/tree/966e8ac8cba7a1626b569287d21d8324310c2b6b/LICENSE">License</a>: zlib/libpng</p>
+<p><a target="_blank" href="https://github.com/BlaXpirit/crsfml/tree/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/LICENSE">License</a>: zlib/libpng</p>
 
 <p>This library uses and is based on <a target="_blank" href="http://www.sfml-dev.org/" title="Simple and Fast Multimedia Library">SFML</a> and <a target="_blank" href="http://www.sfml-dev.org/download/csfml/">CSFML</a>.</p>
 
