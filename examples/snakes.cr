@@ -2,12 +2,6 @@ require "csfml/system"
 require "csfml/window"
 require "csfml/graphics"
 
-window = SF::RenderWindow.new(
-  SF.video_mode(800, 800), "Snakes",
-  settings: SF.context_settings(depth: 32, antialiasing: 8)
-)
-window.vertical_sync_enabled = true
-window.framerate_limit = 10
 
 Left = {-1, 0}
 Up = {0, -1}
@@ -161,7 +155,9 @@ class Field
     while @foods.length < @snakes.length + 1
       food = Food.new({rand(@size[0]), rand(@size[1])}, random_color())
       
-      @foods.push food unless @snakes.any? { |snake| snake.collide food }
+      @foods.push food unless @snakes.any? do |snake|
+        snake.body.any? { |part| part == food.position }
+      end
     end
     
     @snakes.each do |snake|
@@ -200,8 +196,18 @@ snake2 = Snake.new(field, {field.size[0] / 2 + 5, field.size[1] / 2}, random_col
 field.add snake1
 field.add snake2
 
+scale = 20
+
+window = SF::RenderWindow.new(
+  SF.video_mode(field.size[0]*scale, field.size[1]*scale), "Snakes",
+  settings: SF.context_settings(depth: 32, antialiasing: 8)
+)
+window.vertical_sync_enabled = true
+window.framerate_limit = 10
+
+
 transform = SF::Transform::Identity
-transform.scale 20, 20
+transform.scale scale, scale
 
 states = SF.render_states(transform: transform)
 

@@ -3291,6 +3291,7 @@ lib CSFML
   # *Returns*: Global bounding rectangle of the entity
   fun sprite_get_global_bounds = sfSprite_getGlobalBounds(sprite: Sprite): FloatRect
   
+  @[Flags]
   enum TextStyle: UInt32
     Regular = 0, Bold = 1, Italic = 2, Underlined = 4, StrikeThrough = 8
   end

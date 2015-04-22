@@ -8,6 +8,8 @@ CrSFML
 
 [CSFML][] 2.2, which requires [SFML][] 2.2, must be installed to use it.
 
+Crystal 0.6.1 and earlier are **not** supported.
+
 
 [Troubleshooting][]
 -------------------

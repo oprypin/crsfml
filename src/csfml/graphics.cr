@@ -109,12 +109,14 @@ module SF
     result = RenderStates.new()
     result.blend_mode = blend_mode
     result.transform = transform
-    result.texture = texture if texture
-    result.shader = shader if shader
+    result.texture = texture.to_unsafe if texture
+    result.shader = shader.to_unsafe if shader
     result
   end
   
-  RenderStates_Default = render_states()
+  struct RenderStates
+    Default = render_states()
+  end
   
   class CircleShape
     def initialize(radius, point_count=30)
@@ -219,7 +221,7 @@ module SF
       initialize(width, height, false)
     end
     
-    def draw(drawable, states=RenderStates_Default)
+    def draw(drawable, states=CSFML::RenderStates::Default)
       drawable.draw(self, states)
     end
   end
@@ -229,7 +231,7 @@ module SF
       initialize(mode, title, style, settings)
     end
     
-    def draw(drawable, states=RenderStates_Default)
+    def draw(drawable, states=SF.render_states())
       drawable.draw(self, states)
     end
     

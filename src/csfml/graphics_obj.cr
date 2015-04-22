@@ -6,16 +6,16 @@ module SF
 
   # Enumeration of the blending factors
   #
-  # * BlendMode_Zero
-  # * BlendMode_One
-  # * BlendMode_SrcColor
-  # * BlendMode_OneMinusSrcColor
-  # * BlendMode_DstColor
-  # * BlendMode_OneMinusDstColor
-  # * BlendMode_SrcAlpha
-  # * BlendMode_OneMinusSrcAlpha
-  # * BlendMode_DstAlpha
-  # * BlendMode_OneMinusDstAlpha
+  # * BlendMode::Zero
+  # * BlendMode::One
+  # * BlendMode::SrcColor
+  # * BlendMode::OneMinusSrcColor
+  # * BlendMode::DstColor
+  # * BlendMode::OneMinusDstColor
+  # * BlendMode::SrcAlpha
+  # * BlendMode::OneMinusSrcAlpha
+  # * BlendMode::DstAlpha
+  # * BlendMode::OneMinusDstAlpha
   alias BlendFactor = CSFML::BlendFactor
 
   struct CSFML::BlendMode
@@ -35,8 +35,8 @@ module SF
 
   # Enumeration of the blending equations
   #
-  # * BlendMode_Add
-  # * BlendMode_Subtract
+  # * BlendMode::Add
+  # * BlendMode::Subtract
   alias BlendEquation = CSFML::BlendEquation
 
   # Blending mode for drawing
@@ -5273,11 +5273,11 @@ module SF
     
   end
 
-  # * Text_Regular
-  # * Text_Bold
-  # * Text_Italic
-  # * Text_Underlined
-  # * Text_StrikeThrough
+  # * Text::Regular
+  # * Text::Bold
+  # * Text::Italic
+  # * Text::Underlined
+  # * Text::StrikeThrough
   alias TextStyle = CSFML::TextStyle
 
   # Construct a color from its 3 RGB components

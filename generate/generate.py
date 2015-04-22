@@ -122,11 +122,12 @@ def handle_enum(name, items):
     nname = rename_sf(name)
     if all(value is not None for name, value in nitems):
         nitems.sort(key=lambda kv: int(kv[1]))
-    s = 'enum {}'.format(nname)
-    if nname in ['WindowStyle', 'TextStyle']:
-        s += ': UInt32'
     d = get_doc()
     if d: lib(d)
+    s = 'enum {}'.format(nname)
+    if nname in ['WindowStyle', 'TextStyle']:
+        lib('@[Flags]')
+        s += ': UInt32'
     lib(s)
     lib(*(textwrap.wrap(', '.join(
         ('{} = {}'.format(subname(name), value) if value is not None else subname(name))
@@ -137,7 +138,7 @@ def handle_enum(name, items):
     if d: obj(nname+'ALIAS', d, '#')
     for name, value in nitems:
         cls = enum_relations[nname]
-        if cls: cls += '_'
+        if cls: cls += '::'
         obj(nname+'ALIAS', '# * {cls}{name}'.format(**locals()))
     obj(nname+'ALIAS', 'alias {0} = CSFML::{0}'.format(nname))
     for name, value in nitems:
@@ -211,11 +212,11 @@ def handle_function(main, params):
     if nfname != 'Shader_setCurrentTextureParameter':
         nfname = re.sub(r'_set(.+)Parameter$', r'_setParameter', nfname)
     cls = ''
-    p1 = rename_type(params[0][0] if params else ftype)
+    p1 = rename_type(params[0][0]) if params else ''
     if 'initialize' in nfname:
         cls = rename_type(ftype)
         nfname = 'initialize'
-    elif ofname.startswith(p1.rstrip('*')+'_', 2):
+    elif p1 and ofname.startswith(p1.rstrip('*')+'_', 2):
         nfname = nfname[len(p1.rstrip('*'))+1:]
         cls = p1.rstrip('*')
     elif '_' in nfname:

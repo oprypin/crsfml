@@ -436,14 +436,14 @@ module SF
 
   # Axes supported by SFML joysticks
   #
-  # * Joystick_X
-  # * Joystick_Y
-  # * Joystick_Z
-  # * Joystick_R
-  # * Joystick_U
-  # * Joystick_V
-  # * Joystick_PovX
-  # * Joystick_PovY
+  # * Joystick::X
+  # * Joystick::Y
+  # * Joystick::Z
+  # * Joystick::R
+  # * Joystick::U
+  # * Joystick::V
+  # * Joystick::PovX
+  # * Joystick::PovY
   alias JoystickAxis = CSFML::JoystickAxis
 
   class Joystick
@@ -549,109 +549,109 @@ module SF
 
   # Key codes
   #
-  # * Keyboard_Unknown
-  # * Keyboard_A
-  # * Keyboard_B
-  # * Keyboard_C
-  # * Keyboard_D
-  # * Keyboard_E
-  # * Keyboard_F
-  # * Keyboard_G
-  # * Keyboard_H
-  # * Keyboard_I
-  # * Keyboard_J
-  # * Keyboard_K
-  # * Keyboard_L
-  # * Keyboard_M
-  # * Keyboard_N
-  # * Keyboard_O
-  # * Keyboard_P
-  # * Keyboard_Q
-  # * Keyboard_R
-  # * Keyboard_S
-  # * Keyboard_T
-  # * Keyboard_U
-  # * Keyboard_V
-  # * Keyboard_W
-  # * Keyboard_X
-  # * Keyboard_Y
-  # * Keyboard_Z
-  # * Keyboard_Num0
-  # * Keyboard_Num1
-  # * Keyboard_Num2
-  # * Keyboard_Num3
-  # * Keyboard_Num4
-  # * Keyboard_Num5
-  # * Keyboard_Num6
-  # * Keyboard_Num7
-  # * Keyboard_Num8
-  # * Keyboard_Num9
-  # * Keyboard_Escape
-  # * Keyboard_LControl
-  # * Keyboard_LShift
-  # * Keyboard_LAlt
-  # * Keyboard_LSystem
-  # * Keyboard_RControl
-  # * Keyboard_RShift
-  # * Keyboard_RAlt
-  # * Keyboard_RSystem
-  # * Keyboard_Menu
-  # * Keyboard_LBracket
-  # * Keyboard_RBracket
-  # * Keyboard_SemiColon
-  # * Keyboard_Comma
-  # * Keyboard_Period
-  # * Keyboard_Quote
-  # * Keyboard_Slash
-  # * Keyboard_BackSlash
-  # * Keyboard_Tilde
-  # * Keyboard_Equal
-  # * Keyboard_Dash
-  # * Keyboard_Space
-  # * Keyboard_Return
-  # * Keyboard_Back
-  # * Keyboard_Tab
-  # * Keyboard_PageUp
-  # * Keyboard_PageDown
-  # * Keyboard_End
-  # * Keyboard_Home
-  # * Keyboard_Insert
-  # * Keyboard_Delete
-  # * Keyboard_Add
-  # * Keyboard_Subtract
-  # * Keyboard_Multiply
-  # * Keyboard_Divide
-  # * Keyboard_Left
-  # * Keyboard_Right
-  # * Keyboard_Up
-  # * Keyboard_Down
-  # * Keyboard_Numpad0
-  # * Keyboard_Numpad1
-  # * Keyboard_Numpad2
-  # * Keyboard_Numpad3
-  # * Keyboard_Numpad4
-  # * Keyboard_Numpad5
-  # * Keyboard_Numpad6
-  # * Keyboard_Numpad7
-  # * Keyboard_Numpad8
-  # * Keyboard_Numpad9
-  # * Keyboard_F1
-  # * Keyboard_F2
-  # * Keyboard_F3
-  # * Keyboard_F4
-  # * Keyboard_F5
-  # * Keyboard_F6
-  # * Keyboard_F7
-  # * Keyboard_F8
-  # * Keyboard_F9
-  # * Keyboard_F10
-  # * Keyboard_F11
-  # * Keyboard_F12
-  # * Keyboard_F13
-  # * Keyboard_F14
-  # * Keyboard_F15
-  # * Keyboard_Pause
-  # * Keyboard_Count
+  # * Keyboard::Unknown
+  # * Keyboard::A
+  # * Keyboard::B
+  # * Keyboard::C
+  # * Keyboard::D
+  # * Keyboard::E
+  # * Keyboard::F
+  # * Keyboard::G
+  # * Keyboard::H
+  # * Keyboard::I
+  # * Keyboard::J
+  # * Keyboard::K
+  # * Keyboard::L
+  # * Keyboard::M
+  # * Keyboard::N
+  # * Keyboard::O
+  # * Keyboard::P
+  # * Keyboard::Q
+  # * Keyboard::R
+  # * Keyboard::S
+  # * Keyboard::T
+  # * Keyboard::U
+  # * Keyboard::V
+  # * Keyboard::W
+  # * Keyboard::X
+  # * Keyboard::Y
+  # * Keyboard::Z
+  # * Keyboard::Num0
+  # * Keyboard::Num1
+  # * Keyboard::Num2
+  # * Keyboard::Num3
+  # * Keyboard::Num4
+  # * Keyboard::Num5
+  # * Keyboard::Num6
+  # * Keyboard::Num7
+  # * Keyboard::Num8
+  # * Keyboard::Num9
+  # * Keyboard::Escape
+  # * Keyboard::LControl
+  # * Keyboard::LShift
+  # * Keyboard::LAlt
+  # * Keyboard::LSystem
+  # * Keyboard::RControl
+  # * Keyboard::RShift
+  # * Keyboard::RAlt
+  # * Keyboard::RSystem
+  # * Keyboard::Menu
+  # * Keyboard::LBracket
+  # * Keyboard::RBracket
+  # * Keyboard::SemiColon
+  # * Keyboard::Comma
+  # * Keyboard::Period
+  # * Keyboard::Quote
+  # * Keyboard::Slash
+  # * Keyboard::BackSlash
+  # * Keyboard::Tilde
+  # * Keyboard::Equal
+  # * Keyboard::Dash
+  # * Keyboard::Space
+  # * Keyboard::Return
+  # * Keyboard::Back
+  # * Keyboard::Tab
+  # * Keyboard::PageUp
+  # * Keyboard::PageDown
+  # * Keyboard::End
+  # * Keyboard::Home
+  # * Keyboard::Insert
+  # * Keyboard::Delete
+  # * Keyboard::Add
+  # * Keyboard::Subtract
+  # * Keyboard::Multiply
+  # * Keyboard::Divide
+  # * Keyboard::Left
+  # * Keyboard::Right
+  # * Keyboard::Up
+  # * Keyboard::Down
+  # * Keyboard::Numpad0
+  # * Keyboard::Numpad1
+  # * Keyboard::Numpad2
+  # * Keyboard::Numpad3
+  # * Keyboard::Numpad4
+  # * Keyboard::Numpad5
+  # * Keyboard::Numpad6
+  # * Keyboard::Numpad7
+  # * Keyboard::Numpad8
+  # * Keyboard::Numpad9
+  # * Keyboard::F1
+  # * Keyboard::F2
+  # * Keyboard::F3
+  # * Keyboard::F4
+  # * Keyboard::F5
+  # * Keyboard::F6
+  # * Keyboard::F7
+  # * Keyboard::F8
+  # * Keyboard::F9
+  # * Keyboard::F10
+  # * Keyboard::F11
+  # * Keyboard::F12
+  # * Keyboard::F13
+  # * Keyboard::F14
+  # * Keyboard::F15
+  # * Keyboard::Pause
+  # * Keyboard::Count
   alias KeyCode = CSFML::KeyCode
 
   class Keyboard
@@ -773,12 +773,12 @@ module SF
 
   # Mouse buttons
   #
-  # * Mouse_Left
-  # * Mouse_Right
-  # * Mouse_Middle
-  # * Mouse_XButton1
-  # * Mouse_XButton2
-  # * Mouse_ButtonCount
+  # * Mouse::Left
+  # * Mouse::Right
+  # * Mouse::Middle
+  # * Mouse::XButton1
+  # * Mouse::XButton2
+  # * Mouse::ButtonCount
   alias MouseButton = CSFML::MouseButton
 
   class Mouse
@@ -830,13 +830,13 @@ module SF
 
   # Sensor Types
   #
-  # * Sensor_Accelerometer
-  # * Sensor_Gyroscope
-  # * Sensor_Magnetometer
-  # * Sensor_Gravity
-  # * Sensor_UserAcceleration
-  # * Sensor_Orientation
-  # * Sensor_Count
+  # * Sensor::Accelerometer
+  # * Sensor::Gyroscope
+  # * Sensor::Magnetometer
+  # * Sensor::Gravity
+  # * Sensor::UserAcceleration
+  # * Sensor::Orientation
+  # * Sensor::Count
   alias SensorType = CSFML::SensorType
 
   class Sensor
@@ -890,29 +890,29 @@ module SF
 
   # Definition of all the event types
   #
-  # * Event_Closed
-  # * Event_Resized
-  # * Event_LostFocus
-  # * Event_GainedFocus
-  # * Event_TextEntered
-  # * Event_KeyPressed
-  # * Event_KeyReleased
-  # * Event_MouseWheelMoved
-  # * Event_MouseButtonPressed
-  # * Event_MouseButtonReleased
-  # * Event_MouseMoved
-  # * Event_MouseEntered
-  # * Event_MouseLeft
-  # * Event_JoystickButtonPressed
-  # * Event_JoystickButtonReleased
-  # * Event_JoystickMoved
-  # * Event_JoystickConnected
-  # * Event_JoystickDisconnected
-  # * Event_TouchBegan
-  # * Event_TouchMoved
-  # * Event_TouchEnded
-  # * Event_SensorChanged
-  # * Event_Count
+  # * Event::Closed
+  # * Event::Resized
+  # * Event::LostFocus
+  # * Event::GainedFocus
+  # * Event::TextEntered
+  # * Event::KeyPressed
+  # * Event::KeyReleased
+  # * Event::MouseWheelMoved
+  # * Event::MouseButtonPressed
+  # * Event::MouseButtonReleased
+  # * Event::MouseMoved
+  # * Event::MouseEntered
+  # * Event::MouseLeft
+  # * Event::JoystickButtonPressed
+  # * Event::JoystickButtonReleased
+  # * Event::JoystickMoved
+  # * Event::JoystickConnected
+  # * Event::JoystickDisconnected
+  # * Event::TouchBegan
+  # * Event::TouchMoved
+  # * Event::TouchEnded
+  # * Event::SensorChanged
+  # * Event::Count
   alias EventType = CSFML::EventType
 
   struct CSFML::Event
@@ -986,7 +986,7 @@ module SF
     # Get the current desktop video mode
     # 
     # *Returns*: Current desktop video mode
-    def get_desktop_mode()
+    def self.get_desktop_mode()
       CSFML.video_mode_get_desktop_mode()
     end
     

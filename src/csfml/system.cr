@@ -30,7 +30,9 @@ module SF
     Vector2i.new(x: x.to_i32, y: y.to_i32)
   end
   
-  Time_Zero = milliseconds(0)
+  struct CSFML::Time
+    Zero = milliseconds(0)
+  end
 end
 
 require "./system_obj"

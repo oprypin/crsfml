@@ -94,9 +94,9 @@ module SF
 
   # Enumeration of statuses for sounds and musics
   #
-  # * SoundSource_Stopped
-  # * SoundSource_Paused
-  # * SoundSource_Playing
+  # * SoundSource::Stopped
+  # * SoundSource::Paused
+  # * SoundSource::Playing
   alias SoundStatus = CSFML::SoundStatus
 
   class SoundSource

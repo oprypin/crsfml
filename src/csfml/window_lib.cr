@@ -372,6 +372,7 @@ lib CSFML
   fun video_mode_is_valid = sfVideoMode_isValid(mode: VideoMode): Int32
   
   # Enumeration of window creation styles
+  @[Flags]
   enum WindowStyle: UInt32
     None = 0, Titlebar = 1, Resize = 2, Close = 4, Default = 7, Fullscreen = 8
   end
