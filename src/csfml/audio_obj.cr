@@ -453,7 +453,7 @@ module SF
     # * `music`: Music object
     # 
     # *Returns*: True if the position is relative, False if it's absolute
-    def relative_to_listener
+    def relative_to_listener?
       CSFML.music_is_relative_to_listener(@this) != 0
     end
     
@@ -771,7 +771,7 @@ module SF
     # * `sound`: Sound object
     # 
     # *Returns*: True if the position is relative, False if it's absolute
-    def relative_to_listener
+    def relative_to_listener?
       CSFML.sound_is_relative_to_listener(@this) != 0
     end
     

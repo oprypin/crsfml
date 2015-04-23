@@ -234,7 +234,7 @@ def handle_function(main, params):
         nfname = nfname[4:]
     if nfname.startswith('is_') and len(params)==1 and cls:
         getter = True
-        nfname = nfname[3:]
+        nfname = nfname[3:]+'?'
     elif nfname.startswith('set_') and len(params)==2 and cls:
         nfname = nfname[4:]+'='
     if nfname.startswith('unicode_'):

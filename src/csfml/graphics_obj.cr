@@ -2488,7 +2488,7 @@ module SF
     # * `render_texture`: Render texture object
     # 
     # *Returns*: True if smoothing is enabled, False if it is disabled
-    def smooth
+    def smooth?
       CSFML.render_texture_is_smooth(@this) != 0
     end
     
@@ -2510,7 +2510,7 @@ module SF
     # * `render_texture`: Render texture object
     # 
     # *Returns*: True if repeat mode is enabled, False if it is disabled
-    def repeated
+    def repeated?
       CSFML.render_texture_is_repeated(@this) != 0
     end
     
@@ -2577,7 +2577,7 @@ module SF
     # *Arguments*:
     # 
     # * `render_window`: Render window object
-    def open
+    def open?
       CSFML.render_window_is_open(@this) != 0
     end
     
@@ -4420,7 +4420,7 @@ module SF
     # * `texture`: The texture object
     # 
     # *Returns*: True if smoothing is enabled, False if it is disabled
-    def smooth
+    def smooth?
       CSFML.texture_is_smooth(@this) != 0
     end
     
@@ -4456,7 +4456,7 @@ module SF
     # * `texture`: The texture object
     # 
     # *Returns*: True if repeat mode is enabled, False if it is disabled
-    def repeated
+    def repeated?
       CSFML.texture_is_repeated(@this) != 0
     end
     

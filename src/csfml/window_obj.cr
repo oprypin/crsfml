@@ -133,7 +133,7 @@ module SF
     # * `window`: Window object
     # 
     # *Returns*: True if the window is opened, False if it has been closed
-    def open
+    def open?
       CSFML.window_is_open(@this) != 0
     end
     
@@ -1021,7 +1021,7 @@ module SF
     # * `mode`: Video mode
     # 
     # *Returns*: True if the video mode is valid for fullscreen mode
-    def valid
+    def valid?
       CSFML.video_mode_is_valid(self) != 0
     end
     
