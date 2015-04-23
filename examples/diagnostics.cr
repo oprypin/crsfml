@@ -222,7 +222,7 @@ actions.each_key do |btn|
   y += h + h/2
 end
 
-while $window.open
+while $window.open?
   while event = $window.poll_event()
     case event.type
     when SF::Event::Closed

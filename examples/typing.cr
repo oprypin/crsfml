@@ -10,7 +10,7 @@ font = SF::Font.new("resources/font/Ubuntu-R.ttf")
 text = SF::Text.new("_", font)
 text.color = SF::Color::Black
 
-while window.open
+while window.open?
   while event = window.poll_event()
     case event.type
     when SF::Event::KeyPressed

@@ -211,7 +211,7 @@ transform.scale scale, scale
 
 states = SF.render_states(transform: transform)
 
-while window.open
+while window.open?
   while event = window.poll_event()
     if event.type == SF::Event::Closed ||\
     (event.type == SF::Event::KeyPressed && event.key.code == SF::Keyboard::Escape)

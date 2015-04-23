@@ -16,7 +16,7 @@ bird.position = SF.vector2f(250, 300)
 
 speed = 0.0
 
-while window.open
+while window.open?
   while event = window.poll_event()
     case event.type
     when SF::Event::Closed

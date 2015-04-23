@@ -33,7 +33,7 @@ logo.position = SF.vector2f(400, 300)
 
 clock = SF::Clock.new()
 
-while window.open
+while window.open?
   while event = window.poll_event()
     case event.type
     when SF::Event::Closed

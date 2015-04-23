@@ -114,7 +114,7 @@ module SF
     result
   end
   
-  struct RenderStates
+  struct CSFML::RenderStates
     Default = render_states()
   end
   
