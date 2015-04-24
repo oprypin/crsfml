@@ -88,14 +88,13 @@ module SF
     # * `settings`: Additional settings for the underlying OpenGL context
     # 
     # *Returns*: A new Window object
-    def initialize(handle: WindowHandle, settings)
+    def self.from_handle(handle: WindowHandle, settings)
       if settings
         csettings = settings; psettings = pointerof(csettings)
       else
         psettings = nil
       end
-      @owned = true
-      @this = CSFML.window_create_from_handle(handle, psettings)
+      Window.transfer_ptr(CSFML.window_create_from_handle(handle, psettings))
     end
     
     # Destroy a window

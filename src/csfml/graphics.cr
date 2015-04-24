@@ -160,8 +160,8 @@ module SF
   end
   
   class Texture
-    def initialize(filename: String)
-      initialize(filename, nil)
+    def self.from_file(filename: String)
+      self.from_file(filename, nil)
     end
   end
   
@@ -195,6 +195,37 @@ module SF
     
     def draw(target, states: RenderStates)
       target.draw_text(self, states)
+    end
+  end
+  
+  class Shader
+    enum Type
+      Vertex, Fragment
+    end
+    Vertex = Type::Vertex
+    Fragment = Type::Fragment
+    
+    def self.from_file(filename: String, type: Type)
+      Shader.transfer_ptr(CSFML.shader_create_from_file(
+        type == Vertex ? filename.to_unsafe : Pointer(UInt8).null,
+        type == Fragment ? filename.to_unsafe : Pointer(UInt8).null
+      ))
+    end
+    
+    def self.from_memory(shader: String, type: Type)
+      Shader.transfer_ptr(CSFML.shader_create_from_memory(
+        type == Vertex ? shader.to_unsafe : Pointer(UInt8).null,
+        type == Fragment ? shader.to_unsafe : Pointer(UInt8).null
+      ))
+    end
+    
+    struct CurrentTextureType
+    end
+    
+    CurrentTexture = CurrentTextureType.new()
+    
+    def set_parameter(name: String, current_texture: CurrentTextureType)
+      CSFML.shader_set_current_texture_parameter(@this, name)
     end
   end
   

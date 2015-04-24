@@ -6,7 +6,7 @@ mode = SF.video_mode(800, 600)
 window = SF::RenderWindow.new(mode, "pɹıq ʎddılɟ")
 window.vertical_sync_enabled = true
 
-bird_texture = SF::Texture.new("resources/bird.png")
+bird_texture = SF::Texture.from_file("resources/bird.png")
 sz = bird_texture.size
 
 bird = SF::Sprite.new(bird_texture)

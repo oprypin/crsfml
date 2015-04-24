@@ -19,27 +19,35 @@
 # 3. This notice may not be removed or altered from any source distribution.
 
 
-# Every wrapper class has these methods
 module SF
+  # Every wrapper class has these methods
   module Wrapper
-    # Get the underlying pointer
-    def to_unsafe
-      @this
-    end
-    
-    # Put the pointer into the wrapper object.
-    # The pointer will **not** be freed on GC.
-    def wrap_ptr(ptr)
-      @this = ptr
-      self
-    end
-
-    # Transfer ownership of the pointer to the wrapper object.
-    # The pointer will be freed on GC.
-    def transfer_ptr(ptr)
-      @this = ptr
-      @owned = true
-      self
+    macro included
+      private def initialize(@this, @owned: Bool)
+      end
+      
+      # Get the underlying pointer
+      def to_unsafe
+        @this
+      end
+      
+      private def self.new(ptr, owned: Bool)
+        allocate.tap do |obj|
+          obj.initialize(ptr, owned)
+        end
+      end
+      
+      # Put the pointer into the wrapper object.
+      # The pointer will **not** be freed on GC.
+      def self.wrap_ptr(ptr)
+        ptr ? new(ptr, false) : nil
+      end
+      
+      # Transfer ownership of the pointer to the wrapper object.
+      # The pointer will be freed on GC.
+      def self.transfer_ptr(ptr)
+        new(ptr, true)
+      end
     end
   end
 end

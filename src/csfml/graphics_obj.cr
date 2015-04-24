@@ -150,9 +150,8 @@ module SF
     # * `shape`: Shape to copy
     # 
     # *Returns*: Copied object
-    def copy()
-      result = CircleShape.allocate()
-      result.transfer_ptr(CSFML.circle_shape_copy(@this))
+    def dup()
+      CircleShape.transfer_ptr(CSFML.circle_shape_copy(@this))
     end
     
     # Destroy an existing circle Shape
@@ -426,8 +425,7 @@ module SF
     # 
     # *Returns*: Pointer to the shape's texture
     def texture
-      result = Texture.allocate()
-      result.wrap_ptr(CSFML.circle_shape_get_texture(@this))
+      Texture.wrap_ptr(CSFML.circle_shape_get_texture(@this))
     end
     
     # Get the sub-rectangle of the texture displayed by a circle shape
@@ -585,9 +583,8 @@ module SF
     # * `shape`: Shape to copy
     # 
     # *Returns*: Copied object
-    def copy()
-      result = ConvexShape.allocate()
-      result.transfer_ptr(CSFML.convex_shape_copy(@this))
+    def dup()
+      ConvexShape.transfer_ptr(CSFML.convex_shape_copy(@this))
     end
     
     # Destroy an existing convex Shape
@@ -861,8 +858,7 @@ module SF
     # 
     # *Returns*: Pointer to the shape's texture
     def texture
-      result = Texture.allocate()
-      result.wrap_ptr(CSFML.convex_shape_get_texture(@this))
+      Texture.wrap_ptr(CSFML.convex_shape_get_texture(@this))
     end
     
     # Get the sub-rectangle of the texture displayed by a convex shape
@@ -1009,9 +1005,8 @@ module SF
     # * `filename`: Path of the font file to load
     # 
     # *Returns*: A new Font object, or NULL if it failed
-    def initialize(filename: String)
-      @owned = true
-      @this = CSFML.font_create_from_file(filename)
+    def self.from_file(filename: String)
+      Font.transfer_ptr(CSFML.font_create_from_file(filename))
     end
     
     # Create a new image font a file in memory
@@ -1022,9 +1017,8 @@ module SF
     # * `size_in_bytes`: Size of the data to load, in bytes
     # 
     # *Returns*: A new Font object, or NULL if it failed
-    def initialize(data: Void*, size_in_bytes: Size_t)
-      @owned = true
-      @this = CSFML.font_create_from_memory(data, size_in_bytes)
+    def self.from_memory(data: Void*, size_in_bytes: Size_t)
+      Font.transfer_ptr(CSFML.font_create_from_memory(data, size_in_bytes))
     end
     
     # Create a new image font a custom stream
@@ -1034,9 +1028,8 @@ module SF
     # * `stream`: Source stream to read from
     # 
     # *Returns*: A new Font object, or NULL if it failed
-    def initialize(stream: InputStream*)
-      @owned = true
-      @this = CSFML.font_create_from_stream(stream)
+    def self.from_stream(stream: InputStream*)
+      Font.transfer_ptr(CSFML.font_create_from_stream(stream))
     end
     
     # Copy an existing font
@@ -1046,9 +1039,8 @@ module SF
     # * `font`: Font to copy
     # 
     # *Returns*: Copied object
-    def copy()
-      result = Font.allocate()
-      result.transfer_ptr(CSFML.font_copy(@this))
+    def dup()
+      Font.transfer_ptr(CSFML.font_copy(@this))
     end
     
     # Destroy an existing font
@@ -1139,8 +1131,7 @@ module SF
     # 
     # *Returns*: Read-only pointer to the texture
     def get_texture(character_size: Int32)
-      result = Texture.allocate()
-      result.wrap_ptr(CSFML.font_get_texture(@this, character_size))
+      Texture.wrap_ptr(CSFML.font_get_texture(@this, character_size))
     end
     
     # Get the font information
@@ -1187,9 +1178,8 @@ module SF
     # * `color`: Fill color
     # 
     # *Returns*: A new Image object
-    def initialize(width: Int32, height: Int32, color: Color)
-      @owned = true
-      @this = CSFML.image_create_from_color(width, height, color)
+    def self.from_color(width: Int32, height: Int32, color: Color)
+      Image.transfer_ptr(CSFML.image_create_from_color(width, height, color))
     end
     
     # Create an image from an array of pixels
@@ -1206,14 +1196,13 @@ module SF
     # * `pixels`: Array of pixels to copy to the image
     # 
     # *Returns*: A new Image object
-    def initialize(width: Int32, height: Int32, pixels)
+    def self.from_pixels(width: Int32, height: Int32, pixels)
       if pixels
         cpixels = pixels; ppixels = pointerof(cpixels)
       else
         ppixels = nil
       end
-      @owned = true
-      @this = CSFML.image_create_from_pixels(width, height, ppixels)
+      Image.transfer_ptr(CSFML.image_create_from_pixels(width, height, ppixels))
     end
     
     # Create an image from a file on disk
@@ -1228,9 +1217,8 @@ module SF
     # * `filename`: Path of the image file to load
     # 
     # *Returns*: A new Image object, or NULL if it failed
-    def initialize(filename: String)
-      @owned = true
-      @this = CSFML.image_create_from_file(filename)
+    def self.from_file(filename: String)
+      Image.transfer_ptr(CSFML.image_create_from_file(filename))
     end
     
     # Create an image from a file in memory
@@ -1246,9 +1234,8 @@ module SF
     # * `size`: Size of the data to load, in bytes
     # 
     # *Returns*: A new Image object, or NULL if it failed
-    def initialize(data: Void*, size: Size_t)
-      @owned = true
-      @this = CSFML.image_create_from_memory(data, size)
+    def self.from_memory(data: Void*, size: Size_t)
+      Image.transfer_ptr(CSFML.image_create_from_memory(data, size))
     end
     
     # Create an image from a custom stream
@@ -1263,9 +1250,8 @@ module SF
     # * `stream`: Source stream to read from
     # 
     # *Returns*: A new Image object, or NULL if it failed
-    def initialize(stream: InputStream*)
-      @owned = true
-      @this = CSFML.image_create_from_stream(stream)
+    def self.from_stream(stream: InputStream*)
+      Image.transfer_ptr(CSFML.image_create_from_stream(stream))
     end
     
     # Copy an existing image
@@ -1275,9 +1261,8 @@ module SF
     # * `image`: Image to copy
     # 
     # *Returns*: Copied object
-    def copy()
-      result = Image.allocate()
-      result.transfer_ptr(CSFML.image_copy(@this))
+    def dup()
+      Image.transfer_ptr(CSFML.image_copy(@this))
     end
     
     # Destroy an existing image
@@ -1447,9 +1432,8 @@ module SF
     # * `fragment_shader_filename`: Path of the fragment shader file to load, or NULL to skip this shader
     # 
     # *Returns*: A new Shader object, or NULL if it failed
-    def initialize(vertex_shader_filename: String, fragment_shader_filename: String)
-      @owned = true
-      @this = CSFML.shader_create_from_file(vertex_shader_filename, fragment_shader_filename)
+    def self.from_file(vertex_shader_filename: String, fragment_shader_filename: String)
+      Shader.transfer_ptr(CSFML.shader_create_from_file(vertex_shader_filename, fragment_shader_filename))
     end
     
     # Load both the vertex and fragment shaders from source codes in memory
@@ -1468,9 +1452,8 @@ module SF
     # * `fragment_shader`: String containing the source code of the fragment shader, or NULL to skip this shader
     # 
     # *Returns*: A new Shader object, or NULL if it failed
-    def initialize(vertex_shader: String, fragment_shader: String)
-      @owned = true
-      @this = CSFML.shader_create_from_memory(vertex_shader, fragment_shader)
+    def self.from_memory(vertex_shader: String, fragment_shader: String)
+      Shader.transfer_ptr(CSFML.shader_create_from_memory(vertex_shader, fragment_shader))
     end
     
     # Load both the vertex and fragment shaders from custom streams
@@ -1489,9 +1472,8 @@ module SF
     # * `fragment_shader_stream`: Source stream to read the fragment shader from, or NULL to skip this shader
     # 
     # *Returns*: A new Shader object, or NULL if it failed
-    def initialize(vertex_shader_stream: InputStream*, fragment_shader_stream: InputStream*)
-      @owned = true
-      @this = CSFML.shader_create_from_stream(vertex_shader_stream, fragment_shader_stream)
+    def self.from_stream(vertex_shader_stream: InputStream*, fragment_shader_stream: InputStream*)
+      Shader.transfer_ptr(CSFML.shader_create_from_stream(vertex_shader_stream, fragment_shader_stream))
     end
     
     # Destroy an existing shader
@@ -1737,9 +1719,8 @@ module SF
     # * `shape`: Shape to copy
     # 
     # *Returns*: Copied object
-    def copy()
-      result = RectangleShape.allocate()
-      result.transfer_ptr(CSFML.rectangle_shape_copy(@this))
+    def dup()
+      RectangleShape.transfer_ptr(CSFML.rectangle_shape_copy(@this))
     end
     
     # Destroy an existing rectangle shape
@@ -2013,8 +1994,7 @@ module SF
     # 
     # *Returns*: Pointer to the shape's texture
     def texture
-      result = Texture.allocate()
-      result.wrap_ptr(CSFML.rectangle_shape_get_texture(@this))
+      Texture.wrap_ptr(CSFML.rectangle_shape_get_texture(@this))
     end
     
     # Get the sub-rectangle of the texture displayed by a rectangle shape
@@ -2231,8 +2211,7 @@ module SF
     # 
     # *Returns*: Current active view
     def view
-      result = View.allocate()
-      result.wrap_ptr(CSFML.render_texture_get_view(@this))
+      View.wrap_ptr(CSFML.render_texture_get_view(@this))
     end
     
     # Get the default view of a render texture
@@ -2243,8 +2222,7 @@ module SF
     # 
     # *Returns*: Default view of the rendertexture
     def default_view
-      result = View.allocate()
-      result.wrap_ptr(CSFML.render_texture_get_default_view(@this))
+      View.wrap_ptr(CSFML.render_texture_get_default_view(@this))
     end
     
     # Get the viewport of a view applied to this target
@@ -2466,8 +2444,7 @@ module SF
     # 
     # *Returns*: Pointer to the target texture
     def texture
-      result = Texture.allocate()
-      result.wrap_ptr(CSFML.render_texture_get_texture(@this))
+      Texture.wrap_ptr(CSFML.render_texture_get_texture(@this))
     end
     
     # Enable or disable the smooth filter on a render texture
@@ -2544,14 +2521,13 @@ module SF
     # 
     # * `handle`: Platform-specific handle of the control
     # * `settings`: Creation settings (pass NULL to use default values)
-    def initialize(handle: WindowHandle, settings)
+    def self.from_handle(handle: WindowHandle, settings)
       if settings
         csettings = settings; psettings = pointerof(csettings)
       else
         psettings = nil
       end
-      @owned = true
-      @this = CSFML.render_window_create_from_handle(handle, psettings)
+      RenderWindow.transfer_ptr(CSFML.render_window_create_from_handle(handle, psettings))
     end
     
     # Destroy an existing render window
@@ -2840,8 +2816,7 @@ module SF
     # 
     # *Returns*: Current active view
     def view
-      result = View.allocate()
-      result.wrap_ptr(CSFML.render_window_get_view(@this))
+      View.wrap_ptr(CSFML.render_window_get_view(@this))
     end
     
     # Get the default view of a render window
@@ -2852,8 +2827,7 @@ module SF
     # 
     # *Returns*: Default view of the render window
     def default_view
-      result = View.allocate()
-      result.wrap_ptr(CSFML.render_window_get_default_view(@this))
+      View.wrap_ptr(CSFML.render_window_get_default_view(@this))
     end
     
     # Get the viewport of a view applied to this target
@@ -3086,8 +3060,7 @@ module SF
     # 
     # *Returns*: New image containing the captured contents
     def capture()
-      result = Image.allocate()
-      result.wrap_ptr(CSFML.render_window_capture(@this))
+      Image.wrap_ptr(CSFML.render_window_capture(@this))
     end
     
   end
@@ -3380,8 +3353,7 @@ module SF
     # 
     # *Returns*: Pointer to the shape's texture
     def texture
-      result = Texture.allocate()
-      result.wrap_ptr(CSFML.shape_get_texture(@this))
+      Texture.wrap_ptr(CSFML.shape_get_texture(@this))
     end
     
     # Get the sub-rectangle of the texture displayed by a shape
@@ -3516,9 +3488,8 @@ module SF
     # * `sprite`: Sprite to copy
     # 
     # *Returns*: Copied object
-    def copy()
-      result = Sprite.allocate()
-      result.transfer_ptr(CSFML.sprite_copy(@this))
+    def dup()
+      Sprite.transfer_ptr(CSFML.sprite_copy(@this))
     end
     
     # Destroy an existing sprite
@@ -3761,8 +3732,7 @@ module SF
     # 
     # *Returns*: Pointer to the sprite's texture
     def texture
-      result = Texture.allocate()
-      result.wrap_ptr(CSFML.sprite_get_texture(@this))
+      Texture.wrap_ptr(CSFML.sprite_get_texture(@this))
     end
     
     # Get the sub-rectangle of the texture displayed by a sprite
@@ -3846,9 +3816,8 @@ module SF
     # * `text`: Text to copy
     # 
     # *Returns*: Copied object
-    def copy()
-      result = Text.allocate()
-      result.transfer_ptr(CSFML.text_copy(@this))
+    def dup()
+      Text.transfer_ptr(CSFML.text_copy(@this))
     end
     
     # Destroy an existing text
@@ -4122,8 +4091,7 @@ module SF
     # 
     # *Returns*: Pointer to the font
     def font
-      result = Font.allocate()
-      result.wrap_ptr(CSFML.text_get_font(@this))
+      Font.wrap_ptr(CSFML.text_get_font(@this))
     end
     
     # Get the size of the characters of a text
@@ -4238,14 +4206,13 @@ module SF
     # * `area`: Area of the source image to load (NULL to load the entire image)
     # 
     # *Returns*: A new Texture object, or NULL if it failed
-    def initialize(filename: String, area)
+    def self.from_file(filename: String, area)
       if area
         carea = area; parea = pointerof(carea)
       else
         parea = nil
       end
-      @owned = true
-      @this = CSFML.texture_create_from_file(filename, parea)
+      Texture.transfer_ptr(CSFML.texture_create_from_file(filename, parea))
     end
     
     # Create a new texture from a file in memory
@@ -4257,14 +4224,13 @@ module SF
     # * `area`: Area of the source image to load (NULL to load the entire image)
     # 
     # *Returns*: A new Texture object, or NULL if it failed
-    def initialize(data: Void*, size_in_bytes: Size_t, area)
+    def self.from_memory(data: Void*, size_in_bytes: Size_t, area)
       if area
         carea = area; parea = pointerof(carea)
       else
         parea = nil
       end
-      @owned = true
-      @this = CSFML.texture_create_from_memory(data, size_in_bytes, parea)
+      Texture.transfer_ptr(CSFML.texture_create_from_memory(data, size_in_bytes, parea))
     end
     
     # Create a new texture from a custom stream
@@ -4275,14 +4241,13 @@ module SF
     # * `area`: Area of the source image to load (NULL to load the entire image)
     # 
     # *Returns*: A new Texture object, or NULL if it failed
-    def initialize(stream: InputStream*, area)
+    def self.from_stream(stream: InputStream*, area)
       if area
         carea = area; parea = pointerof(carea)
       else
         parea = nil
       end
-      @owned = true
-      @this = CSFML.texture_create_from_stream(stream, parea)
+      Texture.transfer_ptr(CSFML.texture_create_from_stream(stream, parea))
     end
     
     # Create a new texture from an image
@@ -4293,14 +4258,13 @@ module SF
     # * `area`: Area of the source image to load (NULL to load the entire image)
     # 
     # *Returns*: A new Texture object, or NULL if it failed
-    def initialize(image: Image, area)
+    def self.from_image(image: Image, area)
       if area
         carea = area; parea = pointerof(carea)
       else
         parea = nil
       end
-      @owned = true
-      @this = CSFML.texture_create_from_image(image, parea)
+      Texture.transfer_ptr(CSFML.texture_create_from_image(image, parea))
     end
     
     # Copy an existing texture
@@ -4310,9 +4274,8 @@ module SF
     # * `texture`: Texture to copy
     # 
     # *Returns*: Copied object
-    def copy()
-      result = Texture.allocate()
-      result.transfer_ptr(CSFML.texture_copy(@this))
+    def dup()
+      Texture.transfer_ptr(CSFML.texture_copy(@this))
     end
     
     # Destroy an existing texture
@@ -4343,8 +4306,7 @@ module SF
     # 
     # *Returns*: Image containing the texture's pixels
     def copy_to_image()
-      result = Image.allocate()
-      result.wrap_ptr(CSFML.texture_copy_to_image(@this))
+      Image.wrap_ptr(CSFML.texture_copy_to_image(@this))
     end
     
     # Update a texture from an array of pixels
@@ -4501,9 +4463,8 @@ module SF
     # * `transformable`: Transformable to copy
     # 
     # *Returns*: Copied object
-    def copy()
-      result = Transformable.allocate()
-      result.transfer_ptr(CSFML.transformable_copy(@this))
+    def dup()
+      Transformable.transfer_ptr(CSFML.transformable_copy(@this))
     end
     
     # Destroy an existing transformable
@@ -4703,9 +4664,8 @@ module SF
     # * `vertex_array`: Vertex array to copy
     # 
     # *Returns*: Copied object
-    def copy()
-      result = VertexArray.allocate()
-      result.transfer_ptr(CSFML.vertex_array_copy(@this))
+    def dup()
+      VertexArray.transfer_ptr(CSFML.vertex_array_copy(@this))
     end
     
     # Destroy an existing vertex array
@@ -4849,9 +4809,8 @@ module SF
     # * `rectangle`: Rectangle defining the zone to display
     # 
     # *Returns*: A new View object
-    def initialize(rectangle: FloatRect)
-      @owned = true
-      @this = CSFML.view_create_from_rect(rectangle)
+    def self.from_rect(rectangle: FloatRect)
+      View.transfer_ptr(CSFML.view_create_from_rect(rectangle))
     end
     
     # Copy an existing view
@@ -4861,9 +4820,8 @@ module SF
     # * `view`: View to copy
     # 
     # *Returns*: Copied object
-    def copy()
-      result = View.allocate()
-      result.transfer_ptr(CSFML.view_copy(@this))
+    def dup()
+      View.transfer_ptr(CSFML.view_copy(@this))
     end
     
     # Destroy an existing view

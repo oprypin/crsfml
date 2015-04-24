@@ -121,9 +121,8 @@ module SF
     # * `filename`: Path of the music file to open
     # 
     # *Returns*: A new Music object (NULL if failed)
-    def initialize(filename: String)
-      @owned = true
-      @this = CSFML.music_create_from_file(filename)
+    def self.from_file(filename: String)
+      Music.transfer_ptr(CSFML.music_create_from_file(filename))
     end
     
     # Create a new music and load it from a file in memory
@@ -140,9 +139,8 @@ module SF
     # * `size_in_bytes`: Size of the data to load, in bytes
     # 
     # *Returns*: A new Music object (NULL if failed)
-    def initialize(data: Void*, size_in_bytes: Size_t)
-      @owned = true
-      @this = CSFML.music_create_from_memory(data, size_in_bytes)
+    def self.from_memory(data: Void*, size_in_bytes: Size_t)
+      Music.transfer_ptr(CSFML.music_create_from_memory(data, size_in_bytes))
     end
     
     # Create a new music and load it from a custom stream
@@ -158,9 +156,8 @@ module SF
     # * `stream`: Source stream to read from
     # 
     # *Returns*: A new Music object (NULL if failed)
-    def initialize(stream: InputStream*)
-      @owned = true
-      @this = CSFML.music_create_from_stream(stream)
+    def self.from_stream(stream: InputStream*)
+      Music.transfer_ptr(CSFML.music_create_from_stream(stream))
     end
     
     # Destroy a music
@@ -499,9 +496,8 @@ module SF
     # * `sound`: Sound to copy
     # 
     # *Returns*: A new Sound object which is a copy of `sound`
-    def copy()
-      result = Sound.allocate()
-      result.transfer_ptr(CSFML.sound_copy(@this))
+    def dup()
+      Sound.transfer_ptr(CSFML.sound_copy(@this))
     end
     
     # Destroy a sound
@@ -575,8 +571,7 @@ module SF
     # 
     # *Returns*: Sound buffer attached to the sound (can be NULL)
     def buffer
-      result = SoundBuffer.allocate()
-      result.wrap_ptr(CSFML.sound_get_buffer(@this))
+      SoundBuffer.wrap_ptr(CSFML.sound_get_buffer(@this))
     end
     
     # Set whether or not a sound should loop after reaching the end
@@ -824,9 +819,8 @@ module SF
     # * `filename`: Path of the sound file to load
     # 
     # *Returns*: A new SoundBuffer object (NULL if failed)
-    def initialize(filename: String)
-      @owned = true
-      @this = CSFML.sound_buffer_create_from_file(filename)
+    def self.from_file(filename: String)
+      SoundBuffer.transfer_ptr(CSFML.sound_buffer_create_from_file(filename))
     end
     
     # Create a new sound buffer and load it from a file in memory
@@ -841,9 +835,8 @@ module SF
     # * `size_in_bytes`: Size of the data to load, in bytes
     # 
     # *Returns*: A new SoundBuffer object (NULL if failed)
-    def initialize(data: Void*, size_in_bytes: Size_t)
-      @owned = true
-      @this = CSFML.sound_buffer_create_from_memory(data, size_in_bytes)
+    def self.from_memory(data: Void*, size_in_bytes: Size_t)
+      SoundBuffer.transfer_ptr(CSFML.sound_buffer_create_from_memory(data, size_in_bytes))
     end
     
     # Create a new sound buffer and load it from a custom stream
@@ -857,9 +850,8 @@ module SF
     # * `stream`: Source stream to read from
     # 
     # *Returns*: A new SoundBuffer object (NULL if failed)
-    def initialize(stream: InputStream*)
-      @owned = true
-      @this = CSFML.sound_buffer_create_from_stream(stream)
+    def self.from_stream(stream: InputStream*)
+      SoundBuffer.transfer_ptr(CSFML.sound_buffer_create_from_stream(stream))
     end
     
     # Create a new sound buffer and load it from an array of samples in memory
@@ -875,14 +867,13 @@ module SF
     # * `sample_rate`: Sample rate (number of samples to play per second)
     # 
     # *Returns*: A new SoundBuffer object (NULL if failed)
-    def initialize(samples, sample_count: Size_t, channel_count: Int32, sample_rate: Int32)
+    def self.from_samples(samples, sample_count: Size_t, channel_count: Int32, sample_rate: Int32)
       if samples
         csamples = samples; psamples = pointerof(csamples)
       else
         psamples = nil
       end
-      @owned = true
-      @this = CSFML.sound_buffer_create_from_samples(psamples, sample_count, channel_count, sample_rate)
+      SoundBuffer.transfer_ptr(CSFML.sound_buffer_create_from_samples(psamples, sample_count, channel_count, sample_rate))
     end
     
     # Create a new sound buffer by copying an existing one
@@ -892,9 +883,8 @@ module SF
     # * `sound_buffer`: Sound buffer to copy
     # 
     # *Returns*: A new SoundBuffer object which is a copy of `sound_buffer`
-    def copy()
-      result = SoundBuffer.allocate()
-      result.transfer_ptr(CSFML.sound_buffer_copy(@this))
+    def dup()
+      SoundBuffer.transfer_ptr(CSFML.sound_buffer_copy(@this))
     end
     
     # Destroy a sound buffer
@@ -1067,8 +1057,7 @@ module SF
     # 
     # *Returns*: Read-only access to the sound buffer
     def buffer
-      result = SoundBuffer.allocate()
-      result.wrap_ptr(CSFML.sound_buffer_recorder_get_buffer(@this))
+      SoundBuffer.wrap_ptr(CSFML.sound_buffer_recorder_get_buffer(@this))
     end
     
   end

@@ -61,9 +61,8 @@ module SF
     # * `clock`: Clock to copy
     # 
     # *Returns*: A new Clock object which is a copy of `clock`
-    def copy()
-      result = Clock.allocate()
-      result.transfer_ptr(CSFML.clock_copy(@this))
+    def dup()
+      Clock.transfer_ptr(CSFML.clock_copy(@this))
     end
     
     # Destroy a clock

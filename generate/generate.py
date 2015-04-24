@@ -83,7 +83,7 @@ def rename_identifier(name):
     #name = name.replace('String', 'Str').replace('string', 'str')
     name = re.sub('[A-Z](?![A-Z]|$)', lambda m: '_'+m.group(0).lower(), name)
     name = re.sub('[A-Z]+', lambda m: '_'+m.group(0).lower()+'_', name)
-    return name.replace('__', '_').strip('_')
+    return name.replace('__', '_').replace('._', '.').strip('_')
 
 def common_start(strings):
     if not strings:
@@ -206,8 +206,9 @@ def handle_function(main, params):
     ftype, ofname = main
     nfname = rename_sf(ofname)
     fname = rename_identifier(rename_sf(ofname))
-    nfname = re.sub(r'(.+)_create(From.+|Unicode)?$', r'\1_initialize', nfname)
-    nfname = re.sub(r'(.+?)_?([Ww]ith|[Ff]rom).+', r'\1', nfname)
+    nfname = re.sub(r'(.+)_create(Unicode)?$', r'\1_initialize', nfname)
+    nfname = re.sub(r'(.+?)_?(?<!create)([Ww]ith|[Ff]rom).+', r'\1', nfname)
+    nfname = re.sub(r'(.+)_create(From.+)$', r'\1_\2', nfname)
     nfname = re.sub(r'([gs]et.+)RenderWindow$', r'\1', nfname)
     if nfname != 'Shader_setCurrentTextureParameter':
         nfname = re.sub(r'_set(.+)Parameter$', r'_setParameter', nfname)
@@ -229,6 +230,8 @@ def handle_function(main, params):
     nftype = rename_type(ftype)
     main_sgn = 'fun {fname} = {ofname}({sparams}): {nftype}'
     getter = False
+    if nfname == 'copy':
+        nfname = 'dup'
     if nfname.startswith('get_') and len(params)==1 and cls:
         getter = True
         nfname = nfname[4:]
@@ -336,11 +339,10 @@ def handle_function(main, params):
     elif nfname == 'finalize':
         obj(cls, '  {} if @owned'.format(call))
     elif nftype in classes:
-        obj(cls, '  result = {}.allocate()'.format(nftype))
-        if nfname == 'copy':
-            obj(cls, '  result.transfer_ptr({})'.format(call))
+        if nfname == 'dup' or '_create' in ofname:
+            obj(cls, '  {}.transfer_ptr({})'.format(nftype, call))
         else:
-            obj(cls, '  result.wrap_ptr({})'.format(call))
+            obj(cls, '  {}.wrap_ptr({})'.format(nftype, call))
     elif nftype == 'Char*':
         obj(cls, '  ptr = {}'.format(call))
         obj(cls, '  result = ""; i = 0')

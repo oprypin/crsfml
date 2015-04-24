@@ -2,7 +2,7 @@ require "csfml/system"
 require "csfml/window"
 require "csfml/graphics"
 
-$font = SF::Font.new("resources/font/Ubuntu-R.ttf")
+$font = SF::Font.from_file("resources/font/Ubuntu-R.ttf")
 
 class Logo
   include SF::TransformableM

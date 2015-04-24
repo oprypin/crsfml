@@ -3,7 +3,7 @@ require "csfml/window"
 require "csfml/graphics"
 require "csfml/audio"
 
-$font = SF::Font.new("resources/font/Ubuntu-R.ttf")
+$font = SF::Font.from_file("resources/font/Ubuntu-R.ttf")
 
 $window = SF::RenderWindow.new(
   SF.video_mode(800, 600), "Diagnostic information",
