@@ -57,6 +57,10 @@ Parts of the Shader example [from SFML][shader]
     - Set arguments
     - Apply
 
+### [gl](gl.cr)
+
+- Basic OpenGL
+
 ### [low_level](low_level.cr)
 
 **flippy_bird** using low-level API.
