@@ -51,7 +51,7 @@ def test_mouse()
         $window.mouse_cursor_visible = true
         return
       when SF::Event::MouseWheelMoved
-        wheel_delta += event.mouse_wheel.delta
+        wheel_delta += event.delta
       end
     end
     wheel_delta *= 0.9
@@ -229,7 +229,7 @@ while $window.open?
       $window.close()
     when SF::Event::MouseButtonPressed
       actions.each_key do |btn|
-        if btn.global_bounds.contains(event.mouse_button.x.to_f - btn.position.x, event.mouse_button.y.to_f - btn.position.y)
+        if btn.global_bounds.contains(event.x.to_f - btn.position.x, event.y.to_f - btn.position.y)
           actions[btn].call
           break
         end

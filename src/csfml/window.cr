@@ -77,6 +77,86 @@ module SF
       end
     end
   end
+  
+  struct CSFML::Event
+    def alt
+      key.alt
+    end
+    def axis
+      joystick_move.axis
+    end
+    def button
+      case type
+        when MouseButtonEvent; mouse_button.button
+        when JoystickButtonEvent; joystick_button.button
+        else raise "button"
+      end
+    end
+    def code
+      key.code
+    end
+    def control
+      key.control
+    end
+    def delta
+      mouse_wheel.delta
+    end
+    def finger
+      touch.finger
+    end
+    def height
+      size.height
+    end
+    def joystick_id
+      case type
+        when JoystickMoveEvent; joystick_move.joystick_id
+        when JoystickButtonEvent; joystick_button.joystick_id
+        when JoystickConnectEvent; joystick_connect.joystick_id
+        else raise "joystick_id"
+      end
+    end
+    def position
+      joystick_move.position
+    end
+    def sensor_type
+      sensor.sensor_type
+    end
+    def shift
+      key.shift
+    end
+    def system
+      key.system
+    end
+    def unicode
+      text.unicode
+    end
+    def width
+      size.width
+    end
+    def x
+      case type
+        when MouseMoveEvent; mouse_move.x
+        when MouseButtonEvent; mouse_button.x
+        when MouseWheelEvent; mouse_wheel.x
+        when TouchEvent; touch.x
+        when SensorEvent; sensor.x
+        else raise "x"
+      end
+    end
+    def y
+      case type
+        when MouseMoveEvent; mouse_move.y
+        when MouseButtonEvent; mouse_button.y
+        when MouseWheelEvent; mouse_wheel.y
+        when TouchEvent; touch.y
+        when SensorEvent; sensor.y
+        else raise "y"
+      end
+    end
+    def z
+      sensor.z
+    end
+  end
 end
 
 require "./window_obj"
