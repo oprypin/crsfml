@@ -1,6 +1,5 @@
-require "csfml/system"
-require "csfml/window"
-require "csfml/graphics"
+require "csfml"
+
 
 mode = SF.video_mode(800, 600)
 window = SF::RenderWindow.new(mode, "pɹıq ʎddılɟ")

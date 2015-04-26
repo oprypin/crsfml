@@ -20,7 +20,7 @@ puts "Recording... press Enter to stop"
 gets()
 recorder.stop()
 
-buffer = recorder.buffer
+buffer = recorder.buffer.not_nil!
 
 puts "Sound information:"
 puts " #{buffer.duration.as_seconds} seconds"

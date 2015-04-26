@@ -1,6 +1,4 @@
-require "csfml/system"
-require "csfml/window"
-require "csfml/graphics"
+require "csfml"
 
 
 Left = {-1, 0}

@@ -1,5 +1,5 @@
-require "csfml/window"
-require "csfml/graphics"
+require "csfml"
+
 
 window = SF::RenderWindow.new(SF.video_mode(800, 600), "Typing")
 
