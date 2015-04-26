@@ -48,6 +48,15 @@ Sound Capture example [from SFML][sound_capture]
 - Play sound
 - Save sound
 
+### [shader](shader.cr)
+
+Parts of the Shader example [from SFML][shader]
+
+- Fragment and vertex shaders
+    - Load from file
+    - Set arguments
+    - Apply
+
 ### [low_level](low_level.cr)
 
 **flippy_bird** using low-level API.
@@ -57,8 +66,12 @@ Acknowledgements
 ----------------
 
 - *sound_capture.cr* was adapted from [SFML's Sound Capture example][sound_capture]
+- *shader.cr* was adapted from [SFML's Shader example][shader]
+- *resources*: *background.jpg*, *pixelate.frag*, *wave.vert*, *blur.frag*
+  were taken [from SFML's repository](https://github.com/LaurentGomila/SFML/blob/master/examples)
 - [Ubuntu Regular font](http://font.ubuntu.com/#charset-regular) is used
 - All the other files in this *examples* folder may be used without any limitations
 
 
 [sound_capture]: https://github.com/LaurentGomila/SFML/blob/master/examples/sound_capture/
+[shader]: https://github.com/LaurentGomila/SFML/blob/master/examples/shader/
