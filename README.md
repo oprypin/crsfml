@@ -1,5 +1,5 @@
-CrSFML
-======
+# ![CrSFML](logo.png)
+
 #### [Crystal][] bindings to [Simple and Fast Multimedia Library][sfml] (through [CSFML][]).
 
 **See [introduction](#introduction), [examples](examples), [documentation][].**
