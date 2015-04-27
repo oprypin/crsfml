@@ -87,8 +87,10 @@ module SF
     end
     def button
       case type
-        when MouseButtonEvent; mouse_button.button
-        when JoystickButtonEvent; joystick_button.button
+        when MouseButtonPressed, MouseButtonReleased
+          mouse_button.button
+        when JoystickButtonPressed, JoystickButtonReleased
+          joystick_button.button
         else raise "button"
       end
     end
@@ -109,9 +111,12 @@ module SF
     end
     def joystick_id
       case type
-        when JoystickMoveEvent; joystick_move.joystick_id
-        when JoystickButtonEvent; joystick_button.joystick_id
-        when JoystickConnectEvent; joystick_connect.joystick_id
+        when JoystickMoved
+          joystick_move.joystick_id
+        when JoystickButtonPressed, JoystickButtonReleased
+          joystick_button.joystick_id
+        when JoystickConnected, JoystickDisconnected
+          joystick_connect.joystick_id
         else raise "joystick_id"
       end
     end
@@ -135,21 +140,31 @@ module SF
     end
     def x
       case type
-        when MouseMoveEvent; mouse_move.x
-        when MouseButtonEvent; mouse_button.x
-        when MouseWheelEvent; mouse_wheel.x
-        when TouchEvent; touch.x
-        when SensorEvent; sensor.x
+        when MouseMoved
+          mouse_move.x
+        when MouseButtonPressed, MouseButtonReleased
+          mouse_button.x
+        when MouseWheelMoved
+          mouse_wheel.x
+        when TouchBegan, TouchMoved, TouchEnded
+          touch.x
+        when SensorChanged
+          sensor.x
         else raise "x"
       end
     end
     def y
       case type
-        when MouseMoveEvent; mouse_move.y
-        when MouseButtonEvent; mouse_button.y
-        when MouseWheelEvent; mouse_wheel.y
-        when TouchEvent; touch.y
-        when SensorEvent; sensor.y
+        when MouseMoved
+          mouse_move.y
+        when MouseButtonPressed, MouseButtonReleased
+          mouse_button.y
+        when MouseWheelMoved
+          mouse_wheel.y
+        when TouchBegan, TouchMoved, TouchEnded
+          touch.y
+        when SensorChanged
+          sensor.y
         else raise "y"
       end
     end
