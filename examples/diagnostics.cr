@@ -1,7 +1,7 @@
-require "csfml/system"
-require "csfml/window"
-require "csfml/graphics"
-require "csfml/audio"
+require "crsfml/system"
+require "crsfml/window"
+require "crsfml/graphics"
+require "crsfml/audio"
 
 $font = SF::Font.from_file("resources/font/Ubuntu-R.ttf")
 

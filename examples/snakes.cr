@@ -1,4 +1,4 @@
-require "csfml"
+require "crsfml"
 
 
 Left = {-1, 0}

@@ -1,4 +1,4 @@
-require "csfml"
+require "crsfml"
 
 @[Link("GL")]
 lib GL

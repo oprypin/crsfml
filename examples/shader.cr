@@ -2,7 +2,7 @@
 # https://github.com/LaurentGomila/SFML/blob/master/examples/shader/Shader.cpp
 
 require "http/client"
-require "csfml"
+require "crsfml"
 
 
 scene = rand(2)

@@ -1,4 +1,4 @@
-require "csfml"
+require "crsfml"
 
 
 window = SF::RenderWindow.new(SF.video_mode(800, 600), "Typing")

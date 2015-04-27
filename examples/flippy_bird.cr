@@ -1,4 +1,4 @@
-require "csfml"
+require "crsfml"
 
 
 mode = SF.video_mode(800, 600)

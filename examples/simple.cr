@@ -1,4 +1,4 @@
-require "csfml/window"
+require "crsfml/window"
 
 
 window = SF::Window.new(SF.video_mode(800, 600), "CrSFML works!")

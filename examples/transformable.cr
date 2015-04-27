@@ -1,4 +1,4 @@
-require "csfml"
+require "crsfml"
 
 
 $font = SF::Font.from_file("resources/font/Ubuntu-R.ttf")

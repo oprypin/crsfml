@@ -1,5 +1,5 @@
-require "csfml/window_lib"
-require "csfml/graphics_lib"
+require "crsfml/window_lib"
+require "crsfml/graphics_lib"
 
 def sf_unicode(s)
   chars = s.chars

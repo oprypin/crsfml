@@ -1,8 +1,8 @@
 # Adapted from SFML Sound Capture example
 # https://github.com/LaurentGomila/SFML/blob/master/examples/sound_capture/SoundCapture.cpp
 
-require "csfml/system"
-require "csfml/audio"
+require "crsfml/system"
+require "crsfml/audio"
 
 
 unless SF::SoundRecorder.is_available
