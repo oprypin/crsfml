@@ -36,6 +36,23 @@ module SF
     Magenta = SF.color(255, 0, 255)
     Cyan = SF.color(0, 255, 255)
     Transparent = SF.color(0, 0, 0, 0)
+    
+    def ==(other: self)
+      r == other.r && g == other.g && b == other.b && a == other.a
+    end
+    def +(other: self)
+      add other
+    end
+    def *(other: self)
+      modulate other
+    end
+    def -(other: self)
+      out = Color.new(r: 0, g: 0, b: 0, a: 0)
+      out.r = r - other.r if r > other.r
+      out.g = g - other.g if g > other.g
+      out.b = b - other.b if b > other.b
+      out.a = a - other.a if a > other.a
+    end
   end
   
   def float_rect(left, top, width, height)
@@ -46,6 +63,9 @@ module SF
   end
 
   struct CSFML::FloatRect
+    def contains(point: Vector2f)
+      contains(point.x, point.y)
+    end
     def intersects(other: self)
       intersection = FloatRect.new()
       float_rect_intersects(@self, other, pointerof(intersection)) ? intersection : nil
@@ -53,6 +73,9 @@ module SF
   end
   
   struct CSFML::IntRect
+    def contains(point: Vector2i)
+      contains(point.x, point.y)
+    end
     def intersects(other: self)
       intersection = IntRect.new()
       int_rect_intersects(@self, other, pointerof(intersection)) ? intersection : nil
@@ -65,6 +88,31 @@ module SF
   end
   struct CSFML::Transform
     Identity = SF.transform()
+    
+    def transform_point(x, y)
+      transform_point(vector2f(x, y))
+    end
+    def translate(offset: Vector2f)
+      translate(offset.x, offset.y)
+    end
+    def rotate(angle, center: Vector2f)
+      rotate(angle, center.x, center.y)
+    end
+    def scale(factors: Vector2f)
+      scale(factors.x, factors.y)
+    end
+    def scale(factors: Vector2f, center: Vector2f)
+      scale(factors.x, factors.y, center.x, center.y)
+    end
+    
+    def *(other: self)
+      out = self
+      out.combine(other)
+      out
+    end
+    def *(point: Vector2f)
+      transform_point(point)
+    end
   end
   
   def self.get_matrix(transform: Transform)
@@ -115,7 +163,27 @@ module SF
   end
   
   struct CSFML::RenderStates
-    Default = render_states()
+    Default = SF.render_states()
+  end
+  
+  class Shape
+    def initialize()
+      @owned = true
+      @funcs = Box.box({
+        -> { point_count },
+        ->(i: Int32) { get_point(i) }
+      })
+      @this = CSFML.shape_create(
+        ->(data) { Box({(-> Int32), (Int32 -> SF::Vector2f)}).unbox(data)[0].call },
+        ->(i, data) { Box({(-> Int32), (Int32 -> SF::Vector2f)}).unbox(data)[1].call(i) },
+        @funcs
+      )
+      update
+    end
+    
+    def draw(target, states: RenderStates)
+      target.draw_shape(self, states)
+    end
   end
   
   class CircleShape
@@ -234,6 +302,19 @@ module SF
   end
   
   class VertexArray
+    def initialize(primitive_type: PrimitiveType, vertex_count=0)
+      initialize()
+      self.primitive_type = primitive_type
+      self.resize(vertex_count)
+    end
+    
+    def [](index)
+      get_vertex(index)[0]
+    end
+    def []=(index, point: Vector2f)
+      get_vertex(index)[0] = point
+    end
+
     def draw(target, states: RenderStates)
       target.draw_vertex_array(self, states)
     end
@@ -255,6 +336,14 @@ module SF
     def draw(drawable, states=CSFML::RenderStates::Default)
       drawable.draw(self, states)
     end
+    def draw(vertices, type: PrimitiveType, states=CSFML::RenderStates::Default)
+      if states
+        cstates = states; pstates = pointerof(cstates)
+      else
+        pstates = nil
+      end
+      CSFML.render_texture_draw_primitives(@this, vertices, vertices.length, type, pstates)
+    end
   end
   
   class RenderWindow
@@ -262,8 +351,16 @@ module SF
       initialize(mode, title, style, settings)
     end
     
-    def draw(drawable, states=SF.render_states())
+    def draw(drawable, states=CSFML::RenderStates::Default)
       drawable.draw(self, states)
+    end
+    def draw(vertices, type: PrimitiveType, states=CSFML::RenderStates::Default)
+      if states
+        cstates = states; pstates = pointerof(cstates)
+      else
+        pstates = nil
+      end
+      CSFML.render_window_draw_primitives(@this, vertices, vertices.length, type, pstates)
     end
     
     def poll_event()
