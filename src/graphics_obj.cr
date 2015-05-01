@@ -173,7 +173,8 @@ module SF
     # 
     # * `shape`: Shape object
     # * `position`: New position
-    def position=(position: Vector2f)
+    def position=(position)
+      position = SF.vector2f(position) unless position.is_a? Vector2f
       CSFML.circle_shape_set_position(@this, position)
     end
     
@@ -202,7 +203,8 @@ module SF
     # 
     # * `shape`: Shape object
     # * `scale`: New scale factors
-    def scale=(scale: Vector2f)
+    def scale=(scale)
+      scale = SF.vector2f(scale) unless scale.is_a? Vector2f
       CSFML.circle_shape_set_scale(@this, scale)
     end
     
@@ -219,7 +221,8 @@ module SF
     # 
     # * `shape`: Shape object
     # * `origin`: New origin
-    def origin=(origin: Vector2f)
+    def origin=(origin)
+      origin = SF.vector2f(origin) unless origin.is_a? Vector2f
       CSFML.circle_shape_set_origin(@this, origin)
     end
     
@@ -278,7 +281,8 @@ module SF
     # 
     # * `shape`: Shape object
     # * `offset`: Offset
-    def move(offset: Vector2f)
+    def move(offset)
+      offset = SF.vector2f(offset) unless offset.is_a? Vector2f
       CSFML.circle_shape_move(@this, offset)
     end
     
@@ -305,7 +309,8 @@ module SF
     # 
     # * `shape`: Shape object
     # * `factors`: Scale factors
-    def scale(factors: Vector2f)
+    def scale(factors)
+      factors = SF.vector2f(factors) unless factors.is_a? Vector2f
       CSFML.circle_shape_scale(@this, factors)
     end
     
@@ -606,7 +611,8 @@ module SF
     # 
     # * `shape`: Shape object
     # * `position`: New position
-    def position=(position: Vector2f)
+    def position=(position)
+      position = SF.vector2f(position) unless position.is_a? Vector2f
       CSFML.convex_shape_set_position(@this, position)
     end
     
@@ -635,7 +641,8 @@ module SF
     # 
     # * `shape`: Shape object
     # * `scale`: New scale factors
-    def scale=(scale: Vector2f)
+    def scale=(scale)
+      scale = SF.vector2f(scale) unless scale.is_a? Vector2f
       CSFML.convex_shape_set_scale(@this, scale)
     end
     
@@ -652,7 +659,8 @@ module SF
     # 
     # * `shape`: Shape object
     # * `origin`: New origin
-    def origin=(origin: Vector2f)
+    def origin=(origin)
+      origin = SF.vector2f(origin) unless origin.is_a? Vector2f
       CSFML.convex_shape_set_origin(@this, origin)
     end
     
@@ -711,7 +719,8 @@ module SF
     # 
     # * `shape`: Shape object
     # * `offset`: Offset
-    def move(offset: Vector2f)
+    def move(offset)
+      offset = SF.vector2f(offset) unless offset.is_a? Vector2f
       CSFML.convex_shape_move(@this, offset)
     end
     
@@ -738,7 +747,8 @@ module SF
     # 
     # * `shape`: Shape object
     # * `factors`: Scale factors
-    def scale(factors: Vector2f)
+    def scale(factors)
+      factors = SF.vector2f(factors) unless factors.is_a? Vector2f
       CSFML.convex_shape_scale(@this, factors)
     end
     
@@ -955,7 +965,8 @@ module SF
     # * `shape`: Shape object
     # * `index`: Index of the point to change, in range [0 .. GetPointCount() - 1]
     # * `point`: New point
-    def set_point(index: Int32, point: Vector2f)
+    def set_point(index: Int32, point)
+      point = SF.vector2f(point) unless point.is_a? Vector2f
       CSFML.convex_shape_set_point(@this, index, point)
     end
     
@@ -1577,7 +1588,8 @@ module SF
     # * `shader`: Shader object
     # * `name`: Name of the parameter in the shader
     # * `vector`: Vector to assign
-    def set_parameter(name: String, vector: Vector2f)
+    def set_parameter(name: String, vector)
+      vector = SF.vector2f(vector) unless vector.is_a? Vector2f
       CSFML.shader_set_vector2_parameter(@this, name, vector)
     end
     
@@ -1742,7 +1754,8 @@ module SF
     # 
     # * `shape`: Shape object
     # * `position`: New position
-    def position=(position: Vector2f)
+    def position=(position)
+      position = SF.vector2f(position) unless position.is_a? Vector2f
       CSFML.rectangle_shape_set_position(@this, position)
     end
     
@@ -1771,7 +1784,8 @@ module SF
     # 
     # * `shape`: Shape object
     # * `scale`: New scale factors
-    def scale=(scale: Vector2f)
+    def scale=(scale)
+      scale = SF.vector2f(scale) unless scale.is_a? Vector2f
       CSFML.rectangle_shape_set_scale(@this, scale)
     end
     
@@ -1788,7 +1802,8 @@ module SF
     # 
     # * `shape`: Shape object
     # * `origin`: New origin
-    def origin=(origin: Vector2f)
+    def origin=(origin)
+      origin = SF.vector2f(origin) unless origin.is_a? Vector2f
       CSFML.rectangle_shape_set_origin(@this, origin)
     end
     
@@ -1847,7 +1862,8 @@ module SF
     # 
     # * `shape`: Shape object
     # * `offset`: Offset
-    def move(offset: Vector2f)
+    def move(offset)
+      offset = SF.vector2f(offset) unless offset.is_a? Vector2f
       CSFML.rectangle_shape_move(@this, offset)
     end
     
@@ -1874,7 +1890,8 @@ module SF
     # 
     # * `shape`: Shape object
     # * `factors`: Scale factors
-    def scale(factors: Vector2f)
+    def scale(factors)
+      factors = SF.vector2f(factors) unless factors.is_a? Vector2f
       CSFML.rectangle_shape_scale(@this, factors)
     end
     
@@ -2072,7 +2089,8 @@ module SF
     # 
     # * `shape`: Shape object
     # * `size`: New size of the rectangle
-    def size=(size: Vector2f)
+    def size=(size)
+      size = SF.vector2f(size) unless size.is_a? Vector2f
       CSFML.rectangle_shape_set_size(@this, size)
     end
     
@@ -2261,7 +2279,8 @@ module SF
     # * `view`: The view to use for converting the point
     # 
     # *Returns*: The converted point, in "world" units
-    def map_pixel_to_coords(point: Vector2i, view: View)
+    def map_pixel_to_coords(point, view: View)
+      point = SF.vector2i(point) unless point.is_a? Vector2i
       CSFML.render_texture_map_pixel_to_coords(@this, point, view)
     end
     
@@ -2288,7 +2307,8 @@ module SF
     # * `view`: The view to use for converting the point
     # 
     # *Returns*: The converted point, in target coordinates (pixels)
-    def map_coords_to_pixel(point: Vector2f, view: View)
+    def map_coords_to_pixel(point, view: View)
+      point = SF.vector2f(point) unless point.is_a? Vector2f
       CSFML.render_texture_map_coords_to_pixel(@this, point, view)
     end
     
@@ -2611,7 +2631,8 @@ module SF
     # 
     # * `render_window`: Render window object
     # * `position`: New position, in pixels
-    def position=(position: Vector2i)
+    def position=(position)
+      position = SF.vector2i(position) unless position.is_a? Vector2i
       CSFML.render_window_set_position(@this, position)
     end
     
@@ -2632,7 +2653,8 @@ module SF
     # 
     # * `render_window`: Render window object
     # * `size`: New size, in pixels
-    def size=(size: Vector2i)
+    def size=(size)
+      size = SF.vector2i(size) unless size.is_a? Vector2i
       CSFML.render_window_set_size(@this, size)
     end
     
@@ -2869,7 +2891,8 @@ module SF
     # * `view`: The view to use for converting the point
     # 
     # *Returns*: The converted point, in "world" units
-    def map_pixel_to_coords(point: Vector2i, view: View)
+    def map_pixel_to_coords(point, view: View)
+      point = SF.vector2i(point) unless point.is_a? Vector2i
       CSFML.render_window_map_pixel_to_coords(@this, point, view)
     end
     
@@ -2896,7 +2919,8 @@ module SF
     # * `view`: The view to use for converting the point
     # 
     # *Returns*: The converted point, in target coordinates (pixels)
-    def map_coords_to_pixel(point: Vector2f, view: View)
+    def map_coords_to_pixel(point, view: View)
+      point = SF.vector2f(point) unless point.is_a? Vector2f
       CSFML.render_window_map_coords_to_pixel(@this, point, view)
     end
     
@@ -3101,7 +3125,8 @@ module SF
     # 
     # * `shape`: Shape object
     # * `position`: New position
-    def position=(position: Vector2f)
+    def position=(position)
+      position = SF.vector2f(position) unless position.is_a? Vector2f
       CSFML.shape_set_position(@this, position)
     end
     
@@ -3130,7 +3155,8 @@ module SF
     # 
     # * `shape`: Shape object
     # * `scale`: New scale factors
-    def scale=(scale: Vector2f)
+    def scale=(scale)
+      scale = SF.vector2f(scale) unless scale.is_a? Vector2f
       CSFML.shape_set_scale(@this, scale)
     end
     
@@ -3147,7 +3173,8 @@ module SF
     # 
     # * `shape`: Shape object
     # * `origin`: New origin
-    def origin=(origin: Vector2f)
+    def origin=(origin)
+      origin = SF.vector2f(origin) unless origin.is_a? Vector2f
       CSFML.shape_set_origin(@this, origin)
     end
     
@@ -3206,7 +3233,8 @@ module SF
     # 
     # * `shape`: Shape object
     # * `offset`: Offset
-    def move(offset: Vector2f)
+    def move(offset)
+      offset = SF.vector2f(offset) unless offset.is_a? Vector2f
       CSFML.shape_move(@this, offset)
     end
     
@@ -3233,7 +3261,8 @@ module SF
     # 
     # * `shape`: Shape object
     # * `factors`: Scale factors
-    def scale(factors: Vector2f)
+    def scale(factors)
+      factors = SF.vector2f(factors) unless factors.is_a? Vector2f
       CSFML.shape_scale(@this, factors)
     end
     
@@ -3511,7 +3540,8 @@ module SF
     # 
     # * `sprite`: Sprite object
     # * `position`: New position
-    def position=(position: Vector2f)
+    def position=(position)
+      position = SF.vector2f(position) unless position.is_a? Vector2f
       CSFML.sprite_set_position(@this, position)
     end
     
@@ -3540,7 +3570,8 @@ module SF
     # 
     # * `sprite`: Sprite object
     # * `scale`: New scale factors
-    def scale=(scale: Vector2f)
+    def scale=(scale)
+      scale = SF.vector2f(scale) unless scale.is_a? Vector2f
       CSFML.sprite_set_scale(@this, scale)
     end
     
@@ -3557,7 +3588,8 @@ module SF
     # 
     # * `sprite`: Sprite object
     # * `origin`: New origin
-    def origin=(origin: Vector2f)
+    def origin=(origin)
+      origin = SF.vector2f(origin) unless origin.is_a? Vector2f
       CSFML.sprite_set_origin(@this, origin)
     end
     
@@ -3616,7 +3648,8 @@ module SF
     # 
     # * `sprite`: Sprite object
     # * `offset`: Offset
-    def move(offset: Vector2f)
+    def move(offset)
+      offset = SF.vector2f(offset) unless offset.is_a? Vector2f
       CSFML.sprite_move(@this, offset)
     end
     
@@ -3643,7 +3676,8 @@ module SF
     # 
     # * `sprite`: Sprite object
     # * `factors`: Scale factors
-    def scale(factors: Vector2f)
+    def scale(factors)
+      factors = SF.vector2f(factors) unless factors.is_a? Vector2f
       CSFML.sprite_scale(@this, factors)
     end
     
@@ -3839,7 +3873,8 @@ module SF
     # 
     # * `text`: Text object
     # * `position`: New position
-    def position=(position: Vector2f)
+    def position=(position)
+      position = SF.vector2f(position) unless position.is_a? Vector2f
       CSFML.text_set_position(@this, position)
     end
     
@@ -3868,7 +3903,8 @@ module SF
     # 
     # * `text`: Text object
     # * `scale`: New scale factors
-    def scale=(scale: Vector2f)
+    def scale=(scale)
+      scale = SF.vector2f(scale) unless scale.is_a? Vector2f
       CSFML.text_set_scale(@this, scale)
     end
     
@@ -3885,7 +3921,8 @@ module SF
     # 
     # * `text`: Text object
     # * `origin`: New origin
-    def origin=(origin: Vector2f)
+    def origin=(origin)
+      origin = SF.vector2f(origin) unless origin.is_a? Vector2f
       CSFML.text_set_origin(@this, origin)
     end
     
@@ -3944,7 +3981,8 @@ module SF
     # 
     # * `text`: Text object
     # * `offset`: Offset
-    def move(offset: Vector2f)
+    def move(offset)
+      offset = SF.vector2f(offset) unless offset.is_a? Vector2f
       CSFML.text_move(@this, offset)
     end
     
@@ -3971,7 +4009,8 @@ module SF
     # 
     # * `text`: Text object
     # * `factors`: Scale factors
-    def scale(factors: Vector2f)
+    def scale(factors)
+      factors = SF.vector2f(factors) unless factors.is_a? Vector2f
       CSFML.text_scale(@this, factors)
     end
     
@@ -4486,7 +4525,8 @@ module SF
     # 
     # * `transformable`: Transformable object
     # * `position`: New position
-    def position=(position: Vector2f)
+    def position=(position)
+      position = SF.vector2f(position) unless position.is_a? Vector2f
       CSFML.transformable_set_position(@this, position)
     end
     
@@ -4515,7 +4555,8 @@ module SF
     # 
     # * `transformable`: Transformable object
     # * `scale`: New scale factors
-    def scale=(scale: Vector2f)
+    def scale=(scale)
+      scale = SF.vector2f(scale) unless scale.is_a? Vector2f
       CSFML.transformable_set_scale(@this, scale)
     end
     
@@ -4532,7 +4573,8 @@ module SF
     # 
     # * `transformable`: Transformable object
     # * `origin`: New origin
-    def origin=(origin: Vector2f)
+    def origin=(origin)
+      origin = SF.vector2f(origin) unless origin.is_a? Vector2f
       CSFML.transformable_set_origin(@this, origin)
     end
     
@@ -4591,7 +4633,8 @@ module SF
     # 
     # * `transformable`: Transformable object
     # * `offset`: Offset
-    def move(offset: Vector2f)
+    def move(offset)
+      offset = SF.vector2f(offset) unless offset.is_a? Vector2f
       CSFML.transformable_move(@this, offset)
     end
     
@@ -4618,7 +4661,8 @@ module SF
     # 
     # * `transformable`: Transformable object
     # * `factors`: Scale factors
-    def scale(factors: Vector2f)
+    def scale(factors)
+      factors = SF.vector2f(factors) unless factors.is_a? Vector2f
       CSFML.transformable_scale(@this, factors)
     end
     
@@ -4839,7 +4883,8 @@ module SF
     # 
     # * `view`: View object
     # * `center`: New center
-    def center=(center: Vector2f)
+    def center=(center)
+      center = SF.vector2f(center) unless center.is_a? Vector2f
       CSFML.view_set_center(@this, center)
     end
     
@@ -4849,7 +4894,8 @@ module SF
     # 
     # * `view`: View object
     # * `size`: New size of the view
-    def size=(size: Vector2f)
+    def size=(size)
+      size = SF.vector2f(size) unless size.is_a? Vector2f
       CSFML.view_set_size(@this, size)
     end
     
@@ -4945,7 +4991,8 @@ module SF
     # 
     # * `view`: View object
     # * `offset`: Offset
-    def move(offset: Vector2f)
+    def move(offset)
+      offset = SF.vector2f(offset) unless offset.is_a? Vector2f
       CSFML.view_move(@this, offset)
     end
     
@@ -5022,7 +5069,8 @@ module SF
     # * `point`: Point to transform
     # 
     # *Returns*: Transformed point
-    def transform_point(point: Vector2f)
+    def transform_point(point)
+      point = SF.vector2f(point) unless point.is_a? Vector2f
       cself = self
       CSFML.transform_transform_point(pointerof(cself), point)
     end
@@ -5207,7 +5255,8 @@ module SF
     # 
     # * `position`: New position of the mouse
     # * `relative_to`: Reference window
-    def self.set_position(position: Vector2i, relative_to: RenderWindow)
+    def self.set_position(position, relative_to: RenderWindow)
+      position = SF.vector2i(position) unless position.is_a? Vector2i
       CSFML.mouse_set_position_render_window(position, relative_to)
     end
     

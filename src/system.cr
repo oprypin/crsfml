@@ -23,12 +23,75 @@ require "./system_lib"
 module SF
   extend self
   
+  struct Vector2(T)
+    property x
+    property y
+    def initialize(x: T, y: T)
+      @x = x
+      @y = y
+    end
+    def each
+      yield @x
+      yield @y
+    end
+    def length
+      2
+    end
+    def [](i)
+      case i
+      when 1
+        @y
+      else
+        @x
+      end
+    end
+    
+    def +(other)
+      ox, oy = other
+      Vector2.new(x + ox, y + oy)
+    end
+    def -(other)
+      ox, oy = other
+      Vector2.new(x - ox, y - oy)
+    end
+    def *(other)
+      ox, oy = other
+      Vector2.new(x * ox, y * oy)
+    end
+    def /(other)
+      ox, oy = other
+      Vector2.new(x / ox, y / oy)
+    end
+    def ==(other)
+      ox, oy = other
+      x == ox && y == oy
+    end
+  end
+  
+  def vector2(x, y)
+    Vector2.new(x, y)
+  end
+  def vector2(v)
+    x, y = v
+    Vector2.new(x, y)
+  end
+  
   def vector2f(x, y)
     Vector2f.new(x: x.to_f32, y: y.to_f32)
+  end
+  def vector2f(v)
+    x, y = v
+    vector2f(x, y)
   end
   def vector2i(x, y)
     Vector2i.new(x: x.to_i32, y: y.to_i32)
   end
+  def vector2i(v)
+    x, y = v
+    vector2i(x, y)
+  end
+  
+  
   
   struct CSFML::Time
     Zero = milliseconds(0)

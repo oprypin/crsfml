@@ -63,8 +63,9 @@ module SF
   end
 
   struct CSFML::FloatRect
-    def contains(point: Vector2f)
-      contains(point.x, point.y)
+    def contains(point)
+      x, y = point
+      contains(x, y)
     end
     def intersects(other: self)
       intersection = FloatRect.new()
@@ -73,8 +74,9 @@ module SF
   end
   
   struct CSFML::IntRect
-    def contains(point: Vector2i)
-      contains(point.x, point.y)
+    def contains(point)
+      x, y = point
+      contains(x, y)
     end
     def intersects(other: self)
       intersection = IntRect.new()
@@ -90,19 +92,24 @@ module SF
     Identity = SF.transform()
     
     def transform_point(x, y)
-      transform_point(vector2f(x, y))
+      transform_point(SF.vector2(x, y))
     end
-    def translate(offset: Vector2f)
-      translate(offset.x, offset.y)
+    def translate(offset)
+      x, y = offset
+      translate(x, y)
     end
-    def rotate(angle, center: Vector2f)
-      rotate(angle, center.x, center.y)
+    def rotate(angle, center)
+      cx, cy = center
+      rotate(angle, cx, cy)
     end
-    def scale(factors: Vector2f)
-      scale(factors.x, factors.y)
+    def scale(factors)
+      x, y = factors
+      scale(x, y)
     end
-    def scale(factors: Vector2f, center: Vector2f)
-      scale(factors.x, factors.y, center.x, center.y)
+    def scale(factors, center)
+      x, y = factors
+      cx, cy = center
+      scale(x, y, cx, cy)
     end
     
     def *(other: self)
@@ -110,7 +117,7 @@ module SF
       out.combine(other)
       out
     end
-    def *(point: Vector2f)
+    def *(point)
       transform_point(point)
     end
   end
@@ -171,7 +178,7 @@ module SF
       @owned = true
       @funcs = Box.box({
         -> { point_count },
-        ->(i: Int32) { get_point(i) }
+        ->(i: Int32) { SF.vector2f(get_point(i)) }
       })
       @this = CSFML.shape_create(
         ->(data) { Box({(-> Int32), (Int32 -> SF::Vector2f)}).unbox(data)[0].call },
@@ -199,7 +206,7 @@ module SF
   end
   
   class RectangleShape
-    def initialize(size: Vector2f)
+    def initialize(size)
       initialize()
       self.size = size
     end
@@ -218,7 +225,7 @@ module SF
     def [](index)
       get_point(index)
     end
-    def []=(index, point: Vector2f)
+    def []=(index, point)
       set_point(index, point)
     end
     
@@ -297,7 +304,7 @@ module SF
     end
   end
   
-  def vertex(position=SF.vector2f(0, 0), color=Color::White, tex_coords=SF.vector2f(0, 0))
+  def vertex(position=SF.vector2(0.0, 0.0), color=Color::White, tex_coords=SF.vector2(0.0, 0.0))
     Vertex.new(position: position, color: color, tex_coords: tex_coords)
   end
   
@@ -311,8 +318,8 @@ module SF
     def [](index)
       get_vertex(index)[0]
     end
-    def []=(index, point: Vector2f)
-      get_vertex(index)[0] = point
+    def []=(index, point)
+      get_vertex(index)[0] = SF.vector2f(point)
     end
 
     def draw(target, states: RenderStates)
@@ -321,7 +328,7 @@ module SF
   end
   
   class View
-    def initialize(center: Vector2f, size: Vector2f)
+    def initialize(center, size)
       initialize()
       self.center = center
       self.size = size
@@ -385,7 +392,7 @@ require "./graphics_obj"
 module SF
   # Include this module to get all methods of a `Transformable`
   module TransformableM
-    def position=(position: Vector2f)
+    def position=(position)
       @transformable = SF::Transformable.new() unless @transformable
       (@transformable || SF::Transformable.new()).position = position
     end
@@ -393,11 +400,11 @@ module SF
       @transformable = SF::Transformable.new() unless @transformable
       (@transformable || SF::Transformable.new()).rotation = angle
     end
-    def scale=(scale: Vector2f)
+    def scale=(scale)
       @transformable = SF::Transformable.new() unless @transformable
       (@transformable || SF::Transformable.new()).scale = scale
     end
-    def origin=(origin: Vector2f)
+    def origin=(origin)
       @transformable = SF::Transformable.new() unless @transformable
       (@transformable || SF::Transformable.new()).origin = origin
     end
@@ -417,7 +424,7 @@ module SF
       @transformable = SF::Transformable.new() unless @transformable
       (@transformable || SF::Transformable.new()).origin
     end
-    def move(offset: Vector2f)
+    def move(offset)
       @transformable = SF::Transformable.new() unless @transformable
       (@transformable || SF::Transformable.new()).move(offset)
     end
@@ -425,7 +432,7 @@ module SF
       @transformable = SF::Transformable.new() unless @transformable
       (@transformable || SF::Transformable.new()).rotate(angle)
     end
-    def scale(factors: Vector2f)
+    def scale(factors)
       @transformable = SF::Transformable.new() unless @transformable
       (@transformable || SF::Transformable.new()).scale(factors)
     end

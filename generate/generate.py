@@ -309,6 +309,9 @@ def handle_function(main, params):
         elif t == 'Float32':
             t = None
             conv.append('{0} = {0}.to_f32'.format(n))
+        elif t in ['Vector2f', 'Vector2i']:
+            conv.append('{0} = SF.{2}({0}) unless {0}.is_a? {1}'.format(n, t, t.lower()))
+            t = None
         if n in const and t not in classes:
             conv += 'if {0}\n  c{0} = {0}; p{0} = pointerof(c{0})\nelse\n  p{0} = nil\nend'.format(n).splitlines()
             t = None

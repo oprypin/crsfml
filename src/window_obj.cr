@@ -211,7 +211,8 @@ module SF
     # 
     # * `window`: Window object
     # * `position`: New position of the window, in pixels
-    def position=(position: Vector2i)
+    def position=(position)
+      position = SF.vector2i(position) unless position.is_a? Vector2i
       CSFML.window_set_position(@this, position)
     end
     
@@ -235,7 +236,8 @@ module SF
     # 
     # * `window`: Window object
     # * `size`: New size, in pixels
-    def size=(size: Vector2i)
+    def size=(size)
+      size = SF.vector2i(size) unless size.is_a? Vector2i
       CSFML.window_set_size(@this, size)
     end
     
@@ -821,7 +823,8 @@ module SF
     # 
     # * `position`: New position of the mouse
     # * `relative_to`: Reference window
-    def self.set_position(position: Vector2i, relative_to: Window)
+    def self.set_position(position, relative_to: Window)
+      position = SF.vector2i(position) unless position.is_a? Vector2i
       CSFML.mouse_set_position(position, relative_to)
     end
     

@@ -31,7 +31,8 @@ module SF
     def self.position
       CSFML.mouse_get_position(nil)
     end
-    def self.position=(position: Vector2i)
+    def self.position=(position)
+      position = SF.vector2i(position) unless position.is_a? Vector2i
       CSFML.mouse_set_position(position, nil)
     end
   end
