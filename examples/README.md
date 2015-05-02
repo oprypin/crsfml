@@ -1,3 +1,11 @@
+[Advanced Examples][examples]
+=============================
+
+More interesting examples can be found in [a different repository][examples].
+
+[examples]: https://github.com/BlaXpirit/crsfml-examples
+
+
 Examples
 ========
 
