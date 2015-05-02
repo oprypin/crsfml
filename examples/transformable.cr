@@ -9,10 +9,10 @@ class Logo
   def initialize(message="CrSFML")
     @text = SF::Text.new(message, $font, 200)
     bounds = @text.local_bounds
-    @shape = SF::RectangleShape.new(SF.vector2f(bounds.width*1.2, bounds.height*2))
+    @shape = SF::RectangleShape.new(SF.vector2(bounds.width*1.2, bounds.height*2))
     @shape.fill_color = SF.color(0, 0, 128)
-    @shape.origin = SF.vector2f(@shape.size.x / 2, @shape.size.y / 2)
-    @text.origin = SF.vector2f(bounds.width / 2, bounds.height * 0.8)
+    @shape.origin = @shape.size / {2, 2}
+    @text.origin = SF.vector2(bounds.width / 2, bounds.height * 0.8)
   end
   
   def draw(target, states: RenderStates)
@@ -28,7 +28,7 @@ window.vertical_sync_enabled = true
 
 logo = Logo.new()
 
-logo.position = SF.vector2f(400, 300)
+logo.position = SF.vector2(400, 300)
 
 clock = SF::Clock.new()
 
@@ -43,7 +43,7 @@ while window.open?
   t = clock.elapsed_time.as_seconds
   
   logo.rotation = t*50
-  logo.scale = SF.vector2f(Math.sin(t), Math.cos(t))
+  logo.scale = SF.vector2(Math.sin(t), Math.cos(t))
   
   window.clear
   window.draw logo

@@ -1,17 +1,12 @@
 require "crsfml"
 
 
-Left = {-1, 0}
-Up = {0, -1}
-Right = {1, 0}
-Down = {0, 1}
+Left = SF.vector2(-1, 0)
+Up =  SF.vector2(0, -1)
+Right =  SF.vector2(1, 0)
+Down = SF.vector2(0, 1)
 Directions = [Left, Up, Right, Down]
 
-
-# https://github.com/manastech/crystal/issues/559
-def modulo(a: Int, b: Int)
-  (a % b + b) % b
-end
 
 # Missing functionality from Ruby
 module Enumerable
@@ -34,7 +29,7 @@ struct Food
   
   def draw(target, states)
     circle = SF::CircleShape.new(0.9/2)
-    circle.position = SF.vector2f(@position[0] + 0.05, @position[1] + 0.05)
+    circle.position = position + {0.05, 0.05}
     circle.fill_color = @color
     target.draw circle, states
   end
@@ -45,48 +40,47 @@ class Snake
   
   def initialize(@field, start, @color)
     @direction = Up
-    @body = [] of {Int32, Int32}
+    @body = [] of SF::Vector2(Int32)
     (0...3).each do |i|
-      @body.push({start[0], start[1] + i})
+      @body.push(start + {0, i})
     end
   end
   
   def step()
-    head = {@body[0][0] + @direction[0], @body[0][1] + @direction[1]}
-    head = {modulo(head[0], @field.size[0]), modulo(head[1], @field.size[1])}
+    head = @body[0] + @direction
+    head.x %= @field.size.x
+    head.y %= @field.size.y
     @body.insert(0, head)
     @body.pop()
   end
   
   def turn(direction)
-    if @body[1] != {@body[0][0] + direction[0], @body[0][1] + direction[1]}
-      @direction = direction
-    end
+    @direction = direction unless @body[1] == @body[0] + direction
   end
   
   def grow()
     tail = @body[-1]
-    3.times do |i|
+    3.times do
       @body.push tail
     end
   end
   
-  def collide(other: self)
+  def collides?(other: self)
     other.body.any? { |part| @body[0] == part }
   end
   
-  def collide(food: Food)
+  def collides?(food: Food)
     @body[0] == food.position
   end
   
-  def collide()
+  def collides?()
     @body.drop(1).any? { |part| @body[0] == part }
   end
   
   def draw(target, states)
     @body.each_with_index do |current, i|
       segment = SF::CircleShape.new(0.9 / 2)
-      segment.position = SF.vector2f(current[0] + 0.05, current[1] + 0.05)
+      segment.position = current + {0.05, 0.05}
       segment.fill_color = @color
       target.draw segment, states
       
@@ -96,18 +90,14 @@ class Snake
       # Look in 4 directions around this segment. If there is another one
       # neighboring it, draw a square between them
       Directions.each do |d|
-        td = {
-          modulo((current[0] + d[0]), @field.size[0]),
-          modulo((current[1] + d[1]), @field.size[1])
-        }
-          
+        td = current + d
+        td.x %= @field.size.x
+        td.y %= @field.size.y
+        
         if (i > 0 && td == @body[i-1]) ||\
         (i < @body.length-1 && td == @body[i+1])
-          connection = SF::RectangleShape.new(SF.vector2f(0.9, 0.9))
-          connection.position = SF.vector2f(
-            current[0] + d[0] / 2.0 + 0.05,
-            current[1] + d[1] / 2.0 + 0.05
-          )
+          connection = SF::RectangleShape.new({0.9, 0.9})
+          connection.position = current + d / {2.0, 2.0} + {0.05, 0.05}
           connection.fill_color = @color
           target.draw connection, states
         end
@@ -119,19 +109,13 @@ class Snake
         @color.r / 3, @color.g / 3, @color.b / 3
       )
 
-      delta = {
-        @direction[1].abs / 4.0,
-        @direction[0].abs / 4.0
-      }
-      eye.position = SF.vector2f(
-        @body[0][0] + 0.4 + delta[0],
-        @body[0][1] + 0.4 + delta[1]
+      delta = SF.vector2(
+        @direction.y.abs / 4.0,
+        @direction.x.abs / 4.0
       )
+      eye.position = @body[0] + {0.4, 0.4} + delta
       target.draw eye, states
-      eye.position = SF.vector2f(
-        @body[0][0] + 0.4 - delta[0],
-        @body[0][1] + 0.4 - delta[1]
-      )
+      eye.position = @body[0] + {0.4, 0.4} - delta
       target.draw eye, states
     end
   end
@@ -151,7 +135,7 @@ class Field
   
   def step()
     while @foods.length < @snakes.length + 1
-      food = Food.new({rand(@size[0]), rand(@size[1])}, random_color())
+      food = Food.new(SF.vector2(rand(@size.x), rand(@size.y)), random_color())
       
       @foods.push food unless @snakes.any? do |snake|
         snake.body.any? { |part| part == food.position }
@@ -162,7 +146,7 @@ class Field
       snake.step()
       
       @foods = @foods.reject do |food|
-        if snake.collide food
+        if snake.collides? food
           snake.grow()
           true
         end
@@ -171,8 +155,8 @@ class Field
     
     snakes = @snakes
     @snakes = snakes.reject do |snake|
-      snake.collide ||\
-      snakes.any? { |snake2| snake != snake2 && snake.collide snake2 }
+      snake.collides? ||\
+      snakes.any? { |snake2| snake != snake2 && snake.collides? snake2 }
     end
   end
   
@@ -187,17 +171,17 @@ class Field
 end
 
 
-field = Field.new({40, 40})
+field = Field.new(SF.vector2(40, 40))
 
-snake1 = Snake.new(field, {field.size[0] / 2 - 5, field.size[1] / 2}, random_color())
-snake2 = Snake.new(field, {field.size[0] / 2 + 5, field.size[1] / 2}, random_color())
+snake1 = Snake.new(field, field.size / {2, 2} - {5, 0}, random_color())
+snake2 = Snake.new(field, field.size / {2, 2} + {5, 0}, random_color())
 field.add snake1
 field.add snake2
 
 scale = 20
 
 window = SF::RenderWindow.new(
-  SF.video_mode(field.size[0]*scale, field.size[1]*scale), "Snakes",
+  SF.video_mode(field.size.x*scale, field.size.y*scale), "Snakes",
   settings: SF.context_settings(depth: 32, antialiasing: 8)
 )
 window.vertical_sync_enabled = true

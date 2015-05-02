@@ -60,14 +60,14 @@ def test_mouse()
     m = SF::Mouse.get_position($window)
     
     shape = SF::CircleShape.new(15)
-    shape.origin = SF.vector2f(15, 15)
-    shape.position = SF.vector2f(m.x, m.y)
+    shape.origin = SF.vector2(15, 15)
+    shape.position = SF.vector2(m.x, m.y)
     shape.fill_color = SF.color(0, 200, 0)
-    shape.scale SF.vector2f(0.9, 1.1)
+    shape.scale SF.vector2(0.9, 1.1)
     $window.draw shape
     
     shape = SF::CircleShape.new(8)
-    shape.origin = SF.vector2f(8, 8)
+    shape.origin = SF.vector2(8, 8)
     shape.fill_color = SF.color(255, 128, 0)
     
     buttons = {
@@ -79,7 +79,7 @@ def test_mouse()
     }
     buttons.each do |btn, delta|
       if SF::Mouse.is_button_pressed(btn)
-        shape.position = SF.vector2f(m.x + delta[0]*20, m.y + delta[1]*20)
+        shape.position = m + SF.vector2(20, 20) * delta
         $window.draw shape
       end
     end
@@ -87,10 +87,10 @@ def test_mouse()
     shape = SF::ConvexShape.new()
     shape.point_count = 3
     shape.fill_color = SF.color(128, 0, 255)
-    shape[0] = SF.vector2f(-8, 0)
-    shape[1] = SF.vector2f(8, 0)
-    shape[2] = SF.vector2f(0, -wheel_delta*5)
-    shape.position = SF.vector2f(m.x, m.y-4)
+    shape[0] = SF.vector2(-8, 0)
+    shape[1] = SF.vector2(8, 0)
+    shape[2] = SF.vector2(0, -wheel_delta*5)
+    shape.position = m - {0, 4}
     $window.draw shape
 
     $window.display()
@@ -116,7 +116,7 @@ def test_controller()
     $window.draw text
     
     shape = SF::CircleShape.new(15)
-    shape.origin = SF.vector2f(15, 15)
+    shape.origin = SF.vector2(15, 15)
 
     text = SF::Text.new("", $font, 20)
     text.color = SF.color(0, 0, 0)
@@ -133,13 +133,13 @@ def test_controller()
     ]
     (0...SF::Joystick.get_button_count(js)).each do |btn|
       text.string = (btn+1).to_s
-      text.origin = SF.vector2f(text.local_bounds.width * 0.6, text.local_bounds.height * 0.85)
+      text.origin = SF.vector2(text.local_bounds.width * 0.6, text.local_bounds.height * 0.85)
       begin
         delta = button_pos[btn]
       rescue
         delta = {0, button_pos.length - btn - 1}
       end
-      shape.position = SF.vector2f(400 + delta[0]*30, 300 + delta[1]*30)
+      shape.position = SF.vector2(400, 300) + SF.vector2(delta) * {30, 30}
       text.position = shape.position
       shape.fill_color = SF::Joystick.is_button_pressed(js, btn) ? SF.color(255, 128, 0): SF.color(0, 128, 0)
       
@@ -148,7 +148,7 @@ def test_controller()
     end
     
     shape = SF::CircleShape.new(10)
-    shape.origin = SF.vector2f(10, 10)
+    shape.origin = SF.vector2(10, 10)
     shape.fill_color = SF.color(128, 0, 255)
     
     axis_pos = [
@@ -172,7 +172,7 @@ def test_controller()
         any = true
       end
       next unless any
-      shape.position = SF.vector2f(400 + delta[0]*30 + dx*0.3, 300 + delta[1]*30 + dy*0.3)
+      shape.position = SF.vector2(400, 300) + SF.vector2(delta) * {30, 30} + {dx*0.3, dy*0.3}
       
       $window.draw shape
     end
@@ -192,10 +192,10 @@ class Button < SF::RectangleShape
   include SF::TransformableM
   
   def initialize(message, width, height, color=SF.color(0, 128, 0))
-    super(SF.vector2f(width, height))
+    super(SF.vector2(width, height))
     @text = SF::Text.new(message, $font, (height*0.8).to_i)
     self.fill_color = color
-    @text.position = SF.vector2f((width - @text.global_bounds.width)*0.5, -height/20)
+    @text.position = SF.vector2((width - @text.global_bounds.width) / 2, -height / 20)
   end
   
   def draw(target, states: RenderStates)
@@ -218,7 +218,7 @@ actions = {
 }
 
 actions.each_key do |btn|
-  btn.position = SF.vector2f(x, y)
+  btn.position = SF.vector2(x, y)
   y += h + h/2
 end
 

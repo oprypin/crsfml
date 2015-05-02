@@ -17,7 +17,7 @@ px_shader.set_parameter "texture", SF::Shader::CurrentTexture
 ipsum = HTTP::Client.get("http://loripsum.net/api/12/short/plaintext").body
 font = SF::Font.from_file("resources/font/Ubuntu-R.ttf")
 text = SF::Text.new(ipsum, font, 22)
-text.position = SF.vector2f(30, 20)
+text.position = {30, 20}
 text.color = SF::Color::Black
 wb_shader = SF::Shader.from_file("resources/shaders/wave.vert", "resources/shaders/blur.frag")
 
