@@ -29,13 +29,15 @@ with wrappers.
 The API attempts to be similar to SFML's, but some general changes are present:
 
 - There is a clear separation between "classes" and "structs". Classes are wrapped, and structs are taken directly from `lib`s, making them limited, for example, instead of instance methods they have functions in the root of the namespace.
+- Everything is renamed to `snake_case`.
 - To construct an object (`sf::SomeType x(param)`):
     - `x = SF::SomeType.new(param)` for classes.
     - `x = SF::some_type(param)` for structs.
-    - Member functions, such as `loadFromFile`, that are used for initialization, are just overloaded `initialize`.
-- Everything is renamed to `snake_case`.
+    - Use `SF::Vector2(T)`, `SF.vector2(x, y)` instead of `Vector2(f|i)`. 2-tuples can often be used instead.
+    - Member functions, such as `loadFromFile`, that are used for initialization, become class methods (`from_file`).
 - Getter, setter functions are changed:
-    - `x.getSomeProperty()` and `x.isSomeProperty()` both become `x.some_property`.
+    - `x.getSomeProperty()` becomes `x.some_property`.
+    - `x.isSomeProperty()` becomes `x.some_property?`.
     - `x.setSomeProperty(v)` becomes `x.some_property = v`.
 - SFML sometimes uses `enum` values as bitmasks. You can combine them using the `|` operator.
 - Unicode just works.
