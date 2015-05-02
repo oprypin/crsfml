@@ -170,6 +170,18 @@ def handle_struct(name, items):
     
     if d: obj(name+'ALIAS', d)
     obj(name+'ALIAS', 'alias {0} = CSFML::{0}'.format(name))
+    
+    for t, n in items:
+        if '*' in t and 'void' not in t:
+            t = rename_type(t)
+            if '*' in t:
+                continue
+            if name and name not in objs[cmodule]:
+                obj(name, 'struct '+name)
+
+            obj(name, 'def {}'.format(n))
+            obj(name, '  SF::{}.wrap_ptr(@{})'.format(rename_type(t), n))
+            obj(name, 'end')
 
 def handle_union(name, items):
     name = rename_type(name)
@@ -235,9 +247,11 @@ def handle_function(main, params):
     if nfname.startswith('get_') and len(params)==1 and cls:
         getter = True
         nfname = nfname[4:]
-    if nfname.startswith('is_') and len(params)==1 and cls:
+    elif nfname.startswith('is_') and len(params)==1 and cls:
         getter = True
         nfname = nfname[3:]+'?'
+    elif nfname.startswith('has_') and len(params)==1 and cls:
+        getter = True
     elif nfname.startswith('set_') and len(params)==2 and cls:
         nfname = nfname[4:]+'='
     if nfname.startswith('unicode_'):

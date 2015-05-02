@@ -2765,7 +2765,7 @@ module SF
     # events.
     # 
     # *Returns*: True if window has focus, false otherwise
-    def has_focus()
+    def has_focus
       CSFML.render_window_has_focus(@this) != 0
     end
     
@@ -5228,6 +5228,15 @@ module SF
 
   # Define the states used for drawing to a RenderTarget
   alias RenderStates = CSFML::RenderStates
+
+  struct RenderStates
+    def texture
+      SF::Texture.wrap_ptr(@texture)
+    end
+    def shader
+      SF::Shader.wrap_ptr(@shader)
+    end
+  end
 
   alias Vertex = CSFML::Vertex
 

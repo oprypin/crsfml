@@ -368,7 +368,7 @@ module SF
     # events.
     # 
     # *Returns*: True if window has focus, false otherwise
-    def has_focus()
+    def has_focus
       CSFML.window_has_focus(@this) != 0
     end
     
