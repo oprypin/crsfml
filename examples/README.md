@@ -57,6 +57,13 @@ Parts of the Shader example [from SFML][shader]
     - Set arguments
     - Apply
 
+### [shapes](shapes.cr)
+
+- `VertexArray`
+- `draw` primitives
+- `ConvexShape`
+- Custom `Shape`
+
 ### [gl](gl.cr)
 
 - Basic OpenGL
