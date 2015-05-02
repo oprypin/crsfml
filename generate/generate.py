@@ -146,7 +146,7 @@ def handle_enum(name, items):
         if cls and cls in structs:
             cls = 'CSFML::'+cls
         if cls and cls not in objs[cmodule]:
-            obj(cls, ('struct' if orcls in structs else 'class')+' '+cls)
+            obj(cls, ('struct ' if orcls in structs else 'class ')+cls)
         sub = subname(name)
         suffix = '.value' if name.endswith('Count') else ''
         obj(cls, '{name} = CSFML::{nname}::{sub}{suffix}'.format(**locals()))
@@ -177,7 +177,7 @@ def handle_struct(name, items):
             if '*' in t:
                 continue
             if name and name not in objs[cmodule]:
-                obj(name, 'struct '+name)
+                obj(name, 'struct CSFML::'+name)
 
             obj(name, 'def {}'.format(n))
             if 'Vector2' in t:
@@ -239,7 +239,7 @@ def handle_function(main, params):
         nfname = 'self.'+nfname.split('_', 1)[1]
         cls = ofname.split('_')[0][2:]
     if cls and cls not in objs[cmodule]:
-        obj(cls, ('struct' if cls in structs else 'class')+' '+cls)
+        obj(cls, ('struct CSFML::' if cls in structs else 'class ')+cls)
 
     nfname = rename_identifier(nfname)
     nftype = rename_type(ftype)
@@ -379,6 +379,7 @@ def handle_function(main, params):
     if cut and cls in structs and orparams and not orparams[0][0].startswith('const') and '*' in orparams[0][0]:
         for p in structs[cls]:
             obj(cls, '  self.{0} = cself.{0}'.format(p))
+            obj(cls, '  self')
     obj(cls, 'end', '')
 
 

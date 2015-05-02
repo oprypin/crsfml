@@ -56,12 +56,15 @@ module SF
       SF.vector2(x - ox, y - oy)
     end
     def *(other)
-      ox, oy = other
-      SF.vector2(x * ox, y * oy)
+      if other.responds_to? :[]
+        ox, oy = other
+        SF.vector2(x * ox, y * oy)
+      else
+        SF.vector2(x * other, y * other)
+      end
     end
-    def /(other)
-      ox, oy = other
-      SF.vector2(x / ox, y / oy)
+    def /(o)
+      SF.vector2(x / o, y / o)
     end
     def ==(other)
       ox, oy = other

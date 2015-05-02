@@ -23,7 +23,7 @@ require "./graphics_lib"
 module SF
   extend self
 
-  def color(red, green, blue, alpha=255)
+  def color(red: Number, green: Number, blue: Number, alpha=255: Number)
     Color.new(r: red.to_u8, g: green.to_u8, b: blue.to_u8, a: alpha.to_u8)
   end
   struct CSFML::Color
@@ -55,10 +55,10 @@ module SF
     end
   end
   
-  def float_rect(left, top, width, height)
+  def float_rect(left: Number, top: Number, width: Number, height: Number)
     FloatRect.new(left: left.to_f32, top: top.to_f32, width: width.to_f32, height: height.to_f32)
   end
-  def int_rect(left, top, width, height)
+  def int_rect(left: Number, top: Number, width: Number, height: Number)
     IntRect.new(left: left.to_i32, top: top.to_i32, width: width.to_i32, height: height.to_i32)
   end
 
@@ -98,7 +98,7 @@ module SF
       x, y = offset
       translate(x, y)
     end
-    def rotate(angle, center)
+    def rotate(angle: Number, center)
       cx, cy = center
       rotate(angle, cx, cy)
     end
@@ -106,7 +106,7 @@ module SF
       x, y = factors
       scale(x, y)
     end
-    def scale(factors, center)
+    def scale(factors, center: Number)
       x, y = factors
       cx, cy = center
       scale(x, y, cx, cy)
@@ -194,7 +194,7 @@ module SF
   end
   
   class CircleShape
-    def initialize(radius, point_count=30)
+    def initialize(radius: Number, point_count=30: Int)
       initialize()
       self.radius = radius
       self.point_count = point_count
@@ -217,7 +217,7 @@ module SF
   end
   
   class ConvexShape
-    def initialize(point_count)
+    def initialize(point_count: Int)
       initialize()
       self.point_count = point_count
     end
@@ -261,7 +261,7 @@ module SF
   end
   
   class Text
-    def initialize(string: String, font: Font, character_size=30)
+    def initialize(string: String, font: Font, character_size=30: Int)
       initialize()
       self.string = string
       self.font = font
@@ -396,7 +396,7 @@ module SF
       @transformable = SF::Transformable.new() unless @transformable
       (@transformable || SF::Transformable.new()).position = position
     end
-    def rotation=(angle)
+    def rotation=(angle: Number)
       @transformable = SF::Transformable.new() unless @transformable
       (@transformable || SF::Transformable.new()).rotation = angle
     end
@@ -428,7 +428,7 @@ module SF
       @transformable = SF::Transformable.new() unless @transformable
       (@transformable || SF::Transformable.new()).move(offset)
     end
-    def rotate(angle)
+    def rotate(angle: Number)
       @transformable = SF::Transformable.new() unless @transformable
       (@transformable || SF::Transformable.new()).rotate(angle)
     end

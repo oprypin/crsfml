@@ -984,7 +984,7 @@ module SF
   # by the display device
   alias VideoMode = CSFML::VideoMode
 
-  struct VideoMode
+  struct CSFML::VideoMode
     # Get the current desktop video mode
     # 
     # *Returns*: Current desktop video mode

@@ -7,7 +7,7 @@ module SF
   # Represents a time value
   alias Time = CSFML::Time
 
-  struct Time
+  struct CSFML::Time
     # Return a time value as a number of seconds
     # 
     # *Arguments*:

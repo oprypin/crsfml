@@ -45,7 +45,7 @@ module SF
   # Utility class for manpulating RGBA colors
   alias Color = CSFML::Color
 
-  struct Color
+  struct CSFML::Color
     # Add two colors
     # 
     # *Arguments*:
@@ -76,7 +76,7 @@ module SF
 
   alias IntRect = CSFML::IntRect
 
-  struct FloatRect
+  struct CSFML::FloatRect
     # Check if a point is inside a rectangle's area
     # 
     # *Arguments*:
@@ -114,7 +114,7 @@ module SF
     
   end
 
-  struct IntRect
+  struct CSFML::IntRect
     def contains(x: Int32, y: Int32)
       cself = self
       CSFML.int_rect_contains(pointerof(cself), x, y) != 0
@@ -5030,7 +5030,7 @@ module SF
   # Encapsulate a 3x3 transform matrix
   alias Transform = CSFML::Transform
 
-  struct Transform
+  struct CSFML::Transform
     # Return the 4x4 matrix of a transform
     # 
     # This function fills an array of 16 floats with the transform
@@ -5113,6 +5113,7 @@ module SF
       cself = self
       CSFML.transform_combine(pointerof(cself), pother)
       self.matrix = cself.matrix
+      self
     end
     
     # Combine a transform with a translation
@@ -5128,6 +5129,7 @@ module SF
       cself = self
       CSFML.transform_translate(pointerof(cself), x, y)
       self.matrix = cself.matrix
+      self
     end
     
     # Combine the current transform with a rotation
@@ -5141,6 +5143,7 @@ module SF
       cself = self
       CSFML.transform_rotate(pointerof(cself), angle)
       self.matrix = cself.matrix
+      self
     end
     
     # Combine the current transform with a rotation
@@ -5163,6 +5166,7 @@ module SF
       cself = self
       CSFML.transform_rotate_with_center(pointerof(cself), angle, center_x, center_y)
       self.matrix = cself.matrix
+      self
     end
     
     # Combine the current transform with a scaling
@@ -5178,6 +5182,7 @@ module SF
       cself = self
       CSFML.transform_scale(pointerof(cself), scale_x, scale_y)
       self.matrix = cself.matrix
+      self
     end
     
     # Combine the current transform with a scaling
@@ -5202,6 +5207,7 @@ module SF
       cself = self
       CSFML.transform_scale_with_center(pointerof(cself), scale_x, scale_y, center_x, center_y)
       self.matrix = cself.matrix
+      self
     end
     
   end
@@ -5229,7 +5235,7 @@ module SF
   # Define the states used for drawing to a RenderTarget
   alias RenderStates = CSFML::RenderStates
 
-  struct RenderStates
+  struct CSFML::RenderStates
     def texture
       SF::Texture.wrap_ptr(@texture)
     end
@@ -5240,7 +5246,7 @@ module SF
 
   alias Vertex = CSFML::Vertex
 
-  struct Vertex
+  struct CSFML::Vertex
     def position
       SF.vector2(@position)
     end
