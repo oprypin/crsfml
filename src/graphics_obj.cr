@@ -86,7 +86,7 @@ module SF
     # * `y`: Y coordinate of the point to test
     # 
     # *Returns*: True if the point is inside
-    def contains(x, y)
+    def contains(x: Number, y: Number)
       x = x.to_f32
       y = y.to_f32
       cself = self
@@ -188,7 +188,7 @@ module SF
     # 
     # * `shape`: Shape object
     # * `angle`: New rotation, in degrees
-    def rotation=(angle)
+    def rotation=(angle: Number)
       angle = angle.to_f32
       CSFML.circle_shape_set_rotation(@this, angle)
     end
@@ -234,7 +234,7 @@ module SF
     # 
     # *Returns*: Current position
     def position
-      CSFML.circle_shape_get_position(@this)
+      SF.vector2(CSFML.circle_shape_get_position(@this))
     end
     
     # Get the orientation of a circle shape
@@ -258,7 +258,7 @@ module SF
     # 
     # *Returns*: Current scale factors
     def scale
-      CSFML.circle_shape_get_scale(@this)
+      SF.vector2(CSFML.circle_shape_get_scale(@this))
     end
     
     # Get the local origin of a circle shape
@@ -269,7 +269,7 @@ module SF
     # 
     # *Returns*: Current origin
     def origin
-      CSFML.circle_shape_get_origin(@this)
+      SF.vector2(CSFML.circle_shape_get_origin(@this))
     end
     
     # Move a circle shape by a given offset
@@ -295,7 +295,7 @@ module SF
     # 
     # * `shape`: Shape object
     # * `angle`: Angle of rotation, in degrees
-    def rotate(angle)
+    def rotate(angle: Number)
       angle = angle.to_f32
       CSFML.circle_shape_rotate(@this, angle)
     end
@@ -413,7 +413,7 @@ module SF
     # 
     # * `shape`: Shape object
     # * `thickness`: New outline thickness
-    def outline_thickness=(thickness)
+    def outline_thickness=(thickness: Number)
       thickness = thickness.to_f32
       CSFML.circle_shape_set_outline_thickness(@this, thickness)
     end
@@ -499,7 +499,7 @@ module SF
     # 
     # *Returns*: Index-th point of the shape
     def get_point(index: Int32)
-      CSFML.circle_shape_get_point(@this, index)
+      SF.vector2(CSFML.circle_shape_get_point(@this, index))
     end
     
     # Set the radius of a circle
@@ -508,7 +508,7 @@ module SF
     # 
     # * `shape`: Shape object
     # * `radius`: New radius of the circle
-    def radius=(radius)
+    def radius=(radius: Number)
       radius = radius.to_f32
       CSFML.circle_shape_set_radius(@this, radius)
     end
@@ -626,7 +626,7 @@ module SF
     # 
     # * `shape`: Shape object
     # * `angle`: New rotation, in degrees
-    def rotation=(angle)
+    def rotation=(angle: Number)
       angle = angle.to_f32
       CSFML.convex_shape_set_rotation(@this, angle)
     end
@@ -672,7 +672,7 @@ module SF
     # 
     # *Returns*: Current position
     def position
-      CSFML.convex_shape_get_position(@this)
+      SF.vector2(CSFML.convex_shape_get_position(@this))
     end
     
     # Get the orientation of a convex shape
@@ -696,7 +696,7 @@ module SF
     # 
     # *Returns*: Current scale factors
     def scale
-      CSFML.convex_shape_get_scale(@this)
+      SF.vector2(CSFML.convex_shape_get_scale(@this))
     end
     
     # Get the local origin of a convex shape
@@ -707,7 +707,7 @@ module SF
     # 
     # *Returns*: Current origin
     def origin
-      CSFML.convex_shape_get_origin(@this)
+      SF.vector2(CSFML.convex_shape_get_origin(@this))
     end
     
     # Move a convex shape by a given offset
@@ -733,7 +733,7 @@ module SF
     # 
     # * `shape`: Shape object
     # * `angle`: Angle of rotation, in degrees
-    def rotate(angle)
+    def rotate(angle: Number)
       angle = angle.to_f32
       CSFML.convex_shape_rotate(@this, angle)
     end
@@ -851,7 +851,7 @@ module SF
     # 
     # * `shape`: Shape object
     # * `thickness`: New outline thickness
-    def outline_thickness=(thickness)
+    def outline_thickness=(thickness: Number)
       thickness = thickness.to_f32
       CSFML.convex_shape_set_outline_thickness(@this, thickness)
     end
@@ -937,7 +937,7 @@ module SF
     # 
     # *Returns*: Index-th point of the shape
     def get_point(index: Int32)
-      CSFML.convex_shape_get_point(@this, index)
+      SF.vector2(CSFML.convex_shape_get_point(@this, index))
     end
     
     # Set the number of points of a convex shap
@@ -1310,7 +1310,7 @@ module SF
     # 
     # *Returns*: Size in pixels
     def size
-      CSFML.image_get_size(@this)
+      SF.vector2(CSFML.image_get_size(@this))
     end
     
     # Create a transparency mask from a specified color-key
@@ -1508,7 +1508,7 @@ module SF
     # * `shader`: Shader object
     # * `name`: Name of the parameter in the shader
     # * `x`: Value to assign
-    def set_parameter(name: String, x)
+    def set_parameter(name: String, x: Number)
       x = x.to_f32
       CSFML.shader_set_float_parameter(@this, name, x)
     end
@@ -1526,7 +1526,7 @@ module SF
     # * `name`: Name of the parameter in the shader
     # * `x`: First component of the value to assign
     # * `y`: Second component of the value to assign
-    def set_parameter(name: String, x, y)
+    def set_parameter(name: String, x: Number, y: Number)
       x = x.to_f32
       y = y.to_f32
       CSFML.shader_set_float2_parameter(@this, name, x, y)
@@ -1546,7 +1546,7 @@ module SF
     # * `x`: First component of the value to assign
     # * `y`: Second component of the value to assign
     # * `z`: Third component of the value to assign
-    def set_parameter(name: String, x, y, z)
+    def set_parameter(name: String, x: Number, y: Number, z: Number)
       x = x.to_f32
       y = y.to_f32
       z = z.to_f32
@@ -1568,7 +1568,7 @@ module SF
     # * `y`: Second component of the value to assign
     # * `z`: Third component of the value to assign
     # * `w`: Fourth component of the value to assign
-    def set_parameter(name: String, x, y, z, w)
+    def set_parameter(name: String, x: Number, y: Number, z: Number, w: Number)
       x = x.to_f32
       y = y.to_f32
       z = z.to_f32
@@ -1769,7 +1769,7 @@ module SF
     # 
     # * `shape`: Shape object
     # * `angle`: New rotation, in degrees
-    def rotation=(angle)
+    def rotation=(angle: Number)
       angle = angle.to_f32
       CSFML.rectangle_shape_set_rotation(@this, angle)
     end
@@ -1815,7 +1815,7 @@ module SF
     # 
     # *Returns*: Current position
     def position
-      CSFML.rectangle_shape_get_position(@this)
+      SF.vector2(CSFML.rectangle_shape_get_position(@this))
     end
     
     # Get the orientation of a rectangle shape
@@ -1839,7 +1839,7 @@ module SF
     # 
     # *Returns*: Current scale factors
     def scale
-      CSFML.rectangle_shape_get_scale(@this)
+      SF.vector2(CSFML.rectangle_shape_get_scale(@this))
     end
     
     # Get the local origin of a rectangle shape
@@ -1850,7 +1850,7 @@ module SF
     # 
     # *Returns*: Current origin
     def origin
-      CSFML.rectangle_shape_get_origin(@this)
+      SF.vector2(CSFML.rectangle_shape_get_origin(@this))
     end
     
     # Move a rectangle shape by a given offset
@@ -1876,7 +1876,7 @@ module SF
     # 
     # * `shape`: Shape object
     # * `angle`: Angle of rotation, in degrees
-    def rotate(angle)
+    def rotate(angle: Number)
       angle = angle.to_f32
       CSFML.rectangle_shape_rotate(@this, angle)
     end
@@ -1994,7 +1994,7 @@ module SF
     # 
     # * `shape`: Shape object
     # * `thickness`: New outline thickness
-    def outline_thickness=(thickness)
+    def outline_thickness=(thickness: Number)
       thickness = thickness.to_f32
       CSFML.rectangle_shape_set_outline_thickness(@this, thickness)
     end
@@ -2080,7 +2080,7 @@ module SF
     # 
     # *Returns*: Index-th point of the shape
     def get_point(index: Int32)
-      CSFML.rectangle_shape_get_point(@this, index)
+      SF.vector2(CSFML.rectangle_shape_get_point(@this, index))
     end
     
     # Set the size of a rectangle shape
@@ -2102,7 +2102,7 @@ module SF
     # 
     # *Returns*: height Size of the rectangle
     def size
-      CSFML.rectangle_shape_get_size(@this)
+      SF.vector2(CSFML.rectangle_shape_get_size(@this))
     end
     
     # Get the local bounding rectangle of a rectangle shape
@@ -2176,7 +2176,7 @@ module SF
     # 
     # *Returns*: Size in pixels
     def size
-      CSFML.render_texture_get_size(@this)
+      SF.vector2(CSFML.render_texture_get_size(@this))
     end
     
     # Activate or deactivate a render texture as the current target for rendering
@@ -2281,7 +2281,7 @@ module SF
     # *Returns*: The converted point, in "world" units
     def map_pixel_to_coords(point, view: View)
       point = SF.vector2i(point) unless point.is_a? Vector2i
-      CSFML.render_texture_map_pixel_to_coords(@this, point, view)
+      SF.vector2(CSFML.render_texture_map_pixel_to_coords(@this, point, view))
     end
     
     # Convert a point from world coordinates to texture coordinates
@@ -2309,7 +2309,7 @@ module SF
     # *Returns*: The converted point, in target coordinates (pixels)
     def map_coords_to_pixel(point, view: View)
       point = SF.vector2f(point) unless point.is_a? Vector2f
-      CSFML.render_texture_map_coords_to_pixel(@this, point, view)
+      SF.vector2(CSFML.render_texture_map_coords_to_pixel(@this, point, view))
     end
     
     # Draw a drawable object to the render-target
@@ -2620,7 +2620,7 @@ module SF
     # 
     # *Returns*: Position in pixels
     def position
-      CSFML.render_window_get_position(@this)
+      SF.vector2(CSFML.render_window_get_position(@this))
     end
     
     # Change the position of a render window on screen
@@ -2644,7 +2644,7 @@ module SF
     # 
     # *Returns*: Size in pixels
     def size
-      CSFML.render_window_get_size(@this)
+      SF.vector2(CSFML.render_window_get_size(@this))
     end
     
     # Change the size of the rendering region of a render window
@@ -2794,7 +2794,7 @@ module SF
     # 
     # * `render_window`: Render window object
     # * `threshold`: New threshold, in range [0, 100]
-    def joystick_threshold=(threshold)
+    def joystick_threshold=(threshold: Number)
       threshold = threshold.to_f32
       CSFML.render_window_set_joystick_threshold(@this, threshold)
     end
@@ -2893,7 +2893,7 @@ module SF
     # *Returns*: The converted point, in "world" units
     def map_pixel_to_coords(point, view: View)
       point = SF.vector2i(point) unless point.is_a? Vector2i
-      CSFML.render_window_map_pixel_to_coords(@this, point, view)
+      SF.vector2(CSFML.render_window_map_pixel_to_coords(@this, point, view))
     end
     
     # Convert a point from world coordinates to window coordinates
@@ -2921,7 +2921,7 @@ module SF
     # *Returns*: The converted point, in target coordinates (pixels)
     def map_coords_to_pixel(point, view: View)
       point = SF.vector2f(point) unless point.is_a? Vector2f
-      CSFML.render_window_map_coords_to_pixel(@this, point, view)
+      SF.vector2(CSFML.render_window_map_coords_to_pixel(@this, point, view))
     end
     
     # Draw a drawable object to the render-target
@@ -3140,7 +3140,7 @@ module SF
     # 
     # * `shape`: Shape object
     # * `angle`: New rotation, in degrees
-    def rotation=(angle)
+    def rotation=(angle: Number)
       angle = angle.to_f32
       CSFML.shape_set_rotation(@this, angle)
     end
@@ -3186,7 +3186,7 @@ module SF
     # 
     # *Returns*: Current position
     def position
-      CSFML.shape_get_position(@this)
+      SF.vector2(CSFML.shape_get_position(@this))
     end
     
     # Get the orientation of a shape
@@ -3210,7 +3210,7 @@ module SF
     # 
     # *Returns*: Current scale factors
     def scale
-      CSFML.shape_get_scale(@this)
+      SF.vector2(CSFML.shape_get_scale(@this))
     end
     
     # Get the local origin of a shape
@@ -3221,7 +3221,7 @@ module SF
     # 
     # *Returns*: Current origin
     def origin
-      CSFML.shape_get_origin(@this)
+      SF.vector2(CSFML.shape_get_origin(@this))
     end
     
     # Move a shape by a given offset
@@ -3247,7 +3247,7 @@ module SF
     # 
     # * `shape`: Shape object
     # * `angle`: Angle of rotation, in degrees
-    def rotate(angle)
+    def rotate(angle: Number)
       angle = angle.to_f32
       CSFML.shape_rotate(@this, angle)
     end
@@ -3365,7 +3365,7 @@ module SF
     # 
     # * `shape`: Shape object
     # * `thickness`: New outline thickness
-    def outline_thickness=(thickness)
+    def outline_thickness=(thickness: Number)
       thickness = thickness.to_f32
       CSFML.shape_set_outline_thickness(@this, thickness)
     end
@@ -3451,7 +3451,7 @@ module SF
     # 
     # *Returns*: Index-th point of the shape
     def get_point(index: Int32)
-      CSFML.shape_get_point(@this, index)
+      SF.vector2(CSFML.shape_get_point(@this, index))
     end
     
     # Get the local bounding rectangle of a shape
@@ -3555,7 +3555,7 @@ module SF
     # 
     # * `sprite`: Sprite object
     # * `angle`: New rotation, in degrees
-    def rotation=(angle)
+    def rotation=(angle: Number)
       angle = angle.to_f32
       CSFML.sprite_set_rotation(@this, angle)
     end
@@ -3601,7 +3601,7 @@ module SF
     # 
     # *Returns*: Current position
     def position
-      CSFML.sprite_get_position(@this)
+      SF.vector2(CSFML.sprite_get_position(@this))
     end
     
     # Get the orientation of a sprite
@@ -3625,7 +3625,7 @@ module SF
     # 
     # *Returns*: Current scale factors
     def scale
-      CSFML.sprite_get_scale(@this)
+      SF.vector2(CSFML.sprite_get_scale(@this))
     end
     
     # Get the local origin of a sprite
@@ -3636,7 +3636,7 @@ module SF
     # 
     # *Returns*: Current origin
     def origin
-      CSFML.sprite_get_origin(@this)
+      SF.vector2(CSFML.sprite_get_origin(@this))
     end
     
     # Move a sprite by a given offset
@@ -3662,7 +3662,7 @@ module SF
     # 
     # * `sprite`: Sprite object
     # * `angle`: Angle of rotation, in degrees
-    def rotate(angle)
+    def rotate(angle: Number)
       angle = angle.to_f32
       CSFML.sprite_rotate(@this, angle)
     end
@@ -3888,7 +3888,7 @@ module SF
     # 
     # * `text`: Text object
     # * `angle`: New rotation, in degrees
-    def rotation=(angle)
+    def rotation=(angle: Number)
       angle = angle.to_f32
       CSFML.text_set_rotation(@this, angle)
     end
@@ -3934,7 +3934,7 @@ module SF
     # 
     # *Returns*: Current position
     def position
-      CSFML.text_get_position(@this)
+      SF.vector2(CSFML.text_get_position(@this))
     end
     
     # Get the orientation of a text
@@ -3958,7 +3958,7 @@ module SF
     # 
     # *Returns*: Current scale factors
     def scale
-      CSFML.text_get_scale(@this)
+      SF.vector2(CSFML.text_get_scale(@this))
     end
     
     # Get the local origin of a text
@@ -3969,7 +3969,7 @@ module SF
     # 
     # *Returns*: Current origin
     def origin
-      CSFML.text_get_origin(@this)
+      SF.vector2(CSFML.text_get_origin(@this))
     end
     
     # Move a text by a given offset
@@ -3995,7 +3995,7 @@ module SF
     # 
     # * `text`: Text object
     # * `angle`: Angle of rotation, in degrees
-    def rotate(angle)
+    def rotate(angle: Number)
       angle = angle.to_f32
       CSFML.text_rotate(@this, angle)
     end
@@ -4182,7 +4182,7 @@ module SF
     # 
     # *Returns*: Position of the character
     def find_character_pos(index: Size_t)
-      CSFML.text_find_character_pos(@this, index)
+      SF.vector2(CSFML.text_find_character_pos(@this, index))
     end
     
     # Get the local bounding rectangle of a text
@@ -4334,7 +4334,7 @@ module SF
     # 
     # *Returns*: Size in pixels
     def size
-      CSFML.texture_get_size(@this)
+      SF.vector2(CSFML.texture_get_size(@this))
     end
     
     # Copy a texture's pixels to an image
@@ -4540,7 +4540,7 @@ module SF
     # 
     # * `transformable`: Transformable object
     # * `angle`: New rotation, in degrees
-    def rotation=(angle)
+    def rotation=(angle: Number)
       angle = angle.to_f32
       CSFML.transformable_set_rotation(@this, angle)
     end
@@ -4586,7 +4586,7 @@ module SF
     # 
     # *Returns*: Current position
     def position
-      CSFML.transformable_get_position(@this)
+      SF.vector2(CSFML.transformable_get_position(@this))
     end
     
     # Get the orientation of a transformable
@@ -4610,7 +4610,7 @@ module SF
     # 
     # *Returns*: Current scale factors
     def scale
-      CSFML.transformable_get_scale(@this)
+      SF.vector2(CSFML.transformable_get_scale(@this))
     end
     
     # Get the local origin of a transformable
@@ -4621,7 +4621,7 @@ module SF
     # 
     # *Returns*: Current origin
     def origin
-      CSFML.transformable_get_origin(@this)
+      SF.vector2(CSFML.transformable_get_origin(@this))
     end
     
     # Move a transformable by a given offset
@@ -4647,7 +4647,7 @@ module SF
     # 
     # * `transformable`: Transformable object
     # * `angle`: Angle of rotation, in degrees
-    def rotate(angle)
+    def rotate(angle: Number)
       angle = angle.to_f32
       CSFML.transformable_rotate(@this, angle)
     end
@@ -4907,7 +4907,7 @@ module SF
     # 
     # * `view`: View object
     # * `angle`: New angle, in degrees
-    def rotation=(angle)
+    def rotation=(angle: Number)
       angle = angle.to_f32
       CSFML.view_set_rotation(@this, angle)
     end
@@ -4949,7 +4949,7 @@ module SF
     # 
     # *Returns*: Center of the view
     def center
-      CSFML.view_get_center(@this)
+      SF.vector2(CSFML.view_get_center(@this))
     end
     
     # Get the size of a view
@@ -4960,7 +4960,7 @@ module SF
     # 
     # *Returns*: Size of the view
     def size
-      CSFML.view_get_size(@this)
+      SF.vector2(CSFML.view_get_size(@this))
     end
     
     # Get the current orientation of a view
@@ -5002,7 +5002,7 @@ module SF
     # 
     # * `view`: View object
     # * `angle`: Angle to rotate, in degrees
-    def rotate(angle)
+    def rotate(angle: Number)
       angle = angle.to_f32
       CSFML.view_rotate(@this, angle)
     end
@@ -5020,7 +5020,7 @@ module SF
     # 
     # * `view`: View object
     # * `factor`: Zoom factor to apply
-    def zoom(factor)
+    def zoom(factor: Number)
       factor = factor.to_f32
       CSFML.view_zoom(@this, factor)
     end
@@ -5072,7 +5072,7 @@ module SF
     def transform_point(point)
       point = SF.vector2f(point) unless point.is_a? Vector2f
       cself = self
-      CSFML.transform_transform_point(pointerof(cself), point)
+      SF.vector2(CSFML.transform_transform_point(pointerof(cself), point))
     end
     
     # Apply a transform to a rectangle
@@ -5122,7 +5122,7 @@ module SF
     # * `transform`: Transform object
     # * `x`: Offset to apply on X axis
     # * `y`: Offset to apply on Y axis
-    def translate(x, y)
+    def translate(x: Number, y: Number)
       x = x.to_f32
       y = y.to_f32
       cself = self
@@ -5136,7 +5136,7 @@ module SF
     # 
     # * `transform`: Transform object
     # * `angle`: Rotation angle, in degrees
-    def rotate(angle)
+    def rotate(angle: Number)
       angle = angle.to_f32
       cself = self
       CSFML.transform_rotate(pointerof(cself), angle)
@@ -5156,7 +5156,7 @@ module SF
     # * `angle`: Rotation angle, in degrees
     # * `centerX`: X coordinate of the center of rotation
     # * `centerY`: Y coordinate of the center of rotation
-    def rotate(angle, center_x, center_y)
+    def rotate(angle: Number, center_x: Number, center_y: Number)
       angle = angle.to_f32
       center_x = center_x.to_f32
       center_y = center_y.to_f32
@@ -5172,7 +5172,7 @@ module SF
     # * `transform`: Transform object
     # * `scaleX`: Scaling factor on the X axis
     # * `scaleY`: Scaling factor on the Y axis
-    def scale(scale_x, scale_y)
+    def scale(scale_x: Number, scale_y: Number)
       scale_x = scale_x.to_f32
       scale_y = scale_y.to_f32
       cself = self
@@ -5194,7 +5194,7 @@ module SF
     # * `scaleY`: Scaling factor on Y axis
     # * `centerX`: X coordinate of the center of scaling
     # * `centerY`: Y coordinate of the center of scaling
-    def scale(scale_x, scale_y, center_x, center_y)
+    def scale(scale_x: Number, scale_y: Number, center_x: Number, center_y: Number)
       scale_x = scale_x.to_f32
       scale_y = scale_y.to_f32
       center_x = center_x.to_f32
@@ -5240,6 +5240,15 @@ module SF
 
   alias Vertex = CSFML::Vertex
 
+  struct Vertex
+    def position
+      SF.vector2(@position)
+    end
+    def texCoords
+      SF.vector2(@texCoords)
+    end
+  end
+
   class Mouse
     # Get the current position of the mouse relative to a render-window
     # 
@@ -5252,7 +5261,7 @@ module SF
     # 
     # *Returns*: Position of the mouse cursor, relative to the given render window
     def self.get_position(relative_to: RenderWindow)
-      CSFML.mouse_get_position_render_window(relative_to)
+      SF.vector2(CSFML.mouse_get_position_render_window(relative_to))
     end
     
     # Set the current position of the mouse relative to a render window
@@ -5284,7 +5293,7 @@ module SF
     # 
     # *Returns*: Current position of `finger`, or undefined if it's not down
     def self.get_position(finger: Int32, relative_to: RenderWindow)
-      CSFML.touch_get_position_render_window(finger, relative_to)
+      SF.vector2(CSFML.touch_get_position_render_window(finger, relative_to))
     end
     
   end
@@ -5338,7 +5347,7 @@ module SF
   # * `a22`: Element (2, 2) of the matrix
   # 
   # *Returns*: A new Transform object
-  def transform(a00, a01, a02, a10, a11, a12, a20, a21, a22)
+  def transform(a00: Number, a01: Number, a02: Number, a10: Number, a11: Number, a12: Number, a20: Number, a21: Number, a22: Number)
     a00 = a00.to_f32
     a01 = a01.to_f32
     a02 = a02.to_f32

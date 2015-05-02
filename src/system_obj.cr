@@ -124,7 +124,7 @@ module SF
   # * `amount`: Number of seconds
   # 
   # *Returns*: Time value constructed from the amount of seconds
-  def seconds(amount)
+  def seconds(amount: Number)
     amount = amount.to_f32
     CSFML.seconds(amount)
   end

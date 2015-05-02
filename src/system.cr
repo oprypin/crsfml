@@ -23,13 +23,7 @@ require "./system_lib"
 module SF
   extend self
   
-  struct Vector2(T)
-    property x
-    property y
-    def initialize(x: T, y: T)
-      @x = x
-      @y = y
-    end
+  module Vector2M
     def each
       yield @x
       yield @y
@@ -39,28 +33,35 @@ module SF
     end
     def [](i)
       case i
-      when 1
-        @y
-      else
-        @x
+      when 1; @y
+      else; @x
       end
     end
+  end
+  
+  struct Vector2(T)
+    property x
+    property y
+    def initialize(@x: T, @y: T)
+    end
+    
+    include Vector2M
     
     def +(other)
       ox, oy = other
-      Vector2.new(x + ox, y + oy)
+      SF.vector2(x + ox, y + oy)
     end
     def -(other)
       ox, oy = other
-      Vector2.new(x - ox, y - oy)
+      SF.vector2(x - ox, y - oy)
     end
     def *(other)
       ox, oy = other
-      Vector2.new(x * ox, y * oy)
+      SF.vector2(x * ox, y * oy)
     end
     def /(other)
       ox, oy = other
-      Vector2.new(x / ox, y / oy)
+      SF.vector2(x / ox, y / oy)
     end
     def ==(other)
       ox, oy = other
@@ -68,22 +69,53 @@ module SF
     end
   end
   
-  def vector2(x, y)
+  def vector2(x: Number, y: Number)
     Vector2.new(x, y)
+  end
+  def vector2(x: Float32, y: Float64)
+    Vector2.new(x, y.to_f32)
+  end
+  def vector2(x: Float64, y: Float32)
+    Vector2.new(x.to_f32, y)
+  end
+  def vector2(x: Int32, y: Float32)
+    Vector2.new(x.to_f32, y.to_f32)
+  end
+  def vector2(x: Int32, y: Float64)
+    Vector2.new(x.to_f64, y.to_f64)
+  end
+  def vector2(x: Float32, y: Int32)
+    Vector2.new(x.to_f32, y.to_f32)
+  end
+  def vector2(x: Float64, y: Int32)
+    Vector2.new(x.to_f64, y.to_f64)
   end
   def vector2(v)
     x, y = v
     Vector2.new(x, y)
   end
+  def vector2(v: Vector2f)
+    Vector2.new(v.x, v.y)
+  end
+  def vector2(v: Vector2i)
+    Vector2.new(v.x, v.y)
+  end
   
-  def vector2f(x, y)
+  struct CSFML::Vector2f
+    include SF::Vector2M
+  end
+  def vector2f(x: Number, y: Number)
     Vector2f.new(x: x.to_f32, y: y.to_f32)
   end
   def vector2f(v)
     x, y = v
     vector2f(x, y)
   end
-  def vector2i(x, y)
+  
+  struct CSFML::Vector2i
+    include SF::Vector2M
+  end
+  def vector2i(x: Int, y: Int)
     Vector2i.new(x: x.to_i32, y: y.to_i32)
   end
   def vector2i(v)

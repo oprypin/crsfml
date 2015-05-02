@@ -92,7 +92,7 @@ module SF
     Identity = SF.transform()
     
     def transform_point(x, y)
-      transform_point(SF.vector2(x, y))
+      transform_point(SF.vector2f(x, y))
     end
     def translate(offset)
       x, y = offset
@@ -305,7 +305,7 @@ module SF
   end
   
   def vertex(position=SF.vector2(0.0, 0.0), color=Color::White, tex_coords=SF.vector2(0.0, 0.0))
-    Vertex.new(position: position, color: color, tex_coords: tex_coords)
+    Vertex.new(position: SF.vector2f(position), color: color, tex_coords: SF.vector2f(tex_coords))
   end
   
   class VertexArray

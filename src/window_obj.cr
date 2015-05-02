@@ -198,7 +198,7 @@ module SF
     # 
     # *Returns*: Position in pixels
     def position
-      CSFML.window_get_position(@this)
+      SF.vector2(CSFML.window_get_position(@this))
     end
     
     # Change the position of a window on screen
@@ -227,7 +227,7 @@ module SF
     # 
     # *Returns*: Size in pixels
     def size
-      CSFML.window_get_size(@this)
+      SF.vector2(CSFML.window_get_size(@this))
     end
     
     # Change the size of the rendering region of a window
@@ -409,7 +409,7 @@ module SF
     # 
     # * `window`: Window object
     # * `threshold`: New threshold, in the range [0, 100]
-    def joystick_threshold=(threshold)
+    def joystick_threshold=(threshold: Number)
       threshold = threshold.to_f32
       CSFML.window_set_joystick_threshold(@this, threshold)
     end
@@ -811,7 +811,7 @@ module SF
     # 
     # *Returns*: Position of the mouse cursor, relative to the given window
     def self.get_position(relative_to: Window)
-      CSFML.mouse_get_position(relative_to)
+      SF.vector2(CSFML.mouse_get_position(relative_to))
     end
     
     # Set the current position of the mouse

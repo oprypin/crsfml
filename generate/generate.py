@@ -172,7 +172,7 @@ def handle_struct(name, items):
     obj(name+'ALIAS', 'alias {0} = CSFML::{0}'.format(name))
     
     for t, n in items:
-        if '*' in t and 'void' not in t:
+        if 'Vector2' in t or '*' in t and 'void' not in t:
             t = rename_type(t)
             if '*' in t:
                 continue
@@ -180,7 +180,10 @@ def handle_struct(name, items):
                 obj(name, 'struct '+name)
 
             obj(name, 'def {}'.format(n))
-            obj(name, '  SF::{}.wrap_ptr(@{})'.format(rename_type(t), n))
+            if 'Vector2' in t:
+                obj(name, '  SF.vector2(@{})'.format(n))
+            else:
+                obj(name, '  SF::{}.wrap_ptr(@{})'.format(rename_type(t), n))
             obj(name, 'end')
 
 def handle_union(name, items):
@@ -321,7 +324,7 @@ def handle_function(main, params):
             t = 'Bool'
             conv.append('{0} = {0} ? 1 : 0'.format(n))
         elif t == 'Float32':
-            t = None
+            t = 'Number'
             conv.append('{0} = {0}.to_f32'.format(n))
         elif t in ['Vector2f', 'Vector2i']:
             conv.append('{0} = SF.{2}({0}) unless {0}.is_a? {1}'.format(n, t, t.lower()))
@@ -369,6 +372,8 @@ def handle_function(main, params):
         obj(cls, '  result')
     elif ftype == 'sfBool':
         obj(cls, '  {} != 0'.format(call))
+    elif 'Vector2' in ftype:
+        obj(cls, '  SF.vector2({})'.format(call))
     else:
         obj(cls, '  '+call)
     if cut and cls in structs and orparams and not orparams[0][0].startswith('const') and '*' in orparams[0][0]:

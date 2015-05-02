@@ -14,7 +14,7 @@ module SF
     # *Arguments*:
     # 
     # * `volume`: New global volume, in the range [0, 100]
-    def self.set_global_volume(volume)
+    def self.set_global_volume(volume: Number)
       volume = volume.to_f32
       CSFML.listener_set_global_volume(volume)
     end
@@ -308,7 +308,7 @@ module SF
     # 
     # * `music`: Music object
     # * `pitch`: New pitch to apply to the music
-    def pitch=(pitch)
+    def pitch=(pitch: Number)
       pitch = pitch.to_f32
       CSFML.music_set_pitch(@this, pitch)
     end
@@ -322,7 +322,7 @@ module SF
     # 
     # * `music`: Music object
     # * `volume`: Volume of the music
-    def volume=(volume)
+    def volume=(volume: Number)
       volume = volume.to_f32
       CSFML.music_set_volume(@this, volume)
     end
@@ -371,7 +371,7 @@ module SF
     # 
     # * `music`: Music object
     # * `distance`: New minimum distance of the music
-    def min_distance=(distance)
+    def min_distance=(distance: Number)
       distance = distance.to_f32
       CSFML.music_set_min_distance(@this, distance)
     end
@@ -391,7 +391,7 @@ module SF
     # 
     # * `music`: Music object
     # * `attenuation`: New attenuation factor of the music
-    def attenuation=(attenuation)
+    def attenuation=(attenuation: Number)
       attenuation = attenuation.to_f32
       CSFML.music_set_attenuation(@this, attenuation)
     end
@@ -624,7 +624,7 @@ module SF
     # 
     # * `sound`: Sound object
     # * `pitch`: New pitch to apply to the sound
-    def pitch=(pitch)
+    def pitch=(pitch: Number)
       pitch = pitch.to_f32
       CSFML.sound_set_pitch(@this, pitch)
     end
@@ -638,7 +638,7 @@ module SF
     # 
     # * `sound`: Sound object
     # * `volume`: Volume of the sound
-    def volume=(volume)
+    def volume=(volume: Number)
       volume = volume.to_f32
       CSFML.sound_set_volume(@this, volume)
     end
@@ -687,7 +687,7 @@ module SF
     # 
     # * `sound`: Sound object
     # * `distance`: New minimum distance of the sound
-    def min_distance=(distance)
+    def min_distance=(distance: Number)
       distance = distance.to_f32
       CSFML.sound_set_min_distance(@this, distance)
     end
@@ -707,7 +707,7 @@ module SF
     # 
     # * `sound`: Sound object
     # * `attenuation`: New attenuation factor of the sound
-    def attenuation=(attenuation)
+    def attenuation=(attenuation: Number)
       attenuation = attenuation.to_f32
       CSFML.sound_set_attenuation(@this, attenuation)
     end
