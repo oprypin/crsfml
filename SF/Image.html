@@ -35,7 +35,7 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr">csfml/graphics_obj.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr">graphics_obj.cr</a>
     
     <br/>
   
@@ -48,16 +48,52 @@
   <ul>
     
       <li class="entry-summary">
-        <a href="#new%28width%20%3A%20Int32%2C%20height%20%3A%20Int32%2C%20color%20%3A%20Color%29-class-method" class="signature"><strong>.new</strong>(width : Int32, height : Int32, color : Color)</a>
+        <a href="#from_color%28width%20%3A%20Int32%2C%20height%20%3A%20Int32%2C%20color%20%3A%20Color%29-class-method" class="signature"><strong>.from_color</strong>(width : Int32, height : Int32, color : Color)</a>
         
           <div class="summary"><p>Create an image and fill it with a unique color</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#new%28width%20%3A%20Int32%2C%20height%20%3A%20Int32%2C%20pixels%29-class-method" class="signature"><strong>.new</strong>(width : Int32, height : Int32, pixels)</a>
+        <a href="#from_file%28filename%20%3A%20String%29-class-method" class="signature"><strong>.from_file</strong>(filename : String)</a>
+        
+          <div class="summary"><p>Create an image from a file on disk</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#from_memory%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size%20%3A%20Size_t%29-class-method" class="signature"><strong>.from_memory</strong>(data : ::Pointer(Void), size : Size_t)</a>
+        
+          <div class="summary"><p>Create an image from a file in memory</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#from_pixels%28width%20%3A%20Int32%2C%20height%20%3A%20Int32%2C%20pixels%29-class-method" class="signature"><strong>.from_pixels</strong>(width : Int32, height : Int32, pixels)</a>
         
           <div class="summary"><p>Create an image from an array of pixels</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#from_stream%28stream%20%3A%20%3A%3APointer%28InputStream%29%29-class-method" class="signature"><strong>.from_stream</strong>(stream : ::Pointer(InputStream))</a>
+        
+          <div class="summary"><p>Create an image from a custom stream</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#transfer_ptr%28ptr%29-class-method" class="signature"><strong>.transfer_ptr</strong>(ptr)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#wrap_ptr%28ptr%29-class-method" class="signature"><strong>.wrap_ptr</strong>(ptr)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28this%2C%20owned%20%3A%20Bool%29-class-method" class="signature"><strong>.new</strong>(this, owned : Bool)</a>
         
       </li>
     
@@ -68,40 +104,12 @@
         
       </li>
     
-      <li class="entry-summary">
-        <a href="#new%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size%20%3A%20Size_t%29-class-method" class="signature"><strong>.new</strong>(data : ::Pointer(Void), size : Size_t)</a>
-        
-          <div class="summary"><p>Create an image from a file in memory</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#new%28filename%20%3A%20String%29-class-method" class="signature"><strong>.new</strong>(filename : String)</a>
-        
-          <div class="summary"><p>Create an image from a file on disk</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#new%28stream%20%3A%20%3A%3APointer%28InputStream%29%29-class-method" class="signature"><strong>.new</strong>(stream : ::Pointer(InputStream))</a>
-        
-          <div class="summary"><p>Create an image from a custom stream</p></div>
-        
-      </li>
-    
   </ul>
 
 
 
   <h2>Instance Method Summary</h2>
   <ul>
-    
-      <li class="entry-summary">
-        <a href="#copy-instance-method" class="signature"><strong>#copy</strong></a>
-        
-          <div class="summary"><p>Copy an existing image</p></div>
-        
-      </li>
     
       <li class="entry-summary">
         <a href="#copy_image%28source%20%3A%20Image%2C%20dest_x%20%3A%20Int32%2C%20dest_y%20%3A%20Int32%2C%20source_rect%20%3A%20IntRect%2C%20apply_alpha%20%3A%20Bool%29-instance-method" class="signature"><strong>#copy_image</strong>(source : Image, dest_x : Int32, dest_y : Int32, source_rect : IntRect, apply_alpha : Bool)</a>
@@ -114,6 +122,13 @@
         <a href="#create_mask%28color%20%3A%20Color%2C%20alpha%20%3A%20UInt8%29-instance-method" class="signature"><strong>#create_mask</strong>(color : Color, alpha : UInt8)</a>
         
           <div class="summary"><p>Create a transparency mask from a specified color-key</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#dup-instance-method" class="signature"><strong>#dup</strong></a>
+        
+          <div class="summary"><p>Copy an existing image</p></div>
         
       </li>
     
@@ -173,6 +188,11 @@
         
       </li>
     
+      <li class="entry-summary">
+        <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
+        
+      </li>
+    
   </ul>
 
 
@@ -183,9 +203,9 @@
   <h2>Class Method Detail</h2>
   
     <div class="entry-detail">
-      <div class="signature" id="new%28width%20%3A%20Int32%2C%20height%20%3A%20Int32%2C%20color%20%3A%20Color%29-class-method">
+      <div class="signature" id="from_color%28width%20%3A%20Int32%2C%20height%20%3A%20Int32%2C%20color%20%3A%20Color%29-class-method">
         
-        def self.<strong>new</strong>(width : Int32, height : Int32, color : <a href="../SF/Color.html">Color</a>)
+        def self.<strong>from_color</strong>(width : Int32, height : Int32, color : <a href="../SF/Color.html">Color</a>)
       </div>
       
         <div class="doc"><p>Create an image and fill it with a unique color</p>
@@ -198,15 +218,67 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L1190" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1192" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="new%28width%20%3A%20Int32%2C%20height%20%3A%20Int32%2C%20pixels%29-class-method">
+      <div class="signature" id="from_file%28filename%20%3A%20String%29-class-method">
         
-        def self.<strong>new</strong>(width : Int32, height : Int32, pixels)
+        def self.<strong>from_file</strong>(filename : String)
+      </div>
+      
+        <div class="doc"><p>Create an image from a file on disk</p>
+
+<p>The supported image formats are bmp, png, tga, jpg, gif,
+psd, hdr and pic. Some format options are not supported,
+like progressive jpeg.
+If this function fails, the image is left unchanged.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>filename</code>: Path of the image file to load</li></ul>
+
+<p><em>Returns</em>: A new Image object, or NULL if it failed</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1231" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="from_memory%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size%20%3A%20Size_t%29-class-method">
+        
+        def self.<strong>from_memory</strong>(data : ::Pointer(Void), size : Size_t)
+      </div>
+      
+        <div class="doc"><p>Create an image from a file in memory</p>
+
+<p>The supported image formats are bmp, png, tga, jpg, gif,
+psd, hdr and pic. Some format options are not supported,
+like progressive jpeg.
+If this function fails, the image is left unchanged.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>data</code>: Pointer to the file data in memory</li><li><code><a href="../SF/Image.html#size-instance-method">#size</a></code>: Size of the data to load, in bytes</li></ul>
+
+<p><em>Returns</em>: A new Image object, or NULL if it failed</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1248" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="from_pixels%28width%20%3A%20Int32%2C%20height%20%3A%20Int32%2C%20pixels%29-class-method">
+        
+        def self.<strong>from_pixels</strong>(width : Int32, height : Int32, pixels)
       </div>
       
         <div class="doc"><p>Create an image from an array of pixels</p>
@@ -224,7 +296,72 @@ If <code>pixels</code> is null, an empty image is created.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L1209" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1210" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="from_stream%28stream%20%3A%20%3A%3APointer%28InputStream%29%29-class-method">
+        
+        def self.<strong>from_stream</strong>(stream : ::Pointer(<a href="../SF/InputStream.html">InputStream</a>))
+      </div>
+      
+        <div class="doc"><p>Create an image from a custom stream</p>
+
+<p>The supported image formats are bmp, png, tga, jpg, gif,
+psd, hdr and pic. Some format options are not supported,
+like progressive jpeg.
+If this function fails, the image is left unchanged.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>stream</code>: Source stream to read from</li></ul>
+
+<p><em>Returns</em>: A new Image object, or NULL if it failed</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1264" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="transfer_ptr%28ptr%29-class-method">
+        
+        def self.<strong>transfer_ptr</strong>(ptr)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1166" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="wrap_ptr%28ptr%29-class-method">
+        
+        def self.<strong>wrap_ptr</strong>(ptr)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1166" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28this%2C%20owned%20%3A%20Bool%29-class-method">
+        
+        def self.<strong>new</strong>(this, owned : Bool)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1166" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -247,85 +384,7 @@ If <code>pixels</code> is null, an empty image is created.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L1176" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="new%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size%20%3A%20Size_t%29-class-method">
-        
-        def self.<strong>new</strong>(data : ::Pointer(Void), size : Size_t)
-      </div>
-      
-        <div class="doc"><p>Create an image from a file in memory</p>
-
-<p>The supported image formats are bmp, png, tga, jpg, gif,
-psd, hdr and pic. Some format options are not supported,
-like progressive jpeg.
-If this function fails, the image is left unchanged.</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>data</code>: Pointer to the file data in memory</li><li><code><a href="../SF/Image.html#size-instance-method">#size</a></code>: Size of the data to load, in bytes</li></ul>
-
-<p><em>Returns</em>: A new Image object, or NULL if it failed</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L1249" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="new%28filename%20%3A%20String%29-class-method">
-        
-        def self.<strong>new</strong>(filename : String)
-      </div>
-      
-        <div class="doc"><p>Create an image from a file on disk</p>
-
-<p>The supported image formats are bmp, png, tga, jpg, gif,
-psd, hdr and pic. Some format options are not supported,
-like progressive jpeg.
-If this function fails, the image is left unchanged.</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>filename</code>: Path of the image file to load</li></ul>
-
-<p><em>Returns</em>: A new Image object, or NULL if it failed</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L1231" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="new%28stream%20%3A%20%3A%3APointer%28InputStream%29%29-class-method">
-        
-        def self.<strong>new</strong>(stream : ::Pointer(<a href="../SF/InputStream.html">InputStream</a>))
-      </div>
-      
-        <div class="doc"><p>Create an image from a custom stream</p>
-
-<p>The supported image formats are bmp, png, tga, jpg, gif,
-psd, hdr and pic. Some format options are not supported,
-like progressive jpeg.
-If this function fails, the image is left unchanged.</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>stream</code>: Source stream to read from</li></ul>
-
-<p><em>Returns</em>: A new Image object, or NULL if it failed</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L1266" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1178" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -334,27 +393,6 @@ If this function fails, the image is left unchanged.</p>
 
 
   <h2>Instance Method Detail</h2>
-  
-    <div class="entry-detail">
-      <div class="signature" id="copy-instance-method">
-        
-        def <strong>copy</strong>
-      </div>
-      
-        <div class="doc"><p>Copy an existing image</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>image</code>: Image to copy</li></ul>
-
-<p><em>Returns</em>: Copied object</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L1278" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
   
     <div class="entry-detail">
       <div class="signature" id="copy_image%28source%20%3A%20Image%2C%20dest_x%20%3A%20Int32%2C%20dest_y%20%3A%20Int32%2C%20source_rect%20%3A%20IntRect%2C%20apply_alpha%20%3A%20Bool%29-instance-method">
@@ -380,7 +418,7 @@ copied unchanged with their alpha value.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L1355" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1351" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -403,7 +441,28 @@ become transparent.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L1331" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1327" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="dup-instance-method">
+        
+        def <strong>dup</strong>
+      </div>
+      
+        <div class="doc"><p>Copy an existing image</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>image</code>: Image to copy</li></ul>
+
+<p><em>Returns</em>: Copied object</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1275" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -422,7 +481,7 @@ become transparent.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L1288" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1284" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -441,7 +500,7 @@ become transparent.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L1416" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1412" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -460,7 +519,7 @@ become transparent.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L1425" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1421" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -485,7 +544,7 @@ an undefined behaviour.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L1389" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1385" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -513,7 +572,7 @@ If the image is empty, a null pointer is returned.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L1407" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1403" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -539,7 +598,7 @@ if it already exists. This function fails if the image is empty.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L1305" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1301" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -562,7 +621,7 @@ an undefined behaviour.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L1372" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1368" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -583,7 +642,20 @@ an undefined behaviour.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L1316" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1312" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="to_unsafe-instance-method">
+        
+        def <strong>to_unsafe</strong>
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1166" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>

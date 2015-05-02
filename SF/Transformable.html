@@ -35,7 +35,7 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr">csfml/graphics_obj.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr">graphics_obj.cr</a>
     
     <br/>
   
@@ -46,6 +46,21 @@
 
   <h2>Class Method Summary</h2>
   <ul>
+    
+      <li class="entry-summary">
+        <a href="#transfer_ptr%28ptr%29-class-method" class="signature"><strong>.transfer_ptr</strong>(ptr)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#wrap_ptr%28ptr%29-class-method" class="signature"><strong>.wrap_ptr</strong>(ptr)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28this%2C%20owned%20%3A%20Bool%29-class-method" class="signature"><strong>.new</strong>(this, owned : Bool)</a>
+        
+      </li>
     
       <li class="entry-summary">
         <a href="#new-class-method" class="signature"><strong>.new</strong></a>
@@ -62,7 +77,7 @@
   <ul>
     
       <li class="entry-summary">
-        <a href="#copy-instance-method" class="signature"><strong>#copy</strong></a>
+        <a href="#dup-instance-method" class="signature"><strong>#dup</strong></a>
         
           <div class="summary"><p>Copy an existing transformable</p></div>
         
@@ -83,7 +98,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#move%28offset%20%3A%20Vector2f%29-instance-method" class="signature"><strong>#move</strong>(offset : Vector2f)</a>
+        <a href="#move%28offset%29-instance-method" class="signature"><strong>#move</strong>(offset)</a>
         
           <div class="summary"><p>Move a transformable by a given offset</p></div>
         
@@ -97,7 +112,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#origin%3D%28origin%20%3A%20Vector2f%29-instance-method" class="signature"><strong>#origin=</strong>(origin : Vector2f)</a>
+        <a href="#origin%3D%28origin%29-instance-method" class="signature"><strong>#origin=</strong>(origin)</a>
         
           <div class="summary"><p>Set the local origin of a transformable</p></div>
         
@@ -111,14 +126,14 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#position%3D%28position%20%3A%20Vector2f%29-instance-method" class="signature"><strong>#position=</strong>(position : Vector2f)</a>
+        <a href="#position%3D%28position%29-instance-method" class="signature"><strong>#position=</strong>(position)</a>
         
           <div class="summary"><p>Set the position of a transformable</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#rotate%28angle%29-instance-method" class="signature"><strong>#rotate</strong>(angle)</a>
+        <a href="#rotate%28angle%20%3A%20Number%29-instance-method" class="signature"><strong>#rotate</strong>(angle : Number)</a>
         
           <div class="summary"><p>Rotate a transformable</p></div>
         
@@ -132,9 +147,16 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#rotation%3D%28angle%29-instance-method" class="signature"><strong>#rotation=</strong>(angle)</a>
+        <a href="#rotation%3D%28angle%20%3A%20Number%29-instance-method" class="signature"><strong>#rotation=</strong>(angle : Number)</a>
         
           <div class="summary"><p>Set the orientation of a transformable</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#scale%28factors%29-instance-method" class="signature"><strong>#scale</strong>(factors)</a>
+        
+          <div class="summary"><p>Scale a transformable</p></div>
         
       </li>
     
@@ -146,16 +168,14 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#scale%28factors%20%3A%20Vector2f%29-instance-method" class="signature"><strong>#scale</strong>(factors : Vector2f)</a>
+        <a href="#scale%3D%28scale%29-instance-method" class="signature"><strong>#scale=</strong>(scale)</a>
         
-          <div class="summary"><p>Scale a transformable</p></div>
+          <div class="summary"><p>Set the scale factors of a transformable</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#scale%3D%28scale%20%3A%20Vector2f%29-instance-method" class="signature"><strong>#scale=</strong>(scale : Vector2f)</a>
-        
-          <div class="summary"><p>Set the scale factors of a transformable</p></div>
+        <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
         
       </li>
     
@@ -176,6 +196,45 @@
   <h2>Class Method Detail</h2>
   
     <div class="entry-detail">
+      <div class="signature" id="transfer_ptr%28ptr%29-class-method">
+        
+        def self.<strong>transfer_ptr</strong>(ptr)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4488" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="wrap_ptr%28ptr%29-class-method">
+        
+        def self.<strong>wrap_ptr</strong>(ptr)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4488" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28this%2C%20owned%20%3A%20Bool%29-class-method">
+        
+        def self.<strong>new</strong>(this, owned : Bool)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4488" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
       <div class="signature" id="new-class-method">
         
         def self.<strong>new</strong>
@@ -187,7 +246,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L4492" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4493" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -198,9 +257,9 @@
   <h2>Instance Method Detail</h2>
   
     <div class="entry-detail">
-      <div class="signature" id="copy-instance-method">
+      <div class="signature" id="dup-instance-method">
         
-        def <strong>copy</strong>
+        def <strong>dup</strong>
       </div>
       
         <div class="doc"><p>Copy an existing transformable</p>
@@ -213,7 +272,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L4504" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4505" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -232,7 +291,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L4514" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4514" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -253,15 +312,15 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L4682" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4687" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="move%28offset%20%3A%20Vector2f%29-instance-method">
+      <div class="signature" id="move%28offset%29-instance-method">
         
-        def <strong>move</strong>(offset : <a href="../SF/Vector2f.html">Vector2f</a>)
+        def <strong>move</strong>(offset)
       </div>
       
         <div class="doc"><p>Move a transformable by a given offset</p>
@@ -275,7 +334,7 @@ unlike Transformable_setPosition which overwrites it.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L4633" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4636" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -296,15 +355,15 @@ unlike Transformable_setPosition which overwrites it.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L4620" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4623" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="origin%3D%28origin%20%3A%20Vector2f%29-instance-method">
+      <div class="signature" id="origin%3D%28origin%29-instance-method">
         
-        def <strong>origin=</strong>(origin : <a href="../SF/Vector2f.html">Vector2f</a>)
+        def <strong>origin=</strong>(origin)
       </div>
       
         <div class="doc"><p>Set the local origin of a transformable</p>
@@ -322,7 +381,7 @@ The default origin of a transformable Transformable object is (0, 0).</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L4574" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4576" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -343,15 +402,15 @@ The default origin of a transformable Transformable object is (0, 0).</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L4585" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4588" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="position%3D%28position%20%3A%20Vector2f%29-instance-method">
+      <div class="signature" id="position%3D%28position%29-instance-method">
         
-        def <strong>position=</strong>(position : <a href="../SF/Vector2f.html">Vector2f</a>)
+        def <strong>position=</strong>(position)
       </div>
       
         <div class="doc"><p>Set the position of a transformable</p>
@@ -366,15 +425,15 @@ The default position of a transformable Transformable object is (0, 0).</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L4528" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4528" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="rotate%28angle%29-instance-method">
+      <div class="signature" id="rotate%28angle%20%3A%20Number%29-instance-method">
         
-        def <strong>rotate</strong>(angle)
+        def <strong>rotate</strong>(angle : Number)
       </div>
       
         <div class="doc"><p>Rotate a transformable</p>
@@ -388,7 +447,7 @@ unlike Transformable_setRotation which overwrites it.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L4646" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4650" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -411,15 +470,15 @@ unlike Transformable_setRotation which overwrites it.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L4598" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4601" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="rotation%3D%28angle%29-instance-method">
+      <div class="signature" id="rotation%3D%28angle%20%3A%20Number%29-instance-method">
         
-        def <strong>rotation=</strong>(angle)
+        def <strong>rotation=</strong>(angle : Number)
       </div>
       
         <div class="doc"><p>Set the orientation of a transformable</p>
@@ -434,7 +493,29 @@ The default rotation of a transformable Transformable object is 0.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L4542" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4543" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="scale%28factors%29-instance-method">
+        
+        def <strong>scale</strong>(factors)
+      </div>
+      
+        <div class="doc"><p>Scale a transformable</p>
+
+<p>This function multiplies the current scale of the object,
+unlike Transformable_setScale which overwrites it.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>transformable</code>: Transformable object</li><li><code>factors</code>: Scale factors</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4664" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -455,37 +536,15 @@ The default rotation of a transformable Transformable object is 0.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L4609" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4612" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="scale%28factors%20%3A%20Vector2f%29-instance-method">
+      <div class="signature" id="scale%3D%28scale%29-instance-method">
         
-        def <strong>scale</strong>(factors : <a href="../SF/Vector2f.html">Vector2f</a>)
-      </div>
-      
-        <div class="doc"><p>Scale a transformable</p>
-
-<p>This function multiplies the current scale of the object,
-unlike Transformable_setScale which overwrites it.</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>transformable</code>: Transformable object</li><li><code>factors</code>: Scale factors</li></ul></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L4660" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="scale%3D%28scale%20%3A%20Vector2f%29-instance-method">
-        
-        def <strong>scale=</strong>(scale : <a href="../SF/Vector2f.html">Vector2f</a>)
+        def <strong>scale=</strong>(scale)
       </div>
       
         <div class="doc"><p>Set the scale factors of a transformable</p>
@@ -500,7 +559,20 @@ The default scale of a transformable Transformable object is (1, 1).</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L4557" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4558" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="to_unsafe-instance-method">
+        
+        def <strong>to_unsafe</strong>
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4488" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -521,7 +593,7 @@ The default scale of a transformable Transformable object is (1, 1).</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L4671" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4676" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>

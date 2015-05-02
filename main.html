@@ -1,12 +1,14 @@
-<h1>CrSFML</h1>
+<h1><img src="logo.png" alt="CrSFML" title="" /></h1>
 
 <h4><a target="_blank" href="http://crystal-lang.org/">Crystal</a> bindings to <a target="_blank" href="http://www.sfml-dev.org/" title="Simple and Fast Multimedia Library">Simple and Fast Multimedia Library</a> (through <a target="_blank" href="http://www.sfml-dev.org/download/csfml/">CSFML</a>).</h4>
 
-<p><strong>See <a target="_blank" href="https://github.com/BlaXpirit/crsfml/tree/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/#introduction">introduction</a>, <a target="_blank" href="https://github.com/BlaXpirit/crsfml/tree/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/examples">examples</a>, <a target="_blank" href="http://blaxpirit.github.io/crsfml/">documentation</a>.</strong></p>
+<p><strong>See <a target="_blank" href="https://github.com/BlaXpirit/crsfml/tree/701047a301c09740e1409b0f557212c27373d3c2/#introduction">introduction</a>, <a target="_blank" href="https://github.com/BlaXpirit/crsfml/tree/701047a301c09740e1409b0f557212c27373d3c2/examples">examples</a>, <a target="_blank" href="http://blaxpirit.github.io/crsfml/">documentation</a>.</strong></p>
 
 <p><em>CrSFML</em> supports CSFML 2.2. It has been tested on Linux 64-bit. It should work on other major systems if Crystal supports them.</p>
 
 <p><a target="_blank" href="http://www.sfml-dev.org/download/csfml/">CSFML</a> 2.2, which requires <a target="_blank" href="http://www.sfml-dev.org/" title="Simple and Fast Multimedia Library">SFML</a> 2.2, must be installed to use it.</p>
+
+<p>Crystal 0.6.1 and earlier are <strong>not</strong> supported.</p>
 
 <h2><a target="_blank" href="https://github.com/BlaXpirit/crsfml/wiki/Troubleshooting">Troubleshooting</a></h2>
 
@@ -26,16 +28,18 @@ with wrappers.</li>
 
 <ul>
 <li>There is a clear separation between "classes" and "structs". Classes are wrapped, and structs are taken directly from <code>lib</code>s, making them limited, for example, instead of instance methods they have functions in the root of the namespace.</li>
+<li>Everything is renamed to <code>snake_case</code>.</li>
 <li>To construct an object (<code>sf::SomeType x(param)</code>):
 <ul>
 <li><code>x = SF::SomeType.new(param)</code> for classes.</li>
 <li><code>x = SF::some_type(param)</code> for structs.</li>
-<li>Member functions, such as <code>loadFromFile</code>, that are used for initialization, are just overloaded <code>initialize</code>.</li>
+<li>Use <code>SF::Vector2(T)</code>, <code>SF.vector2(x, y)</code> instead of <code>Vector2(f|i)</code>. 2-tuples can often be used instead.</li>
+<li>Member functions, such as <code>loadFromFile</code>, that are used for initialization, become class methods (<code>from_file</code>).</li>
 </ul></li>
-<li>Everything is renamed to <code>snake_case</code>.</li>
 <li>Getter, setter functions are changed:
 <ul>
-<li><code>x.getSomeProperty()</code> and <code>x.isSomeProperty()</code> both become <code>x.some_property</code>.</li>
+<li><code>x.getSomeProperty()</code> becomes <code>x.some_property</code>.</li>
+<li><code>x.isSomeProperty()</code> becomes <code>x.some_property?</code>.</li>
 <li><code>x.setSomeProperty(v)</code> becomes <code>x.some_property = v</code>.</li>
 </ul></li>
 <li>SFML sometimes uses <code>enum</code> values as bitmasks. You can combine them using the <code>|</code> operator.</li>
@@ -47,11 +51,11 @@ with wrappers.</li>
 <li>Most of the <a target="_blank" href="http://blaxpirit.github.io/crsfml/">documentation</a> is taken directly from CSFML, so don't be surprised if it talks in C/C++ terms.</li>
 </ul>
 
-<p>See <a target="_blank" href="https://github.com/BlaXpirit/crsfml/tree/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/examples">examples</a> to learn more.</p>
+<p>See <a target="_blank" href="https://github.com/BlaXpirit/crsfml/tree/701047a301c09740e1409b0f557212c27373d3c2/examples">examples</a> to learn more.</p>
 
 <h2>Acknowledgements</h2>
 
-<p><a target="_blank" href="https://github.com/BlaXpirit/crsfml/tree/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/LICENSE">License</a>: zlib/libpng</p>
+<p><a target="_blank" href="https://github.com/BlaXpirit/crsfml/tree/701047a301c09740e1409b0f557212c27373d3c2/LICENSE">License</a>: zlib/libpng</p>
 
 <p>This library uses and is based on <a target="_blank" href="http://www.sfml-dev.org/" title="Simple and Fast Multimedia Library">SFML</a> and <a target="_blank" href="http://www.sfml-dev.org/download/csfml/">CSFML</a>.</p>
 

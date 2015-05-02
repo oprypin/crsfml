@@ -35,7 +35,7 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/audio_obj.cr">csfml/audio_obj.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr">audio_obj.cr</a>
     
     <br/>
   
@@ -48,23 +48,38 @@
   <ul>
     
       <li class="entry-summary">
-        <a href="#new%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size_in_bytes%20%3A%20Size_t%29-class-method" class="signature"><strong>.new</strong>(data : ::Pointer(Void), size_in_bytes : Size_t)</a>
-        
-          <div class="summary"><p>Create a new music and load it from a file in memory</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#new%28filename%20%3A%20String%29-class-method" class="signature"><strong>.new</strong>(filename : String)</a>
+        <a href="#from_file%28filename%20%3A%20String%29-class-method" class="signature"><strong>.from_file</strong>(filename : String)</a>
         
           <div class="summary"><p>Create a new music and load it from a file</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#new%28stream%20%3A%20%3A%3APointer%28InputStream%29%29-class-method" class="signature"><strong>.new</strong>(stream : ::Pointer(InputStream))</a>
+        <a href="#from_memory%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size_in_bytes%20%3A%20Size_t%29-class-method" class="signature"><strong>.from_memory</strong>(data : ::Pointer(Void), size_in_bytes : Size_t)</a>
+        
+          <div class="summary"><p>Create a new music and load it from a file in memory</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#from_stream%28stream%20%3A%20%3A%3APointer%28InputStream%29%29-class-method" class="signature"><strong>.from_stream</strong>(stream : ::Pointer(InputStream))</a>
         
           <div class="summary"><p>Create a new music and load it from a custom stream</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#transfer_ptr%28ptr%29-class-method" class="signature"><strong>.transfer_ptr</strong>(ptr)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#wrap_ptr%28ptr%29-class-method" class="signature"><strong>.wrap_ptr</strong>(ptr)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28this%2C%20owned%20%3A%20Bool%29-class-method" class="signature"><strong>.new</strong>(this, owned : Bool)</a>
         
       </li>
     
@@ -83,7 +98,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#attenuation%3D%28attenuation%29-instance-method" class="signature"><strong>#attenuation=</strong>(attenuation)</a>
+        <a href="#attenuation%3D%28attenuation%20%3A%20Number%29-instance-method" class="signature"><strong>#attenuation=</strong>(attenuation : Number)</a>
         
           <div class="summary"><p>Set the attenuation factor of a music</p></div>
         
@@ -132,7 +147,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#min_distance%3D%28distance%29-instance-method" class="signature"><strong>#min_distance=</strong>(distance)</a>
+        <a href="#min_distance%3D%28distance%20%3A%20Number%29-instance-method" class="signature"><strong>#min_distance=</strong>(distance : Number)</a>
         
           <div class="summary"><p>Set the minimum distance of a music</p></div>
         
@@ -153,7 +168,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#pitch%3D%28pitch%29-instance-method" class="signature"><strong>#pitch=</strong>(pitch)</a>
+        <a href="#pitch%3D%28pitch%20%3A%20Number%29-instance-method" class="signature"><strong>#pitch=</strong>(pitch : Number)</a>
         
           <div class="summary"><p>Set the pitch of a music</p></div>
         
@@ -195,16 +210,16 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#relative_to_listener-instance-method" class="signature"><strong>#relative_to_listener</strong></a>
+        <a href="#relative_to_listener%3D%28relative%20%3A%20Bool%29-instance-method" class="signature"><strong>#relative_to_listener=</strong>(relative : Bool)</a>
         
-          <div class="summary"><p>Tell whether a music's position is relative to the listener or is absolute</p></div>
+          <div class="summary"><p>Make a musics's position relative to the listener or absolute</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#relative_to_listener%3D%28relative%20%3A%20Bool%29-instance-method" class="signature"><strong>#relative_to_listener=</strong>(relative : Bool)</a>
+        <a href="#relative_to_listener%3F-instance-method" class="signature"><strong>#relative_to_listener?</strong></a>
         
-          <div class="summary"><p>Make a musics's position relative to the listener or absolute</p></div>
+          <div class="summary"><p>Tell whether a music's position is relative to the listener or is absolute</p></div>
         
       </li>
     
@@ -230,6 +245,11 @@
       </li>
     
       <li class="entry-summary">
+        <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#volume-instance-method" class="signature"><strong>#volume</strong></a>
         
           <div class="summary"><p>Get the volume of a music</p></div>
@@ -237,7 +257,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#volume%3D%28volume%29-instance-method" class="signature"><strong>#volume=</strong>(volume)</a>
+        <a href="#volume%3D%28volume%20%3A%20Number%29-instance-method" class="signature"><strong>#volume=</strong>(volume : Number)</a>
         
           <div class="summary"><p>Set the volume of a music</p></div>
         
@@ -253,36 +273,9 @@
   <h2>Class Method Detail</h2>
   
     <div class="entry-detail">
-      <div class="signature" id="new%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size_in_bytes%20%3A%20Size_t%29-class-method">
+      <div class="signature" id="from_file%28filename%20%3A%20String%29-class-method">
         
-        def self.<strong>new</strong>(data : ::Pointer(Void), size_in_bytes : Size_t)
-      </div>
-      
-        <div class="doc"><p>Create a new music and load it from a file in memory</p>
-
-<p>This function doesn't start playing the music (call
-Music_play to do so).
-Here is a complete list of all the supported audio formats:
-ogg, wav, flac, aiff, au, raw, paf, svx, nist, voc, ircam,
-w64, mat4, mat5 pvf, htk, sds, avr, sd2, caf, wve, mpc2k, rf64.</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>data</code>: Pointer to the file data in memory</li><li><code>size_in_bytes</code>: Size of the data to load, in bytes</li></ul>
-
-<p><em>Returns</em>: A new Music object (NULL if failed)</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/audio_obj.cr#L143" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="new%28filename%20%3A%20String%29-class-method">
-        
-        def self.<strong>new</strong>(filename : String)
+        def self.<strong>from_file</strong>(filename : String)
       </div>
       
         <div class="doc"><p>Create a new music and load it from a file</p>
@@ -301,15 +294,42 @@ w64, mat4, mat5 pvf, htk, sds, avr, sd2, caf, wve, mpc2k, rf64.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/audio_obj.cr#L124" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr#L124" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="new%28stream%20%3A%20%3A%3APointer%28InputStream%29%29-class-method">
+      <div class="signature" id="from_memory%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size_in_bytes%20%3A%20Size_t%29-class-method">
         
-        def self.<strong>new</strong>(stream : ::Pointer(<a href="../SF/InputStream.html">InputStream</a>))
+        def self.<strong>from_memory</strong>(data : ::Pointer(Void), size_in_bytes : Size_t)
+      </div>
+      
+        <div class="doc"><p>Create a new music and load it from a file in memory</p>
+
+<p>This function doesn't start playing the music (call
+Music_play to do so).
+Here is a complete list of all the supported audio formats:
+ogg, wav, flac, aiff, au, raw, paf, svx, nist, voc, ircam,
+w64, mat4, mat5 pvf, htk, sds, avr, sd2, caf, wve, mpc2k, rf64.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>data</code>: Pointer to the file data in memory</li><li><code>size_in_bytes</code>: Size of the data to load, in bytes</li></ul>
+
+<p><em>Returns</em>: A new Music object (NULL if failed)</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr#L142" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="from_stream%28stream%20%3A%20%3A%3APointer%28InputStream%29%29-class-method">
+        
+        def self.<strong>from_stream</strong>(stream : ::Pointer(<a href="../SF/InputStream.html">InputStream</a>))
       </div>
       
         <div class="doc"><p>Create a new music and load it from a custom stream</p>
@@ -328,7 +348,46 @@ w64, mat4, mat5 pvf, htk, sds, avr, sd2, caf, wve, mpc2k, rf64.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/audio_obj.cr#L161" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr#L159" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="transfer_ptr%28ptr%29-class-method">
+        
+        def self.<strong>transfer_ptr</strong>(ptr)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr#L109" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="wrap_ptr%28ptr%29-class-method">
+        
+        def self.<strong>wrap_ptr</strong>(ptr)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr#L109" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28this%2C%20owned%20%3A%20Bool%29-class-method">
+        
+        def self.<strong>new</strong>(this, owned : Bool)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr#L109" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -354,15 +413,15 @@ w64, mat4, mat5 pvf, htk, sds, avr, sd2, caf, wve, mpc2k, rf64.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/audio_obj.cr#L478" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr#L475" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="attenuation%3D%28attenuation%29-instance-method">
+      <div class="signature" id="attenuation%3D%28attenuation%20%3A%20Number%29-instance-method">
         
-        def <strong>attenuation=</strong>(attenuation)
+        def <strong>attenuation=</strong>(attenuation : Number)
       </div>
       
         <div class="doc"><p>Set the attenuation factor of a music</p>
@@ -382,7 +441,7 @@ The default value of the attenuation is 1.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/audio_obj.cr#L397" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr#L394" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -405,7 +464,7 @@ The default value of the attenuation is 1.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/audio_obj.cr#L262" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr#L259" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -426,7 +485,7 @@ The default value of the attenuation is 1.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/audio_obj.cr#L209" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr#L206" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -445,7 +504,7 @@ The default value of the attenuation is 1.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/audio_obj.cr#L171" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr#L168" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -466,7 +525,7 @@ The default value of the attenuation is 1.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/audio_obj.cr#L198" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr#L195" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -490,7 +549,7 @@ The default looping state for musics is false.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/audio_obj.cr#L186" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr#L183" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -511,15 +570,15 @@ The default looping state for musics is false.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/audio_obj.cr#L467" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr#L464" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="min_distance%3D%28distance%29-instance-method">
+      <div class="signature" id="min_distance%3D%28distance%20%3A%20Number%29-instance-method">
         
-        def <strong>min_distance=</strong>(distance)
+        def <strong>min_distance=</strong>(distance : Number)
       </div>
       
         <div class="doc"><p>Set the minimum distance of a music</p>
@@ -537,7 +596,7 @@ The default value of the minimum distance is 1.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/audio_obj.cr#L377" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr#L374" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -559,7 +618,7 @@ otherwise (music already paused or stopped) it has no effect.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/audio_obj.cr#L236" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr#L233" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -580,15 +639,15 @@ otherwise (music already paused or stopped) it has no effect.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/audio_obj.cr#L422" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr#L419" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="pitch%3D%28pitch%29-instance-method">
+      <div class="signature" id="pitch%3D%28pitch%20%3A%20Number%29-instance-method">
         
-        def <strong>pitch=</strong>(pitch)
+        def <strong>pitch=</strong>(pitch : Number)
       </div>
       
         <div class="doc"><p>Set the pitch of a music</p>
@@ -605,7 +664,7 @@ The default value for the pitch is 1.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/audio_obj.cr#L314" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr#L311" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -630,7 +689,7 @@ the rest of the program while the music is played.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/audio_obj.cr#L224" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr#L221" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -651,7 +710,7 @@ the rest of the program while the music is played.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/audio_obj.cr#L298" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr#L295" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -673,7 +732,7 @@ either paused or playing.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/audio_obj.cr#L411" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr#L408" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -694,7 +753,7 @@ either paused or playing.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/audio_obj.cr#L444" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr#L441" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -717,29 +776,7 @@ The default position of a music is (0, 0, 0).</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/audio_obj.cr#L343" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="relative_to_listener-instance-method">
-        
-        def <strong>relative_to_listener</strong>
-      </div>
-      
-        <div class="doc"><p>Tell whether a music's position is relative to the
-listener or is absolute</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>music</code>: Music object</li></ul>
-
-<p><em>Returns</em>: True if the position is relative, False if it's absolute</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/audio_obj.cr#L456" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr#L340" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -764,7 +801,29 @@ The default value is false (position is absolute).</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/audio_obj.cr#L359" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr#L356" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="relative_to_listener%3F-instance-method">
+        
+        def <strong>relative_to_listener?</strong>
+      </div>
+      
+        <div class="doc"><p>Tell whether a music's position is relative to the
+listener or is absolute</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>music</code>: Music object</li></ul>
+
+<p><em>Returns</em>: True if the position is relative, False if it's absolute</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr#L453" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -788,7 +847,7 @@ second. The higher, the better the quality.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/audio_obj.cr#L276" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr#L273" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -809,7 +868,7 @@ second. The higher, the better the quality.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/audio_obj.cr#L287" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr#L284" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -832,7 +891,20 @@ It also resets the playing position (unlike Music_pause).</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/audio_obj.cr#L249" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr#L246" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="to_unsafe-instance-method">
+        
+        def <strong>to_unsafe</strong>
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr#L109" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -853,15 +925,15 @@ It also resets the playing position (unlike Music_pause).</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/audio_obj.cr#L433" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr#L430" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="volume%3D%28volume%29-instance-method">
+      <div class="signature" id="volume%3D%28volume%20%3A%20Number%29-instance-method">
         
-        def <strong>volume=</strong>(volume)
+        def <strong>volume=</strong>(volume : Number)
       </div>
       
         <div class="doc"><p>Set the volume of a music</p>
@@ -875,7 +947,7 @@ The default value for the volume is 100.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/audio_obj.cr#L328" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr#L325" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>

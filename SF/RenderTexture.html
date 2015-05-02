@@ -35,12 +35,12 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics.cr">csfml/graphics.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics.cr">graphics.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr">csfml/graphics_obj.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr">graphics_obj.cr</a>
     
     <br/>
   
@@ -53,9 +53,24 @@
   <ul>
     
       <li class="entry-summary">
+        <a href="#transfer_ptr%28ptr%29-class-method" class="signature"><strong>.transfer_ptr</strong>(ptr)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#wrap_ptr%28ptr%29-class-method" class="signature"><strong>.wrap_ptr</strong>(ptr)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#new%28width%20%3A%20Int32%2C%20height%20%3A%20Int32%2C%20depth_buffer%20%3A%20Bool%29-class-method" class="signature"><strong>.new</strong>(width : Int32, height : Int32, depth_buffer : Bool)</a>
         
           <div class="summary"><p>Construct a new render texture</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28this%2C%20owned%20%3A%20Bool%29-class-method" class="signature"><strong>.new</strong>(this, owned : Bool)</a>
         
       </li>
     
@@ -100,7 +115,12 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#draw%28drawable%2C%20states%20%3D%20RenderStates_Default%29-instance-method" class="signature"><strong>#draw</strong>(drawable, states = RenderStates_Default)</a>
+        <a href="#draw%28drawable%2C%20states%20%3D%20CSFML%3A%3ARenderStates%3A%3ADefault%29-instance-method" class="signature"><strong>#draw</strong>(drawable, states = CSFML::RenderStates::Default)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#draw%28vertices%2C%20type%20%3A%20PrimitiveType%2C%20states%20%3D%20CSFML%3A%3ARenderStates%3A%3ADefault%29-instance-method" class="signature"><strong>#draw</strong>(vertices, type : PrimitiveType, states = CSFML::RenderStates::Default)</a>
         
       </li>
     
@@ -163,14 +183,14 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#map_coords_to_pixel%28point%20%3A%20Vector2f%2C%20view%20%3A%20View%29-instance-method" class="signature"><strong>#map_coords_to_pixel</strong>(point : Vector2f, view : View)</a>
+        <a href="#map_coords_to_pixel%28point%2C%20view%20%3A%20View%29-instance-method" class="signature"><strong>#map_coords_to_pixel</strong>(point, view : View)</a>
         
           <div class="summary"><p>Convert a point from world coordinates to texture coordinates</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#map_pixel_to_coords%28point%20%3A%20Vector2i%2C%20view%20%3A%20View%29-instance-method" class="signature"><strong>#map_pixel_to_coords</strong>(point : Vector2i, view : View)</a>
+        <a href="#map_pixel_to_coords%28point%2C%20view%20%3A%20View%29-instance-method" class="signature"><strong>#map_pixel_to_coords</strong>(point, view : View)</a>
         
           <div class="summary"><p>Convert a point from texture coordinates to world coordinates</p></div>
         
@@ -191,16 +211,16 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#repeated-instance-method" class="signature"><strong>#repeated</strong></a>
+        <a href="#repeated%3D%28repeated%20%3A%20Bool%29-instance-method" class="signature"><strong>#repeated=</strong>(repeated : Bool)</a>
         
-          <div class="summary"><p>Tell whether the texture is repeated or not</p></div>
+          <div class="summary"><p>Enable or disable texture repeating</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#repeated%3D%28repeated%20%3A%20Bool%29-instance-method" class="signature"><strong>#repeated=</strong>(repeated : Bool)</a>
+        <a href="#repeated%3F-instance-method" class="signature"><strong>#repeated?</strong></a>
         
-          <div class="summary"><p>Enable or disable texture repeating</p></div>
+          <div class="summary"><p>Tell whether the texture is repeated or not</p></div>
         
       </li>
     
@@ -219,13 +239,6 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#smooth-instance-method" class="signature"><strong>#smooth</strong></a>
-        
-          <div class="summary"><p>Tell whether the smooth filter is enabled or not for a render texture</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
         <a href="#smooth%3D%28smooth%20%3A%20Bool%29-instance-method" class="signature"><strong>#smooth=</strong>(smooth : Bool)</a>
         
           <div class="summary"><p>Enable or disable the smooth filter on a render texture</p></div>
@@ -233,9 +246,21 @@
       </li>
     
       <li class="entry-summary">
+        <a href="#smooth%3F-instance-method" class="signature"><strong>#smooth?</strong></a>
+        
+          <div class="summary"><p>Tell whether the smooth filter is enabled or not for a render texture</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#texture-instance-method" class="signature"><strong>#texture</strong></a>
         
           <div class="summary"><p>Get the target texture of a render texture</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
         
       </li>
     
@@ -263,6 +288,32 @@
   <h2>Class Method Detail</h2>
   
     <div class="entry-detail">
+      <div class="signature" id="transfer_ptr%28ptr%29-class-method">
+        
+        def self.<strong>transfer_ptr</strong>(ptr)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2145" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="wrap_ptr%28ptr%29-class-method">
+        
+        def self.<strong>wrap_ptr</strong>(ptr)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2145" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
       <div class="signature" id="new%28width%20%3A%20Int32%2C%20height%20%3A%20Int32%2C%20depth_buffer%20%3A%20Bool%29-class-method">
         
         def self.<strong>new</strong>(width : Int32, height : Int32, depth_buffer : Bool)
@@ -278,7 +329,20 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2158" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2156" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28this%2C%20owned%20%3A%20Bool%29-class-method">
+        
+        def self.<strong>new</strong>(this, owned : Bool)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2145" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -291,7 +355,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics.cr#L218" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics.cr#L339" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -317,7 +381,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2192" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2190" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -336,7 +400,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2212" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2210" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -357,7 +421,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2245" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2242" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -376,20 +440,33 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2202" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2200" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="draw%28drawable%2C%20states%20%3D%20RenderStates_Default%29-instance-method">
+      <div class="signature" id="draw%28drawable%2C%20states%20%3D%20CSFML%3A%3ARenderStates%3A%3ADefault%29-instance-method">
         
-        def <strong>draw</strong>(drawable, states = <span class="t">RenderStates_Default</span>)
+        def <strong>draw</strong>(drawable, states = <span class="t">CSFML</span><span class="t">::</span><span class="t">RenderStates</span><span class="t">::</span><span class="t">Default</span>)
       </div>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics.cr#L222" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics.cr#L343" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="draw%28vertices%2C%20type%20%3A%20PrimitiveType%2C%20states%20%3D%20CSFML%3A%3ARenderStates%3A%3ADefault%29-instance-method">
+        
+        def <strong>draw</strong>(vertices, type : <a href="../SF/PrimitiveType.html">PrimitiveType</a>, states = <span class="t">CSFML</span><span class="t">::</span><span class="t">RenderStates</span><span class="t">::</span><span class="t">Default</span>)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics.cr#L346" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -402,7 +479,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2351" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2349" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -415,7 +492,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2360" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2358" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -434,7 +511,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2396" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2394" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -447,7 +524,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2369" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2367" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -460,7 +537,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2342" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2340" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -479,7 +556,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2324" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2322" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -492,7 +569,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2333" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2331" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -505,7 +582,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2378" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2376" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -524,7 +601,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2169" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2167" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -545,15 +622,15 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2258" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2254" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="map_coords_to_pixel%28point%20%3A%20Vector2f%2C%20view%20%3A%20View%29-instance-method">
+      <div class="signature" id="map_coords_to_pixel%28point%2C%20view%20%3A%20View%29-instance-method">
         
-        def <strong>map_coords_to_pixel</strong>(point : <a href="../SF/Vector2f.html">Vector2f</a>, view : <a href="../SF/View.html">View</a>)
+        def <strong>map_coords_to_pixel</strong>(point, view : <a href="../SF/View.html">View</a>)
       </div>
       
         <div class="doc"><p>Convert a point from world coordinates to texture coordinates</p>
@@ -580,15 +657,15 @@ render-texture.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2313" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2310" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="map_pixel_to_coords%28point%20%3A%20Vector2i%2C%20view%20%3A%20View%29-instance-method">
+      <div class="signature" id="map_pixel_to_coords%28point%2C%20view%20%3A%20View%29-instance-method">
         
-        def <strong>map_pixel_to_coords</strong>(point : <a href="../SF/Vector2i.html">Vector2i</a>, view : <a href="../SF/View.html">View</a>)
+        def <strong>map_pixel_to_coords</strong>(point, view : <a href="../SF/View.html">View</a>)
       </div>
       
         <div class="doc"><p>Convert a point from texture coordinates to world coordinates</p>
@@ -616,7 +693,7 @@ render-texture.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2286" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2282" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -638,7 +715,7 @@ description of these functions.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2442" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2440" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -672,28 +749,7 @@ function if you do so.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2430" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="repeated-instance-method">
-        
-        def <strong>repeated</strong>
-      </div>
-      
-        <div class="doc"><p>Tell whether the texture is repeated or not</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>render_texture</code>: Render texture object</li></ul>
-
-<p><em>Returns</em>: True if repeat mode is enabled, False if it is disabled</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2513" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2428" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -708,11 +764,32 @@ function if you do so.</p>
 
 <p><em>Arguments</em>:</p>
 
-<ul><li><code>render_texture</code>: Render texture object</li><li><code><a href="../SF/RenderTexture.html#repeated-instance-method">#repeated</a></code>: True to enable repeating, False to disable it</li></ul></div>
+<ul><li><code>render_texture</code>: Render texture object</li><li><code>repeated</code>: True to enable repeating, False to disable it</li></ul></div>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2501" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2498" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="repeated%3F-instance-method">
+        
+        def <strong>repeated?</strong>
+      </div>
+      
+        <div class="doc"><p>Tell whether the texture is repeated or not</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>render_texture</code>: Render texture object</li></ul>
+
+<p><em>Returns</em>: True if repeat mode is enabled, False if it is disabled</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2510" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -737,7 +814,7 @@ calls will work as expected.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2457" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2455" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -758,28 +835,7 @@ calls will work as expected.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2180" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="smooth-instance-method">
-        
-        def <strong>smooth</strong>
-      </div>
-      
-        <div class="doc"><p>Tell whether the smooth filter is enabled or not for a render texture</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>render_texture</code>: Render texture object</li></ul>
-
-<p><em>Returns</em>: True if smoothing is enabled, False if it is disabled</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2491" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2178" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -794,11 +850,32 @@ calls will work as expected.</p>
 
 <p><em>Arguments</em>:</p>
 
-<ul><li><code>render_texture</code>: Render texture object</li><li><code><a href="../SF/RenderTexture.html#smooth-instance-method">#smooth</a></code>: True to enable smoothing, False to disable it</li></ul></div>
+<ul><li><code>render_texture</code>: Render texture object</li><li><code>smooth</code>: True to enable smoothing, False to disable it</li></ul></div>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2479" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2476" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="smooth%3F-instance-method">
+        
+        def <strong>smooth?</strong>
+      </div>
+      
+        <div class="doc"><p>Tell whether the smooth filter is enabled or not for a render texture</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>render_texture</code>: Render texture object</li></ul>
+
+<p><em>Returns</em>: True if smoothing is enabled, False if it is disabled</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2488" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -819,7 +896,20 @@ calls will work as expected.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2468" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2466" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="to_unsafe-instance-method">
+        
+        def <strong>to_unsafe</strong>
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2145" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -840,7 +930,7 @@ calls will work as expected.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2233" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2231" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -859,7 +949,7 @@ calls will work as expected.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2222" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2220" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>

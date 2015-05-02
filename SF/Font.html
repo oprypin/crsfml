@@ -35,7 +35,7 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr">csfml/graphics_obj.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr">graphics_obj.cr</a>
     
     <br/>
   
@@ -48,23 +48,38 @@
   <ul>
     
       <li class="entry-summary">
-        <a href="#new%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size_in_bytes%20%3A%20Size_t%29-class-method" class="signature"><strong>.new</strong>(data : ::Pointer(Void), size_in_bytes : Size_t)</a>
-        
-          <div class="summary"><p>Create a new image font a file in memory</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#new%28filename%20%3A%20String%29-class-method" class="signature"><strong>.new</strong>(filename : String)</a>
+        <a href="#from_file%28filename%20%3A%20String%29-class-method" class="signature"><strong>.from_file</strong>(filename : String)</a>
         
           <div class="summary"><p>Create a new font from a file</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#new%28stream%20%3A%20%3A%3APointer%28InputStream%29%29-class-method" class="signature"><strong>.new</strong>(stream : ::Pointer(InputStream))</a>
+        <a href="#from_memory%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size_in_bytes%20%3A%20Size_t%29-class-method" class="signature"><strong>.from_memory</strong>(data : ::Pointer(Void), size_in_bytes : Size_t)</a>
+        
+          <div class="summary"><p>Create a new image font a file in memory</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#from_stream%28stream%20%3A%20%3A%3APointer%28InputStream%29%29-class-method" class="signature"><strong>.from_stream</strong>(stream : ::Pointer(InputStream))</a>
         
           <div class="summary"><p>Create a new image font a custom stream</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#transfer_ptr%28ptr%29-class-method" class="signature"><strong>.transfer_ptr</strong>(ptr)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#wrap_ptr%28ptr%29-class-method" class="signature"><strong>.wrap_ptr</strong>(ptr)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28this%2C%20owned%20%3A%20Bool%29-class-method" class="signature"><strong>.new</strong>(this, owned : Bool)</a>
         
       </li>
     
@@ -76,7 +91,7 @@
   <ul>
     
       <li class="entry-summary">
-        <a href="#copy-instance-method" class="signature"><strong>#copy</strong></a>
+        <a href="#dup-instance-method" class="signature"><strong>#dup</strong></a>
         
           <div class="summary"><p>Copy an existing font</p></div>
         
@@ -138,6 +153,11 @@
         
       </li>
     
+      <li class="entry-summary">
+        <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
+        
+      </li>
+    
   </ul>
 
 
@@ -148,30 +168,9 @@
   <h2>Class Method Detail</h2>
   
     <div class="entry-detail">
-      <div class="signature" id="new%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size_in_bytes%20%3A%20Size_t%29-class-method">
+      <div class="signature" id="from_file%28filename%20%3A%20String%29-class-method">
         
-        def self.<strong>new</strong>(data : ::Pointer(Void), size_in_bytes : Size_t)
-      </div>
-      
-        <div class="doc"><p>Create a new image font a file in memory</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>data</code>: Pointer to the file data in memory</li><li><code>size_in_bytes</code>: Size of the data to load, in bytes</li></ul>
-
-<p><em>Returns</em>: A new Font object, or NULL if it failed</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L1025" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="new%28filename%20%3A%20String%29-class-method">
-        
-        def self.<strong>new</strong>(filename : String)
+        def self.<strong>from_file</strong>(filename : String)
       </div>
       
         <div class="doc"><p>Create a new font from a file</p>
@@ -184,15 +183,36 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L1012" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1019" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="new%28stream%20%3A%20%3A%3APointer%28InputStream%29%29-class-method">
+      <div class="signature" id="from_memory%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size_in_bytes%20%3A%20Size_t%29-class-method">
         
-        def self.<strong>new</strong>(stream : ::Pointer(<a href="../SF/InputStream.html">InputStream</a>))
+        def self.<strong>from_memory</strong>(data : ::Pointer(Void), size_in_bytes : Size_t)
+      </div>
+      
+        <div class="doc"><p>Create a new image font a file in memory</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>data</code>: Pointer to the file data in memory</li><li><code>size_in_bytes</code>: Size of the data to load, in bytes</li></ul>
+
+<p><em>Returns</em>: A new Font object, or NULL if it failed</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1031" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="from_stream%28stream%20%3A%20%3A%3APointer%28InputStream%29%29-class-method">
+        
+        def self.<strong>from_stream</strong>(stream : ::Pointer(<a href="../SF/InputStream.html">InputStream</a>))
       </div>
       
         <div class="doc"><p>Create a new image font a custom stream</p>
@@ -205,7 +225,46 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L1037" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1042" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="transfer_ptr%28ptr%29-class-method">
+        
+        def self.<strong>transfer_ptr</strong>(ptr)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1010" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="wrap_ptr%28ptr%29-class-method">
+        
+        def self.<strong>wrap_ptr</strong>(ptr)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1010" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28this%2C%20owned%20%3A%20Bool%29-class-method">
+        
+        def self.<strong>new</strong>(this, owned : Bool)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1010" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -216,9 +275,9 @@
   <h2>Instance Method Detail</h2>
   
     <div class="entry-detail">
-      <div class="signature" id="copy-instance-method">
+      <div class="signature" id="dup-instance-method">
         
-        def <strong>copy</strong>
+        def <strong>dup</strong>
       </div>
       
         <div class="doc"><p>Copy an existing font</p>
@@ -231,7 +290,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L1049" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1053" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -250,7 +309,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L1059" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1062" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -271,7 +330,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L1073" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1076" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -292,7 +351,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L1088" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1091" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -313,7 +372,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L1100" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1103" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -334,7 +393,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L1141" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1144" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -358,7 +417,7 @@ baseline and the underline.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L1115" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1118" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -381,7 +440,7 @@ baseline and the underline.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L1129" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1132" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -406,7 +465,20 @@ is returned.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L1157" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1159" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="to_unsafe-instance-method">
+        
+        def <strong>to_unsafe</strong>
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1010" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>

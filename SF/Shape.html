@@ -35,7 +35,12 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr">csfml/graphics_obj.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics.cr">graphics.cr</a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr">graphics_obj.cr</a>
     
     <br/>
   
@@ -48,9 +53,29 @@
   <ul>
     
       <li class="entry-summary">
+        <a href="#transfer_ptr%28ptr%29-class-method" class="signature"><strong>.transfer_ptr</strong>(ptr)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#wrap_ptr%28ptr%29-class-method" class="signature"><strong>.wrap_ptr</strong>(ptr)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#new%28get_point_count%20%3A%20ShapeGetPointCountCallback%2C%20get_point%20%3A%20ShapeGetPointCallback%2C%20user_data%20%3A%20%3A%3APointer%28Void%29%29-class-method" class="signature"><strong>.new</strong>(get_point_count : ShapeGetPointCountCallback, get_point : ShapeGetPointCallback, user_data : ::Pointer(Void))</a>
         
           <div class="summary"><p>Create a new shape</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28this%2C%20owned%20%3A%20Bool%29-class-method" class="signature"><strong>.new</strong>(this, owned : Bool)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new-class-method" class="signature"><strong>.new</strong></a>
         
       </li>
     
@@ -60,6 +85,11 @@
 
   <h2>Instance Method Summary</h2>
   <ul>
+    
+      <li class="entry-summary">
+        <a href="#draw%28target%2C%20states%20%3A%20RenderStates%29-instance-method" class="signature"><strong>#draw</strong>(target, states : RenderStates)</a>
+        
+      </li>
     
       <li class="entry-summary">
         <a href="#fill_color-instance-method" class="signature"><strong>#fill_color</strong></a>
@@ -111,7 +141,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#move%28offset%20%3A%20Vector2f%29-instance-method" class="signature"><strong>#move</strong>(offset : Vector2f)</a>
+        <a href="#move%28offset%29-instance-method" class="signature"><strong>#move</strong>(offset)</a>
         
           <div class="summary"><p>Move a shape by a given offset</p></div>
         
@@ -125,7 +155,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#origin%3D%28origin%20%3A%20Vector2f%29-instance-method" class="signature"><strong>#origin=</strong>(origin : Vector2f)</a>
+        <a href="#origin%3D%28origin%29-instance-method" class="signature"><strong>#origin=</strong>(origin)</a>
         
           <div class="summary"><p>Set the local origin of a shape</p></div>
         
@@ -153,7 +183,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#outline_thickness%3D%28thickness%29-instance-method" class="signature"><strong>#outline_thickness=</strong>(thickness)</a>
+        <a href="#outline_thickness%3D%28thickness%20%3A%20Number%29-instance-method" class="signature"><strong>#outline_thickness=</strong>(thickness : Number)</a>
         
           <div class="summary"><p>Set the thickness of a shape's outline</p></div>
         
@@ -174,14 +204,14 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#position%3D%28position%20%3A%20Vector2f%29-instance-method" class="signature"><strong>#position=</strong>(position : Vector2f)</a>
+        <a href="#position%3D%28position%29-instance-method" class="signature"><strong>#position=</strong>(position)</a>
         
           <div class="summary"><p>Set the position of a shape</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#rotate%28angle%29-instance-method" class="signature"><strong>#rotate</strong>(angle)</a>
+        <a href="#rotate%28angle%20%3A%20Number%29-instance-method" class="signature"><strong>#rotate</strong>(angle : Number)</a>
         
           <div class="summary"><p>Rotate a shape</p></div>
         
@@ -195,9 +225,16 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#rotation%3D%28angle%29-instance-method" class="signature"><strong>#rotation=</strong>(angle)</a>
+        <a href="#rotation%3D%28angle%20%3A%20Number%29-instance-method" class="signature"><strong>#rotation=</strong>(angle : Number)</a>
         
           <div class="summary"><p>Set the orientation of a shape</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#scale%28factors%29-instance-method" class="signature"><strong>#scale</strong>(factors)</a>
+        
+          <div class="summary"><p>Scale a shape</p></div>
         
       </li>
     
@@ -209,14 +246,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#scale%28factors%20%3A%20Vector2f%29-instance-method" class="signature"><strong>#scale</strong>(factors : Vector2f)</a>
-        
-          <div class="summary"><p>Scale a shape</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#scale%3D%28scale%20%3A%20Vector2f%29-instance-method" class="signature"><strong>#scale=</strong>(scale : Vector2f)</a>
+        <a href="#scale%3D%28scale%29-instance-method" class="signature"><strong>#scale=</strong>(scale)</a>
         
           <div class="summary"><p>Set the scale factors of a shape</p></div>
         
@@ -251,6 +281,11 @@
       </li>
     
       <li class="entry-summary">
+        <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#transform-instance-method" class="signature"><strong>#transform</strong></a>
         
           <div class="summary"><p>Get the combined transform of a shape</p></div>
@@ -274,6 +309,32 @@
   <h2>Class Method Detail</h2>
   
     <div class="entry-detail">
+      <div class="signature" id="transfer_ptr%28ptr%29-class-method">
+        
+        def self.<strong>transfer_ptr</strong>(ptr)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3093" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="wrap_ptr%28ptr%29-class-method">
+        
+        def self.<strong>wrap_ptr</strong>(ptr)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3093" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
       <div class="signature" id="new%28get_point_count%20%3A%20ShapeGetPointCountCallback%2C%20get_point%20%3A%20ShapeGetPointCallback%2C%20user_data%20%3A%20%3A%3APointer%28Void%29%29-class-method">
         
         def self.<strong>new</strong>(get_point_count : ShapeGetPointCountCallback, get_point : ShapeGetPointCallback, user_data : ::Pointer(Void))
@@ -289,7 +350,33 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3107" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3104" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28this%2C%20owned%20%3A%20Bool%29-class-method">
+        
+        def self.<strong>new</strong>(this, owned : Bool)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3093" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new-class-method">
+        
+        def self.<strong>new</strong>
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics.cr#L177" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -298,6 +385,19 @@
 
 
   <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="draw%28target%2C%20states%20%3A%20RenderStates%29-instance-method">
+        
+        def <strong>draw</strong>(target, states : <a href="../SF/RenderStates.html">RenderStates</a>)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics.cr#L191" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
   
     <div class="entry-detail">
       <div class="signature" id="fill_color-instance-method">
@@ -315,7 +415,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3405" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3406" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -341,7 +441,7 @@ By default, the shape's fill color is opaque white.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3339" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3341" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -360,7 +460,7 @@ By default, the shape's fill color is opaque white.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3117" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3114" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -383,7 +483,7 @@ By default, the shape's fill color is opaque white.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3452" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3453" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -410,7 +510,7 @@ sprite in the global 2D world's coordinate system.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3486" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3487" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -431,7 +531,7 @@ sprite in the global 2D world's coordinate system.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3285" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3287" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -458,15 +558,15 @@ entity in the entity's coordinate system.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3469" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3470" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="move%28offset%20%3A%20Vector2f%29-instance-method">
+      <div class="signature" id="move%28offset%29-instance-method">
         
-        def <strong>move</strong>(offset : <a href="../SF/Vector2f.html">Vector2f</a>)
+        def <strong>move</strong>(offset)
       </div>
       
         <div class="doc"><p>Move a shape by a given offset</p>
@@ -480,7 +580,7 @@ unlike Shape_setPosition which overwrites it.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3236" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3236" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -501,15 +601,15 @@ unlike Shape_setPosition which overwrites it.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3223" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3223" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="origin%3D%28origin%20%3A%20Vector2f%29-instance-method">
+      <div class="signature" id="origin%3D%28origin%29-instance-method">
         
-        def <strong>origin=</strong>(origin : <a href="../SF/Vector2f.html">Vector2f</a>)
+        def <strong>origin=</strong>(origin)
       </div>
       
         <div class="doc"><p>Set the local origin of a shape</p>
@@ -527,7 +627,7 @@ The default origin of a circle Shape object is (0, 0).</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3177" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3176" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -548,7 +648,7 @@ The default origin of a circle Shape object is (0, 0).</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3416" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3417" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -570,7 +670,7 @@ By default, the shape's outline color is opaque white.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3352" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3354" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -591,15 +691,15 @@ By default, the shape's outline color is opaque white.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3427" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3428" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="outline_thickness%3D%28thickness%29-instance-method">
+      <div class="signature" id="outline_thickness%3D%28thickness%20%3A%20Number%29-instance-method">
         
-        def <strong>outline_thickness=</strong>(thickness)
+        def <strong>outline_thickness=</strong>(thickness : Number)
       </div>
       
         <div class="doc"><p>Set the thickness of a shape's outline</p>
@@ -614,7 +714,7 @@ By default, the outline thickness is 0.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3366" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3368" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -635,7 +735,7 @@ By default, the outline thickness is 0.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3438" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3439" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -656,15 +756,15 @@ By default, the outline thickness is 0.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3188" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3188" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="position%3D%28position%20%3A%20Vector2f%29-instance-method">
+      <div class="signature" id="position%3D%28position%29-instance-method">
         
-        def <strong>position=</strong>(position : <a href="../SF/Vector2f.html">Vector2f</a>)
+        def <strong>position=</strong>(position)
       </div>
       
         <div class="doc"><p>Set the position of a shape</p>
@@ -679,15 +779,15 @@ The default position of a circle Shape object is (0, 0).</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3131" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3128" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="rotate%28angle%29-instance-method">
+      <div class="signature" id="rotate%28angle%20%3A%20Number%29-instance-method">
         
-        def <strong>rotate</strong>(angle)
+        def <strong>rotate</strong>(angle : Number)
       </div>
       
         <div class="doc"><p>Rotate a shape</p>
@@ -701,7 +801,7 @@ unlike Shape_setRotation which overwrites it.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3249" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3250" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -724,15 +824,15 @@ unlike Shape_setRotation which overwrites it.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3201" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3201" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="rotation%3D%28angle%29-instance-method">
+      <div class="signature" id="rotation%3D%28angle%20%3A%20Number%29-instance-method">
         
-        def <strong>rotation=</strong>(angle)
+        def <strong>rotation=</strong>(angle : Number)
       </div>
       
         <div class="doc"><p>Set the orientation of a shape</p>
@@ -747,7 +847,29 @@ The default rotation of a circle Shape object is 0.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3145" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3143" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="scale%28factors%29-instance-method">
+        
+        def <strong>scale</strong>(factors)
+      </div>
+      
+        <div class="doc"><p>Scale a shape</p>
+
+<p>This function multiplies the current scale of the object,
+unlike Shape_setScale which overwrites it.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shape</code>: Shape object</li><li><code>factors</code>: Scale factors</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3264" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -768,37 +890,15 @@ The default rotation of a circle Shape object is 0.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3212" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3212" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="scale%28factors%20%3A%20Vector2f%29-instance-method">
+      <div class="signature" id="scale%3D%28scale%29-instance-method">
         
-        def <strong>scale</strong>(factors : <a href="../SF/Vector2f.html">Vector2f</a>)
-      </div>
-      
-        <div class="doc"><p>Scale a shape</p>
-
-<p>This function multiplies the current scale of the object,
-unlike Shape_setScale which overwrites it.</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>shape</code>: Shape object</li><li><code>factors</code>: Scale factors</li></ul></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3263" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="scale%3D%28scale%20%3A%20Vector2f%29-instance-method">
-        
-        def <strong>scale=</strong>(scale : <a href="../SF/Vector2f.html">Vector2f</a>)
+        def <strong>scale=</strong>(scale)
       </div>
       
         <div class="doc"><p>Set the scale factors of a shape</p>
@@ -813,7 +913,7 @@ The default scale of a circle Shape object is (1, 1).</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3160" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3158" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -843,7 +943,7 @@ texture. If it is false, the texture rect is left unchanged.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3307" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3309" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -868,7 +968,7 @@ modify the texture when you retrieve it with this function.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3382" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3384" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -889,7 +989,7 @@ modify the texture when you retrieve it with this function.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3394" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3395" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -912,7 +1012,20 @@ By default, the texture rect covers the entire texture.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3322" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3324" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="to_unsafe-instance-method">
+        
+        def <strong>to_unsafe</strong>
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3093" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -933,7 +1046,7 @@ By default, the texture rect covers the entire texture.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3274" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3276" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -952,7 +1065,7 @@ the get_point_count or get_point callbacks is different).</p></div>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3495" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3496" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>

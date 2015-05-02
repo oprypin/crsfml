@@ -35,12 +35,12 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics.cr">csfml/graphics.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics.cr">graphics.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr">csfml/graphics_obj.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr">graphics_obj.cr</a>
     
     <br/>
   
@@ -51,6 +51,23 @@
 
   <h2>Class Method Summary</h2>
   <ul>
+    
+      <li class="entry-summary">
+        <a href="#from_handle%28handle%20%3A%20WindowHandle%2C%20settings%29-class-method" class="signature"><strong>.from_handle</strong>(handle : WindowHandle, settings)</a>
+        
+          <div class="summary"><p>Construct a render window from an existing control</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#transfer_ptr%28ptr%29-class-method" class="signature"><strong>.transfer_ptr</strong>(ptr)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#wrap_ptr%28ptr%29-class-method" class="signature"><strong>.wrap_ptr</strong>(ptr)</a>
+        
+      </li>
     
       <li class="entry-summary">
         <a href="#new%28mode%20%3A%20VideoMode%2C%20title%20%3A%20String%2C%20style%20%3A%20WindowStyle%2C%20settings%29-class-method" class="signature"><strong>.new</strong>(mode : VideoMode, title : String, style : WindowStyle, settings)</a>
@@ -65,9 +82,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#new%28handle%20%3A%20WindowHandle%2C%20settings%29-class-method" class="signature"><strong>.new</strong>(handle : WindowHandle, settings)</a>
-        
-          <div class="summary"><p>Construct a render window from an existing control</p></div>
+        <a href="#new%28this%2C%20owned%20%3A%20Bool%29-class-method" class="signature"><strong>.new</strong>(this, owned : Bool)</a>
         
       </li>
     
@@ -93,14 +108,14 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#clear%28color%20%3A%20Color%29-instance-method" class="signature"><strong>#clear</strong>(color : Color)</a>
-        
-          <div class="summary"><p>Clear a render window with the given color</p></div>
+        <a href="#clear-instance-method" class="signature"><strong>#clear</strong></a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#clear-instance-method" class="signature"><strong>#clear</strong></a>
+        <a href="#clear%28color%20%3A%20Color%29-instance-method" class="signature"><strong>#clear</strong>(color : Color)</a>
+        
+          <div class="summary"><p>Clear a render window with the given color</p></div>
         
       </li>
     
@@ -126,7 +141,12 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#draw%28drawable%2C%20states%20%3D%20RenderStates_Default%29-instance-method" class="signature"><strong>#draw</strong>(drawable, states = RenderStates_Default)</a>
+        <a href="#draw%28vertices%2C%20type%20%3A%20PrimitiveType%2C%20states%20%3D%20CSFML%3A%3ARenderStates%3A%3ADefault%29-instance-method" class="signature"><strong>#draw</strong>(vertices, type : PrimitiveType, states = CSFML::RenderStates::Default)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#draw%28drawable%2C%20states%20%3D%20CSFML%3A%3ARenderStates%3A%3ADefault%29-instance-method" class="signature"><strong>#draw</strong>(drawable, states = CSFML::RenderStates::Default)</a>
         
       </li>
     
@@ -203,7 +223,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#joystick_threshold%3D%28threshold%29-instance-method" class="signature"><strong>#joystick_threshold=</strong>(threshold)</a>
+        <a href="#joystick_threshold%3D%28threshold%20%3A%20Number%29-instance-method" class="signature"><strong>#joystick_threshold=</strong>(threshold : Number)</a>
         
           <div class="summary"><p>Change the joystick threshold, ie.</p></div>
         
@@ -217,14 +237,14 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#map_coords_to_pixel%28point%20%3A%20Vector2f%2C%20view%20%3A%20View%29-instance-method" class="signature"><strong>#map_coords_to_pixel</strong>(point : Vector2f, view : View)</a>
+        <a href="#map_coords_to_pixel%28point%2C%20view%20%3A%20View%29-instance-method" class="signature"><strong>#map_coords_to_pixel</strong>(point, view : View)</a>
         
           <div class="summary"><p>Convert a point from world coordinates to window coordinates</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#map_pixel_to_coords%28point%20%3A%20Vector2i%2C%20view%20%3A%20View%29-instance-method" class="signature"><strong>#map_pixel_to_coords</strong>(point : Vector2i, view : View)</a>
+        <a href="#map_pixel_to_coords%28point%2C%20view%20%3A%20View%29-instance-method" class="signature"><strong>#map_pixel_to_coords</strong>(point, view : View)</a>
         
           <div class="summary"><p>Convert a point from window coordinates to world coordinates</p></div>
         
@@ -238,7 +258,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#open-instance-method" class="signature"><strong>#open</strong></a>
+        <a href="#open%3F-instance-method" class="signature"><strong>#open?</strong></a>
         
           <div class="summary"><p>Tell whether or not a render window is opened</p></div>
         
@@ -271,7 +291,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#position%3D%28position%20%3A%20Vector2i%29-instance-method" class="signature"><strong>#position=</strong>(position : Vector2i)</a>
+        <a href="#position%3D%28position%29-instance-method" class="signature"><strong>#position=</strong>(position)</a>
         
           <div class="summary"><p>Change the position of a render window on screen</p></div>
         
@@ -320,7 +340,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#size%3D%28size%20%3A%20Vector2i%29-instance-method" class="signature"><strong>#size=</strong>(size : Vector2i)</a>
+        <a href="#size%3D%28size%29-instance-method" class="signature"><strong>#size=</strong>(size)</a>
         
           <div class="summary"><p>Change the size of the rendering region of a render window</p></div>
         
@@ -337,6 +357,11 @@
         <a href="#title%3D%28title%20%3A%20String%29-instance-method" class="signature"><strong>#title=</strong>(title : String)</a>
         
           <div class="summary"><p>Change the title of a render window (with a UTF-32 string)</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
         
       </li>
     
@@ -390,6 +415,51 @@
   <h2>Class Method Detail</h2>
   
     <div class="entry-detail">
+      <div class="signature" id="from_handle%28handle%20%3A%20WindowHandle%2C%20settings%29-class-method">
+        
+        def self.<strong>from_handle</strong>(handle : WindowHandle, settings)
+      </div>
+      
+        <div class="doc"><p>Construct a render window from an existing control</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>handle</code>: Platform-specific handle of the control</li><li><code><a href="../SF/RenderWindow.html#settings-instance-method">#settings</a></code>: Creation settings (pass NULL to use default values)</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2544" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="transfer_ptr%28ptr%29-class-method">
+        
+        def self.<strong>transfer_ptr</strong>(ptr)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2517" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="wrap_ptr%28ptr%29-class-method">
+        
+        def self.<strong>wrap_ptr</strong>(ptr)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2517" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
       <div class="signature" id="new%28mode%20%3A%20VideoMode%2C%20title%20%3A%20String%2C%20style%20%3A%20WindowStyle%2C%20settings%29-class-method">
         
         def self.<strong>new</strong>(mode : <a href="../SF/VideoMode.html">VideoMode</a>, title : String, style : <a href="../SF/WindowStyle.html">WindowStyle</a>, settings)
@@ -403,7 +473,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2530" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2527" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -416,26 +486,20 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics.cr#L228" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics.cr#L357" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="new%28handle%20%3A%20WindowHandle%2C%20settings%29-class-method">
+      <div class="signature" id="new%28this%2C%20owned%20%3A%20Bool%29-class-method">
         
-        def self.<strong>new</strong>(handle : WindowHandle, settings)
+        def self.<strong>new</strong>(this, owned : Bool)
       </div>
-      
-        <div class="doc"><p>Construct a render window from an existing control</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>handle</code>: Platform-specific handle of the control</li><li><code><a href="../SF/RenderWindow.html#settings-instance-method">#settings</a></code>: Creation settings (pass NULL to use default values)</li></ul></div>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2547" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2517" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -461,7 +525,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2745" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2743" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -490,7 +554,20 @@ RenderWindow class.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3088" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3086" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="clear-instance-method">
+        
+        def <strong>clear</strong>
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics.cr#L384" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -509,20 +586,7 @@ RenderWindow class.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2821" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="clear-instance-method">
-        
-        def <strong>clear</strong>
-      </div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics.cr#L247" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2819" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -541,7 +605,7 @@ RenderWindow class.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2571" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2567" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -562,7 +626,7 @@ RenderWindow class.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2854" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2851" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -581,20 +645,33 @@ RenderWindow class.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2779" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2777" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="draw%28drawable%2C%20states%20%3D%20RenderStates_Default%29-instance-method">
+      <div class="signature" id="draw%28vertices%2C%20type%20%3A%20PrimitiveType%2C%20states%20%3D%20CSFML%3A%3ARenderStates%3A%3ADefault%29-instance-method">
         
-        def <strong>draw</strong>(drawable, states = <span class="t">RenderStates_Default</span>)
+        def <strong>draw</strong>(vertices, type : <a href="../SF/PrimitiveType.html">PrimitiveType</a>, states = <span class="t">CSFML</span><span class="t">::</span><span class="t">RenderStates</span><span class="t">::</span><span class="t">Default</span>)
       </div>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics.cr#L232" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics.cr#L364" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="draw%28drawable%2C%20states%20%3D%20CSFML%3A%3ARenderStates%3A%3ADefault%29-instance-method">
+        
+        def <strong>draw</strong>(drawable, states = <span class="t">CSFML</span><span class="t">::</span><span class="t">RenderStates</span><span class="t">::</span><span class="t">Default</span>)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics.cr#L361" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -607,7 +684,7 @@ RenderWindow class.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2963" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2961" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -620,7 +697,7 @@ RenderWindow class.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2972" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2970" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -639,7 +716,7 @@ RenderWindow class.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3008" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3006" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -652,7 +729,7 @@ RenderWindow class.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2981" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2979" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -665,7 +742,7 @@ RenderWindow class.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2954" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2952" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -684,7 +761,7 @@ RenderWindow class.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2936" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2934" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -697,7 +774,7 @@ RenderWindow class.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2945" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2943" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -710,7 +787,7 @@ RenderWindow class.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2990" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2988" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -729,7 +806,7 @@ RenderWindow class.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2562" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2558" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -748,7 +825,7 @@ RenderWindow class.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2789" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2787" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -769,7 +846,7 @@ RenderWindow class.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2867" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2863" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -790,15 +867,15 @@ events.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2770" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2768" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="joystick_threshold%3D%28threshold%29-instance-method">
+      <div class="signature" id="joystick_threshold%3D%28threshold%20%3A%20Number%29-instance-method">
         
-        def <strong>joystick_threshold=</strong>(threshold)
+        def <strong>joystick_threshold=</strong>(threshold : Number)
       </div>
       
         <div class="doc"><p>Change the joystick threshold, ie. the value below which no move event will be generated</p>
@@ -809,7 +886,7 @@ events.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2799" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2797" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -830,15 +907,15 @@ events.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2732" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2730" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="map_coords_to_pixel%28point%20%3A%20Vector2f%2C%20view%20%3A%20View%29-instance-method">
+      <div class="signature" id="map_coords_to_pixel%28point%2C%20view%20%3A%20View%29-instance-method">
         
-        def <strong>map_coords_to_pixel</strong>(point : <a href="../SF/Vector2f.html">Vector2f</a>, view : <a href="../SF/View.html">View</a>)
+        def <strong>map_coords_to_pixel</strong>(point, view : <a href="../SF/View.html">View</a>)
       </div>
       
         <div class="doc"><p>Convert a point from world coordinates to window coordinates</p>
@@ -865,15 +942,15 @@ render-window.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2925" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2922" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="map_pixel_to_coords%28point%20%3A%20Vector2i%2C%20view%20%3A%20View%29-instance-method">
+      <div class="signature" id="map_pixel_to_coords%28point%2C%20view%20%3A%20View%29-instance-method">
         
-        def <strong>map_pixel_to_coords</strong>(point : <a href="../SF/Vector2i.html">Vector2i</a>, view : <a href="../SF/View.html">View</a>)
+        def <strong>map_pixel_to_coords</strong>(point, view : <a href="../SF/View.html">View</a>)
       </div>
       
         <div class="doc"><p>Convert a point from window coordinates to world coordinates</p>
@@ -904,7 +981,7 @@ render-window.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2898" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2894" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -923,15 +1000,15 @@ render-window.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2708" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2706" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="open-instance-method">
+      <div class="signature" id="open%3F-instance-method">
         
-        def <strong>open</strong>
+        def <strong>open?</strong>
       </div>
       
         <div class="doc"><p>Tell whether or not a render window is opened</p>
@@ -942,7 +1019,7 @@ render-window.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2580" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2576" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -963,7 +1040,7 @@ render-window.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2603" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2599" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -976,7 +1053,7 @@ render-window.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics.cr#L236" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics.cr#L373" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -998,7 +1075,7 @@ description of these functions.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3054" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3052" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -1019,15 +1096,15 @@ description of these functions.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2626" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2622" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="position%3D%28position%20%3A%20Vector2i%29-instance-method">
+      <div class="signature" id="position%3D%28position%29-instance-method">
         
-        def <strong>position=</strong>(position : <a href="../SF/Vector2i.html">Vector2i</a>)
+        def <strong>position=</strong>(position)
       </div>
       
         <div class="doc"><p>Change the position of a render window on screen</p>
@@ -1040,7 +1117,7 @@ description of these functions.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2638" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2634" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -1074,7 +1151,7 @@ function if you do so.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3042" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3040" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -1097,7 +1174,7 @@ This is not to be confused with Window_setActive().</p></div>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2759" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2757" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -1122,7 +1199,7 @@ calls will work as expected.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3069" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3067" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -1141,7 +1218,7 @@ calls will work as expected.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2682" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2680" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -1162,7 +1239,7 @@ calls will work as expected.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2591" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2587" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -1183,15 +1260,15 @@ calls will work as expected.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2649" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2646" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="size%3D%28size%20%3A%20Vector2i%29-instance-method">
+      <div class="signature" id="size%3D%28size%29-instance-method">
         
-        def <strong>size=</strong>(size : <a href="../SF/Vector2i.html">Vector2i</a>)
+        def <strong>size=</strong>(size)
       </div>
       
         <div class="doc"><p>Change the size of the rendering region of a render window</p>
@@ -1202,7 +1279,7 @@ calls will work as expected.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2659" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2656" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -1223,7 +1300,7 @@ calls will work as expected.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2811" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2809" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -1242,7 +1319,20 @@ calls will work as expected.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2669" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2667" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="to_unsafe-instance-method">
+        
+        def <strong>to_unsafe</strong>
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2517" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -1261,7 +1351,7 @@ calls will work as expected.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2719" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2717" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -1282,7 +1372,7 @@ calls will work as expected.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2842" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2840" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -1301,7 +1391,7 @@ calls will work as expected.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2831" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2829" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -1320,7 +1410,7 @@ calls will work as expected.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2697" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2695" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -1341,7 +1431,7 @@ calls will work as expected.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L2615" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L2611" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -1354,7 +1444,7 @@ calls will work as expected.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics.cr#L241" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics.cr#L378" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>

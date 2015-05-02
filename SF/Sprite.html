@@ -35,12 +35,12 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics.cr">csfml/graphics.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics.cr">graphics.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr">csfml/graphics_obj.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr">graphics_obj.cr</a>
     
     <br/>
   
@@ -53,7 +53,22 @@
   <ul>
     
       <li class="entry-summary">
+        <a href="#transfer_ptr%28ptr%29-class-method" class="signature"><strong>.transfer_ptr</strong>(ptr)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#wrap_ptr%28ptr%29-class-method" class="signature"><strong>.wrap_ptr</strong>(ptr)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#new%28texture%20%3A%20Texture%2C%20rectangle%20%3A%20IntRect%29-class-method" class="signature"><strong>.new</strong>(texture : Texture, rectangle : IntRect)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28this%2C%20owned%20%3A%20Bool%29-class-method" class="signature"><strong>.new</strong>(this, owned : Bool)</a>
         
       </li>
     
@@ -91,14 +106,14 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#copy-instance-method" class="signature"><strong>#copy</strong></a>
-        
-          <div class="summary"><p>Copy an existing sprite</p></div>
+        <a href="#draw%28target%2C%20states%20%3A%20RenderStates%29-instance-method" class="signature"><strong>#draw</strong>(target, states : RenderStates)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#draw%28target%2C%20states%20%3A%20RenderStates%29-instance-method" class="signature"><strong>#draw</strong>(target, states : RenderStates)</a>
+        <a href="#dup-instance-method" class="signature"><strong>#dup</strong></a>
+        
+          <div class="summary"><p>Copy an existing sprite</p></div>
         
       </li>
     
@@ -131,7 +146,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#move%28offset%20%3A%20Vector2f%29-instance-method" class="signature"><strong>#move</strong>(offset : Vector2f)</a>
+        <a href="#move%28offset%29-instance-method" class="signature"><strong>#move</strong>(offset)</a>
         
           <div class="summary"><p>Move a sprite by a given offset</p></div>
         
@@ -145,7 +160,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#origin%3D%28origin%20%3A%20Vector2f%29-instance-method" class="signature"><strong>#origin=</strong>(origin : Vector2f)</a>
+        <a href="#origin%3D%28origin%29-instance-method" class="signature"><strong>#origin=</strong>(origin)</a>
         
           <div class="summary"><p>Set the local origin of a sprite</p></div>
         
@@ -159,14 +174,14 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#position%3D%28position%20%3A%20Vector2f%29-instance-method" class="signature"><strong>#position=</strong>(position : Vector2f)</a>
+        <a href="#position%3D%28position%29-instance-method" class="signature"><strong>#position=</strong>(position)</a>
         
           <div class="summary"><p>Set the position of a sprite</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#rotate%28angle%29-instance-method" class="signature"><strong>#rotate</strong>(angle)</a>
+        <a href="#rotate%28angle%20%3A%20Number%29-instance-method" class="signature"><strong>#rotate</strong>(angle : Number)</a>
         
           <div class="summary"><p>Rotate a sprite</p></div>
         
@@ -180,14 +195,14 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#rotation%3D%28angle%29-instance-method" class="signature"><strong>#rotation=</strong>(angle)</a>
+        <a href="#rotation%3D%28angle%20%3A%20Number%29-instance-method" class="signature"><strong>#rotation=</strong>(angle : Number)</a>
         
           <div class="summary"><p>Set the orientation of a sprite</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#scale%28factors%20%3A%20Vector2f%29-instance-method" class="signature"><strong>#scale</strong>(factors : Vector2f)</a>
+        <a href="#scale%28factors%29-instance-method" class="signature"><strong>#scale</strong>(factors)</a>
         
           <div class="summary"><p>Scale a sprite</p></div>
         
@@ -201,7 +216,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#scale%3D%28scale%20%3A%20Vector2f%29-instance-method" class="signature"><strong>#scale=</strong>(scale : Vector2f)</a>
+        <a href="#scale%3D%28scale%29-instance-method" class="signature"><strong>#scale=</strong>(scale)</a>
         
           <div class="summary"><p>Set the scale factors of a sprite</p></div>
         
@@ -241,6 +256,11 @@
       </li>
     
       <li class="entry-summary">
+        <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#transform-instance-method" class="signature"><strong>#transform</strong></a>
         
           <div class="summary"><p>Get the combined transform of a sprite</p></div>
@@ -257,6 +277,32 @@
   <h2>Class Method Detail</h2>
   
     <div class="entry-detail">
+      <div class="signature" id="transfer_ptr%28ptr%29-class-method">
+        
+        def self.<strong>transfer_ptr</strong>(ptr)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3503" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="wrap_ptr%28ptr%29-class-method">
+        
+        def self.<strong>wrap_ptr</strong>(ptr)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3503" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
       <div class="signature" id="new%28texture%20%3A%20Texture%2C%20rectangle%20%3A%20IntRect%29-class-method">
         
         def self.<strong>new</strong>(texture : <a href="../SF/Texture.html">Texture</a>, rectangle : <a href="../SF/IntRect.html">IntRect</a>)
@@ -264,7 +310,20 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics.cr#L171" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics.cr#L248" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28this%2C%20owned%20%3A%20Bool%29-class-method">
+        
+        def self.<strong>new</strong>(this, owned : Bool)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3503" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -277,7 +336,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics.cr#L167" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics.cr#L244" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -294,7 +353,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3507" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3508" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -320,7 +379,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3786" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3790" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -344,28 +403,7 @@ By default, the sprite's color is opaque white.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3748" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="copy-instance-method">
-        
-        def <strong>copy</strong>
-      </div>
-      
-        <div class="doc"><p>Copy an existing sprite</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>sprite</code>: Sprite to copy</li></ul>
-
-<p><em>Returns</em>: Copied object</p></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3519" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3753" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -378,7 +416,28 @@ By default, the sprite's color is opaque white.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics.cr#L181" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics.cr#L258" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="dup-instance-method">
+        
+        def <strong>dup</strong>
+      </div>
+      
+        <div class="doc"><p>Copy an existing sprite</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sprite</code>: Sprite to copy</li></ul>
+
+<p><em>Returns</em>: Copied object</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3520" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -397,7 +456,7 @@ By default, the sprite's color is opaque white.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3529" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3529" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -424,7 +483,7 @@ sprite in the global 2D world's coordinate system.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3820" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3824" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -445,7 +504,7 @@ sprite in the global 2D world's coordinate system.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3697" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3702" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -472,15 +531,15 @@ entity in the entity's coordinate system.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3803" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3807" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="move%28offset%20%3A%20Vector2f%29-instance-method">
+      <div class="signature" id="move%28offset%29-instance-method">
         
-        def <strong>move</strong>(offset : <a href="../SF/Vector2f.html">Vector2f</a>)
+        def <strong>move</strong>(offset)
       </div>
       
         <div class="doc"><p>Move a sprite by a given offset</p>
@@ -494,7 +553,7 @@ unlike Sprite_setPosition which overwrites it.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3648" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3651" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -515,15 +574,15 @@ unlike Sprite_setPosition which overwrites it.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3635" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3638" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="origin%3D%28origin%20%3A%20Vector2f%29-instance-method">
+      <div class="signature" id="origin%3D%28origin%29-instance-method">
         
-        def <strong>origin=</strong>(origin : <a href="../SF/Vector2f.html">Vector2f</a>)
+        def <strong>origin=</strong>(origin)
       </div>
       
         <div class="doc"><p>Set the local origin of a sprite</p>
@@ -541,7 +600,7 @@ The default origin of a sprite Sprite object is (0, 0).</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3589" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3591" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -562,15 +621,15 @@ The default origin of a sprite Sprite object is (0, 0).</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3600" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3603" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="position%3D%28position%20%3A%20Vector2f%29-instance-method">
+      <div class="signature" id="position%3D%28position%29-instance-method">
         
-        def <strong>position=</strong>(position : <a href="../SF/Vector2f.html">Vector2f</a>)
+        def <strong>position=</strong>(position)
       </div>
       
         <div class="doc"><p>Set the position of a sprite</p>
@@ -585,15 +644,15 @@ The default position of a sprite Sprite object is (0, 0).</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3543" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3543" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="rotate%28angle%29-instance-method">
+      <div class="signature" id="rotate%28angle%20%3A%20Number%29-instance-method">
         
-        def <strong>rotate</strong>(angle)
+        def <strong>rotate</strong>(angle : Number)
       </div>
       
         <div class="doc"><p>Rotate a sprite</p>
@@ -607,7 +666,7 @@ unlike Sprite_setRotation which overwrites it.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3661" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3665" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -630,15 +689,15 @@ unlike Sprite_setRotation which overwrites it.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3613" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3616" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="rotation%3D%28angle%29-instance-method">
+      <div class="signature" id="rotation%3D%28angle%20%3A%20Number%29-instance-method">
         
-        def <strong>rotation=</strong>(angle)
+        def <strong>rotation=</strong>(angle : Number)
       </div>
       
         <div class="doc"><p>Set the orientation of a sprite</p>
@@ -653,15 +712,15 @@ The default rotation of a sprite Sprite object is 0.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3557" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3558" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="scale%28factors%20%3A%20Vector2f%29-instance-method">
+      <div class="signature" id="scale%28factors%29-instance-method">
         
-        def <strong>scale</strong>(factors : <a href="../SF/Vector2f.html">Vector2f</a>)
+        def <strong>scale</strong>(factors)
       </div>
       
         <div class="doc"><p>Scale a sprite</p>
@@ -675,7 +734,7 @@ unlike Sprite_setScale which overwrites it.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3675" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3679" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -696,15 +755,15 @@ unlike Sprite_setScale which overwrites it.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3624" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3627" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="scale%3D%28scale%20%3A%20Vector2f%29-instance-method">
+      <div class="signature" id="scale%3D%28scale%29-instance-method">
         
-        def <strong>scale=</strong>(scale : <a href="../SF/Vector2f.html">Vector2f</a>)
+        def <strong>scale=</strong>(scale)
       </div>
       
         <div class="doc"><p>Set the scale factors of a sprite</p>
@@ -719,7 +778,7 @@ The default scale of a sprite Sprite object is (1, 1).</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3572" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3573" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -748,7 +807,7 @@ texture. If it is false, the texture rect is left unchanged.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3718" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3723" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -773,7 +832,7 @@ modify the texture when you retrieve it with this function.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3763" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3768" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -786,7 +845,7 @@ modify the texture when you retrieve it with this function.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics.cr#L177" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics.cr#L254" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -807,7 +866,7 @@ modify the texture when you retrieve it with this function.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3775" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3779" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -830,7 +889,20 @@ By default, the texture rect covers the entire texture.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3733" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3738" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="to_unsafe-instance-method">
+        
+        def <strong>to_unsafe</strong>
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3503" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -851,7 +923,7 @@ By default, the texture rect covers the entire texture.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L3686" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L3691" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>

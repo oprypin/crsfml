@@ -35,12 +35,12 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics.cr">csfml/graphics.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics.cr">graphics.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr">csfml/graphics_obj.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr">graphics_obj.cr</a>
     
     <br/>
   
@@ -53,14 +53,29 @@
   <ul>
     
       <li class="entry-summary">
-        <a href="#new%28center%20%3A%20Vector2f%2C%20size%20%3A%20Vector2f%29-class-method" class="signature"><strong>.new</strong>(center : Vector2f, size : Vector2f)</a>
+        <a href="#from_rect%28rectangle%20%3A%20FloatRect%29-class-method" class="signature"><strong>.from_rect</strong>(rectangle : FloatRect)</a>
+        
+          <div class="summary"><p>Construct a view from a rectangle</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#new%28rectangle%20%3A%20FloatRect%29-class-method" class="signature"><strong>.new</strong>(rectangle : FloatRect)</a>
+        <a href="#transfer_ptr%28ptr%29-class-method" class="signature"><strong>.transfer_ptr</strong>(ptr)</a>
         
-          <div class="summary"><p>Construct a view from a rectangle</p></div>
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#wrap_ptr%28ptr%29-class-method" class="signature"><strong>.wrap_ptr</strong>(ptr)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28this%2C%20owned%20%3A%20Bool%29-class-method" class="signature"><strong>.new</strong>(this, owned : Bool)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28center%2C%20size%29-class-method" class="signature"><strong>.new</strong>(center, size)</a>
         
       </li>
     
@@ -86,14 +101,14 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#center%3D%28center%20%3A%20Vector2f%29-instance-method" class="signature"><strong>#center=</strong>(center : Vector2f)</a>
+        <a href="#center%3D%28center%29-instance-method" class="signature"><strong>#center=</strong>(center)</a>
         
           <div class="summary"><p>Set the center of a view</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#copy-instance-method" class="signature"><strong>#copy</strong></a>
+        <a href="#dup-instance-method" class="signature"><strong>#dup</strong></a>
         
           <div class="summary"><p>Copy an existing view</p></div>
         
@@ -107,7 +122,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#move%28offset%20%3A%20Vector2f%29-instance-method" class="signature"><strong>#move</strong>(offset : Vector2f)</a>
+        <a href="#move%28offset%29-instance-method" class="signature"><strong>#move</strong>(offset)</a>
         
           <div class="summary"><p>Move a view relatively to its current position</p></div>
         
@@ -121,7 +136,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#rotate%28angle%29-instance-method" class="signature"><strong>#rotate</strong>(angle)</a>
+        <a href="#rotate%28angle%20%3A%20Number%29-instance-method" class="signature"><strong>#rotate</strong>(angle : Number)</a>
         
           <div class="summary"><p>Rotate a view relatively to its current orientation</p></div>
         
@@ -135,7 +150,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#rotation%3D%28angle%29-instance-method" class="signature"><strong>#rotation=</strong>(angle)</a>
+        <a href="#rotation%3D%28angle%20%3A%20Number%29-instance-method" class="signature"><strong>#rotation=</strong>(angle : Number)</a>
         
           <div class="summary"><p>Set the orientation of a view</p></div>
         
@@ -149,9 +164,14 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#size%3D%28size%20%3A%20Vector2f%29-instance-method" class="signature"><strong>#size=</strong>(size : Vector2f)</a>
+        <a href="#size%3D%28size%29-instance-method" class="signature"><strong>#size=</strong>(size)</a>
         
           <div class="summary"><p>Set the size of a view</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
         
       </li>
     
@@ -170,7 +190,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#zoom%28factor%29-instance-method" class="signature"><strong>#zoom</strong>(factor)</a>
+        <a href="#zoom%28factor%20%3A%20Number%29-instance-method" class="signature"><strong>#zoom</strong>(factor : Number)</a>
         
           <div class="summary"><p>Resize a view rectangle relatively to its current size</p></div>
         
@@ -186,22 +206,9 @@
   <h2>Class Method Detail</h2>
   
     <div class="entry-detail">
-      <div class="signature" id="new%28center%20%3A%20Vector2f%2C%20size%20%3A%20Vector2f%29-class-method">
+      <div class="signature" id="from_rect%28rectangle%20%3A%20FloatRect%29-class-method">
         
-        def self.<strong>new</strong>(center : <a href="../SF/Vector2f.html">Vector2f</a>, size : <a href="../SF/Vector2f.html">Vector2f</a>)
-      </div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics.cr#L210" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="new%28rectangle%20%3A%20FloatRect%29-class-method">
-        
-        def self.<strong>new</strong>(rectangle : <a href="../SF/FloatRect.html">FloatRect</a>)
+        def self.<strong>from_rect</strong>(rectangle : <a href="../SF/FloatRect.html">FloatRect</a>)
       </div>
       
         <div class="doc"><p>Construct a view from a rectangle</p>
@@ -214,7 +221,59 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L4852" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4856" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="transfer_ptr%28ptr%29-class-method">
+        
+        def self.<strong>transfer_ptr</strong>(ptr)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4837" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="wrap_ptr%28ptr%29-class-method">
+        
+        def self.<strong>wrap_ptr</strong>(ptr)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4837" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28this%2C%20owned%20%3A%20Bool%29-class-method">
+        
+        def self.<strong>new</strong>(this, owned : Bool)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4837" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28center%2C%20size%29-class-method">
+        
+        def self.<strong>new</strong>(center, size)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics.cr#L331" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -233,7 +292,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L4840" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4844" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -259,15 +318,15 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L4947" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4951" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="center%3D%28center%20%3A%20Vector2f%29-instance-method">
+      <div class="signature" id="center%3D%28center%29-instance-method">
         
-        def <strong>center=</strong>(center : <a href="../SF/Vector2f.html">Vector2f</a>)
+        def <strong>center=</strong>(center)
       </div>
       
         <div class="doc"><p>Set the center of a view</p>
@@ -278,15 +337,15 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L4884" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4886" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="copy-instance-method">
+      <div class="signature" id="dup-instance-method">
         
-        def <strong>copy</strong>
+        def <strong>dup</strong>
       </div>
       
         <div class="doc"><p>Copy an existing view</p>
@@ -299,7 +358,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L4864" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4867" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -318,15 +377,15 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L4874" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4876" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="move%28offset%20%3A%20Vector2f%29-instance-method">
+      <div class="signature" id="move%28offset%29-instance-method">
         
-        def <strong>move</strong>(offset : <a href="../SF/Vector2f.html">Vector2f</a>)
+        def <strong>move</strong>(offset)
       </div>
       
         <div class="doc"><p>Move a view relatively to its current position</p>
@@ -337,7 +396,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L4990" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4994" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -358,15 +417,15 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L4936" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4940" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="rotate%28angle%29-instance-method">
+      <div class="signature" id="rotate%28angle%20%3A%20Number%29-instance-method">
         
-        def <strong>rotate</strong>(angle)
+        def <strong>rotate</strong>(angle : Number)
       </div>
       
         <div class="doc"><p>Rotate a view relatively to its current orientation</p>
@@ -377,7 +436,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L5000" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L5005" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -398,15 +457,15 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L4969" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4973" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="rotation%3D%28angle%29-instance-method">
+      <div class="signature" id="rotation%3D%28angle%20%3A%20Number%29-instance-method">
         
-        def <strong>rotation=</strong>(angle)
+        def <strong>rotation=</strong>(angle : Number)
       </div>
       
         <div class="doc"><p>Set the orientation of a view</p>
@@ -419,7 +478,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L4906" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4910" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -440,15 +499,15 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L4958" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4962" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="size%3D%28size%20%3A%20Vector2f%29-instance-method">
+      <div class="signature" id="size%3D%28size%29-instance-method">
         
-        def <strong>size=</strong>(size : <a href="../SF/Vector2f.html">Vector2f</a>)
+        def <strong>size=</strong>(size)
       </div>
       
         <div class="doc"><p>Set the size of a view</p>
@@ -459,7 +518,20 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L4894" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4897" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="to_unsafe-instance-method">
+        
+        def <strong>to_unsafe</strong>
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4837" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -480,7 +552,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L4980" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4984" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -506,15 +578,15 @@ By default, a view has a viewport which covers the entire target.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L4924" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4928" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="zoom%28factor%29-instance-method">
+      <div class="signature" id="zoom%28factor%20%3A%20Number%29-instance-method">
         
-        def <strong>zoom</strong>(factor)
+        def <strong>zoom</strong>(factor : Number)
       </div>
       
         <div class="doc"><p>Resize a view rectangle relatively to its current size</p>
@@ -532,7 +604,7 @@ screen grows or shrinks.
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/5ce275ac0168a640ceb9b1a7ce2c7cb7d85cd570/src/csfml/graphics_obj.cr#L5018" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L5023" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
