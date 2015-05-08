@@ -879,7 +879,7 @@ module SF
       else
         psamples = nil
       end
-      sample_count = CSFML::SizeT.cast(sample_count)
+      sample_count = sample_count.to_u64
       SoundBuffer.transfer_ptr(CSFML.sound_buffer_create_from_samples(psamples, sample_count, channel_count, sample_rate))
     end
     
@@ -1228,7 +1228,331 @@ module SF
   class SoundStream
     include Wrapper
     
+    # Create a new sound stream
+    # 
+    # *Arguments*:
+    # 
+    # * `on_get_data`: Function called when the stream needs more data (can't be NULL)
+    # * `on_seek`: Function called when the stream seeks (can't be NULL)
+    # * `channel_count`: Number of channels to use (1 = mono, 2 = stereo)
+    # * `sample_rate`: Sample rate of the sound (44100 = CD quality)
+    # * `user_data`: Data to pass to the callback functions
+    # 
+    # *Returns*: A new SoundStream object
+    def initialize(on_get_data: SoundStreamGetDataCallback, on_seek: SoundStreamSeekCallback, channel_count: Int32, sample_rate: Int32, user_data: Void*)
+      @owned = true
+      @this = CSFML.sound_stream_create(on_get_data, on_seek, channel_count, sample_rate, user_data)
+    end
+    
+    # Destroy a sound stream
+    # 
+    # *Arguments*:
+    # 
+    # * `sound_stream`: Sound stream to destroy
+    def finalize()
+      CSFML.sound_stream_destroy(@this) if @owned
+    end
+    
+    # Start or resume playing a sound stream
+    # 
+    # This function starts the stream if it was stopped, resumes
+    # it if it was paused, and restarts it from beginning if it
+    # was it already playing.
+    # This function uses its own thread so that it doesn't block
+    # the rest of the program while the music is played.
+    # 
+    # *Arguments*:
+    # 
+    # * `sound_stream`: Sound stream object
+    def play()
+      CSFML.sound_stream_play(@this)
+    end
+    
+    # Pause a sound stream
+    # 
+    # This function pauses the stream if it was playing,
+    # otherwise (stream already paused or stopped) it has no effect.
+    # 
+    # *Arguments*:
+    # 
+    # * `sound_stream`: Sound stream object
+    def pause()
+      CSFML.sound_stream_pause(@this)
+    end
+    
+    # Stop playing a sound stream
+    # 
+    # This function stops the stream if it was playing or paused,
+    # and does nothing if it was already stopped.
+    # It also resets the playing position (unlike SoundStream_pause).
+    # 
+    # *Arguments*:
+    # 
+    # * `sound_stream`: Sound stream object
+    def stop()
+      CSFML.sound_stream_stop(@this)
+    end
+    
+    # Get the current status of a sound stream (stopped, paused, playing)
+    # 
+    # *Arguments*:
+    # 
+    # * `sound_stream`: Sound stream object
+    # 
+    # *Returns*: Current status
+    def status
+      CSFML.sound_stream_get_status(@this)
+    end
+    
+    # Return the number of channels of a sound stream
+    # 
+    # 1 channel means a mono sound, 2 means stereo, etc.
+    # 
+    # *Arguments*:
+    # 
+    # * `sound_stream`: Sound stream object
+    # 
+    # *Returns*: Number of channels
+    def channel_count
+      CSFML.sound_stream_get_channel_count(@this)
+    end
+    
+    # Get the sample rate of a sound stream
+    # 
+    # The sample rate is the number of audio samples played per
+    # second. The higher, the better the quality.
+    # 
+    # *Arguments*:
+    # 
+    # * `sound_stream`: Sound stream object
+    # 
+    # *Returns*: Sample rate, in number of samples per second
+    def sample_rate
+      CSFML.sound_stream_get_sample_rate(@this)
+    end
+    
+    # Set the pitch of a sound stream
+    # 
+    # The pitch represents the perceived fundamental frequency
+    # of a sound; thus you can make a stream more acute or grave
+    # by changing its pitch. A side effect of changing the pitch
+    # is to modify the playing speed of the stream as well.
+    # The default value for the pitch is 1.
+    # 
+    # *Arguments*:
+    # 
+    # * `sound_stream`: Sound stream object
+    # * `pitch`: New pitch to apply to the stream
+    def pitch=(pitch: Number)
+      pitch = pitch.to_f32
+      CSFML.sound_stream_set_pitch(@this, pitch)
+    end
+    
+    # Set the volume of a sound stream
+    # 
+    # The volume is a value between 0 (mute) and 100 (full volume).
+    # The default value for the volume is 100.
+    # 
+    # *Arguments*:
+    # 
+    # * `sound_stream`: Sound stream object
+    # * `volume`: Volume of the stream
+    def volume=(volume: Number)
+      volume = volume.to_f32
+      CSFML.sound_stream_set_volume(@this, volume)
+    end
+    
+    # Set the 3D position of a sound stream in the audio scene
+    # 
+    # Only streams with one channel (mono streams) can be
+    # spatialized.
+    # The default position of a stream is (0, 0, 0).
+    # 
+    # *Arguments*:
+    # 
+    # * `sound_stream`: Sound stream object
+    # * `position`: Position of the stream in the scene
+    def position=(position: Vector3f)
+      CSFML.sound_stream_set_position(@this, position)
+    end
+    
+    # Make a sound stream's position relative to the listener or absolute
+    # 
+    # Making a stream relative to the listener will ensure that it will always
+    # be played the same way regardless the position of the listener.
+    # This can be useful for non-spatialized streams, streams that are
+    # produced by the listener, or streams attached to it.
+    # The default value is false (position is absolute).
+    # 
+    # *Arguments*:
+    # 
+    # * `sound_stream`: Sound stream object
+    # * `relative`: True to set the position relative, False to set it absolute
+    def relative_to_listener=(relative: Bool)
+      relative = relative ? 1 : 0
+      CSFML.sound_stream_set_relative_to_listener(@this, relative)
+    end
+    
+    # Set the minimum distance of a sound stream
+    # 
+    # The "minimum distance" of a stream is the maximum
+    # distance at which it is heard at its maximum volume. Further
+    # than the minimum distance, it will start to fade out according
+    # to its attenuation factor. A value of 0 ("inside the head
+    # of the listener") is an invalid value and is forbidden.
+    # The default value of the minimum distance is 1.
+    # 
+    # *Arguments*:
+    # 
+    # * `sound_stream`: Sound stream object
+    # * `distance`: New minimum distance of the stream
+    def min_distance=(distance: Number)
+      distance = distance.to_f32
+      CSFML.sound_stream_set_min_distance(@this, distance)
+    end
+    
+    # Set the attenuation factor of a sound stream
+    # 
+    # The attenuation is a multiplicative factor which makes
+    # the stream more or less loud according to its distance
+    # from the listener. An attenuation of 0 will produce a
+    # non-attenuated stream, i.e. its volume will always be the same
+    # whether it is heard from near or from far. On the other hand,
+    # an attenuation value such as 100 will make the stream fade out
+    # very quickly as it gets further from the listener.
+    # The default value of the attenuation is 1.
+    # 
+    # *Arguments*:
+    # 
+    # * `sound_stream`: Sound stream object
+    # * `attenuation`: New attenuation factor of the stream
+    def attenuation=(attenuation: Number)
+      attenuation = attenuation.to_f32
+      CSFML.sound_stream_set_attenuation(@this, attenuation)
+    end
+    
+    # Change the current playing position of a sound stream
+    # 
+    # The playing position can be changed when the stream is
+    # either paused or playing.
+    # 
+    # *Arguments*:
+    # 
+    # * `sound_stream`: Sound stream object
+    # * `time_offset`: New playing position
+    def playing_offset=(time_offset: Time)
+      CSFML.sound_stream_set_playing_offset(@this, time_offset)
+    end
+    
+    # Set whether or not a sound stream should loop after reaching the end
+    # 
+    # If set, the stream will restart from beginning after
+    # reaching the end and so on, until it is stopped or
+    # SoundStream_setLoop(stream, False) is called.
+    # The default looping state for sound streams is false.
+    # 
+    # *Arguments*:
+    # 
+    # * `sound_stream`: Sound stream object
+    # * `loop`: True to play in loop, False to play once
+    def loop=(loop: Bool)
+      loop = loop ? 1 : 0
+      CSFML.sound_stream_set_loop(@this, loop)
+    end
+    
+    # Get the pitch of a sound stream
+    # 
+    # *Arguments*:
+    # 
+    # * `sound_stream`: Sound stream object
+    # 
+    # *Returns*: Pitch of the stream
+    def pitch
+      CSFML.sound_stream_get_pitch(@this)
+    end
+    
+    # Get the volume of a sound stream
+    # 
+    # *Arguments*:
+    # 
+    # * `sound_stream`: Sound stream object
+    # 
+    # *Returns*: Volume of the stream, in the range [0, 100]
+    def volume
+      CSFML.sound_stream_get_volume(@this)
+    end
+    
+    # Get the 3D position of a sound stream in the audio scene
+    # 
+    # *Arguments*:
+    # 
+    # * `sound_stream`: Sound stream object
+    # 
+    # *Returns*: Position of the stream in the world
+    def position
+      CSFML.sound_stream_get_position(@this)
+    end
+    
+    # Tell whether a sound stream's position is relative to the
+    # listener or is absolute
+    # 
+    # *Arguments*:
+    # 
+    # * `sound_stream`: Sound stream object
+    # 
+    # *Returns*: True if the position is relative, False if it's absolute
+    def relative_to_listener?
+      CSFML.sound_stream_is_relative_to_listener(@this) != 0
+    end
+    
+    # Get the minimum distance of a sound stream
+    # 
+    # *Arguments*:
+    # 
+    # * `sound_stream`: Sound stream object
+    # 
+    # *Returns*: Minimum distance of the stream
+    def min_distance
+      CSFML.sound_stream_get_min_distance(@this)
+    end
+    
+    # Get the attenuation factor of a sound stream
+    # 
+    # *Arguments*:
+    # 
+    # * `sound_stream`: Sound stream object
+    # 
+    # *Returns*: Attenuation factor of the stream
+    def attenuation
+      CSFML.sound_stream_get_attenuation(@this)
+    end
+    
+    # Tell whether or not a sound stream is in loop mode
+    # 
+    # *Arguments*:
+    # 
+    # * `sound_stream`: Sound stream object
+    # 
+    # *Returns*: True if the music is looping, False otherwise
+    def loop
+      CSFML.sound_stream_get_loop(@this) != 0
+    end
+    
+    # Get the current playing position of a sound stream
+    # 
+    # *Arguments*:
+    # 
+    # * `sound_stream`: Sound stream object
+    # 
+    # *Returns*: Current playing position
+    def playing_offset
+      CSFML.sound_stream_get_playing_offset(@this)
+    end
+    
   end
+
+  # defines the data to fill by the OnGetData callback
+  alias SoundStreamChunk = CSFML::SoundStreamChunk
 
 
 end

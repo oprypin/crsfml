@@ -715,7 +715,7 @@ lib CSFML
   # * `sample_rate`: Sample rate (number of samples to play per second)
   # 
   # *Returns*: A new SoundBuffer object (NULL if failed)
-  fun sound_buffer_create_from_samples = sfSoundBuffer_createFromSamples(samples: Int16*, sample_count: SizeT, channel_count: Int32, sample_rate: Int32): SoundBuffer
+  fun sound_buffer_create_from_samples = sfSoundBuffer_createFromSamples(samples: Int16*, sample_count: UInt64, channel_count: Int32, sample_rate: Int32): SoundBuffer
   
   # Create a new sound buffer by copying an existing one
   # 
@@ -770,7 +770,7 @@ lib CSFML
   # * `sound_buffer`: Sound buffer object
   # 
   # *Returns*: Number of samples
-  fun sound_buffer_get_sample_count = sfSoundBuffer_getSampleCount(sound_buffer: SoundBuffer): SizeT
+  fun sound_buffer_get_sample_count = sfSoundBuffer_getSampleCount(sound_buffer: SoundBuffer): UInt64
   
   # Get the sample rate of a sound buffer
   # 
@@ -997,5 +997,279 @@ lib CSFML
   # 
   # *Returns*: The name of the current audio capture device
   fun sound_recorder_get_device = sfSoundRecorder_getDevice(sound_recorder: SoundRecorder): UInt8*
+  
+  # defines the data to fill by the OnGetData callback
+  struct SoundStreamChunk
+    samples: Int16*
+    sample_count: Int32
+  end
+  
+  alias SoundStreamGetDataCallback = (SoundStreamChunk*, Void*) -> Int32
+  alias SoundStreamSeekCallback = (Time, Void*) -> Void
+  # Create a new sound stream
+  # 
+  # *Arguments*:
+  # 
+  # * `on_get_data`: Function called when the stream needs more data (can't be NULL)
+  # * `on_seek`: Function called when the stream seeks (can't be NULL)
+  # * `channel_count`: Number of channels to use (1 = mono, 2 = stereo)
+  # * `sample_rate`: Sample rate of the sound (44100 = CD quality)
+  # * `user_data`: Data to pass to the callback functions
+  # 
+  # *Returns*: A new SoundStream object
+  fun sound_stream_create = sfSoundStream_create(on_get_data: SoundStreamGetDataCallback, on_seek: SoundStreamSeekCallback, channel_count: Int32, sample_rate: Int32, user_data: Void*): SoundStream
+  
+  # Destroy a sound stream
+  # 
+  # *Arguments*:
+  # 
+  # * `sound_stream`: Sound stream to destroy
+  fun sound_stream_destroy = sfSoundStream_destroy(sound_stream: SoundStream)
+  
+  # Start or resume playing a sound stream
+  # 
+  # This function starts the stream if it was stopped, resumes
+  # it if it was paused, and restarts it from beginning if it
+  # was it already playing.
+  # This function uses its own thread so that it doesn't block
+  # the rest of the program while the music is played.
+  # 
+  # *Arguments*:
+  # 
+  # * `sound_stream`: Sound stream object
+  fun sound_stream_play = sfSoundStream_play(sound_stream: SoundStream)
+  
+  # Pause a sound stream
+  # 
+  # This function pauses the stream if it was playing,
+  # otherwise (stream already paused or stopped) it has no effect.
+  # 
+  # *Arguments*:
+  # 
+  # * `sound_stream`: Sound stream object
+  fun sound_stream_pause = sfSoundStream_pause(sound_stream: SoundStream)
+  
+  # Stop playing a sound stream
+  # 
+  # This function stops the stream if it was playing or paused,
+  # and does nothing if it was already stopped.
+  # It also resets the playing position (unlike SoundStream_pause).
+  # 
+  # *Arguments*:
+  # 
+  # * `sound_stream`: Sound stream object
+  fun sound_stream_stop = sfSoundStream_stop(sound_stream: SoundStream)
+  
+  # Get the current status of a sound stream (stopped, paused, playing)
+  # 
+  # *Arguments*:
+  # 
+  # * `sound_stream`: Sound stream object
+  # 
+  # *Returns*: Current status
+  fun sound_stream_get_status = sfSoundStream_getStatus(sound_stream: SoundStream): SoundStatus
+  
+  # Return the number of channels of a sound stream
+  # 
+  # 1 channel means a mono sound, 2 means stereo, etc.
+  # 
+  # *Arguments*:
+  # 
+  # * `sound_stream`: Sound stream object
+  # 
+  # *Returns*: Number of channels
+  fun sound_stream_get_channel_count = sfSoundStream_getChannelCount(sound_stream: SoundStream): Int32
+  
+  # Get the sample rate of a sound stream
+  # 
+  # The sample rate is the number of audio samples played per
+  # second. The higher, the better the quality.
+  # 
+  # *Arguments*:
+  # 
+  # * `sound_stream`: Sound stream object
+  # 
+  # *Returns*: Sample rate, in number of samples per second
+  fun sound_stream_get_sample_rate = sfSoundStream_getSampleRate(sound_stream: SoundStream): Int32
+  
+  # Set the pitch of a sound stream
+  # 
+  # The pitch represents the perceived fundamental frequency
+  # of a sound; thus you can make a stream more acute or grave
+  # by changing its pitch. A side effect of changing the pitch
+  # is to modify the playing speed of the stream as well.
+  # The default value for the pitch is 1.
+  # 
+  # *Arguments*:
+  # 
+  # * `sound_stream`: Sound stream object
+  # * `pitch`: New pitch to apply to the stream
+  fun sound_stream_set_pitch = sfSoundStream_setPitch(sound_stream: SoundStream, pitch: Float32)
+  
+  # Set the volume of a sound stream
+  # 
+  # The volume is a value between 0 (mute) and 100 (full volume).
+  # The default value for the volume is 100.
+  # 
+  # *Arguments*:
+  # 
+  # * `sound_stream`: Sound stream object
+  # * `volume`: Volume of the stream
+  fun sound_stream_set_volume = sfSoundStream_setVolume(sound_stream: SoundStream, volume: Float32)
+  
+  # Set the 3D position of a sound stream in the audio scene
+  # 
+  # Only streams with one channel (mono streams) can be
+  # spatialized.
+  # The default position of a stream is (0, 0, 0).
+  # 
+  # *Arguments*:
+  # 
+  # * `sound_stream`: Sound stream object
+  # * `position`: Position of the stream in the scene
+  fun sound_stream_set_position = sfSoundStream_setPosition(sound_stream: SoundStream, position: Vector3f)
+  
+  # Make a sound stream's position relative to the listener or absolute
+  # 
+  # Making a stream relative to the listener will ensure that it will always
+  # be played the same way regardless the position of the listener.
+  # This can be useful for non-spatialized streams, streams that are
+  # produced by the listener, or streams attached to it.
+  # The default value is false (position is absolute).
+  # 
+  # *Arguments*:
+  # 
+  # * `sound_stream`: Sound stream object
+  # * `relative`: True to set the position relative, False to set it absolute
+  fun sound_stream_set_relative_to_listener = sfSoundStream_setRelativeToListener(sound_stream: SoundStream, relative: Int32)
+  
+  # Set the minimum distance of a sound stream
+  # 
+  # The "minimum distance" of a stream is the maximum
+  # distance at which it is heard at its maximum volume. Further
+  # than the minimum distance, it will start to fade out according
+  # to its attenuation factor. A value of 0 ("inside the head
+  # of the listener") is an invalid value and is forbidden.
+  # The default value of the minimum distance is 1.
+  # 
+  # *Arguments*:
+  # 
+  # * `sound_stream`: Sound stream object
+  # * `distance`: New minimum distance of the stream
+  fun sound_stream_set_min_distance = sfSoundStream_setMinDistance(sound_stream: SoundStream, distance: Float32)
+  
+  # Set the attenuation factor of a sound stream
+  # 
+  # The attenuation is a multiplicative factor which makes
+  # the stream more or less loud according to its distance
+  # from the listener. An attenuation of 0 will produce a
+  # non-attenuated stream, i.e. its volume will always be the same
+  # whether it is heard from near or from far. On the other hand,
+  # an attenuation value such as 100 will make the stream fade out
+  # very quickly as it gets further from the listener.
+  # The default value of the attenuation is 1.
+  # 
+  # *Arguments*:
+  # 
+  # * `sound_stream`: Sound stream object
+  # * `attenuation`: New attenuation factor of the stream
+  fun sound_stream_set_attenuation = sfSoundStream_setAttenuation(sound_stream: SoundStream, attenuation: Float32)
+  
+  # Change the current playing position of a sound stream
+  # 
+  # The playing position can be changed when the stream is
+  # either paused or playing.
+  # 
+  # *Arguments*:
+  # 
+  # * `sound_stream`: Sound stream object
+  # * `time_offset`: New playing position
+  fun sound_stream_set_playing_offset = sfSoundStream_setPlayingOffset(sound_stream: SoundStream, time_offset: Time)
+  
+  # Set whether or not a sound stream should loop after reaching the end
+  # 
+  # If set, the stream will restart from beginning after
+  # reaching the end and so on, until it is stopped or
+  # SoundStream_setLoop(stream, False) is called.
+  # The default looping state for sound streams is false.
+  # 
+  # *Arguments*:
+  # 
+  # * `sound_stream`: Sound stream object
+  # * `loop`: True to play in loop, False to play once
+  fun sound_stream_set_loop = sfSoundStream_setLoop(sound_stream: SoundStream, loop: Int32)
+  
+  # Get the pitch of a sound stream
+  # 
+  # *Arguments*:
+  # 
+  # * `sound_stream`: Sound stream object
+  # 
+  # *Returns*: Pitch of the stream
+  fun sound_stream_get_pitch = sfSoundStream_getPitch(sound_stream: SoundStream): Float32
+  
+  # Get the volume of a sound stream
+  # 
+  # *Arguments*:
+  # 
+  # * `sound_stream`: Sound stream object
+  # 
+  # *Returns*: Volume of the stream, in the range [0, 100]
+  fun sound_stream_get_volume = sfSoundStream_getVolume(sound_stream: SoundStream): Float32
+  
+  # Get the 3D position of a sound stream in the audio scene
+  # 
+  # *Arguments*:
+  # 
+  # * `sound_stream`: Sound stream object
+  # 
+  # *Returns*: Position of the stream in the world
+  fun sound_stream_get_position = sfSoundStream_getPosition(sound_stream: SoundStream): Vector3f
+  
+  # Tell whether a sound stream's position is relative to the
+  # listener or is absolute
+  # 
+  # *Arguments*:
+  # 
+  # * `sound_stream`: Sound stream object
+  # 
+  # *Returns*: True if the position is relative, False if it's absolute
+  fun sound_stream_is_relative_to_listener = sfSoundStream_isRelativeToListener(sound_stream: SoundStream): Int32
+  
+  # Get the minimum distance of a sound stream
+  # 
+  # *Arguments*:
+  # 
+  # * `sound_stream`: Sound stream object
+  # 
+  # *Returns*: Minimum distance of the stream
+  fun sound_stream_get_min_distance = sfSoundStream_getMinDistance(sound_stream: SoundStream): Float32
+  
+  # Get the attenuation factor of a sound stream
+  # 
+  # *Arguments*:
+  # 
+  # * `sound_stream`: Sound stream object
+  # 
+  # *Returns*: Attenuation factor of the stream
+  fun sound_stream_get_attenuation = sfSoundStream_getAttenuation(sound_stream: SoundStream): Float32
+  
+  # Tell whether or not a sound stream is in loop mode
+  # 
+  # *Arguments*:
+  # 
+  # * `sound_stream`: Sound stream object
+  # 
+  # *Returns*: True if the music is looping, False otherwise
+  fun sound_stream_get_loop = sfSoundStream_getLoop(sound_stream: SoundStream): Int32
+  
+  # Get the current playing position of a sound stream
+  # 
+  # *Arguments*:
+  # 
+  # * `sound_stream`: Sound stream object
+  # 
+  # *Returns*: Current playing position
+  fun sound_stream_get_playing_offset = sfSoundStream_getPlayingOffset(sound_stream: SoundStream): Time
   
 end

@@ -147,6 +147,11 @@ lib CSFML
     Left, Right, Middle, XButton1, XButton2, Count
   end
   
+  # Mouse wheels
+  enum MouseWheel
+    VerticalWheel, HorizontalWheel
+  end
+  
   # Check if a mouse button is pressed
   # 
   # *Arguments*:
@@ -220,11 +225,11 @@ lib CSFML
   # Definition of all the event types
   enum EventType
     Closed, Resized, LostFocus, GainedFocus, TextEntered, KeyPressed,
-    KeyReleased, MouseWheelMoved, MouseButtonPressed, MouseButtonReleased,
-    MouseMoved, MouseEntered, MouseLeft, JoystickButtonPressed,
-    JoystickButtonReleased, JoystickMoved, JoystickConnected,
-    JoystickDisconnected, TouchBegan, TouchMoved, TouchEnded, SensorChanged,
-    Count
+    KeyReleased, MouseWheelMoved, MouseWheelScrolled, MouseButtonPressed,
+    MouseButtonReleased, MouseMoved, MouseEntered, MouseLeft,
+    JoystickButtonPressed, JoystickButtonReleased, JoystickMoved,
+    JoystickConnected, JoystickDisconnected, TouchBegan, TouchMoved, TouchEnded,
+    SensorChanged, Count
   end
   
   # Keyboard event parameters
@@ -258,10 +263,19 @@ lib CSFML
     y: Int32
   end
   
-  # Mouse wheel events parameters
+  # Mouse wheel events parameters (deprecated)
   struct MouseWheelEvent
     type: EventType
     delta: Int32
+    x: Int32
+    y: Int32
+  end
+  
+  # Mouse wheel events parameters
+  struct MouseWheelScrollEvent
+    type: EventType
+    wheel: MouseWheel
+    delta: Float32
     x: Int32
     y: Int32
   end
@@ -320,12 +334,35 @@ lib CSFML
     mouse_move: MouseMoveEvent
     mouse_button: MouseButtonEvent
     mouse_wheel: MouseWheelEvent
+    mouse_wheel_scroll: MouseWheelScrollEvent
     joystick_move: JoystickMoveEvent
     joystick_button: JoystickButtonEvent
     joystick_connect: JoystickConnectEvent
     touch: TouchEvent
     sensor: SensorEvent
   end
+  
+  # Check if a touch event is currently down
+  # 
+  # *Arguments*:
+  # 
+  # * `finger`: Finger index
+  # 
+  # *Returns*: True if `finger` is currently touching the screen, False otherwise
+  fun touch_is_down = sfTouch_isDown(finger: Int32): Int32
+  
+  # Get the current position of a touch in window coordinates
+  # 
+  # This function returns the current touch position
+  # relative to the given window, or desktop if NULL is passed.
+  # 
+  # *Arguments*:
+  # 
+  # * `finger`: Finger index
+  # * `relative_to`: Reference window
+  # 
+  # *Returns*: Current position of `finger`, or undefined if it's not down
+  fun touch_get_position = sfTouch_getPosition(finger: Int32, relative_to: Window): Vector2i
   
   # VideoMode defines a video mode (width, height, bpp, frequency)
   # and provides functions for getting modes supported
@@ -377,6 +414,11 @@ lib CSFML
     None = 0, Titlebar = 1, Resize = 2, Close = 4, Default = 7, Fullscreen = 8
   end
   
+  # Enumeration of the context attribute flags
+  enum ContextAttribute
+    Default = 0, Core = 1, Debug = 4
+  end
+  
   # Structure defining the window's creation settings
   struct ContextSettings
     depth_bits: Int32
@@ -384,6 +426,7 @@ lib CSFML
     antialiasing_level: Int32
     major_version: Int32
     minor_version: Int32
+    attribute_flags: UInt32
   end
   
   # Construct a new window

@@ -46,6 +46,13 @@ module SF
   alias Color = CSFML::Color
 
   struct CSFML::Color
+    # Convert a color to a 32-bit unsigned integer
+    # 
+    # *Returns*: Color represented as a 32-bit unsigned integer
+    def to_integer()
+      CSFML.color_to_integer(self)
+    end
+    
     # Add two colors
     # 
     # *Arguments*:
@@ -56,6 +63,18 @@ module SF
     # *Returns*: Component-wise saturated addition of the two colors
     def add(color2: Color)
       CSFML.color_add(self, color2)
+    end
+    
+    # Subtract two colors
+    # 
+    # *Arguments*:
+    # 
+    # * `color1`: First color
+    # * `color2`: Second color
+    # 
+    # *Returns*: Component-wise saturated subtraction of the two colors
+    def subtract(color2: Color)
+      CSFML.color_subtract(self, color2)
     end
     
     # Modulate two colors
@@ -506,7 +525,8 @@ module SF
     # * `index`: Index of the point to get, in range [0 .. get_point_count() - 1]
     # 
     # *Returns*: Index-th point of the shape
-    def get_point(index: Int32)
+    def get_point(index: Int)
+      index = CSFML::SizeT.cast(index)
       SF.vector2(CSFML.circle_shape_get_point(@this, index))
     end
     
@@ -538,7 +558,8 @@ module SF
     # 
     # * `shape`: Shape object
     # * `count`: New number of points of the circle
-    def point_count=(count: Int32)
+    def point_count=(count: Int)
+      count = CSFML::SizeT.cast(count)
       CSFML.circle_shape_set_point_count(@this, count)
     end
     
@@ -944,7 +965,8 @@ module SF
     # * `index`: Index of the point to get, in range [0 .. get_point_count() - 1]
     # 
     # *Returns*: Index-th point of the shape
-    def get_point(index: Int32)
+    def get_point(index: Int)
+      index = CSFML::SizeT.cast(index)
       SF.vector2(CSFML.convex_shape_get_point(@this, index))
     end
     
@@ -956,7 +978,8 @@ module SF
     # 
     # * `shape`: Shape object
     # * `count`: New number of points of the shape
-    def point_count=(count: Int32)
+    def point_count=(count: Int)
+      count = CSFML::SizeT.cast(count)
       CSFML.convex_shape_set_point_count(@this, count)
     end
     
@@ -973,7 +996,8 @@ module SF
     # * `shape`: Shape object
     # * `index`: Index of the point to change, in range [0 .. GetPointCount() - 1]
     # * `point`: New point
-    def set_point(index: Int32, point)
+    def set_point(index: Int, point)
+      index = CSFML::SizeT.cast(index)
       point = SF.vector2f(point) unless point.is_a? Vector2f
       CSFML.convex_shape_set_point(@this, index, point)
     end
@@ -1700,6 +1724,21 @@ module SF
       CSFML.shader_set_current_texture_parameter(@this, name)
     end
     
+    # Get the underlying OpenGL handle of the shader.
+    # 
+    # You shouldn't need to use this function, unless you have
+    # very specific stuff to implement that SFML doesn't support,
+    # or implement a temporary workaround until a bug is fixed.
+    # 
+    # *Arguments*:
+    # 
+    # * `shader`: Shader object
+    # 
+    # *Returns*: OpenGL handle of the shader or 0 if not yet loaded
+    def native_handle
+      CSFML.shader_get_native_handle(@this)
+    end
+    
     # Bind a shader for rendering (activate it)
     # 
     # This function is not part of the graphics API, it mustn't be
@@ -2093,7 +2132,8 @@ module SF
     # * `index`: Index of the point to get, in range [0 .. get_point_count() - 1]
     # 
     # *Returns*: Index-th point of the shape
-    def get_point(index: Int32)
+    def get_point(index: Int)
+      index = CSFML::SizeT.cast(index)
       SF.vector2(CSFML.rectangle_shape_get_point(@this, index))
     end
     
@@ -2433,7 +2473,7 @@ module SF
     # * `vertex_count`: Number of vertices in the array
     # * `type`: Type of primitives to draw
     # * `states`: Render states to use for drawing (NULL to use the default states)
-    def draw_primitives(vertices, vertex_count: Int32, type: PrimitiveType, states)
+    def draw_primitives(vertices, vertex_count: Int, type: PrimitiveType, states)
       if vertices
         if vertices.responds_to?(:to_unsafe)
           pvertices = vertices.to_unsafe
@@ -2443,6 +2483,7 @@ module SF
       else
         pvertices = nil
       end
+      vertex_count = CSFML::SizeT.cast(vertex_count)
       if states
         if states.responds_to?(:to_unsafe)
           pstates = states.to_unsafe
@@ -3093,7 +3134,7 @@ module SF
     # * `vertex_count`: Number of vertices in the array
     # * `type`: Type of primitives to draw
     # * `states`: Render states to use for drawing (NULL to use the default states)
-    def draw_primitives(vertices, vertex_count: Int32, type: PrimitiveType, states)
+    def draw_primitives(vertices, vertex_count: Int, type: PrimitiveType, states)
       if vertices
         if vertices.responds_to?(:to_unsafe)
           pvertices = vertices.to_unsafe
@@ -3103,6 +3144,7 @@ module SF
       else
         pvertices = nil
       end
+      vertex_count = CSFML::SizeT.cast(vertex_count)
       if states
         if states.responds_to?(:to_unsafe)
           pstates = states.to_unsafe
@@ -3548,7 +3590,8 @@ module SF
     # * `index`: Index of the point to get, in range [0 .. get_point_count() - 1]
     # 
     # *Returns*: Index-th point of the shape
-    def get_point(index: Int32)
+    def get_point(index: Int)
+      index = CSFML::SizeT.cast(index)
       SF.vector2(CSFML.shape_get_point(@this, index))
     end
     
@@ -4581,6 +4624,21 @@ module SF
       CSFML.texture_is_repeated(@this) != 0
     end
     
+    # Get the underlying OpenGL handle of the texture.
+    # 
+    # You shouldn't need to use this function, unless you have
+    # very specific stuff to implement that SFML doesn't support,
+    # or implement a temporary workaround until a bug is fixed.
+    # 
+    # *Arguments*:
+    # 
+    # * `texture`: The texture object
+    # 
+    # *Returns*: OpenGL handle of the texture or 0 if not yet created
+    def native_handle
+      CSFML.texture_get_native_handle(@this)
+    end
+    
     # Bind a texture for rendering
     # 
     # This function is not part of the graphics API, it mustn't be
@@ -4864,7 +4922,8 @@ module SF
     # * `index`: Index of the vertex to get
     # 
     # *Returns*: Pointer to the index-th vertex
-    def get_vertex(index: Int32)
+    def get_vertex(index: Int)
+      index = CSFML::SizeT.cast(index)
       CSFML.vertex_array_get_vertex(@this, index)
     end
     
@@ -4894,7 +4953,8 @@ module SF
     # 
     # * `vertex_array`: Vertex array objet
     # * `vertex_count`: New size of the array (number of vertices)
-    def resize(vertex_count: Int32)
+    def resize(vertex_count: Int)
+      vertex_count = CSFML::SizeT.cast(vertex_count)
       CSFML.vertex_array_resize(@this, vertex_count)
     end
     
@@ -5460,6 +5520,17 @@ module SF
   # *Returns*: Color constructed from the components
   def color(red: UInt8, green: UInt8, blue: UInt8, alpha: UInt8)
     CSFML.color_from_rgba(red, green, blue, alpha)
+  end
+  
+  # Construct the color from 32-bit unsigned integer
+  # 
+  # *Arguments*:
+  # 
+  # * `color`: Number containing the RGBA components (in that order)
+  # 
+  # *Returns*: Color constructed from the 32-bit unsigned integer
+  def color(color: Char)
+    CSFML.color_from_integer(color)
   end
   
   # Create a new transform from a matrix

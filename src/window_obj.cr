@@ -42,6 +42,9 @@ module SF
   class Window
     include Wrapper
     
+    Default = CSFML::ContextAttribute::Default
+    Core = CSFML::ContextAttribute::Core
+    Debug = CSFML::ContextAttribute::Debug
     # Construct a new window (with a UTF-32 title)
     # 
     # This function creates the window with the size and pixel
@@ -801,6 +804,8 @@ module SF
     XButton1 = CSFML::MouseButton::XButton1
     XButton2 = CSFML::MouseButton::XButton2
     ButtonCount = CSFML::MouseButton::Count.value
+    VerticalWheel = CSFML::MouseWheel::VerticalWheel
+    HorizontalWheel = CSFML::MouseWheel::HorizontalWheel
     # Check if a mouse button is pressed
     # 
     # *Arguments*:
@@ -841,6 +846,12 @@ module SF
     end
     
   end
+
+  # Mouse wheels
+  #
+  # * Mouse::VerticalWheel
+  # * Mouse::HorizontalWheel
+  alias MouseWheel = CSFML::MouseWheel
 
   # Sensor Types
   #
@@ -912,6 +923,7 @@ module SF
   # * Event::KeyPressed
   # * Event::KeyReleased
   # * Event::MouseWheelMoved
+  # * Event::MouseWheelScrolled
   # * Event::MouseButtonPressed
   # * Event::MouseButtonReleased
   # * Event::MouseMoved
@@ -938,6 +950,7 @@ module SF
     KeyPressed = CSFML::EventType::KeyPressed
     KeyReleased = CSFML::EventType::KeyReleased
     MouseWheelMoved = CSFML::EventType::MouseWheelMoved
+    MouseWheelScrolled = CSFML::EventType::MouseWheelScrolled
     MouseButtonPressed = CSFML::EventType::MouseButtonPressed
     MouseButtonReleased = CSFML::EventType::MouseButtonReleased
     MouseMoved = CSFML::EventType::MouseMoved
@@ -967,8 +980,11 @@ module SF
   # Mouse buttons events parameters
   alias MouseButtonEvent = CSFML::MouseButtonEvent
 
-  # Mouse wheel events parameters
+  # Mouse wheel events parameters (deprecated)
   alias MouseWheelEvent = CSFML::MouseWheelEvent
+
+  # Mouse wheel events parameters
+  alias MouseWheelScrollEvent = CSFML::MouseWheelScrollEvent
 
   # Joystick axis move event parameters
   alias JoystickMoveEvent = CSFML::JoystickMoveEvent
@@ -990,6 +1006,35 @@ module SF
 
   # Event defines a system event and its parameters
   alias Event = CSFML::Event
+
+  class Touch
+    # Check if a touch event is currently down
+    # 
+    # *Arguments*:
+    # 
+    # * `finger`: Finger index
+    # 
+    # *Returns*: True if `finger` is currently touching the screen, False otherwise
+    def self.is_down(finger: Int32)
+      CSFML.touch_is_down(finger) != 0
+    end
+    
+    # Get the current position of a touch in window coordinates
+    # 
+    # This function returns the current touch position
+    # relative to the given window, or desktop if NULL is passed.
+    # 
+    # *Arguments*:
+    # 
+    # * `finger`: Finger index
+    # * `relative_to`: Reference window
+    # 
+    # *Returns*: Current position of `finger`, or undefined if it's not down
+    def self.get_position(finger: Int32, relative_to: Window)
+      SF.vector2(CSFML.touch_get_position(finger, relative_to))
+    end
+    
+  end
 
   # VideoMode defines a video mode (width, height, bpp, frequency)
   # and provides functions for getting modes supported
@@ -1050,6 +1095,13 @@ module SF
   # * DefaultStyle
   # * Fullscreen
   alias WindowStyle = CSFML::WindowStyle
+
+  # Enumeration of the context attribute flags
+  #
+  # * Window::Default
+  # * Window::Core
+  # * Window::Debug
+  alias ContextAttribute = CSFML::ContextAttribute
 
   # Structure defining the window's creation settings
   alias ContextSettings = CSFML::ContextSettings

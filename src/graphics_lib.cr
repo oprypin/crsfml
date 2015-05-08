@@ -57,6 +57,20 @@ lib CSFML
   # *Returns*: Color constructed from the components
   fun color_from_rgba = sfColor_fromRGBA(red: UInt8, green: UInt8, blue: UInt8, alpha: UInt8): Color
   
+  # Construct the color from 32-bit unsigned integer
+  # 
+  # *Arguments*:
+  # 
+  # * `color`: Number containing the RGBA components (in that order)
+  # 
+  # *Returns*: Color constructed from the 32-bit unsigned integer
+  fun color_from_integer = sfColor_fromInteger(color: Char): Color
+  
+  # Convert a color to a 32-bit unsigned integer
+  # 
+  # *Returns*: Color represented as a 32-bit unsigned integer
+  fun color_to_integer = sfColor_toInteger(color: Color): Char
+  
   # Add two colors
   # 
   # *Arguments*:
@@ -66,6 +80,16 @@ lib CSFML
   # 
   # *Returns*: Component-wise saturated addition of the two colors
   fun color_add = sfColor_add(color1: Color, color2: Color): Color
+  
+  # Subtract two colors
+  # 
+  # *Arguments*:
+  # 
+  # * `color1`: First color
+  # * `color2`: Second color
+  # 
+  # *Returns*: Component-wise saturated subtraction of the two colors
+  fun color_subtract = sfColor_subtract(color1: Color, color2: Color): Color
   
   # Modulate two colors
   # 
@@ -575,7 +599,7 @@ lib CSFML
   # * `shape`: Shape object
   # 
   # *Returns*: Number of points of the shape
-  fun circle_shape_get_point_count = sfCircleShape_getPointCount(shape: CircleShape): Int32
+  fun circle_shape_get_point_count = sfCircleShape_getPointCount(shape: CircleShape): SizeT
   
   # Get a point of a circle shape
   # 
@@ -587,7 +611,7 @@ lib CSFML
   # * `index`: Index of the point to get, in range [0 .. get_point_count() - 1]
   # 
   # *Returns*: Index-th point of the shape
-  fun circle_shape_get_point = sfCircleShape_getPoint(shape: CircleShape, index: Int32): Vector2f
+  fun circle_shape_get_point = sfCircleShape_getPoint(shape: CircleShape, index: SizeT): Vector2f
   
   # Set the radius of a circle
   # 
@@ -612,7 +636,7 @@ lib CSFML
   # 
   # * `shape`: Shape object
   # * `count`: New number of points of the circle
-  fun circle_shape_set_point_count = sfCircleShape_setPointCount(shape: CircleShape, count: Int32)
+  fun circle_shape_set_point_count = sfCircleShape_setPointCount(shape: CircleShape, count: SizeT)
   
   # Get the local bounding rectangle of a circle shape
   # 
@@ -931,7 +955,7 @@ lib CSFML
   # * `shape`: Shape object
   # 
   # *Returns*: Number of points of the shape
-  fun convex_shape_get_point_count = sfConvexShape_getPointCount(shape: ConvexShape): Int32
+  fun convex_shape_get_point_count = sfConvexShape_getPointCount(shape: ConvexShape): SizeT
   
   # Get a point of a convex shape
   # 
@@ -943,7 +967,7 @@ lib CSFML
   # * `index`: Index of the point to get, in range [0 .. get_point_count() - 1]
   # 
   # *Returns*: Index-th point of the shape
-  fun convex_shape_get_point = sfConvexShape_getPoint(shape: ConvexShape, index: Int32): Vector2f
+  fun convex_shape_get_point = sfConvexShape_getPoint(shape: ConvexShape, index: SizeT): Vector2f
   
   # Set the number of points of a convex shap
   # 
@@ -953,7 +977,7 @@ lib CSFML
   # 
   # * `shape`: Shape object
   # * `count`: New number of points of the shape
-  fun convex_shape_set_point_count = sfConvexShape_setPointCount(shape: ConvexShape, count: Int32)
+  fun convex_shape_set_point_count = sfConvexShape_setPointCount(shape: ConvexShape, count: SizeT)
   
   # Set the position of a point in a convex shape
   # 
@@ -968,7 +992,7 @@ lib CSFML
   # * `shape`: Shape object
   # * `index`: Index of the point to change, in range [0 .. GetPointCount() - 1]
   # * `point`: New point
-  fun convex_shape_set_point = sfConvexShape_setPoint(shape: ConvexShape, index: Int32, point: Vector2f)
+  fun convex_shape_set_point = sfConvexShape_setPoint(shape: ConvexShape, index: SizeT, point: Vector2f)
   
   # Get the local bounding rectangle of a convex shape
   # 
@@ -1649,7 +1673,7 @@ lib CSFML
   # * `shape`: Shape object
   # 
   # *Returns*: Number of points of the shape
-  fun rectangle_shape_get_point_count = sfRectangleShape_getPointCount(shape: RectangleShape): Int32
+  fun rectangle_shape_get_point_count = sfRectangleShape_getPointCount(shape: RectangleShape): SizeT
   
   # Get a point of a rectangle shape
   # 
@@ -1661,7 +1685,7 @@ lib CSFML
   # * `index`: Index of the point to get, in range [0 .. get_point_count() - 1]
   # 
   # *Returns*: Index-th point of the shape
-  fun rectangle_shape_get_point = sfRectangleShape_getPoint(shape: RectangleShape, index: Int32): Vector2f
+  fun rectangle_shape_get_point = sfRectangleShape_getPoint(shape: RectangleShape, index: SizeT): Vector2f
   
   # Set the size of a rectangle shape
   # 
@@ -1723,6 +1747,265 @@ lib CSFML
     color: Color
     tex_coords: Vector2f
   end
+  
+  # Construct a new render texture
+  # 
+  # *Arguments*:
+  # 
+  # * `width`: Width of the render texture
+  # * `height`: Height of the render texture
+  # * `depth_buffer`: Do you want a depth-buffer attached? (useful only if you're doing 3D OpenGL on the rendertexture)
+  # 
+  # *Returns*: A new RenderTexture object, or NULL if it failed
+  fun render_texture_create = sfRenderTexture_create(width: Int32, height: Int32, depth_buffer: Int32): RenderTexture
+  
+  # Destroy an existing render texture
+  # 
+  # *Arguments*:
+  # 
+  # * `render_texture`: Render texture to destroy
+  fun render_texture_destroy = sfRenderTexture_destroy(render_texture: RenderTexture)
+  
+  # Get the size of the rendering region of a render texture
+  # 
+  # *Arguments*:
+  # 
+  # * `render_texture`: Render texture object
+  # 
+  # *Returns*: Size in pixels
+  fun render_texture_get_size = sfRenderTexture_getSize(render_texture: RenderTexture): Vector2i
+  
+  # Activate or deactivate a render texture as the current target for rendering
+  # 
+  # *Arguments*:
+  # 
+  # * `render_texture`: Render texture object
+  # * `active`: True to activate, False to deactivate
+  # 
+  # *Returns*: True if operation was successful, false otherwise
+  fun render_texture_set_active = sfRenderTexture_setActive(render_texture: RenderTexture, active: Int32): Int32
+  
+  # Update the contents of the target texture
+  # 
+  # *Arguments*:
+  # 
+  # * `render_texture`: Render texture object
+  fun render_texture_display = sfRenderTexture_display(render_texture: RenderTexture)
+  
+  # Clear the rendertexture with the given color
+  # 
+  # *Arguments*:
+  # 
+  # * `render_texture`: Render texture object
+  # * `color`: Fill color
+  fun render_texture_clear = sfRenderTexture_clear(render_texture: RenderTexture, color: Color)
+  
+  # Change the current active view of a render texture
+  # 
+  # *Arguments*:
+  # 
+  # * `render_texture`: Render texture object
+  # * `view`: Pointer to the new view
+  fun render_texture_set_view = sfRenderTexture_setView(render_texture: RenderTexture, view: View)
+  
+  # Get the current active view of a render texture
+  # 
+  # *Arguments*:
+  # 
+  # * `render_texture`: Render texture object
+  # 
+  # *Returns*: Current active view
+  fun render_texture_get_view = sfRenderTexture_getView(render_texture: RenderTexture): View
+  
+  # Get the default view of a render texture
+  # 
+  # *Arguments*:
+  # 
+  # * `render_texture`: Render texture object
+  # 
+  # *Returns*: Default view of the rendertexture
+  fun render_texture_get_default_view = sfRenderTexture_getDefaultView(render_texture: RenderTexture): View
+  
+  # Get the viewport of a view applied to this target
+  # 
+  # *Arguments*:
+  # 
+  # * `render_texture`: Render texture object
+  # * `view`: Target view
+  # 
+  # *Returns*: Viewport rectangle, expressed in pixels in the current target
+  fun render_texture_get_viewport = sfRenderTexture_getViewport(render_texture: RenderTexture, view: View): IntRect
+  
+  # Convert a point from texture coordinates to world coordinates
+  # 
+  # This function finds the 2D position that matches the
+  # given pixel of the render-texture. In other words, it does
+  # the inverse of what the graphics card does, to find the
+  # initial position of a rendered pixel.
+  # 
+  # Initially, both coordinate systems (world units and target pixels)
+  # match perfectly. But if you define a custom view or resize your
+  # render-texture, this assertion is not true anymore, ie. a point
+  # located at (10, 50) in your render-texture may map to the point
+  # (150, 75) in your 2D world -- if the view is translated by (140, 25).
+  # 
+  # This version uses a custom view for calculations, see the other
+  # overload of the function if you want to use the current view of the
+  # render-texture.
+  # 
+  # *Arguments*:
+  # 
+  # * `render_texture`: Render texture object
+  # * `point`: Pixel to convert
+  # * `view`: The view to use for converting the point
+  # 
+  # *Returns*: The converted point, in "world" units
+  fun render_texture_map_pixel_to_coords = sfRenderTexture_mapPixelToCoords(render_texture: RenderTexture, point: Vector2i, view: View): Vector2f
+  
+  # Convert a point from world coordinates to texture coordinates
+  # 
+  # This function finds the pixel of the render-texture that matches
+  # the given 2D point. In other words, it goes through the same process
+  # as the graphics card, to compute the final position of a rendered point.
+  # 
+  # Initially, both coordinate systems (world units and target pixels)
+  # match perfectly. But if you define a custom view or resize your
+  # render-texture, this assertion is not true anymore, ie. a point
+  # located at (150, 75) in your 2D world may map to the pixel
+  # (10, 50) of your render-texture -- if the view is translated by (140, 25).
+  # 
+  # This version uses a custom view for calculations, see the other
+  # overload of the function if you want to use the current view of the
+  # render-texture.
+  # 
+  # *Arguments*:
+  # 
+  # * `render_texture`: Render texture object
+  # * `point`: Point to convert
+  # * `view`: The view to use for converting the point
+  # 
+  # *Returns*: The converted point, in target coordinates (pixels)
+  fun render_texture_map_coords_to_pixel = sfRenderTexture_mapCoordsToPixel(render_texture: RenderTexture, point: Vector2f, view: View): Vector2i
+  
+  # Draw a drawable object to the render-target
+  # 
+  # *Arguments*:
+  # 
+  # * `render_texture`: Render texture object
+  # * `object`: Object to draw
+  # * `states`: Render states to use for drawing (NULL to use the default states)
+  fun render_texture_draw_sprite = sfRenderTexture_drawSprite(render_texture: RenderTexture, object: Sprite, states: RenderStates*)
+  
+  fun render_texture_draw_text = sfRenderTexture_drawText(render_texture: RenderTexture, object: Text, states: RenderStates*)
+  
+  fun render_texture_draw_shape = sfRenderTexture_drawShape(render_texture: RenderTexture, object: Shape, states: RenderStates*)
+  
+  fun render_texture_draw_circle_shape = sfRenderTexture_drawCircleShape(render_texture: RenderTexture, object: CircleShape, states: RenderStates*)
+  
+  fun render_texture_draw_convex_shape = sfRenderTexture_drawConvexShape(render_texture: RenderTexture, object: ConvexShape, states: RenderStates*)
+  
+  fun render_texture_draw_rectangle_shape = sfRenderTexture_drawRectangleShape(render_texture: RenderTexture, object: RectangleShape, states: RenderStates*)
+  
+  fun render_texture_draw_vertex_array = sfRenderTexture_drawVertexArray(render_texture: RenderTexture, object: VertexArray, states: RenderStates*)
+  
+  # Draw primitives defined by an array of vertices to a render texture
+  # 
+  # *Arguments*:
+  # 
+  # * `render_texture`: Render texture object
+  # * `vertices`: Pointer to the vertices
+  # * `vertex_count`: Number of vertices in the array
+  # * `type`: Type of primitives to draw
+  # * `states`: Render states to use for drawing (NULL to use the default states)
+  fun render_texture_draw_primitives = sfRenderTexture_drawPrimitives(render_texture: RenderTexture, vertices: Vertex*, vertex_count: SizeT, type: PrimitiveType, states: RenderStates*)
+  
+  # Save the current OpenGL render states and matrices
+  # 
+  # This function can be used when you mix SFML drawing
+  # and direct OpenGL rendering. Combined with pop_gl_states,
+  # it ensures that:
+  # - SFML's internal states are not messed up by your OpenGL code
+  # - your OpenGL states are not modified by a call to a SFML function
+  # 
+  # Note that this function is quite expensive: it saves all the
+  # possible OpenGL states and matrices, even the ones you
+  # don't care about. Therefore it should be used wisely.
+  # It is provided for convenience, but the best results will
+  # be achieved if you handle OpenGL states yourself (because
+  # you know which states have really changed, and need to be
+  # saved and restored). Take a look at the reset_gl_states
+  # function if you do so.
+  # 
+  # *Arguments*:
+  # 
+  # * `render_texture`: Render texture object
+  fun render_texture_push_gl_states = sfRenderTexture_pushGLStates(render_texture: RenderTexture)
+  
+  # Restore the previously saved OpenGL render states and matrices
+  # 
+  # See the description of push_gl_states to get a detailed
+  # description of these functions.
+  # 
+  # *Arguments*:
+  # 
+  # * `render_texture`: Render texture object
+  fun render_texture_pop_gl_states = sfRenderTexture_popGLStates(render_texture: RenderTexture)
+  
+  # Reset the internal OpenGL states so that the target is ready for drawing
+  # 
+  # This function can be used when you mix SFML drawing
+  # and direct OpenGL rendering, if you choose not to use
+  # push_gl_states/pop_gl_states. It makes sure that all OpenGL
+  # states needed by SFML are set, so that subsequent RenderTexture_draw*()
+  # calls will work as expected.
+  # 
+  # *Arguments*:
+  # 
+  # * `render_texture`: Render texture object
+  fun render_texture_reset_gl_states = sfRenderTexture_resetGLStates(render_texture: RenderTexture)
+  
+  # Get the target texture of a render texture
+  # 
+  # *Arguments*:
+  # 
+  # * `render_texture`: Render texture object
+  # 
+  # *Returns*: Pointer to the target texture
+  fun render_texture_get_texture = sfRenderTexture_getTexture(render_texture: RenderTexture): Texture
+  
+  # Enable or disable the smooth filter on a render texture
+  # 
+  # *Arguments*:
+  # 
+  # * `render_texture`: Render texture object
+  # * `smooth`: True to enable smoothing, False to disable it
+  fun render_texture_set_smooth = sfRenderTexture_setSmooth(render_texture: RenderTexture, smooth: Int32)
+  
+  # Tell whether the smooth filter is enabled or not for a render texture
+  # 
+  # *Arguments*:
+  # 
+  # * `render_texture`: Render texture object
+  # 
+  # *Returns*: True if smoothing is enabled, False if it is disabled
+  fun render_texture_is_smooth = sfRenderTexture_isSmooth(render_texture: RenderTexture): Int32
+  
+  # Enable or disable texture repeating
+  # 
+  # *Arguments*:
+  # 
+  # * `render_texture`: Render texture object
+  # * `repeated`: True to enable repeating, False to disable it
+  fun render_texture_set_repeated = sfRenderTexture_setRepeated(render_texture: RenderTexture, repeated: Int32)
+  
+  # Tell whether the texture is repeated or not
+  # 
+  # *Arguments*:
+  # 
+  # * `render_texture`: Render texture object
+  # 
+  # *Returns*: True if repeat mode is enabled, False if it is disabled
+  fun render_texture_is_repeated = sfRenderTexture_isRepeated(render_texture: RenderTexture): Int32
   
   # Construct a new render window
   # 
@@ -2088,7 +2371,7 @@ lib CSFML
   # * `vertex_count`: Number of vertices in the array
   # * `type`: Type of primitives to draw
   # * `states`: Render states to use for drawing (NULL to use the default states)
-  fun render_window_draw_primitives = sfRenderWindow_drawPrimitives(render_window: RenderWindow, vertices: Vertex*, vertex_count: Int32, type: PrimitiveType, states: RenderStates*)
+  fun render_window_draw_primitives = sfRenderWindow_drawPrimitives(render_window: RenderWindow, vertices: Vertex*, vertex_count: SizeT, type: PrimitiveType, states: RenderStates*)
   
   # Save the current OpenGL render states and matrices
   # 
@@ -2187,265 +2470,6 @@ lib CSFML
   # 
   # *Returns*: Current position of `finger`, or undefined if it's not down
   fun touch_get_position_render_window = sfTouch_getPositionRenderWindow(finger: Int32, relative_to: RenderWindow): Vector2i
-  
-  # Construct a new render texture
-  # 
-  # *Arguments*:
-  # 
-  # * `width`: Width of the render texture
-  # * `height`: Height of the render texture
-  # * `depth_buffer`: Do you want a depth-buffer attached? (useful only if you're doing 3D OpenGL on the rendertexture)
-  # 
-  # *Returns*: A new RenderTexture object, or NULL if it failed
-  fun render_texture_create = sfRenderTexture_create(width: Int32, height: Int32, depth_buffer: Int32): RenderTexture
-  
-  # Destroy an existing render texture
-  # 
-  # *Arguments*:
-  # 
-  # * `render_texture`: Render texture to destroy
-  fun render_texture_destroy = sfRenderTexture_destroy(render_texture: RenderTexture)
-  
-  # Get the size of the rendering region of a render texture
-  # 
-  # *Arguments*:
-  # 
-  # * `render_texture`: Render texture object
-  # 
-  # *Returns*: Size in pixels
-  fun render_texture_get_size = sfRenderTexture_getSize(render_texture: RenderTexture): Vector2i
-  
-  # Activate or deactivate a render texture as the current target for rendering
-  # 
-  # *Arguments*:
-  # 
-  # * `render_texture`: Render texture object
-  # * `active`: True to activate, False to deactivate
-  # 
-  # *Returns*: True if operation was successful, false otherwise
-  fun render_texture_set_active = sfRenderTexture_setActive(render_texture: RenderTexture, active: Int32): Int32
-  
-  # Update the contents of the target texture
-  # 
-  # *Arguments*:
-  # 
-  # * `render_texture`: Render texture object
-  fun render_texture_display = sfRenderTexture_display(render_texture: RenderTexture)
-  
-  # Clear the rendertexture with the given color
-  # 
-  # *Arguments*:
-  # 
-  # * `render_texture`: Render texture object
-  # * `color`: Fill color
-  fun render_texture_clear = sfRenderTexture_clear(render_texture: RenderTexture, color: Color)
-  
-  # Change the current active view of a render texture
-  # 
-  # *Arguments*:
-  # 
-  # * `render_texture`: Render texture object
-  # * `view`: Pointer to the new view
-  fun render_texture_set_view = sfRenderTexture_setView(render_texture: RenderTexture, view: View)
-  
-  # Get the current active view of a render texture
-  # 
-  # *Arguments*:
-  # 
-  # * `render_texture`: Render texture object
-  # 
-  # *Returns*: Current active view
-  fun render_texture_get_view = sfRenderTexture_getView(render_texture: RenderTexture): View
-  
-  # Get the default view of a render texture
-  # 
-  # *Arguments*:
-  # 
-  # * `render_texture`: Render texture object
-  # 
-  # *Returns*: Default view of the rendertexture
-  fun render_texture_get_default_view = sfRenderTexture_getDefaultView(render_texture: RenderTexture): View
-  
-  # Get the viewport of a view applied to this target
-  # 
-  # *Arguments*:
-  # 
-  # * `render_texture`: Render texture object
-  # * `view`: Target view
-  # 
-  # *Returns*: Viewport rectangle, expressed in pixels in the current target
-  fun render_texture_get_viewport = sfRenderTexture_getViewport(render_texture: RenderTexture, view: View): IntRect
-  
-  # Convert a point from texture coordinates to world coordinates
-  # 
-  # This function finds the 2D position that matches the
-  # given pixel of the render-texture. In other words, it does
-  # the inverse of what the graphics card does, to find the
-  # initial position of a rendered pixel.
-  # 
-  # Initially, both coordinate systems (world units and target pixels)
-  # match perfectly. But if you define a custom view or resize your
-  # render-texture, this assertion is not true anymore, ie. a point
-  # located at (10, 50) in your render-texture may map to the point
-  # (150, 75) in your 2D world -- if the view is translated by (140, 25).
-  # 
-  # This version uses a custom view for calculations, see the other
-  # overload of the function if you want to use the current view of the
-  # render-texture.
-  # 
-  # *Arguments*:
-  # 
-  # * `render_texture`: Render texture object
-  # * `point`: Pixel to convert
-  # * `view`: The view to use for converting the point
-  # 
-  # *Returns*: The converted point, in "world" units
-  fun render_texture_map_pixel_to_coords = sfRenderTexture_mapPixelToCoords(render_texture: RenderTexture, point: Vector2i, view: View): Vector2f
-  
-  # Convert a point from world coordinates to texture coordinates
-  # 
-  # This function finds the pixel of the render-texture that matches
-  # the given 2D point. In other words, it goes through the same process
-  # as the graphics card, to compute the final position of a rendered point.
-  # 
-  # Initially, both coordinate systems (world units and target pixels)
-  # match perfectly. But if you define a custom view or resize your
-  # render-texture, this assertion is not true anymore, ie. a point
-  # located at (150, 75) in your 2D world may map to the pixel
-  # (10, 50) of your render-texture -- if the view is translated by (140, 25).
-  # 
-  # This version uses a custom view for calculations, see the other
-  # overload of the function if you want to use the current view of the
-  # render-texture.
-  # 
-  # *Arguments*:
-  # 
-  # * `render_texture`: Render texture object
-  # * `point`: Point to convert
-  # * `view`: The view to use for converting the point
-  # 
-  # *Returns*: The converted point, in target coordinates (pixels)
-  fun render_texture_map_coords_to_pixel = sfRenderTexture_mapCoordsToPixel(render_texture: RenderTexture, point: Vector2f, view: View): Vector2i
-  
-  # Draw a drawable object to the render-target
-  # 
-  # *Arguments*:
-  # 
-  # * `render_texture`: Render texture object
-  # * `object`: Object to draw
-  # * `states`: Render states to use for drawing (NULL to use the default states)
-  fun render_texture_draw_sprite = sfRenderTexture_drawSprite(render_texture: RenderTexture, object: Sprite, states: RenderStates*)
-  
-  fun render_texture_draw_text = sfRenderTexture_drawText(render_texture: RenderTexture, object: Text, states: RenderStates*)
-  
-  fun render_texture_draw_shape = sfRenderTexture_drawShape(render_texture: RenderTexture, object: Shape, states: RenderStates*)
-  
-  fun render_texture_draw_circle_shape = sfRenderTexture_drawCircleShape(render_texture: RenderTexture, object: CircleShape, states: RenderStates*)
-  
-  fun render_texture_draw_convex_shape = sfRenderTexture_drawConvexShape(render_texture: RenderTexture, object: ConvexShape, states: RenderStates*)
-  
-  fun render_texture_draw_rectangle_shape = sfRenderTexture_drawRectangleShape(render_texture: RenderTexture, object: RectangleShape, states: RenderStates*)
-  
-  fun render_texture_draw_vertex_array = sfRenderTexture_drawVertexArray(render_texture: RenderTexture, object: VertexArray, states: RenderStates*)
-  
-  # Draw primitives defined by an array of vertices to a render texture
-  # 
-  # *Arguments*:
-  # 
-  # * `render_texture`: Render texture object
-  # * `vertices`: Pointer to the vertices
-  # * `vertex_count`: Number of vertices in the array
-  # * `type`: Type of primitives to draw
-  # * `states`: Render states to use for drawing (NULL to use the default states)
-  fun render_texture_draw_primitives = sfRenderTexture_drawPrimitives(render_texture: RenderTexture, vertices: Vertex*, vertex_count: Int32, type: PrimitiveType, states: RenderStates*)
-  
-  # Save the current OpenGL render states and matrices
-  # 
-  # This function can be used when you mix SFML drawing
-  # and direct OpenGL rendering. Combined with pop_gl_states,
-  # it ensures that:
-  # - SFML's internal states are not messed up by your OpenGL code
-  # - your OpenGL states are not modified by a call to a SFML function
-  # 
-  # Note that this function is quite expensive: it saves all the
-  # possible OpenGL states and matrices, even the ones you
-  # don't care about. Therefore it should be used wisely.
-  # It is provided for convenience, but the best results will
-  # be achieved if you handle OpenGL states yourself (because
-  # you know which states have really changed, and need to be
-  # saved and restored). Take a look at the reset_gl_states
-  # function if you do so.
-  # 
-  # *Arguments*:
-  # 
-  # * `render_texture`: Render texture object
-  fun render_texture_push_gl_states = sfRenderTexture_pushGLStates(render_texture: RenderTexture)
-  
-  # Restore the previously saved OpenGL render states and matrices
-  # 
-  # See the description of push_gl_states to get a detailed
-  # description of these functions.
-  # 
-  # *Arguments*:
-  # 
-  # * `render_texture`: Render texture object
-  fun render_texture_pop_gl_states = sfRenderTexture_popGLStates(render_texture: RenderTexture)
-  
-  # Reset the internal OpenGL states so that the target is ready for drawing
-  # 
-  # This function can be used when you mix SFML drawing
-  # and direct OpenGL rendering, if you choose not to use
-  # push_gl_states/pop_gl_states. It makes sure that all OpenGL
-  # states needed by SFML are set, so that subsequent RenderTexture_draw*()
-  # calls will work as expected.
-  # 
-  # *Arguments*:
-  # 
-  # * `render_texture`: Render texture object
-  fun render_texture_reset_gl_states = sfRenderTexture_resetGLStates(render_texture: RenderTexture)
-  
-  # Get the target texture of a render texture
-  # 
-  # *Arguments*:
-  # 
-  # * `render_texture`: Render texture object
-  # 
-  # *Returns*: Pointer to the target texture
-  fun render_texture_get_texture = sfRenderTexture_getTexture(render_texture: RenderTexture): Texture
-  
-  # Enable or disable the smooth filter on a render texture
-  # 
-  # *Arguments*:
-  # 
-  # * `render_texture`: Render texture object
-  # * `smooth`: True to enable smoothing, False to disable it
-  fun render_texture_set_smooth = sfRenderTexture_setSmooth(render_texture: RenderTexture, smooth: Int32)
-  
-  # Tell whether the smooth filter is enabled or not for a render texture
-  # 
-  # *Arguments*:
-  # 
-  # * `render_texture`: Render texture object
-  # 
-  # *Returns*: True if smoothing is enabled, False if it is disabled
-  fun render_texture_is_smooth = sfRenderTexture_isSmooth(render_texture: RenderTexture): Int32
-  
-  # Enable or disable texture repeating
-  # 
-  # *Arguments*:
-  # 
-  # * `render_texture`: Render texture object
-  # * `repeated`: True to enable repeating, False to disable it
-  fun render_texture_set_repeated = sfRenderTexture_setRepeated(render_texture: RenderTexture, repeated: Int32)
-  
-  # Tell whether the texture is repeated or not
-  # 
-  # *Arguments*:
-  # 
-  # * `render_texture`: Render texture object
-  # 
-  # *Returns*: True if repeat mode is enabled, False if it is disabled
-  fun render_texture_is_repeated = sfRenderTexture_isRepeated(render_texture: RenderTexture): Int32
   
   # Load both the vertex and fragment shaders from files
   # 
@@ -2667,6 +2691,19 @@ lib CSFML
   # * `name`: Name of the texture in the shader
   fun shader_set_current_texture_parameter = sfShader_setCurrentTextureParameter(shader: Shader, name: UInt8*)
   
+  # Get the underlying OpenGL handle of the shader.
+  # 
+  # You shouldn't need to use this function, unless you have
+  # very specific stuff to implement that SFML doesn't support,
+  # or implement a temporary workaround until a bug is fixed.
+  # 
+  # *Arguments*:
+  # 
+  # * `shader`: Shader object
+  # 
+  # *Returns*: OpenGL handle of the shader or 0 if not yet loaded
+  fun shader_get_native_handle = sfShader_getNativeHandle(shader: Shader): Int32
+  
   # Bind a shader for rendering (activate it)
   # 
   # This function is not part of the graphics API, it mustn't be
@@ -2688,8 +2725,8 @@ lib CSFML
   # *Returns*: True if the system can use shaders, False otherwise
   fun shader_is_available = sfShader_isAvailable(): Int32
   
-  alias ShapeGetPointCountCallback = (Void*) -> Int32
-  alias ShapeGetPointCallback = (Int32, Void*) -> Vector2f
+  alias ShapeGetPointCountCallback = (Void*) -> SizeT
+  alias ShapeGetPointCallback = (SizeT, Void*) -> Vector2f
   # Create a new shape
   # 
   # *Arguments*:
@@ -2974,7 +3011,7 @@ lib CSFML
   # * `shape`: Shape object
   # 
   # *Returns*: Number of points of the shape
-  fun shape_get_point_count = sfShape_getPointCount(shape: Shape): Int32
+  fun shape_get_point_count = sfShape_getPointCount(shape: Shape): SizeT
   
   # Get a point of a shape
   # 
@@ -2986,7 +3023,7 @@ lib CSFML
   # * `index`: Index of the point to get, in range [0 .. get_point_count() - 1]
   # 
   # *Returns*: Index-th point of the shape
-  fun shape_get_point = sfShape_getPoint(shape: Shape, index: Int32): Vector2f
+  fun shape_get_point = sfShape_getPoint(shape: Shape, index: SizeT): Vector2f
   
   # Get the local bounding rectangle of a shape
   # 
@@ -3802,6 +3839,19 @@ lib CSFML
   # *Returns*: True if repeat mode is enabled, False if it is disabled
   fun texture_is_repeated = sfTexture_isRepeated(texture: Texture): Int32
   
+  # Get the underlying OpenGL handle of the texture.
+  # 
+  # You shouldn't need to use this function, unless you have
+  # very specific stuff to implement that SFML doesn't support,
+  # or implement a temporary workaround until a bug is fixed.
+  # 
+  # *Arguments*:
+  # 
+  # * `texture`: The texture object
+  # 
+  # *Returns*: OpenGL handle of the texture or 0 if not yet created
+  fun texture_get_native_handle = sfTexture_getNativeHandle(texture: Texture): Int32
+  
   # Bind a texture for rendering
   # 
   # This function is not part of the graphics API, it mustn't be
@@ -4008,7 +4058,7 @@ lib CSFML
   # * `vertex_array`: Vertex array object
   # 
   # *Returns*: Number of vertices in the array
-  fun vertex_array_get_vertex_count = sfVertexArray_getVertexCount(vertex_array: VertexArray): Int32
+  fun vertex_array_get_vertex_count = sfVertexArray_getVertexCount(vertex_array: VertexArray): SizeT
   
   # Get access to a vertex by its index
   # 
@@ -4022,7 +4072,7 @@ lib CSFML
   # * `index`: Index of the vertex to get
   # 
   # *Returns*: Pointer to the index-th vertex
-  fun vertex_array_get_vertex = sfVertexArray_getVertex(vertex_array: VertexArray, index: Int32): Vertex*
+  fun vertex_array_get_vertex = sfVertexArray_getVertex(vertex_array: VertexArray, index: SizeT): Vertex*
   
   # Clear a vertex array
   # 
@@ -4048,7 +4098,7 @@ lib CSFML
   # 
   # * `vertex_array`: Vertex array objet
   # * `vertex_count`: New size of the array (number of vertices)
-  fun vertex_array_resize = sfVertexArray_resize(vertex_array: VertexArray, vertex_count: Int32)
+  fun vertex_array_resize = sfVertexArray_resize(vertex_array: VertexArray, vertex_count: SizeT)
   
   # Add a vertex to a vertex array array
   # 
