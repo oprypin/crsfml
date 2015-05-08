@@ -177,12 +177,12 @@ module SF
     def initialize()
       @owned = true
       @funcs = Box.box({
-        -> { point_count },
-        ->(i: Int32) { SF.vector2f(get_point(i)) }
+        -> { CSFML::SizeT.cast(point_count) },
+        ->(i: CSFML::SizeT) { SF.vector2f(get_point(i)) }
       })
       @this = CSFML.shape_create(
-        ->(data) { Box({(-> Int32), (Int32 -> SF::Vector2f)}).unbox(data)[0].call },
-        ->(i, data) { Box({(-> Int32), (Int32 -> SF::Vector2f)}).unbox(data)[1].call(i) },
+        ->(data) { Box({(-> CSFML::SizeT), (CSFML::SizeT -> SF::Vector2f)}).unbox(data)[0].call },
+        ->(i, data) { Box({(-> CSFML::SizeT), (CSFML::SizeT -> SF::Vector2f)}).unbox(data)[1].call(i) },
         @funcs
       )
       update
@@ -349,7 +349,7 @@ module SF
       else
         pstates = nil
       end
-      CSFML.render_texture_draw_primitives(@this, vertices, vertices.length, type, pstates)
+      CSFML.render_texture_draw_primitives(@this, vertices, CSFML::SizeT.cast(vertices.length), type, pstates)
     end
   end
   
@@ -367,7 +367,7 @@ module SF
       else
         pstates = nil
       end
-      CSFML.render_window_draw_primitives(@this, vertices, vertices.length, type, pstates)
+      CSFML.render_window_draw_primitives(@this, vertices, CSFML::SizeT.cast(vertices.length), type, pstates)
     end
     
     def poll_event()
