@@ -1036,7 +1036,8 @@ module SF
     # * `size_in_bytes`: Size of the data to load, in bytes
     # 
     # *Returns*: A new Font object, or NULL if it failed
-    def self.from_memory(data: Void*, size_in_bytes: Size_t)
+    def self.from_memory(data: Void*, size_in_bytes: Int)
+      size_in_bytes = CSFML::SizeT.cast(size_in_bytes)
       Font.transfer_ptr(CSFML.font_create_from_memory(data, size_in_bytes))
     end
     
@@ -1257,7 +1258,8 @@ module SF
     # * `size`: Size of the data to load, in bytes
     # 
     # *Returns*: A new Image object, or NULL if it failed
-    def self.from_memory(data: Void*, size: Size_t)
+    def self.from_memory(data: Void*, size: Int)
+      size = CSFML::SizeT.cast(size)
       Image.transfer_ptr(CSFML.image_create_from_memory(data, size))
     end
     
@@ -4277,7 +4279,8 @@ module SF
     # * `index`: Index of the character
     # 
     # *Returns*: Position of the character
-    def find_character_pos(index: Size_t)
+    def find_character_pos(index: Int)
+      index = CSFML::SizeT.cast(index)
       SF.vector2(CSFML.text_find_character_pos(@this, index))
     end
     
@@ -4363,7 +4366,8 @@ module SF
     # * `area`: Area of the source image to load (NULL to load the entire image)
     # 
     # *Returns*: A new Texture object, or NULL if it failed
-    def self.from_memory(data: Void*, size_in_bytes: Size_t, area)
+    def self.from_memory(data: Void*, size_in_bytes: Int, area)
+      size_in_bytes = CSFML::SizeT.cast(size_in_bytes)
       if area
         if area.responds_to?(:to_unsafe)
           parea = area.to_unsafe

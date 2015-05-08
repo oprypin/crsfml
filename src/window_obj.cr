@@ -1019,7 +1019,7 @@ module SF
     # * `count`: Pointer to a variable that will be filled with the number of modes in the array
     # 
     # *Returns*: Pointer to an array containing all the supported fullscreen modes
-    def self.get_fullscreen_modes(count: Size_t*)
+    def self.get_fullscreen_modes(count: SizeT*)
       cself = self
       CSFML.video_mode_get_fullscreen_modes(count)
     end

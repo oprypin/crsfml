@@ -139,7 +139,8 @@ module SF
     # * `size_in_bytes`: Size of the data to load, in bytes
     # 
     # *Returns*: A new Music object (NULL if failed)
-    def self.from_memory(data: Void*, size_in_bytes: Size_t)
+    def self.from_memory(data: Void*, size_in_bytes: Int)
+      size_in_bytes = CSFML::SizeT.cast(size_in_bytes)
       Music.transfer_ptr(CSFML.music_create_from_memory(data, size_in_bytes))
     end
     
@@ -835,7 +836,8 @@ module SF
     # * `size_in_bytes`: Size of the data to load, in bytes
     # 
     # *Returns*: A new SoundBuffer object (NULL if failed)
-    def self.from_memory(data: Void*, size_in_bytes: Size_t)
+    def self.from_memory(data: Void*, size_in_bytes: Int)
+      size_in_bytes = CSFML::SizeT.cast(size_in_bytes)
       SoundBuffer.transfer_ptr(CSFML.sound_buffer_create_from_memory(data, size_in_bytes))
     end
     
@@ -867,7 +869,7 @@ module SF
     # * `sample_rate`: Sample rate (number of samples to play per second)
     # 
     # *Returns*: A new SoundBuffer object (NULL if failed)
-    def self.from_samples(samples, sample_count: Size_t, channel_count: Int32, sample_rate: Int32)
+    def self.from_samples(samples, sample_count: Int, channel_count: Int32, sample_rate: Int32)
       if samples
         if samples.responds_to?(:to_unsafe)
           psamples = samples.to_unsafe
@@ -877,6 +879,7 @@ module SF
       else
         psamples = nil
       end
+      sample_count = CSFML::SizeT.cast(sample_count)
       SoundBuffer.transfer_ptr(CSFML.sound_buffer_create_from_samples(psamples, sample_count, channel_count, sample_rate))
     end
     
@@ -1178,7 +1181,7 @@ module SF
     # * `count`: Pointer to a variable that will be filled with the number of modes in the array
     # 
     # *Returns*: An array of strings containing the names
-    def self.get_available_devices(count: Size_t*)
+    def self.get_available_devices(count: SizeT*)
       CSFML.sound_recorder_get_available_devices(count)
     end
     

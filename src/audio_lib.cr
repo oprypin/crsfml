@@ -118,7 +118,7 @@ lib CSFML
   # * `size_in_bytes`: Size of the data to load, in bytes
   # 
   # *Returns*: A new Music object (NULL if failed)
-  fun music_create_from_memory = sfMusic_createFromMemory(data: Void*, size_in_bytes: Size_t): Music
+  fun music_create_from_memory = sfMusic_createFromMemory(data: Void*, size_in_bytes: SizeT): Music
   
   # Create a new music and load it from a custom stream
   # 
@@ -687,7 +687,7 @@ lib CSFML
   # * `size_in_bytes`: Size of the data to load, in bytes
   # 
   # *Returns*: A new SoundBuffer object (NULL if failed)
-  fun sound_buffer_create_from_memory = sfSoundBuffer_createFromMemory(data: Void*, size_in_bytes: Size_t): SoundBuffer
+  fun sound_buffer_create_from_memory = sfSoundBuffer_createFromMemory(data: Void*, size_in_bytes: SizeT): SoundBuffer
   
   # Create a new sound buffer and load it from a custom stream
   # 
@@ -715,7 +715,7 @@ lib CSFML
   # * `sample_rate`: Sample rate (number of samples to play per second)
   # 
   # *Returns*: A new SoundBuffer object (NULL if failed)
-  fun sound_buffer_create_from_samples = sfSoundBuffer_createFromSamples(samples: Int16*, sample_count: Size_t, channel_count: Int32, sample_rate: Int32): SoundBuffer
+  fun sound_buffer_create_from_samples = sfSoundBuffer_createFromSamples(samples: Int16*, sample_count: SizeT, channel_count: Int32, sample_rate: Int32): SoundBuffer
   
   # Create a new sound buffer by copying an existing one
   # 
@@ -770,7 +770,7 @@ lib CSFML
   # * `sound_buffer`: Sound buffer object
   # 
   # *Returns*: Number of samples
-  fun sound_buffer_get_sample_count = sfSoundBuffer_getSampleCount(sound_buffer: SoundBuffer): Size_t
+  fun sound_buffer_get_sample_count = sfSoundBuffer_getSampleCount(sound_buffer: SoundBuffer): SizeT
   
   # Get the sample rate of a sound buffer
   # 
@@ -868,7 +868,7 @@ lib CSFML
   fun sound_buffer_recorder_get_buffer = sfSoundBufferRecorder_getBuffer(sound_buffer_recorder: SoundBufferRecorder): SoundBuffer
   
   alias SoundRecorderStartCallback = (Void*) -> Int32
-  alias SoundRecorderProcessCallback = (Int16*, Size_t, Void*) -> Int32
+  alias SoundRecorderProcessCallback = (Int16*, SizeT, Void*) -> Int32
   alias SoundRecorderStopCallback = (Void*) -> Void
   # Construct a new sound recorder from callback functions
   # 
@@ -964,7 +964,7 @@ lib CSFML
   # * `count`: Pointer to a variable that will be filled with the number of modes in the array
   # 
   # *Returns*: An array of strings containing the names
-  fun sound_recorder_get_available_devices = sfSoundRecorder_getAvailableDevices(count: Size_t*): UInt8**
+  fun sound_recorder_get_available_devices = sfSoundRecorder_getAvailableDevices(count: SizeT*): UInt8**
   
   # Get the name of the default audio capture device
   # 

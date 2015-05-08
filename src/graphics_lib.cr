@@ -1028,7 +1028,7 @@ lib CSFML
   # * `size_in_bytes`: Size of the data to load, in bytes
   # 
   # *Returns*: A new Font object, or NULL if it failed
-  fun font_create_from_memory = sfFont_createFromMemory(data: Void*, size_in_bytes: Size_t): Font
+  fun font_create_from_memory = sfFont_createFromMemory(data: Void*, size_in_bytes: SizeT): Font
   
   # Create a new image font a custom stream
   # 
@@ -1203,7 +1203,7 @@ lib CSFML
   # * `size`: Size of the data to load, in bytes
   # 
   # *Returns*: A new Image object, or NULL if it failed
-  fun image_create_from_memory = sfImage_createFromMemory(data: Void*, size: Size_t): Image
+  fun image_create_from_memory = sfImage_createFromMemory(data: Void*, size: SizeT): Image
   
   # Create an image from a custom stream
   # 
@@ -3595,7 +3595,7 @@ lib CSFML
   # * `index`: Index of the character
   # 
   # *Returns*: Position of the character
-  fun text_find_character_pos = sfText_findCharacterPos(text: Text, index: Size_t): Vector2f
+  fun text_find_character_pos = sfText_findCharacterPos(text: Text, index: SizeT): Vector2f
   
   # Get the local bounding rectangle of a text
   # 
@@ -3656,7 +3656,7 @@ lib CSFML
   # * `area`: Area of the source image to load (NULL to load the entire image)
   # 
   # *Returns*: A new Texture object, or NULL if it failed
-  fun texture_create_from_memory = sfTexture_createFromMemory(data: Void*, size_in_bytes: Size_t, area: IntRect*): Texture
+  fun texture_create_from_memory = sfTexture_createFromMemory(data: Void*, size_in_bytes: SizeT, area: IntRect*): Texture
   
   # Create a new texture from a custom stream
   # 

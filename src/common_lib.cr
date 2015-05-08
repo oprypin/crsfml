@@ -20,11 +20,7 @@
 
 
 lib CSFML
-  ifdef x86_64
-    alias Size_t = UInt64
-  else
-    alias Size_t = UInt32
-  end
+  alias SizeT = LibC::SizeT
   
   ifdef windows || macosx
     alias WindowHandle = Void*

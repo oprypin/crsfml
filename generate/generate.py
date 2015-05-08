@@ -56,7 +56,7 @@ def rename_type(name, var=''):
     name = {
         'char': 'UInt8',
         'int': 'Int32',
-        #'size_t': 'int',
+        'size_t': 'SizeT',
         'sfBool': 'Int32',
         'unsigned int': 'Int32',
         'float': 'Float32',
@@ -103,7 +103,21 @@ def get_doc(indent=0):
     doc = None
     return r
 
-enum_relations = {'JoystickAxis': 'Joystick', 'MouseButton': 'Mouse', 'BlendEquation': 'BlendMode', 'EventType': 'Event', 'BlendFactor': 'BlendMode', 'KeyCode': 'Keyboard', 'TextStyle': 'Text', 'SensorType': 'Sensor', 'SoundStatus': 'SoundSource', 'PrimitiveType': '', 'WindowStyle': ''}
+enum_relations = {
+    'JoystickAxis': 'Joystick',
+    'MouseButton': 'Mouse',
+    'MouseWheel': 'Mouse',
+    'BlendEquation': 'BlendMode',
+    'EventType': 'Event',
+    'ContextAttribute': 'Window',
+    'BlendFactor': 'BlendMode',
+    'KeyCode': 'Keyboard',
+    'TextStyle': 'Text',
+    'SensorType': 'Sensor',
+    'SoundStatus': 'SoundSource',
+    'PrimitiveType': '',
+    'WindowStyle': '',
+}
 def handle_enum(name, items):
     if name is None:
         for name, value in items:
@@ -326,6 +340,15 @@ def handle_function(main, params):
         elif t == 'Float32':
             t = 'Number'
             conv.append('{0} = {0}.to_f32'.format(n))
+        elif t == 'SizeT':
+            t = 'Int'
+            conv.append('{0} = CSFML::SizeT.cast({0})'.format(n))
+        elif t == 'UInt64':
+            t = 'Int'
+            conv.append('{0} = {0}.to_u64'.format(n))
+        elif t == 'Int64':
+            t = 'Int'
+            conv.append('{0} = {0}.to_i64'.format(n))
         elif t in ['Vector2f', 'Vector2i']:
             conv.append('{0} = SF.{2}({0}) unless {0}.is_a? {1}'.format(n, t, t.lower()))
             t = None

@@ -147,7 +147,8 @@ module SF
   # * `amount`: Number of microseconds
   # 
   # *Returns*: Time value constructed from the amount of microseconds
-  def microseconds(amount: Int64)
+  def microseconds(amount: Int)
+    amount = amount.to_i64
     CSFML.microseconds(amount)
   end
   
