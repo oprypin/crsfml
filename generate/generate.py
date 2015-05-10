@@ -109,7 +109,7 @@ enum_relations = {
     'MouseWheel': 'Mouse',
     'BlendEquation': 'BlendMode',
     'EventType': 'Event',
-    'ContextAttribute': 'Window',
+    'ContextAttribute': 'ContextSettings',
     'BlendFactor': 'BlendMode',
     'KeyCode': 'Keyboard',
     'TextStyle': 'Text',
@@ -139,7 +139,7 @@ def handle_enum(name, items):
     d = get_doc()
     if d: lib(d)
     s = 'enum {}'.format(nname)
-    if nname in ['WindowStyle', 'TextStyle']:
+    if nname in ['WindowStyle', 'TextStyle', 'ContextAttribute']:
         lib('@[Flags]')
         s += ': UInt32'
     lib(s)
@@ -165,7 +165,7 @@ def handle_enum(name, items):
         suffix = '.value' if name.endswith('Count') else ''
         obj(cls, '{name} = CSFML::{nname}::{sub}{suffix}'.format(**locals()))
 
-structs = {'Event': None, 'BlendMode': None}
+structs = {'Event': None, 'BlendMode': None, 'ContextSettings': None}
 def handle_struct(name, items):
     if name=='sfVector2u':
         return
@@ -179,6 +179,8 @@ def handle_struct(name, items):
         t = rename_type(t)
         if t=='UInt32' and n=='unicode':
             t = 'Char'
+        elif t=='UInt32' and n=='attributeFlags':
+            t = 'ContextAttribute'
         lib('  {}: {}'.format(rename_identifier(n), t))
     lib('end')
     
@@ -281,9 +283,9 @@ def handle_function(main, params):
     if nftype=='UInt32*':
         nftype = 'Char*'
     if nftype=='UInt32':
-        if nfname in ['style']:
+        if nfname == 'style':
             rtype = 'WindowStyle' if 'Window' in ofname else 'TextStyle'
-        else: nftype = 'Char'
+        #elif nfname == 'attributes'
     #if nftype.startswith('ptr ') or nftype=='pointer':
         #public = False
 
@@ -299,7 +301,9 @@ def handle_function(main, params):
         elif rtype=='UInt32':
             if rname in ['style']:
                 rtype = 'WindowStyle' if 'Window' in ofname else 'TextStyle'
-            else: rtype = 'Char'
+            else:
+                if 'Font' in ofname:
+                    rtype = 'Char'
         elif rtype=='UInt8*' and rname in ['string', 'title']:
             if not nfname.rstrip('=').endswith('_c'):
                 nfname = nfname.rstrip('=') + '_c' + '='*nfname.count('=')

@@ -23,8 +23,8 @@ require "./window_lib"
 module SF
   extend self
 
-  def context_settings(depth=0, stencil=0, antialiasing=0, major=2, minor=0)
-    ContextSettings.new(depth_bits: depth, stencil_bits: stencil, antialiasing_level: antialiasing, major_version: major, minor_version: minor)
+  def context_settings(depth=0, stencil=0, antialiasing=0, major=2, minor=0, attributes=CSFML::ContextSettings::Default)
+    ContextSettings.new(depth_bits: depth, stencil_bits: stencil, antialiasing_level: antialiasing, major_version: major, minor_version: minor, attribute_flags: attributes)
   end
   
   class Mouse
@@ -102,7 +102,13 @@ module SF
       key.control
     end
     def delta
-      mouse_wheel.delta
+      case type
+        when MouseWheelMoved
+          mouse_wheel.delta
+        when MouseWheelScrolled
+          mouse_wheel_scroll.delta
+        else raise "delta"
+      end
     end
     def finger
       touch.finger
@@ -136,6 +142,9 @@ module SF
     def unicode
       text.unicode
     end
+    def wheel
+      mouse_wheel_scroll.wheel
+    end
     def width
       size.width
     end
@@ -147,6 +156,8 @@ module SF
           mouse_button.x
         when MouseWheelMoved
           mouse_wheel.x
+        when MouseWheelScrolled
+          mouse_wheel_scroll.x
         when TouchBegan, TouchMoved, TouchEnded
           touch.x
         when SensorChanged
@@ -162,6 +173,8 @@ module SF
           mouse_button.y
         when MouseWheelMoved
           mouse_wheel.y
+        when MouseWheelScrolled
+          mouse_wheel_scroll.y
         when TouchBegan, TouchMoved, TouchEnded
           touch.y
         when SensorChanged

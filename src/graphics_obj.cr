@@ -5529,7 +5529,7 @@ module SF
   # * `color`: Number containing the RGBA components (in that order)
   # 
   # *Returns*: Color constructed from the 32-bit unsigned integer
-  def color(color: Char)
+  def color(color: UInt32)
     CSFML.color_from_integer(color)
   end
   

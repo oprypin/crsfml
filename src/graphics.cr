@@ -47,11 +47,7 @@ module SF
       modulate other
     end
     def -(other: self)
-      out = Color.new(r: 0, g: 0, b: 0, a: 0)
-      out.r = r - other.r if r > other.r
-      out.g = g - other.g if g > other.g
-      out.b = b - other.b if b > other.b
-      out.a = a - other.a if a > other.a
+      subtract other
     end
   end
   

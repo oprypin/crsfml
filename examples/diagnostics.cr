@@ -51,7 +51,7 @@ def test_mouse()
         $window.mouse_cursor_visible = true
         return
       when SF::Event::MouseWheelMoved
-        wheel_delta += event.delta
+        wheel_delta += event.mouse_wheel.delta
       end
     end
     wheel_delta *= 0.9

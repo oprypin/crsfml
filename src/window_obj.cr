@@ -42,9 +42,6 @@ module SF
   class Window
     include Wrapper
     
-    Default = CSFML::ContextAttribute::Default
-    Core = CSFML::ContextAttribute::Core
-    Debug = CSFML::ContextAttribute::Debug
     # Construct a new window (with a UTF-32 title)
     # 
     # This function creates the window with the size and pixel
@@ -1098,10 +1095,16 @@ module SF
 
   # Enumeration of the context attribute flags
   #
-  # * Window::Default
-  # * Window::Core
-  # * Window::Debug
+  # * ContextSettings::Default
+  # * ContextSettings::Core
+  # * ContextSettings::Debug
   alias ContextAttribute = CSFML::ContextAttribute
+
+  struct CSFML::ContextSettings
+    Default = CSFML::ContextAttribute::Default
+    Core = CSFML::ContextAttribute::Core
+    Debug = CSFML::ContextAttribute::Debug
+  end
 
   # Structure defining the window's creation settings
   alias ContextSettings = CSFML::ContextSettings

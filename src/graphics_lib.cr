@@ -64,12 +64,12 @@ lib CSFML
   # * `color`: Number containing the RGBA components (in that order)
   # 
   # *Returns*: Color constructed from the 32-bit unsigned integer
-  fun color_from_integer = sfColor_fromInteger(color: Char): Color
+  fun color_from_integer = sfColor_fromInteger(color: UInt32): Color
   
   # Convert a color to a 32-bit unsigned integer
   # 
   # *Returns*: Color represented as a 32-bit unsigned integer
-  fun color_to_integer = sfColor_toInteger(color: Color): Char
+  fun color_to_integer = sfColor_toInteger(color: Color): UInt32
   
   # Add two colors
   # 

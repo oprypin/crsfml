@@ -415,7 +415,8 @@ lib CSFML
   end
   
   # Enumeration of the context attribute flags
-  enum ContextAttribute
+  @[Flags]
+  enum ContextAttribute: UInt32
     Default = 0, Core = 1, Debug = 4
   end
   
@@ -426,7 +427,7 @@ lib CSFML
     antialiasing_level: Int32
     major_version: Int32
     minor_version: Int32
-    attribute_flags: UInt32
+    attribute_flags: ContextAttribute
   end
   
   # Construct a new window
