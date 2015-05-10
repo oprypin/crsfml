@@ -97,7 +97,7 @@ class Snake
         if (i > 0 && td == @body[i-1]) ||\
         (i < @body.length-1 && td == @body[i+1])
           connection = SF::RectangleShape.new({0.9, 0.9})
-          connection.position = current + d / {2.0, 2.0} + {0.05, 0.05}
+          connection.position = current + d / 2.0 + {0.05, 0.05}
           connection.fill_color = @color
           target.draw connection, states
         end
@@ -173,8 +173,8 @@ end
 
 field = Field.new(SF.vector2(40, 40))
 
-snake1 = Snake.new(field, field.size / {2, 2} - {5, 0}, random_color())
-snake2 = Snake.new(field, field.size / {2, 2} + {5, 0}, random_color())
+snake1 = Snake.new(field, field.size / 2 - {5, 0}, random_color())
+snake2 = Snake.new(field, field.size / 2 + {5, 0}, random_color())
 field.add snake1
 field.add snake2
 

@@ -11,7 +11,7 @@ class Logo
     bounds = @text.local_bounds
     @shape = SF::RectangleShape.new(SF.vector2(bounds.width*1.2, bounds.height*2))
     @shape.fill_color = SF.color(0, 0, 128)
-    @shape.origin = @shape.size / {2, 2}
+    @shape.origin = @shape.size / 2
     @text.origin = SF.vector2(bounds.width / 2, bounds.height * 0.8)
   end
   
