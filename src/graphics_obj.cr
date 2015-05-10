@@ -104,7 +104,11 @@ module SF
     # *Returns*: True if rectangles overlap
     def intersects(rect2, intersection: FloatRect*)
       if rect2
-        crect2 = rect2; prect2 = pointerof(crect2)
+        if rect2.responds_to?(:to_unsafe)
+          prect2 = rect2.to_unsafe
+        else
+          crect2 = rect2; prect2 = pointerof(crect2)
+        end
       else
         prect2 = nil
       end
@@ -122,7 +126,11 @@ module SF
     
     def intersects(rect2, intersection: IntRect*)
       if rect2
-        crect2 = rect2; prect2 = pointerof(crect2)
+        if rect2.responds_to?(:to_unsafe)
+          prect2 = rect2.to_unsafe
+        else
+          crect2 = rect2; prect2 = pointerof(crect2)
+        end
       else
         prect2 = nil
       end
@@ -1209,7 +1217,11 @@ module SF
     # *Returns*: A new Image object
     def self.from_pixels(width: Int32, height: Int32, pixels)
       if pixels
-        cpixels = pixels; ppixels = pointerof(cpixels)
+        if pixels.responds_to?(:to_unsafe)
+          ppixels = pixels.to_unsafe
+        else
+          cpixels = pixels; ppixels = pointerof(cpixels)
+        end
       else
         ppixels = nil
       end
@@ -2321,7 +2333,11 @@ module SF
     # * `states`: Render states to use for drawing (NULL to use the default states)
     def draw_sprite(object: Sprite, states)
       if states
-        cstates = states; pstates = pointerof(cstates)
+        if states.responds_to?(:to_unsafe)
+          pstates = states.to_unsafe
+        else
+          cstates = states; pstates = pointerof(cstates)
+        end
       else
         pstates = nil
       end
@@ -2330,7 +2346,11 @@ module SF
     
     def draw_text(object: Text, states)
       if states
-        cstates = states; pstates = pointerof(cstates)
+        if states.responds_to?(:to_unsafe)
+          pstates = states.to_unsafe
+        else
+          cstates = states; pstates = pointerof(cstates)
+        end
       else
         pstates = nil
       end
@@ -2339,7 +2359,11 @@ module SF
     
     def draw_shape(object: Shape, states)
       if states
-        cstates = states; pstates = pointerof(cstates)
+        if states.responds_to?(:to_unsafe)
+          pstates = states.to_unsafe
+        else
+          cstates = states; pstates = pointerof(cstates)
+        end
       else
         pstates = nil
       end
@@ -2348,7 +2372,11 @@ module SF
     
     def draw_circle_shape(object: CircleShape, states)
       if states
-        cstates = states; pstates = pointerof(cstates)
+        if states.responds_to?(:to_unsafe)
+          pstates = states.to_unsafe
+        else
+          cstates = states; pstates = pointerof(cstates)
+        end
       else
         pstates = nil
       end
@@ -2357,7 +2385,11 @@ module SF
     
     def draw_convex_shape(object: ConvexShape, states)
       if states
-        cstates = states; pstates = pointerof(cstates)
+        if states.responds_to?(:to_unsafe)
+          pstates = states.to_unsafe
+        else
+          cstates = states; pstates = pointerof(cstates)
+        end
       else
         pstates = nil
       end
@@ -2366,7 +2398,11 @@ module SF
     
     def draw_rectangle_shape(object: RectangleShape, states)
       if states
-        cstates = states; pstates = pointerof(cstates)
+        if states.responds_to?(:to_unsafe)
+          pstates = states.to_unsafe
+        else
+          cstates = states; pstates = pointerof(cstates)
+        end
       else
         pstates = nil
       end
@@ -2375,7 +2411,11 @@ module SF
     
     def draw_vertex_array(object: VertexArray, states)
       if states
-        cstates = states; pstates = pointerof(cstates)
+        if states.responds_to?(:to_unsafe)
+          pstates = states.to_unsafe
+        else
+          cstates = states; pstates = pointerof(cstates)
+        end
       else
         pstates = nil
       end
@@ -2393,12 +2433,20 @@ module SF
     # * `states`: Render states to use for drawing (NULL to use the default states)
     def draw_primitives(vertices, vertex_count: Int32, type: PrimitiveType, states)
       if vertices
-        cvertices = vertices; pvertices = pointerof(cvertices)
+        if vertices.responds_to?(:to_unsafe)
+          pvertices = vertices.to_unsafe
+        else
+          cvertices = vertices; pvertices = pointerof(cvertices)
+        end
       else
         pvertices = nil
       end
       if states
-        cstates = states; pstates = pointerof(cstates)
+        if states.responds_to?(:to_unsafe)
+          pstates = states.to_unsafe
+        else
+          cstates = states; pstates = pointerof(cstates)
+        end
       else
         pstates = nil
       end
@@ -2527,7 +2575,11 @@ module SF
     def initialize(mode: VideoMode, title: String, style: WindowStyle, settings)
       title = title.chars; title << '\0'
       if settings
-        csettings = settings; psettings = pointerof(csettings)
+        if settings.responds_to?(:to_unsafe)
+          psettings = settings.to_unsafe
+        else
+          csettings = settings; psettings = pointerof(csettings)
+        end
       else
         psettings = nil
       end
@@ -2543,7 +2595,11 @@ module SF
     # * `settings`: Creation settings (pass NULL to use default values)
     def self.from_handle(handle: WindowHandle, settings)
       if settings
-        csettings = settings; psettings = pointerof(csettings)
+        if settings.responds_to?(:to_unsafe)
+          psettings = settings.to_unsafe
+        else
+          csettings = settings; psettings = pointerof(csettings)
+        end
       else
         psettings = nil
       end
@@ -2679,7 +2735,11 @@ module SF
     # * `pixels`: Pointer to the pixels in memory, format must be RGBA 32 bits
     def set_icon(width: Int32, height: Int32, pixels)
       if pixels
-        cpixels = pixels; ppixels = pointerof(cpixels)
+        if pixels.responds_to?(:to_unsafe)
+          ppixels = pixels.to_unsafe
+        else
+          cpixels = pixels; ppixels = pointerof(cpixels)
+        end
       else
         ppixels = nil
       end
@@ -2933,7 +2993,11 @@ module SF
     # * `states`: Render states to use for drawing (NULL to use the default states)
     def draw_sprite(object: Sprite, states)
       if states
-        cstates = states; pstates = pointerof(cstates)
+        if states.responds_to?(:to_unsafe)
+          pstates = states.to_unsafe
+        else
+          cstates = states; pstates = pointerof(cstates)
+        end
       else
         pstates = nil
       end
@@ -2942,7 +3006,11 @@ module SF
     
     def draw_text(object: Text, states)
       if states
-        cstates = states; pstates = pointerof(cstates)
+        if states.responds_to?(:to_unsafe)
+          pstates = states.to_unsafe
+        else
+          cstates = states; pstates = pointerof(cstates)
+        end
       else
         pstates = nil
       end
@@ -2951,7 +3019,11 @@ module SF
     
     def draw_shape(object: Shape, states)
       if states
-        cstates = states; pstates = pointerof(cstates)
+        if states.responds_to?(:to_unsafe)
+          pstates = states.to_unsafe
+        else
+          cstates = states; pstates = pointerof(cstates)
+        end
       else
         pstates = nil
       end
@@ -2960,7 +3032,11 @@ module SF
     
     def draw_circle_shape(object: CircleShape, states)
       if states
-        cstates = states; pstates = pointerof(cstates)
+        if states.responds_to?(:to_unsafe)
+          pstates = states.to_unsafe
+        else
+          cstates = states; pstates = pointerof(cstates)
+        end
       else
         pstates = nil
       end
@@ -2969,7 +3045,11 @@ module SF
     
     def draw_convex_shape(object: ConvexShape, states)
       if states
-        cstates = states; pstates = pointerof(cstates)
+        if states.responds_to?(:to_unsafe)
+          pstates = states.to_unsafe
+        else
+          cstates = states; pstates = pointerof(cstates)
+        end
       else
         pstates = nil
       end
@@ -2978,7 +3058,11 @@ module SF
     
     def draw_rectangle_shape(object: RectangleShape, states)
       if states
-        cstates = states; pstates = pointerof(cstates)
+        if states.responds_to?(:to_unsafe)
+          pstates = states.to_unsafe
+        else
+          cstates = states; pstates = pointerof(cstates)
+        end
       else
         pstates = nil
       end
@@ -2987,7 +3071,11 @@ module SF
     
     def draw_vertex_array(object: VertexArray, states)
       if states
-        cstates = states; pstates = pointerof(cstates)
+        if states.responds_to?(:to_unsafe)
+          pstates = states.to_unsafe
+        else
+          cstates = states; pstates = pointerof(cstates)
+        end
       else
         pstates = nil
       end
@@ -3005,12 +3093,20 @@ module SF
     # * `states`: Render states to use for drawing (NULL to use the default states)
     def draw_primitives(vertices, vertex_count: Int32, type: PrimitiveType, states)
       if vertices
-        cvertices = vertices; pvertices = pointerof(cvertices)
+        if vertices.responds_to?(:to_unsafe)
+          pvertices = vertices.to_unsafe
+        else
+          cvertices = vertices; pvertices = pointerof(cvertices)
+        end
       else
         pvertices = nil
       end
       if states
-        cstates = states; pstates = pointerof(cstates)
+        if states.responds_to?(:to_unsafe)
+          pstates = states.to_unsafe
+        else
+          cstates = states; pstates = pointerof(cstates)
+        end
       else
         pstates = nil
       end
@@ -4247,7 +4343,11 @@ module SF
     # *Returns*: A new Texture object, or NULL if it failed
     def self.from_file(filename: String, area)
       if area
-        carea = area; parea = pointerof(carea)
+        if area.responds_to?(:to_unsafe)
+          parea = area.to_unsafe
+        else
+          carea = area; parea = pointerof(carea)
+        end
       else
         parea = nil
       end
@@ -4265,7 +4365,11 @@ module SF
     # *Returns*: A new Texture object, or NULL if it failed
     def self.from_memory(data: Void*, size_in_bytes: Size_t, area)
       if area
-        carea = area; parea = pointerof(carea)
+        if area.responds_to?(:to_unsafe)
+          parea = area.to_unsafe
+        else
+          carea = area; parea = pointerof(carea)
+        end
       else
         parea = nil
       end
@@ -4282,7 +4386,11 @@ module SF
     # *Returns*: A new Texture object, or NULL if it failed
     def self.from_stream(stream: InputStream*, area)
       if area
-        carea = area; parea = pointerof(carea)
+        if area.responds_to?(:to_unsafe)
+          parea = area.to_unsafe
+        else
+          carea = area; parea = pointerof(carea)
+        end
       else
         parea = nil
       end
@@ -4299,7 +4407,11 @@ module SF
     # *Returns*: A new Texture object, or NULL if it failed
     def self.from_image(image: Image, area)
       if area
-        carea = area; parea = pointerof(carea)
+        if area.responds_to?(:to_unsafe)
+          parea = area.to_unsafe
+        else
+          carea = area; parea = pointerof(carea)
+        end
       else
         parea = nil
       end
@@ -4360,7 +4472,11 @@ module SF
     # * `y`: Y offset in the texture where to copy the source pixels
     def update(pixels, width: Int32, height: Int32, x: Int32, y: Int32)
       if pixels
-        cpixels = pixels; ppixels = pointerof(cpixels)
+        if pixels.responds_to?(:to_unsafe)
+          ppixels = pixels.to_unsafe
+        else
+          cpixels = pixels; ppixels = pointerof(cpixels)
+        end
       else
         ppixels = nil
       end
@@ -5106,7 +5222,11 @@ module SF
     # * `right`: Transform to combine to `transform`
     def combine(other)
       if other
-        cother = other; pother = pointerof(cother)
+        if other.responds_to?(:to_unsafe)
+          pother = other.to_unsafe
+        else
+          cother = other; pother = pointerof(cother)
+        end
       else
         pother = nil
       end

@@ -869,7 +869,11 @@ module SF
     # *Returns*: A new SoundBuffer object (NULL if failed)
     def self.from_samples(samples, sample_count: Size_t, channel_count: Int32, sample_rate: Int32)
       if samples
-        csamples = samples; psamples = pointerof(csamples)
+        if samples.responds_to?(:to_unsafe)
+          psamples = samples.to_unsafe
+        else
+          csamples = samples; psamples = pointerof(csamples)
+        end
       else
         psamples = nil
       end

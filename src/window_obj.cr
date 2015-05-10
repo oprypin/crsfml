@@ -65,7 +65,11 @@ module SF
     def initialize(mode: VideoMode, title: String, style: WindowStyle, settings)
       title = title.chars; title << '\0'
       if settings
-        csettings = settings; psettings = pointerof(csettings)
+        if settings.responds_to?(:to_unsafe)
+          psettings = settings.to_unsafe
+        else
+          csettings = settings; psettings = pointerof(csettings)
+        end
       else
         psettings = nil
       end
@@ -90,7 +94,11 @@ module SF
     # *Returns*: A new Window object
     def self.from_handle(handle: WindowHandle, settings)
       if settings
-        csettings = settings; psettings = pointerof(csettings)
+        if settings.responds_to?(:to_unsafe)
+          psettings = settings.to_unsafe
+        else
+          csettings = settings; psettings = pointerof(csettings)
+        end
       else
         psettings = nil
       end
@@ -265,7 +273,11 @@ module SF
     # * `pixels`: Pointer to the array of pixels in memory
     def set_icon(width: Int32, height: Int32, pixels)
       if pixels
-        cpixels = pixels; ppixels = pointerof(cpixels)
+        if pixels.responds_to?(:to_unsafe)
+          ppixels = pixels.to_unsafe
+        else
+          cpixels = pixels; ppixels = pointerof(cpixels)
+        end
       else
         ppixels = nil
       end
