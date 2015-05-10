@@ -43,15 +43,20 @@ end
 def test_mouse()
   $window.mouse_cursor_visible = false
   
-  wheel_delta = 0
+  wheel_delta = SF.vector2(0.0, 0.0)
   while true
     while event = $window.poll_event()
       case event.type
       when SF::Event::Closed
         $window.mouse_cursor_visible = true
         return
-      when SF::Event::MouseWheelMoved
-        wheel_delta += event.mouse_wheel.delta
+      when SF::Event::MouseWheelScrolled
+        case event.wheel
+        when SF::Mouse::HorizontalWheel
+          wheel_delta.x += event.delta
+        else
+          wheel_delta.y += event.delta
+        end
       end
     end
     wheel_delta *= 0.9
@@ -87,10 +92,14 @@ def test_mouse()
     shape = SF::ConvexShape.new()
     shape.point_count = 3
     shape.fill_color = SF.color(128, 0, 255)
+    shape.position = m - {0, 4}
     shape[0] = SF.vector2(-8, 0)
     shape[1] = SF.vector2(8, 0)
-    shape[2] = SF.vector2(0, -wheel_delta*5)
-    shape.position = m - {0, 4}
+    shape[2] = SF.vector2(0, -wheel_delta.y*5)
+    $window.draw shape
+    shape[0] = SF.vector2(0, -8)
+    shape[1] = SF.vector2(0, 8)
+    shape[2] = SF.vector2(-wheel_delta.x*5, 0)
     $window.draw shape
 
     $window.display()
