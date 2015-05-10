@@ -318,8 +318,8 @@ module SF
     def [](index)
       get_vertex(index)[0]
     end
-    def []=(index, point)
-      get_vertex(index)[0] = SF.vector2f(point)
+    def []=(index, vertex)
+      get_vertex(index)[0] = vertex
     end
 
     def draw(target, states: RenderStates)
