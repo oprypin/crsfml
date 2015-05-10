@@ -64,15 +64,9 @@ module SF
     # *Returns*: A new Window object
     def initialize(mode: VideoMode, title: String, style: WindowStyle, settings)
       title = title.chars; title << '\0'
-      if settings
-        if settings.responds_to?(:to_unsafe)
-          psettings = settings.to_unsafe
-        else
-          csettings = settings; psettings = pointerof(csettings)
-        end
-      else
-        psettings = nil
-      end
+      if settings.responds_to?(:to_unsafe); psettings = settings.to_unsafe
+      elsif settings; csettings = settings; psettings = pointerof(csettings)
+      else; psettings = nil; end
       @owned = true
       @this = CSFML.window_create_unicode(mode, title, style, psettings)
     end
@@ -93,15 +87,9 @@ module SF
     # 
     # *Returns*: A new Window object
     def self.from_handle(handle: WindowHandle, settings)
-      if settings
-        if settings.responds_to?(:to_unsafe)
-          psettings = settings.to_unsafe
-        else
-          csettings = settings; psettings = pointerof(csettings)
-        end
-      else
-        psettings = nil
-      end
+      if settings.responds_to?(:to_unsafe); psettings = settings.to_unsafe
+      elsif settings; csettings = settings; psettings = pointerof(csettings)
+      else; psettings = nil; end
       Window.transfer_ptr(CSFML.window_create_from_handle(handle, psettings))
     end
     
@@ -274,15 +262,9 @@ module SF
     def set_icon(width: Int, height: Int, pixels)
       width = width.to_i32
       height = height.to_i32
-      if pixels
-        if pixels.responds_to?(:to_unsafe)
-          ppixels = pixels.to_unsafe
-        else
-          cpixels = pixels; ppixels = pointerof(cpixels)
-        end
-      else
-        ppixels = nil
-      end
+      if pixels.responds_to?(:to_unsafe); ppixels = pixels.to_unsafe
+      elsif pixels; cpixels = pixels; ppixels = pointerof(cpixels)
+      else; ppixels = nil; end
       CSFML.window_set_icon(@this, width, height, ppixels)
     end
     

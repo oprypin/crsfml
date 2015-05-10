@@ -122,15 +122,9 @@ module SF
     # 
     # *Returns*: True if rectangles overlap
     def intersects(rect2, intersection: FloatRect*)
-      if rect2
-        if rect2.responds_to?(:to_unsafe)
-          prect2 = rect2.to_unsafe
-        else
-          crect2 = rect2; prect2 = pointerof(crect2)
-        end
-      else
-        prect2 = nil
-      end
+      if rect2.responds_to?(:to_unsafe); prect2 = rect2.to_unsafe
+      elsif rect2; crect2 = rect2; prect2 = pointerof(crect2)
+      else; prect2 = nil; end
       cself = self
       CSFML.float_rect_intersects(pointerof(cself), prect2, intersection) != 0
     end
@@ -146,15 +140,9 @@ module SF
     end
     
     def intersects(rect2, intersection: IntRect*)
-      if rect2
-        if rect2.responds_to?(:to_unsafe)
-          prect2 = rect2.to_unsafe
-        else
-          crect2 = rect2; prect2 = pointerof(crect2)
-        end
-      else
-        prect2 = nil
-      end
+      if rect2.responds_to?(:to_unsafe); prect2 = rect2.to_unsafe
+      elsif rect2; crect2 = rect2; prect2 = pointerof(crect2)
+      else; prect2 = nil; end
       cself = self
       CSFML.int_rect_intersects(pointerof(cself), prect2, intersection) != 0
     end
@@ -1255,15 +1243,9 @@ module SF
     def self.from_pixels(width: Int, height: Int, pixels)
       width = width.to_i32
       height = height.to_i32
-      if pixels
-        if pixels.responds_to?(:to_unsafe)
-          ppixels = pixels.to_unsafe
-        else
-          cpixels = pixels; ppixels = pointerof(cpixels)
-        end
-      else
-        ppixels = nil
-      end
+      if pixels.responds_to?(:to_unsafe); ppixels = pixels.to_unsafe
+      elsif pixels; cpixels = pixels; ppixels = pointerof(cpixels)
+      else; ppixels = nil; end
       Image.transfer_ptr(CSFML.image_create_from_pixels(width, height, ppixels))
     end
     
@@ -2396,93 +2378,51 @@ module SF
     # * `object`: Object to draw
     # * `states`: Render states to use for drawing (NULL to use the default states)
     def draw_sprite(object: Sprite, states)
-      if states
-        if states.responds_to?(:to_unsafe)
-          pstates = states.to_unsafe
-        else
-          cstates = states; pstates = pointerof(cstates)
-        end
-      else
-        pstates = nil
-      end
+      if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
+      elsif states; cstates = states; pstates = pointerof(cstates)
+      else; pstates = nil; end
       CSFML.render_texture_draw_sprite(@this, object, pstates)
     end
     
     def draw_text(object: Text, states)
-      if states
-        if states.responds_to?(:to_unsafe)
-          pstates = states.to_unsafe
-        else
-          cstates = states; pstates = pointerof(cstates)
-        end
-      else
-        pstates = nil
-      end
+      if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
+      elsif states; cstates = states; pstates = pointerof(cstates)
+      else; pstates = nil; end
       CSFML.render_texture_draw_text(@this, object, pstates)
     end
     
     def draw_shape(object: Shape, states)
-      if states
-        if states.responds_to?(:to_unsafe)
-          pstates = states.to_unsafe
-        else
-          cstates = states; pstates = pointerof(cstates)
-        end
-      else
-        pstates = nil
-      end
+      if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
+      elsif states; cstates = states; pstates = pointerof(cstates)
+      else; pstates = nil; end
       CSFML.render_texture_draw_shape(@this, object, pstates)
     end
     
     def draw_circle_shape(object: CircleShape, states)
-      if states
-        if states.responds_to?(:to_unsafe)
-          pstates = states.to_unsafe
-        else
-          cstates = states; pstates = pointerof(cstates)
-        end
-      else
-        pstates = nil
-      end
+      if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
+      elsif states; cstates = states; pstates = pointerof(cstates)
+      else; pstates = nil; end
       CSFML.render_texture_draw_circle_shape(@this, object, pstates)
     end
     
     def draw_convex_shape(object: ConvexShape, states)
-      if states
-        if states.responds_to?(:to_unsafe)
-          pstates = states.to_unsafe
-        else
-          cstates = states; pstates = pointerof(cstates)
-        end
-      else
-        pstates = nil
-      end
+      if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
+      elsif states; cstates = states; pstates = pointerof(cstates)
+      else; pstates = nil; end
       CSFML.render_texture_draw_convex_shape(@this, object, pstates)
     end
     
     def draw_rectangle_shape(object: RectangleShape, states)
-      if states
-        if states.responds_to?(:to_unsafe)
-          pstates = states.to_unsafe
-        else
-          cstates = states; pstates = pointerof(cstates)
-        end
-      else
-        pstates = nil
-      end
+      if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
+      elsif states; cstates = states; pstates = pointerof(cstates)
+      else; pstates = nil; end
       CSFML.render_texture_draw_rectangle_shape(@this, object, pstates)
     end
     
     def draw_vertex_array(object: VertexArray, states)
-      if states
-        if states.responds_to?(:to_unsafe)
-          pstates = states.to_unsafe
-        else
-          cstates = states; pstates = pointerof(cstates)
-        end
-      else
-        pstates = nil
-      end
+      if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
+      elsif states; cstates = states; pstates = pointerof(cstates)
+      else; pstates = nil; end
       CSFML.render_texture_draw_vertex_array(@this, object, pstates)
     end
     
@@ -2496,25 +2436,13 @@ module SF
     # * `type`: Type of primitives to draw
     # * `states`: Render states to use for drawing (NULL to use the default states)
     def draw_primitives(vertices, vertex_count: Int, type: PrimitiveType, states)
-      if vertices
-        if vertices.responds_to?(:to_unsafe)
-          pvertices = vertices.to_unsafe
-        else
-          cvertices = vertices; pvertices = pointerof(cvertices)
-        end
-      else
-        pvertices = nil
-      end
+      if vertices.responds_to?(:to_unsafe); pvertices = vertices.to_unsafe
+      elsif vertices; cvertices = vertices; pvertices = pointerof(cvertices)
+      else; pvertices = nil; end
       vertex_count = CSFML::SizeT.cast(vertex_count)
-      if states
-        if states.responds_to?(:to_unsafe)
-          pstates = states.to_unsafe
-        else
-          cstates = states; pstates = pointerof(cstates)
-        end
-      else
-        pstates = nil
-      end
+      if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
+      elsif states; cstates = states; pstates = pointerof(cstates)
+      else; pstates = nil; end
       CSFML.render_texture_draw_primitives(@this, pvertices, vertex_count, type, pstates)
     end
     
@@ -2639,15 +2567,9 @@ module SF
     # * `settings`: Creation settings (pass NULL to use default values)
     def initialize(mode: VideoMode, title: String, style: WindowStyle, settings)
       title = title.chars; title << '\0'
-      if settings
-        if settings.responds_to?(:to_unsafe)
-          psettings = settings.to_unsafe
-        else
-          csettings = settings; psettings = pointerof(csettings)
-        end
-      else
-        psettings = nil
-      end
+      if settings.responds_to?(:to_unsafe); psettings = settings.to_unsafe
+      elsif settings; csettings = settings; psettings = pointerof(csettings)
+      else; psettings = nil; end
       @owned = true
       @this = CSFML.render_window_create_unicode(mode, title, style, psettings)
     end
@@ -2659,15 +2581,9 @@ module SF
     # * `handle`: Platform-specific handle of the control
     # * `settings`: Creation settings (pass NULL to use default values)
     def self.from_handle(handle: WindowHandle, settings)
-      if settings
-        if settings.responds_to?(:to_unsafe)
-          psettings = settings.to_unsafe
-        else
-          csettings = settings; psettings = pointerof(csettings)
-        end
-      else
-        psettings = nil
-      end
+      if settings.responds_to?(:to_unsafe); psettings = settings.to_unsafe
+      elsif settings; csettings = settings; psettings = pointerof(csettings)
+      else; psettings = nil; end
       RenderWindow.transfer_ptr(CSFML.render_window_create_from_handle(handle, psettings))
     end
     
@@ -2801,15 +2717,9 @@ module SF
     def set_icon(width: Int, height: Int, pixels)
       width = width.to_i32
       height = height.to_i32
-      if pixels
-        if pixels.responds_to?(:to_unsafe)
-          ppixels = pixels.to_unsafe
-        else
-          cpixels = pixels; ppixels = pointerof(cpixels)
-        end
-      else
-        ppixels = nil
-      end
+      if pixels.responds_to?(:to_unsafe); ppixels = pixels.to_unsafe
+      elsif pixels; cpixels = pixels; ppixels = pointerof(cpixels)
+      else; ppixels = nil; end
       CSFML.render_window_set_icon(@this, width, height, ppixels)
     end
     
@@ -3060,93 +2970,51 @@ module SF
     # * `object`: Object to draw
     # * `states`: Render states to use for drawing (NULL to use the default states)
     def draw_sprite(object: Sprite, states)
-      if states
-        if states.responds_to?(:to_unsafe)
-          pstates = states.to_unsafe
-        else
-          cstates = states; pstates = pointerof(cstates)
-        end
-      else
-        pstates = nil
-      end
+      if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
+      elsif states; cstates = states; pstates = pointerof(cstates)
+      else; pstates = nil; end
       CSFML.render_window_draw_sprite(@this, object, pstates)
     end
     
     def draw_text(object: Text, states)
-      if states
-        if states.responds_to?(:to_unsafe)
-          pstates = states.to_unsafe
-        else
-          cstates = states; pstates = pointerof(cstates)
-        end
-      else
-        pstates = nil
-      end
+      if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
+      elsif states; cstates = states; pstates = pointerof(cstates)
+      else; pstates = nil; end
       CSFML.render_window_draw_text(@this, object, pstates)
     end
     
     def draw_shape(object: Shape, states)
-      if states
-        if states.responds_to?(:to_unsafe)
-          pstates = states.to_unsafe
-        else
-          cstates = states; pstates = pointerof(cstates)
-        end
-      else
-        pstates = nil
-      end
+      if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
+      elsif states; cstates = states; pstates = pointerof(cstates)
+      else; pstates = nil; end
       CSFML.render_window_draw_shape(@this, object, pstates)
     end
     
     def draw_circle_shape(object: CircleShape, states)
-      if states
-        if states.responds_to?(:to_unsafe)
-          pstates = states.to_unsafe
-        else
-          cstates = states; pstates = pointerof(cstates)
-        end
-      else
-        pstates = nil
-      end
+      if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
+      elsif states; cstates = states; pstates = pointerof(cstates)
+      else; pstates = nil; end
       CSFML.render_window_draw_circle_shape(@this, object, pstates)
     end
     
     def draw_convex_shape(object: ConvexShape, states)
-      if states
-        if states.responds_to?(:to_unsafe)
-          pstates = states.to_unsafe
-        else
-          cstates = states; pstates = pointerof(cstates)
-        end
-      else
-        pstates = nil
-      end
+      if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
+      elsif states; cstates = states; pstates = pointerof(cstates)
+      else; pstates = nil; end
       CSFML.render_window_draw_convex_shape(@this, object, pstates)
     end
     
     def draw_rectangle_shape(object: RectangleShape, states)
-      if states
-        if states.responds_to?(:to_unsafe)
-          pstates = states.to_unsafe
-        else
-          cstates = states; pstates = pointerof(cstates)
-        end
-      else
-        pstates = nil
-      end
+      if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
+      elsif states; cstates = states; pstates = pointerof(cstates)
+      else; pstates = nil; end
       CSFML.render_window_draw_rectangle_shape(@this, object, pstates)
     end
     
     def draw_vertex_array(object: VertexArray, states)
-      if states
-        if states.responds_to?(:to_unsafe)
-          pstates = states.to_unsafe
-        else
-          cstates = states; pstates = pointerof(cstates)
-        end
-      else
-        pstates = nil
-      end
+      if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
+      elsif states; cstates = states; pstates = pointerof(cstates)
+      else; pstates = nil; end
       CSFML.render_window_draw_vertex_array(@this, object, pstates)
     end
     
@@ -3160,25 +3028,13 @@ module SF
     # * `type`: Type of primitives to draw
     # * `states`: Render states to use for drawing (NULL to use the default states)
     def draw_primitives(vertices, vertex_count: Int, type: PrimitiveType, states)
-      if vertices
-        if vertices.responds_to?(:to_unsafe)
-          pvertices = vertices.to_unsafe
-        else
-          cvertices = vertices; pvertices = pointerof(cvertices)
-        end
-      else
-        pvertices = nil
-      end
+      if vertices.responds_to?(:to_unsafe); pvertices = vertices.to_unsafe
+      elsif vertices; cvertices = vertices; pvertices = pointerof(cvertices)
+      else; pvertices = nil; end
       vertex_count = CSFML::SizeT.cast(vertex_count)
-      if states
-        if states.responds_to?(:to_unsafe)
-          pstates = states.to_unsafe
-        else
-          cstates = states; pstates = pointerof(cstates)
-        end
-      else
-        pstates = nil
-      end
+      if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
+      elsif states; cstates = states; pstates = pointerof(cstates)
+      else; pstates = nil; end
       CSFML.render_window_draw_primitives(@this, pvertices, vertex_count, type, pstates)
     end
     
@@ -4416,15 +4272,9 @@ module SF
     # 
     # *Returns*: A new Texture object, or NULL if it failed
     def self.from_file(filename: String, area)
-      if area
-        if area.responds_to?(:to_unsafe)
-          parea = area.to_unsafe
-        else
-          carea = area; parea = pointerof(carea)
-        end
-      else
-        parea = nil
-      end
+      if area.responds_to?(:to_unsafe); parea = area.to_unsafe
+      elsif area; carea = area; parea = pointerof(carea)
+      else; parea = nil; end
       Texture.transfer_ptr(CSFML.texture_create_from_file(filename, parea))
     end
     
@@ -4439,15 +4289,9 @@ module SF
     # *Returns*: A new Texture object, or NULL if it failed
     def self.from_memory(data: Void*, size_in_bytes: Int, area)
       size_in_bytes = CSFML::SizeT.cast(size_in_bytes)
-      if area
-        if area.responds_to?(:to_unsafe)
-          parea = area.to_unsafe
-        else
-          carea = area; parea = pointerof(carea)
-        end
-      else
-        parea = nil
-      end
+      if area.responds_to?(:to_unsafe); parea = area.to_unsafe
+      elsif area; carea = area; parea = pointerof(carea)
+      else; parea = nil; end
       Texture.transfer_ptr(CSFML.texture_create_from_memory(data, size_in_bytes, parea))
     end
     
@@ -4460,15 +4304,9 @@ module SF
     # 
     # *Returns*: A new Texture object, or NULL if it failed
     def self.from_stream(stream: InputStream*, area)
-      if area
-        if area.responds_to?(:to_unsafe)
-          parea = area.to_unsafe
-        else
-          carea = area; parea = pointerof(carea)
-        end
-      else
-        parea = nil
-      end
+      if area.responds_to?(:to_unsafe); parea = area.to_unsafe
+      elsif area; carea = area; parea = pointerof(carea)
+      else; parea = nil; end
       Texture.transfer_ptr(CSFML.texture_create_from_stream(stream, parea))
     end
     
@@ -4481,15 +4319,9 @@ module SF
     # 
     # *Returns*: A new Texture object, or NULL if it failed
     def self.from_image(image: Image, area)
-      if area
-        if area.responds_to?(:to_unsafe)
-          parea = area.to_unsafe
-        else
-          carea = area; parea = pointerof(carea)
-        end
-      else
-        parea = nil
-      end
+      if area.responds_to?(:to_unsafe); parea = area.to_unsafe
+      elsif area; carea = area; parea = pointerof(carea)
+      else; parea = nil; end
       Texture.transfer_ptr(CSFML.texture_create_from_image(image, parea))
     end
     
@@ -4546,15 +4378,9 @@ module SF
     # * `x`: X offset in the texture where to copy the source pixels
     # * `y`: Y offset in the texture where to copy the source pixels
     def update(pixels, width: Int, height: Int, x: Int, y: Int)
-      if pixels
-        if pixels.responds_to?(:to_unsafe)
-          ppixels = pixels.to_unsafe
-        else
-          cpixels = pixels; ppixels = pointerof(cpixels)
-        end
-      else
-        ppixels = nil
-      end
+      if pixels.responds_to?(:to_unsafe); ppixels = pixels.to_unsafe
+      elsif pixels; cpixels = pixels; ppixels = pointerof(cpixels)
+      else; ppixels = nil; end
       width = width.to_i32
       height = height.to_i32
       x = x.to_i32
@@ -5323,15 +5149,9 @@ module SF
     # * `transform`: Transform object
     # * `right`: Transform to combine to `transform`
     def combine(other)
-      if other
-        if other.responds_to?(:to_unsafe)
-          pother = other.to_unsafe
-        else
-          cother = other; pother = pointerof(cother)
-        end
-      else
-        pother = nil
-      end
+      if other.responds_to?(:to_unsafe); pother = other.to_unsafe
+      elsif other; cother = other; pother = pointerof(cother)
+      else; pother = nil; end
       cself = self
       CSFML.transform_combine(pointerof(cself), pother)
       self.matrix = cself.matrix

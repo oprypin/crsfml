@@ -357,7 +357,16 @@ def handle_function(main, params):
             conv.append('{0} = SF.{2}({0}) unless {0}.is_a? {1}'.format(n, t, t.lower()))
             t = None
         if n in const and t not in classes:
-            conv += 'if {0}\n  if {0}.responds_to?(:to_unsafe)\n    p{0} = {0}.to_unsafe\n  else\n    c{0} = {0}; p{0} = pointerof(c{0})\n  end\nelse\n  p{0} = nil\nend'.format(n).splitlines()
+            conv += (
+                'if {0}.responds_to?(:to_unsafe); '
+                  'p{0} = {0}.to_unsafe\n'
+                'elsif {0}; '
+                  'c{0} = {0}; '
+                  'p{0} = pointerof(c{0})\n'
+                'else; '
+                  'p{0} = nil; '
+                'end'
+            ).format(n).splitlines()
             t = None
         oparams[i] = (n, t)
     sparams = ', '.join('{}: {}'.format(n, t) if t else n for n, t in oparams)
