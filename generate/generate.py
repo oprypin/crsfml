@@ -57,7 +57,7 @@ def rename_type(name, var=''):
         'char': 'UInt8',
         'int': 'Int32',
         'size_t': 'SizeT',
-        'sfBool': 'Int32',
+        'sfBool': 'CSFML::Bool',
         'unsigned int': 'Int32',
         'float': 'Float32',
         'sfVector2u': 'sfVector2i',
@@ -285,9 +285,6 @@ def handle_function(main, params):
     if nftype=='UInt32':
         if nfname == 'style':
             rtype = 'WindowStyle' if 'Window' in ofname else 'TextStyle'
-        #elif nfname == 'attributes'
-    #if nftype.startswith('ptr ') or nftype=='pointer':
-        #public = False
 
     aparams = []
     const = []
@@ -344,6 +341,9 @@ def handle_function(main, params):
         elif t == 'Float32':
             t = 'Number'
             conv.append('{0} = {0}.to_f32'.format(n))
+        elif (' '+params[i][0]).endswith(' int'):
+            t = 'Int'
+            conv.append('{0} = {0}.to_i32'.format(n))
         elif t == 'SizeT':
             t = 'Int'
             conv.append('{0} = CSFML::SizeT.cast({0})'.format(n))

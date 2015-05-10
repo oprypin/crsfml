@@ -869,7 +869,7 @@ module SF
     # * `sample_rate`: Sample rate (number of samples to play per second)
     # 
     # *Returns*: A new SoundBuffer object (NULL if failed)
-    def self.from_samples(samples, sample_count: Int, channel_count: Int32, sample_rate: Int32)
+    def self.from_samples(samples, sample_count: Int, channel_count: Int, sample_rate: Int)
       if samples
         if samples.responds_to?(:to_unsafe)
           psamples = samples.to_unsafe
@@ -880,6 +880,8 @@ module SF
         psamples = nil
       end
       sample_count = sample_count.to_u64
+      channel_count = channel_count.to_i32
+      sample_rate = sample_rate.to_i32
       SoundBuffer.transfer_ptr(CSFML.sound_buffer_create_from_samples(psamples, sample_count, channel_count, sample_rate))
     end
     
@@ -1023,7 +1025,8 @@ module SF
     # 
     # * `sound_buffer_recorder`: Sound buffer recorder object
     # * `sample_rate`: Desired capture rate, in number of samples per second
-    def start(sample_rate: Int32)
+    def start(sample_rate: Int)
+      sample_rate = sample_rate.to_i32
       CSFML.sound_buffer_recorder_start(@this, sample_rate)
     end
     
@@ -1111,7 +1114,8 @@ module SF
     # * `sample_rate`: Desired capture rate, in number of samples per second
     # 
     # *Returns*: True, if start of capture was successful
-    def start(sample_rate: Int32)
+    def start(sample_rate: Int)
+      sample_rate = sample_rate.to_i32
       CSFML.sound_recorder_start(@this, sample_rate) != 0
     end
     
@@ -1239,7 +1243,9 @@ module SF
     # * `user_data`: Data to pass to the callback functions
     # 
     # *Returns*: A new SoundStream object
-    def initialize(on_get_data: SoundStreamGetDataCallback, on_seek: SoundStreamSeekCallback, channel_count: Int32, sample_rate: Int32, user_data: Void*)
+    def initialize(on_get_data: SoundStreamGetDataCallback, on_seek: SoundStreamSeekCallback, channel_count: Int, sample_rate: Int, user_data: Void*)
+      channel_count = channel_count.to_i32
+      sample_rate = sample_rate.to_i32
       @owned = true
       @this = CSFML.sound_stream_create(on_get_data, on_seek, channel_count, sample_rate, user_data)
     end

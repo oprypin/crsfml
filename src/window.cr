@@ -23,8 +23,13 @@ require "./window_lib"
 module SF
   extend self
 
-  def context_settings(depth=0, stencil=0, antialiasing=0, major=2, minor=0, attributes=CSFML::ContextSettings::Default)
-    ContextSettings.new(depth_bits: depth, stencil_bits: stencil, antialiasing_level: antialiasing, major_version: major, minor_version: minor, attribute_flags: attributes)
+  def context_settings(depth=0: Int, stencil=0: Int, antialiasing=0: Int, major=2: Int, minor=0: Int, attributes=CSFML::ContextSettings::Default)
+    ContextSettings.new(
+      depth_bits: depth.to_i32, stencil_bits: stencil.to_i32,
+      antialiasing_level: antialiasing.to_i32,
+      major_version: major.to_i32, minor_version: minor.to_i32,
+      attribute_flags: attributes
+    )
   end
   
   class Mouse
@@ -48,7 +53,10 @@ module SF
   end
   
   def video_mode(mode_width: Int, mode_height: Int, bits_per_pixel=32)
-    VideoMode.new(width: mode_width, height: mode_height, bits_per_pixel: bits_per_pixel)
+    VideoMode.new(
+      width: mode_width.to_i32, height: mode_height.to_i32,
+      bits_per_pixel: bits_per_pixel.to_i32
+    )
   end
   
   struct CSFML::VideoMode

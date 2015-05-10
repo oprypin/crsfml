@@ -124,9 +124,9 @@ lib CSFML
   # * `y`: Y coordinate of the point to test
   # 
   # *Returns*: True if the point is inside
-  fun float_rect_contains = sfFloatRect_contains(rect: FloatRect*, x: Float32, y: Float32): Int32
+  fun float_rect_contains = sfFloatRect_contains(rect: FloatRect*, x: Float32, y: Float32): CSFML::Bool
   
-  fun int_rect_contains = sfIntRect_contains(rect: IntRect*, x: Int32, y: Int32): Int32
+  fun int_rect_contains = sfIntRect_contains(rect: IntRect*, x: Int32, y: Int32): CSFML::Bool
   
   # Check intersection between two rectangles
   # 
@@ -137,9 +137,9 @@ lib CSFML
   # * `intersection`: Rectangle to be filled with overlapping rect (can be NULL)
   # 
   # *Returns*: True if rectangles overlap
-  fun float_rect_intersects = sfFloatRect_intersects(rect1: FloatRect*, rect2: FloatRect*, intersection: FloatRect*): Int32
+  fun float_rect_intersects = sfFloatRect_intersects(rect1: FloatRect*, rect2: FloatRect*, intersection: FloatRect*): CSFML::Bool
   
-  fun int_rect_intersects = sfIntRect_intersects(rect1: IntRect*, rect2: IntRect*, intersection: IntRect*): Int32
+  fun int_rect_intersects = sfIntRect_intersects(rect1: IntRect*, rect2: IntRect*, intersection: IntRect*): CSFML::Bool
   
   type CircleShape = Void*
   
@@ -491,7 +491,7 @@ lib CSFML
   # * `shape`: Shape object
   # * `texture`: New texture
   # * `reset_rect`: Should the texture rect be reset to the size of the new texture?
-  fun circle_shape_set_texture = sfCircleShape_setTexture(shape: CircleShape, texture: Texture, reset_rect: Int32)
+  fun circle_shape_set_texture = sfCircleShape_setTexture(shape: CircleShape, texture: Texture, reset_rect: CSFML::Bool)
   
   # Set the sub-rectangle of the texture that a circle shape will display
   # 
@@ -847,7 +847,7 @@ lib CSFML
   # * `shape`: Shape object
   # * `texture`: New texture
   # * `reset_rect`: Should the texture rect be reset to the size of the new texture?
-  fun convex_shape_set_texture = sfConvexShape_setTexture(shape: ConvexShape, texture: Texture, reset_rect: Int32)
+  fun convex_shape_set_texture = sfConvexShape_setTexture(shape: ConvexShape, texture: Texture, reset_rect: CSFML::Bool)
   
   # Set the sub-rectangle of the texture that a convex shape will display
   # 
@@ -1089,7 +1089,7 @@ lib CSFML
   # * `bold`: Retrieve the bold version or the regular one?
   # 
   # *Returns*: The corresponding glyph
-  fun font_get_glyph = sfFont_getGlyph(font: Font, code_point: Char, character_size: Int32, bold: Int32): Glyph
+  fun font_get_glyph = sfFont_getGlyph(font: Font, code_point: Char, character_size: Int32, bold: CSFML::Bool): Glyph
   
   # Get the kerning value corresponding to a given pair of characters in a font
   # 
@@ -1272,7 +1272,7 @@ lib CSFML
   # * `filename`: Path of the file to save
   # 
   # *Returns*: True if saving was successful
-  fun image_save_to_file = sfImage_saveToFile(image: Image, filename: UInt8*): Int32
+  fun image_save_to_file = sfImage_saveToFile(image: Image, filename: UInt8*): CSFML::Bool
   
   # Return the size of an image
   # 
@@ -1316,7 +1316,7 @@ lib CSFML
   # * `destY`: Y coordinate of the destination position
   # * `source_rect`: Sub-rectangle of the source image to copy
   # * `apply_alpha`: Should the copy take in account the source transparency?
-  fun image_copy_image = sfImage_copyImage(image: Image, source: Image, dest_x: Int32, dest_y: Int32, source_rect: IntRect, apply_alpha: Int32)
+  fun image_copy_image = sfImage_copyImage(image: Image, source: Image, dest_x: Int32, dest_y: Int32, source_rect: IntRect, apply_alpha: CSFML::Bool)
   
   # Change the color of a pixel in an image
   # 
@@ -1565,7 +1565,7 @@ lib CSFML
   # * `shape`: Shape object
   # * `texture`: New texture
   # * `reset_rect`: Should the texture rect be reset to the size of the new texture?
-  fun rectangle_shape_set_texture = sfRectangleShape_setTexture(shape: RectangleShape, texture: Texture, reset_rect: Int32)
+  fun rectangle_shape_set_texture = sfRectangleShape_setTexture(shape: RectangleShape, texture: Texture, reset_rect: CSFML::Bool)
   
   # Set the sub-rectangle of the texture that a rectangle shape will display
   # 
@@ -1757,7 +1757,7 @@ lib CSFML
   # * `depth_buffer`: Do you want a depth-buffer attached? (useful only if you're doing 3D OpenGL on the rendertexture)
   # 
   # *Returns*: A new RenderTexture object, or NULL if it failed
-  fun render_texture_create = sfRenderTexture_create(width: Int32, height: Int32, depth_buffer: Int32): RenderTexture
+  fun render_texture_create = sfRenderTexture_create(width: Int32, height: Int32, depth_buffer: CSFML::Bool): RenderTexture
   
   # Destroy an existing render texture
   # 
@@ -1783,7 +1783,7 @@ lib CSFML
   # * `active`: True to activate, False to deactivate
   # 
   # *Returns*: True if operation was successful, false otherwise
-  fun render_texture_set_active = sfRenderTexture_setActive(render_texture: RenderTexture, active: Int32): Int32
+  fun render_texture_set_active = sfRenderTexture_setActive(render_texture: RenderTexture, active: CSFML::Bool): CSFML::Bool
   
   # Update the contents of the target texture
   # 
@@ -1979,7 +1979,7 @@ lib CSFML
   # 
   # * `render_texture`: Render texture object
   # * `smooth`: True to enable smoothing, False to disable it
-  fun render_texture_set_smooth = sfRenderTexture_setSmooth(render_texture: RenderTexture, smooth: Int32)
+  fun render_texture_set_smooth = sfRenderTexture_setSmooth(render_texture: RenderTexture, smooth: CSFML::Bool)
   
   # Tell whether the smooth filter is enabled or not for a render texture
   # 
@@ -1988,7 +1988,7 @@ lib CSFML
   # * `render_texture`: Render texture object
   # 
   # *Returns*: True if smoothing is enabled, False if it is disabled
-  fun render_texture_is_smooth = sfRenderTexture_isSmooth(render_texture: RenderTexture): Int32
+  fun render_texture_is_smooth = sfRenderTexture_isSmooth(render_texture: RenderTexture): CSFML::Bool
   
   # Enable or disable texture repeating
   # 
@@ -1996,7 +1996,7 @@ lib CSFML
   # 
   # * `render_texture`: Render texture object
   # * `repeated`: True to enable repeating, False to disable it
-  fun render_texture_set_repeated = sfRenderTexture_setRepeated(render_texture: RenderTexture, repeated: Int32)
+  fun render_texture_set_repeated = sfRenderTexture_setRepeated(render_texture: RenderTexture, repeated: CSFML::Bool)
   
   # Tell whether the texture is repeated or not
   # 
@@ -2005,7 +2005,7 @@ lib CSFML
   # * `render_texture`: Render texture object
   # 
   # *Returns*: True if repeat mode is enabled, False if it is disabled
-  fun render_texture_is_repeated = sfRenderTexture_isRepeated(render_texture: RenderTexture): Int32
+  fun render_texture_is_repeated = sfRenderTexture_isRepeated(render_texture: RenderTexture): CSFML::Bool
   
   # Construct a new render window
   # 
@@ -2054,7 +2054,7 @@ lib CSFML
   # *Arguments*:
   # 
   # * `render_window`: Render window object
-  fun render_window_is_open = sfRenderWindow_isOpen(render_window: RenderWindow): Int32
+  fun render_window_is_open = sfRenderWindow_isOpen(render_window: RenderWindow): CSFML::Bool
   
   # Get the creation settings of a render window
   # 
@@ -2073,7 +2073,7 @@ lib CSFML
   # * `event`: Event to fill, if any
   # 
   # *Returns*: True if an event was returned, False if event queue was empty
-  fun render_window_poll_event = sfRenderWindow_pollEvent(render_window: RenderWindow, event: Event*): Int32
+  fun render_window_poll_event = sfRenderWindow_pollEvent(render_window: RenderWindow, event: Event*): CSFML::Bool
   
   # Wait for an event and return it
   # 
@@ -2083,7 +2083,7 @@ lib CSFML
   # * `event`: Event to fill
   # 
   # *Returns*: False if an error occured
-  fun render_window_wait_event = sfRenderWindow_waitEvent(render_window: RenderWindow, event: Event*): Int32
+  fun render_window_wait_event = sfRenderWindow_waitEvent(render_window: RenderWindow, event: Event*): CSFML::Bool
   
   # Get the position of a render window
   # 
@@ -2153,7 +2153,7 @@ lib CSFML
   # 
   # * `render_window`: Render window object
   # * `visible`: True to show the window, False to hide it
-  fun render_window_set_visible = sfRenderWindow_setVisible(render_window: RenderWindow, visible: Int32)
+  fun render_window_set_visible = sfRenderWindow_setVisible(render_window: RenderWindow, visible: CSFML::Bool)
   
   # Show or hide the mouse cursor on a render window
   # 
@@ -2161,7 +2161,7 @@ lib CSFML
   # 
   # * `render_window`: Render window object
   # * `show`: True to show, False to hide
-  fun render_window_set_mouse_cursor_visible = sfRenderWindow_setMouseCursorVisible(render_window: RenderWindow, show: Int32)
+  fun render_window_set_mouse_cursor_visible = sfRenderWindow_setMouseCursorVisible(render_window: RenderWindow, show: CSFML::Bool)
   
   # Enable / disable vertical synchronization on a render window
   # 
@@ -2169,7 +2169,7 @@ lib CSFML
   # 
   # * `render_window`: Render window object
   # * `enabled`: True to enable v-sync, False to deactivate
-  fun render_window_set_vertical_sync_enabled = sfRenderWindow_setVerticalSyncEnabled(render_window: RenderWindow, enabled: Int32)
+  fun render_window_set_vertical_sync_enabled = sfRenderWindow_setVerticalSyncEnabled(render_window: RenderWindow, enabled: CSFML::Bool)
   
   # Enable or disable automatic key-repeat for keydown events
   # 
@@ -2179,7 +2179,7 @@ lib CSFML
   # 
   # * `render_window`: Render window object
   # * `enabled`: True to enable, False to disable
-  fun render_window_set_key_repeat_enabled = sfRenderWindow_setKeyRepeatEnabled(render_window: RenderWindow, enabled: Int32)
+  fun render_window_set_key_repeat_enabled = sfRenderWindow_setKeyRepeatEnabled(render_window: RenderWindow, enabled: CSFML::Bool)
   
   # Activate or deactivate a render window as the current target for rendering
   # 
@@ -2189,7 +2189,7 @@ lib CSFML
   # * `active`: True to activate, False to deactivate
   # 
   # *Returns*: True if operation was successful, false otherwise
-  fun render_window_set_active = sfRenderWindow_setActive(render_window: RenderWindow, active: Int32): Int32
+  fun render_window_set_active = sfRenderWindow_setActive(render_window: RenderWindow, active: CSFML::Bool): CSFML::Bool
   
   # Request the current render window to be made the active
   # foreground window
@@ -2209,7 +2209,7 @@ lib CSFML
   # events.
   # 
   # *Returns*: True if window has focus, false otherwise
-  fun render_window_has_focus = sfRenderWindow_hasFocus(render_window: RenderWindow): Int32
+  fun render_window_has_focus = sfRenderWindow_hasFocus(render_window: RenderWindow): CSFML::Bool
   
   # Display a render window on screen
   # 
@@ -2723,7 +2723,7 @@ lib CSFML
   # any attempt to use Shader will fail.
   # 
   # *Returns*: True if the system can use shaders, False otherwise
-  fun shader_is_available = sfShader_isAvailable(): Int32
+  fun shader_is_available = sfShader_isAvailable(): CSFML::Bool
   
   alias ShapeGetPointCountCallback = (Void*) -> SizeT
   alias ShapeGetPointCallback = (SizeT, Void*) -> Vector2f
@@ -2903,7 +2903,7 @@ lib CSFML
   # * `shape`: Shape object
   # * `texture`: New texture
   # * `reset_rect`: Should the texture rect be reset to the size of the new texture?
-  fun shape_set_texture = sfShape_setTexture(shape: Shape, texture: Texture, reset_rect: Int32)
+  fun shape_set_texture = sfShape_setTexture(shape: Shape, texture: Texture, reset_rect: CSFML::Bool)
   
   # Set the sub-rectangle of the texture that a shape will display
   # 
@@ -3240,7 +3240,7 @@ lib CSFML
   # * `sprite`: Sprite object
   # * `texture`: New texture
   # * `reset_rect`: Should the texture rect be reset to the size of the new texture?
-  fun sprite_set_texture = sfSprite_setTexture(sprite: Sprite, texture: Texture, reset_rect: Int32)
+  fun sprite_set_texture = sfSprite_setTexture(sprite: Sprite, texture: Texture, reset_rect: CSFML::Bool)
   
   # Set the sub-rectangle of the texture that a sprite will display
   # 
@@ -3797,7 +3797,7 @@ lib CSFML
   # 
   # * `texture`: The texture object
   # * `smooth`: True to enable smoothing, False to disable it
-  fun texture_set_smooth = sfTexture_setSmooth(texture: Texture, smooth: Int32)
+  fun texture_set_smooth = sfTexture_setSmooth(texture: Texture, smooth: CSFML::Bool)
   
   # Tell whether the smooth filter is enabled or not for a texture
   # 
@@ -3806,7 +3806,7 @@ lib CSFML
   # * `texture`: The texture object
   # 
   # *Returns*: True if smoothing is enabled, False if it is disabled
-  fun texture_is_smooth = sfTexture_isSmooth(texture: Texture): Int32
+  fun texture_is_smooth = sfTexture_isSmooth(texture: Texture): CSFML::Bool
   
   # Enable or disable repeating for a texture
   # 
@@ -3828,7 +3828,7 @@ lib CSFML
   # 
   # * `texture`: The texture object
   # * `repeated`: True to repeat the texture, false to disable repeating
-  fun texture_set_repeated = sfTexture_setRepeated(texture: Texture, repeated: Int32)
+  fun texture_set_repeated = sfTexture_setRepeated(texture: Texture, repeated: CSFML::Bool)
   
   # Tell whether a texture is repeated or not
   # 
@@ -3837,7 +3837,7 @@ lib CSFML
   # * `texture`: The texture object
   # 
   # *Returns*: True if repeat mode is enabled, False if it is disabled
-  fun texture_is_repeated = sfTexture_isRepeated(texture: Texture): Int32
+  fun texture_is_repeated = sfTexture_isRepeated(texture: Texture): CSFML::Bool
   
   # Get the underlying OpenGL handle of the texture.
   # 

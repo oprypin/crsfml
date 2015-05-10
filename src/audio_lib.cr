@@ -153,7 +153,7 @@ lib CSFML
   # 
   # * `music`: Music object
   # * `loop`: True to play in loop, False to play once
-  fun music_set_loop = sfMusic_setLoop(music: Music, loop: Int32)
+  fun music_set_loop = sfMusic_setLoop(music: Music, loop: CSFML::Bool)
   
   # Tell whether or not a music is in loop mode
   # 
@@ -162,7 +162,7 @@ lib CSFML
   # * `music`: Music object
   # 
   # *Returns*: True if the music is looping, False otherwise
-  fun music_get_loop = sfMusic_getLoop(music: Music): Int32
+  fun music_get_loop = sfMusic_getLoop(music: Music): CSFML::Bool
   
   # Get the total duration of a music
   # 
@@ -297,7 +297,7 @@ lib CSFML
   # 
   # * `music`: Music object
   # * `relative`: True to set the position relative, False to set it absolute
-  fun music_set_relative_to_listener = sfMusic_setRelativeToListener(music: Music, relative: Int32)
+  fun music_set_relative_to_listener = sfMusic_setRelativeToListener(music: Music, relative: CSFML::Bool)
   
   # Set the minimum distance of a music
   # 
@@ -377,7 +377,7 @@ lib CSFML
   # * `music`: Music object
   # 
   # *Returns*: True if the position is relative, False if it's absolute
-  fun music_is_relative_to_listener = sfMusic_isRelativeToListener(music: Music): Int32
+  fun music_is_relative_to_listener = sfMusic_isRelativeToListener(music: Music): CSFML::Bool
   
   # Get the minimum distance of a music
   # 
@@ -484,7 +484,7 @@ lib CSFML
   # 
   # * `sound`: Sound object
   # * `loop`: True to play in loop, False to play once
-  fun sound_set_loop = sfSound_setLoop(sound: Sound, loop: Int32)
+  fun sound_set_loop = sfSound_setLoop(sound: Sound, loop: CSFML::Bool)
   
   # Tell whether or not a sound is in loop mode
   # 
@@ -493,7 +493,7 @@ lib CSFML
   # * `sound`: Sound object
   # 
   # *Returns*: True if the sound is looping, False otherwise
-  fun sound_get_loop = sfSound_getLoop(sound: Sound): Int32
+  fun sound_get_loop = sfSound_getLoop(sound: Sound): CSFML::Bool
   
   # Get the current status of a sound (stopped, paused, playing)
   # 
@@ -553,7 +553,7 @@ lib CSFML
   # 
   # * `sound`: Sound object
   # * `relative`: True to set the position relative, False to set it absolute
-  fun sound_set_relative_to_listener = sfSound_setRelativeToListener(sound: Sound, relative: Int32)
+  fun sound_set_relative_to_listener = sfSound_setRelativeToListener(sound: Sound, relative: CSFML::Bool)
   
   # Set the minimum distance of a sound
   # 
@@ -633,7 +633,7 @@ lib CSFML
   # * `sound`: Sound object
   # 
   # *Returns*: True if the position is relative, False if it's absolute
-  fun sound_is_relative_to_listener = sfSound_isRelativeToListener(sound: Sound): Int32
+  fun sound_is_relative_to_listener = sfSound_isRelativeToListener(sound: Sound): CSFML::Bool
   
   # Get the minimum distance of a sound
   # 
@@ -745,7 +745,7 @@ lib CSFML
   # * `filename`: Path of the sound file to write
   # 
   # *Returns*: True if saving succeeded, False if it failed
-  fun sound_buffer_save_to_file = sfSoundBuffer_saveToFile(sound_buffer: SoundBuffer, filename: UInt8*): Int32
+  fun sound_buffer_save_to_file = sfSoundBuffer_saveToFile(sound_buffer: SoundBuffer, filename: UInt8*): CSFML::Bool
   
   # Get the array of audio samples stored in a sound buffer
   # 
@@ -867,8 +867,8 @@ lib CSFML
   # *Returns*: Read-only access to the sound buffer
   fun sound_buffer_recorder_get_buffer = sfSoundBufferRecorder_getBuffer(sound_buffer_recorder: SoundBufferRecorder): SoundBuffer
   
-  alias SoundRecorderStartCallback = (Void*) -> Int32
-  alias SoundRecorderProcessCallback = (Int16*, SizeT, Void*) -> Int32
+  alias SoundRecorderStartCallback = (Void*) -> CSFML::Bool
+  alias SoundRecorderProcessCallback = (Int16*, SizeT, Void*) -> CSFML::Bool
   alias SoundRecorderStopCallback = (Void*) -> Void
   # Construct a new sound recorder from callback functions
   # 
@@ -904,7 +904,7 @@ lib CSFML
   # * `sample_rate`: Desired capture rate, in number of samples per second
   # 
   # *Returns*: True, if start of capture was successful
-  fun sound_recorder_start = sfSoundRecorder_start(sound_recorder: SoundRecorder, sample_rate: Int32): Int32
+  fun sound_recorder_start = sfSoundRecorder_start(sound_recorder: SoundRecorder, sample_rate: Int32): CSFML::Bool
   
   # Stop the capture of a sound recorder
   # 
@@ -933,7 +933,7 @@ lib CSFML
   # any attempt to use SoundRecorder will fail.
   # 
   # *Returns*: True if audio capture is supported, False otherwise
-  fun sound_recorder_is_available = sfSoundRecorder_isAvailable(): Int32
+  fun sound_recorder_is_available = sfSoundRecorder_isAvailable(): CSFML::Bool
   
   # Set the processing interval
   # 
@@ -987,7 +987,7 @@ lib CSFML
   # * `The`: name of the audio capture device
   # 
   # *Returns*: True, if it was able to set the requested device
-  fun sound_recorder_set_device = sfSoundRecorder_setDevice(sound_recorder: SoundRecorder, name: UInt8*): Int32
+  fun sound_recorder_set_device = sfSoundRecorder_setDevice(sound_recorder: SoundRecorder, name: UInt8*): CSFML::Bool
   
   # Get the name of the current audio capture device
   # 
@@ -1004,7 +1004,7 @@ lib CSFML
     sample_count: Int32
   end
   
-  alias SoundStreamGetDataCallback = (SoundStreamChunk*, Void*) -> Int32
+  alias SoundStreamGetDataCallback = (SoundStreamChunk*, Void*) -> CSFML::Bool
   alias SoundStreamSeekCallback = (Time, Void*) -> Void
   # Create a new sound stream
   # 
@@ -1141,7 +1141,7 @@ lib CSFML
   # 
   # * `sound_stream`: Sound stream object
   # * `relative`: True to set the position relative, False to set it absolute
-  fun sound_stream_set_relative_to_listener = sfSoundStream_setRelativeToListener(sound_stream: SoundStream, relative: Int32)
+  fun sound_stream_set_relative_to_listener = sfSoundStream_setRelativeToListener(sound_stream: SoundStream, relative: CSFML::Bool)
   
   # Set the minimum distance of a sound stream
   # 
@@ -1197,7 +1197,7 @@ lib CSFML
   # 
   # * `sound_stream`: Sound stream object
   # * `loop`: True to play in loop, False to play once
-  fun sound_stream_set_loop = sfSoundStream_setLoop(sound_stream: SoundStream, loop: Int32)
+  fun sound_stream_set_loop = sfSoundStream_setLoop(sound_stream: SoundStream, loop: CSFML::Bool)
   
   # Get the pitch of a sound stream
   # 
@@ -1234,7 +1234,7 @@ lib CSFML
   # * `sound_stream`: Sound stream object
   # 
   # *Returns*: True if the position is relative, False if it's absolute
-  fun sound_stream_is_relative_to_listener = sfSoundStream_isRelativeToListener(sound_stream: SoundStream): Int32
+  fun sound_stream_is_relative_to_listener = sfSoundStream_isRelativeToListener(sound_stream: SoundStream): CSFML::Bool
   
   # Get the minimum distance of a sound stream
   # 
@@ -1261,7 +1261,7 @@ lib CSFML
   # * `sound_stream`: Sound stream object
   # 
   # *Returns*: True if the music is looping, False otherwise
-  fun sound_stream_get_loop = sfSoundStream_getLoop(sound_stream: SoundStream): Int32
+  fun sound_stream_get_loop = sfSoundStream_getLoop(sound_stream: SoundStream): CSFML::Bool
   
   # Get the current playing position of a sound stream
   # 

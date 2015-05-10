@@ -138,7 +138,9 @@ module SF
   end
 
   struct CSFML::IntRect
-    def contains(x: Int32, y: Int32)
+    def contains(x: Int, y: Int)
+      x = x.to_i32
+      y = y.to_i32
       cself = self
       CSFML.int_rect_contains(pointerof(cself), x, y) != 0
     end
@@ -1106,7 +1108,8 @@ module SF
     # * `bold`: Retrieve the bold version or the regular one?
     # 
     # *Returns*: The corresponding glyph
-    def get_glyph(code_point: Char, character_size: Int32, bold: Bool)
+    def get_glyph(code_point: Char, character_size: Int, bold: Bool)
+      character_size = character_size.to_i32
       bold = bold ? 1 : 0
       CSFML.font_get_glyph(@this, code_point, character_size, bold)
     end
@@ -1121,7 +1124,8 @@ module SF
     # * `character_size`: Character size, in pixels
     # 
     # *Returns*: Kerning offset, in pixels
-    def get_kerning(first: Char, second: Char, character_size: Int32)
+    def get_kerning(first: Char, second: Char, character_size: Int)
+      character_size = character_size.to_i32
       CSFML.font_get_kerning(@this, first, second, character_size)
     end
     
@@ -1133,7 +1137,8 @@ module SF
     # * `character_size`: Character size, in pixels
     # 
     # *Returns*: Line spacing, in pixels
-    def get_line_spacing(character_size: Int32)
+    def get_line_spacing(character_size: Int)
+      character_size = character_size.to_i32
       CSFML.font_get_line_spacing(@this, character_size)
     end
     
@@ -1148,7 +1153,8 @@ module SF
     # * `character_size`: Reference character size
     # 
     # *Returns*: Underline position, in pixels
-    def get_underline_position(character_size: Int32)
+    def get_underline_position(character_size: Int)
+      character_size = character_size.to_i32
       CSFML.font_get_underline_position(@this, character_size)
     end
     
@@ -1162,7 +1168,8 @@ module SF
     # * `character_size`: Reference character size
     # 
     # *Returns*: Underline thickness, in pixels
-    def get_underline_thickness(character_size: Int32)
+    def get_underline_thickness(character_size: Int)
+      character_size = character_size.to_i32
       CSFML.font_get_underline_thickness(@this, character_size)
     end
     
@@ -1174,7 +1181,8 @@ module SF
     # * `character_size`: Character size, in pixels
     # 
     # *Returns*: Read-only pointer to the texture
-    def get_texture(character_size: Int32)
+    def get_texture(character_size: Int)
+      character_size = character_size.to_i32
       Texture.wrap_ptr(CSFML.font_get_texture(@this, character_size))
     end
     
@@ -1208,7 +1216,9 @@ module SF
     # * `height`: Height of the image
     # 
     # *Returns*: A new Image object
-    def initialize(width: Int32, height: Int32)
+    def initialize(width: Int, height: Int)
+      width = width.to_i32
+      height = height.to_i32
       @owned = true
       @this = CSFML.image_create(width, height)
     end
@@ -1222,7 +1232,9 @@ module SF
     # * `color`: Fill color
     # 
     # *Returns*: A new Image object
-    def self.from_color(width: Int32, height: Int32, color: Color)
+    def self.from_color(width: Int, height: Int, color: Color)
+      width = width.to_i32
+      height = height.to_i32
       Image.transfer_ptr(CSFML.image_create_from_color(width, height, color))
     end
     
@@ -1240,7 +1252,9 @@ module SF
     # * `pixels`: Array of pixels to copy to the image
     # 
     # *Returns*: A new Image object
-    def self.from_pixels(width: Int32, height: Int32, pixels)
+    def self.from_pixels(width: Int, height: Int, pixels)
+      width = width.to_i32
+      height = height.to_i32
       if pixels
         if pixels.responds_to?(:to_unsafe)
           ppixels = pixels.to_unsafe
@@ -1386,7 +1400,9 @@ module SF
     # * `destY`: Y coordinate of the destination position
     # * `source_rect`: Sub-rectangle of the source image to copy
     # * `apply_alpha`: Should the copy take in account the source transparency?
-    def copy_image(source: Image, dest_x: Int32, dest_y: Int32, source_rect: IntRect, apply_alpha: Bool)
+    def copy_image(source: Image, dest_x: Int, dest_y: Int, source_rect: IntRect, apply_alpha: Bool)
+      dest_x = dest_x.to_i32
+      dest_y = dest_y.to_i32
       apply_alpha = apply_alpha ? 1 : 0
       CSFML.image_copy_image(@this, source, dest_x, dest_y, source_rect, apply_alpha)
     end
@@ -1403,7 +1419,9 @@ module SF
     # * `x`: X coordinate of pixel to change
     # * `y`: Y coordinate of pixel to change
     # * `color`: New color of the pixel
-    def set_pixel(x: Int32, y: Int32, color: Color)
+    def set_pixel(x: Int, y: Int, color: Color)
+      x = x.to_i32
+      y = y.to_i32
       CSFML.image_set_pixel(@this, x, y, color)
     end
     
@@ -1420,7 +1438,9 @@ module SF
     # * `y`: Y coordinate of pixel to get
     # 
     # *Returns*: Color of the pixel at coordinates (x, y)
-    def get_pixel(x: Int32, y: Int32)
+    def get_pixel(x: Int, y: Int)
+      x = x.to_i32
+      y = y.to_i32
       CSFML.image_get_pixel(@this, x, y)
     end
     
@@ -2207,7 +2227,9 @@ module SF
     # * `depth_buffer`: Do you want a depth-buffer attached? (useful only if you're doing 3D OpenGL on the rendertexture)
     # 
     # *Returns*: A new RenderTexture object, or NULL if it failed
-    def initialize(width: Int32, height: Int32, depth_buffer: Bool)
+    def initialize(width: Int, height: Int, depth_buffer: Bool)
+      width = width.to_i32
+      height = height.to_i32
       depth_buffer = depth_buffer ? 1 : 0
       @owned = true
       @this = CSFML.render_texture_create(width, height, depth_buffer)
@@ -2776,7 +2798,9 @@ module SF
     # * `width`: Icon's width, in pixels
     # * `height`: Icon's height, in pixels
     # * `pixels`: Pointer to the pixels in memory, format must be RGBA 32 bits
-    def set_icon(width: Int32, height: Int32, pixels)
+    def set_icon(width: Int, height: Int, pixels)
+      width = width.to_i32
+      height = height.to_i32
       if pixels
         if pixels.responds_to?(:to_unsafe)
           ppixels = pixels.to_unsafe
@@ -2887,7 +2911,8 @@ module SF
     # 
     # * `render_window`: Render window object
     # * `limit`: Framerate limit, in frames per seconds (use 0 to disable limit)
-    def framerate_limit=(limit: Int32)
+    def framerate_limit=(limit: Int)
+      limit = limit.to_i32
       CSFML.render_window_set_framerate_limit(@this, limit)
     end
     
@@ -4213,7 +4238,8 @@ module SF
     # 
     # * `text`: Text object
     # * `size`: New character size, in pixels
-    def character_size=(size: Int32)
+    def character_size=(size: Int)
+      size = size.to_i32
       CSFML.text_set_character_size(@this, size)
     end
     
@@ -4374,7 +4400,9 @@ module SF
     # * `height`: Texture height
     # 
     # *Returns*: A new Texture object, or NULL if it failed
-    def initialize(width: Int32, height: Int32)
+    def initialize(width: Int, height: Int)
+      width = width.to_i32
+      height = height.to_i32
       @owned = true
       @this = CSFML.texture_create(width, height)
     end
@@ -4517,7 +4545,7 @@ module SF
     # * `height`: Height of the pixel region contained in `pixels`
     # * `x`: X offset in the texture where to copy the source pixels
     # * `y`: Y offset in the texture where to copy the source pixels
-    def update(pixels, width: Int32, height: Int32, x: Int32, y: Int32)
+    def update(pixels, width: Int, height: Int, x: Int, y: Int)
       if pixels
         if pixels.responds_to?(:to_unsafe)
           ppixels = pixels.to_unsafe
@@ -4527,6 +4555,10 @@ module SF
       else
         ppixels = nil
       end
+      width = width.to_i32
+      height = height.to_i32
+      x = x.to_i32
+      y = y.to_i32
       CSFML.texture_update_from_pixels(@this, ppixels, width, height, x, y)
     end
     
@@ -4538,7 +4570,9 @@ module SF
     # * `image`: Image to copy to the texture
     # * `x`: X offset in the texture where to copy the source pixels
     # * `y`: Y offset in the texture where to copy the source pixels
-    def update(image: Image, x: Int32, y: Int32)
+    def update(image: Image, x: Int, y: Int)
+      x = x.to_i32
+      y = y.to_i32
       CSFML.texture_update_from_image(@this, image, x, y)
     end
     
@@ -4550,7 +4584,9 @@ module SF
     # * `window`: Window to copy to the texture
     # * `x`: X offset in the texture where to copy the source pixels
     # * `y`: Y offset in the texture where to copy the source pixels
-    def update(window: Window, x: Int32, y: Int32)
+    def update(window: Window, x: Int, y: Int)
+      x = x.to_i32
+      y = y.to_i32
       CSFML.texture_update_from_window(@this, window, x, y)
     end
     
@@ -4562,7 +4598,9 @@ module SF
     # * `render_window`: Render-window to copy to the texture
     # * `x`: X offset in the texture where to copy the source pixels
     # * `y`: Y offset in the texture where to copy the source pixels
-    def update(render_window: RenderWindow, x: Int32, y: Int32)
+    def update(render_window: RenderWindow, x: Int, y: Int)
+      x = x.to_i32
+      y = y.to_i32
       CSFML.texture_update_from_render_window(@this, render_window, x, y)
     end
     
@@ -5482,7 +5520,8 @@ module SF
     # * `relative_to`: Reference window
     # 
     # *Returns*: Current position of `finger`, or undefined if it's not down
-    def self.get_position(finger: Int32, relative_to: RenderWindow)
+    def self.get_position(finger: Int, relative_to: RenderWindow)
+      finger = finger.to_i32
       SF.vector2(CSFML.touch_get_position_render_window(finger, relative_to))
     end
     

@@ -28,7 +28,7 @@ lib CSFML
   # 
   # * `context`: Context object
   # * `active`: True to activate, False to deactivate
-  fun context_set_active = sfContext_setActive(context: Context, active: Int32)
+  fun context_set_active = sfContext_setActive(context: Context, active: CSFML::Bool)
   
   struct JoystickIdentification
     name: UInt8*
@@ -51,7 +51,7 @@ lib CSFML
   # * `joystick`: Index of the joystick to check
   # 
   # *Returns*: True if the joystick is connected, False otherwise
-  fun joystick_is_connected = sfJoystick_isConnected(joystick: Int32): Int32
+  fun joystick_is_connected = sfJoystick_isConnected(joystick: Int32): CSFML::Bool
   
   # Return the number of buttons supported by a joystick
   # 
@@ -74,7 +74,7 @@ lib CSFML
   # * `axis`: Axis to check
   # 
   # *Returns*: True if the joystick supports the axis, False otherwise
-  fun joystick_has_axis = sfJoystick_hasAxis(joystick: Int32, axis: JoystickAxis): Int32
+  fun joystick_has_axis = sfJoystick_hasAxis(joystick: Int32, axis: JoystickAxis): CSFML::Bool
   
   # Check if a joystick button is pressed
   # 
@@ -86,7 +86,7 @@ lib CSFML
   # * `button`: Button to check
   # 
   # *Returns*: True if the button is pressed, False otherwise
-  fun joystick_is_button_pressed = sfJoystick_isButtonPressed(joystick: Int32, button: Int32): Int32
+  fun joystick_is_button_pressed = sfJoystick_isButtonPressed(joystick: Int32, button: Int32): CSFML::Bool
   
   # Get the current position of a joystick axis
   # 
@@ -140,7 +140,7 @@ lib CSFML
   # * `key`: Key to check
   # 
   # *Returns*: True if the key is pressed, False otherwise
-  fun keyboard_is_key_pressed = sfKeyboard_isKeyPressed(key: KeyCode): Int32
+  fun keyboard_is_key_pressed = sfKeyboard_isKeyPressed(key: KeyCode): CSFML::Bool
   
   # Mouse buttons
   enum MouseButton
@@ -159,7 +159,7 @@ lib CSFML
   # * `button`: Button to check
   # 
   # *Returns*: True if the button is pressed, False otherwise
-  fun mouse_is_button_pressed = sfMouse_isButtonPressed(button: MouseButton): Int32
+  fun mouse_is_button_pressed = sfMouse_isButtonPressed(button: MouseButton): CSFML::Bool
   
   # Get the current position of the mouse
   # 
@@ -197,7 +197,7 @@ lib CSFML
   # * `sensor`: Sensor to check
   # 
   # *Returns*: True if the sensor is available, False otherwise
-  fun sensor_is_available = sfSensor_isAvailable(sensor: SensorType): Int32
+  fun sensor_is_available = sfSensor_isAvailable(sensor: SensorType): CSFML::Bool
   
   # Enable or disable a sensor
   # 
@@ -211,7 +211,7 @@ lib CSFML
   # 
   # * `sensor`: Sensor to enable
   # * `enabled`: True to enable, False to disable
-  fun sensor_set_enabled = sfSensor_setEnabled(sensor: SensorType, enabled: Int32)
+  fun sensor_set_enabled = sfSensor_setEnabled(sensor: SensorType, enabled: CSFML::Bool)
   
   # Get the current sensor value
   # 
@@ -236,10 +236,10 @@ lib CSFML
   struct KeyEvent
     type: EventType
     code: KeyCode
-    alt: Int32
-    control: Int32
-    shift: Int32
-    system: Int32
+    alt: CSFML::Bool
+    control: CSFML::Bool
+    shift: CSFML::Bool
+    system: CSFML::Bool
   end
   
   # Text event parameters
@@ -349,7 +349,7 @@ lib CSFML
   # * `finger`: Finger index
   # 
   # *Returns*: True if `finger` is currently touching the screen, False otherwise
-  fun touch_is_down = sfTouch_isDown(finger: Int32): Int32
+  fun touch_is_down = sfTouch_isDown(finger: Int32): CSFML::Bool
   
   # Get the current position of a touch in window coordinates
   # 
@@ -406,7 +406,7 @@ lib CSFML
   # * `mode`: Video mode
   # 
   # *Returns*: True if the video mode is valid for fullscreen mode
-  fun video_mode_is_valid = sfVideoMode_isValid(mode: VideoMode): Int32
+  fun video_mode_is_valid = sfVideoMode_isValid(mode: VideoMode): CSFML::Bool
   
   # Enumeration of window creation styles
   @[Flags]
@@ -522,7 +522,7 @@ lib CSFML
   # * `window`: Window object
   # 
   # *Returns*: True if the window is opened, False if it has been closed
-  fun window_is_open = sfWindow_isOpen(window: Window): Int32
+  fun window_is_open = sfWindow_isOpen(window: Window): CSFML::Bool
   
   # Get the settings of the OpenGL context of a window
   # 
@@ -552,7 +552,7 @@ lib CSFML
   # * `event`: Event to be returned
   # 
   # *Returns*: True if an event was returned, or False if the event queue was empty
-  fun window_poll_event = sfWindow_pollEvent(window: Window, event: Event*): Int32
+  fun window_poll_event = sfWindow_pollEvent(window: Window, event: Event*): CSFML::Bool
   
   # Wait for an event and return it
   # 
@@ -570,7 +570,7 @@ lib CSFML
   # * `event`: Event to be returned
   # 
   # *Returns*: False if any error occured
-  fun window_wait_event = sfWindow_waitEvent(window: Window, event: Event*): Int32
+  fun window_wait_event = sfWindow_waitEvent(window: Window, event: Event*): CSFML::Bool
   
   # Get the position of a window
   # 
@@ -648,7 +648,7 @@ lib CSFML
   # 
   # * `window`: Window object
   # * `visible`: True to show the window, False to hide it
-  fun window_set_visible = sfWindow_setVisible(window: Window, visible: Int32)
+  fun window_set_visible = sfWindow_setVisible(window: Window, visible: CSFML::Bool)
   
   # Show or hide the mouse cursor
   # 
@@ -656,7 +656,7 @@ lib CSFML
   # 
   # * `window`: Window object
   # * `visible`: True to show, False to hide
-  fun window_set_mouse_cursor_visible = sfWindow_setMouseCursorVisible(window: Window, visible: Int32)
+  fun window_set_mouse_cursor_visible = sfWindow_setMouseCursorVisible(window: Window, visible: CSFML::Bool)
   
   # Enable or disable vertical synchronization
   # 
@@ -669,7 +669,7 @@ lib CSFML
   # 
   # * `window`: Window object
   # * `enabled`: True to enable v-sync, False to deactivate
-  fun window_set_vertical_sync_enabled = sfWindow_setVerticalSyncEnabled(window: Window, enabled: Int32)
+  fun window_set_vertical_sync_enabled = sfWindow_setVerticalSyncEnabled(window: Window, enabled: CSFML::Bool)
   
   # Enable or disable automatic key-repeat
   # 
@@ -683,7 +683,7 @@ lib CSFML
   # 
   # * `window`: Window object
   # * `enabled`: True to enable, False to disable
-  fun window_set_key_repeat_enabled = sfWindow_setKeyRepeatEnabled(window: Window, enabled: Int32)
+  fun window_set_key_repeat_enabled = sfWindow_setKeyRepeatEnabled(window: Window, enabled: CSFML::Bool)
   
   # Activate or deactivate a window as the current target
   # for OpenGL rendering
@@ -701,7 +701,7 @@ lib CSFML
   # * `active`: True to activate, False to deactivate
   # 
   # *Returns*: True if operation was successful, False otherwise
-  fun window_set_active = sfWindow_setActive(window: Window, active: Int32): Int32
+  fun window_set_active = sfWindow_setActive(window: Window, active: CSFML::Bool): CSFML::Bool
   
   # Request the current window to be made the active
   # foreground window
@@ -721,7 +721,7 @@ lib CSFML
   # events.
   # 
   # *Returns*: True if window has focus, false otherwise
-  fun window_has_focus = sfWindow_hasFocus(window: Window): Int32
+  fun window_has_focus = sfWindow_hasFocus(window: Window): CSFML::Bool
   
   # Display on screen what has been rendered to the
   # window so far

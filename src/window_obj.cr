@@ -271,7 +271,9 @@ module SF
     # * `width`: Icon's width, in pixels
     # * `height`: Icon's height, in pixels
     # * `pixels`: Pointer to the array of pixels in memory
-    def set_icon(width: Int32, height: Int32, pixels)
+    def set_icon(width: Int, height: Int, pixels)
+      width = width.to_i32
+      height = height.to_i32
       if pixels
         if pixels.responds_to?(:to_unsafe)
           ppixels = pixels.to_unsafe
@@ -408,7 +410,8 @@ module SF
     # 
     # * `window`: Window object
     # * `limit`: Framerate limit, in frames per seconds (use 0 to disable limit)
-    def framerate_limit=(limit: Int32)
+    def framerate_limit=(limit: Int)
+      limit = limit.to_i32
       CSFML.window_set_framerate_limit(@this, limit)
     end
     
@@ -475,7 +478,8 @@ module SF
     # * `joystick`: Index of the joystick to check
     # 
     # *Returns*: True if the joystick is connected, False otherwise
-    def self.is_connected(joystick: Int32)
+    def self.is_connected(joystick: Int)
+      joystick = joystick.to_i32
       CSFML.joystick_is_connected(joystick) != 0
     end
     
@@ -488,7 +492,8 @@ module SF
     # * `joystick`: Index of the joystick
     # 
     # *Returns*: Number of buttons supported by the joystick
-    def self.get_button_count(joystick: Int32)
+    def self.get_button_count(joystick: Int)
+      joystick = joystick.to_i32
       CSFML.joystick_get_button_count(joystick)
     end
     
@@ -502,7 +507,8 @@ module SF
     # * `axis`: Axis to check
     # 
     # *Returns*: True if the joystick supports the axis, False otherwise
-    def self.has_axis(joystick: Int32, axis: JoystickAxis)
+    def self.has_axis(joystick: Int, axis: JoystickAxis)
+      joystick = joystick.to_i32
       CSFML.joystick_has_axis(joystick, axis) != 0
     end
     
@@ -516,7 +522,9 @@ module SF
     # * `button`: Button to check
     # 
     # *Returns*: True if the button is pressed, False otherwise
-    def self.is_button_pressed(joystick: Int32, button: Int32)
+    def self.is_button_pressed(joystick: Int, button: Int)
+      joystick = joystick.to_i32
+      button = button.to_i32
       CSFML.joystick_is_button_pressed(joystick, button) != 0
     end
     
@@ -530,7 +538,8 @@ module SF
     # * `axis`: Axis to check
     # 
     # *Returns*: Current position of the axis, in range [-100 .. 100]
-    def self.get_axis_position(joystick: Int32, axis: JoystickAxis)
+    def self.get_axis_position(joystick: Int, axis: JoystickAxis)
+      joystick = joystick.to_i32
       CSFML.joystick_get_axis_position(joystick, axis)
     end
     
@@ -544,7 +553,8 @@ module SF
     # * `joystick`: Index of the joystick
     # 
     # *Returns*: Structure containing joystick information.
-    def self.get_identification(joystick: Int32)
+    def self.get_identification(joystick: Int)
+      joystick = joystick.to_i32
       CSFML.joystick_get_identification(joystick)
     end
     
@@ -1012,7 +1022,8 @@ module SF
     # * `finger`: Finger index
     # 
     # *Returns*: True if `finger` is currently touching the screen, False otherwise
-    def self.is_down(finger: Int32)
+    def self.is_down(finger: Int)
+      finger = finger.to_i32
       CSFML.touch_is_down(finger) != 0
     end
     
@@ -1027,7 +1038,8 @@ module SF
     # * `relative_to`: Reference window
     # 
     # *Returns*: Current position of `finger`, or undefined if it's not down
-    def self.get_position(finger: Int32, relative_to: Window)
+    def self.get_position(finger: Int, relative_to: Window)
+      finger = finger.to_i32
       SF.vector2(CSFML.touch_get_position(finger, relative_to))
     end
     
