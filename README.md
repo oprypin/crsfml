@@ -4,9 +4,9 @@
 
 **See [introduction](#introduction), [examples](examples), [documentation][].**
 
-*CrSFML* supports CSFML 2.2. It has been tested on Linux 64-bit. It should work on other major systems if Crystal supports them.
+*CrSFML* supports CSFML 2.3; see older releases for CSFML 2.2. It has been tested on Linux 64-bit. It should work on other major systems if Crystal supports them.
 
-[CSFML][] 2.2, which requires [SFML][] 2.2, must be installed to use it.
+[CSFML][] 2.3, which requires [SFML][] 2.3, must be installed to use it.
 
 Crystal 0.6.1 and earlier are **not** supported.
 
