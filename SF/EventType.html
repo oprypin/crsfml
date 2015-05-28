@@ -15,7 +15,7 @@
 
   <p>Definition of all the event types</p>
 
-<ul><li>Event::Closed</li><li>Event::Resized</li><li>Event::LostFocus</li><li>Event::GainedFocus</li><li>Event::TextEntered</li><li>Event::KeyPressed</li><li>Event::KeyReleased</li><li>Event::MouseWheelMoved</li><li>Event::MouseButtonPressed</li><li>Event::MouseButtonReleased</li><li>Event::MouseMoved</li><li>Event::MouseEntered</li><li>Event::MouseLeft</li><li>Event::JoystickButtonPressed</li><li>Event::JoystickButtonReleased</li><li>Event::JoystickMoved</li><li>Event::JoystickConnected</li><li>Event::JoystickDisconnected</li><li>Event::TouchBegan</li><li>Event::TouchMoved</li><li>Event::TouchEnded</li><li>Event::SensorChanged</li><li>Event::Count</li></ul>
+<ul><li>Event::Closed</li><li>Event::Resized</li><li>Event::LostFocus</li><li>Event::GainedFocus</li><li>Event::TextEntered</li><li>Event::KeyPressed</li><li>Event::KeyReleased</li><li>Event::MouseWheelMoved</li><li>Event::MouseWheelScrolled</li><li>Event::MouseButtonPressed</li><li>Event::MouseButtonReleased</li><li>Event::MouseMoved</li><li>Event::MouseEntered</li><li>Event::MouseLeft</li><li>Event::JoystickButtonPressed</li><li>Event::JoystickButtonReleased</li><li>Event::JoystickMoved</li><li>Event::JoystickConnected</li><li>Event::JoystickDisconnected</li><li>Event::TouchBegan</li><li>Event::TouchMoved</li><li>Event::TouchEnded</li><li>Event::SensorChanged</li><li>Event::Count</li></ul>
 
 
 
@@ -36,7 +36,7 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/window_obj.cr">window_obj.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/window_obj.cr">window_obj.cr</a>
     
     <br/>
   
@@ -54,7 +54,7 @@
       </li>
     
       <li class="entry-const">
-        <strong>Count</strong> = <code><span class="n">22</span></code>
+        <strong>Count</strong> = <code><span class="n">23</span></code>
         
       </li>
     
@@ -64,27 +64,27 @@
       </li>
     
       <li class="entry-const">
-        <strong>JoystickButtonPressed</strong> = <code><span class="n">13</span></code>
+        <strong>JoystickButtonPressed</strong> = <code><span class="n">14</span></code>
         
       </li>
     
       <li class="entry-const">
-        <strong>JoystickButtonReleased</strong> = <code><span class="n">14</span></code>
+        <strong>JoystickButtonReleased</strong> = <code><span class="n">15</span></code>
         
       </li>
     
       <li class="entry-const">
-        <strong>JoystickConnected</strong> = <code><span class="n">16</span></code>
+        <strong>JoystickConnected</strong> = <code><span class="n">17</span></code>
         
       </li>
     
       <li class="entry-const">
-        <strong>JoystickDisconnected</strong> = <code><span class="n">17</span></code>
+        <strong>JoystickDisconnected</strong> = <code><span class="n">18</span></code>
         
       </li>
     
       <li class="entry-const">
-        <strong>JoystickMoved</strong> = <code><span class="n">15</span></code>
+        <strong>JoystickMoved</strong> = <code><span class="n">16</span></code>
         
       </li>
     
@@ -104,27 +104,27 @@
       </li>
     
       <li class="entry-const">
-        <strong>MouseButtonPressed</strong> = <code><span class="n">8</span></code>
+        <strong>MouseButtonPressed</strong> = <code><span class="n">9</span></code>
         
       </li>
     
       <li class="entry-const">
-        <strong>MouseButtonReleased</strong> = <code><span class="n">9</span></code>
+        <strong>MouseButtonReleased</strong> = <code><span class="n">10</span></code>
         
       </li>
     
       <li class="entry-const">
-        <strong>MouseEntered</strong> = <code><span class="n">11</span></code>
+        <strong>MouseEntered</strong> = <code><span class="n">12</span></code>
         
       </li>
     
       <li class="entry-const">
-        <strong>MouseLeft</strong> = <code><span class="n">12</span></code>
+        <strong>MouseLeft</strong> = <code><span class="n">13</span></code>
         
       </li>
     
       <li class="entry-const">
-        <strong>MouseMoved</strong> = <code><span class="n">10</span></code>
+        <strong>MouseMoved</strong> = <code><span class="n">11</span></code>
         
       </li>
     
@@ -134,12 +134,17 @@
       </li>
     
       <li class="entry-const">
+        <strong>MouseWheelScrolled</strong> = <code><span class="n">8</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
         <strong>Resized</strong> = <code><span class="n">1</span></code>
         
       </li>
     
       <li class="entry-const">
-        <strong>SensorChanged</strong> = <code><span class="n">21</span></code>
+        <strong>SensorChanged</strong> = <code><span class="n">22</span></code>
         
       </li>
     
@@ -149,17 +154,17 @@
       </li>
     
       <li class="entry-const">
-        <strong>TouchBegan</strong> = <code><span class="n">18</span></code>
+        <strong>TouchBegan</strong> = <code><span class="n">19</span></code>
         
       </li>
     
       <li class="entry-const">
-        <strong>TouchEnded</strong> = <code><span class="n">20</span></code>
+        <strong>TouchEnded</strong> = <code><span class="n">21</span></code>
         
       </li>
     
       <li class="entry-const">
-        <strong>TouchMoved</strong> = <code><span class="n">19</span></code>
+        <strong>TouchMoved</strong> = <code><span class="n">20</span></code>
         
       </li>
     

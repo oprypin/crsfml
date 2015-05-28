@@ -35,7 +35,7 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr">graphics_obj.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr">graphics_obj.cr</a>
     
     <br/>
   
@@ -55,7 +55,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#from_memory%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size_in_bytes%20%3A%20Size_t%29-class-method" class="signature"><strong>.from_memory</strong>(data : ::Pointer(Void), size_in_bytes : Size_t)</a>
+        <a href="#from_memory%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size_in_bytes%20%3A%20Int%29-class-method" class="signature"><strong>.from_memory</strong>(data : ::Pointer(Void), size_in_bytes : Int)</a>
         
           <div class="summary"><p>Create a new image font a file in memory</p></div>
         
@@ -105,42 +105,42 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#get_glyph%28code_point%20%3A%20Char%2C%20character_size%20%3A%20Int32%2C%20bold%20%3A%20Bool%29-instance-method" class="signature"><strong>#get_glyph</strong>(code_point : Char, character_size : Int32, bold : Bool)</a>
+        <a href="#get_glyph%28code_point%20%3A%20Char%2C%20character_size%20%3A%20Int%2C%20bold%20%3A%20Bool%29-instance-method" class="signature"><strong>#get_glyph</strong>(code_point : Char, character_size : Int, bold : Bool)</a>
         
           <div class="summary"><p>Get a glyph in a font</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#get_kerning%28first%20%3A%20Char%2C%20second%20%3A%20Char%2C%20character_size%20%3A%20Int32%29-instance-method" class="signature"><strong>#get_kerning</strong>(first : Char, second : Char, character_size : Int32)</a>
+        <a href="#get_kerning%28first%20%3A%20Char%2C%20second%20%3A%20Char%2C%20character_size%20%3A%20Int%29-instance-method" class="signature"><strong>#get_kerning</strong>(first : Char, second : Char, character_size : Int)</a>
         
           <div class="summary"><p>Get the kerning value corresponding to a given pair of characters in a font</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#get_line_spacing%28character_size%20%3A%20Int32%29-instance-method" class="signature"><strong>#get_line_spacing</strong>(character_size : Int32)</a>
+        <a href="#get_line_spacing%28character_size%20%3A%20Int%29-instance-method" class="signature"><strong>#get_line_spacing</strong>(character_size : Int)</a>
         
           <div class="summary"><p>Get the line spacing value</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#get_texture%28character_size%20%3A%20Int32%29-instance-method" class="signature"><strong>#get_texture</strong>(character_size : Int32)</a>
+        <a href="#get_texture%28character_size%20%3A%20Int%29-instance-method" class="signature"><strong>#get_texture</strong>(character_size : Int)</a>
         
           <div class="summary"><p>Get the texture containing the glyphs of a given size in a font</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#get_underline_position%28character_size%20%3A%20Int32%29-instance-method" class="signature"><strong>#get_underline_position</strong>(character_size : Int32)</a>
+        <a href="#get_underline_position%28character_size%20%3A%20Int%29-instance-method" class="signature"><strong>#get_underline_position</strong>(character_size : Int)</a>
         
           <div class="summary"><p>Get the position of the underline</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#get_underline_thickness%28character_size%20%3A%20Int32%29-instance-method" class="signature"><strong>#get_underline_thickness</strong>(character_size : Int32)</a>
+        <a href="#get_underline_thickness%28character_size%20%3A%20Int%29-instance-method" class="signature"><strong>#get_underline_thickness</strong>(character_size : Int)</a>
         
           <div class="summary"><p>Get the thickness of the underline</p></div>
         
@@ -183,15 +183,15 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1019" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1041" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="from_memory%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size_in_bytes%20%3A%20Size_t%29-class-method">
+      <div class="signature" id="from_memory%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size_in_bytes%20%3A%20Int%29-class-method">
         
-        def self.<strong>from_memory</strong>(data : ::Pointer(Void), size_in_bytes : Size_t)
+        def self.<strong>from_memory</strong>(data : ::Pointer(Void), size_in_bytes : Int)
       </div>
       
         <div class="doc"><p>Create a new image font a file in memory</p>
@@ -204,7 +204,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1031" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1053" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -225,7 +225,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1042" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1065" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -238,7 +238,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1010" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1032" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -251,7 +251,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1010" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1032" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -264,7 +264,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1010" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1032" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -290,7 +290,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1053" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1076" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -309,15 +309,15 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1062" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1085" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="get_glyph%28code_point%20%3A%20Char%2C%20character_size%20%3A%20Int32%2C%20bold%20%3A%20Bool%29-instance-method">
+      <div class="signature" id="get_glyph%28code_point%20%3A%20Char%2C%20character_size%20%3A%20Int%2C%20bold%20%3A%20Bool%29-instance-method">
         
-        def <strong>get_glyph</strong>(code_point : Char, character_size : Int32, bold : Bool)
+        def <strong>get_glyph</strong>(code_point : Char, character_size : Int, bold : Bool)
       </div>
       
         <div class="doc"><p>Get a glyph in a font</p>
@@ -330,15 +330,15 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1076" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1099" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="get_kerning%28first%20%3A%20Char%2C%20second%20%3A%20Char%2C%20character_size%20%3A%20Int32%29-instance-method">
+      <div class="signature" id="get_kerning%28first%20%3A%20Char%2C%20second%20%3A%20Char%2C%20character_size%20%3A%20Int%29-instance-method">
         
-        def <strong>get_kerning</strong>(first : Char, second : Char, character_size : Int32)
+        def <strong>get_kerning</strong>(first : Char, second : Char, character_size : Int)
       </div>
       
         <div class="doc"><p>Get the kerning value corresponding to a given pair of characters in a font</p>
@@ -351,15 +351,15 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1091" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1115" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="get_line_spacing%28character_size%20%3A%20Int32%29-instance-method">
+      <div class="signature" id="get_line_spacing%28character_size%20%3A%20Int%29-instance-method">
         
-        def <strong>get_line_spacing</strong>(character_size : Int32)
+        def <strong>get_line_spacing</strong>(character_size : Int)
       </div>
       
         <div class="doc"><p>Get the line spacing value</p>
@@ -372,15 +372,15 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1103" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1128" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="get_texture%28character_size%20%3A%20Int32%29-instance-method">
+      <div class="signature" id="get_texture%28character_size%20%3A%20Int%29-instance-method">
         
-        def <strong>get_texture</strong>(character_size : Int32)
+        def <strong>get_texture</strong>(character_size : Int)
       </div>
       
         <div class="doc"><p>Get the texture containing the glyphs of a given size in a font</p>
@@ -393,15 +393,15 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1144" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1172" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="get_underline_position%28character_size%20%3A%20Int32%29-instance-method">
+      <div class="signature" id="get_underline_position%28character_size%20%3A%20Int%29-instance-method">
         
-        def <strong>get_underline_position</strong>(character_size : Int32)
+        def <strong>get_underline_position</strong>(character_size : Int)
       </div>
       
         <div class="doc"><p>Get the position of the underline</p>
@@ -417,15 +417,15 @@ baseline and the underline.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1118" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1144" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="get_underline_thickness%28character_size%20%3A%20Int32%29-instance-method">
+      <div class="signature" id="get_underline_thickness%28character_size%20%3A%20Int%29-instance-method">
         
-        def <strong>get_underline_thickness</strong>(character_size : Int32)
+        def <strong>get_underline_thickness</strong>(character_size : Int)
       </div>
       
         <div class="doc"><p>Get the thickness of the underline</p>
@@ -440,7 +440,7 @@ baseline and the underline.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1132" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1159" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -465,7 +465,7 @@ is returned.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1159" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1188" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -478,7 +478,7 @@ is returned.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1010" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1032" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>

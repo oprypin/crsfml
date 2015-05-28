@@ -35,12 +35,12 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics.cr">graphics.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics.cr">graphics.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr">graphics_obj.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr">graphics_obj.cr</a>
     
     <br/>
   
@@ -156,6 +156,13 @@
       </li>
     
       <li class="entry-summary">
+        <a href="#native_handle-instance-method" class="signature"><strong>#native_handle</strong></a>
+        
+          <div class="summary"><p>Get the underlying OpenGL handle of the shader.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#set_parameter%28name%20%3A%20String%2C%20texture%20%3A%20Texture%29-instance-method" class="signature"><strong>#set_parameter</strong>(name : String, texture : Texture)</a>
         
           <div class="summary"><p>Change a texture parameter of a shader</p></div>
@@ -177,9 +184,14 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#set_parameter%28name%20%3A%20String%2C%20color%20%3A%20Color%29-instance-method" class="signature"><strong>#set_parameter</strong>(name : String, color : Color)</a>
+        <a href="#set_parameter%28name%20%3A%20String%2C%20x%20%3A%20Number%2C%20y%20%3A%20Number%29-instance-method" class="signature"><strong>#set_parameter</strong>(name : String, x : Number, y : Number)</a>
         
-          <div class="summary"><p>Change a color parameter of a shader</p></div>
+          <div class="summary"><p>Change a 2-components vector parameter of a shader</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#set_parameter%28name%20%3A%20String%2C%20current_texture%20%3A%20CurrentTextureType%29-instance-method" class="signature"><strong>#set_parameter</strong>(name : String, current_texture : CurrentTextureType)</a>
         
       </li>
     
@@ -187,13 +199,6 @@
         <a href="#set_parameter%28name%20%3A%20String%2C%20x%20%3A%20Number%2C%20y%20%3A%20Number%2C%20z%20%3A%20Number%2C%20w%20%3A%20Number%29-instance-method" class="signature"><strong>#set_parameter</strong>(name : String, x : Number, y : Number, z : Number, w : Number)</a>
         
           <div class="summary"><p>Change a 4-components vector parameter of a shader</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#set_parameter%28name%20%3A%20String%2C%20x%20%3A%20Number%2C%20y%20%3A%20Number%29-instance-method" class="signature"><strong>#set_parameter</strong>(name : String, x : Number, y : Number)</a>
-        
-          <div class="summary"><p>Change a 2-components vector parameter of a shader</p></div>
         
       </li>
     
@@ -212,14 +217,16 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#set_parameter%28name%20%3A%20String%2C%20x%20%3A%20Number%29-instance-method" class="signature"><strong>#set_parameter</strong>(name : String, x : Number)</a>
+        <a href="#set_parameter%28name%20%3A%20String%2C%20color%20%3A%20Color%29-instance-method" class="signature"><strong>#set_parameter</strong>(name : String, color : Color)</a>
         
-          <div class="summary"><p>Change a float parameter of a shader</p></div>
+          <div class="summary"><p>Change a color parameter of a shader</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#set_parameter%28name%20%3A%20String%2C%20current_texture%20%3A%20CurrentTextureType%29-instance-method" class="signature"><strong>#set_parameter</strong>(name : String, current_texture : CurrentTextureType)</a>
+        <a href="#set_parameter%28name%20%3A%20String%2C%20x%20%3A%20Number%29-instance-method" class="signature"><strong>#set_parameter</strong>(name : String, x : Number)</a>
+        
+          <div class="summary"><p>Change a float parameter of a shader</p></div>
         
       </li>
     
@@ -261,7 +268,7 @@ for it before writing your own shaders.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1446" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1486" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -274,7 +281,7 @@ for it before writing your own shaders.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics.cr#L283" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics.cr#L279" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -303,7 +310,7 @@ writing your own shaders.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1466" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1506" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -316,7 +323,7 @@ writing your own shaders.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics.cr#L290" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics.cr#L286" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -345,7 +352,7 @@ it before writing your own shaders.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1486" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1526" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -366,7 +373,7 @@ any attempt to use Shader will fail.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1710" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1765" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -379,7 +386,7 @@ any attempt to use Shader will fail.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1428" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1468" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -392,7 +399,7 @@ any attempt to use Shader will fail.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1428" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1468" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -405,7 +412,7 @@ any attempt to use Shader will fail.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1428" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1468" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -433,7 +440,7 @@ mix Shader with OpenGL code.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1699" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1754" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -458,7 +465,7 @@ The corresponding parameter in the shader must be a 2D texture
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1685" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1725" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -477,7 +484,32 @@ The corresponding parameter in the shader must be a 2D texture
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1495" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1535" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="native_handle-instance-method">
+        
+        def <strong>native_handle</strong>
+      </div>
+      
+        <div class="doc"><p>Get the underlying OpenGL handle of the shader.</p>
+
+<p>You shouldn't need to use this function, unless you have
+very specific stuff to implement that SFML doesn't support,
+or implement a temporary workaround until a bug is fixed.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shader</code>: Shader object</li></ul>
+
+<p><em>Returns</em>: OpenGL handle of the shader or 0 if not yet loaded</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1740" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -507,7 +539,7 @@ Shader_setCurrentTextureParameter:</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1668" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1708" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -530,7 +562,7 @@ The corresponding parameter in the shader must be a 4x4 matrix
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1646" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1686" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -553,7 +585,112 @@ The corresponding parameter in the shader must be a 2x1 vector
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1591" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1631" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="set_parameter%28name%20%3A%20String%2C%20x%20%3A%20Number%2C%20y%20%3A%20Number%29-instance-method">
+        
+        def <strong>set_parameter</strong>(name : String, x : Number, y : Number)
+      </div>
+      
+        <div class="doc"><p>Change a 2-components vector parameter of a shader</p>
+
+<p><code>name</code> is the name of the variable to change in the shader.
+The corresponding parameter in the shader must be a 2x1 vector
+(vec2 GLSL type).</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shader</code>: Shader object</li><li><code>name</code>: Name of the parameter in the shader</li><li><code>x</code>: First component of the value to assign</li><li><code>y</code>: Second component of the value to assign</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1569" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="set_parameter%28name%20%3A%20String%2C%20current_texture%20%3A%20CurrentTextureType%29-instance-method">
+        
+        def <strong>set_parameter</strong>(name : String, current_texture : <a href="../SF/Shader/CurrentTextureType.html">CurrentTextureType</a>)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics.cr#L298" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="set_parameter%28name%20%3A%20String%2C%20x%20%3A%20Number%2C%20y%20%3A%20Number%2C%20z%20%3A%20Number%2C%20w%20%3A%20Number%29-instance-method">
+        
+        def <strong>set_parameter</strong>(name : String, x : Number, y : Number, z : Number, w : Number)
+      </div>
+      
+        <div class="doc"><p>Change a 4-components vector parameter of a shader</p>
+
+<p><code>name</code> is the name of the variable to change in the shader.
+The corresponding parameter in the shader must be a 4x1 vector
+(vec4 GLSL type).</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shader</code>: Shader object</li><li><code>name</code>: Name of the parameter in the shader</li><li><code>x</code>: First component of the value to assign</li><li><code>y</code>: Second component of the value to assign</li><li><code>z</code>: Third component of the value to assign</li><li><code>w</code>: Fourth component of the value to assign</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1611" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="set_parameter%28name%20%3A%20String%2C%20x%20%3A%20Number%2C%20y%20%3A%20Number%2C%20z%20%3A%20Number%29-instance-method">
+        
+        def <strong>set_parameter</strong>(name : String, x : Number, y : Number, z : Number)
+      </div>
+      
+        <div class="doc"><p>Change a 3-components vector parameter of a shader</p>
+
+<p><code>name</code> is the name of the variable to change in the shader.
+The corresponding parameter in the shader must be a 3x1 vector
+(vec3 GLSL type).</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shader</code>: Shader object</li><li><code>name</code>: Name of the parameter in the shader</li><li><code>x</code>: First component of the value to assign</li><li><code>y</code>: Second component of the value to assign</li><li><code>z</code>: Third component of the value to assign</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1589" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="set_parameter%28name%20%3A%20String%2C%20vector%20%3A%20Vector3f%29-instance-method">
+        
+        def <strong>set_parameter</strong>(name : String, vector : <a href="../SF/Vector3f.html">Vector3f</a>)
+      </div>
+      
+        <div class="doc"><p>Change a 3-components vector parameter of a shader</p>
+
+<p><code>name</code> is the name of the variable to change in the shader.
+The corresponding parameter in the shader must be a 3x1 vector
+(vec3 GLSL type).</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>shader</code>: Shader object</li><li><code>name</code>: Name of the parameter in the shader</li><li><code>vector</code>: Vector to assign</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1648" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -582,99 +719,7 @@ to a vec4(1.0, 0.5, 0.0, 1.0) in the shader.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1630" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="set_parameter%28name%20%3A%20String%2C%20x%20%3A%20Number%2C%20y%20%3A%20Number%2C%20z%20%3A%20Number%2C%20w%20%3A%20Number%29-instance-method">
-        
-        def <strong>set_parameter</strong>(name : String, x : Number, y : Number, z : Number, w : Number)
-      </div>
-      
-        <div class="doc"><p>Change a 4-components vector parameter of a shader</p>
-
-<p><code>name</code> is the name of the variable to change in the shader.
-The corresponding parameter in the shader must be a 4x1 vector
-(vec4 GLSL type).</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>shader</code>: Shader object</li><li><code>name</code>: Name of the parameter in the shader</li><li><code>x</code>: First component of the value to assign</li><li><code>y</code>: Second component of the value to assign</li><li><code>z</code>: Third component of the value to assign</li><li><code>w</code>: Fourth component of the value to assign</li></ul></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1571" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="set_parameter%28name%20%3A%20String%2C%20x%20%3A%20Number%2C%20y%20%3A%20Number%29-instance-method">
-        
-        def <strong>set_parameter</strong>(name : String, x : Number, y : Number)
-      </div>
-      
-        <div class="doc"><p>Change a 2-components vector parameter of a shader</p>
-
-<p><code>name</code> is the name of the variable to change in the shader.
-The corresponding parameter in the shader must be a 2x1 vector
-(vec2 GLSL type).</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>shader</code>: Shader object</li><li><code>name</code>: Name of the parameter in the shader</li><li><code>x</code>: First component of the value to assign</li><li><code>y</code>: Second component of the value to assign</li></ul></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1529" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="set_parameter%28name%20%3A%20String%2C%20x%20%3A%20Number%2C%20y%20%3A%20Number%2C%20z%20%3A%20Number%29-instance-method">
-        
-        def <strong>set_parameter</strong>(name : String, x : Number, y : Number, z : Number)
-      </div>
-      
-        <div class="doc"><p>Change a 3-components vector parameter of a shader</p>
-
-<p><code>name</code> is the name of the variable to change in the shader.
-The corresponding parameter in the shader must be a 3x1 vector
-(vec3 GLSL type).</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>shader</code>: Shader object</li><li><code>name</code>: Name of the parameter in the shader</li><li><code>x</code>: First component of the value to assign</li><li><code>y</code>: Second component of the value to assign</li><li><code>z</code>: Third component of the value to assign</li></ul></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1549" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="set_parameter%28name%20%3A%20String%2C%20vector%20%3A%20Vector3f%29-instance-method">
-        
-        def <strong>set_parameter</strong>(name : String, vector : <a href="../SF/Vector3f.html">Vector3f</a>)
-      </div>
-      
-        <div class="doc"><p>Change a 3-components vector parameter of a shader</p>
-
-<p><code>name</code> is the name of the variable to change in the shader.
-The corresponding parameter in the shader must be a 3x1 vector
-(vec3 GLSL type).</p>
-
-<p><em>Arguments</em>:</p>
-
-<ul><li><code>shader</code>: Shader object</li><li><code>name</code>: Name of the parameter in the shader</li><li><code>vector</code>: Vector to assign</li></ul></div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1608" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1670" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -697,20 +742,7 @@ The corresponding parameter in the shader must be a float
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1511" target="_blank">View source</a>]</div>
-      
-    </div>
-    <hr/>
-  
-    <div class="entry-detail">
-      <div class="signature" id="set_parameter%28name%20%3A%20String%2C%20current_texture%20%3A%20CurrentTextureType%29-instance-method">
-        
-        def <strong>set_parameter</strong>(name : String, current_texture : <a href="../SF/Shader/CurrentTextureType.html">CurrentTextureType</a>)
-      </div>
-      
-      
-        <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics.cr#L302" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1551" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -723,7 +755,7 @@ The corresponding parameter in the shader must be a float
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L1428" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1468" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>

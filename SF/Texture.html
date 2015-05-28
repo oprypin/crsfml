@@ -35,12 +35,12 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics.cr">graphics.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics.cr">graphics.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr">graphics_obj.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr">graphics_obj.cr</a>
     
     <br/>
   
@@ -72,7 +72,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#from_memory%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size_in_bytes%20%3A%20Size_t%2C%20area%29-class-method" class="signature"><strong>.from_memory</strong>(data : ::Pointer(Void), size_in_bytes : Size_t, area)</a>
+        <a href="#from_memory%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size_in_bytes%20%3A%20Int%2C%20area%29-class-method" class="signature"><strong>.from_memory</strong>(data : ::Pointer(Void), size_in_bytes : Int, area)</a>
         
           <div class="summary"><p>Create a new texture from a file in memory</p></div>
         
@@ -108,7 +108,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#new%28width%20%3A%20Int32%2C%20height%20%3A%20Int32%29-class-method" class="signature"><strong>.new</strong>(width : Int32, height : Int32)</a>
+        <a href="#new%28width%20%3A%20Int%2C%20height%20%3A%20Int%29-class-method" class="signature"><strong>.new</strong>(width : Int, height : Int)</a>
         
           <div class="summary"><p>Create a new texture</p></div>
         
@@ -146,6 +146,13 @@
         <a href="#finalize-instance-method" class="signature"><strong>#finalize</strong></a>
         
           <div class="summary"><p>Destroy an existing texture</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#native_handle-instance-method" class="signature"><strong>#native_handle</strong></a>
+        
+          <div class="summary"><p>Get the underlying OpenGL handle of the texture.</p></div>
         
       </li>
     
@@ -190,28 +197,28 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#update%28image%20%3A%20Image%2C%20x%20%3A%20Int32%2C%20y%20%3A%20Int32%29-instance-method" class="signature"><strong>#update</strong>(image : Image, x : Int32, y : Int32)</a>
+        <a href="#update%28image%20%3A%20Image%2C%20x%20%3A%20Int%2C%20y%20%3A%20Int%29-instance-method" class="signature"><strong>#update</strong>(image : Image, x : Int, y : Int)</a>
         
           <div class="summary"><p>Update a texture from an image</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#update%28pixels%2C%20width%20%3A%20Int32%2C%20height%20%3A%20Int32%2C%20x%20%3A%20Int32%2C%20y%20%3A%20Int32%29-instance-method" class="signature"><strong>#update</strong>(pixels, width : Int32, height : Int32, x : Int32, y : Int32)</a>
+        <a href="#update%28pixels%2C%20width%20%3A%20Int%2C%20height%20%3A%20Int%2C%20x%20%3A%20Int%2C%20y%20%3A%20Int%29-instance-method" class="signature"><strong>#update</strong>(pixels, width : Int, height : Int, x : Int, y : Int)</a>
         
           <div class="summary"><p>Update a texture from an array of pixels</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#update%28render_window%20%3A%20RenderWindow%2C%20x%20%3A%20Int32%2C%20y%20%3A%20Int32%29-instance-method" class="signature"><strong>#update</strong>(render_window : RenderWindow, x : Int32, y : Int32)</a>
+        <a href="#update%28render_window%20%3A%20RenderWindow%2C%20x%20%3A%20Int%2C%20y%20%3A%20Int%29-instance-method" class="signature"><strong>#update</strong>(render_window : RenderWindow, x : Int, y : Int)</a>
         
           <div class="summary"><p>Update a texture from the contents of a render-window</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#update%28window%20%3A%20Window%2C%20x%20%3A%20Int32%2C%20y%20%3A%20Int32%29-instance-method" class="signature"><strong>#update</strong>(window : Window, x : Int32, y : Int32)</a>
+        <a href="#update%28window%20%3A%20Window%2C%20x%20%3A%20Int%2C%20y%20%3A%20Int%29-instance-method" class="signature"><strong>#update</strong>(window : Window, x : Int, y : Int)</a>
         
           <div class="summary"><p>Update a texture from the contents of a window</p></div>
         
@@ -234,7 +241,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics.cr#L238" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics.cr#L234" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -255,7 +262,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4248" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L4274" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -276,15 +283,15 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4300" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L4321" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="from_memory%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size_in_bytes%20%3A%20Size_t%2C%20area%29-class-method">
+      <div class="signature" id="from_memory%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size_in_bytes%20%3A%20Int%2C%20area%29-class-method">
         
-        def self.<strong>from_memory</strong>(data : ::Pointer(Void), size_in_bytes : Size_t, area)
+        def self.<strong>from_memory</strong>(data : ::Pointer(Void), size_in_bytes : Int, area)
       </div>
       
         <div class="doc"><p>Create a new texture from a file in memory</p>
@@ -297,7 +304,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4266" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L4290" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -318,7 +325,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4283" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L4306" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -335,7 +342,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4481" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L4523" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -348,7 +355,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4225" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L4249" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -361,7 +368,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4225" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L4249" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -374,15 +381,15 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4225" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L4249" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="new%28width%20%3A%20Int32%2C%20height%20%3A%20Int32%29-class-method">
+      <div class="signature" id="new%28width%20%3A%20Int%2C%20height%20%3A%20Int%29-class-method">
         
-        def self.<strong>new</strong>(width : Int32, height : Int32)
+        def self.<strong>new</strong>(width : Int, height : Int)
       </div>
       
         <div class="doc"><p>Create a new texture</p>
@@ -395,7 +402,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4235" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L4259" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -423,7 +430,7 @@ mix Texture with OpenGL code.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4474" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L4516" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -444,7 +451,7 @@ mix Texture with OpenGL code.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4347" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L4366" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -465,7 +472,7 @@ mix Texture with OpenGL code.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4316" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L4335" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -484,7 +491,32 @@ mix Texture with OpenGL code.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4325" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L4344" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="native_handle-instance-method">
+        
+        def <strong>native_handle</strong>
+      </div>
+      
+        <div class="doc"><p>Get the underlying OpenGL handle of the texture.</p>
+
+<p>You shouldn't need to use this function, unless you have
+very specific stuff to implement that SFML doesn't support,
+or implement a temporary workaround until a bug is fixed.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>texture</code>: The texture object</li></ul>
+
+<p><em>Returns</em>: OpenGL handle of the texture or 0 if not yet created</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L4502" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -517,7 +549,7 @@ Repeating is disabled by default.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4448" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L4475" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -538,7 +570,7 @@ Repeating is disabled by default.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4460" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L4487" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -559,7 +591,7 @@ Repeating is disabled by default.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4336" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L4355" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -578,7 +610,7 @@ Repeating is disabled by default.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4412" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L4439" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -599,7 +631,7 @@ Repeating is disabled by default.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4424" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L4451" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -612,15 +644,15 @@ Repeating is disabled by default.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4225" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L4249" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="update%28image%20%3A%20Image%2C%20x%20%3A%20Int32%2C%20y%20%3A%20Int32%29-instance-method">
+      <div class="signature" id="update%28image%20%3A%20Image%2C%20x%20%3A%20Int%2C%20y%20%3A%20Int%29-instance-method">
         
-        def <strong>update</strong>(image : <a href="../SF/Image.html">Image</a>, x : Int32, y : Int32)
+        def <strong>update</strong>(image : <a href="../SF/Image.html">Image</a>, x : Int, y : Int)
       </div>
       
         <div class="doc"><p>Update a texture from an image</p>
@@ -631,15 +663,15 @@ Repeating is disabled by default.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4378" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L4399" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="update%28pixels%2C%20width%20%3A%20Int32%2C%20height%20%3A%20Int32%2C%20x%20%3A%20Int32%2C%20y%20%3A%20Int32%29-instance-method">
+      <div class="signature" id="update%28pixels%2C%20width%20%3A%20Int%2C%20height%20%3A%20Int%2C%20x%20%3A%20Int%2C%20y%20%3A%20Int%29-instance-method">
         
-        def <strong>update</strong>(pixels, width : Int32, height : Int32, x : Int32, y : Int32)
+        def <strong>update</strong>(pixels, width : Int, height : Int, x : Int, y : Int)
       </div>
       
         <div class="doc"><p>Update a texture from an array of pixels</p>
@@ -650,15 +682,15 @@ Repeating is disabled by default.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4361" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L4380" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="update%28render_window%20%3A%20RenderWindow%2C%20x%20%3A%20Int32%2C%20y%20%3A%20Int32%29-instance-method">
+      <div class="signature" id="update%28render_window%20%3A%20RenderWindow%2C%20x%20%3A%20Int%2C%20y%20%3A%20Int%29-instance-method">
         
-        def <strong>update</strong>(render_window : <a href="../SF/RenderWindow.html">RenderWindow</a>, x : Int32, y : Int32)
+        def <strong>update</strong>(render_window : <a href="../SF/RenderWindow.html">RenderWindow</a>, x : Int, y : Int)
       </div>
       
         <div class="doc"><p>Update a texture from the contents of a render-window</p>
@@ -669,15 +701,15 @@ Repeating is disabled by default.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4402" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L4427" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="update%28window%20%3A%20Window%2C%20x%20%3A%20Int32%2C%20y%20%3A%20Int32%29-instance-method">
+      <div class="signature" id="update%28window%20%3A%20Window%2C%20x%20%3A%20Int%2C%20y%20%3A%20Int%29-instance-method">
         
-        def <strong>update</strong>(window : <a href="../SF/Window.html">Window</a>, x : Int32, y : Int32)
+        def <strong>update</strong>(window : <a href="../SF/Window.html">Window</a>, x : Int, y : Int)
       </div>
       
         <div class="doc"><p>Update a texture from the contents of a window</p>
@@ -688,7 +720,7 @@ Repeating is disabled by default.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/graphics_obj.cr#L4390" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L4413" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>

@@ -35,7 +35,7 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr">audio_obj.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr">audio_obj.cr</a>
     
     <br/>
   
@@ -58,6 +58,13 @@
       </li>
     
       <li class="entry-summary">
+        <a href="#new%28on_get_data%20%3A%20SoundStreamGetDataCallback%2C%20on_seek%20%3A%20SoundStreamSeekCallback%2C%20channel_count%20%3A%20Int%2C%20sample_rate%20%3A%20Int%2C%20user_data%20%3A%20%3A%3APointer%28Void%29%29-class-method" class="signature"><strong>.new</strong>(on_get_data : SoundStreamGetDataCallback, on_seek : SoundStreamSeekCallback, channel_count : Int, sample_rate : Int, user_data : ::Pointer(Void))</a>
+        
+          <div class="summary"><p>Create a new sound stream</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#new%28this%2C%20owned%20%3A%20Bool%29-class-method" class="signature"><strong>.new</strong>(this, owned : Bool)</a>
         
       </li>
@@ -70,7 +77,168 @@
   <ul>
     
       <li class="entry-summary">
+        <a href="#attenuation-instance-method" class="signature"><strong>#attenuation</strong></a>
+        
+          <div class="summary"><p>Get the attenuation factor of a sound stream</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#attenuation%3D%28attenuation%20%3A%20Number%29-instance-method" class="signature"><strong>#attenuation=</strong>(attenuation : Number)</a>
+        
+          <div class="summary"><p>Set the attenuation factor of a sound stream</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#channel_count-instance-method" class="signature"><strong>#channel_count</strong></a>
+        
+          <div class="summary"><p>Return the number of channels of a sound stream</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#finalize-instance-method" class="signature"><strong>#finalize</strong></a>
+        
+          <div class="summary"><p>Destroy a sound stream</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#loop-instance-method" class="signature"><strong>#loop</strong></a>
+        
+          <div class="summary"><p>Tell whether or not a sound stream is in loop mode</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#loop%3D%28loop%20%3A%20Bool%29-instance-method" class="signature"><strong>#loop=</strong>(loop : Bool)</a>
+        
+          <div class="summary"><p>Set whether or not a sound stream should loop after reaching the end</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#min_distance-instance-method" class="signature"><strong>#min_distance</strong></a>
+        
+          <div class="summary"><p>Get the minimum distance of a sound stream</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#min_distance%3D%28distance%20%3A%20Number%29-instance-method" class="signature"><strong>#min_distance=</strong>(distance : Number)</a>
+        
+          <div class="summary"><p>Set the minimum distance of a sound stream</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#pause-instance-method" class="signature"><strong>#pause</strong></a>
+        
+          <div class="summary"><p>Pause a sound stream</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#pitch-instance-method" class="signature"><strong>#pitch</strong></a>
+        
+          <div class="summary"><p>Get the pitch of a sound stream</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#pitch%3D%28pitch%20%3A%20Number%29-instance-method" class="signature"><strong>#pitch=</strong>(pitch : Number)</a>
+        
+          <div class="summary"><p>Set the pitch of a sound stream</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#play-instance-method" class="signature"><strong>#play</strong></a>
+        
+          <div class="summary"><p>Start or resume playing a sound stream</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#playing_offset-instance-method" class="signature"><strong>#playing_offset</strong></a>
+        
+          <div class="summary"><p>Get the current playing position of a sound stream</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#playing_offset%3D%28time_offset%20%3A%20Time%29-instance-method" class="signature"><strong>#playing_offset=</strong>(time_offset : Time)</a>
+        
+          <div class="summary"><p>Change the current playing position of a sound stream</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#position-instance-method" class="signature"><strong>#position</strong></a>
+        
+          <div class="summary"><p>Get the 3D position of a sound stream in the audio scene</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#position%3D%28position%20%3A%20Vector3f%29-instance-method" class="signature"><strong>#position=</strong>(position : Vector3f)</a>
+        
+          <div class="summary"><p>Set the 3D position of a sound stream in the audio scene</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#relative_to_listener%3D%28relative%20%3A%20Bool%29-instance-method" class="signature"><strong>#relative_to_listener=</strong>(relative : Bool)</a>
+        
+          <div class="summary"><p>Make a sound stream's position relative to the listener or absolute</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#relative_to_listener%3F-instance-method" class="signature"><strong>#relative_to_listener?</strong></a>
+        
+          <div class="summary"><p>Tell whether a sound stream's position is relative to the listener or is absolute</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#sample_rate-instance-method" class="signature"><strong>#sample_rate</strong></a>
+        
+          <div class="summary"><p>Get the sample rate of a sound stream</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#status-instance-method" class="signature"><strong>#status</strong></a>
+        
+          <div class="summary"><p>Get the current status of a sound stream (stopped, paused, playing)</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#stop-instance-method" class="signature"><strong>#stop</strong></a>
+        
+          <div class="summary"><p>Stop playing a sound stream</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#volume-instance-method" class="signature"><strong>#volume</strong></a>
+        
+          <div class="summary"><p>Get the volume of a sound stream</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#volume%3D%28volume%20%3A%20Number%29-instance-method" class="signature"><strong>#volume=</strong>(volume : Number)</a>
+        
+          <div class="summary"><p>Set the volume of a sound stream</p></div>
         
       </li>
     
@@ -91,7 +259,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr#L1222" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1227" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -104,7 +272,28 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr#L1222" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1227" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28on_get_data%20%3A%20SoundStreamGetDataCallback%2C%20on_seek%20%3A%20SoundStreamSeekCallback%2C%20channel_count%20%3A%20Int%2C%20sample_rate%20%3A%20Int%2C%20user_data%20%3A%20%3A%3APointer%28Void%29%29-class-method">
+        
+        def self.<strong>new</strong>(on_get_data : SoundStreamGetDataCallback, on_seek : SoundStreamSeekCallback, channel_count : Int, sample_rate : Int, user_data : ::Pointer(Void))
+      </div>
+      
+        <div class="doc"><p>Create a new sound stream</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>on_get_data</code>: Function called when the stream needs more data (can't be NULL)</li><li><code>on_seek</code>: Function called when the stream seeks (can't be NULL)</li><li><code><a href="../SF/SoundStream.html#channel_count-instance-method">#channel_count</a></code>: Number of channels to use (1 = mono, 2 = stereo)</li><li><code><a href="../SF/SoundStream.html#sample_rate-instance-method">#sample_rate</a></code>: Sample rate of the sound (44100 = CD quality)</li><li><code>user_data</code>: Data to pass to the callback functions</li></ul>
+
+<p><em>Returns</em>: A new SoundStream object</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1240" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -117,7 +306,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr#L1222" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1227" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -128,6 +317,484 @@
   <h2>Instance Method Detail</h2>
   
     <div class="entry-detail">
+      <div class="signature" id="attenuation-instance-method">
+        
+        def <strong>attenuation</strong>
+      </div>
+      
+        <div class="doc"><p>Get the attenuation factor of a sound stream</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_stream</code>: Sound stream object</li></ul>
+
+<p><em>Returns</em>: Attenuation factor of the stream</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1526" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="attenuation%3D%28attenuation%20%3A%20Number%29-instance-method">
+        
+        def <strong>attenuation=</strong>(attenuation : Number)
+      </div>
+      
+        <div class="doc"><p>Set the attenuation factor of a sound stream</p>
+
+<p>The attenuation is a multiplicative factor which makes
+the stream more or less loud according to its distance
+from the listener. An attenuation of 0 will produce a
+non-attenuated stream, i.e. its volume will always be the same
+whether it is heard from near or from far. On the other hand,
+an attenuation value such as 100 will make the stream fade out
+very quickly as it gets further from the listener.
+The default value of the attenuation is 1.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_stream</code>: Sound stream object</li><li><code><a href="../SF/SoundStream.html#attenuation-instance-method">#attenuation</a></code>: New attenuation factor of the stream</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1429" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="channel_count-instance-method">
+        
+        def <strong>channel_count</strong>
+      </div>
+      
+        <div class="doc"><p>Return the number of channels of a sound stream</p>
+
+<p>1 channel means a mono sound, 2 means stereo, etc.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_stream</code>: Sound stream object</li></ul>
+
+<p><em>Returns</em>: Number of channels</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1316" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="finalize-instance-method">
+        
+        def <strong>finalize</strong>
+      </div>
+      
+        <div class="doc"><p>Destroy a sound stream</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_stream</code>: Sound stream to destroy</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1252" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="loop-instance-method">
+        
+        def <strong>loop</strong>
+      </div>
+      
+        <div class="doc"><p>Tell whether or not a sound stream is in loop mode</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_stream</code>: Sound stream object</li></ul>
+
+<p><em>Returns</em>: True if the music is looping, False otherwise</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1537" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="loop%3D%28loop%20%3A%20Bool%29-instance-method">
+        
+        def <strong>loop=</strong>(loop : Bool)
+      </div>
+      
+        <div class="doc"><p>Set whether or not a sound stream should loop after reaching the end</p>
+
+<p>If set, the stream will restart from beginning after
+reaching the end and so on, until it is stopped or
+SoundStream_setLoop(stream, False) is called.
+The default looping state for sound streams is false.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_stream</code>: Sound stream object</li><li><code><a href="../SF/SoundStream.html#loop-instance-method">#loop</a></code>: True to play in loop, False to play once</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1458" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="min_distance-instance-method">
+        
+        def <strong>min_distance</strong>
+      </div>
+      
+        <div class="doc"><p>Get the minimum distance of a sound stream</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_stream</code>: Sound stream object</li></ul>
+
+<p><em>Returns</em>: Minimum distance of the stream</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1515" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="min_distance%3D%28distance%20%3A%20Number%29-instance-method">
+        
+        def <strong>min_distance=</strong>(distance : Number)
+      </div>
+      
+        <div class="doc"><p>Set the minimum distance of a sound stream</p>
+
+<p>The "minimum distance" of a stream is the maximum
+distance at which it is heard at its maximum volume. Further
+than the minimum distance, it will start to fade out according
+to its attenuation factor. A value of 0 ("inside the head
+of the listener") is an invalid value and is forbidden.
+The default value of the minimum distance is 1.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_stream</code>: Sound stream object</li><li><code>distance</code>: New minimum distance of the stream</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1409" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="pause-instance-method">
+        
+        def <strong>pause</strong>
+      </div>
+      
+        <div class="doc"><p>Pause a sound stream</p>
+
+<p>This function pauses the stream if it was playing,
+otherwise (stream already paused or stopped) it has no effect.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_stream</code>: Sound stream object</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1279" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="pitch-instance-method">
+        
+        def <strong>pitch</strong>
+      </div>
+      
+        <div class="doc"><p>Get the pitch of a sound stream</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_stream</code>: Sound stream object</li></ul>
+
+<p><em>Returns</em>: Pitch of the stream</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1470" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="pitch%3D%28pitch%20%3A%20Number%29-instance-method">
+        
+        def <strong>pitch=</strong>(pitch : Number)
+      </div>
+      
+        <div class="doc"><p>Set the pitch of a sound stream</p>
+
+<p>The pitch represents the perceived fundamental frequency
+of a sound; thus you can make a stream more acute or grave
+by changing its pitch. A side effect of changing the pitch
+is to modify the playing speed of the stream as well.
+The default value for the pitch is 1.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_stream</code>: Sound stream object</li><li><code><a href="../SF/SoundStream.html#pitch-instance-method">#pitch</a></code>: New pitch to apply to the stream</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1346" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="play-instance-method">
+        
+        def <strong>play</strong>
+      </div>
+      
+        <div class="doc"><p>Start or resume playing a sound stream</p>
+
+<p>This function starts the stream if it was stopped, resumes
+it if it was paused, and restarts it from beginning if it
+was it already playing.
+This function uses its own thread so that it doesn't block
+the rest of the program while the music is played.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_stream</code>: Sound stream object</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1267" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="playing_offset-instance-method">
+        
+        def <strong>playing_offset</strong>
+      </div>
+      
+        <div class="doc"><p>Get the current playing position of a sound stream</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_stream</code>: Sound stream object</li></ul>
+
+<p><em>Returns</em>: Current playing position</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1548" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="playing_offset%3D%28time_offset%20%3A%20Time%29-instance-method">
+        
+        def <strong>playing_offset=</strong>(time_offset : <a href="../SF/Time.html">Time</a>)
+      </div>
+      
+        <div class="doc"><p>Change the current playing position of a sound stream</p>
+
+<p>The playing position can be changed when the stream is
+either paused or playing.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_stream</code>: Sound stream object</li><li><code>time_offset</code>: New playing position</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1443" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="position-instance-method">
+        
+        def <strong>position</strong>
+      </div>
+      
+        <div class="doc"><p>Get the 3D position of a sound stream in the audio scene</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_stream</code>: Sound stream object</li></ul>
+
+<p><em>Returns</em>: Position of the stream in the world</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1492" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="position%3D%28position%20%3A%20Vector3f%29-instance-method">
+        
+        def <strong>position=</strong>(position : <a href="../SF/Vector3f.html">Vector3f</a>)
+      </div>
+      
+        <div class="doc"><p>Set the 3D position of a sound stream in the audio scene</p>
+
+<p>Only streams with one channel (mono streams) can be
+spatialized.
+The default position of a stream is (0, 0, 0).</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_stream</code>: Sound stream object</li><li><code><a href="../SF/SoundStream.html#position-instance-method">#position</a></code>: Position of the stream in the scene</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1375" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="relative_to_listener%3D%28relative%20%3A%20Bool%29-instance-method">
+        
+        def <strong>relative_to_listener=</strong>(relative : Bool)
+      </div>
+      
+        <div class="doc"><p>Make a sound stream's position relative to the listener or absolute</p>
+
+<p>Making a stream relative to the listener will ensure that it will always
+be played the same way regardless the position of the listener.
+This can be useful for non-spatialized streams, streams that are
+produced by the listener, or streams attached to it.
+The default value is false (position is absolute).</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_stream</code>: Sound stream object</li><li><code>relative</code>: True to set the position relative, False to set it absolute</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1391" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="relative_to_listener%3F-instance-method">
+        
+        def <strong>relative_to_listener?</strong>
+      </div>
+      
+        <div class="doc"><p>Tell whether a sound stream's position is relative to the
+listener or is absolute</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_stream</code>: Sound stream object</li></ul>
+
+<p><em>Returns</em>: True if the position is relative, False if it's absolute</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1504" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="sample_rate-instance-method">
+        
+        def <strong>sample_rate</strong>
+      </div>
+      
+        <div class="doc"><p>Get the sample rate of a sound stream</p>
+
+<p>The sample rate is the number of audio samples played per
+second. The higher, the better the quality.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_stream</code>: Sound stream object</li></ul>
+
+<p><em>Returns</em>: Sample rate, in number of samples per second</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1330" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="status-instance-method">
+        
+        def <strong>status</strong>
+      </div>
+      
+        <div class="doc"><p>Get the current status of a sound stream (stopped, paused, playing)</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_stream</code>: Sound stream object</li></ul>
+
+<p><em>Returns</em>: Current status</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1303" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="stop-instance-method">
+        
+        def <strong>stop</strong>
+      </div>
+      
+        <div class="doc"><p>Stop playing a sound stream</p>
+
+<p>This function stops the stream if it was playing or paused,
+and does nothing if it was already stopped.
+It also resets the playing position (unlike SoundStream_pause).</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_stream</code>: Sound stream object</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1292" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
       <div class="signature" id="to_unsafe-instance-method">
         
         def <strong>to_unsafe</strong>
@@ -135,7 +802,50 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/701047a301c09740e1409b0f557212c27373d3c2/src/audio_obj.cr#L1222" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1227" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="volume-instance-method">
+        
+        def <strong>volume</strong>
+      </div>
+      
+        <div class="doc"><p>Get the volume of a sound stream</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_stream</code>: Sound stream object</li></ul>
+
+<p><em>Returns</em>: Volume of the stream, in the range [0, 100]</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1481" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="volume%3D%28volume%20%3A%20Number%29-instance-method">
+        
+        def <strong>volume=</strong>(volume : Number)
+      </div>
+      
+        <div class="doc"><p>Set the volume of a sound stream</p>
+
+<p>The volume is a value between 0 (mute) and 100 (full volume).
+The default value for the volume is 100.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>sound_stream</code>: Sound stream object</li><li><code><a href="../SF/SoundStream.html#volume-instance-method">#volume</a></code>: Volume of the stream</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1360" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
