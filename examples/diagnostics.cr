@@ -7,7 +7,7 @@ $font = SF::Font.from_file("resources/font/Ubuntu-R.ttf")
 
 $window = SF::RenderWindow.new(
   SF.video_mode(800, 600), "Diagnostic information",
-  settings: SF.context_settings(depth: 32, antialiasing: 8)
+  settings: SF.context_settings(depth: 24, antialiasing: 8)
 )
 $window.framerate_limit = 30
 
@@ -207,7 +207,7 @@ class Button < SF::RectangleShape
     @text.position = SF.vector2((width - @text.global_bounds.width) / 2, -height / 20)
   end
   
-  def draw(target, states: RenderStates)
+  def draw(target, states: SF::RenderStates)
     states.transform.combine(transform)
     
     super(target, states)

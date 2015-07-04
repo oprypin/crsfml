@@ -2,7 +2,7 @@ require "crsfml"
 
 window = SF::RenderWindow.new(
   SF.video_mode(200, 200), "Shapes",
-  settings: SF.context_settings(depth: 32, antialiasing: 8)
+  settings: SF.context_settings(depth: 24, antialiasing: 8)
 )
 window.vertical_sync_enabled = true
 

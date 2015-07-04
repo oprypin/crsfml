@@ -15,7 +15,7 @@ class Logo
     @text.origin = SF.vector2(bounds.width / 2, bounds.height * 0.8)
   end
   
-  def draw(target, states: RenderStates)
+  def draw(target, states: SF::RenderStates)
     states.transform.combine(transform)
     target.draw(@shape, states)
     target.draw(@text, states)

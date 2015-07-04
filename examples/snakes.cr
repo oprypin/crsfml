@@ -182,7 +182,7 @@ scale = 20
 
 window = SF::RenderWindow.new(
   SF.video_mode(field.size.x*scale, field.size.y*scale), "Snakes",
-  settings: SF.context_settings(depth: 32, antialiasing: 8)
+  settings: SF.context_settings(depth: 24, antialiasing: 8)
 )
 window.vertical_sync_enabled = true
 window.framerate_limit = 10
