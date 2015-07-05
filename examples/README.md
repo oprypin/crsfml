@@ -64,6 +64,7 @@ Parts of the Shader example [from SFML][shader]
     - Load from file
     - Set arguments
     - Apply
+- HTTP GET request
 
 ### [shapes](shapes.cr)
 

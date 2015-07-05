@@ -1,11 +1,8 @@
 # Adapted from SFML Shader example
 # https://github.com/LaurentGomila/SFML/blob/master/examples/shader/Shader.cpp
 
-require "http/client"
 require "crsfml"
-
-
-scene = rand(2)
+require "crsfml/network"
 
 
 texture = SF::Texture.from_file("resources/background.jpg")
@@ -13,8 +10,16 @@ sprite = SF::Sprite.new(texture)
 px_shader = SF::Shader.from_file("resources/shaders/pixelate.frag", SF::Shader::Fragment)
 px_shader.set_parameter "texture", SF::Shader::CurrentTexture
 
+http = SF::Http.new("http://loripsum.net")
+response = http.send_request(SF::HttpRequest.new("/api/12/short/plaintext"))
 
-ipsum = HTTP::Client.get("http://loripsum.net/api/12/short/plaintext").body
+if response.status == SF::HttpResponse::Ok
+  ipsum = response.body
+else
+  ipsum = "Couldn't download sample text."
+end
+
+
 font = SF::Font.from_file("resources/font/Ubuntu-R.ttf")
 text = SF::Text.new(ipsum, font, 22)
 text.position = {30, 20}
@@ -24,6 +29,8 @@ wb_shader = SF::Shader.from_file("resources/shaders/wave.vert", "resources/shade
 
 window = SF::RenderWindow.new(SF.video_mode(800, 600), "SFML Shader", SF::Titlebar|SF::Close)
 window.vertical_sync_enabled = true
+
+scene = rand(2)
 
 clock = SF::Clock.new()
 while window.open?
