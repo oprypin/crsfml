@@ -20,8 +20,6 @@
 
 
 lib CSFML
-  alias SizeT = LibC::SizeT
-  
   alias Bool = Int32
   
   ifdef windows || macosx

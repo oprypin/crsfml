@@ -393,7 +393,7 @@ lib CSFML
   # * `count`: Pointer to a variable that will be filled with the number of modes in the array
   # 
   # *Returns*: Pointer to an array containing all the supported fullscreen modes
-  fun video_mode_get_fullscreen_modes = sfVideoMode_getFullscreenModes(count: SizeT*): VideoMode*
+  fun video_mode_get_fullscreen_modes = sfVideoMode_getFullscreenModes(count: LibC::SizeT*): VideoMode*
   
   # Tell whether or not a video mode is valid
   # 

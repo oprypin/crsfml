@@ -140,7 +140,7 @@ module SF
     # 
     # *Returns*: A new Music object (NULL if failed)
     def self.from_memory(data: Void*, size_in_bytes: Int)
-      size_in_bytes = CSFML::SizeT.cast(size_in_bytes)
+      size_in_bytes = LibC::SizeT.cast(size_in_bytes)
       Music.transfer_ptr(CSFML.music_create_from_memory(data, size_in_bytes))
     end
     
@@ -837,7 +837,7 @@ module SF
     # 
     # *Returns*: A new SoundBuffer object (NULL if failed)
     def self.from_memory(data: Void*, size_in_bytes: Int)
-      size_in_bytes = CSFML::SizeT.cast(size_in_bytes)
+      size_in_bytes = LibC::SizeT.cast(size_in_bytes)
       SoundBuffer.transfer_ptr(CSFML.sound_buffer_create_from_memory(data, size_in_bytes))
     end
     
@@ -1179,7 +1179,7 @@ module SF
     # * `count`: Pointer to a variable that will be filled with the number of modes in the array
     # 
     # *Returns*: An array of strings containing the names
-    def self.get_available_devices(count: SizeT*)
+    def self.get_available_devices(count: LibC::SizeT*)
       CSFML.sound_recorder_get_available_devices(count)
     end
     

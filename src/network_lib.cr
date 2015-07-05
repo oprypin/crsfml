@@ -204,7 +204,7 @@ lib CSFML
   # * `ftp_listing_response`: Ftp listing response
   # 
   # *Returns*: Total number of names available
-  fun ftp_listing_response_get_count = sfFtpListingResponse_getCount(ftp_listing_response: FtpListingResponse): SizeT
+  fun ftp_listing_response_get_count = sfFtpListingResponse_getCount(ftp_listing_response: FtpListingResponse): LibC::SizeT
   
   # Return a directory/file name contained in a FTP listing response
   # 
@@ -214,7 +214,7 @@ lib CSFML
   # * `index`: Index of the name to get (in range [0 .. get_count])
   # 
   # *Returns*: The requested name
-  fun ftp_listing_response_get_name = sfFtpListingResponse_getName(ftp_listing_response: FtpListingResponse, index: SizeT): UInt8*
+  fun ftp_listing_response_get_name = sfFtpListingResponse_getName(ftp_listing_response: FtpListingResponse, index: LibC::SizeT): UInt8*
   
   # Destroy a FTP directory response
   # 
@@ -753,7 +753,7 @@ lib CSFML
   # * `packet`: Packet object
   # * `data`: Pointer to the sequence of bytes to append
   # * `size_in_bytes`: Number of bytes to append
-  fun packet_append = sfPacket_append(packet: Packet, data: Void*, size_in_bytes: SizeT)
+  fun packet_append = sfPacket_append(packet: Packet, data: Void*, size_in_bytes: LibC::SizeT)
   
   # Clear a packet
   # 
@@ -788,7 +788,7 @@ lib CSFML
   # * `packet`: Packet object
   # 
   # *Returns*: Data size, in bytes
-  fun packet_get_data_size = sfPacket_getDataSize(packet: Packet): SizeT
+  fun packet_get_data_size = sfPacket_getDataSize(packet: Packet): LibC::SizeT
   
   # Tell if the reading position has reached the
   # end of a packet
@@ -1169,7 +1169,7 @@ lib CSFML
   # * `size`: Number of bytes to send
   # 
   # *Returns*: Status code
-  fun tcp_socket_send = sfTcpSocket_send(socket: TcpSocket, data: Void*, size: SizeT): SocketStatus
+  fun tcp_socket_send = sfTcpSocket_send(socket: TcpSocket, data: Void*, size: LibC::SizeT): SocketStatus
   
   # Send raw data to the remote peer
   # 
@@ -1183,7 +1183,7 @@ lib CSFML
   # * `sent`: The number of bytes sent will be written here
   # 
   # *Returns*: Status code
-  fun tcp_socket_send_partial = sfTcpSocket_sendPartial(socket: TcpSocket, data: Void*, size: SizeT, sent: SizeT*): SocketStatus
+  fun tcp_socket_send_partial = sfTcpSocket_sendPartial(socket: TcpSocket, data: Void*, size: LibC::SizeT, sent: LibC::SizeT*): SocketStatus
   
   # Receive raw data from the remote peer of a TCP socket
   # 
@@ -1199,7 +1199,7 @@ lib CSFML
   # * `received`: This variable is filled with the actual number of bytes received
   # 
   # *Returns*: Status code
-  fun tcp_socket_receive = sfTcpSocket_receive(socket: TcpSocket, data: Void*, max_size: SizeT, size_received: SizeT*): SocketStatus
+  fun tcp_socket_receive = sfTcpSocket_receive(socket: TcpSocket, data: Void*, max_size: LibC::SizeT, size_received: LibC::SizeT*): SocketStatus
   
   # Send a formatted packet of data to the remote peer of a TCP socket
   # 
@@ -1323,7 +1323,7 @@ lib CSFML
   # * `remote_port`: Port of the receiver to send the data to
   # 
   # *Returns*: Status code
-  fun udp_socket_send = sfUdpSocket_send(socket: UdpSocket, data: Void*, size: SizeT, address: IpAddress, port: UInt16): SocketStatus
+  fun udp_socket_send = sfUdpSocket_send(socket: UdpSocket, data: Void*, size: LibC::SizeT, address: IpAddress, port: UInt16): SocketStatus
   
   # Receive raw data from a remote peer with a UDP socket
   # 
@@ -1344,7 +1344,7 @@ lib CSFML
   # * `remote_port`: Port of the peer that sent the data
   # 
   # *Returns*: Status code
-  fun udp_socket_receive = sfUdpSocket_receive(socket: UdpSocket, data: Void*, max_size: SizeT, size_received: SizeT*, address: IpAddress*, port: UInt16*): SocketStatus
+  fun udp_socket_receive = sfUdpSocket_receive(socket: UdpSocket, data: Void*, max_size: LibC::SizeT, size_received: LibC::SizeT*, address: IpAddress*, port: UInt16*): SocketStatus
   
   # Send a formatted packet of data to a remote peer with a UDP socket
   # 

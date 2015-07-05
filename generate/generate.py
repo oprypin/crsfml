@@ -56,7 +56,7 @@ def rename_type(name, var=''):
     name = {
         'char': 'UInt8',
         'int': 'Int32',
-        'size_t': 'SizeT',
+        'size_t': 'LibC::SizeT',
         'sfBool': 'CSFML::Bool',
         'unsigned int': 'Int32',
         'unsigned short': 'UInt16',
@@ -358,9 +358,9 @@ def handle_function(main, params):
         elif (' '+params[i][0]).endswith(' int'):
             t = 'Int'
             conv.append('{0} = {0}.to_i32'.format(n))
-        elif t == 'SizeT':
+        elif t == 'LibC::SizeT':
             t = 'Int'
-            conv.append('{0} = CSFML::SizeT.cast({0})'.format(n))
+            conv.append('{0} = LibC::SizeT.cast({0})'.format(n))
         elif t == 'UInt64':
             t = 'Int'
             conv.append('{0} = {0}.to_u64'.format(n))

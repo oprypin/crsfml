@@ -192,7 +192,7 @@ module SF
     # 
     # *Returns*: The requested name
     def get_name(index: Int)
-      index = CSFML::SizeT.cast(index)
+      index = LibC::SizeT.cast(index)
       String.new(CSFML.ftp_listing_response_get_name(@this, index))
     end
     
@@ -866,7 +866,7 @@ module SF
     # * `data`: Pointer to the sequence of bytes to append
     # * `size_in_bytes`: Number of bytes to append
     def append(data: Void*, size_in_bytes: Int)
-      size_in_bytes = CSFML::SizeT.cast(size_in_bytes)
+      size_in_bytes = LibC::SizeT.cast(size_in_bytes)
       CSFML.packet_append(@this, data, size_in_bytes)
     end
     
@@ -1407,7 +1407,7 @@ module SF
     # 
     # *Returns*: Status code
     def send(data: Void*, size: Int)
-      size = CSFML::SizeT.cast(size)
+      size = LibC::SizeT.cast(size)
       CSFML.tcp_socket_send(@this, data, size)
     end
     
@@ -1423,8 +1423,8 @@ module SF
     # * `sent`: The number of bytes sent will be written here
     # 
     # *Returns*: Status code
-    def send_partial(data: Void*, size: Int, sent: SizeT*)
-      size = CSFML::SizeT.cast(size)
+    def send_partial(data: Void*, size: Int, sent: LibC::SizeT*)
+      size = LibC::SizeT.cast(size)
       CSFML.tcp_socket_send_partial(@this, data, size, sent)
     end
     
@@ -1442,8 +1442,8 @@ module SF
     # * `received`: This variable is filled with the actual number of bytes received
     # 
     # *Returns*: Status code
-    def receive(data: Void*, max_size: Int, size_received: SizeT*)
-      max_size = CSFML::SizeT.cast(max_size)
+    def receive(data: Void*, max_size: Int, size_received: LibC::SizeT*)
+      max_size = LibC::SizeT.cast(max_size)
       CSFML.tcp_socket_receive(@this, data, max_size, size_received)
     end
     
@@ -1596,7 +1596,7 @@ module SF
     # 
     # *Returns*: Status code
     def send(data: Void*, size: Int, address: IpAddress, port: Int)
-      size = CSFML::SizeT.cast(size)
+      size = LibC::SizeT.cast(size)
       port = port.to_u16
       CSFML.udp_socket_send(@this, data, size, address, port)
     end
@@ -1620,8 +1620,8 @@ module SF
     # * `remote_port`: Port of the peer that sent the data
     # 
     # *Returns*: Status code
-    def receive(data: Void*, max_size: Int, size_received: SizeT*, address: IpAddress*, port: UInt16*)
-      max_size = CSFML::SizeT.cast(max_size)
+    def receive(data: Void*, max_size: Int, size_received: LibC::SizeT*, address: IpAddress*, port: UInt16*)
+      max_size = LibC::SizeT.cast(max_size)
       CSFML.udp_socket_receive(@this, data, max_size, size_received, address, port)
     end
     

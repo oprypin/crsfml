@@ -59,12 +59,12 @@ module SF
     end
     
     def send_partial(data: Void*, size: Int): {SocketStatus, Int}
-      r = CSFML.tcp_socket_send_partial(@this, data, CSFML::SizeT.cast(size), out sent)
+      r = CSFML.tcp_socket_send_partial(@this, data, LibC::SizeT.cast(size), out sent)
       {r, sent}
     end
     
     def receive(data: Void*, max_size: Int): {SocketStatus, Int}
-      r = CSFML.tcp_socket_receive(@this, data, CSFML::SizeT.cast(max_size), out size_received)
+      r = CSFML.tcp_socket_receive(@this, data, LibC::SizeT.cast(max_size), out size_received)
       {r, size_received}
     end
   end
@@ -78,7 +78,7 @@ module SF
   
   class UdpSocket
     def receive(data: Void*, max_size: Int, size_received: SizeT*, address: IpAddress*, port: UInt16*): {SocketStatus, Int, IpAddress, UInt16}
-      r = CSFML.udp_socket_receive(@this, data, CSFML::SizeT.cast(max_size), out size_received, out address, out port)
+      r = CSFML.udp_socket_receive(@this, data, LibC::SizeT.cast(max_size), out size_received, out address, out port)
       {r, size_received, address, port}
     end
   end

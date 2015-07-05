@@ -599,7 +599,7 @@ lib CSFML
   # * `shape`: Shape object
   # 
   # *Returns*: Number of points of the shape
-  fun circle_shape_get_point_count = sfCircleShape_getPointCount(shape: CircleShape): SizeT
+  fun circle_shape_get_point_count = sfCircleShape_getPointCount(shape: CircleShape): LibC::SizeT
   
   # Get a point of a circle shape
   # 
@@ -611,7 +611,7 @@ lib CSFML
   # * `index`: Index of the point to get, in range [0 .. get_point_count() - 1]
   # 
   # *Returns*: Index-th point of the shape
-  fun circle_shape_get_point = sfCircleShape_getPoint(shape: CircleShape, index: SizeT): Vector2f
+  fun circle_shape_get_point = sfCircleShape_getPoint(shape: CircleShape, index: LibC::SizeT): Vector2f
   
   # Set the radius of a circle
   # 
@@ -636,7 +636,7 @@ lib CSFML
   # 
   # * `shape`: Shape object
   # * `count`: New number of points of the circle
-  fun circle_shape_set_point_count = sfCircleShape_setPointCount(shape: CircleShape, count: SizeT)
+  fun circle_shape_set_point_count = sfCircleShape_setPointCount(shape: CircleShape, count: LibC::SizeT)
   
   # Get the local bounding rectangle of a circle shape
   # 
@@ -955,7 +955,7 @@ lib CSFML
   # * `shape`: Shape object
   # 
   # *Returns*: Number of points of the shape
-  fun convex_shape_get_point_count = sfConvexShape_getPointCount(shape: ConvexShape): SizeT
+  fun convex_shape_get_point_count = sfConvexShape_getPointCount(shape: ConvexShape): LibC::SizeT
   
   # Get a point of a convex shape
   # 
@@ -967,7 +967,7 @@ lib CSFML
   # * `index`: Index of the point to get, in range [0 .. get_point_count() - 1]
   # 
   # *Returns*: Index-th point of the shape
-  fun convex_shape_get_point = sfConvexShape_getPoint(shape: ConvexShape, index: SizeT): Vector2f
+  fun convex_shape_get_point = sfConvexShape_getPoint(shape: ConvexShape, index: LibC::SizeT): Vector2f
   
   # Set the number of points of a convex shap
   # 
@@ -977,7 +977,7 @@ lib CSFML
   # 
   # * `shape`: Shape object
   # * `count`: New number of points of the shape
-  fun convex_shape_set_point_count = sfConvexShape_setPointCount(shape: ConvexShape, count: SizeT)
+  fun convex_shape_set_point_count = sfConvexShape_setPointCount(shape: ConvexShape, count: LibC::SizeT)
   
   # Set the position of a point in a convex shape
   # 
@@ -992,7 +992,7 @@ lib CSFML
   # * `shape`: Shape object
   # * `index`: Index of the point to change, in range [0 .. GetPointCount() - 1]
   # * `point`: New point
-  fun convex_shape_set_point = sfConvexShape_setPoint(shape: ConvexShape, index: SizeT, point: Vector2f)
+  fun convex_shape_set_point = sfConvexShape_setPoint(shape: ConvexShape, index: LibC::SizeT, point: Vector2f)
   
   # Get the local bounding rectangle of a convex shape
   # 
@@ -1052,7 +1052,7 @@ lib CSFML
   # * `size_in_bytes`: Size of the data to load, in bytes
   # 
   # *Returns*: A new Font object, or NULL if it failed
-  fun font_create_from_memory = sfFont_createFromMemory(data: Void*, size_in_bytes: SizeT): Font
+  fun font_create_from_memory = sfFont_createFromMemory(data: Void*, size_in_bytes: LibC::SizeT): Font
   
   # Create a new image font a custom stream
   # 
@@ -1227,7 +1227,7 @@ lib CSFML
   # * `size`: Size of the data to load, in bytes
   # 
   # *Returns*: A new Image object, or NULL if it failed
-  fun image_create_from_memory = sfImage_createFromMemory(data: Void*, size: SizeT): Image
+  fun image_create_from_memory = sfImage_createFromMemory(data: Void*, size: LibC::SizeT): Image
   
   # Create an image from a custom stream
   # 
@@ -1673,7 +1673,7 @@ lib CSFML
   # * `shape`: Shape object
   # 
   # *Returns*: Number of points of the shape
-  fun rectangle_shape_get_point_count = sfRectangleShape_getPointCount(shape: RectangleShape): SizeT
+  fun rectangle_shape_get_point_count = sfRectangleShape_getPointCount(shape: RectangleShape): LibC::SizeT
   
   # Get a point of a rectangle shape
   # 
@@ -1685,7 +1685,7 @@ lib CSFML
   # * `index`: Index of the point to get, in range [0 .. get_point_count() - 1]
   # 
   # *Returns*: Index-th point of the shape
-  fun rectangle_shape_get_point = sfRectangleShape_getPoint(shape: RectangleShape, index: SizeT): Vector2f
+  fun rectangle_shape_get_point = sfRectangleShape_getPoint(shape: RectangleShape, index: LibC::SizeT): Vector2f
   
   # Set the size of a rectangle shape
   # 
@@ -1917,7 +1917,7 @@ lib CSFML
   # * `vertex_count`: Number of vertices in the array
   # * `type`: Type of primitives to draw
   # * `states`: Render states to use for drawing (NULL to use the default states)
-  fun render_texture_draw_primitives = sfRenderTexture_drawPrimitives(render_texture: RenderTexture, vertices: Vertex*, vertex_count: SizeT, type: PrimitiveType, states: RenderStates*)
+  fun render_texture_draw_primitives = sfRenderTexture_drawPrimitives(render_texture: RenderTexture, vertices: Vertex*, vertex_count: LibC::SizeT, type: PrimitiveType, states: RenderStates*)
   
   # Save the current OpenGL render states and matrices
   # 
@@ -2371,7 +2371,7 @@ lib CSFML
   # * `vertex_count`: Number of vertices in the array
   # * `type`: Type of primitives to draw
   # * `states`: Render states to use for drawing (NULL to use the default states)
-  fun render_window_draw_primitives = sfRenderWindow_drawPrimitives(render_window: RenderWindow, vertices: Vertex*, vertex_count: SizeT, type: PrimitiveType, states: RenderStates*)
+  fun render_window_draw_primitives = sfRenderWindow_drawPrimitives(render_window: RenderWindow, vertices: Vertex*, vertex_count: LibC::SizeT, type: PrimitiveType, states: RenderStates*)
   
   # Save the current OpenGL render states and matrices
   # 
@@ -2725,8 +2725,8 @@ lib CSFML
   # *Returns*: True if the system can use shaders, False otherwise
   fun shader_is_available = sfShader_isAvailable(): CSFML::Bool
   
-  alias ShapeGetPointCountCallback = (Void*) -> SizeT
-  alias ShapeGetPointCallback = (SizeT, Void*) -> Vector2f
+  alias ShapeGetPointCountCallback = (Void*) -> LibC::SizeT
+  alias ShapeGetPointCallback = (LibC::SizeT, Void*) -> Vector2f
   # Create a new shape
   # 
   # *Arguments*:
@@ -3011,7 +3011,7 @@ lib CSFML
   # * `shape`: Shape object
   # 
   # *Returns*: Number of points of the shape
-  fun shape_get_point_count = sfShape_getPointCount(shape: Shape): SizeT
+  fun shape_get_point_count = sfShape_getPointCount(shape: Shape): LibC::SizeT
   
   # Get a point of a shape
   # 
@@ -3023,7 +3023,7 @@ lib CSFML
   # * `index`: Index of the point to get, in range [0 .. get_point_count() - 1]
   # 
   # *Returns*: Index-th point of the shape
-  fun shape_get_point = sfShape_getPoint(shape: Shape, index: SizeT): Vector2f
+  fun shape_get_point = sfShape_getPoint(shape: Shape, index: LibC::SizeT): Vector2f
   
   # Get the local bounding rectangle of a shape
   # 
@@ -3632,7 +3632,7 @@ lib CSFML
   # * `index`: Index of the character
   # 
   # *Returns*: Position of the character
-  fun text_find_character_pos = sfText_findCharacterPos(text: Text, index: SizeT): Vector2f
+  fun text_find_character_pos = sfText_findCharacterPos(text: Text, index: LibC::SizeT): Vector2f
   
   # Get the local bounding rectangle of a text
   # 
@@ -3693,7 +3693,7 @@ lib CSFML
   # * `area`: Area of the source image to load (NULL to load the entire image)
   # 
   # *Returns*: A new Texture object, or NULL if it failed
-  fun texture_create_from_memory = sfTexture_createFromMemory(data: Void*, size_in_bytes: SizeT, area: IntRect*): Texture
+  fun texture_create_from_memory = sfTexture_createFromMemory(data: Void*, size_in_bytes: LibC::SizeT, area: IntRect*): Texture
   
   # Create a new texture from a custom stream
   # 
@@ -4058,7 +4058,7 @@ lib CSFML
   # * `vertex_array`: Vertex array object
   # 
   # *Returns*: Number of vertices in the array
-  fun vertex_array_get_vertex_count = sfVertexArray_getVertexCount(vertex_array: VertexArray): SizeT
+  fun vertex_array_get_vertex_count = sfVertexArray_getVertexCount(vertex_array: VertexArray): LibC::SizeT
   
   # Get access to a vertex by its index
   # 
@@ -4072,7 +4072,7 @@ lib CSFML
   # * `index`: Index of the vertex to get
   # 
   # *Returns*: Pointer to the index-th vertex
-  fun vertex_array_get_vertex = sfVertexArray_getVertex(vertex_array: VertexArray, index: SizeT): Vertex*
+  fun vertex_array_get_vertex = sfVertexArray_getVertex(vertex_array: VertexArray, index: LibC::SizeT): Vertex*
   
   # Clear a vertex array
   # 
@@ -4098,7 +4098,7 @@ lib CSFML
   # 
   # * `vertex_array`: Vertex array objet
   # * `vertex_count`: New size of the array (number of vertices)
-  fun vertex_array_resize = sfVertexArray_resize(vertex_array: VertexArray, vertex_count: SizeT)
+  fun vertex_array_resize = sfVertexArray_resize(vertex_array: VertexArray, vertex_count: LibC::SizeT)
   
   # Add a vertex to a vertex array array
   # 
