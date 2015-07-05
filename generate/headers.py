@@ -29,8 +29,9 @@ skip = 'Thread Mutex WindowHandle'.split()
 
 
 src = ['''
-typedef unsigned long sfWindowHandle;
+typedef int sfWindowHandle;
 typedef int size_t;
+typedef int wchar_t;
 ''']
 doc = []
 
@@ -87,7 +88,7 @@ def visit_header(file_path):
     src.append('\n')
 
 
-for m in ['system', 'window', 'graphics', 'audio']:
+for m in ['system', 'window', 'graphics', 'audio', 'network']:
     visit_header('SFML/{}.h'.format(m.capitalize()))
 
 

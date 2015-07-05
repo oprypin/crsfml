@@ -59,7 +59,9 @@ def rename_type(name, var=''):
         'size_t': 'SizeT',
         'sfBool': 'CSFML::Bool',
         'unsigned int': 'Int32',
+        'unsigned short': 'UInt16',
         'float': 'Float32',
+        'double': 'Float64',
         'sfVector2u': 'sfVector2i',
     }.get(name, name)
     if ptr and 'sf' in name:
@@ -117,6 +119,11 @@ enum_relations = {
     'SoundStatus': 'SoundSource',
     'PrimitiveType': '',
     'WindowStyle': '',
+    'FtpTransferMode': 'Ftp',
+    'FtpStatus': 'FtpResponse',
+    'HttpMethod': 'HttpRequest',
+    'HttpStatus': 'HttpResponse',
+    'SocketStatus': 'Socket',
 }
 def handle_enum(name, items):
     if name is None:
@@ -290,9 +297,16 @@ def handle_function(main, params):
     const = []
     sgn = main_sgn
     
-    for ptype, pname in params:
+    anon_index = 0
+    for i, (ptype, pname) in enumerate(params, 1):
+        if 'wchar_t' in ptype:
+            return
         rtype = rename_type(ptype, pname)
-        rname = rename_identifier(pname) or 'p{}'.format(i)
+        if pname:
+            rname = rename_identifier(pname)
+        else:
+            anon_index += 1
+            rname = 'p{}'.format(anon_index)
         if rtype=='UInt32*':
             rtype = 'Char*'
         elif rtype=='UInt32':
@@ -353,6 +367,9 @@ def handle_function(main, params):
         elif t == 'Int64':
             t = 'Int'
             conv.append('{0} = {0}.to_i64'.format(n))
+        elif t == 'UInt16':
+            t = 'Int'
+            conv.append('{0} = {0}.to_u16'.format(n))
         elif t in ['Vector2f', 'Vector2i']:
             conv.append('{0} = SF.{2}({0}) unless {0}.is_a? {1}'.format(n, t, t.lower()))
             t = None
@@ -384,7 +401,7 @@ def handle_function(main, params):
         obj(cls, '  '+line)
     if aparams:
         lparams = ', '.join(([] if not cut else ['@this' if cls in classes else ('pointerof(cself)' if p1.endswith('*') else 'self')]) + [n for n, t in oparams])
-        if cls not in classes and p1.endswith('*'):
+        if cls in structs and p1.endswith('*'):
             obj(cls, '  cself = self')
     else:
         lparams = ''
@@ -406,6 +423,8 @@ def handle_function(main, params):
         obj(cls, '    result += ptr[i]; i += 1')
         obj(cls, '  end')
         obj(cls, '  result')
+    elif nftype == 'UInt8*' and not nfname.endswith('_ptr'):
+        obj(cls, '  String.new({})'.format(call))
     elif ftype == 'sfBool':
         obj(cls, '  {} != 0'.format(call))
     elif 'Vector2' in ftype:
@@ -585,7 +604,7 @@ def obj(cls, *args):
 ast = parse_file('headers_gen.h')
 Visitor().visit(ast)
 
-deps = {'system': [], 'window': ['system'], 'graphics': ['system', 'window'], 'audio': ['system']}
+deps = {'system': [], 'window': ['system'], 'graphics': ['system', 'window'], 'audio': ['system'], 'network': ['system']}
 for mod, lines in libs.items():
     with open('{}_lib.cr'.format(mod), 'w') as f:
         f.write('\n'.join(lines[0]))

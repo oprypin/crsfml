@@ -1190,7 +1190,7 @@ module SF
     # 
     # *Returns*: The name of the default audio capture device (null terminated)
     def self.get_default_device()
-      CSFML.sound_recorder_get_default_device()
+      String.new(CSFML.sound_recorder_get_default_device())
     end
     
     # Set the audio capture device
@@ -1218,7 +1218,7 @@ module SF
     # 
     # *Returns*: The name of the current audio capture device
     def device
-      CSFML.sound_recorder_get_device(@this)
+      String.new(CSFML.sound_recorder_get_device(@this))
     end
     
   end
