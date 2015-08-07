@@ -129,7 +129,7 @@ module SF
   
   
   struct CSFML::Time
-    Zero = milliseconds(0)
+    Zero = SF.milliseconds(0)
   end
 end
 

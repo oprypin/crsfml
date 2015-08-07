@@ -116,11 +116,12 @@ module SF
     def *(point)
       transform_point(point)
     end
-  end
-  
-  def self.get_matrix(transform: Transform)
-    CSFML.transform_get_matrix(pointerof(transform), out result)
-    result
+    
+    def get_matrix()
+      cself = self
+      CSFML.transform_get_matrix(pointerof(cself), out matrix)
+      matrix
+    end
   end
   
   def blend_mode(color_source_factor: BlendFactor, color_destination_factor: BlendFactor, color_blend_equation: BlendEquation, alpha_source_factor: BlendFactor, alpha_destination_factor: BlendFactor, alpha_blend_equation: BlendEquation)
