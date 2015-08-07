@@ -3,6 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <link href="../css/style.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript">
+    var pathToIndex = "../index.html"
+  </script>
+  <script type="text/javascript" src="../js/type.js"></script>
 </head>
 <body>
 
@@ -32,10 +36,12 @@
 
 
 
+
+
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr">audio_obj.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr" target="_blank">audio_obj.cr</a>
     
     <br/>
   
@@ -71,10 +77,14 @@
       <li class="entry-summary">
         <a href="#transfer_ptr%28ptr%29-class-method" class="signature"><strong>.transfer_ptr</strong>(ptr)</a>
         
+          <div class="summary"><p>Transfer ownership of the pointer to the wrapper object.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#wrap_ptr%28ptr%29-class-method" class="signature"><strong>.wrap_ptr</strong>(ptr)</a>
+        
+          <div class="summary"><p>Put the pointer into the wrapper object.</p></div>
         
       </li>
     
@@ -247,6 +257,8 @@
       <li class="entry-summary">
         <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
         
+          <div class="summary"><p>Get the underlying pointer</p></div>
+        
       </li>
     
       <li class="entry-summary">
@@ -294,7 +306,7 @@ w64, mat4, mat5 pvf, htk, sds, avr, sd2, caf, wve, mpc2k, rf64.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L124" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L124" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -321,7 +333,7 @@ w64, mat4, mat5 pvf, htk, sds, avr, sd2, caf, wve, mpc2k, rf64.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L142" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L142" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -348,7 +360,7 @@ w64, mat4, mat5 pvf, htk, sds, avr, sd2, caf, wve, mpc2k, rf64.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L160" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L160" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -359,9 +371,12 @@ w64, mat4, mat5 pvf, htk, sds, avr, sd2, caf, wve, mpc2k, rf64.</p>
         def self.<strong>transfer_ptr</strong>(ptr)
       </div>
       
+        <div class="doc"><p>Transfer ownership of the pointer to the wrapper object.
+The pointer will be freed on GC.</p></div>
+      
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L109" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L109" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -372,9 +387,12 @@ w64, mat4, mat5 pvf, htk, sds, avr, sd2, caf, wve, mpc2k, rf64.</p>
         def self.<strong>wrap_ptr</strong>(ptr)
       </div>
       
+        <div class="doc"><p>Put the pointer into the wrapper object.
+The pointer will <strong>not</strong> be freed on GC.</p></div>
+      
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L109" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L109" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -387,7 +405,7 @@ w64, mat4, mat5 pvf, htk, sds, avr, sd2, caf, wve, mpc2k, rf64.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L109" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L109" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -413,7 +431,7 @@ w64, mat4, mat5 pvf, htk, sds, avr, sd2, caf, wve, mpc2k, rf64.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L476" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L476" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -441,7 +459,7 @@ The default value of the attenuation is 1.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L395" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L395" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -464,7 +482,7 @@ The default value of the attenuation is 1.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L260" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L260" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -485,7 +503,7 @@ The default value of the attenuation is 1.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L207" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L207" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -504,7 +522,7 @@ The default value of the attenuation is 1.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L169" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L169" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -525,7 +543,7 @@ The default value of the attenuation is 1.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L196" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L196" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -549,7 +567,7 @@ The default looping state for musics is false.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L184" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L184" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -570,7 +588,7 @@ The default looping state for musics is false.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L465" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L465" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -596,7 +614,7 @@ The default value of the minimum distance is 1.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L375" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L375" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -618,7 +636,7 @@ otherwise (music already paused or stopped) it has no effect.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L234" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L234" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -639,7 +657,7 @@ otherwise (music already paused or stopped) it has no effect.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L420" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L420" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -664,7 +682,7 @@ The default value for the pitch is 1.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L312" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L312" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -689,7 +707,7 @@ the rest of the program while the music is played.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L222" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L222" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -710,7 +728,7 @@ the rest of the program while the music is played.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L296" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L296" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -732,7 +750,7 @@ either paused or playing.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L409" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L409" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -753,7 +771,7 @@ either paused or playing.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L442" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L442" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -776,7 +794,7 @@ The default position of a music is (0, 0, 0).</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L341" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L341" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -801,7 +819,7 @@ The default value is false (position is absolute).</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L357" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L357" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -823,7 +841,7 @@ listener or is absolute</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L454" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L454" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -847,7 +865,7 @@ second. The higher, the better the quality.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L274" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L274" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -868,7 +886,7 @@ second. The higher, the better the quality.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L285" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L285" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -891,7 +909,7 @@ It also resets the playing position (unlike Music_pause).</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L247" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L247" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -902,9 +920,11 @@ It also resets the playing position (unlike Music_pause).</p>
         def <strong>to_unsafe</strong>
       </div>
       
+        <div class="doc"><p>Get the underlying pointer</p></div>
+      
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L109" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L109" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -925,7 +945,7 @@ It also resets the playing position (unlike Music_pause).</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L431" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L431" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -947,7 +967,7 @@ The default value for the volume is 100.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L326" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L326" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>

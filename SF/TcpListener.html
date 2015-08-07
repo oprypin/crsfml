@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link href="../css/style.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript">
+    var pathToIndex = "../index.html"
+  </script>
+  <script type="text/javascript" src="../js/type.js"></script>
+</head>
+<body>
+
+
+  <h1>class SF::TcpListener</h1>
+
+
+
+
+
+
+
+  <h2>Superclass hierarchy</h2>
+  <div style="padding-left: 0px">Object</div><div style="padding-left: 20px">Reference</div><div style="padding-left: 40px"><a href="../SF/TcpListener.html">SF::TcpListener</a></div>
+
+
+
+  <h2>Included Modules</h2>
+  
+    <a href="../SF/Wrapper.html">SF::Wrapper</a>
+  
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network.cr" target="_blank">network.cr</a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr" target="_blank">network_obj.cr</a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>Class Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#transfer_ptr%28ptr%29-class-method" class="signature"><strong>.transfer_ptr</strong>(ptr)</a>
+        
+          <div class="summary"><p>Transfer ownership of the pointer to the wrapper object.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#wrap_ptr%28ptr%29-class-method" class="signature"><strong>.wrap_ptr</strong>(ptr)</a>
+        
+          <div class="summary"><p>Put the pointer into the wrapper object.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28this%2C%20owned%20%3A%20Bool%29-class-method" class="signature"><strong>.new</strong>(this, owned : Bool)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new-class-method" class="signature"><strong>.new</strong></a>
+        
+          <div class="summary"><p>Create a new TCP listener</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#accept%20%3A%20%3A%3ATuple%28SocketStatus%2C%20TcpSocket%29-instance-method" class="signature"><strong>#accept</strong> : ::Tuple(SocketStatus, TcpSocket)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#accept%28connected%20%3A%20%3A%3APointer%28TcpSocket%29%29-instance-method" class="signature"><strong>#accept</strong>(connected : ::Pointer(TcpSocket))</a>
+        
+          <div class="summary"><p>Accept a new connection</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#blocking%3D%28blocking%20%3A%20Bool%29-instance-method" class="signature"><strong>#blocking=</strong>(blocking : Bool)</a>
+        
+          <div class="summary"><p>Set the blocking state of a TCP listener</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#blocking%3F-instance-method" class="signature"><strong>#blocking?</strong></a>
+        
+          <div class="summary"><p>Tell whether a TCP listener is in blocking or non-blocking mode</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#finalize-instance-method" class="signature"><strong>#finalize</strong></a>
+        
+          <div class="summary"><p>Destroy a TCP listener</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#listen%28port%20%3A%20Int%29-instance-method" class="signature"><strong>#listen</strong>(port : Int)</a>
+        
+          <div class="summary"><p>Start listening for connections</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#local_port-instance-method" class="signature"><strong>#local_port</strong></a>
+        
+          <div class="summary"><p>Get the port to which a TCP listener is bound locally</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
+        
+          <div class="summary"><p>Get the underlying pointer</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+
+  <h2>Class Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="transfer_ptr%28ptr%29-class-method">
+        
+        def self.<strong>transfer_ptr</strong>(ptr)
+      </div>
+      
+        <div class="doc"><p>Transfer ownership of the pointer to the wrapper object.
+The pointer will be freed on GC.</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1168" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="wrap_ptr%28ptr%29-class-method">
+        
+        def self.<strong>wrap_ptr</strong>(ptr)
+      </div>
+      
+        <div class="doc"><p>Put the pointer into the wrapper object.
+The pointer will <strong>not</strong> be freed on GC.</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1168" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28this%2C%20owned%20%3A%20Bool%29-class-method">
+        
+        def self.<strong>new</strong>(this, owned : Bool)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1168" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new-class-method">
+        
+        def self.<strong>new</strong>
+      </div>
+      
+        <div class="doc"><p>Create a new TCP listener</p>
+
+<p><em>Returns</em>: A new TcpListener object</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1173" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="accept%20%3A%20%3A%3ATuple%28SocketStatus%2C%20TcpSocket%29-instance-method">
+        
+        def <strong>accept</strong> : ::Tuple(<a href="../SF/SocketStatus.html">SocketStatus</a>, <a href="../SF/TcpSocket.html">TcpSocket</a>)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network.cr#L73" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="accept%28connected%20%3A%20%3A%3APointer%28TcpSocket%29%29-instance-method">
+        
+        def <strong>accept</strong>(connected : ::Pointer(<a href="../SF/TcpSocket.html">TcpSocket</a>))
+      </div>
+      
+        <div class="doc"><p>Accept a new connection</p>
+
+<p>If the socket is in blocking mode, this function will
+not return until a connection is actually received.</p>
+
+<p>The <code>connected</code> argument points to a valid TcpSocket pointer
+in case of success (the function returns SocketDone), it points
+to a NULL pointer otherwise.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>listener</code>: TCP listener object</li><li><code>connected</code>: Socket that will hold the new connection</li></ul>
+
+<p><em>Returns</em>: Status code</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1265" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="blocking%3D%28blocking%20%3A%20Bool%29-instance-method">
+        
+        def <strong>blocking=</strong>(blocking : Bool)
+      </div>
+      
+        <div class="doc"><p>Set the blocking state of a TCP listener</p>
+
+<p>In blocking mode, calls will not return until they have
+completed their task. For example, a call to
+TcpListener_accept in blocking mode won't return until
+a new connection was actually received.
+In non-blocking mode, calls will always return immediately,
+using the return code to signal whether there was data
+available or not.
+By default, all sockets are blocking.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>listener</code>: TCP listener object</li><li><code>blocking</code>: True to set the socket as blocking, False for non-blocking</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1202" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="blocking%3F-instance-method">
+        
+        def <strong>blocking?</strong>
+      </div>
+      
+        <div class="doc"><p>Tell whether a TCP listener is in blocking or non-blocking mode</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>listener</code>: TCP listener object</li></ul>
+
+<p><em>Returns</em>: True if the socket is blocking, False otherwise</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1214" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="finalize-instance-method">
+        
+        def <strong>finalize</strong>
+      </div>
+      
+        <div class="doc"><p>Destroy a TCP listener</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>listener</code>: TCP listener to destroy</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1183" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="listen%28port%20%3A%20Int%29-instance-method">
+        
+        def <strong>listen</strong>(port : Int)
+      </div>
+      
+        <div class="doc"><p>Start listening for connections</p>
+
+<p>This functions makes the socket listen to the specified
+port, waiting for new connections.
+If the socket was previously listening to another port,
+it will be stopped first and bound to the new port.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>listener</code>: TCP listener object</li><li><code>port</code>: Port to listen for new connections</li></ul>
+
+<p><em>Returns</em>: Status code</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1245" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="local_port-instance-method">
+        
+        def <strong>local_port</strong>
+      </div>
+      
+        <div class="doc"><p>Get the port to which a TCP listener is bound locally</p>
+
+<p>If the socket is not listening to a port, this function
+returns 0.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>listener</code>: TCP listener object</li></ul>
+
+<p><em>Returns</em>: Port to which the TCP listener is bound</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1228" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="to_unsafe-instance-method">
+        
+        def <strong>to_unsafe</strong>
+      </div>
+      
+        <div class="doc"><p>Get the underlying pointer</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1168" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+
+
+</body>
+</html>

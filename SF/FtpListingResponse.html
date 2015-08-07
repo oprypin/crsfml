@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link href="../css/style.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript">
+    var pathToIndex = "../index.html"
+  </script>
+  <script type="text/javascript" src="../js/type.js"></script>
+</head>
+<body>
+
+
+  <h1>class SF::FtpListingResponse</h1>
+
+
+
+
+
+
+
+  <h2>Superclass hierarchy</h2>
+  <div style="padding-left: 0px">Object</div><div style="padding-left: 20px">Reference</div><div style="padding-left: 40px"><a href="../SF/FtpListingResponse.html">SF::FtpListingResponse</a></div>
+
+
+
+  <h2>Included Modules</h2>
+  
+    <a href="../SF/Wrapper.html">SF::Wrapper</a>
+  
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr" target="_blank">network_obj.cr</a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>Class Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#transfer_ptr%28ptr%29-class-method" class="signature"><strong>.transfer_ptr</strong>(ptr)</a>
+        
+          <div class="summary"><p>Transfer ownership of the pointer to the wrapper object.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#wrap_ptr%28ptr%29-class-method" class="signature"><strong>.wrap_ptr</strong>(ptr)</a>
+        
+          <div class="summary"><p>Put the pointer into the wrapper object.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28this%2C%20owned%20%3A%20Bool%29-class-method" class="signature"><strong>.new</strong>(this, owned : Bool)</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#count-instance-method" class="signature"><strong>#count</strong></a>
+        
+          <div class="summary"><p>Return the number of directory/file names contained in a FTP listing response</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#finalize-instance-method" class="signature"><strong>#finalize</strong></a>
+        
+          <div class="summary"><p>Destroy a FTP listing response</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_name%28index%20%3A%20Int%29-instance-method" class="signature"><strong>#get_name</strong>(index : Int)</a>
+        
+          <div class="summary"><p>Return a directory/file name contained in a FTP listing response</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#message-instance-method" class="signature"><strong>#message</strong></a>
+        
+          <div class="summary"><p>Get the full message contained in a FTP listing response</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#ok%3F-instance-method" class="signature"><strong>#ok?</strong></a>
+        
+          <div class="summary"><p>Check if a FTP listing response status code means a success</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#status-instance-method" class="signature"><strong>#status</strong></a>
+        
+          <div class="summary"><p>Get the status code of a FTP listing response</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
+        
+          <div class="summary"><p>Get the underlying pointer</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+
+  <h2>Class Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="transfer_ptr%28ptr%29-class-method">
+        
+        def self.<strong>transfer_ptr</strong>(ptr)
+      </div>
+      
+        <div class="doc"><p>Transfer ownership of the pointer to the wrapper object.
+The pointer will be freed on GC.</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L128" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="wrap_ptr%28ptr%29-class-method">
+        
+        def self.<strong>wrap_ptr</strong>(ptr)
+      </div>
+      
+        <div class="doc"><p>Put the pointer into the wrapper object.
+The pointer will <strong>not</strong> be freed on GC.</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L128" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28this%2C%20owned%20%3A%20Bool%29-class-method">
+        
+        def self.<strong>new</strong>(this, owned : Bool)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L128" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="count-instance-method">
+        
+        def <strong>count</strong>
+      </div>
+      
+        <div class="doc"><p>Return the number of directory/file names contained in a FTP listing response</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>ftp_listing_response</code>: Ftp listing response</li></ul>
+
+<p><em>Returns</em>: Total number of names available</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L182" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="finalize-instance-method">
+        
+        def <strong>finalize</strong>
+      </div>
+      
+        <div class="doc"><p>Destroy a FTP listing response</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>ftp_listing_response</code>: Ftp listing response to destroy</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L135" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="get_name%28index%20%3A%20Int%29-instance-method">
+        
+        def <strong>get_name</strong>(index : Int)
+      </div>
+      
+        <div class="doc"><p>Return a directory/file name contained in a FTP listing response</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>ftp_listing_response</code>: Ftp listing response</li><li><code>index</code>: Index of the name to get (in range [0 .. get_count])</li></ul>
+
+<p><em>Returns</em>: The requested name</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L194" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="message-instance-method">
+        
+        def <strong>message</strong>
+      </div>
+      
+        <div class="doc"><p>Get the full message contained in a FTP listing response</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>ftp_listing_response</code>: Ftp listing response</li></ul>
+
+<p><em>Returns</em>: The response message</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L171" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="ok%3F-instance-method">
+        
+        def <strong>ok?</strong>
+      </div>
+      
+        <div class="doc"><p>Check if a FTP listing response status code means a success</p>
+
+<p>This function is defined for convenience, it is
+equivalent to testing if the status code is &lt; 400.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>ftp_listing_response</code>: Ftp listing response</li></ul>
+
+<p><em>Returns</em>: True if the status is a success, False if it is a failure</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L149" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="status-instance-method">
+        
+        def <strong>status</strong>
+      </div>
+      
+        <div class="doc"><p>Get the status code of a FTP listing response</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>ftp_listing_response</code>: Ftp listing response</li></ul>
+
+<p><em>Returns</em>: Status code</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L160" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="to_unsafe-instance-method">
+        
+        def <strong>to_unsafe</strong>
+      </div>
+      
+        <div class="doc"><p>Get the underlying pointer</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L128" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+
+
+</body>
+</html>

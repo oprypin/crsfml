@@ -3,6 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <link href="../css/style.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript">
+    var pathToIndex = "../index.html"
+  </script>
+  <script type="text/javascript" src="../js/type.js"></script>
 </head>
 <body>
 
@@ -32,15 +36,17 @@
 
 
 
+
+
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio.cr">audio.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio.cr" target="_blank">audio.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr">audio_obj.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr" target="_blank">audio_obj.cr</a>
     
     <br/>
   
@@ -58,7 +64,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#get_available_devices%28count%20%3A%20%3A%3APointer%28SizeT%29%29-class-method" class="signature"><strong>.get_available_devices</strong>(count : ::Pointer(SizeT))</a>
+        <a href="#get_available_devices%28count%20%3A%20%3A%3APointer%28LibC%3A%3ASizeT%29%29-class-method" class="signature"><strong>.get_available_devices</strong>(count : ::Pointer(LibC::SizeT))</a>
         
           <div class="summary"><p>Get a list of the names of all availabe audio capture devices</p></div>
         
@@ -81,10 +87,14 @@
       <li class="entry-summary">
         <a href="#transfer_ptr%28ptr%29-class-method" class="signature"><strong>.transfer_ptr</strong>(ptr)</a>
         
+          <div class="summary"><p>Transfer ownership of the pointer to the wrapper object.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#wrap_ptr%28ptr%29-class-method" class="signature"><strong>.wrap_ptr</strong>(ptr)</a>
+        
+          <div class="summary"><p>Put the pointer into the wrapper object.</p></div>
         
       </li>
     
@@ -159,6 +169,8 @@
       <li class="entry-summary">
         <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
         
+          <div class="summary"><p>Get the underlying pointer</p></div>
+        
       </li>
     
   </ul>
@@ -178,15 +190,15 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio.cr#L34" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio.cr#L34" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
   
     <div class="entry-detail">
-      <div class="signature" id="get_available_devices%28count%20%3A%20%3A%3APointer%28SizeT%29%29-class-method">
+      <div class="signature" id="get_available_devices%28count%20%3A%20%3A%3APointer%28LibC%3A%3ASizeT%29%29-class-method">
         
-        def self.<strong>get_available_devices</strong>(count : ::Pointer(SizeT))
+        def self.<strong>get_available_devices</strong>(count : ::Pointer(LibC::SizeT))
       </div>
       
         <div class="doc"><p>Get a list of the names of all availabe audio capture devices</p>
@@ -203,7 +215,7 @@ If no devices are available then NULL is returned.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1182" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L1182" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -223,7 +235,7 @@ capture device. If none is available, NULL is returned.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1192" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L1192" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -244,7 +256,7 @@ any attempt to use SoundRecorder will fail.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1147" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L1147" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -255,9 +267,12 @@ any attempt to use SoundRecorder will fail.</p>
         def self.<strong>transfer_ptr</strong>(ptr)
       </div>
       
+        <div class="doc"><p>Transfer ownership of the pointer to the wrapper object.
+The pointer will be freed on GC.</p></div>
+      
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1070" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L1070" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -268,9 +283,12 @@ any attempt to use SoundRecorder will fail.</p>
         def self.<strong>wrap_ptr</strong>(ptr)
       </div>
       
+        <div class="doc"><p>Put the pointer into the wrapper object.
+The pointer will <strong>not</strong> be freed on GC.</p></div>
+      
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1070" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L1070" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -291,7 +309,7 @@ any attempt to use SoundRecorder will fail.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1082" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L1082" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -304,7 +322,7 @@ any attempt to use SoundRecorder will fail.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1070" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L1070" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -330,7 +348,7 @@ any attempt to use SoundRecorder will fail.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1220" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L1220" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -356,7 +374,7 @@ opening the device fails, it stops the recording.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1209" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L1209" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -375,7 +393,7 @@ opening the device fails, it stops the recording.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1092" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L1092" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -404,7 +422,7 @@ So don't rely on this parameter to implement precise timing.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1167" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L1167" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -429,7 +447,7 @@ captured per second. The higher, the better the quality
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1136" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L1136" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -457,7 +475,7 @@ Please note that only one capture can happen at the same time.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1111" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L1111" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -476,7 +494,7 @@ Please note that only one capture can happen at the same time.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1121" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L1121" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -487,9 +505,11 @@ Please note that only one capture can happen at the same time.</p>
         def <strong>to_unsafe</strong>
       </div>
       
+        <div class="doc"><p>Get the underlying pointer</p></div>
+      
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/audio_obj.cr#L1070" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/audio_obj.cr#L1070" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>

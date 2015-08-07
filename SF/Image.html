@@ -3,6 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <link href="../css/style.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript">
+    var pathToIndex = "../index.html"
+  </script>
+  <script type="text/javascript" src="../js/type.js"></script>
 </head>
 <body>
 
@@ -32,10 +36,12 @@
 
 
 
+
+
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr">graphics_obj.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr" target="_blank">graphics_obj.cr</a>
     
     <br/>
   
@@ -85,10 +91,14 @@
       <li class="entry-summary">
         <a href="#transfer_ptr%28ptr%29-class-method" class="signature"><strong>.transfer_ptr</strong>(ptr)</a>
         
+          <div class="summary"><p>Transfer ownership of the pointer to the wrapper object.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#wrap_ptr%28ptr%29-class-method" class="signature"><strong>.wrap_ptr</strong>(ptr)</a>
+        
+          <div class="summary"><p>Put the pointer into the wrapper object.</p></div>
         
       </li>
     
@@ -142,14 +152,14 @@
       <li class="entry-summary">
         <a href="#flip_horizontally-instance-method" class="signature"><strong>#flip_horizontally</strong></a>
         
-          <div class="summary"><p>Flip an image horizontally (left <-> right)</p></div>
+          <div class="summary"><p>Flip an image horizontally (left &lt;-> right)</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#flip_vertically-instance-method" class="signature"><strong>#flip_vertically</strong></a>
         
-          <div class="summary"><p>Flip an image vertically (top <-> bottom)</p></div>
+          <div class="summary"><p>Flip an image vertically (top &lt;-> bottom)</p></div>
         
       </li>
     
@@ -191,6 +201,8 @@
       <li class="entry-summary">
         <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
         
+          <div class="summary"><p>Get the underlying pointer</p></div>
+        
       </li>
     
   </ul>
@@ -218,7 +230,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1223" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1223" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -244,7 +256,7 @@ If this function fails, the image is left unchanged.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1264" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1264" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -270,7 +282,7 @@ If this function fails, the image is left unchanged.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1281" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1281" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -296,7 +308,7 @@ If <code>pixels</code> is null, an empty image is created.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1243" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1243" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -322,7 +334,7 @@ If this function fails, the image is left unchanged.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1298" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1298" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -333,9 +345,12 @@ If this function fails, the image is left unchanged.</p>
         def self.<strong>transfer_ptr</strong>(ptr)
       </div>
       
+        <div class="doc"><p>Transfer ownership of the pointer to the wrapper object.
+The pointer will be freed on GC.</p></div>
+      
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1195" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1195" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -346,9 +361,12 @@ If this function fails, the image is left unchanged.</p>
         def self.<strong>wrap_ptr</strong>(ptr)
       </div>
       
+        <div class="doc"><p>Put the pointer into the wrapper object.
+The pointer will <strong>not</strong> be freed on GC.</p></div>
+      
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1195" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1195" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -361,7 +379,7 @@ If this function fails, the image is left unchanged.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1195" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1195" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -384,7 +402,7 @@ If this function fails, the image is left unchanged.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1207" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1207" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -418,7 +436,7 @@ copied unchanged with their alpha value.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1385" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1385" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -441,7 +459,7 @@ become transparent.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1361" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1361" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -462,7 +480,7 @@ become transparent.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1309" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1309" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -481,7 +499,7 @@ become transparent.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1318" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1318" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -492,7 +510,7 @@ become transparent.</p>
         def <strong>flip_horizontally</strong>
       </div>
       
-        <div class="doc"><p>Flip an image horizontally (left <-> right)</p>
+        <div class="doc"><p>Flip an image horizontally (left &lt;-> right)</p>
 
 <p><em>Arguments</em>:</p>
 
@@ -500,7 +518,7 @@ become transparent.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1452" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1452" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -511,7 +529,7 @@ become transparent.</p>
         def <strong>flip_vertically</strong>
       </div>
       
-        <div class="doc"><p>Flip an image vertically (top <-> bottom)</p>
+        <div class="doc"><p>Flip an image vertically (top &lt;-> bottom)</p>
 
 <p><em>Arguments</em>:</p>
 
@@ -519,7 +537,7 @@ become transparent.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1461" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1461" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -544,7 +562,7 @@ an undefined behaviour.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1423" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1423" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -572,7 +590,7 @@ If the image is empty, a null pointer is returned.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1443" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1443" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -598,7 +616,7 @@ if it already exists. This function fails if the image is empty.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1335" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1335" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -621,7 +639,7 @@ an undefined behaviour.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1404" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1404" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -642,7 +660,7 @@ an undefined behaviour.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1346" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1346" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -653,9 +671,11 @@ an undefined behaviour.</p>
         def <strong>to_unsafe</strong>
       </div>
       
+        <div class="doc"><p>Get the underlying pointer</p></div>
+      
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1195" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1195" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>

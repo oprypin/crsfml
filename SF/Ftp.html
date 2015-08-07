@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link href="../css/style.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript">
+    var pathToIndex = "../index.html"
+  </script>
+  <script type="text/javascript" src="../js/type.js"></script>
+</head>
+<body>
+
+
+  <h1>class SF::Ftp</h1>
+
+
+
+
+
+
+
+  <h2>Superclass hierarchy</h2>
+  <div style="padding-left: 0px">Object</div><div style="padding-left: 20px">Reference</div><div style="padding-left: 40px"><a href="../SF/Ftp.html">SF::Ftp</a></div>
+
+
+
+  <h2>Included Modules</h2>
+  
+    <a href="../SF/Wrapper.html">SF::Wrapper</a>
+  
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr" target="_blank">network_obj.cr</a>
+    
+    <br/>
+  
+
+
+
+  
+    <h2>Constant Summary</h2>
+  
+  <ul>
+    
+      <li class="entry-const">
+        <strong>Ascii</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">FtpTransferMode</span><span class="t">::</span><span class="t">Ascii</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Binary</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">FtpTransferMode</span><span class="t">::</span><span class="t">Binary</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Ebcdic</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">FtpTransferMode</span><span class="t">::</span><span class="t">Ebcdic</span></code>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>Class Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#transfer_ptr%28ptr%29-class-method" class="signature"><strong>.transfer_ptr</strong>(ptr)</a>
+        
+          <div class="summary"><p>Transfer ownership of the pointer to the wrapper object.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#wrap_ptr%28ptr%29-class-method" class="signature"><strong>.wrap_ptr</strong>(ptr)</a>
+        
+          <div class="summary"><p>Put the pointer into the wrapper object.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28this%2C%20owned%20%3A%20Bool%29-class-method" class="signature"><strong>.new</strong>(this, owned : Bool)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new-class-method" class="signature"><strong>.new</strong></a>
+        
+          <div class="summary"><p>Create a new Ftp object</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#change_directory%28directory%20%3A%20String%29-instance-method" class="signature"><strong>#change_directory</strong>(directory : String)</a>
+        
+          <div class="summary"><p>Change the current working directory</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#connect%28server%20%3A%20IpAddress%2C%20port%20%3A%20Int%2C%20timeout%20%3A%20Time%29-instance-method" class="signature"><strong>#connect</strong>(server : IpAddress, port : Int, timeout : Time)</a>
+        
+          <div class="summary"><p>Connect to the specified FTP server</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#create_directory%28name%20%3A%20String%29-instance-method" class="signature"><strong>#create_directory</strong>(name : String)</a>
+        
+          <div class="summary"><p>Create a new directory</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#delete_directory%28name%20%3A%20String%29-instance-method" class="signature"><strong>#delete_directory</strong>(name : String)</a>
+        
+          <div class="summary"><p>Remove an existing directory</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#delete_file%28name%20%3A%20String%29-instance-method" class="signature"><strong>#delete_file</strong>(name : String)</a>
+        
+          <div class="summary"><p>Remove an existing file</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#disconnect-instance-method" class="signature"><strong>#disconnect</strong></a>
+        
+          <div class="summary"><p>Close the connection with the server</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#download%28distant_file%20%3A%20String%2C%20dest_path%20%3A%20String%2C%20mode%20%3A%20FtpTransferMode%29-instance-method" class="signature"><strong>#download</strong>(distant_file : String, dest_path : String, mode : FtpTransferMode)</a>
+        
+          <div class="summary"><p>Download a file from a FTP server</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#finalize-instance-method" class="signature"><strong>#finalize</strong></a>
+        
+          <div class="summary"><p>Destroy a Ftp object</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_directory_listing%28directory%20%3A%20String%29-instance-method" class="signature"><strong>#get_directory_listing</strong>(directory : String)</a>
+        
+          <div class="summary"><p>Get the contents of the given directory</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#keep_alive-instance-method" class="signature"><strong>#keep_alive</strong></a>
+        
+          <div class="summary"><p>Send a null command to keep the connection alive</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#login%28user_name%20%3A%20String%2C%20password%20%3A%20String%29-instance-method" class="signature"><strong>#login</strong>(user_name : String, password : String)</a>
+        
+          <div class="summary"><p>Log in using a username and a password</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#login_anonymous-instance-method" class="signature"><strong>#login_anonymous</strong></a>
+        
+          <div class="summary"><p>Log in using an anonymous account</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#parent_directory-instance-method" class="signature"><strong>#parent_directory</strong></a>
+        
+          <div class="summary"><p>Go to the parent directory of the current one</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#rename_file%28file%20%3A%20String%2C%20new_name%20%3A%20String%29-instance-method" class="signature"><strong>#rename_file</strong>(file : String, new_name : String)</a>
+        
+          <div class="summary"><p>Rename an existing file</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
+        
+          <div class="summary"><p>Get the underlying pointer</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#upload%28local_file%20%3A%20String%2C%20dest_path%20%3A%20String%2C%20mode%20%3A%20FtpTransferMode%29-instance-method" class="signature"><strong>#upload</strong>(local_file : String, dest_path : String, mode : FtpTransferMode)</a>
+        
+          <div class="summary"><p>Upload a file to a FTP server</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#working_directory-instance-method" class="signature"><strong>#working_directory</strong></a>
+        
+          <div class="summary"><p>Get the current working directory</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+
+  <h2>Class Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="transfer_ptr%28ptr%29-class-method">
+        
+        def self.<strong>transfer_ptr</strong>(ptr)
+      </div>
+      
+        <div class="doc"><p>Transfer ownership of the pointer to the wrapper object.
+The pointer will be freed on GC.</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L295" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="wrap_ptr%28ptr%29-class-method">
+        
+        def self.<strong>wrap_ptr</strong>(ptr)
+      </div>
+      
+        <div class="doc"><p>Put the pointer into the wrapper object.
+The pointer will <strong>not</strong> be freed on GC.</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L295" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28this%2C%20owned%20%3A%20Bool%29-class-method">
+        
+        def self.<strong>new</strong>(this, owned : Bool)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L295" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new-class-method">
+        
+        def self.<strong>new</strong>
+      </div>
+      
+        <div class="doc"><p>Create a new Ftp object</p>
+
+<p><em>Returns</em>: A new Ftp object</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L303" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="change_directory%28directory%20%3A%20String%29-instance-method">
+        
+        def <strong>change_directory</strong>(directory : String)
+      </div>
+      
+        <div class="doc"><p>Change the current working directory</p>
+
+<p>The new directory must be relative to the current one.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>ftp</code>: Ftp object</li><li><code>directory</code>: New working directory</li></ul>
+
+<p><em>Returns</em>: Server response to the request</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L437" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="connect%28server%20%3A%20IpAddress%2C%20port%20%3A%20Int%2C%20timeout%20%3A%20Time%29-instance-method">
+        
+        def <strong>connect</strong>(server : <a href="../SF/IpAddress.html">IpAddress</a>, port : Int, timeout : <a href="../SF/Time.html">Time</a>)
+      </div>
+      
+        <div class="doc"><p>Connect to the specified FTP server</p>
+
+<p>The port should be 21, which is the standard
+port used by the FTP protocol. You shouldn't use a different
+value, unless you really know what you do.
+This function tries to connect to the server so it may take
+a while to complete, especially if the server is not
+reachable. To avoid blocking your application for too long,
+you can use a timeout. Using 0 means that the
+system timeout will be used (which is usually pretty long).</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>ftp</code>: Ftp object</li><li><code>server</code>: Name or address of the FTP server to connect to</li><li><code>port</code>: Port used for the connection</li><li><code>timeout</code>: Maximum time to wait</li></ul>
+
+<p><em>Returns</em>: Server response to the request</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L336" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="create_directory%28name%20%3A%20String%29-instance-method">
+        
+        def <strong>create_directory</strong>(name : String)
+      </div>
+      
+        <div class="doc"><p>Create a new directory</p>
+
+<p>The new directory is created as a child of the current
+working directory.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>ftp</code>: Ftp object</li><li><code>name</code>: Name of the directory to create</li></ul>
+
+<p><em>Returns</em>: Server response to the request</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L463" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="delete_directory%28name%20%3A%20String%29-instance-method">
+        
+        def <strong>delete_directory</strong>(name : String)
+      </div>
+      
+        <div class="doc"><p>Remove an existing directory</p>
+
+<p>The directory to remove must be relative to the
+current working directory.
+Use this function with caution, the directory will
+be removed permanently!</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>ftp</code>: Ftp object</li><li><code>name</code>: Name of the directory to remove</li></ul>
+
+<p><em>Returns</em>: Server response to the request</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L480" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="delete_file%28name%20%3A%20String%29-instance-method">
+        
+        def <strong>delete_file</strong>(name : String)
+      </div>
+      
+        <div class="doc"><p>Remove an existing file</p>
+
+<p>The file name must be relative to the current working
+directory.
+Use this function with caution, the file will be
+removed permanently!</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>ftp</code>: Ftp object</li><li><code>name</code>: File to remove</li></ul>
+
+<p><em>Returns</em>: Server response to the request</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L513" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="disconnect-instance-method">
+        
+        def <strong>disconnect</strong>
+      </div>
+      
+        <div class="doc"><p>Close the connection with the server</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>ftp</code>: Ftp object</li></ul>
+
+<p><em>Returns</em>: Server response to the request</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L378" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="download%28distant_file%20%3A%20String%2C%20dest_path%20%3A%20String%2C%20mode%20%3A%20FtpTransferMode%29-instance-method">
+        
+        def <strong>download</strong>(distant_file : String, dest_path : String, mode : <a href="../SF/FtpTransferMode.html">FtpTransferMode</a>)
+      </div>
+      
+        <div class="doc"><p>Download a file from a FTP server</p>
+
+<p>The filename of the distant file is relative to the
+current working directory of the server, and the local
+destination path is relative to the current directory
+of your application.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>ftp</code>: Ftp object</li><li><code>remote_file</code>: Filename of the distant file to download</li><li><code>local_path</code>: Where to put to file on the local computer</li><li><code>mode</code>: Transfer mode</li></ul>
+
+<p><em>Returns</em>: Server response to the request</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L532" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="finalize-instance-method">
+        
+        def <strong>finalize</strong>
+      </div>
+      
+        <div class="doc"><p>Destroy a Ftp object</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>ftp</code>: Ftp object to destroy</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L313" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="get_directory_listing%28directory%20%3A%20String%29-instance-method">
+        
+        def <strong>get_directory_listing</strong>(directory : String)
+      </div>
+      
+        <div class="doc"><p>Get the contents of the given directory</p>
+
+<p>This function retrieves the sub-directories and files
+contained in the given directory. It is not recursive.
+The <code>directory</code> parameter is relative to the current
+working directory.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>ftp</code>: Ftp object</li><li><code>directory</code>: Directory to list</li></ul>
+
+<p><em>Returns</em>: Server response to the request</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L423" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="keep_alive-instance-method">
+        
+        def <strong>keep_alive</strong>
+      </div>
+      
+        <div class="doc"><p>Send a null command to keep the connection alive</p>
+
+<p>This command is useful because the server may close the
+connection automatically if no command is sent.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>ftp</code>: Ftp object</li></ul>
+
+<p><em>Returns</em>: Server response to the request</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L392" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="login%28user_name%20%3A%20String%2C%20password%20%3A%20String%29-instance-method">
+        
+        def <strong>login</strong>(user_name : String, password : String)
+      </div>
+      
+        <div class="doc"><p>Log in using a username and a password</p>
+
+<p>Logging in is mandatory after connecting to the server.
+Users that are not logged in cannot perform any operation.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>ftp</code>: Ftp object</li><li><code>name</code>: User name</li><li><code>password</code>: Password</li></ul>
+
+<p><em>Returns</em>: Server response to the request</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L367" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="login_anonymous-instance-method">
+        
+        def <strong>login_anonymous</strong>
+      </div>
+      
+        <div class="doc"><p>Log in using an anonymous account</p>
+
+<p>Logging in is mandatory after connecting to the server.
+Users that are not logged in cannot perform any operation.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>ftp</code>: Ftp object</li></ul>
+
+<p><em>Returns</em>: Server response to the request</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L351" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="parent_directory-instance-method">
+        
+        def <strong>parent_directory</strong>
+      </div>
+      
+        <div class="doc"><p>Go to the parent directory of the current one</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>ftp</code>: Ftp object</li></ul>
+
+<p><em>Returns</em>: Server response to the request</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L448" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="rename_file%28file%20%3A%20String%2C%20new_name%20%3A%20String%29-instance-method">
+        
+        def <strong>rename_file</strong>(file : String, new_name : String)
+      </div>
+      
+        <div class="doc"><p>Rename an existing file</p>
+
+<p>The filenames must be relative to the current working
+directory.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>ftp</code>: Ftp object</li><li><code>file</code>: File to rename</li><li><code>new_name</code>: New name of the file</li></ul>
+
+<p><em>Returns</em>: Server response to the request</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L496" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="to_unsafe-instance-method">
+        
+        def <strong>to_unsafe</strong>
+      </div>
+      
+        <div class="doc"><p>Get the underlying pointer</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L295" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="upload%28local_file%20%3A%20String%2C%20dest_path%20%3A%20String%2C%20mode%20%3A%20FtpTransferMode%29-instance-method">
+        
+        def <strong>upload</strong>(local_file : String, dest_path : String, mode : <a href="../SF/FtpTransferMode.html">FtpTransferMode</a>)
+      </div>
+      
+        <div class="doc"><p>Upload a file to a FTP server</p>
+
+<p>The name of the local file is relative to the current
+working directory of your application, and the
+remote path is relative to the current directory of the
+FTP server.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>ftp</code>: Ftp object</li><li><code>local_file</code>: Path of the local file to upload</li><li><code>remote_path</code>: Where to put to file on the server</li><li><code>mode</code>: Transfer mode</li></ul>
+
+<p><em>Returns</em>: Server response to the request</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L551" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="working_directory-instance-method">
+        
+        def <strong>working_directory</strong>
+      </div>
+      
+        <div class="doc"><p>Get the current working directory</p>
+
+<p>The working directory is the root path for subsequent
+operations involving directories and/or filenames.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>ftp</code>: Ftp object</li></ul>
+
+<p><em>Returns</em>: Server response to the request</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L406" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+
+
+</body>
+</html>

@@ -3,6 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <link href="../css/style.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript">
+    var pathToIndex = "../index.html"
+  </script>
+  <script type="text/javascript" src="../js/type.js"></script>
 </head>
 <body>
 
@@ -32,15 +36,17 @@
 
 
 
+
+
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics.cr">graphics.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics.cr" target="_blank">graphics.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr">graphics_obj.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr" target="_blank">graphics_obj.cr</a>
     
     <br/>
   
@@ -55,10 +61,14 @@
       <li class="entry-summary">
         <a href="#transfer_ptr%28ptr%29-class-method" class="signature"><strong>.transfer_ptr</strong>(ptr)</a>
         
+          <div class="summary"><p>Transfer ownership of the pointer to the wrapper object.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#wrap_ptr%28ptr%29-class-method" class="signature"><strong>.wrap_ptr</strong>(ptr)</a>
+        
+          <div class="summary"><p>Put the pointer into the wrapper object.</p></div>
         
       </li>
     
@@ -258,6 +268,8 @@
       <li class="entry-summary">
         <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
         
+          <div class="summary"><p>Get the underlying pointer</p></div>
+        
       </li>
     
       <li class="entry-summary">
@@ -282,9 +294,12 @@
         def self.<strong>transfer_ptr</strong>(ptr)
       </div>
       
+        <div class="doc"><p>Transfer ownership of the pointer to the wrapper object.
+The pointer will be freed on GC.</p></div>
+      
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L3525" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L3525" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -295,9 +310,12 @@
         def self.<strong>wrap_ptr</strong>(ptr)
       </div>
       
+        <div class="doc"><p>Put the pointer into the wrapper object.
+The pointer will <strong>not</strong> be freed on GC.</p></div>
+      
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L3525" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L3525" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -310,7 +328,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics.cr#L244" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics.cr#L244" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -323,7 +341,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L3525" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L3525" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -336,7 +354,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics.cr#L240" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics.cr#L240" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -353,7 +371,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L3530" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L3530" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -379,7 +397,7 @@
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L3812" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L3812" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -403,7 +421,7 @@ By default, the sprite's color is opaque white.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L3775" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L3775" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -416,7 +434,7 @@ By default, the sprite's color is opaque white.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics.cr#L254" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics.cr#L254" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -437,7 +455,7 @@ By default, the sprite's color is opaque white.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L3542" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L3542" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -456,7 +474,7 @@ By default, the sprite's color is opaque white.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L3551" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L3551" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -483,7 +501,7 @@ sprite in the global 2D world's coordinate system.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L3846" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L3846" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -504,7 +522,7 @@ sprite in the global 2D world's coordinate system.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L3724" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L3724" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -531,7 +549,7 @@ entity in the entity's coordinate system.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L3829" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L3829" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -553,7 +571,7 @@ unlike Sprite_setPosition which overwrites it.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L3673" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L3673" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -574,7 +592,7 @@ unlike Sprite_setPosition which overwrites it.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L3660" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L3660" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -600,7 +618,7 @@ The default origin of a sprite Sprite object is (0, 0).</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L3613" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L3613" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -621,7 +639,7 @@ The default origin of a sprite Sprite object is (0, 0).</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L3625" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L3625" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -644,7 +662,7 @@ The default position of a sprite Sprite object is (0, 0).</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L3565" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L3565" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -666,7 +684,7 @@ unlike Sprite_setRotation which overwrites it.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L3687" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L3687" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -689,7 +707,7 @@ unlike Sprite_setRotation which overwrites it.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L3638" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L3638" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -712,7 +730,7 @@ The default rotation of a sprite Sprite object is 0.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L3580" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L3580" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -734,7 +752,7 @@ unlike Sprite_setScale which overwrites it.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L3701" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L3701" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -755,7 +773,7 @@ unlike Sprite_setScale which overwrites it.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L3649" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L3649" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -778,7 +796,7 @@ The default scale of a sprite Sprite object is (1, 1).</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L3595" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L3595" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -807,7 +825,7 @@ texture. If it is false, the texture rect is left unchanged.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L3745" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L3745" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -832,7 +850,7 @@ modify the texture when you retrieve it with this function.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L3790" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L3790" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -845,7 +863,7 @@ modify the texture when you retrieve it with this function.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics.cr#L250" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics.cr#L250" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -866,7 +884,7 @@ modify the texture when you retrieve it with this function.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L3801" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L3801" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -889,7 +907,7 @@ By default, the texture rect covers the entire texture.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L3760" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L3760" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -900,9 +918,11 @@ By default, the texture rect covers the entire texture.</p>
         def <strong>to_unsafe</strong>
       </div>
       
+        <div class="doc"><p>Get the underlying pointer</p></div>
+      
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L3525" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L3525" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -923,7 +943,7 @@ By default, the texture rect covers the entire texture.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L3713" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L3713" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>

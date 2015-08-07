@@ -3,6 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <link href="../css/style.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript">
+    var pathToIndex = "../index.html"
+  </script>
+  <script type="text/javascript" src="../js/type.js"></script>
 </head>
 <body>
 
@@ -32,15 +36,17 @@
 
 
 
+
+
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics.cr">graphics.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics.cr" target="_blank">graphics.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr">graphics_obj.cr</a>
+      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr" target="_blank">graphics_obj.cr</a>
     
     <br/>
   
@@ -115,10 +121,14 @@
       <li class="entry-summary">
         <a href="#transfer_ptr%28ptr%29-class-method" class="signature"><strong>.transfer_ptr</strong>(ptr)</a>
         
+          <div class="summary"><p>Transfer ownership of the pointer to the wrapper object.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#wrap_ptr%28ptr%29-class-method" class="signature"><strong>.wrap_ptr</strong>(ptr)</a>
+        
+          <div class="summary"><p>Put the pointer into the wrapper object.</p></div>
         
       </li>
     
@@ -233,6 +243,8 @@
       <li class="entry-summary">
         <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
         
+          <div class="summary"><p>Get the underlying pointer</p></div>
+        
       </li>
     
   </ul>
@@ -268,7 +280,7 @@ for it before writing your own shaders.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1486" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1486" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -281,7 +293,7 @@ for it before writing your own shaders.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics.cr#L279" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics.cr#L279" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -310,7 +322,7 @@ writing your own shaders.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1506" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1506" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -323,7 +335,7 @@ writing your own shaders.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics.cr#L286" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics.cr#L286" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -352,7 +364,7 @@ it before writing your own shaders.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1526" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1526" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -373,7 +385,7 @@ any attempt to use Shader will fail.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1765" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1765" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -384,9 +396,12 @@ any attempt to use Shader will fail.</p>
         def self.<strong>transfer_ptr</strong>(ptr)
       </div>
       
+        <div class="doc"><p>Transfer ownership of the pointer to the wrapper object.
+The pointer will be freed on GC.</p></div>
+      
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1468" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1468" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -397,9 +412,12 @@ any attempt to use Shader will fail.</p>
         def self.<strong>wrap_ptr</strong>(ptr)
       </div>
       
+        <div class="doc"><p>Put the pointer into the wrapper object.
+The pointer will <strong>not</strong> be freed on GC.</p></div>
+      
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1468" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1468" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -412,7 +430,7 @@ any attempt to use Shader will fail.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1468" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1468" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -440,7 +458,7 @@ mix Shader with OpenGL code.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1754" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1754" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -465,7 +483,7 @@ The corresponding parameter in the shader must be a 2D texture
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1725" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1725" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -484,7 +502,7 @@ The corresponding parameter in the shader must be a 2D texture
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1535" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1535" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -509,7 +527,7 @@ or implement a temporary workaround until a bug is fixed.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1740" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1740" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -539,7 +557,7 @@ Shader_setCurrentTextureParameter:</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1708" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1708" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -562,7 +580,7 @@ The corresponding parameter in the shader must be a 4x4 matrix
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1686" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1686" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -585,7 +603,7 @@ The corresponding parameter in the shader must be a 2x1 vector
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1631" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1631" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -608,7 +626,7 @@ The corresponding parameter in the shader must be a 2x1 vector
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1569" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1569" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -621,7 +639,7 @@ The corresponding parameter in the shader must be a 2x1 vector
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics.cr#L298" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics.cr#L298" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -644,7 +662,7 @@ The corresponding parameter in the shader must be a 4x1 vector
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1611" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1611" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -667,7 +685,7 @@ The corresponding parameter in the shader must be a 3x1 vector
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1589" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1589" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -690,7 +708,7 @@ The corresponding parameter in the shader must be a 3x1 vector
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1648" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1648" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -719,7 +737,7 @@ to a vec4(1.0, 0.5, 0.0, 1.0) in the shader.</p>
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1670" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1670" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -742,7 +760,7 @@ The corresponding parameter in the shader must be a float
       
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1551" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1551" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>
@@ -753,9 +771,11 @@ The corresponding parameter in the shader must be a float
         def <strong>to_unsafe</strong>
       </div>
       
+        <div class="doc"><p>Get the underlying pointer</p></div>
+      
       
         <br/>
-        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.0/src/graphics_obj.cr#L1468" target="_blank">View source</a>]</div>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/graphics_obj.cr#L1468" target="_blank">View source</a>]</div>
       
     </div>
     <hr/>

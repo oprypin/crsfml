@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link href="../css/style.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript">
+    var pathToIndex = "../index.html"
+  </script>
+  <script type="text/javascript" src="../js/type.js"></script>
+</head>
+<body>
+
+
+  <h1>class SF::Packet</h1>
+
+
+
+
+
+
+
+  <h2>Superclass hierarchy</h2>
+  <div style="padding-left: 0px">Object</div><div style="padding-left: 20px">Reference</div><div style="padding-left: 40px"><a href="../SF/Packet.html">SF::Packet</a></div>
+
+
+
+  <h2>Included Modules</h2>
+  
+    <a href="../SF/Wrapper.html">SF::Wrapper</a>
+  
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr" target="_blank">network_obj.cr</a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>Class Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#transfer_ptr%28ptr%29-class-method" class="signature"><strong>.transfer_ptr</strong>(ptr)</a>
+        
+          <div class="summary"><p>Transfer ownership of the pointer to the wrapper object.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#wrap_ptr%28ptr%29-class-method" class="signature"><strong>.wrap_ptr</strong>(ptr)</a>
+        
+          <div class="summary"><p>Put the pointer into the wrapper object.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28this%2C%20owned%20%3A%20Bool%29-class-method" class="signature"><strong>.new</strong>(this, owned : Bool)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new-class-method" class="signature"><strong>.new</strong></a>
+        
+          <div class="summary"><p>Create a new packet</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#append%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size_in_bytes%20%3A%20Int%29-instance-method" class="signature"><strong>#append</strong>(data : ::Pointer(Void), size_in_bytes : Int)</a>
+        
+          <div class="summary"><p>Append data to the end of a packet</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#can_read-instance-method" class="signature"><strong>#can_read</strong></a>
+        
+          <div class="summary"><p>Test the validity of a packet, for reading</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#clear-instance-method" class="signature"><strong>#clear</strong></a>
+        
+          <div class="summary"><p>Clear a packet</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#data-instance-method" class="signature"><strong>#data</strong></a>
+        
+          <div class="summary"><p>Get a pointer to the data contained in a packet</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#data_size-instance-method" class="signature"><strong>#data_size</strong></a>
+        
+          <div class="summary"><p>Get the size of the data contained in a packet</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#dup-instance-method" class="signature"><strong>#dup</strong></a>
+        
+          <div class="summary"><p>Create a new packet by copying an existing one</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#end_of_packet-instance-method" class="signature"><strong>#end_of_packet</strong></a>
+        
+          <div class="summary"><p>Tell if the reading position has reached the end of a packet</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#finalize-instance-method" class="signature"><strong>#finalize</strong></a>
+        
+          <div class="summary"><p>Destroy a packet</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#read_bool-instance-method" class="signature"><strong>#read_bool</strong></a>
+        
+          <div class="summary"><p>Functions to extract data from a packet</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#read_double-instance-method" class="signature"><strong>#read_double</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#read_float-instance-method" class="signature"><strong>#read_float</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#read_int16-instance-method" class="signature"><strong>#read_int16</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#read_int32-instance-method" class="signature"><strong>#read_int32</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#read_int8-instance-method" class="signature"><strong>#read_int8</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#read_uint16-instance-method" class="signature"><strong>#read_uint16</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#read_uint32-instance-method" class="signature"><strong>#read_uint32</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#read_uint8-instance-method" class="signature"><strong>#read_uint8</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
+        
+          <div class="summary"><p>Get the underlying pointer</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#write_bool%28p1%20%3A%20Bool%29-instance-method" class="signature"><strong>#write_bool</strong>(p1 : Bool)</a>
+        
+          <div class="summary"><p>Functions to insert data into a packet</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#write_double%28p1%20%3A%20Float64%29-instance-method" class="signature"><strong>#write_double</strong>(p1 : Float64)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#write_float%28p1%20%3A%20Number%29-instance-method" class="signature"><strong>#write_float</strong>(p1 : Number)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#write_int16%28p1%20%3A%20Int16%29-instance-method" class="signature"><strong>#write_int16</strong>(p1 : Int16)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#write_int32%28p1%20%3A%20Int32%29-instance-method" class="signature"><strong>#write_int32</strong>(p1 : Int32)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#write_int8%28p1%20%3A%20Int8%29-instance-method" class="signature"><strong>#write_int8</strong>(p1 : Int8)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#write_uint16%28p1%20%3A%20Int%29-instance-method" class="signature"><strong>#write_uint16</strong>(p1 : Int)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#write_uint32%28p1%20%3A%20UInt32%29-instance-method" class="signature"><strong>#write_uint32</strong>(p1 : UInt32)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#write_uint8%28p1%20%3A%20UInt8%29-instance-method" class="signature"><strong>#write_uint8</strong>(p1 : UInt8)</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+
+  <h2>Class Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="transfer_ptr%28ptr%29-class-method">
+        
+        def self.<strong>transfer_ptr</strong>(ptr)
+      </div>
+      
+        <div class="doc"><p>Transfer ownership of the pointer to the wrapper object.
+The pointer will be freed on GC.</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L831" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="wrap_ptr%28ptr%29-class-method">
+        
+        def self.<strong>wrap_ptr</strong>(ptr)
+      </div>
+      
+        <div class="doc"><p>Put the pointer into the wrapper object.
+The pointer will <strong>not</strong> be freed on GC.</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L831" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28this%2C%20owned%20%3A%20Bool%29-class-method">
+        
+        def self.<strong>new</strong>(this, owned : Bool)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L831" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new-class-method">
+        
+        def self.<strong>new</strong>
+      </div>
+      
+        <div class="doc"><p>Create a new packet</p>
+
+<p><em>Returns</em>: A new Packet object</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L836" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="append%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size_in_bytes%20%3A%20Int%29-instance-method">
+        
+        def <strong>append</strong>(data : ::Pointer(Void), size_in_bytes : Int)
+      </div>
+      
+        <div class="doc"><p>Append data to the end of a packet</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>packet</code>: Packet object</li><li><code><a href="../SF/Packet.html#data-instance-method">#data</a></code>: Pointer to the sequence of bytes to append</li><li><code>size_in_bytes</code>: Number of bytes to append</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L868" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="can_read-instance-method">
+        
+        def <strong>can_read</strong>
+      </div>
+      
+        <div class="doc"><p>Test the validity of a packet, for reading</p>
+
+<p>This function allows to test the packet, to check if
+a reading operation was successful.</p>
+
+<p>A packet will be in an invalid state if it has no more
+data to read.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>packet</code>: Packet object</li></ul>
+
+<p><em>Returns</em>: True if last data extraction from packet was successful</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L942" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="clear-instance-method">
+        
+        def <strong>clear</strong>
+      </div>
+      
+        <div class="doc"><p>Clear a packet</p>
+
+<p>After calling Clear, the packet is empty.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>packet</code>: Packet object</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L880" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="data-instance-method">
+        
+        def <strong>data</strong>
+      </div>
+      
+        <div class="doc"><p>Get a pointer to the data contained in a packet</p>
+
+<p>Warning: the returned pointer may become invalid after
+you append data to the packet, therefore it should never
+be stored.
+The return pointer is NULL if the packet is empty.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>packet</code>: Packet object</li></ul>
+
+<p><em>Returns</em>: Pointer to the data</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L896" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="data_size-instance-method">
+        
+        def <strong>data_size</strong>
+      </div>
+      
+        <div class="doc"><p>Get the size of the data contained in a packet</p>
+
+<p>This function returns the number of bytes pointed to by
+what Packet_getData returns.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>packet</code>: Packet object</li></ul>
+
+<p><em>Returns</em>: Data size, in bytes</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L910" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="dup-instance-method">
+        
+        def <strong>dup</strong>
+      </div>
+      
+        <div class="doc"><p>Create a new packet by copying an existing one</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>packet</code>: Packet to copy</li></ul>
+
+<p><em>Returns</em>: A new Packet object which is a copy of <code>packet</code></p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L848" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="end_of_packet-instance-method">
+        
+        def <strong>end_of_packet</strong>
+      </div>
+      
+        <div class="doc"><p>Tell if the reading position has reached the
+end of a packet</p>
+
+<p>This function is useful to know if there is some data
+left to be read, without actually reading it.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>packet</code>: Packet object</li></ul>
+
+<p><em>Returns</em>: True if all data was read, False otherwise</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L925" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="finalize-instance-method">
+        
+        def <strong>finalize</strong>
+      </div>
+      
+        <div class="doc"><p>Destroy a packet</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>packet</code>: Packet to destroy</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L857" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="read_bool-instance-method">
+        
+        def <strong>read_bool</strong>
+      </div>
+      
+        <div class="doc"><p>Functions to extract data from a packet</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>packet</code>: Packet object</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L951" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="read_double-instance-method">
+        
+        def <strong>read_double</strong>
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L983" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="read_float-instance-method">
+        
+        def <strong>read_float</strong>
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L979" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="read_int16-instance-method">
+        
+        def <strong>read_int16</strong>
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L963" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="read_int32-instance-method">
+        
+        def <strong>read_int32</strong>
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L971" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="read_int8-instance-method">
+        
+        def <strong>read_int8</strong>
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L955" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="read_uint16-instance-method">
+        
+        def <strong>read_uint16</strong>
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L967" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="read_uint32-instance-method">
+        
+        def <strong>read_uint32</strong>
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L975" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="read_uint8-instance-method">
+        
+        def <strong>read_uint8</strong>
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L959" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="to_unsafe-instance-method">
+        
+        def <strong>to_unsafe</strong>
+      </div>
+      
+        <div class="doc"><p>Get the underlying pointer</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L831" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="write_bool%28p1%20%3A%20Bool%29-instance-method">
+        
+        def <strong>write_bool</strong>(p1 : Bool)
+      </div>
+      
+        <div class="doc"><p>Functions to insert data into a packet</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>packet</code>: Packet object</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L992" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="write_double%28p1%20%3A%20Float64%29-instance-method">
+        
+        def <strong>write_double</strong>(p1 : Float64)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1027" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="write_float%28p1%20%3A%20Number%29-instance-method">
+        
+        def <strong>write_float</strong>(p1 : Number)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1022" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="write_int16%28p1%20%3A%20Int16%29-instance-method">
+        
+        def <strong>write_int16</strong>(p1 : Int16)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1005" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="write_int32%28p1%20%3A%20Int32%29-instance-method">
+        
+        def <strong>write_int32</strong>(p1 : Int32)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1014" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="write_int8%28p1%20%3A%20Int8%29-instance-method">
+        
+        def <strong>write_int8</strong>(p1 : Int8)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L997" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="write_uint16%28p1%20%3A%20Int%29-instance-method">
+        
+        def <strong>write_uint16</strong>(p1 : Int)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1009" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="write_uint32%28p1%20%3A%20UInt32%29-instance-method">
+        
+        def <strong>write_uint32</strong>(p1 : UInt32)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1018" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="write_uint8%28p1%20%3A%20UInt8%29-instance-method">
+        
+        def <strong>write_uint8</strong>(p1 : UInt8)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1001" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+
+
+</body>
+</html>

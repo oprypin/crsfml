@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link href="../css/style.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript">
+    var pathToIndex = "../index.html"
+  </script>
+  <script type="text/javascript" src="../js/type.js"></script>
+</head>
+<body>
+
+
+  <h1>class SF::HttpRequest</h1>
+
+
+
+
+
+
+
+  <h2>Superclass hierarchy</h2>
+  <div style="padding-left: 0px">Object</div><div style="padding-left: 20px">Reference</div><div style="padding-left: 40px"><a href="../SF/HttpRequest.html">SF::HttpRequest</a></div>
+
+
+
+  <h2>Included Modules</h2>
+  
+    <a href="../SF/Wrapper.html">SF::Wrapper</a>
+  
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network.cr" target="_blank">network.cr</a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr" target="_blank">network_obj.cr</a>
+    
+    <br/>
+  
+
+
+
+  
+    <h2>Constant Summary</h2>
+  
+  <ul>
+    
+      <li class="entry-const">
+        <strong>Delete</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">HttpMethod</span><span class="t">::</span><span class="t">Delete</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Get</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">HttpMethod</span><span class="t">::</span><span class="t">Get</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Head</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">HttpMethod</span><span class="t">::</span><span class="t">Head</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Post</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">HttpMethod</span><span class="t">::</span><span class="t">Post</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Put</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">HttpMethod</span><span class="t">::</span><span class="t">Put</span></code>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>Class Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#transfer_ptr%28ptr%29-class-method" class="signature"><strong>.transfer_ptr</strong>(ptr)</a>
+        
+          <div class="summary"><p>Transfer ownership of the pointer to the wrapper object.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#wrap_ptr%28ptr%29-class-method" class="signature"><strong>.wrap_ptr</strong>(ptr)</a>
+        
+          <div class="summary"><p>Put the pointer into the wrapper object.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28uri%20%3A%20String%2C%20method%20%3D%20HttpRequest%3A%3AGet%2C%20body%20%3D%20%22%22%29-class-method" class="signature"><strong>.new</strong>(uri : String, method = HttpRequest::Get, body = "")</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28this%2C%20owned%20%3A%20Bool%29-class-method" class="signature"><strong>.new</strong>(this, owned : Bool)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new-class-method" class="signature"><strong>.new</strong></a>
+        
+          <div class="summary"><p>Create a new HTTP request</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#body%3D%28body%20%3A%20String%29-instance-method" class="signature"><strong>#body=</strong>(body : String)</a>
+        
+          <div class="summary"><p>Set the body of a HTTP request</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#finalize-instance-method" class="signature"><strong>#finalize</strong></a>
+        
+          <div class="summary"><p>Destroy a HTTP request</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#method%3D%28method%20%3A%20HttpMethod%29-instance-method" class="signature"><strong>#method=</strong>(method : HttpMethod)</a>
+        
+          <div class="summary"><p>Set a HTTP request method</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#set_field%28field%20%3A%20String%2C%20value%20%3A%20String%29-instance-method" class="signature"><strong>#set_field</strong>(field : String, value : String)</a>
+        
+          <div class="summary"><p>Set the value of a header field of a HTTP request</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#set_http_version%28major%20%3A%20Int%2C%20minor%20%3A%20Int%29-instance-method" class="signature"><strong>#set_http_version</strong>(major : Int, minor : Int)</a>
+        
+          <div class="summary"><p>Set the HTTP version of a HTTP request</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
+        
+          <div class="summary"><p>Get the underlying pointer</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#uri%3D%28uri%20%3A%20String%29-instance-method" class="signature"><strong>#uri=</strong>(uri : String)</a>
+        
+          <div class="summary"><p>Set a HTTP request URI</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+
+  <h2>Class Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="transfer_ptr%28ptr%29-class-method">
+        
+        def self.<strong>transfer_ptr</strong>(ptr)
+      </div>
+      
+        <div class="doc"><p>Transfer ownership of the pointer to the wrapper object.
+The pointer will be freed on GC.</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L558" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="wrap_ptr%28ptr%29-class-method">
+        
+        def self.<strong>wrap_ptr</strong>(ptr)
+      </div>
+      
+        <div class="doc"><p>Put the pointer into the wrapper object.
+The pointer will <strong>not</strong> be freed on GC.</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L558" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28uri%20%3A%20String%2C%20method%20%3D%20HttpRequest%3A%3AGet%2C%20body%20%3D%20%22%22%29-class-method">
+        
+        def self.<strong>new</strong>(uri : String, method = <span class="t">HttpRequest</span><span class="t">::</span><span class="t">Get</span>, body = <span class="s">""</span>)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network.cr#L42" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28this%2C%20owned%20%3A%20Bool%29-class-method">
+        
+        def self.<strong>new</strong>(this, owned : Bool)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L558" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new-class-method">
+        
+        def self.<strong>new</strong>
+      </div>
+      
+        <div class="doc"><p>Create a new HTTP request</p>
+
+<p><em>Returns</em>: A new HttpRequest object</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L568" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="body%3D%28body%20%3A%20String%29-instance-method">
+        
+        def <strong>body=</strong>(body : String)
+      </div>
+      
+        <div class="doc"><p>Set the body of a HTTP request</p>
+
+<p>The body of a request is optional and only makes sense
+for POST requests. It is ignored for all other methods.
+The body is empty by default.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>http_request</code>: HTTP request</li><li><code>body</code>: Content of the body</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L652" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="finalize-instance-method">
+        
+        def <strong>finalize</strong>
+      </div>
+      
+        <div class="doc"><p>Destroy a HTTP request</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>http_request</code>: HTTP request to destroy</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L578" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="method%3D%28method%20%3A%20HttpMethod%29-instance-method">
+        
+        def <strong>method=</strong>(method : <a href="../SF/HttpMethod.html">HttpMethod</a>)
+      </div>
+      
+        <div class="doc"><p>Set a HTTP request method</p>
+
+<p>See the HttpMethod enumeration for a complete list of all
+the availale methods.
+The method is HttpGet by default.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>http_request</code>: HTTP request</li><li><code>method</code>: Method to use for the request</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L609" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="set_field%28field%20%3A%20String%2C%20value%20%3A%20String%29-instance-method">
+        
+        def <strong>set_field</strong>(field : String, value : String)
+      </div>
+      
+        <div class="doc"><p>Set the value of a header field of a HTTP request</p>
+
+<p>The field is created if it doesn't exist. The name of
+the field is case insensitive.
+By default, a request doesn't contain any field (but the
+mandatory fields are added later by the HTTP client when
+sending the request).</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>http_request</code>: HTTP request</li><li><code>field</code>: Name of the field to set</li><li><code>value</code>: Value of the field</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L595" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="set_http_version%28major%20%3A%20Int%2C%20minor%20%3A%20Int%29-instance-method">
+        
+        def <strong>set_http_version</strong>(major : Int, minor : Int)
+      </div>
+      
+        <div class="doc"><p>Set the HTTP version of a HTTP request</p>
+
+<p>The HTTP version is 1.0 by default.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>http_request</code>: HTTP request</li><li><code>major</code>: Major HTTP version number</li><li><code>minor</code>: Minor HTTP version number</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L636" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="to_unsafe-instance-method">
+        
+        def <strong>to_unsafe</strong>
+      </div>
+      
+        <div class="doc"><p>Get the underlying pointer</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L558" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="uri%3D%28uri%20%3A%20String%29-instance-method">
+        
+        def <strong>uri=</strong>(uri : String)
+      </div>
+      
+        <div class="doc"><p>Set a HTTP request URI</p>
+
+<p>The URI is the resource (usually a web page or a file)
+that you want to get or post.
+The URI is "/" (the root page) by default.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>http_request</code>: HTTP request</li><li><code>uri</code>: URI to request, relative to the host</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L623" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+
+
+</body>
+</html>

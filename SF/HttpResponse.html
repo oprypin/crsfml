@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link href="../css/style.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript">
+    var pathToIndex = "../index.html"
+  </script>
+  <script type="text/javascript" src="../js/type.js"></script>
+</head>
+<body>
+
+
+  <h1>class SF::HttpResponse</h1>
+
+
+
+
+
+
+
+  <h2>Superclass hierarchy</h2>
+  <div style="padding-left: 0px">Object</div><div style="padding-left: 20px">Reference</div><div style="padding-left: 40px"><a href="../SF/HttpResponse.html">SF::HttpResponse</a></div>
+
+
+
+  <h2>Included Modules</h2>
+  
+    <a href="../SF/Wrapper.html">SF::Wrapper</a>
+  
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr" target="_blank">network_obj.cr</a>
+    
+    <br/>
+  
+
+
+
+  
+    <h2>Constant Summary</h2>
+  
+  <ul>
+    
+      <li class="entry-const">
+        <strong>Accepted</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">HttpStatus</span><span class="t">::</span><span class="t">Accepted</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>BadGateway</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">HttpStatus</span><span class="t">::</span><span class="t">BadGateway</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>BadRequest</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">HttpStatus</span><span class="t">::</span><span class="t">BadRequest</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>ConnectionFailed</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">HttpStatus</span><span class="t">::</span><span class="t">ConnectionFailed</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Created</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">HttpStatus</span><span class="t">::</span><span class="t">Created</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Forbidden</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">HttpStatus</span><span class="t">::</span><span class="t">Forbidden</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>GatewayTimeout</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">HttpStatus</span><span class="t">::</span><span class="t">GatewayTimeout</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>InternalServerError</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">HttpStatus</span><span class="t">::</span><span class="t">InternalServerError</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>InvalidResponse</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">HttpStatus</span><span class="t">::</span><span class="t">InvalidResponse</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>MovedPermanently</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">HttpStatus</span><span class="t">::</span><span class="t">MovedPermanently</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>MovedTemporarily</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">HttpStatus</span><span class="t">::</span><span class="t">MovedTemporarily</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>MultipleChoices</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">HttpStatus</span><span class="t">::</span><span class="t">MultipleChoices</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>NoContent</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">HttpStatus</span><span class="t">::</span><span class="t">NoContent</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>NotFound</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">HttpStatus</span><span class="t">::</span><span class="t">NotFound</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>NotImplemented</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">HttpStatus</span><span class="t">::</span><span class="t">NotImplemented</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>NotModified</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">HttpStatus</span><span class="t">::</span><span class="t">NotModified</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Ok</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">HttpStatus</span><span class="t">::</span><span class="t">Ok</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>PartialContent</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">HttpStatus</span><span class="t">::</span><span class="t">PartialContent</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>RangeNotSatisfiable</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">HttpStatus</span><span class="t">::</span><span class="t">RangeNotSatisfiable</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>ResetContent</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">HttpStatus</span><span class="t">::</span><span class="t">ResetContent</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>ServiceNotAvailable</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">HttpStatus</span><span class="t">::</span><span class="t">ServiceNotAvailable</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>Unauthorized</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">HttpStatus</span><span class="t">::</span><span class="t">Unauthorized</span></code>
+        
+      </li>
+    
+      <li class="entry-const">
+        <strong>VersionNotSupported</strong> = <code><span class="t">CSFML</span><span class="t">::</span><span class="t">HttpStatus</span><span class="t">::</span><span class="t">VersionNotSupported</span></code>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>Class Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#transfer_ptr%28ptr%29-class-method" class="signature"><strong>.transfer_ptr</strong>(ptr)</a>
+        
+          <div class="summary"><p>Transfer ownership of the pointer to the wrapper object.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#wrap_ptr%28ptr%29-class-method" class="signature"><strong>.wrap_ptr</strong>(ptr)</a>
+        
+          <div class="summary"><p>Put the pointer into the wrapper object.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28this%2C%20owned%20%3A%20Bool%29-class-method" class="signature"><strong>.new</strong>(this, owned : Bool)</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#body-instance-method" class="signature"><strong>#body</strong></a>
+        
+          <div class="summary"><p>Get the body of a HTTP response</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#finalize-instance-method" class="signature"><strong>#finalize</strong></a>
+        
+          <div class="summary"><p>Destroy a HTTP response</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_field%28field%20%3A%20String%29-instance-method" class="signature"><strong>#get_field</strong>(field : String)</a>
+        
+          <div class="summary"><p>Get the value of a field of a HTTP response</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#major_version-instance-method" class="signature"><strong>#major_version</strong></a>
+        
+          <div class="summary"><p>Get the major HTTP version number of a HTTP response</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#minor_version-instance-method" class="signature"><strong>#minor_version</strong></a>
+        
+          <div class="summary"><p>Get the minor HTTP version number of a HTTP response</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#status-instance-method" class="signature"><strong>#status</strong></a>
+        
+          <div class="summary"><p>Get the status code of a HTTP reponse</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
+        
+          <div class="summary"><p>Get the underlying pointer</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+
+  <h2>Class Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="transfer_ptr%28ptr%29-class-method">
+        
+        def self.<strong>transfer_ptr</strong>(ptr)
+      </div>
+      
+        <div class="doc"><p>Transfer ownership of the pointer to the wrapper object.
+The pointer will be freed on GC.</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L659" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="wrap_ptr%28ptr%29-class-method">
+        
+        def self.<strong>wrap_ptr</strong>(ptr)
+      </div>
+      
+        <div class="doc"><p>Put the pointer into the wrapper object.
+The pointer will <strong>not</strong> be freed on GC.</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L659" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28this%2C%20owned%20%3A%20Bool%29-class-method">
+        
+        def self.<strong>new</strong>(this, owned : Bool)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L659" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="body-instance-method">
+        
+        def <strong>body</strong>
+      </div>
+      
+        <div class="doc"><p>Get the body of a HTTP response</p>
+
+<p>The body of a response may contain:
+- the requested page (for GET requests)
+- a response from the server (for POST requests)
+- nothing (for HEAD requests)
+- an error message (in case of an error)</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>http_response</code>: HTTP response</li></ul>
+
+<p><em>Returns</em>: The response body</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L760" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="finalize-instance-method">
+        
+        def <strong>finalize</strong>
+      </div>
+      
+        <div class="doc"><p>Destroy a HTTP response</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>http_response</code>: HTTP response to destroy</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L689" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="get_field%28field%20%3A%20String%29-instance-method">
+        
+        def <strong>get_field</strong>(field : String)
+      </div>
+      
+        <div class="doc"><p>Get the value of a field of a HTTP response</p>
+
+<p>If the field <code>field</code> is not found in the response header,
+the empty string is returned. This function uses
+case-insensitive comparisons.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>http_response</code>: HTTP response</li><li><code>field</code>: Name of the field to get</li></ul>
+
+<p><em>Returns</em>: Value of the field, or empty string if not found</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L705" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="major_version-instance-method">
+        
+        def <strong>major_version</strong>
+      </div>
+      
+        <div class="doc"><p>Get the major HTTP version number of a HTTP response</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>http_response</code>: HTTP response</li></ul>
+
+<p><em>Returns</em>: Major HTTP version number</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L732" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="minor_version-instance-method">
+        
+        def <strong>minor_version</strong>
+      </div>
+      
+        <div class="doc"><p>Get the minor HTTP version number of a HTTP response</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>http_response</code>: HTTP response</li></ul>
+
+<p><em>Returns</em>: Minor HTTP version number</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L743" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="status-instance-method">
+        
+        def <strong>status</strong>
+      </div>
+      
+        <div class="doc"><p>Get the status code of a HTTP reponse</p>
+
+<p>The status code should be the first thing to be checked
+after receiving a response, it defines whether it is a
+success, a failure or anything else (see the HttpStatus
+enumeration).</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>http_response</code>: HTTP response</li></ul>
+
+<p><em>Returns</em>: Status code of the response</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L721" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="to_unsafe-instance-method">
+        
+        def <strong>to_unsafe</strong>
+      </div>
+      
+        <div class="doc"><p>Get the underlying pointer</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L659" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+
+
+</body>
+</html>

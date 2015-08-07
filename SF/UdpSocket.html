@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link href="../css/style.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript">
+    var pathToIndex = "../index.html"
+  </script>
+  <script type="text/javascript" src="../js/type.js"></script>
+</head>
+<body>
+
+
+  <h1>class SF::UdpSocket</h1>
+
+
+
+
+
+
+
+  <h2>Superclass hierarchy</h2>
+  <div style="padding-left: 0px">Object</div><div style="padding-left: 20px">Reference</div><div style="padding-left: 40px"><a href="../SF/UdpSocket.html">SF::UdpSocket</a></div>
+
+
+
+  <h2>Included Modules</h2>
+  
+    <a href="../SF/Wrapper.html">SF::Wrapper</a>
+  
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network.cr" target="_blank">network.cr</a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr" target="_blank">network_obj.cr</a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>Class Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#max_datagram_size-class-method" class="signature"><strong>.max_datagram_size</strong></a>
+        
+          <div class="summary"><p>Return the maximum number of bytes that can be sent in a single UDP datagram</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#transfer_ptr%28ptr%29-class-method" class="signature"><strong>.transfer_ptr</strong>(ptr)</a>
+        
+          <div class="summary"><p>Transfer ownership of the pointer to the wrapper object.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#wrap_ptr%28ptr%29-class-method" class="signature"><strong>.wrap_ptr</strong>(ptr)</a>
+        
+          <div class="summary"><p>Put the pointer into the wrapper object.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28this%2C%20owned%20%3A%20Bool%29-class-method" class="signature"><strong>.new</strong>(this, owned : Bool)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new-class-method" class="signature"><strong>.new</strong></a>
+        
+          <div class="summary"><p>Create a new UDP socket</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#bind%28port%20%3A%20Int%29-instance-method" class="signature"><strong>#bind</strong>(port : Int)</a>
+        
+          <div class="summary"><p>Bind a UDP socket to a specific port</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#blocking%3D%28blocking%20%3A%20Bool%29-instance-method" class="signature"><strong>#blocking=</strong>(blocking : Bool)</a>
+        
+          <div class="summary"><p>Set the blocking state of a UDP listener</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#blocking%3F-instance-method" class="signature"><strong>#blocking?</strong></a>
+        
+          <div class="summary"><p>Tell whether a UDP socket is in blocking or non-blocking mode</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#finalize-instance-method" class="signature"><strong>#finalize</strong></a>
+        
+          <div class="summary"><p>Destroy a UDP socket</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#local_port-instance-method" class="signature"><strong>#local_port</strong></a>
+        
+          <div class="summary"><p>Get the port to which a UDP socket is bound locally</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#receive%28data%20%3A%20%3A%3APointer%28Void%29%2C%20max_size%20%3A%20Int%2C%20size_received%20%3A%20%3A%3APointer%28LibC%3A%3ASizeT%29%2C%20address%20%3A%20%3A%3APointer%28IpAddress%29%2C%20port%20%3A%20%3A%3APointer%28UInt16%29%29-instance-method" class="signature"><strong>#receive</strong>(data : ::Pointer(Void), max_size : Int, size_received : ::Pointer(LibC::SizeT), address : ::Pointer(IpAddress), port : ::Pointer(UInt16))</a>
+        
+          <div class="summary"><p>Receive raw data from a remote peer with a UDP socket</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#receive%28data%20%3A%20%3A%3APointer%28Void%29%2C%20max_size%20%3A%20Int%2C%20size_received%20%3A%20%3A%3APointer%28SizeT%29%2C%20address%20%3A%20%3A%3APointer%28IpAddress%29%2C%20port%20%3A%20%3A%3APointer%28UInt16%29%29%20%3A%20%3A%3ATuple%28SocketStatus%2C%20Int%2C%20IpAddress%2C%20UInt16%29-instance-method" class="signature"><strong>#receive</strong>(data : ::Pointer(Void), max_size : Int, size_received : ::Pointer(SizeT), address : ::Pointer(IpAddress), port : ::Pointer(UInt16)) : ::Tuple(SocketStatus, Int, IpAddress, UInt16)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#receive_packet%28packet%20%3A%20Packet%2C%20address%20%3A%20%3A%3APointer%28IpAddress%29%2C%20port%20%3A%20%3A%3APointer%28UInt16%29%29-instance-method" class="signature"><strong>#receive_packet</strong>(packet : Packet, address : ::Pointer(IpAddress), port : ::Pointer(UInt16))</a>
+        
+          <div class="summary"><p>Receive a formatted packet of data from a remote peer with a UDP socket</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#send%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size%20%3A%20Int%2C%20address%20%3A%20IpAddress%2C%20port%20%3A%20Int%29-instance-method" class="signature"><strong>#send</strong>(data : ::Pointer(Void), size : Int, address : IpAddress, port : Int)</a>
+        
+          <div class="summary"><p>Send raw data to a remote peer with a UDP socket</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#send_packet%28packet%20%3A%20Packet%2C%20address%20%3A%20IpAddress%2C%20port%20%3A%20Int%29-instance-method" class="signature"><strong>#send_packet</strong>(packet : Packet, address : IpAddress, port : Int)</a>
+        
+          <div class="summary"><p>Send a formatted packet of data to a remote peer with a UDP socket</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
+        
+          <div class="summary"><p>Get the underlying pointer</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#unbind-instance-method" class="signature"><strong>#unbind</strong></a>
+        
+          <div class="summary"><p>Unbind a UDP socket from the local port to which it is bound</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+
+  <h2>Class Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="max_datagram_size-class-method">
+        
+        def self.<strong>max_datagram_size</strong>
+      </div>
+      
+        <div class="doc"><p>Return the maximum number of bytes that can be
+sent in a single UDP datagram</p>
+
+<p><em>Returns</em>: The maximum size of a UDP datagram (message)</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1667" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="transfer_ptr%28ptr%29-class-method">
+        
+        def self.<strong>transfer_ptr</strong>(ptr)
+      </div>
+      
+        <div class="doc"><p>Transfer ownership of the pointer to the wrapper object.
+The pointer will be freed on GC.</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1487" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="wrap_ptr%28ptr%29-class-method">
+        
+        def self.<strong>wrap_ptr</strong>(ptr)
+      </div>
+      
+        <div class="doc"><p>Put the pointer into the wrapper object.
+The pointer will <strong>not</strong> be freed on GC.</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1487" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28this%2C%20owned%20%3A%20Bool%29-class-method">
+        
+        def self.<strong>new</strong>(this, owned : Bool)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1487" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new-class-method">
+        
+        def self.<strong>new</strong>
+      </div>
+      
+        <div class="doc"><p>Create a new UDP socket</p>
+
+<p><em>Returns</em>: A new UdpSocket object</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1492" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="bind%28port%20%3A%20Int%29-instance-method">
+        
+        def <strong>bind</strong>(port : Int)
+      </div>
+      
+        <div class="doc"><p>Bind a UDP socket to a specific port</p>
+
+<p>Binding the socket to a port is necessary for being
+able to receive data on that port.
+You can use the special value 0 to tell the
+system to automatically pick an available port, and then
+call UdpSocket_getLocalPort to retrieve the chosen port.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>socket</code>: UDP socket object</li><li><code>port</code>: Port to bind the socket to</li></ul>
+
+<p><em>Returns</em>: Status code</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1565" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="blocking%3D%28blocking%20%3A%20Bool%29-instance-method">
+        
+        def <strong>blocking=</strong>(blocking : Bool)
+      </div>
+      
+        <div class="doc"><p>Set the blocking state of a UDP listener</p>
+
+<p>In blocking mode, calls will not return until they have
+completed their task. For example, a call to
+UDPSocket_receive in blocking mode won't return until
+new data was actually received.
+In non-blocking mode, calls will always return immediately,
+using the return code to signal whether there was data
+available or not.
+By default, all sockets are blocking.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>socket</code>: UDP socket object</li><li><code>blocking</code>: True to set the socket as blocking, False for non-blocking</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1521" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="blocking%3F-instance-method">
+        
+        def <strong>blocking?</strong>
+      </div>
+      
+        <div class="doc"><p>Tell whether a UDP socket is in blocking or non-blocking mode</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>socket</code>: UDP socket object</li></ul>
+
+<p><em>Returns</em>: True if the socket is blocking, False otherwise</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1533" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="finalize-instance-method">
+        
+        def <strong>finalize</strong>
+      </div>
+      
+        <div class="doc"><p>Destroy a UDP socket</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>socket</code>: UDP socket to destroy</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1502" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="local_port-instance-method">
+        
+        def <strong>local_port</strong>
+      </div>
+      
+        <div class="doc"><p>Get the port to which a UDP socket is bound locally</p>
+
+<p>If the socket is not bound to a port, this function
+returns 0.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>socket</code>: UDP socket object</li></ul>
+
+<p><em>Returns</em>: Port to which the socket is bound</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1547" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="receive%28data%20%3A%20%3A%3APointer%28Void%29%2C%20max_size%20%3A%20Int%2C%20size_received%20%3A%20%3A%3APointer%28LibC%3A%3ASizeT%29%2C%20address%20%3A%20%3A%3APointer%28IpAddress%29%2C%20port%20%3A%20%3A%3APointer%28UInt16%29%29-instance-method">
+        
+        def <strong>receive</strong>(data : ::Pointer(Void), max_size : Int, size_received : ::Pointer(LibC::SizeT), address : ::Pointer(<a href="../SF/IpAddress.html">IpAddress</a>), port : ::Pointer(UInt16))
+      </div>
+      
+        <div class="doc"><p>Receive raw data from a remote peer with a UDP socket</p>
+
+<p>In blocking mode, this function will wait until some
+bytes are actually received.
+Be careful to use a buffer which is large enough for
+the data that you intend to receive, if it is too small
+then an error will be returned and <em>all</em> the data will
+be lost.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>socket</code>: UDP socket object</li><li><code>data</code>: Pointer to the array to fill with the received bytes</li><li><code>size</code>: Maximum number of bytes that can be received</li><li><code>received</code>: This variable is filled with the actual number of bytes received</li><li><code>remote_address</code>: Address of the peer that sent the data</li><li><code>remote_port</code>: Port of the peer that sent the data</li></ul>
+
+<p><em>Returns</em>: Status code</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1623" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="receive%28data%20%3A%20%3A%3APointer%28Void%29%2C%20max_size%20%3A%20Int%2C%20size_received%20%3A%20%3A%3APointer%28SizeT%29%2C%20address%20%3A%20%3A%3APointer%28IpAddress%29%2C%20port%20%3A%20%3A%3APointer%28UInt16%29%29%20%3A%20%3A%3ATuple%28SocketStatus%2C%20Int%2C%20IpAddress%2C%20UInt16%29-instance-method">
+        
+        def <strong>receive</strong>(data : ::Pointer(Void), max_size : Int, size_received : ::Pointer(SizeT), address : ::Pointer(<a href="../SF/IpAddress.html">IpAddress</a>), port : ::Pointer(UInt16)) : ::Tuple(<a href="../SF/SocketStatus.html">SocketStatus</a>, Int, <a href="../SF/IpAddress.html">IpAddress</a>, UInt16)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network.cr#L80" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="receive_packet%28packet%20%3A%20Packet%2C%20address%20%3A%20%3A%3APointer%28IpAddress%29%2C%20port%20%3A%20%3A%3APointer%28UInt16%29%29-instance-method">
+        
+        def <strong>receive_packet</strong>(packet : <a href="../SF/Packet.html">Packet</a>, address : ::Pointer(<a href="../SF/IpAddress.html">IpAddress</a>), port : ::Pointer(UInt16))
+      </div>
+      
+        <div class="doc"><p>Receive a formatted packet of data from a remote peer with a UDP socket</p>
+
+<p>In blocking mode, this function will wait until the whole packet
+has been received.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>packet</code>: Packet to fill with the received data</li><li><code>remote_address</code>: Address of the peer that sent the data</li><li><code>remote_port</code>: Port of the peer that sent the data</li></ul>
+
+<p><em>Returns</em>: Status code</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1659" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="send%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size%20%3A%20Int%2C%20address%20%3A%20IpAddress%2C%20port%20%3A%20Int%29-instance-method">
+        
+        def <strong>send</strong>(data : ::Pointer(Void), size : Int, address : <a href="../SF/IpAddress.html">IpAddress</a>, port : Int)
+      </div>
+      
+        <div class="doc"><p>Send raw data to a remote peer with a UDP socket</p>
+
+<p>Make sure that <code>size</code> is not greater than
+UdpSocket_maxDatagramSize(), otherwise this function will
+fail and no data will be sent.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>socket</code>: UDP socket object</li><li><code>data</code>: Pointer to the sequence of bytes to send</li><li><code>size</code>: Number of bytes to send</li><li><code>remote_address</code>: Address of the receiver</li><li><code>remote_port</code>: Port of the receiver to send the data to</li></ul>
+
+<p><em>Returns</em>: Status code</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1598" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="send_packet%28packet%20%3A%20Packet%2C%20address%20%3A%20IpAddress%2C%20port%20%3A%20Int%29-instance-method">
+        
+        def <strong>send_packet</strong>(packet : <a href="../SF/Packet.html">Packet</a>, address : <a href="../SF/IpAddress.html">IpAddress</a>, port : Int)
+      </div>
+      
+        <div class="doc"><p>Send a formatted packet of data to a remote peer with a UDP socket</p>
+
+<p>Make sure that the packet size is not greater than
+UdpSocket_maxDatagramSize(), otherwise this function will
+fail and no data will be sent.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>socket</code>: UDP socket object</li><li><code>packet</code>: Packet to send</li><li><code>remote_address</code>: Address of the receiver</li><li><code>remote_port</code>: Port of the receiver to send the data to</li></ul>
+
+<p><em>Returns</em>: Status code</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1642" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="to_unsafe-instance-method">
+        
+        def <strong>to_unsafe</strong>
+      </div>
+      
+        <div class="doc"><p>Get the underlying pointer</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1487" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="unbind-instance-method">
+        
+        def <strong>unbind</strong>
+      </div>
+      
+        <div class="doc"><p>Unbind a UDP socket from the local port to which it is bound</p>
+
+<p>The port that the socket was previously using is immediately
+available after this function is called. If the
+socket is not bound to a port, this function has no effect.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>socket</code>: UDP socket object</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1579" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+
+
+</body>
+</html>

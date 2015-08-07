@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link href="../css/style.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript">
+    var pathToIndex = "../index.html"
+  </script>
+  <script type="text/javascript" src="../js/type.js"></script>
+</head>
+<body>
+
+
+  <h1>class SF::SocketSelector</h1>
+
+
+
+
+
+
+
+  <h2>Superclass hierarchy</h2>
+  <div style="padding-left: 0px">Object</div><div style="padding-left: 20px">Reference</div><div style="padding-left: 40px"><a href="../SF/SocketSelector.html">SF::SocketSelector</a></div>
+
+
+
+  <h2>Included Modules</h2>
+  
+    <a href="../SF/Wrapper.html">SF::Wrapper</a>
+  
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network.cr" target="_blank">network.cr</a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr" target="_blank">network_obj.cr</a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>Class Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#transfer_ptr%28ptr%29-class-method" class="signature"><strong>.transfer_ptr</strong>(ptr)</a>
+        
+          <div class="summary"><p>Transfer ownership of the pointer to the wrapper object.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#wrap_ptr%28ptr%29-class-method" class="signature"><strong>.wrap_ptr</strong>(ptr)</a>
+        
+          <div class="summary"><p>Put the pointer into the wrapper object.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28this%2C%20owned%20%3A%20Bool%29-class-method" class="signature"><strong>.new</strong>(this, owned : Bool)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new-class-method" class="signature"><strong>.new</strong></a>
+        
+          <div class="summary"><p>Create a new selector</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#add_tcp_listener%28socket%20%3A%20TcpListener%29-instance-method" class="signature"><strong>#add_tcp_listener</strong>(socket : TcpListener)</a>
+        
+          <div class="summary"><p>Add a new socket to a socket selector</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#add_tcp_socket%28socket%20%3A%20TcpSocket%29-instance-method" class="signature"><strong>#add_tcp_socket</strong>(socket : TcpSocket)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#add_udp_socket%28socket%20%3A%20UdpSocket%29-instance-method" class="signature"><strong>#add_udp_socket</strong>(socket : UdpSocket)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#clear-instance-method" class="signature"><strong>#clear</strong></a>
+        
+          <div class="summary"><p>Remove all the sockets stored in a selector</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#dup-instance-method" class="signature"><strong>#dup</strong></a>
+        
+          <div class="summary"><p>Create a new socket selector by copying an existing one</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#finalize-instance-method" class="signature"><strong>#finalize</strong></a>
+        
+          <div class="summary"><p>Destroy a socket selector</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#is_tcp_listener_ready%28socket%20%3A%20TcpListener%29-instance-method" class="signature"><strong>#is_tcp_listener_ready</strong>(socket : TcpListener)</a>
+        
+          <div class="summary"><p>Test a socket to know if it is ready to receive data</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#is_tcp_socket_ready%28socket%20%3A%20TcpSocket%29-instance-method" class="signature"><strong>#is_tcp_socket_ready</strong>(socket : TcpSocket)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#is_udp_socket_ready%28socket%20%3A%20UdpSocket%29-instance-method" class="signature"><strong>#is_udp_socket_ready</strong>(socket : UdpSocket)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#remove_tcp_listener%28socket%20%3A%20TcpListener%29-instance-method" class="signature"><strong>#remove_tcp_listener</strong>(socket : TcpListener)</a>
+        
+          <div class="summary"><p>Remove a socket from a socket selector</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#remove_tcp_socket%28socket%20%3A%20TcpSocket%29-instance-method" class="signature"><strong>#remove_tcp_socket</strong>(socket : TcpSocket)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#remove_udp_socket%28socket%20%3A%20UdpSocket%29-instance-method" class="signature"><strong>#remove_udp_socket</strong>(socket : UdpSocket)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
+        
+          <div class="summary"><p>Get the underlying pointer</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#wait-instance-method" class="signature"><strong>#wait</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#wait%28timeout%20%3A%20Time%29-instance-method" class="signature"><strong>#wait</strong>(timeout : Time)</a>
+        
+          <div class="summary"><p>Wait until one or more sockets are ready to receive</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+
+  <h2>Class Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="transfer_ptr%28ptr%29-class-method">
+        
+        def self.<strong>transfer_ptr</strong>(ptr)
+      </div>
+      
+        <div class="doc"><p>Transfer ownership of the pointer to the wrapper object.
+The pointer will be freed on GC.</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1034" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="wrap_ptr%28ptr%29-class-method">
+        
+        def self.<strong>wrap_ptr</strong>(ptr)
+      </div>
+      
+        <div class="doc"><p>Put the pointer into the wrapper object.
+The pointer will <strong>not</strong> be freed on GC.</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1034" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28this%2C%20owned%20%3A%20Bool%29-class-method">
+        
+        def self.<strong>new</strong>(this, owned : Bool)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1034" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new-class-method">
+        
+        def self.<strong>new</strong>
+      </div>
+      
+        <div class="doc"><p>Create a new selector</p>
+
+<p><em>Returns</em>: A new SocketSelector object</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1039" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="add_tcp_listener%28socket%20%3A%20TcpListener%29-instance-method">
+        
+        def <strong>add_tcp_listener</strong>(socket : <a href="../SF/TcpListener.html">TcpListener</a>)
+      </div>
+      
+        <div class="doc"><p>Add a new socket to a socket selector</p>
+
+<p>This function keeps a weak pointer to the socket,
+so you have to make sure that the socket is not destroyed
+while it is stored in the selector.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>selector</code>: Socket selector object</li><li><code>socket</code>: Pointer to the socket to add</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1074" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="add_tcp_socket%28socket%20%3A%20TcpSocket%29-instance-method">
+        
+        def <strong>add_tcp_socket</strong>(socket : <a href="../SF/TcpSocket.html">TcpSocket</a>)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1078" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="add_udp_socket%28socket%20%3A%20UdpSocket%29-instance-method">
+        
+        def <strong>add_udp_socket</strong>(socket : <a href="../SF/UdpSocket.html">UdpSocket</a>)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1082" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="clear-instance-method">
+        
+        def <strong>clear</strong>
+      </div>
+      
+        <div class="doc"><p>Remove all the sockets stored in a selector</p>
+
+<p>This function doesn't destroy any instance, it simply
+removes all the pointers that the selector has to
+external sockets.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>selector</code>: Socket selector object</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1116" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="dup-instance-method">
+        
+        def <strong>dup</strong>
+      </div>
+      
+        <div class="doc"><p>Create a new socket selector by copying an existing one</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>selector</code>: Socket selector to copy</li></ul>
+
+<p><em>Returns</em>: A new SocketSelector object which is a copy of <code>selector</code></p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1051" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="finalize-instance-method">
+        
+        def <strong>finalize</strong>
+      </div>
+      
+        <div class="doc"><p>Destroy a socket selector</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>selector</code>: Socket selector to destroy</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1060" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="is_tcp_listener_ready%28socket%20%3A%20TcpListener%29-instance-method">
+        
+        def <strong>is_tcp_listener_ready</strong>(socket : <a href="../SF/TcpListener.html">TcpListener</a>)
+      </div>
+      
+        <div class="doc"><p>Test a socket to know if it is ready to receive data</p>
+
+<p>This function must be used after a call to
+SocketSelector_wait, to know which sockets are ready to
+receive data. If a socket is ready, a call to Receive will
+never block because we know that there is data available to read.
+Note that if this function returns True for a TcpListener,
+this means that it is ready to accept a new connection.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>selector</code>: Socket selector object</li><li><code>socket</code>: Socket to test</li></ul>
+
+<p><em>Returns</em>: True if the socket is ready to read, False otherwise</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1153" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="is_tcp_socket_ready%28socket%20%3A%20TcpSocket%29-instance-method">
+        
+        def <strong>is_tcp_socket_ready</strong>(socket : <a href="../SF/TcpSocket.html">TcpSocket</a>)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1157" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="is_udp_socket_ready%28socket%20%3A%20UdpSocket%29-instance-method">
+        
+        def <strong>is_udp_socket_ready</strong>(socket : <a href="../SF/UdpSocket.html">UdpSocket</a>)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1161" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="remove_tcp_listener%28socket%20%3A%20TcpListener%29-instance-method">
+        
+        def <strong>remove_tcp_listener</strong>(socket : <a href="../SF/TcpListener.html">TcpListener</a>)
+      </div>
+      
+        <div class="doc"><p>Remove a socket from a socket selector</p>
+
+<p>This function doesn't destroy the socket, it simply
+removes the pointer that the selector has to it.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>selector</code>: Socket selector object</li><li><code>socket</code>: POointer to the socket to remove</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1095" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="remove_tcp_socket%28socket%20%3A%20TcpSocket%29-instance-method">
+        
+        def <strong>remove_tcp_socket</strong>(socket : <a href="../SF/TcpSocket.html">TcpSocket</a>)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1099" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="remove_udp_socket%28socket%20%3A%20UdpSocket%29-instance-method">
+        
+        def <strong>remove_udp_socket</strong>(socket : <a href="../SF/UdpSocket.html">UdpSocket</a>)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1103" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="to_unsafe-instance-method">
+        
+        def <strong>to_unsafe</strong>
+      </div>
+      
+        <div class="doc"><p>Get the underlying pointer</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1034" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="wait-instance-method">
+        
+        def <strong>wait</strong>
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network.cr#L51" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="wait%28timeout%20%3A%20Time%29-instance-method">
+        
+        def <strong>wait</strong>(timeout : <a href="../SF/Time.html">Time</a>)
+      </div>
+      
+        <div class="doc"><p>Wait until one or more sockets are ready to receive</p>
+
+<p>This function returns as soon as at least one socket has
+some data available to be received. To know which sockets are
+ready, use the SocketSelector_isXxxReady functions.
+If you use a timeout and no socket is ready before the timeout
+is over, the function returns False.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>selector</code>: Socket selector object</li><li><code>timeout</code>: Maximum time to wait (use TimeZero for infinity)</li></ul>
+
+<p><em>Returns</em>: True if there are sockets ready, False otherwise</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1134" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+
+
+</body>
+</html>

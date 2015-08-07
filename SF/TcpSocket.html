@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link href="../css/style.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript">
+    var pathToIndex = "../index.html"
+  </script>
+  <script type="text/javascript" src="../js/type.js"></script>
+</head>
+<body>
+
+
+  <h1>class SF::TcpSocket</h1>
+
+
+
+
+
+
+
+  <h2>Superclass hierarchy</h2>
+  <div style="padding-left: 0px">Object</div><div style="padding-left: 20px">Reference</div><div style="padding-left: 40px"><a href="../SF/TcpSocket.html">SF::TcpSocket</a></div>
+
+
+
+  <h2>Included Modules</h2>
+  
+    <a href="../SF/Wrapper.html">SF::Wrapper</a>
+  
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network.cr" target="_blank">network.cr</a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr" target="_blank">network_obj.cr</a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>Class Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#transfer_ptr%28ptr%29-class-method" class="signature"><strong>.transfer_ptr</strong>(ptr)</a>
+        
+          <div class="summary"><p>Transfer ownership of the pointer to the wrapper object.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#wrap_ptr%28ptr%29-class-method" class="signature"><strong>.wrap_ptr</strong>(ptr)</a>
+        
+          <div class="summary"><p>Put the pointer into the wrapper object.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28this%2C%20owned%20%3A%20Bool%29-class-method" class="signature"><strong>.new</strong>(this, owned : Bool)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new-class-method" class="signature"><strong>.new</strong></a>
+        
+          <div class="summary"><p>Create a new TCP socket</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul>
+    
+      <li class="entry-summary">
+        <a href="#blocking%3D%28blocking%20%3A%20Bool%29-instance-method" class="signature"><strong>#blocking=</strong>(blocking : Bool)</a>
+        
+          <div class="summary"><p>Set the blocking state of a TCP listener</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#blocking%3F-instance-method" class="signature"><strong>#blocking?</strong></a>
+        
+          <div class="summary"><p>Tell whether a TCP socket is in blocking or non-blocking mode</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#connect%28host%20%3A%20IpAddress%2C%20port%20%3A%20Int%2C%20timeout%20%3A%20Time%29-instance-method" class="signature"><strong>#connect</strong>(host : IpAddress, port : Int, timeout : Time)</a>
+        
+          <div class="summary"><p>Connect a TCP socket to a remote peer</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#connect%28host%20%3A%20IpAddress%2C%20port%20%3A%20Int%29-instance-method" class="signature"><strong>#connect</strong>(host : IpAddress, port : Int)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#disconnect-instance-method" class="signature"><strong>#disconnect</strong></a>
+        
+          <div class="summary"><p>Disconnect a TCP socket from its remote peer</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#finalize-instance-method" class="signature"><strong>#finalize</strong></a>
+        
+          <div class="summary"><p>Destroy a TCP socket</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#local_port-instance-method" class="signature"><strong>#local_port</strong></a>
+        
+          <div class="summary"><p>Get the port to which a TCP socket is bound locally</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#receive%28data%20%3A%20%3A%3APointer%28Void%29%2C%20max_size%20%3A%20Int%29%20%3A%20%3A%3ATuple%28SocketStatus%2C%20Int%29-instance-method" class="signature"><strong>#receive</strong>(data : ::Pointer(Void), max_size : Int) : ::Tuple(SocketStatus, Int)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#receive%28data%20%3A%20%3A%3APointer%28Void%29%2C%20max_size%20%3A%20Int%2C%20size_received%20%3A%20%3A%3APointer%28LibC%3A%3ASizeT%29%29-instance-method" class="signature"><strong>#receive</strong>(data : ::Pointer(Void), max_size : Int, size_received : ::Pointer(LibC::SizeT))</a>
+        
+          <div class="summary"><p>Receive raw data from the remote peer of a TCP socket</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#receive_packet%28packet%20%3A%20Packet%29-instance-method" class="signature"><strong>#receive_packet</strong>(packet : Packet)</a>
+        
+          <div class="summary"><p>Receive a formatted packet of data from the remote peer</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#remote_address-instance-method" class="signature"><strong>#remote_address</strong></a>
+        
+          <div class="summary"><p>Get the address of the connected peer of a TCP socket</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#remote_port-instance-method" class="signature"><strong>#remote_port</strong></a>
+        
+          <div class="summary"><p>Get the port of the connected peer to which a TCP socket is connected</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#send%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size%20%3A%20Int%29-instance-method" class="signature"><strong>#send</strong>(data : ::Pointer(Void), size : Int)</a>
+        
+          <div class="summary"><p>Send raw data to the remote peer of a TCP socket</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#send_packet%28packet%20%3A%20Packet%29-instance-method" class="signature"><strong>#send_packet</strong>(packet : Packet)</a>
+        
+          <div class="summary"><p>Send a formatted packet of data to the remote peer of a TCP socket</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#send_partial%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size%20%3A%20Int%29%20%3A%20%3A%3ATuple%28SocketStatus%2C%20Int%29-instance-method" class="signature"><strong>#send_partial</strong>(data : ::Pointer(Void), size : Int) : ::Tuple(SocketStatus, Int)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#send_partial%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size%20%3A%20Int%2C%20sent%20%3A%20%3A%3APointer%28LibC%3A%3ASizeT%29%29-instance-method" class="signature"><strong>#send_partial</strong>(data : ::Pointer(Void), size : Int, sent : ::Pointer(LibC::SizeT))</a>
+        
+          <div class="summary"><p>Send raw data to the remote peer</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_unsafe-instance-method" class="signature"><strong>#to_unsafe</strong></a>
+        
+          <div class="summary"><p>Get the underlying pointer</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+
+  <h2>Class Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="transfer_ptr%28ptr%29-class-method">
+        
+        def self.<strong>transfer_ptr</strong>(ptr)
+      </div>
+      
+        <div class="doc"><p>Transfer ownership of the pointer to the wrapper object.
+The pointer will be freed on GC.</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1272" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="wrap_ptr%28ptr%29-class-method">
+        
+        def self.<strong>wrap_ptr</strong>(ptr)
+      </div>
+      
+        <div class="doc"><p>Put the pointer into the wrapper object.
+The pointer will <strong>not</strong> be freed on GC.</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1272" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new%28this%2C%20owned%20%3A%20Bool%29-class-method">
+        
+        def self.<strong>new</strong>(this, owned : Bool)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1272" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="new-class-method">
+        
+        def self.<strong>new</strong>
+      </div>
+      
+        <div class="doc"><p>Create a new TCP socket</p>
+
+<p><em>Returns</em>: A new TcpSocket object</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1277" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail">
+      <div class="signature" id="blocking%3D%28blocking%20%3A%20Bool%29-instance-method">
+        
+        def <strong>blocking=</strong>(blocking : Bool)
+      </div>
+      
+        <div class="doc"><p>Set the blocking state of a TCP listener</p>
+
+<p>In blocking mode, calls will not return until they have
+completed their task. For example, a call to
+TcpSocket_receive in blocking mode won't return until
+new data was actually received.
+In non-blocking mode, calls will always return immediately,
+using the return code to signal whether there was data
+available or not.
+By default, all sockets are blocking.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>socket</code>: TCP socket object</li><li><code>blocking</code>: True to set the socket as blocking, False for non-blocking</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1306" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="blocking%3F-instance-method">
+        
+        def <strong>blocking?</strong>
+      </div>
+      
+        <div class="doc"><p>Tell whether a TCP socket is in blocking or non-blocking mode</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>socket</code>: TCP socket object</li></ul>
+
+<p><em>Returns</em>: True if the socket is blocking, False otherwise</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1318" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="connect%28host%20%3A%20IpAddress%2C%20port%20%3A%20Int%2C%20timeout%20%3A%20Time%29-instance-method">
+        
+        def <strong>connect</strong>(host : <a href="../SF/IpAddress.html">IpAddress</a>, port : Int, timeout : <a href="../SF/Time.html">Time</a>)
+      </div>
+      
+        <div class="doc"><p>Connect a TCP socket to a remote peer</p>
+
+<p>In blocking mode, this function may take a while, especially
+if the remote peer is not reachable. The last parameter allows
+you to stop trying to connect after a given timeout.
+If the socket was previously connected, it is first disconnected.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>socket</code>: TCP socket object</li><li><code><a href="../SF/TcpSocket.html#remote_address-instance-method">#remote_address</a></code>: Address of the remote peer</li><li><code><a href="../SF/TcpSocket.html#remote_port-instance-method">#remote_port</a></code>: Port of the remote peer</li><li><code>timeout</code>: Maximum time to wait</li></ul>
+
+<p><em>Returns</em>: Status code</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1378" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="connect%28host%20%3A%20IpAddress%2C%20port%20%3A%20Int%29-instance-method">
+        
+        def <strong>connect</strong>(host : <a href="../SF/IpAddress.html">IpAddress</a>, port : Int)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network.cr#L57" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="disconnect-instance-method">
+        
+        def <strong>disconnect</strong>
+      </div>
+      
+        <div class="doc"><p>Disconnect a TCP socket from its remote peer</p>
+
+<p>This function gracefully closes the connection. If the
+socket is not connected, this function has no effect.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>socket</code>: TCP socket object</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1391" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="finalize-instance-method">
+        
+        def <strong>finalize</strong>
+      </div>
+      
+        <div class="doc"><p>Destroy a TCP socket</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>socket</code>: TCP socket to destroy</li></ul></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1287" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="local_port-instance-method">
+        
+        def <strong>local_port</strong>
+      </div>
+      
+        <div class="doc"><p>Get the port to which a TCP socket is bound locally</p>
+
+<p>If the socket is not connected, this function returns 0.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>socket</code>: TCP socket object</li></ul>
+
+<p><em>Returns</em>: Port to which the socket is bound</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1331" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="receive%28data%20%3A%20%3A%3APointer%28Void%29%2C%20max_size%20%3A%20Int%29%20%3A%20%3A%3ATuple%28SocketStatus%2C%20Int%29-instance-method">
+        
+        def <strong>receive</strong>(data : ::Pointer(Void), max_size : Int) : ::Tuple(<a href="../SF/SocketStatus.html">SocketStatus</a>, Int)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network.cr#L66" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="receive%28data%20%3A%20%3A%3APointer%28Void%29%2C%20max_size%20%3A%20Int%2C%20size_received%20%3A%20%3A%3APointer%28LibC%3A%3ASizeT%29%29-instance-method">
+        
+        def <strong>receive</strong>(data : ::Pointer(Void), max_size : Int, size_received : ::Pointer(LibC::SizeT))
+      </div>
+      
+        <div class="doc"><p>Receive raw data from the remote peer of a TCP socket</p>
+
+<p>In blocking mode, this function will wait until some
+bytes are actually received.
+This function will fail if the socket is not connected.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>socket</code>: TCP socket object</li><li><code>data</code>: Pointer to the array to fill with the received bytes</li><li><code>size</code>: Maximum number of bytes that can be received</li><li><code>received</code>: This variable is filled with the actual number of bytes received</li></ul>
+
+<p><em>Returns</em>: Status code</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1445" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="receive_packet%28packet%20%3A%20Packet%29-instance-method">
+        
+        def <strong>receive_packet</strong>(packet : <a href="../SF/Packet.html">Packet</a>)
+      </div>
+      
+        <div class="doc"><p>Receive a formatted packet of data from the remote peer</p>
+
+<p>In blocking mode, this function will wait until the whole packet
+has been received.
+This function will fail if the socket is not connected.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>socket</code>: TCP socket object</li><li><code>packet</code>: Packet to fill with the received data</li></ul>
+
+<p><em>Returns</em>: Status code</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1480" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="remote_address-instance-method">
+        
+        def <strong>remote_address</strong>
+      </div>
+      
+        <div class="doc"><p>Get the address of the connected peer of a TCP socket</p>
+
+<p>It the socket is not connected, this function returns
+IpAddress_None.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>socket</code>: TCP socket object</li></ul>
+
+<p><em>Returns</em>: Address of the remote peer</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1345" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="remote_port-instance-method">
+        
+        def <strong>remote_port</strong>
+      </div>
+      
+        <div class="doc"><p>Get the port of the connected peer to which
+a TCP socket is connected</p>
+
+<p>If the socket is not connected, this function returns 0.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>socket</code>: TCP socket object</li></ul>
+
+<p><em>Returns</em>: Remote port to which the socket is connected</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1359" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="send%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size%20%3A%20Int%29-instance-method">
+        
+        def <strong>send</strong>(data : ::Pointer(Void), size : Int)
+      </div>
+      
+        <div class="doc"><p>Send raw data to the remote peer of a TCP socket</p>
+
+<p>To be able to handle partial sends over non-blocking
+sockets, use the TcpSocket_sendPartial(TcpSocket<em>, const void</em>, std::size_t, size_t*)
+overload instead.
+This function will fail if the socket is not connected.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>socket</code>: TCP socket object</li><li><code>data</code>: Pointer to the sequence of bytes to send</li><li><code>size</code>: Number of bytes to send</li></ul>
+
+<p><em>Returns</em>: Status code</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1409" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="send_packet%28packet%20%3A%20Packet%29-instance-method">
+        
+        def <strong>send_packet</strong>(packet : <a href="../SF/Packet.html">Packet</a>)
+      </div>
+      
+        <div class="doc"><p>Send a formatted packet of data to the remote peer of a TCP socket</p>
+
+<p>In non-blocking mode, if this function returns SocketPartial,
+you must retry sending the same unmodified packet before sending
+anything else in order to guarantee the packet arrives at the remote
+peer uncorrupted.
+This function will fail if the socket is not connected.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>socket</code>: TCP socket object</li><li><code>packet</code>: Packet to send</li></ul>
+
+<p><em>Returns</em>: Status code</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1464" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="send_partial%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size%20%3A%20Int%29%20%3A%20%3A%3ATuple%28SocketStatus%2C%20Int%29-instance-method">
+        
+        def <strong>send_partial</strong>(data : ::Pointer(Void), size : Int) : ::Tuple(<a href="../SF/SocketStatus.html">SocketStatus</a>, Int)
+      </div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network.cr#L61" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="send_partial%28data%20%3A%20%3A%3APointer%28Void%29%2C%20size%20%3A%20Int%2C%20sent%20%3A%20%3A%3APointer%28LibC%3A%3ASizeT%29%29-instance-method">
+        
+        def <strong>send_partial</strong>(data : ::Pointer(Void), size : Int, sent : ::Pointer(LibC::SizeT))
+      </div>
+      
+        <div class="doc"><p>Send raw data to the remote peer</p>
+
+<p>This function will fail if the socket is not connected.</p>
+
+<p><em>Arguments</em>:</p>
+
+<ul><li><code>socket</code>: TCP socket object</li><li><code>data</code>: Pointer to the sequence of bytes to send</li><li><code>size</code>: Number of bytes to send</li><li><code>sent</code>: The number of bytes sent will be written here</li></ul>
+
+<p><em>Returns</em>: Status code</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1426" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+    <div class="entry-detail">
+      <div class="signature" id="to_unsafe-instance-method">
+        
+        def <strong>to_unsafe</strong>
+      </div>
+      
+        <div class="doc"><p>Get the underlying pointer</p></div>
+      
+      
+        <br/>
+        <div>[<a href="https://github.com/BlaXpirit/crsfml/blob/v2.3.1/src/network_obj.cr#L1272" target="_blank">View source</a>]</div>
+      
+    </div>
+    <hr/>
+  
+
+
+
+
+
+</body>
+</html>
