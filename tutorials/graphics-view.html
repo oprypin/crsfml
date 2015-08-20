@@ -1,0 +1,821 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Controlling the 2D camera with views | CrSFML Tutorials</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.2.0">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="gitbook/style.css">
+    
+    
+
+        
+    
+    
+    <link rel="next" href="./audio-sounds.html" />
+    
+    
+    <link rel="prev" href="./graphics-shader.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book" data-level="4.8" data-basepath="." data-revision="Thu Aug 20 2015 13:04:05 GMT+0300 (EEST)">
+    
+
+<div class="book-summary">
+    <div class="book-search">
+        <input type="text" placeholder="Type to search" class="form-control" />
+    </div>
+    <ul class="summary">
+        
+        
+        
+            
+            <li>
+                <a href="http://github.com/BlaXpirit/crsfml" target="blank" class="custom-link">CrSFML</a>
+            </li>
+        
+        
+
+        
+        <li class="divider"></li>
+        
+
+        
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="./index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" >
+            
+            <span><b>1.</b> Getting started</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="start-vc.html">
+            
+                
+                    <a href="./start-vc.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        SFML and Visual Studio
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="start-cb.html">
+            
+                
+                    <a href="./start-cb.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        SFML and Code::Blocks (MinGW)
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="start-linux.html">
+            
+                
+                    <a href="./start-linux.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.</b>
+                        
+                        SFML and Linux
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="start-osx.html">
+            
+                
+                    <a href="./start-osx.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.</b>
+                        
+                        SFML and Xcode (Mac OS X)
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="compile-with-cmake.html">
+            
+                
+                    <a href="./compile-with-cmake.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.5.</b>
+                        
+                        Compiling SFML with CMake
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" >
+            
+            <span><b>2.</b> System module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="system-time.html">
+            
+                
+                    <a href="./system-time.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        Handling time
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="system-thread.html">
+            
+                
+                    <a href="./system-thread.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        Threads
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="system-stream.html">
+            
+                
+                    <a href="./system-stream.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        User data streams
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" >
+            
+            <span><b>3.</b> Window module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="window-window.html">
+            
+                
+                    <a href="./window-window.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        Opening and managing an SFML window
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="window-events.html">
+            
+                
+                    <a href="./window-events.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        Events explained
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="window-inputs.html">
+            
+                
+                    <a href="./window-inputs.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        Keyboard, mouse and joysticks
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="window-opengl.html">
+            
+                
+                    <a href="./window-opengl.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        Using OpenGL in a SFML window
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" >
+            
+            <span><b>4.</b> Graphics module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="graphics-draw.html">
+            
+                
+                    <a href="./graphics-draw.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        Drawing 2D stuff
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="graphics-sprite.html">
+            
+                
+                    <a href="./graphics-sprite.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        Sprites and textures
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="graphics-text.html">
+            
+                
+                    <a href="./graphics-text.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.</b>
+                        
+                        Text and fonts
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="graphics-shape.html">
+            
+                
+                    <a href="./graphics-shape.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.</b>
+                        
+                        Shapes
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.5" data-path="graphics-vertex-array.html">
+            
+                
+                    <a href="./graphics-vertex-array.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.5.</b>
+                        
+                        Designing your own entities with vertex arrays
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.6" data-path="graphics-transform.html">
+            
+                
+                    <a href="./graphics-transform.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.6.</b>
+                        
+                        Position, rotation, scale: transforming entities
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.7" data-path="graphics-shader.html">
+            
+                
+                    <a href="./graphics-shader.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.7.</b>
+                        
+                        Adding special effects with shaders
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="4.8" data-path="graphics-view.html">
+            
+                
+                    <a href="./graphics-view.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.8.</b>
+                        
+                        Controlling the 2D camera with views
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5" >
+            
+            <span><b>5.</b> Audio module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1" data-path="audio-sounds.html">
+            
+                
+                    <a href="./audio-sounds.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.1.</b>
+                        
+                        Playing sounds and music
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="audio-recording.html">
+            
+                
+                    <a href="./audio-recording.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.</b>
+                        
+                        Recording audio
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.3" data-path="audio-streams.html">
+            
+                
+                    <a href="./audio-streams.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.3.</b>
+                        
+                        Custom audio streams
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4" data-path="audio-spatialization.html">
+            
+                
+                    <a href="./audio-spatialization.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.4.</b>
+                        
+                        Spatialization: Sounds in 3D
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="6" >
+            
+            <span><b>6.</b> Network module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1" data-path="network-socket.html">
+            
+                
+                    <a href="./network-socket.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.1.</b>
+                        
+                        Communication using sockets
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="network-packet.html">
+            
+                
+                    <a href="./network-packet.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.2.</b>
+                        
+                        Using and extending packets
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" data-path="network-http.html">
+            
+                
+                    <a href="./network-http.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.3.</b>
+                        
+                        Web requests with HTTP
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.4" data-path="network-ftp.html">
+            
+                
+                    <a href="./network-ftp.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.4.</b>
+                        
+                        File transfers with FTP
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+        
+        <li class="divider"></li>
+        <li>
+            <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                Published with GitBook
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header">
+    <!-- Actions Left -->
+    <a href="#" class="btn pull-left toggle-summary" aria-label="Table of Contents"><i class="fa fa-align-justify"></i></a>
+    <a href="#" class="btn pull-left toggle-search" aria-label="Search"><i class="fa fa-search"></i></a>
+    
+    <div id="font-settings-wrapper" class="dropdown pull-left">
+        <a href="#" class="btn toggle-dropdown" aria-label="Font Settings"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+    <div class="buttons">
+        <button type="button" id="reduce-font-size" class="button size-2">A</button>
+        <button type="button" id="enlarge-font-size" class="button size-2">A</button>
+    </div>
+
+    <div class="buttons font-family-list">
+        <button type="button" data-font="0" class="button">Serif</button>
+        <button type="button" data-font="1" class="button">Sans</button>
+    </div>
+
+    <div class="buttons color-theme-list">
+        <button type="button" id="color-theme-preview-0" class="button size-3" data-theme="0">White</button>
+        <button type="button" id="color-theme-preview-1" class="button size-3" data-theme="1">Sepia</button>
+        <button type="button" id="color-theme-preview-2" class="button size-3" data-theme="2">Night</button>
+    </div>
+</div>
+
+    </div>
+
+    <!-- Actions Right -->
+    
+    <div class="dropdown pull-right">
+        <a href="#" class="btn toggle-dropdown" aria-label="Share"><i class="fa fa-share-alt"></i>
+        </a>
+        <div class="dropdown-menu font-settings dropdown-left">
+            <div class="dropdown-caret">
+                <span class="caret-outer"></span>
+                <span class="caret-inner"></span>
+            </div>
+            <div class="buttons">
+                <button type="button" data-sharing="twitter" class="button">
+                    Share on Twitter
+                </button>
+                <button type="button" data-sharing="google-plus" class="button">
+                    Share on Google
+                </button>
+                <button type="button" data-sharing="facebook" class="button">
+                    Share on Facebook
+                </button>
+                <button type="button" data-sharing="weibo" class="button">
+                    Share on Weibo
+                </button>
+                <button type="button" data-sharing="instapaper" class="button">
+                    Share on Instapaper
+                </button>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    
+    
+    
+    
+
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="./" >CrSFML Tutorials</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="controlling-the-2d-camera-with-views">Controlling the 2D camera with views</h1>
+<h2 id="what-is-a-view">What is a view?</h2>
+<p>In games, it is not uncommon to have levels which are much bigger than the window itself. You only see is a small part of them. This is typically the case in RPGs, platform games, and many other genres. What developers might tend to forget is that they define entities <em>in a 2D world</em>, not directly in the window. The window is just a view, it shows a specific area of the whole world. It is perfectly fine to draw several views of the same world in parallel, or draw the world to a texture rather than to a window. The world itself remains unchanged, what changes is just the way it is seen. </p>
+<p>Since what is seen in the window is just a small part of the entire 2D world, you need a way to specify which part of the world is shown in the window. Additionally, you may also want to define where/how this area will be shown <em>within</em> the window. These are the two main features of SFML views. </p>
+<p>To summarize, views are what you need if you want to scroll, rotate or zoom your world. They are also the key to creating split screens and mini-maps. </p>
+<h2 id="defining-what-the-view-views">Defining what the view views</h2>
+<p>The class which encapsulates views in SFML is <a href="http://blaxpirit.github.io/crsfml/SF/api/View.html" target="_blank">View</a>. It can be constructed directly with a definition of the area to view: </p>
+<pre><code>// create a view with the rectangular area of the 2D world to show
+sf::View view1(sf::FloatRect(200, 200, 300, 200));
+
+// create a view with its center and size
+sf::View view2(sf::Vector2f(350, 300), sf::Vector2f(300, 200));
+</code></pre><p>These two definitions are equivalent: Both views will show the same area of the 2D world, a 300x200 rectangle <em>centered</em> on the point (350, 300). </p>
+<p><img src="images/graphics-view-initial.png" alt=""></p>
+<p>If you don&apos;t want to define the view upon construction or want to modify it later, you can use the equivalent setters: </p>
+<pre><code>sf::View view1;
+view1.reset(sf::FloatRect(200, 200, 300, 200));
+
+sf::View view2;
+view2.setCenter(sf::Vector2f(350, 300));
+view2.setSize(sf::Vector2f(200, 200));
+</code></pre><p>Once your view is defined, you can transform it to make it show a translated/rotated/scaled version of your 2D world. </p>
+<h3 id="moving-scrolling-the-view">Moving (scrolling) the view</h3>
+<p>Unlike drawable entities, such as sprites or shapes whose positions are defined by their top-left corner (and can be changed to any other point), views are always manipulated by their center -- this is simply more convenient. That&apos;s why the function to change the position of a view is named <code>setCenter</code>, and not <code>setPosition</code>. </p>
+<pre><code>// move the view at point (200, 200)
+view.setCenter(200, 200);
+
+// move the view by an offset of (100, 100) (so its final position is (300, 300))
+view.move(100, 100);
+</code></pre><p><img src="images/graphics-view-translated.png" alt=""></p>
+<h3 id="rotating-the-view">Rotating the view</h3>
+<p>To rotate a view, use the <code>setRotation</code> function. </p>
+<pre><code>// rotate the view at 20 degrees
+view.setRotation(20);
+
+// rotate the view by 5 degrees relatively to its current orientation (so its final orientation is 25 degrees)
+view.rotate(5);
+</code></pre><p><img src="images/graphics-view-rotated.png" alt=""></p>
+<h3 id="zooming-scaling-the-view">Zooming (scaling) the view</h3>
+<p>Zooming in (or out) a view is done through to resizing it, so the function to use is <code>setSize</code>. </p>
+<pre><code>// resize the view to show a 1200x800 area (we see a bigger area, so this is a zoom out)
+view.setSize(1200, 800);
+
+// zoom the view relatively to its current size (apply a factor 0.5, so its final size is 600x400)
+view.zoom(0.5f);
+</code></pre><p><img src="images/graphics-view-scaled.png" alt=""></p>
+<h2 id="defining-how-the-view-is-viewed">Defining how the view is viewed</h2>
+<p>Now that you&apos;ve defined which part of the 2D world is seen in the window, let&apos;s define <em>where</em> it is shown. By default, the viewed contents occupy the full window. If the view has the same size as the window, everything is rendered 1:1. If the view is smaller or larger than the window, everything is scaled to fit in the window. </p>
+<p>This default behavior is suitable for most situations, but it might need to be changed sometimes. For example, to split the screen in a multiplayer game, you may want to use two views which each only occupy half of the window. You can also implement a minimap by drawing your entire world to a view which is rendered in a small area in a corner of the window. The area in which the contents of the view is shown is called the <em>viewport</em>. </p>
+<p>To set the viewport of a view, you can use the <code>setViewport</code> function. </p>
+<pre><code>// define a centered viewport, with half the size of the window
+view.setViewport(sf::FloatRect(0.25f, 0.25, 0.5f, 0.5f));
+</code></pre><p><img src="images/graphics-view-viewport.png" alt=""></p>
+<p>You might have noticed something very important: The viewport is not defined in pixels, but instead as a ratio of the window size. This is more convenient: It allows you to not have to track resize events in order to update the size of the viewport every time the size of the window changes. It is also more intuitive: You would probably define your viewport as a fraction of the entire window area anyway, not as a fixed-size rectangle. </p>
+<p>Using a viewport, it is straightforward to split the screen for multiplayer games: </p>
+<pre><code>// player 1 (left side of the screen)
+player1View.setViewport(sf::FloatRect(0, 0, 0.5f, 1));
+
+// player 2 (right side of the screen)
+player2View.setViewport(sf::FloatRect(0.5f, 0, 0.5f, 1));
+</code></pre><p><img src="images/graphics-view-split-screen.png" alt=""></p>
+<p>... or a mini-map: </p>
+<pre><code>// the game view (full window)
+gameView.setViewport(sf::FloatRect(0, 0, 1, 1));
+
+// mini-map (upper-right corner)
+minimapView.setViewport(sf::FloatRect(0.75f, 0, 0.25f, 0.25f));
+</code></pre><p><img src="images/graphics-view-minimap.png" alt=""></p>
+<h2 id="using-a-view">Using a view</h2>
+<p>To draw something using a view, you must draw it after calling the <code>setView</code> function of the target to which you are drawing (<a href="http://blaxpirit.github.io/crsfml/SF/api/RenderWindow.html" target="_blank">RenderWindow</a> or <a href="http://blaxpirit.github.io/crsfml/SF/api/RenderTexture.html" target="_blank">RenderTexture</a>). </p>
+<pre><code>// let&apos;s define a view
+sf::View view(sf::FloatRect(0, 0, 1000, 600));
+
+// activate it
+window.setView(view);
+
+// draw something to that view
+window.draw(some_sprite);
+
+// want to do visibility checks? retrieve the view
+sf::View currentView = window.getView();
+...
+</code></pre><p>The view remains active until you set another one. This means that there is always a view which defines what appears in the target, and where it is drawn. If you don&apos;t explicitly set any view, the render-target uses its own default view, which matches its size 1:1. You can get the default view of a render-target with the <code>getDefaultView</code> function. This can be useful if you want to define your own view based on it, or restore it to draw fixed entities (like a GUI) on top of your scene. </p>
+<pre><code>// create a view half the size of the default view
+sf::View view = window.getDefaultView();
+view.zoom(0.5f);
+window.setView(view);
+
+// restore the default view
+window.setView(window.getDefaultView());
+</code></pre><p>When you call <code>setView</code>, the render-target makes a <em>copy</em> of the view, and doesn&apos;t store a pointer to the one that is passed. This means that whenever you update your view, you need to call <code>setView</code> again to apply the modifications.<br>Don&apos;t be afraid to copy views or create them on the fly, they aren&apos;t expensive objects (they just hold a few floats). </p>
+<h2 id="showing-more-when-the-window-is-resized">Showing more when the window is resized</h2>
+<p>Since the default view never changes after the window is created, the viewed contents are always the same. So when the window is resized, everything is squeezed/stretched to the new size. </p>
+<p>If, instead of this default behavior, you&apos;d like to show more/less stuff depending on the new size of the window, all you have to do is update the size of the view with the size of the window. </p>
+<pre><code>// the event loop
+sf::Event event;
+while (window.pollEvent(event))
+{
+    ...
+
+    // catch the resize events
+    if (event.type == sf::Event::Resized)
+    {
+        // update the view to the new size of the window
+        sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
+        window.setView(sf::View(visibleArea));
+    }
+}
+</code></pre><h2 id="coordinates-conversions">Coordinates conversions</h2>
+<p>When you use a custom view, or when you resize the window without using the code above, pixels displayed on the target no longer match units in the 2D world. For example, clicking on pixel (10, 50) may hit the point (26.5, -84) of your world. You end up having to use a conversion function to map your pixel coordinates to world coordinates: <code>mapPixelToCoords</code>. </p>
+<pre><code>// get the current mouse position in the window
+sf::Vector2i pixelPos = sf::Mouse::getPosition(window);
+
+// convert it to world coordinates
+sf::Vector2f worldPos = window.mapPixelToCoords(pixelPos);
+</code></pre><p>By default, <code>mapPixelToCoords</code> uses the current view. If you want to convert the coordinates using view which is not the active one, you can pass it as an additional argument to the function. </p>
+<p>The opposite, converting world coordinates to pixel coordinates, is also possible with the <code>mapCoordsToPixel</code> function. </p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="./graphics-shader.html" class="navigation navigation-prev " aria-label="Previous page: Adding special effects with shaders"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="./audio-sounds.html" class="navigation navigation-next " aria-label="Next page: Playing sounds and music"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="gitbook/app.js"></script>
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"fontSettings":{"theme":null,"family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

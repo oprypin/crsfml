@@ -1,0 +1,842 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Adding special effects with shaders | CrSFML Tutorials</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.2.0">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="gitbook/style.css">
+    
+    
+
+        
+    
+    
+    <link rel="next" href="./graphics-view.html" />
+    
+    
+    <link rel="prev" href="./graphics-transform.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book" data-level="4.7" data-basepath="." data-revision="Thu Aug 20 2015 13:04:05 GMT+0300 (EEST)">
+    
+
+<div class="book-summary">
+    <div class="book-search">
+        <input type="text" placeholder="Type to search" class="form-control" />
+    </div>
+    <ul class="summary">
+        
+        
+        
+            
+            <li>
+                <a href="http://github.com/BlaXpirit/crsfml" target="blank" class="custom-link">CrSFML</a>
+            </li>
+        
+        
+
+        
+        <li class="divider"></li>
+        
+
+        
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="./index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" >
+            
+            <span><b>1.</b> Getting started</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="start-vc.html">
+            
+                
+                    <a href="./start-vc.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        SFML and Visual Studio
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="start-cb.html">
+            
+                
+                    <a href="./start-cb.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        SFML and Code::Blocks (MinGW)
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="start-linux.html">
+            
+                
+                    <a href="./start-linux.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.</b>
+                        
+                        SFML and Linux
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="start-osx.html">
+            
+                
+                    <a href="./start-osx.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.</b>
+                        
+                        SFML and Xcode (Mac OS X)
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="compile-with-cmake.html">
+            
+                
+                    <a href="./compile-with-cmake.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.5.</b>
+                        
+                        Compiling SFML with CMake
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" >
+            
+            <span><b>2.</b> System module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="system-time.html">
+            
+                
+                    <a href="./system-time.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        Handling time
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="system-thread.html">
+            
+                
+                    <a href="./system-thread.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        Threads
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="system-stream.html">
+            
+                
+                    <a href="./system-stream.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        User data streams
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" >
+            
+            <span><b>3.</b> Window module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="window-window.html">
+            
+                
+                    <a href="./window-window.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        Opening and managing an SFML window
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="window-events.html">
+            
+                
+                    <a href="./window-events.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        Events explained
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="window-inputs.html">
+            
+                
+                    <a href="./window-inputs.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        Keyboard, mouse and joysticks
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="window-opengl.html">
+            
+                
+                    <a href="./window-opengl.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        Using OpenGL in a SFML window
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" >
+            
+            <span><b>4.</b> Graphics module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="graphics-draw.html">
+            
+                
+                    <a href="./graphics-draw.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        Drawing 2D stuff
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="graphics-sprite.html">
+            
+                
+                    <a href="./graphics-sprite.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        Sprites and textures
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="graphics-text.html">
+            
+                
+                    <a href="./graphics-text.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.</b>
+                        
+                        Text and fonts
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="graphics-shape.html">
+            
+                
+                    <a href="./graphics-shape.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.</b>
+                        
+                        Shapes
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.5" data-path="graphics-vertex-array.html">
+            
+                
+                    <a href="./graphics-vertex-array.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.5.</b>
+                        
+                        Designing your own entities with vertex arrays
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.6" data-path="graphics-transform.html">
+            
+                
+                    <a href="./graphics-transform.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.6.</b>
+                        
+                        Position, rotation, scale: transforming entities
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="4.7" data-path="graphics-shader.html">
+            
+                
+                    <a href="./graphics-shader.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.7.</b>
+                        
+                        Adding special effects with shaders
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.8" data-path="graphics-view.html">
+            
+                
+                    <a href="./graphics-view.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.8.</b>
+                        
+                        Controlling the 2D camera with views
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5" >
+            
+            <span><b>5.</b> Audio module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1" data-path="audio-sounds.html">
+            
+                
+                    <a href="./audio-sounds.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.1.</b>
+                        
+                        Playing sounds and music
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="audio-recording.html">
+            
+                
+                    <a href="./audio-recording.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.</b>
+                        
+                        Recording audio
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.3" data-path="audio-streams.html">
+            
+                
+                    <a href="./audio-streams.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.3.</b>
+                        
+                        Custom audio streams
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4" data-path="audio-spatialization.html">
+            
+                
+                    <a href="./audio-spatialization.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.4.</b>
+                        
+                        Spatialization: Sounds in 3D
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="6" >
+            
+            <span><b>6.</b> Network module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1" data-path="network-socket.html">
+            
+                
+                    <a href="./network-socket.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.1.</b>
+                        
+                        Communication using sockets
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="network-packet.html">
+            
+                
+                    <a href="./network-packet.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.2.</b>
+                        
+                        Using and extending packets
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" data-path="network-http.html">
+            
+                
+                    <a href="./network-http.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.3.</b>
+                        
+                        Web requests with HTTP
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.4" data-path="network-ftp.html">
+            
+                
+                    <a href="./network-ftp.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.4.</b>
+                        
+                        File transfers with FTP
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+        
+        <li class="divider"></li>
+        <li>
+            <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                Published with GitBook
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header">
+    <!-- Actions Left -->
+    <a href="#" class="btn pull-left toggle-summary" aria-label="Table of Contents"><i class="fa fa-align-justify"></i></a>
+    <a href="#" class="btn pull-left toggle-search" aria-label="Search"><i class="fa fa-search"></i></a>
+    
+    <div id="font-settings-wrapper" class="dropdown pull-left">
+        <a href="#" class="btn toggle-dropdown" aria-label="Font Settings"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+    <div class="buttons">
+        <button type="button" id="reduce-font-size" class="button size-2">A</button>
+        <button type="button" id="enlarge-font-size" class="button size-2">A</button>
+    </div>
+
+    <div class="buttons font-family-list">
+        <button type="button" data-font="0" class="button">Serif</button>
+        <button type="button" data-font="1" class="button">Sans</button>
+    </div>
+
+    <div class="buttons color-theme-list">
+        <button type="button" id="color-theme-preview-0" class="button size-3" data-theme="0">White</button>
+        <button type="button" id="color-theme-preview-1" class="button size-3" data-theme="1">Sepia</button>
+        <button type="button" id="color-theme-preview-2" class="button size-3" data-theme="2">Night</button>
+    </div>
+</div>
+
+    </div>
+
+    <!-- Actions Right -->
+    
+    <div class="dropdown pull-right">
+        <a href="#" class="btn toggle-dropdown" aria-label="Share"><i class="fa fa-share-alt"></i>
+        </a>
+        <div class="dropdown-menu font-settings dropdown-left">
+            <div class="dropdown-caret">
+                <span class="caret-outer"></span>
+                <span class="caret-inner"></span>
+            </div>
+            <div class="buttons">
+                <button type="button" data-sharing="twitter" class="button">
+                    Share on Twitter
+                </button>
+                <button type="button" data-sharing="google-plus" class="button">
+                    Share on Google
+                </button>
+                <button type="button" data-sharing="facebook" class="button">
+                    Share on Facebook
+                </button>
+                <button type="button" data-sharing="weibo" class="button">
+                    Share on Weibo
+                </button>
+                <button type="button" data-sharing="instapaper" class="button">
+                    Share on Instapaper
+                </button>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    
+    
+    
+    
+
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="./" >CrSFML Tutorials</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="adding-special-effects-with-shaders">Adding special effects with shaders</h1>
+<h2 id="introduction">Introduction</h2>
+<p>A shader is a small program that is executed on the graphics card. It provides the programmer with more control over the drawing process and in a more flexible and simple way than using the fixed set of states and operations provided by OpenGL. With this additional flexibility, shaders are used to create effects that would be too complicated, if not impossible, to describe with regular OpenGL functions: Per-pixel lighting, shadows, etc. Today&apos;s graphics cards and newer versions of OpenGL are already entirely shader-based, and the fixed set of states and functions (which is called the &quot;fixed pipeline&quot;) that you might know of has been deprecated and will likely be removed in the future. </p>
+<p>Shaders are written in GLSL (<em>OpenGL Shading Language</em>), which is very similar to the C programming language. </p>
+<p>There are two types of shaders: vertex shaders and fragment (or pixel) shaders. Vertex shaders are run for each vertex, while fragment shaders are run for every generated fragment (pixel). Depending on what kind of effect you want to achieve, you can provide a vertex shader, a fragment shader, or both. </p>
+<p>To understand what shaders do and how to use them efficiently, it is important to understand the basics of the rendering pipeline. You must also learn how to write GLSL programs and find good tutorials and examples to get started. You can also have a look at the &quot;Shader&quot; example that comes with the SFML SDK. </p>
+<p>This tutorial will only focus on the SFML specific part: Loading and applying your shaders -- not writing them. </p>
+<h2 id="loading-shaders">Loading shaders</h2>
+<p>In SFML, shaders are represented by the <a href="http://blaxpirit.github.io/crsfml/SF/api/Shader.html" target="_blank">Shader</a> class. It handles both the vertex and fragment shaders: A <a href="http://blaxpirit.github.io/crsfml/SF/api/Shader.html" target="_blank">Shader</a> object is a combination of both (or only one, if the other is not provided). </p>
+<p>Even though shaders have become commonplace, there are still old graphics cards that might not support them. The first thing you should do in your program is check if shaders are available on the system: </p>
+<pre><code>if (!sf::Shader::isAvailable())
+{
+    // shaders are not available...
+}
+</code></pre><p>Any attempt to use the <a href="http://blaxpirit.github.io/crsfml/SF/api/Shader.html" target="_blank">Shader</a> class will fail if <code>sf::Shader::isAvailable()</code> returns <code>false</code>. </p>
+<p>The most common way of loading a shader is from a file on disk, which is done with the <code>loadFromFile</code> function. </p>
+<pre><code>sf::Shader shader;
+
+// load only the vertex shader
+if (!shader.loadFromFile(&quot;vertex_shader.vert&quot;, sf::Shader::Vertex))
+{
+    // error...
+}
+
+// load only the fragment shader
+if (!shader.loadFromFile(&quot;fragment_shader.frag&quot;, sf::Shader::Fragment))
+{
+    // error...
+}
+
+// load both shaders
+if (!shader.loadFromFile(&quot;vertex_shader.vert&quot;, &quot;fragment_shader.frag&quot;))
+{
+    // error...
+}
+</code></pre><p>Shader source is contained in simple text files (like your C++ code). Their extension doesn&apos;t really matter, it can be anything you want, you can even omit it. &quot;.vert&quot; and &quot;.frag&quot; are just examples of possible extensions. </p>
+<p>The <code>loadFromFile</code> function can sometimes fail with no obvious reason. First, check the error message that SFML prints to the standard output (check the console). If the message is unable to open file, make sure that the <em>working directory</em> (which is the directory that any file path will be interpreted relative to) is what you think it is: When you run the application from your desktop environment, the working directory is the executable folder. However, when you launch your program from your IDE (Visual Studio, Code::Blocks, ...) the working directory might sometimes be set to the <em>project</em> directory instead. This can usually be changed quite easily in the project settings. </p>
+<p>Shaders can also be loaded directly from strings, with the <code>loadFromMemory</code> function. This can be useful if you want to embed the shader source directly into your program. </p>
+<pre><code>const std::string vertexShader = \
+    &quot;void main()&quot; \
+    &quot;{&quot; \
+    &quot;    ...&quot; \
+    &quot;}&quot;;
+
+const std::string fragmentShader = \
+    &quot;void main()&quot; \
+    &quot;{&quot; \
+    &quot;    ...&quot; \
+    &quot;}&quot;;
+
+// load only the vertex shader
+if (!shader.loadFromMemory(vertexShader, sf::Shader::Vertex))
+{
+    // error...
+}
+
+// load only the fragment shader
+if (!shader.loadFromMemory(fragmentShader, sf::Shader::Fragment))
+{
+    // error...
+}
+
+// load both shaders
+if (!shader.loadFromMemory(vertexShader, fragmentShader))
+{
+    // error...
+}
+</code></pre><p>And finally, like all other SFML resources, shaders can also be loaded from a <a href="system-stream.html" title="Input streams tutorial">custom input stream</a> with the <code>loadFromStream</code> function. </p>
+<p>If loading fails, don&apos;t forget to check the standard error output (the console) to see a detailed report from the GLSL compiler. </p>
+<h2 id="using-a-shader">Using a shader</h2>
+<p>Using a shader is simple, just pass it as an additional argument to the <code>draw</code> function. </p>
+<pre><code>window.draw(whatever, &amp;shader);
+</code></pre><h2 id="passing-variables-to-a-shader">Passing variables to a shader</h2>
+<p>Like any other program, a shader can take parameters so that it is able to behave differently from one draw to another. These parameters are declared as global variables known as <em>uniforms</em> in the shader. </p>
+<pre><code>uniform float myvar;
+
+void main()
+{
+    // use myvar...
+}
+</code></pre><p>Uniforms can be set by the C++ program, using the various overloads of the <code>setParameter</code> function in the <a href="http://blaxpirit.github.io/crsfml/SF/api/Shader.html" target="_blank">Shader</a> class. </p>
+<pre><code>shader.setParameter(&quot;myvar&quot;, 5.f);
+</code></pre><p><code>setParameter</code>&apos;s overloads support all the types provided by SFML: </p>
+<ul>
+<li><code>float</code> (GLSL type <code>float</code>)</li>
+<li><code>2 floats, sf::Vector2f</code> (GLSL type <code>vec2</code>)</li>
+<li><code>3 floats, sf::Vector3f</code> (GLSL type <code>vec3</code>)</li>
+<li><code>4 floats</code> (GLSL type <code>vec4</code>)</li>
+<li><code>sf::Color</code> (GLSL type <code>vec4</code>)</li>
+<li><code>sf::Transform</code> (GLSL type <code>mat4</code>)</li>
+<li><code>sf::Texture</code> (GLSL type <code>sampler2D</code>)</li>
+</ul>
+<p>The GLSL compiler optimizes out unused variables (here, &quot;unused&quot; means &quot;not involved in the calculation of the final vertex/pixel&quot;). So don&apos;t be surprised if you get error messages such as Failed to find variable &quot;xxx&quot; in shader when you call <code>setParameter</code> during your tests. </p>
+<h2 id="minimal-shaders">Minimal shaders</h2>
+<p>You won&apos;t learn how to write GLSL shaders here, but it is essential that you know what input SFML provides to the shaders and what it expects you to do with it. </p>
+<h3 id="vertex-shader">Vertex shader</h3>
+<p>SFML has a fixed vertex format which is described by the <a href="http://blaxpirit.github.io/crsfml/SF/api/Vertex.html" target="_blank">Vertex</a> structure. An SFML vertex contains a 2D position, a color, and 2D texture coordinates. This is the exact input that you will get in the vertex shader, stored in the built-in <code>gl_Vertex</code>, <code>gl_MultiTexCoord0</code> and <code>gl_Color</code> variables (you don&apos;t need to declare them). </p>
+<pre><code>void main()
+{
+    // transform the vertex position
+    gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
+
+    // transform the texture coordinates
+    gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;
+
+    // forward the vertex color
+    gl_FrontColor = gl_Color;
+}
+</code></pre><p>The position usually needs to be transformed by the model-view and projection matrices, which contain the entity transform combined with the current view. The texture coordinates need to be transformed by the texture matrix (this matrix likely doesn&apos;t mean anything to you, it is just an SFML implementation detail). And finally, the color just needs to be forwarded. Of course, you can ignore the texture coordinates and/or the color if you don&apos;t make use of them.<br>All these variables will then be interpolated over the primitive by the graphics card, and passed to the fragment shader. </p>
+<h3 id="fragment-shader">Fragment shader</h3>
+<p>The fragment shader functions quite similarly: It receives the texture coordinates and the color of a generated fragment. There&apos;s no position any more, at this point the graphics card has already computed the final raster position of the fragment. However if you deal with textured entities, you&apos;ll also need the current texture. </p>
+<pre><code>uniform sampler2D texture;
+
+void main()
+{
+    // lookup the pixel in the texture
+    vec4 pixel = texture2D(texture, gl_TexCoord[0].xy);
+
+    // multiply it by the color
+    gl_FragColor = gl_Color * pixel;
+}
+</code></pre><p>The current texture is not automatic, you need to treat it like you do the other input variables, and explicitly set it from your C++ program. Since each entity can have a different texture, and worse, there might be no way for you to get it and pass it to the shader, SFML provides a special overload of the <code>setParameter</code> function that does this job for you. </p>
+<pre><code>shader.setParameter(&quot;texture&quot;, sf::Shader::CurrentTexture);
+</code></pre><p>This special parameter automatically sets the texture of the entity being drawn to the shader variable with the given name. Every time you draw a new entity, SFML will update the shader texture variable accordingly. </p>
+<p>If you want to see nice examples of shaders in action, you can have a look at the Shader example in the SFML SDK. </p>
+<h2 id="using-a-sf-shader-with-opengl-code">Using a sf::Shader with OpenGL code</h2>
+<p>If you&apos;re using OpenGL rather than the graphics entities of SFML, you can still use <a href="http://blaxpirit.github.io/crsfml/SF/api/Shader.html" target="_blank">Shader</a> as a wrapper around an OpenGL program object and use it within your OpenGL code. </p>
+<p>To activate a <a href="http://blaxpirit.github.io/crsfml/SF/api/Shader.html" target="_blank">Shader</a> for drawing (the equivalent of <code>glUseProgram</code>), you have to call the <code>bind</code> static function: </p>
+<pre><code>sf::Shader shader;
+...
+
+// bind the shader
+sf::Shader::bind(&amp;shader);
+
+// draw your OpenGL entity here...
+
+// bind no shader
+sf::Shader::bind(NULL);
+</code></pre>
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="./graphics-transform.html" class="navigation navigation-prev " aria-label="Previous page: Position, rotation, scale: transforming entities"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="./graphics-view.html" class="navigation navigation-next " aria-label="Next page: Controlling the 2D camera with views"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="gitbook/app.js"></script>
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"fontSettings":{"theme":null,"family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

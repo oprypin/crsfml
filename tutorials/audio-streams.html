@@ -1,0 +1,816 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Custom audio streams | CrSFML Tutorials</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.2.0">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="gitbook/style.css">
+    
+    
+
+        
+    
+    
+    <link rel="next" href="./audio-spatialization.html" />
+    
+    
+    <link rel="prev" href="./audio-recording.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book" data-level="5.3" data-basepath="." data-revision="Thu Aug 20 2015 13:04:05 GMT+0300 (EEST)">
+    
+
+<div class="book-summary">
+    <div class="book-search">
+        <input type="text" placeholder="Type to search" class="form-control" />
+    </div>
+    <ul class="summary">
+        
+        
+        
+            
+            <li>
+                <a href="http://github.com/BlaXpirit/crsfml" target="blank" class="custom-link">CrSFML</a>
+            </li>
+        
+        
+
+        
+        <li class="divider"></li>
+        
+
+        
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="./index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" >
+            
+            <span><b>1.</b> Getting started</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="start-vc.html">
+            
+                
+                    <a href="./start-vc.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        SFML and Visual Studio
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="start-cb.html">
+            
+                
+                    <a href="./start-cb.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        SFML and Code::Blocks (MinGW)
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="start-linux.html">
+            
+                
+                    <a href="./start-linux.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.</b>
+                        
+                        SFML and Linux
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="start-osx.html">
+            
+                
+                    <a href="./start-osx.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.</b>
+                        
+                        SFML and Xcode (Mac OS X)
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="compile-with-cmake.html">
+            
+                
+                    <a href="./compile-with-cmake.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.5.</b>
+                        
+                        Compiling SFML with CMake
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" >
+            
+            <span><b>2.</b> System module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="system-time.html">
+            
+                
+                    <a href="./system-time.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        Handling time
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="system-thread.html">
+            
+                
+                    <a href="./system-thread.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        Threads
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="system-stream.html">
+            
+                
+                    <a href="./system-stream.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        User data streams
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" >
+            
+            <span><b>3.</b> Window module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="window-window.html">
+            
+                
+                    <a href="./window-window.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        Opening and managing an SFML window
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="window-events.html">
+            
+                
+                    <a href="./window-events.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        Events explained
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="window-inputs.html">
+            
+                
+                    <a href="./window-inputs.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        Keyboard, mouse and joysticks
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="window-opengl.html">
+            
+                
+                    <a href="./window-opengl.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        Using OpenGL in a SFML window
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" >
+            
+            <span><b>4.</b> Graphics module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="graphics-draw.html">
+            
+                
+                    <a href="./graphics-draw.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        Drawing 2D stuff
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="graphics-sprite.html">
+            
+                
+                    <a href="./graphics-sprite.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        Sprites and textures
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="graphics-text.html">
+            
+                
+                    <a href="./graphics-text.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.</b>
+                        
+                        Text and fonts
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="graphics-shape.html">
+            
+                
+                    <a href="./graphics-shape.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.</b>
+                        
+                        Shapes
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.5" data-path="graphics-vertex-array.html">
+            
+                
+                    <a href="./graphics-vertex-array.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.5.</b>
+                        
+                        Designing your own entities with vertex arrays
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.6" data-path="graphics-transform.html">
+            
+                
+                    <a href="./graphics-transform.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.6.</b>
+                        
+                        Position, rotation, scale: transforming entities
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.7" data-path="graphics-shader.html">
+            
+                
+                    <a href="./graphics-shader.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.7.</b>
+                        
+                        Adding special effects with shaders
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.8" data-path="graphics-view.html">
+            
+                
+                    <a href="./graphics-view.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.8.</b>
+                        
+                        Controlling the 2D camera with views
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5" >
+            
+            <span><b>5.</b> Audio module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1" data-path="audio-sounds.html">
+            
+                
+                    <a href="./audio-sounds.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.1.</b>
+                        
+                        Playing sounds and music
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="audio-recording.html">
+            
+                
+                    <a href="./audio-recording.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.</b>
+                        
+                        Recording audio
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="5.3" data-path="audio-streams.html">
+            
+                
+                    <a href="./audio-streams.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.3.</b>
+                        
+                        Custom audio streams
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4" data-path="audio-spatialization.html">
+            
+                
+                    <a href="./audio-spatialization.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.4.</b>
+                        
+                        Spatialization: Sounds in 3D
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="6" >
+            
+            <span><b>6.</b> Network module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1" data-path="network-socket.html">
+            
+                
+                    <a href="./network-socket.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.1.</b>
+                        
+                        Communication using sockets
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="network-packet.html">
+            
+                
+                    <a href="./network-packet.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.2.</b>
+                        
+                        Using and extending packets
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" data-path="network-http.html">
+            
+                
+                    <a href="./network-http.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.3.</b>
+                        
+                        Web requests with HTTP
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.4" data-path="network-ftp.html">
+            
+                
+                    <a href="./network-ftp.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.4.</b>
+                        
+                        File transfers with FTP
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+        
+        <li class="divider"></li>
+        <li>
+            <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                Published with GitBook
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header">
+    <!-- Actions Left -->
+    <a href="#" class="btn pull-left toggle-summary" aria-label="Table of Contents"><i class="fa fa-align-justify"></i></a>
+    <a href="#" class="btn pull-left toggle-search" aria-label="Search"><i class="fa fa-search"></i></a>
+    
+    <div id="font-settings-wrapper" class="dropdown pull-left">
+        <a href="#" class="btn toggle-dropdown" aria-label="Font Settings"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+    <div class="buttons">
+        <button type="button" id="reduce-font-size" class="button size-2">A</button>
+        <button type="button" id="enlarge-font-size" class="button size-2">A</button>
+    </div>
+
+    <div class="buttons font-family-list">
+        <button type="button" data-font="0" class="button">Serif</button>
+        <button type="button" data-font="1" class="button">Sans</button>
+    </div>
+
+    <div class="buttons color-theme-list">
+        <button type="button" id="color-theme-preview-0" class="button size-3" data-theme="0">White</button>
+        <button type="button" id="color-theme-preview-1" class="button size-3" data-theme="1">Sepia</button>
+        <button type="button" id="color-theme-preview-2" class="button size-3" data-theme="2">Night</button>
+    </div>
+</div>
+
+    </div>
+
+    <!-- Actions Right -->
+    
+    <div class="dropdown pull-right">
+        <a href="#" class="btn toggle-dropdown" aria-label="Share"><i class="fa fa-share-alt"></i>
+        </a>
+        <div class="dropdown-menu font-settings dropdown-left">
+            <div class="dropdown-caret">
+                <span class="caret-outer"></span>
+                <span class="caret-inner"></span>
+            </div>
+            <div class="buttons">
+                <button type="button" data-sharing="twitter" class="button">
+                    Share on Twitter
+                </button>
+                <button type="button" data-sharing="google-plus" class="button">
+                    Share on Google
+                </button>
+                <button type="button" data-sharing="facebook" class="button">
+                    Share on Facebook
+                </button>
+                <button type="button" data-sharing="weibo" class="button">
+                    Share on Weibo
+                </button>
+                <button type="button" data-sharing="instapaper" class="button">
+                    Share on Instapaper
+                </button>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    
+    
+    
+    
+
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="./" >CrSFML Tutorials</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="custom-audio-streams">Custom audio streams</h1>
+<h2 id="audio-stream-what-s-that">Audio stream? What\&apos;s that?</h2>
+<p>An audio stream is similar to music (remember the <a href="http://blaxpirit.github.io/crsfml/SF/api/Music.html" target="_blank">Music</a> class?). It has almost the same functions and behaves the same. The only difference is that an audio stream doesn&apos;t play an audio file: Instead, it plays a custom audio source that <em>you</em> directly provide. In other words, defining your own audio stream allows you to play from more than just a file: A sound streamed over the network, music generated by your program, an audio format that SFML doesn&apos;t support, etc. </p>
+<p>In fact, the <a href="http://blaxpirit.github.io/crsfml/SF/api/Music.html" target="_blank">Music</a> class is just a specialized audio stream that gets its audio samples from a file. </p>
+<p>Since we&apos;re talking about <em>streaming</em>, we&apos;ll deal with audio data that cannot be loaded entirely in memory, and will instead be loaded in small chunks while it is being played. If your sound can be loaded completely and can fit in memory, then audio streams won&apos;t help you: Just load the audio data into a <a href="http://blaxpirit.github.io/crsfml/SF/api/SoundBuffer.html" target="_blank">SoundBuffer</a> and use a regular <a href="http://blaxpirit.github.io/crsfml/SF/api/Sound.html" target="_blank">Sound</a> to play it. </p>
+<h2 id="sf-soundstream">sf::SoundStream</h2>
+<p>In order to define your own audio stream, you need to inherit from the <a href="http://blaxpirit.github.io/crsfml/SF/api/SoundStream.html" target="_blank">SoundStream</a> abstract base class. There are two virtual functions to override in your derived class: <code>onGetData</code> and <code>onSeek</code>. </p>
+<pre><code>class MyAudioStream : public sf::SoundStream
+{
+    virtual bool onGetData(Chunk&amp; data);
+
+    virtual void onSeek(sf::Time timeOffset);
+};
+</code></pre><p><code>onGetData</code> is called by the base class whenever it runs out of audio samples and needs more of them. You must provide new audio samples by filling the <code>data</code> argument: </p>
+<pre><code>bool MyAudioStream::onGetData(Chunk&amp; data)
+{
+    data.samples = /* put the pointer to the new audio samples */;
+    data.sampleCount = /* put the number of audio samples available in the new chunk */;
+    return true;
+}
+</code></pre><p>You must return <code>true</code> when everything is all right, or <code>false</code> if playback must be stopped, either because an error has occurred or because there&apos;s simply no more audio data to play. </p>
+<p>SFML makes an internal copy of the audio samples as soon as <code>onGetData</code> returns, so you don&apos;t have to keep the original data alive if you don&apos;t want to. </p>
+<p>The <code>onSeek</code> function is called when the <code>setPlayingOffset</code> public function is called. Its purpose is to change the current playing position in the source data. The parameter is a time value representing the new position, from the beginning of the sound (<em>not</em> from the current position). This function is sometimes impossible to implement. In those cases leave it empty, and tell the users of your class that changing the playing position is not supported. </p>
+<p>Now your class is almost ready to work. The only thing that <a href="http://blaxpirit.github.io/crsfml/SF/api/SoundStream.html" target="_blank">SoundStream</a> needs to know now is the channel count and sample rate of your stream, so that it can be played as expected. To let the base class know about these parameters, you must call the <code>initialize</code> protected function as soon as they are known in your stream class (which is most likely when the stream is loaded/initialized). </p>
+<pre><code>// where this is done totally depends on how your stream class is designed
+unsigned int channelCount = ...;
+unsigned int sampleRate = ...;
+initialize(channelCount, sampleRate);
+</code></pre><h2 id="threading-issues">Threading issues</h2>
+<p>Audio streams are always played in a separate thread, therefore it is important to know what happens exactly, and where. </p>
+<p><code>onSeek</code> is called directly by the <code>setPlayingOffset</code> function, so it is always executed in the caller thread. However, the <code>onGetData</code> function will be called repeatedly as long as the stream is being played, in a separate thread created by SFML. If your stream uses data that may be accessed <em>concurrently</em> in both the caller thread and in the playing thread, you have to protect it (with a mutex for example) in order to avoid concurrent access, which may cause undefined behavior -- corrupt data being played, crashes, etc. </p>
+<p>If you&apos;re not familiar enough with threading, you can refer to the <a href="system-thread.html" title="Threading tutorial">corresponding tutorial</a> for more information. </p>
+<h2 id="using-your-audio-stream">Using your audio stream</h2>
+<p>Now that you have defined your own audio stream class, let&apos;s see how to use it. In fact, things are very similar to what&apos;s shown in the <a href="audio-sounds.html" title="Playing sounds and musics">tutorial about sf::Music</a>. You can control playback with the <code>play</code>, <code>pause</code>, <code>stop</code> and <code>setPlayingOffset</code> functions. You can also play with the sound&apos;s properties, such as the volume or the pitch. You can refer to the API documentation or to the other audio tutorials for more details. </p>
+<h2 id="a-simple-example">A simple example</h2>
+<p>Here is a very simple example of a custom audio stream class which plays the data of a sound buffer. Such a class might seem totally useless, but the point here is to focus on how the data is streamed by the class, regardless of where it comes from. </p>
+<pre><code>#include &lt;SFML/Audio.hpp&gt;
+#include &lt;vector&gt;
+
+// custom audio stream that plays a loaded buffer
+class MyStream : public sf::SoundStream
+{
+public:
+
+    void load(const sf::SoundBuffer&amp; buffer)
+    {
+        // extract the audio samples from the sound buffer to our own container
+        m_samples.assign(buffer.getSamples(), buffer.getSamples() + buffer.getSampleCount());
+
+        // reset the current playing position 
+        m_currentSample = 0;
+
+        // initialize the base class
+        initialize(buffer.getChannelCount(), buffer.getSampleRate());
+    }
+
+private:
+
+    virtual bool onGetData(Chunk&amp; data)
+    {
+        // number of samples to stream every time the function is called;
+        // in a more robust implementation, it should be a fixed
+        // amount of time rather than an arbitrary number of samples
+        const int samplesToStream = 50000;
+
+        // set the pointer to the next audio samples to be played
+        data.samples = &amp;m_samples[m_currentSample];
+
+        // have we reached the end of the sound?
+        if (m_currentSample + samplesToStream &lt;= m_samples.size())
+        {
+            // end not reached: stream the samples and continue
+            data.sampleCount = samplesToStream;
+            m_currentSample += samplesToStream;
+            return true;
+        }
+        else
+        {
+            // end of stream reached: stream the remaining samples and stop playback
+            data.sampleCount = m_samples.size() - m_currentSample;
+            m_currentSample = m_samples.size();
+            return false;
+        }
+    }
+
+    virtual void onSeek(sf::Time timeOffset)
+    {
+        // compute the corresponding sample index according to the sample rate and channel count
+        m_currentSample = static_cast&lt;std::size_t&gt;(timeOffset.asSeconds() * getSampleRate() * getChannelCount());
+    }
+
+    std::vector&lt;sf::Int16&gt; m_samples;
+    std::size_t m_currentSample;
+};
+
+int main()
+{
+    // load an audio buffer from a sound file
+    sf::SoundBuffer buffer;
+    buffer.loadFromFile(&quot;sound.wav&quot;);
+
+    // initialize and play our custom stream
+    MyStream stream;
+    stream.load(buffer);
+    stream.play();
+
+    // let it play until it is finished
+    while (stream.getStatus() == MyStream::Playing)
+        sf::sleep(sf::seconds(0.1f));
+
+    return 0;
+}
+</code></pre>
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="./audio-recording.html" class="navigation navigation-prev " aria-label="Previous page: Recording audio"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="./audio-spatialization.html" class="navigation navigation-next " aria-label="Next page: Spatialization: Sounds in 3D"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="gitbook/app.js"></script>
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"fontSettings":{"theme":null,"family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

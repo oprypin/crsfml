@@ -1,0 +1,912 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Threads | CrSFML Tutorials</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.2.0">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="gitbook/style.css">
+    
+    
+
+        
+    
+    
+    <link rel="next" href="./system-stream.html" />
+    
+    
+    <link rel="prev" href="./system-time.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book" data-level="2.2" data-basepath="." data-revision="Thu Aug 20 2015 13:04:05 GMT+0300 (EEST)">
+    
+
+<div class="book-summary">
+    <div class="book-search">
+        <input type="text" placeholder="Type to search" class="form-control" />
+    </div>
+    <ul class="summary">
+        
+        
+        
+            
+            <li>
+                <a href="http://github.com/BlaXpirit/crsfml" target="blank" class="custom-link">CrSFML</a>
+            </li>
+        
+        
+
+        
+        <li class="divider"></li>
+        
+
+        
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="./index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" >
+            
+            <span><b>1.</b> Getting started</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="start-vc.html">
+            
+                
+                    <a href="./start-vc.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        SFML and Visual Studio
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="start-cb.html">
+            
+                
+                    <a href="./start-cb.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        SFML and Code::Blocks (MinGW)
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="start-linux.html">
+            
+                
+                    <a href="./start-linux.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.</b>
+                        
+                        SFML and Linux
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="start-osx.html">
+            
+                
+                    <a href="./start-osx.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.</b>
+                        
+                        SFML and Xcode (Mac OS X)
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="compile-with-cmake.html">
+            
+                
+                    <a href="./compile-with-cmake.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.5.</b>
+                        
+                        Compiling SFML with CMake
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" >
+            
+            <span><b>2.</b> System module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="system-time.html">
+            
+                
+                    <a href="./system-time.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        Handling time
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.2" data-path="system-thread.html">
+            
+                
+                    <a href="./system-thread.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        Threads
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="system-stream.html">
+            
+                
+                    <a href="./system-stream.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        User data streams
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" >
+            
+            <span><b>3.</b> Window module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="window-window.html">
+            
+                
+                    <a href="./window-window.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        Opening and managing an SFML window
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="window-events.html">
+            
+                
+                    <a href="./window-events.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        Events explained
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="window-inputs.html">
+            
+                
+                    <a href="./window-inputs.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        Keyboard, mouse and joysticks
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="window-opengl.html">
+            
+                
+                    <a href="./window-opengl.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        Using OpenGL in a SFML window
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" >
+            
+            <span><b>4.</b> Graphics module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="graphics-draw.html">
+            
+                
+                    <a href="./graphics-draw.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        Drawing 2D stuff
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="graphics-sprite.html">
+            
+                
+                    <a href="./graphics-sprite.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        Sprites and textures
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="graphics-text.html">
+            
+                
+                    <a href="./graphics-text.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.</b>
+                        
+                        Text and fonts
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="graphics-shape.html">
+            
+                
+                    <a href="./graphics-shape.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.</b>
+                        
+                        Shapes
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.5" data-path="graphics-vertex-array.html">
+            
+                
+                    <a href="./graphics-vertex-array.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.5.</b>
+                        
+                        Designing your own entities with vertex arrays
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.6" data-path="graphics-transform.html">
+            
+                
+                    <a href="./graphics-transform.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.6.</b>
+                        
+                        Position, rotation, scale: transforming entities
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.7" data-path="graphics-shader.html">
+            
+                
+                    <a href="./graphics-shader.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.7.</b>
+                        
+                        Adding special effects with shaders
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.8" data-path="graphics-view.html">
+            
+                
+                    <a href="./graphics-view.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.8.</b>
+                        
+                        Controlling the 2D camera with views
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5" >
+            
+            <span><b>5.</b> Audio module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1" data-path="audio-sounds.html">
+            
+                
+                    <a href="./audio-sounds.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.1.</b>
+                        
+                        Playing sounds and music
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="audio-recording.html">
+            
+                
+                    <a href="./audio-recording.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.</b>
+                        
+                        Recording audio
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.3" data-path="audio-streams.html">
+            
+                
+                    <a href="./audio-streams.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.3.</b>
+                        
+                        Custom audio streams
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4" data-path="audio-spatialization.html">
+            
+                
+                    <a href="./audio-spatialization.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.4.</b>
+                        
+                        Spatialization: Sounds in 3D
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="6" >
+            
+            <span><b>6.</b> Network module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1" data-path="network-socket.html">
+            
+                
+                    <a href="./network-socket.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.1.</b>
+                        
+                        Communication using sockets
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="network-packet.html">
+            
+                
+                    <a href="./network-packet.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.2.</b>
+                        
+                        Using and extending packets
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" data-path="network-http.html">
+            
+                
+                    <a href="./network-http.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.3.</b>
+                        
+                        Web requests with HTTP
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.4" data-path="network-ftp.html">
+            
+                
+                    <a href="./network-ftp.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.4.</b>
+                        
+                        File transfers with FTP
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+        
+        <li class="divider"></li>
+        <li>
+            <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                Published with GitBook
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header">
+    <!-- Actions Left -->
+    <a href="#" class="btn pull-left toggle-summary" aria-label="Table of Contents"><i class="fa fa-align-justify"></i></a>
+    <a href="#" class="btn pull-left toggle-search" aria-label="Search"><i class="fa fa-search"></i></a>
+    
+    <div id="font-settings-wrapper" class="dropdown pull-left">
+        <a href="#" class="btn toggle-dropdown" aria-label="Font Settings"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+    <div class="buttons">
+        <button type="button" id="reduce-font-size" class="button size-2">A</button>
+        <button type="button" id="enlarge-font-size" class="button size-2">A</button>
+    </div>
+
+    <div class="buttons font-family-list">
+        <button type="button" data-font="0" class="button">Serif</button>
+        <button type="button" data-font="1" class="button">Sans</button>
+    </div>
+
+    <div class="buttons color-theme-list">
+        <button type="button" id="color-theme-preview-0" class="button size-3" data-theme="0">White</button>
+        <button type="button" id="color-theme-preview-1" class="button size-3" data-theme="1">Sepia</button>
+        <button type="button" id="color-theme-preview-2" class="button size-3" data-theme="2">Night</button>
+    </div>
+</div>
+
+    </div>
+
+    <!-- Actions Right -->
+    
+    <div class="dropdown pull-right">
+        <a href="#" class="btn toggle-dropdown" aria-label="Share"><i class="fa fa-share-alt"></i>
+        </a>
+        <div class="dropdown-menu font-settings dropdown-left">
+            <div class="dropdown-caret">
+                <span class="caret-outer"></span>
+                <span class="caret-inner"></span>
+            </div>
+            <div class="buttons">
+                <button type="button" data-sharing="twitter" class="button">
+                    Share on Twitter
+                </button>
+                <button type="button" data-sharing="google-plus" class="button">
+                    Share on Google
+                </button>
+                <button type="button" data-sharing="facebook" class="button">
+                    Share on Facebook
+                </button>
+                <button type="button" data-sharing="weibo" class="button">
+                    Share on Weibo
+                </button>
+                <button type="button" data-sharing="instapaper" class="button">
+                    Share on Instapaper
+                </button>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    
+    
+    
+    
+
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="./" >CrSFML Tutorials</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="threads">Threads</h1>
+<h2 id="what-is-a-thread">What is a thread?</h2>
+<p>Most of you should already know what a thread is, however here is a little explanation for those who are really new to this concept. </p>
+<p>A thread is basically a sequence of instructions that run in parallel to other threads. Every program is made of at least one thread: the main one, which runs your <code>main()</code> function. Programs that only use the main thread are <em>single-threaded</em>, if you add one or more threads they become <em>multi-threaded</em>. </p>
+<p>So, in short, threads are a way to do multiple things at the same time. This can be useful, for example, to display an animation and reacting to user input while loading images or sounds. Threads are also widely used in network programming, to wait for data to be received while continuing to update and draw the application. </p>
+<h2 id="sfml-threads-or-std-thread">SFML threads or std::thread?</h2>
+<p>In its newest version (2011), the C++ standard library provides a set of <a href="http://en.cppreference.com/w/cpp/thread" title="C++11 threading classes" target="_blank">classes for threading</a>. At the time SFML was written, the C++11 standard was not written and there was no standard way of creating threads. When SFML 2.0 was released, there were still a lot of compilers that didn&apos;t support this new standard. </p>
+<p>If you work with compilers that support the new standard and its <code>&lt;thread&gt;</code> header, forget about the SFML thread classes and use it instead -- it will be much better. But if you work with a pre-2011 compiler, or plan to distribute your code and want it to be fully portable, the SFML threading classes are a good solution. </p>
+<h2 id="creating-a-thread-with-sfml">Creating a thread with SFML</h2>
+<p>Enough talk, let&apos;s see some code. The class that makes it possible to create threads in SFML is <a href="http://blaxpirit.github.io/crsfml/SF/api/Thread.html" target="_blank">Thread</a>, and here is what it looks like in action: </p>
+<pre><code>#include &lt;SFML/System.hpp&gt;
+#include &lt;iostream&gt;
+
+void func()
+{
+    // this function is started when thread.launch() is called
+
+    for (int i = 0; i &lt; 10; ++i)
+        std::cout &lt;&lt; &quot;I&apos;m thread number one&quot; &lt;&lt; std::endl;
+}
+
+int main()
+{
+    // create a thread with func() as entry point
+    sf::Thread thread(&amp;func);
+
+    // run it
+    thread.launch();
+
+    // the main thread continues to run...
+
+    for (int i = 0; i &lt; 10; ++i)
+        std::cout &lt;&lt; &quot;I&apos;m the main thread&quot; &lt;&lt; std::endl;
+
+    return 0;
+}
+</code></pre><p>In this code, both <code>main</code> and <code>func</code> run in parallel after <code>thread.launch()</code> has been called. The result is that text from both functions should be mixed in the console. </p>
+<p><img src="images/system-thread-mixed.png" alt="Screenshot of the program output"></p>
+<p>The entry point of the thread, ie. the function that will be run when the thread is started, must be passed to the constructor of <a href="http://blaxpirit.github.io/crsfml/SF/api/Thread.html" target="_blank">Thread</a>. <a href="http://blaxpirit.github.io/crsfml/SF/api/Thread.html" target="_blank">Thread</a> tries to be flexible and accept a wide variety of entry points: non-member or member functions, with or without arguments, functors, etc. The example above shows how to use a non-member function, here are a few other examples. </p>
+<p>- Non-member function with one argument: </p>
+<pre><code>void func(int x)
+{
+}
+
+sf::Thread thread(&amp;func, 5);
+</code></pre><p>- Member function: </p>
+<pre><code>class MyClass
+{
+public:
+
+    void func()
+    {
+    }
+};
+
+MyClass object;
+sf::Thread thread(&amp;MyClass::func, &amp;object);
+</code></pre><p>- Functor (function-object): </p>
+<pre><code>struct MyFunctor
+{
+    void operator()()
+    {
+    }
+};
+
+sf::Thread thread(MyFunctor());
+</code></pre><p>The last example, which uses functors, is the most powerful one since it can accept any type of functor and therefore makes <a href="http://blaxpirit.github.io/crsfml/SF/api/Thread.html" target="_blank">Thread</a> compatible with many types of functions that are not directly supported. This feature is especially interesting with C++11 lambdas or <code>std::bind</code>. </p>
+<pre><code>// with lambdas
+sf::Thread thread([](){
+    std::cout &lt;&lt; &quot;I am in thread!&quot; &lt;&lt; std::endl;
+});
+</code></pre><pre><code>// with std::bind
+void func(std::string, int, double)
+{
+}
+
+sf::Thread thread(std::bind(&amp;func, &quot;hello&quot;, 24, 0.5));
+</code></pre><p>If you want to use a <a href="http://blaxpirit.github.io/crsfml/SF/api/Thread.html" target="_blank">Thread</a> inside a class, don&apos;t forget that it doesn&apos;t have a default constructor. Therefore, you have to initialize it directly in the constructor&apos;s <em>initialization list</em>: </p>
+<pre><code>class ClassWithThread
+{
+public:
+
+    ClassWithThread()
+    : m_thread(&amp;ClassWithThread::f, this)
+    {
+    }
+
+private:
+
+    void f()
+    {
+        ...
+    }
+
+    sf::Thread m_thread;
+};
+</code></pre><p>If you really need to construct your <a href="http://blaxpirit.github.io/crsfml/SF/api/Thread.html" target="_blank">Thread</a> instance <em>after</em> the construction of the owner object, you can also delay its construction by dynamically allocating it on the heap. </p>
+<h2 id="starting-threads">Starting threads</h2>
+<p>Once you&apos;ve created a <a href="http://blaxpirit.github.io/crsfml/SF/api/Thread.html" target="_blank">Thread</a> instance, you must start it with the <code>launch</code> function. </p>
+<pre><code>sf::Thread thread(&amp;func);
+thread.launch();
+</code></pre><p><code>launch</code> calls the function that you passed to the constructor in a new thread, and returns immediately so that the calling thread can continue to run. </p>
+<h2 id="stopping-threads">Stopping threads</h2>
+<p>A thread automatically stops when its entry point function returns. If you want to wait for a thread to finish from another thread, you can call its <code>wait</code> function. </p>
+<pre><code>sf::Thread thread(&amp;func);
+
+// start the thread
+thread.launch();
+
+...
+
+// block execution until the thread is finished
+thread.wait();
+</code></pre><p>The <code>wait</code> function is also implicitly called by the destructor of <a href="http://blaxpirit.github.io/crsfml/SF/api/Thread.html" target="_blank">Thread</a>, so that a thread cannot remain alive (and out of control) after its owner <a href="http://blaxpirit.github.io/crsfml/SF/api/Thread.html" target="_blank">Thread</a> instance is destroyed. Keep this in mind when you manage your threads (see the last section of this tutorial). </p>
+<h2 id="pausing-threads">Pausing threads</h2>
+<p>There&apos;s no function in <a href="http://blaxpirit.github.io/crsfml/SF/api/Thread.html" target="_blank">Thread</a> that allows another thread to pause it, the only way to pause a thread is to do it from the code that it runs. In other words, you can only pause the current thread. To do so, you can call the <code>sf::sleep</code> function: </p>
+<pre><code>void func()
+{
+    ...
+    sf::sleep(sf::milliseconds(10));
+    ...
+}
+</code></pre><p><code>sf::sleep</code> has one argument, which is the time to sleep. This duration can be given with any unit/precision, as seen in the <a href="system-time.html" title="Time tutorial">time tutorial</a>.<br>Note that you can make any thread sleep with this function, even the main one. </p>
+<p><code>sf::sleep</code> is the most efficient way to pause a thread: as long as the thread sleeps, it requires zero CPU. Pauses based on active waiting, like empty <code>while</code> loops, would consume 100% CPU just to do... nothing. However, keep in mind that the sleep duration is just a hint, depending on the OS it will be more or less accurate. So don&apos;t rely on it for very precise timing. </p>
+<h2 id="protecting-shared-data">Protecting shared data</h2>
+<p>All the threads in a program share the same memory, they have access to all variables in the scope they are in. It is very convenient but also dangerous: since threads run in parallel, it means that a variable or function might be used concurrently from several threads at the same time. If the operation is not <em>thread-safe</em>, it can lead to undefined behavior (ie. it might crash or corrupt data). </p>
+<p>Several programming tools exist to help you protect shared data and make your code thread-safe, these are called synchronization primitives. Common ones are mutexes, semaphores, condition variables and spin locks. They are all variants of the same concept: they protect a piece of code by allowing only certain threads to access it while blocking the others. </p>
+<p>The most basic (and used) primitive is the mutex. Mutex stands for &quot;MUTual EXclusion&quot;: it ensures that only a single thread is able to run the code that it guards. Let&apos;s see how they can bring some order to the example above: </p>
+<pre><code>#include &lt;SFML/System.hpp&gt;
+#include &lt;iostream&gt;
+
+sf::Mutex mutex;
+
+void func()
+{
+    mutex.lock();
+
+    for (int i = 0; i &lt; 10; ++i)
+        std::cout &lt;&lt; &quot;I&apos;m thread number one&quot; &lt;&lt; std::endl;
+
+    mutex.unlock();
+}
+
+int main()
+{
+    sf::Thread thread(&amp;func);
+    thread.launch();
+
+    mutex.lock();
+
+    for (int i = 0; i &lt; 10; ++i)
+        std::cout &lt;&lt; &quot;I&apos;m the main thread&quot; &lt;&lt; std::endl;
+
+    mutex.unlock();
+
+    return 0;
+}
+</code></pre><p>This code uses a shared resource (<code>std::cout</code>), and as we&apos;ve seen it produces unwanted results -- everything is mixed in the console. To make sure that complete lines are properly printed instead of being randomly mixed, we protect the corresponding region of the code with a mutex. </p>
+<p>The first thread that reaches its <code>mutex.lock()</code> line succeeds to lock the mutex, directly gains access to the code that follows and prints its text. When the other thread reaches its <code>mutex.lock()</code> line, the mutex is already locked and thus the thread is put to sleep (like <code>sf::sleep</code>, no CPU time is consumed by the sleeping thread). When the first thread finally unlocks the mutex, the second thread is awoken and is allowed to lock the mutex and print its text block as well. This leads to the lines of text appearing sequentially in the console instead of being mixed. </p>
+<p><img src="images/system-thread-ordered.png" alt="Screenshot of the program output"></p>
+<p>Mutexes are not the only primitive that you can use to protect your shared variables, but it should be enough for most cases. However, if your application does complicated things with threads, and you feel like it is not enough, don&apos;t hesitate to look for a true threading library, with more features. </p>
+<h2 id="protecting-mutexes">Protecting mutexes</h2>
+<p>Don&apos;t worry: mutexes are already thread-safe, there&apos;s no need to protect them. But they are not exception-safe! What happens if an exception is thrown while a mutex is locked? It never gets a chance to be unlocked and remains locked forever. All threads that try to lock it in the future will block forever, and in some cases, your whole application could freeze. Pretty bad result. </p>
+<p>To make sure that mutexes are always unlocked in an environment where exceptions can be thrown, SFML provides an RAII class to wrap them: <a href="http://blaxpirit.github.io/crsfml/SF/api/Lock.html" target="_blank">Lock</a>. It locks a mutex in its constructor, and unlocks it in its destructor. Simple and efficient. </p>
+<pre><code>sf::Mutex mutex;
+
+void func()
+{
+    sf::Lock lock(mutex); // mutex.lock()
+
+    functionThatMightThrowAnException(); // mutex.unlock() if this function throws
+
+} // mutex.unlock()
+</code></pre><p>Note that <a href="http://blaxpirit.github.io/crsfml/SF/api/Lock.html" target="_blank">Lock</a> can also be useful in a function that has multiple <code>return</code> statements. </p>
+<pre><code>sf::Mutex mutex;
+
+bool func()
+{
+    sf::Lock lock(mutex); // mutex.lock()
+
+    if (!image1.loadFromFile(&quot;...&quot;))
+        return false; // mutex.unlock()
+
+    if (!image2.loadFromFile(&quot;...&quot;))
+        return false; // mutex.unlock()
+
+    if (!image3.loadFromFile(&quot;...&quot;))
+        return false; // mutex.unlock()
+
+    return true;
+} // mutex.unlock()
+</code></pre><h2 id="common-mistakes">Common mistakes</h2>
+<p>One thing that is often overlooked by programmers is that a thread cannot live without its corresponding <a href="http://blaxpirit.github.io/crsfml/SF/api/Thread.html" target="_blank">Thread</a> instance.<br>The following code is often seen on the forums: </p>
+<pre><code>void startThread()
+{
+    sf::Thread thread(&amp;funcToRunInThread);
+    thread.launch();
+}
+
+int main()
+{
+    startThread();
+    // ...
+    return 0;
+}
+</code></pre><p>Programers who write this kind of code expect the <code>startThread()</code> function to start a thread that will live on its own and be destroyed when the threaded function ends. This is not what happens. The threaded function appears to block the main thread, as if the thread wasn&apos;t working. </p>
+<p>What is the cause of this? The <a href="http://blaxpirit.github.io/crsfml/SF/api/Thread.html" target="_blank">Thread</a> instance is local to the <code>startThread()</code> function and is therefore immediately destroyed, when the function returns. The destructor of <a href="http://blaxpirit.github.io/crsfml/SF/api/Thread.html" target="_blank">Thread</a> is invoked, which calls <code>wait()</code> as we&apos;ve learned above, and the result is that the main thread blocks and waits for the threaded function to be finished instead of continuing to run in parallel. </p>
+<p>So don&apos;t forget: You must manage your <a href="http://blaxpirit.github.io/crsfml/SF/api/Thread.html" target="_blank">Thread</a> instance so that it lives as long as the threaded function is supposed to run. </p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="./system-time.html" class="navigation navigation-prev " aria-label="Previous page: Handling time"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="./system-stream.html" class="navigation navigation-next " aria-label="Next page: User data streams"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="gitbook/app.js"></script>
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"fontSettings":{"theme":null,"family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

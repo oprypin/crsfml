@@ -1,0 +1,841 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Compiling SFML with CMake | CrSFML Tutorials</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.2.0">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="gitbook/style.css">
+    
+    
+
+        
+    
+    
+    <link rel="next" href="./system-time.html" />
+    
+    
+    <link rel="prev" href="./start-osx.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book" data-level="1.5" data-basepath="." data-revision="Thu Aug 20 2015 13:04:05 GMT+0300 (EEST)">
+    
+
+<div class="book-summary">
+    <div class="book-search">
+        <input type="text" placeholder="Type to search" class="form-control" />
+    </div>
+    <ul class="summary">
+        
+        
+        
+            
+            <li>
+                <a href="http://github.com/BlaXpirit/crsfml" target="blank" class="custom-link">CrSFML</a>
+            </li>
+        
+        
+
+        
+        <li class="divider"></li>
+        
+
+        
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="./index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" >
+            
+            <span><b>1.</b> Getting started</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="start-vc.html">
+            
+                
+                    <a href="./start-vc.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        SFML and Visual Studio
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="start-cb.html">
+            
+                
+                    <a href="./start-cb.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        SFML and Code::Blocks (MinGW)
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="start-linux.html">
+            
+                
+                    <a href="./start-linux.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.</b>
+                        
+                        SFML and Linux
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="start-osx.html">
+            
+                
+                    <a href="./start-osx.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.</b>
+                        
+                        SFML and Xcode (Mac OS X)
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.5" data-path="compile-with-cmake.html">
+            
+                
+                    <a href="./compile-with-cmake.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.5.</b>
+                        
+                        Compiling SFML with CMake
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" >
+            
+            <span><b>2.</b> System module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="system-time.html">
+            
+                
+                    <a href="./system-time.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        Handling time
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="system-thread.html">
+            
+                
+                    <a href="./system-thread.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        Threads
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="system-stream.html">
+            
+                
+                    <a href="./system-stream.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        User data streams
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" >
+            
+            <span><b>3.</b> Window module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="window-window.html">
+            
+                
+                    <a href="./window-window.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        Opening and managing an SFML window
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="window-events.html">
+            
+                
+                    <a href="./window-events.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        Events explained
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="window-inputs.html">
+            
+                
+                    <a href="./window-inputs.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        Keyboard, mouse and joysticks
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="window-opengl.html">
+            
+                
+                    <a href="./window-opengl.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        Using OpenGL in a SFML window
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" >
+            
+            <span><b>4.</b> Graphics module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="graphics-draw.html">
+            
+                
+                    <a href="./graphics-draw.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        Drawing 2D stuff
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="graphics-sprite.html">
+            
+                
+                    <a href="./graphics-sprite.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        Sprites and textures
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="graphics-text.html">
+            
+                
+                    <a href="./graphics-text.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.</b>
+                        
+                        Text and fonts
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="graphics-shape.html">
+            
+                
+                    <a href="./graphics-shape.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.</b>
+                        
+                        Shapes
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.5" data-path="graphics-vertex-array.html">
+            
+                
+                    <a href="./graphics-vertex-array.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.5.</b>
+                        
+                        Designing your own entities with vertex arrays
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.6" data-path="graphics-transform.html">
+            
+                
+                    <a href="./graphics-transform.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.6.</b>
+                        
+                        Position, rotation, scale: transforming entities
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.7" data-path="graphics-shader.html">
+            
+                
+                    <a href="./graphics-shader.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.7.</b>
+                        
+                        Adding special effects with shaders
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.8" data-path="graphics-view.html">
+            
+                
+                    <a href="./graphics-view.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.8.</b>
+                        
+                        Controlling the 2D camera with views
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5" >
+            
+            <span><b>5.</b> Audio module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1" data-path="audio-sounds.html">
+            
+                
+                    <a href="./audio-sounds.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.1.</b>
+                        
+                        Playing sounds and music
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="audio-recording.html">
+            
+                
+                    <a href="./audio-recording.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.</b>
+                        
+                        Recording audio
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.3" data-path="audio-streams.html">
+            
+                
+                    <a href="./audio-streams.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.3.</b>
+                        
+                        Custom audio streams
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4" data-path="audio-spatialization.html">
+            
+                
+                    <a href="./audio-spatialization.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.4.</b>
+                        
+                        Spatialization: Sounds in 3D
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="6" >
+            
+            <span><b>6.</b> Network module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1" data-path="network-socket.html">
+            
+                
+                    <a href="./network-socket.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.1.</b>
+                        
+                        Communication using sockets
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="network-packet.html">
+            
+                
+                    <a href="./network-packet.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.2.</b>
+                        
+                        Using and extending packets
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" data-path="network-http.html">
+            
+                
+                    <a href="./network-http.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.3.</b>
+                        
+                        Web requests with HTTP
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.4" data-path="network-ftp.html">
+            
+                
+                    <a href="./network-ftp.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.4.</b>
+                        
+                        File transfers with FTP
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+        
+        <li class="divider"></li>
+        <li>
+            <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                Published with GitBook
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header">
+    <!-- Actions Left -->
+    <a href="#" class="btn pull-left toggle-summary" aria-label="Table of Contents"><i class="fa fa-align-justify"></i></a>
+    <a href="#" class="btn pull-left toggle-search" aria-label="Search"><i class="fa fa-search"></i></a>
+    
+    <div id="font-settings-wrapper" class="dropdown pull-left">
+        <a href="#" class="btn toggle-dropdown" aria-label="Font Settings"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+    <div class="buttons">
+        <button type="button" id="reduce-font-size" class="button size-2">A</button>
+        <button type="button" id="enlarge-font-size" class="button size-2">A</button>
+    </div>
+
+    <div class="buttons font-family-list">
+        <button type="button" data-font="0" class="button">Serif</button>
+        <button type="button" data-font="1" class="button">Sans</button>
+    </div>
+
+    <div class="buttons color-theme-list">
+        <button type="button" id="color-theme-preview-0" class="button size-3" data-theme="0">White</button>
+        <button type="button" id="color-theme-preview-1" class="button size-3" data-theme="1">Sepia</button>
+        <button type="button" id="color-theme-preview-2" class="button size-3" data-theme="2">Night</button>
+    </div>
+</div>
+
+    </div>
+
+    <!-- Actions Right -->
+    
+    <div class="dropdown pull-right">
+        <a href="#" class="btn toggle-dropdown" aria-label="Share"><i class="fa fa-share-alt"></i>
+        </a>
+        <div class="dropdown-menu font-settings dropdown-left">
+            <div class="dropdown-caret">
+                <span class="caret-outer"></span>
+                <span class="caret-inner"></span>
+            </div>
+            <div class="buttons">
+                <button type="button" data-sharing="twitter" class="button">
+                    Share on Twitter
+                </button>
+                <button type="button" data-sharing="google-plus" class="button">
+                    Share on Google
+                </button>
+                <button type="button" data-sharing="facebook" class="button">
+                    Share on Facebook
+                </button>
+                <button type="button" data-sharing="weibo" class="button">
+                    Share on Weibo
+                </button>
+                <button type="button" data-sharing="instapaper" class="button">
+                    Share on Instapaper
+                </button>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    
+    
+    
+    
+
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="./" >CrSFML Tutorials</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="compiling-sfml-with-cmake">Compiling SFML with CMake</h1>
+<h2 id="introduction">Introduction</h2>
+<p>Admittedly, the title of this tutorial is a bit misleading. You will not <em>compile</em> SFML with CMake, because CMake is <em>not a compiler</em>. So... what is CMake? </p>
+<p>CMake is an open-source meta build system. Instead of building SFML, it builds what builds SFML: Visual Studio solutions, Code::Blocks projects, Linux makefiles, XCode projects, etc. In fact it can generate the makefiles or projects for any operating system and compiler of your choice. It is similar to autoconf/automake or premake for those who are already familiar with these tools. </p>
+<p>CMake is used by many projects including well-known ones such as Blender, Boost, KDE, and Ogre. You can read more about CMake on its <a href="http://www.cmake.org/" title="CMake official website" target="_blank">official website</a> or in its <a href="http://en.wikipedia.org/wiki/CMake" title="Wikipedia page of CMake" target="_blank">Wikipedia article</a>. </p>
+<p>As you might expect, this tutorial is divided into two main sections: Generating the build configuration with CMake, and building SFML with your toolchain using that build configuration. </p>
+<h2 id="installing-dependencies">Installing dependencies</h2>
+<p>SFML depends on a few other libraries, so before starting to configure you must have their development files installed. </p>
+<p>On Windows and Mac OS X, all the required dependencies are provided alongside SFML so you won&apos;t have to download/install anything else. Building will work out of the box. </p>
+<p>On Linux however, nothing is provided. SFML relies on you to install all of its dependencies on your own. Here is a list of what you need to install before building SFML: </p>
+<ul>
+<li>freetype</li>
+<li>jpeg</li>
+<li>x11</li>
+<li>xrandr</li>
+<li>xcb</li>
+<li>x11-xcb</li>
+<li>xcb-randr</li>
+<li>xcb-image</li>
+<li>opengl</li>
+<li>flac</li>
+<li>ogg</li>
+<li>vorbis</li>
+<li>vorbisenc</li>
+<li>vorbisfile</li>
+<li>openal</li>
+<li>pthread</li>
+</ul>
+<p>The exact name of the packages may vary from distribution to distribution. Once those packages are installed, don&apos;t forget to install their <em>development headers</em> as well. </p>
+<h2 id="configuring-your-sfml-build">Configuring your SFML build</h2>
+<p>This step consists of creating the projects/makefiles that will finally compile SFML. Basically it consists of choosing <em>what</em> to build, <em>how</em> to build it and <em>where</em> to build it. There are several other options as well which allow you to create a build configuration that suits your needs. We&apos;ll see that in detail later. </p>
+<p>The first thing to choose is where the projects/makefiles and object files (files resulting from the compilation process) will be created. You can generate them directly in the source tree (i.e. the SFML root directory), but it will then be polluted with a lot of garbage: a complete hierarchy of build files, object files, etc. The cleanest solution is to generate them in a completely separate folder so that you can keep your SFML directory clean. Using separate folders will also make it easier to have multiple different builds (static, dynamic, debug, release, ...). </p>
+<p>Now that you&apos;ve chosen the build directory, there&apos;s one more thing to do before you can run CMake. When CMake configures your project, it tests the availability of the compiler (and checks its version as well). As a consequence, the compiler executable must be available when CMake is run. This is not a problem for Linux and Mac OS X users, since the compilers are installed in a standard path and are always globally available, but on Windows you may have to add the directory of your compiler in the PATH environment variable, so that CMake can find it automatically. This is especially important when you have several compilers installed, or multiple versions of the same compiler. </p>
+<p>On Windows, if you want to use GCC (MinGW), you can temporarily add the MinGW\bin directory to the PATH and then run CMake from the command shell: </p>
+<pre><code>&gt; set PATH=%PATH%;your_mingw_folder\bin
+&gt; cmake -G&quot;MinGW Makefiles&quot; ./build
+</code></pre><p>With Visual C++, you can either run CMake from the &quot;Visual Studio command prompt&quot; available from the start menu, or run the vcvars32.bat batch file of your Visual Studio installation in the console you have open. The batch file will set all the necessary environment variables in that console window for you. </p>
+<pre><code>&gt; your_visual_studio_folder\VC\bin\vcvars32.bat
+&gt; cmake -G&quot;NMake Makefiles&quot; ./build
+</code></pre><p>Now you are ready to run CMake. In fact there are three different ways to run it: </p>
+<ul>
+<li><strong>cmake-gui</strong><br>This is CMake&apos;s graphical interface which allows you to configure everything with buttons and text fields. It&apos;s very convenient to see and edit the build options and is probably the easiest solution for beginners and people who don&apos;t want to deal with the command line. </li>
+<li><strong>cmake -i</strong><br>This is CMake&apos;s interactive command line wizard which guides you through filling build options one at a time. It is a good option if you want to start by using the command line since you are probably not able to remember all the different options that are available and which of them are important. </li>
+<li><strong>cmake</strong><br>This is the direct call to CMake. If you use this, you must specify all the option names and their values as command line parameters. To print out a list of all options, run cmake -L. </li>
+</ul>
+<p>In this tutorial we will be using cmake-gui, as this is what most beginners are likely to use. We assume that people who use the command line variants can refer to the CMake documentation for their usage. With the exception of the screenshots and the instructions to click buttons, everything that is explained below will apply to the command line variants as well (the options are the same). </p>
+<p>Here is what the CMake GUI looks like: </p>
+<p><img src="images/cmake-gui-start.png" alt="Screenshot of the cmake-gui tool"></p>
+<p>The first steps that need to be done are as follows (perform them in order): </p>
+<ol>
+<li>Tell CMake where the source code of SFML is (this must be the root folder of the SFML folder hierarchy, basically where the top level CMakeLists.txt file is).</li>
+<li>Choose where you want the projects/makefiles to be generated (if the directory doesn&apos;t exist, CMake will create it).</li>
+<li>Click the &quot;Configure&quot; button.</li>
+</ol>
+<p>If this is the first time CMake is run in this directory (or if you cleared the cache), the CMake GUI will prompt you to select a generator. In other words, this is where you select your compiler/IDE. </p>
+<p><img src="images/cmake-choose-generator.png" alt="Screenshot of the generator selection dialog box"></p>
+<p>For example, if you are using Visual Studio 2010, you should select &quot;Visual Studio 10 2010&quot; from the drop-down list. To generate makefiles usable with NMake on the Visual Studio command line, select &quot;NMake Makefiles&quot;. To create makefiles usable with MinGW (GCC), select &quot;MinGW Makefiles&quot;. It is generally easier to build SFML using makefiles rather than IDE projects: you can build the entire library with a single command, or even batch together multiple builds in a single script. Since you only plan to build SFML and not edit its source files, IDE projects aren&apos;t as useful.<br>More importantly, the installation process (described further down) may not work with the &quot;Xcode&quot; generator. It is therefore highly recommended to use the &quot;Makefile&quot; generator when building on Mac OS X. </p>
+<p>Always keep the &quot;Use default native compilers&quot; option enabled. The other three fields can be left alone. </p>
+<p>After selecting the generator, CMake will run a series of tests to gather information about your toolchain environment: compiler path, standard headers, SFML dependencies, etc. If the tests succeed, it should finish with the &quot;Configuring done&quot; message. If something goes wrong, read the error(s) printed to the output log carefully. It might be the case that your compiler is not accessible (see above) or configured properly, or that one of SFML&apos;s external dependencies is missing. </p>
+<p><img src="images/cmake-configure.png" alt="Screenshot of the cmake-gui window after configure"></p>
+<p>After configuring is done, the build options appear in the center of the window. CMake itself has many options, but most of them are already set to the right value by default. Some of them are cache variables and better left unchanged, they simply provide feedback about what CMake automatically found.<br>Here are the few options that you may want to have a look at when configuring your SFML build: </p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Meaning  </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CMAKE_BUILD_TYPE</code></td>
+<td>This option selects the build configuration type. Valid values are &quot;Debug&quot; and &quot;Release&quot; (there are other types such as &quot;RelWithDebInfo&quot; or &quot;MinSizeRel&quot;, but they are meant for more advanced builds). Note that if you generate a workspace for an IDE that supports multiple configurations, such as Visual Studio, this option is ignored since the workspace can contain multiple configurations simultaneously.   </td>
+</tr>
+<tr>
+<td><code>CMAKE_INSTALL_PREFIX</code></td>
+<td>This is the install path. By default, it is set to the installation path that is most typical on the operating system (&quot;/usr/local&quot; for Linux and Mac OS X, &quot;C:\Program Files&quot; for Windows, etc.). Installing SFML after building it is not mandatory since you can use the binaries directly from where they were built. It may be a better solution, however, to install them properly so you can remove all the temporary files produced during the build process.   </td>
+</tr>
+</tbody>
+</table>
+<p><code>CMAKE_INSTALL_FRAMEWORK_PREFIX  
+(Mac OS X only)</code> |  This is the install path for frameworks. By default, it is set to the root library folder i.e. /Library/Frameworks. As stated explained above for CMAKE_INSTALL_PREFIX, it is not mandatory to install SFML after building it, but it is definitely cleaner to do so.<br>This path is also used to install the sndfile framework on your system (a required dependency not provided by Apple) and SFML as frameworks if BUILD_FRAMEWORKS is selected.<br><code>BUILD_SHARED_LIBS</code> |  This boolean option controls whether you build SFML as dynamic (shared) libraries, or as static ones.<br>This option should not be enabled simultaneously with SFML_USE_STATIC_STD_LIBS, they are mutually exclusive.<br><code>SFML_BUILD_FRAMEWORKS  
+(Mac OS X only)</code> |  This boolean option controls whether you build SFML as <a href="http://developer.apple.com/library/mac/#documentation/MacOSX/Conceptual/BPFrameworks/Frameworks.html" title="go to Apple documentation about frameworks" target="_blank">framework bundles</a> or as <a href="http://developer.apple.com/library/mac/#documentation/DeveloperTools/Conceptual/DynamicLibraries/000-Introduction/Introduction.html" title="go to Apple documentation about dynamic library" target="_blank">dylib binaries</a>. Building frameworks requires BUILD_SHARED_LIBS to be selected.<br>It is recommended to use SFML as frameworks when publishing your applications. Note however, that SFML cannot be built in the debug configuration as frameworks. In that case, use dylibs instead.<br><code>SFML_BUILD_EXAMPLES</code> |  This boolean option controls whether the SFML examples are built alongside the library or not.<br><code>SFML_BUILD_DOC</code> |  This boolean option controls whether you generate the SFML documentation or not. Note that the <a href="http://www.doxygen.org" title="go to doxygen website" target="_blank">Doxygen</a> tool must be installed and accessible, otherwise enabling this option will produce an error.<br>On Mac OS X you can either install the classic-Unix doxygen binary into /usr/bin or any similar directory, or install Doxygen.app into any &quot;Applications&quot; folder, e.g. ~/Applications.<br><code>SFML_USE_STATIC_STD_LIBS  
+(Windows only)</code> |  This boolean option selects the type of the C/C++ runtime library which is linked to SFML.<br>TRUE statically links the standard libraries, which means that SFML is self-contained and doesn&apos;t depend on the compiler&apos;s specific DLLs.<br>FALSE (the default) dynamically links the standard libraries, which means that SFML depends on the compiler&apos;s DLLs (msvcrxx.dll/msvcpxx.dll for Visual C++, libgcc_s_xxx-1.dll/libstdc++-6.dll for GCC). Be careful when setting this. The setting must match your own project&apos;s setting or else your application may fail to run.<br>This option should not be enabled simultaneously with BUILD_SHARED_LIBS, they are mutually exclusive.<br><code>CMAKE_OSX_ARCHITECTURES  
+(Mac OS X only)</code> |  This setting specifies for which architectures SFML should be built. The recommended value is &quot;i386;x86_64&quot; to generate universal binaries for both 32 and 64-bit systems.<br><code>SFML_INSTALL_XCODE_TEMPLATES  
+(Mac OS X only)</code> |  This boolean option controls whether CMake will install the Xcode templates on your system or not. Please make sure that /Library/Developer/Xcode/Templates/SFML exists and is writable. More information about these templates is given in the &quot;Getting started&quot; tutorial for Mac OS X.<br><code>SFML_INSTALL_PKGCONFIG_FILES  
+(Linux shared libraries only)</code> |  This boolean option controls whether CMake will install the pkg-config files on your system or not. pkg-config is a tool that provides a unified interface for querying installed libraries.   </p>
+<p>After everything is configured, click the &quot;Configure&quot; button once again. There should no longer be any options highlighted in red, and the &quot;Generate&quot; button should be enabled. Click it to finally generate the chosen makefiles/projects. </p>
+<p><img src="images/cmake-generate.png" alt="Screenshot of the cmake-gui window after generate"></p>
+<p>CMake creates a variable cache for every project. Therefore, if you decide to reconfigure something at a later time, you&apos;ll find that your settings have been saved from the previous configuration. Make the necessary changes, reconfigure and generate the updated makefiles/projects. </p>
+<h3 id="c-11-and-mac-os-x">C++11 and Mac OS X</h3>
+<p>If you want to use C++11 features in your application on Mac OS X, you have to use clang (Apple&apos;s official compiler) and libc++. Moreover, you will need to build SFML with these tools to work around any incompatibility between the standard libraries and compilers. </p>
+<p>Here are the settings to use to build SFML with clang and libc++: </p>
+<ul>
+<li>Choose &quot;Specify native compilers&quot; rather than &quot;Use default native compilers&quot; when you select the generator.</li>
+<li>Set <code>CMAKE_CXX_COMPILER</code> to /usr/bin/clang++ (see screenshot).</li>
+<li>Set <code>CMAKE_C_COMPILER</code> to /usr/bin/clang (see screenshot).</li>
+<li>Set <code>CMAKE_CXX_FLAGS</code> and <code>CMAKE_C_FLAGS</code> to &quot;-stdlib=libc++&quot;.
+<img src="images/cmake-osx-compilers.png" alt="Screenshot of the compiler configuration on OS X"></li>
+</ul>
+<h2 id="building-sfml">Building SFML</h2>
+<p>Let&apos;s begin this section with some good news: you won&apos;t have to go through the configuration step any more, even if you update your working copy of SFML. CMake is smart: It adds a custom step to the generated makefiles/projects, that automatically regenerates the build files whenever something changes. </p>
+<p>You&apos;re now ready to build SFML. Of course, how to do it depends on what makefiles/projects you&apos;ve generated. If you created a project/solution/workspace, open it with your IDE and build SFML like you would any other project. We won&apos;t go into the details here, there are simply too many different IDEs and we have to assume that you know how to use yours well enough to perform this simple task on your own. </p>
+<p>If you generated a makefile, open a command shell and execute the make command corresponding to your environment. For example, run &quot;nmake&quot; if you generated an NMake (Visual Studio) makefile, &quot;mingw32-make&quot; if you generated a MinGW (GCC) makefile, or simply &quot;make&quot; if you generated a Linux makefile.<br>Note: On Windows, the make program (nmake or mingw32-make) may not be accessible. If this is the case, don&apos;t forget to add its location to your PATH environment variable. See the explanations at the beginning of the &quot;Configuring your SFML build&quot; section for more details. </p>
+<p>By default, building the project will build everything (all the SFML libraries, as well as all the examples if you enabled the SFML_BUILD_EXAMPLES option). If you just want to build a specific SFML library or example, you can select a different target. You can also choose to clean or install the built files, with the corresponding targets.<br>Here are all the targets that are available, depending on the configure options that you chose: </p>
+<table>
+<thead>
+<tr>
+<th>Target</th>
+<th>Meaning  </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>all</code></td>
+<td>This is the default target, it is used if no target is explicitly specified. It builds all the targets that produce a binary (SFML libraries and examples).   </td>
+</tr>
+</tbody>
+</table>
+<p><code>sfml&#x2011;system  
+sfml&#x2011;window  
+sfml&#x2011;network  
+sfml&#x2011;graphics  
+sfml&#x2011;audio  
+sfml&#x2011;main</code> |  Builds the corresponding SFML library. The &quot;sfml-main&quot; target is available only when building for Windows.<br><code>cocoa  
+ftp  
+opengl  
+pong  
+shader  
+sockets  
+sound  
+sound&#x2011;capture  
+voip  
+window  
+win32  
+X11</code> |  Builds the corresponding SFML example. These targets are available only if the <code>SFML_BUILD_EXAMPLES</code> option is enabled. Note that some of the targets are available only on certain operating systems (&quot;cocoa&quot; is available on Mac OS X, &quot;win32&quot; on Windows, &quot;X11&quot; on Linux, etc.).<br><code>doc</code> |  Generates the API documentation. This target is available only if <code>SFML_BUILD_DOC</code> is enabled.<br><code>clean</code> |  Removes all the object files, libraries and example binaries produced by a previous build. You generally don&apos;t need to invoke this target, the exception being when you want to completely rebuild SFML (some source updates may be incompatible with existing object files and cleaning everything is the only solution).<br><code>install</code> |  Installs SFML to the path given by <code>CMAKE_INSTALL_PREFIX</code> and <code>CMAKE_INSTALL_FRAMEWORK_PREFIX</code>. It copies over the SFML libraries and headers, as well as examples and documentation if <code>SFML_BUILD_EXAMPLES</code> and <code>SFML_BUILD_DOC</code> are enabled. After installing, you get a clean distribution of SFML, just as if you had downloaded the SDK or installed it from your distribution&apos;s package repository.   </p>
+<p>If you use an IDE, a target is simply a project. To build a target, select the corresponding project and compile it (even &quot;clean&quot; and &quot;install&quot; must be built to be executed -- don&apos;t be confused by the fact that no source code is actually compiled).<br>If you use a makefile, pass the name of the target to the make command to build the target. Examples: &quot;<code>nmake doc</code>&quot;, &quot;<code>mingw32-make install</code>&quot;, &quot;<code>make sfml-network</code>&quot;. </p>
+<p>At this point you should have successfully built SFML. Congratulations! </p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="./start-osx.html" class="navigation navigation-prev " aria-label="Previous page: SFML and Xcode (Mac OS X)"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="./system-time.html" class="navigation navigation-next " aria-label="Next page: Handling time"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="gitbook/app.js"></script>
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"fontSettings":{"theme":null,"family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

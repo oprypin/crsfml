@@ -1,0 +1,25 @@
+{
+
+"output": "../tutorials",
+
+"gitbook": ">=2.0.0",
+
+"title": "CrSFML Tutorials",
+
+"variables": {
+    "api": "http://blaxpirit.github.io/crsfml/SF/api"
+},
+
+"links": {
+    "sidebar": {
+        "CrSFML": "http://github.com/BlaXpirit/crsfml"
+    },
+
+    "sharing": {
+        "google": false,
+        "facebook": false,
+        "twitter": false
+    }
+}
+
+}

@@ -1,0 +1,798 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Using and extending packets | CrSFML Tutorials</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.2.0">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="gitbook/style.css">
+    
+    
+
+        
+    
+    
+    <link rel="next" href="./network-http.html" />
+    
+    
+    <link rel="prev" href="./network-socket.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book" data-level="6.2" data-basepath="." data-revision="Thu Aug 20 2015 13:04:05 GMT+0300 (EEST)">
+    
+
+<div class="book-summary">
+    <div class="book-search">
+        <input type="text" placeholder="Type to search" class="form-control" />
+    </div>
+    <ul class="summary">
+        
+        
+        
+            
+            <li>
+                <a href="http://github.com/BlaXpirit/crsfml" target="blank" class="custom-link">CrSFML</a>
+            </li>
+        
+        
+
+        
+        <li class="divider"></li>
+        
+
+        
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="./index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" >
+            
+            <span><b>1.</b> Getting started</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="start-vc.html">
+            
+                
+                    <a href="./start-vc.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        SFML and Visual Studio
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="start-cb.html">
+            
+                
+                    <a href="./start-cb.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        SFML and Code::Blocks (MinGW)
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="start-linux.html">
+            
+                
+                    <a href="./start-linux.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.</b>
+                        
+                        SFML and Linux
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="start-osx.html">
+            
+                
+                    <a href="./start-osx.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.</b>
+                        
+                        SFML and Xcode (Mac OS X)
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="compile-with-cmake.html">
+            
+                
+                    <a href="./compile-with-cmake.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.5.</b>
+                        
+                        Compiling SFML with CMake
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" >
+            
+            <span><b>2.</b> System module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="system-time.html">
+            
+                
+                    <a href="./system-time.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        Handling time
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="system-thread.html">
+            
+                
+                    <a href="./system-thread.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        Threads
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="system-stream.html">
+            
+                
+                    <a href="./system-stream.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        User data streams
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" >
+            
+            <span><b>3.</b> Window module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="window-window.html">
+            
+                
+                    <a href="./window-window.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        Opening and managing an SFML window
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="window-events.html">
+            
+                
+                    <a href="./window-events.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        Events explained
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="window-inputs.html">
+            
+                
+                    <a href="./window-inputs.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        Keyboard, mouse and joysticks
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="window-opengl.html">
+            
+                
+                    <a href="./window-opengl.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        Using OpenGL in a SFML window
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" >
+            
+            <span><b>4.</b> Graphics module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="graphics-draw.html">
+            
+                
+                    <a href="./graphics-draw.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        Drawing 2D stuff
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="graphics-sprite.html">
+            
+                
+                    <a href="./graphics-sprite.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        Sprites and textures
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="graphics-text.html">
+            
+                
+                    <a href="./graphics-text.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.</b>
+                        
+                        Text and fonts
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="graphics-shape.html">
+            
+                
+                    <a href="./graphics-shape.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.</b>
+                        
+                        Shapes
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.5" data-path="graphics-vertex-array.html">
+            
+                
+                    <a href="./graphics-vertex-array.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.5.</b>
+                        
+                        Designing your own entities with vertex arrays
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.6" data-path="graphics-transform.html">
+            
+                
+                    <a href="./graphics-transform.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.6.</b>
+                        
+                        Position, rotation, scale: transforming entities
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.7" data-path="graphics-shader.html">
+            
+                
+                    <a href="./graphics-shader.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.7.</b>
+                        
+                        Adding special effects with shaders
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.8" data-path="graphics-view.html">
+            
+                
+                    <a href="./graphics-view.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.8.</b>
+                        
+                        Controlling the 2D camera with views
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5" >
+            
+            <span><b>5.</b> Audio module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1" data-path="audio-sounds.html">
+            
+                
+                    <a href="./audio-sounds.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.1.</b>
+                        
+                        Playing sounds and music
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="audio-recording.html">
+            
+                
+                    <a href="./audio-recording.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.</b>
+                        
+                        Recording audio
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.3" data-path="audio-streams.html">
+            
+                
+                    <a href="./audio-streams.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.3.</b>
+                        
+                        Custom audio streams
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4" data-path="audio-spatialization.html">
+            
+                
+                    <a href="./audio-spatialization.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.4.</b>
+                        
+                        Spatialization: Sounds in 3D
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="6" >
+            
+            <span><b>6.</b> Network module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1" data-path="network-socket.html">
+            
+                
+                    <a href="./network-socket.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.1.</b>
+                        
+                        Communication using sockets
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="6.2" data-path="network-packet.html">
+            
+                
+                    <a href="./network-packet.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.2.</b>
+                        
+                        Using and extending packets
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" data-path="network-http.html">
+            
+                
+                    <a href="./network-http.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.3.</b>
+                        
+                        Web requests with HTTP
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.4" data-path="network-ftp.html">
+            
+                
+                    <a href="./network-ftp.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.4.</b>
+                        
+                        File transfers with FTP
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+        
+        <li class="divider"></li>
+        <li>
+            <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                Published with GitBook
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header">
+    <!-- Actions Left -->
+    <a href="#" class="btn pull-left toggle-summary" aria-label="Table of Contents"><i class="fa fa-align-justify"></i></a>
+    <a href="#" class="btn pull-left toggle-search" aria-label="Search"><i class="fa fa-search"></i></a>
+    
+    <div id="font-settings-wrapper" class="dropdown pull-left">
+        <a href="#" class="btn toggle-dropdown" aria-label="Font Settings"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+    <div class="buttons">
+        <button type="button" id="reduce-font-size" class="button size-2">A</button>
+        <button type="button" id="enlarge-font-size" class="button size-2">A</button>
+    </div>
+
+    <div class="buttons font-family-list">
+        <button type="button" data-font="0" class="button">Serif</button>
+        <button type="button" data-font="1" class="button">Sans</button>
+    </div>
+
+    <div class="buttons color-theme-list">
+        <button type="button" id="color-theme-preview-0" class="button size-3" data-theme="0">White</button>
+        <button type="button" id="color-theme-preview-1" class="button size-3" data-theme="1">Sepia</button>
+        <button type="button" id="color-theme-preview-2" class="button size-3" data-theme="2">Night</button>
+    </div>
+</div>
+
+    </div>
+
+    <!-- Actions Right -->
+    
+    <div class="dropdown pull-right">
+        <a href="#" class="btn toggle-dropdown" aria-label="Share"><i class="fa fa-share-alt"></i>
+        </a>
+        <div class="dropdown-menu font-settings dropdown-left">
+            <div class="dropdown-caret">
+                <span class="caret-outer"></span>
+                <span class="caret-inner"></span>
+            </div>
+            <div class="buttons">
+                <button type="button" data-sharing="twitter" class="button">
+                    Share on Twitter
+                </button>
+                <button type="button" data-sharing="google-plus" class="button">
+                    Share on Google
+                </button>
+                <button type="button" data-sharing="facebook" class="button">
+                    Share on Facebook
+                </button>
+                <button type="button" data-sharing="weibo" class="button">
+                    Share on Weibo
+                </button>
+                <button type="button" data-sharing="instapaper" class="button">
+                    Share on Instapaper
+                </button>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    
+    
+    
+    
+
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="./" >CrSFML Tutorials</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="using-and-extending-packets">Using and extending packets</h1>
+<h2 id="problems-that-need-to-be-solved">Problems that need to be solved</h2>
+<p>Exchanging data on a network is more tricky than it seems. The reason is that different machines, with different operating systems and processors, can be involved. Several problems arise if you want to exchange data reliably between these different machines. </p>
+<p>The first problem is the endianness. The endianness is the order in which a particular processor interprets the bytes of primitive types that occupy more than a single byte (integers and floating point numbers). There are two main families: &quot;big endian&quot; processors, which store the most significant byte first, and &quot;little endian&quot; processors, which store the least significant byte first. There are other, more exotic byte orders, but you&apos;ll probably never have to deal with them.<br>The problem is obvious: If you send a variable between two computers whose endianness doesn&apos;t match, they won&apos;t see the same value. For example, the 16-bit integer &quot;42&quot; in big endian notation is 00000000 00101010, but if you send this to a little endian machine, it will be interpreted as &quot;10752&quot;. </p>
+<p>The second problem is the size of primitive types. The C++ standard doesn&apos;t set the size of primitive types (char, short, int, long, float, double), so, again, there can be differences between processors -- and there are. For example, the <code>long int</code> type can be a 32-bit type on some platforms, and a 64-bit type on others. </p>
+<p>The third problem is specific to how the TCP protocol works. Because it doesn&apos;t preserve message boundaries, and can split or combine chunks of data, receivers must properly reconstruct incoming messages before interpreting them. Otherwise bad things might happen, like reading incomplete variables, or ignoring useful bytes. </p>
+<p>You may of course face other problems with network programming, but these are the lowest-level ones, that almost everybody will have to solve. This is the reason why SFML provides some simple tools to avoid them. </p>
+<h2 id="fixed-size-primitive-types">Fixed-size primitive types</h2>
+<p>Since primitive types cannot be exchanged reliably on a network, the solution is simple: don&apos;t use them. SFML provides fixed-size types for data exchange: <code>sf::Int8, sf::Uint16, sf::Int32</code>, etc. These types are just typedefs to primitive types, but they are mapped to the type which has the expected size according to the platform. So they can (and must!) be used safely when you want to exchange data between two computers. </p>
+<p>SFML only provides fixed-size <em>integer</em> types. Floating-point types should normally have their fixed-size equivalent too, but in practice this is not needed (at least on platforms where SFML runs), <code>float</code> and <code>double</code> types always have the same size, 32 bits and 64 bits respectively. </p>
+<h2 id="packets">Packets</h2>
+<p>The two other problems (endianness and message boundaries) are solved by using a specific class to pack your data: <a href="http://blaxpirit.github.io/crsfml/SF/api/Packet.html" target="_blank">Packet</a>. As a bonus, it provides a much nicer interface than plain old byte arrays. </p>
+<p>Packets have a programming interface similar to standard streams: you can insert data with the &lt;&lt; operator, and extract data with the &gt;&gt; operator. </p>
+<pre><code>// on sending side
+sf::Uint16 x = 10;
+std::string s = &quot;hello&quot;;
+double d = 0.6;
+
+sf::Packet packet;
+packet &lt;&lt; x &lt;&lt; s &lt;&lt; d;
+</code></pre><pre><code>// on receiving side
+sf::Uint16 x;
+std::string s;
+double d;
+
+packet &gt;&gt; x &gt;&gt; s &gt;&gt; d;
+</code></pre><p>Unlike writing, reading from a packet can fail if you try to extract more bytes than the packet contains. If a reading operation fails, the packet error flag is set. To check the error flag of a packet, you can test it like a boolean (the same way you do with standard streams): </p>
+<pre><code>if (packet &gt;&gt; x)
+{
+    // ok
+}
+else
+{
+    // error, failed to read &apos;x&apos; from the packet
+}
+</code></pre><p>Sending and receiving packets is as easy as sending/receiving an array of bytes: sockets have an overload of <code>send</code> and <code>receive</code> that directly accept a <a href="http://blaxpirit.github.io/crsfml/SF/api/Packet.html" target="_blank">Packet</a>. </p>
+<pre><code>// with a TCP socket
+tcpSocket.send(packet);
+tcpSocket.receive(packet);
+</code></pre><pre><code>// with a UDP socket
+udpSocket.send(packet, recipientAddress, recipientPort);
+udpSocket.receive(packet, senderAddress, senderPort);
+</code></pre><p>Packets solve the &quot;message boundaries&quot; problem, which means that when you send a packet on a TCP socket, you receive the exact same packet on the other end, it cannot contain less bytes, or bytes from the next packet that you send. However, it has a slight drawback: To preserve message boundaries, <a href="http://blaxpirit.github.io/crsfml/SF/api/Packet.html" target="_blank">Packet</a> has to send some extra bytes along with your data, which implies that you can only receive them with a <a href="http://blaxpirit.github.io/crsfml/SF/api/Packet.html" target="_blank">Packet</a> if you want them to be properly decoded. Simply put, you can&apos;t send an SFML packet to a non-SFML packet recipient, it has to use an SFML packet for receiving too. Note that this applies to TCP only, UDP is fine since the protocol itself preserves message boundaries. </p>
+<h2 id="extending-packets-to-handle-user-types">Extending packets to handle user types</h2>
+<p>Packets have overloads of their operators for all the primitive types and the most common standard types, but what about your own classes? As with standard streams, you can make a type &quot;compatible&quot; with <a href="http://blaxpirit.github.io/crsfml/SF/api/Packet.html" target="_blank">Packet</a> by providing an overload of the &lt;&lt; and &gt;&gt; operators. </p>
+<pre><code>struct Character
+{
+    sf::Uint8 age;
+    std::string name;
+    float weight;
+};
+
+sf::Packet&amp; operator &lt;&lt;(sf::Packet&amp; packet, const Character&amp; character)
+{
+    return packet &lt;&lt; character.age &lt;&lt; character.name &lt;&lt; character.weight;
+}
+
+sf::Packet&amp; operator &gt;&gt;(sf::Packet&amp; packet, Character&amp; character)
+{
+    return packet &gt;&gt; character.age &gt;&gt; character.name &gt;&gt; character.weight;
+}
+</code></pre><p>Both operators return a reference to the packet: This allows chaining insertion and extraction of data. </p>
+<p>Now that these operators are defined, you can insert/extract a <code>Character</code> instance to/from a packet like any other primitive type: </p>
+<pre><code>Character bob;
+
+packet &lt;&lt; bob;
+packet &gt;&gt; bob;
+</code></pre><h2 id="custom-packets">Custom packets</h2>
+<p>Packets provide nice features on top of your raw data, but what if you want to add your own features such as automatically compressing or encrypting the data? This can easily be done by deriving from <a href="http://blaxpirit.github.io/crsfml/SF/api/Packet.html" target="_blank">Packet</a> and overriding the following functions: </p>
+<ul>
+<li><code>onSend</code>: called before the data is sent by the socket</li>
+<li><code>onReceive</code>: called after the data has been received by the socket</li>
+</ul>
+<p>These functions provide direct access to the data, so that you can transform them according to your needs. </p>
+<p>Here is a mock-up of a packet that performs automatic compression/decompression: </p>
+<pre><code>class ZipPacket : public sf::Packet
+{
+    virtual const void* onSend(std::size_t&amp; size)
+    {
+        const void* srcData = getData();
+        std::size_t srcSize = getDataSize();
+        return compressTheData(srcData, srcSize, &amp;size); // this is a fake function, of course :)
+    }
+    virtual void onReceive(const void* data, std::size_t size)
+    {
+        std::size_t dstSize;
+        const void* dstData = uncompressTheData(data, size, &amp;dstSize); // this is a fake function, of course :)
+        append(dstData, dstSize);
+    }
+};
+</code></pre><p>Such a packet class can be used exactly like <a href="http://blaxpirit.github.io/crsfml/SF/api/Packet.html" target="_blank">Packet</a>. All your operator overloads will apply to them as well. </p>
+<pre><code>ZipPacket packet;
+packet &lt;&lt; x &lt;&lt; bob;
+socket.send(packet);
+</code></pre>
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="./network-socket.html" class="navigation navigation-prev " aria-label="Previous page: Communication using sockets"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="./network-http.html" class="navigation navigation-next " aria-label="Next page: Web requests with HTTP"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="gitbook/app.js"></script>
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"fontSettings":{"theme":null,"family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

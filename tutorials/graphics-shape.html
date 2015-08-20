@@ -1,0 +1,863 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Shapes | CrSFML Tutorials</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.2.0">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="gitbook/style.css">
+    
+    
+
+        
+    
+    
+    <link rel="next" href="./graphics-vertex-array.html" />
+    
+    
+    <link rel="prev" href="./graphics-text.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book" data-level="4.4" data-basepath="." data-revision="Thu Aug 20 2015 13:04:05 GMT+0300 (EEST)">
+    
+
+<div class="book-summary">
+    <div class="book-search">
+        <input type="text" placeholder="Type to search" class="form-control" />
+    </div>
+    <ul class="summary">
+        
+        
+        
+            
+            <li>
+                <a href="http://github.com/BlaXpirit/crsfml" target="blank" class="custom-link">CrSFML</a>
+            </li>
+        
+        
+
+        
+        <li class="divider"></li>
+        
+
+        
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="./index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" >
+            
+            <span><b>1.</b> Getting started</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="start-vc.html">
+            
+                
+                    <a href="./start-vc.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        SFML and Visual Studio
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="start-cb.html">
+            
+                
+                    <a href="./start-cb.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        SFML and Code::Blocks (MinGW)
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="start-linux.html">
+            
+                
+                    <a href="./start-linux.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.</b>
+                        
+                        SFML and Linux
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="start-osx.html">
+            
+                
+                    <a href="./start-osx.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.</b>
+                        
+                        SFML and Xcode (Mac OS X)
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="compile-with-cmake.html">
+            
+                
+                    <a href="./compile-with-cmake.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.5.</b>
+                        
+                        Compiling SFML with CMake
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" >
+            
+            <span><b>2.</b> System module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="system-time.html">
+            
+                
+                    <a href="./system-time.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        Handling time
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="system-thread.html">
+            
+                
+                    <a href="./system-thread.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        Threads
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="system-stream.html">
+            
+                
+                    <a href="./system-stream.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        User data streams
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" >
+            
+            <span><b>3.</b> Window module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="window-window.html">
+            
+                
+                    <a href="./window-window.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        Opening and managing an SFML window
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="window-events.html">
+            
+                
+                    <a href="./window-events.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        Events explained
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="window-inputs.html">
+            
+                
+                    <a href="./window-inputs.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        Keyboard, mouse and joysticks
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="window-opengl.html">
+            
+                
+                    <a href="./window-opengl.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        Using OpenGL in a SFML window
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" >
+            
+            <span><b>4.</b> Graphics module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="graphics-draw.html">
+            
+                
+                    <a href="./graphics-draw.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        Drawing 2D stuff
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="graphics-sprite.html">
+            
+                
+                    <a href="./graphics-sprite.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        Sprites and textures
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="graphics-text.html">
+            
+                
+                    <a href="./graphics-text.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.</b>
+                        
+                        Text and fonts
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="4.4" data-path="graphics-shape.html">
+            
+                
+                    <a href="./graphics-shape.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.</b>
+                        
+                        Shapes
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.5" data-path="graphics-vertex-array.html">
+            
+                
+                    <a href="./graphics-vertex-array.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.5.</b>
+                        
+                        Designing your own entities with vertex arrays
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.6" data-path="graphics-transform.html">
+            
+                
+                    <a href="./graphics-transform.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.6.</b>
+                        
+                        Position, rotation, scale: transforming entities
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.7" data-path="graphics-shader.html">
+            
+                
+                    <a href="./graphics-shader.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.7.</b>
+                        
+                        Adding special effects with shaders
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.8" data-path="graphics-view.html">
+            
+                
+                    <a href="./graphics-view.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.8.</b>
+                        
+                        Controlling the 2D camera with views
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5" >
+            
+            <span><b>5.</b> Audio module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1" data-path="audio-sounds.html">
+            
+                
+                    <a href="./audio-sounds.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.1.</b>
+                        
+                        Playing sounds and music
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="audio-recording.html">
+            
+                
+                    <a href="./audio-recording.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.</b>
+                        
+                        Recording audio
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.3" data-path="audio-streams.html">
+            
+                
+                    <a href="./audio-streams.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.3.</b>
+                        
+                        Custom audio streams
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4" data-path="audio-spatialization.html">
+            
+                
+                    <a href="./audio-spatialization.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.4.</b>
+                        
+                        Spatialization: Sounds in 3D
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="6" >
+            
+            <span><b>6.</b> Network module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1" data-path="network-socket.html">
+            
+                
+                    <a href="./network-socket.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.1.</b>
+                        
+                        Communication using sockets
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="network-packet.html">
+            
+                
+                    <a href="./network-packet.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.2.</b>
+                        
+                        Using and extending packets
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" data-path="network-http.html">
+            
+                
+                    <a href="./network-http.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.3.</b>
+                        
+                        Web requests with HTTP
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.4" data-path="network-ftp.html">
+            
+                
+                    <a href="./network-ftp.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.4.</b>
+                        
+                        File transfers with FTP
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+        
+        <li class="divider"></li>
+        <li>
+            <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                Published with GitBook
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header">
+    <!-- Actions Left -->
+    <a href="#" class="btn pull-left toggle-summary" aria-label="Table of Contents"><i class="fa fa-align-justify"></i></a>
+    <a href="#" class="btn pull-left toggle-search" aria-label="Search"><i class="fa fa-search"></i></a>
+    
+    <div id="font-settings-wrapper" class="dropdown pull-left">
+        <a href="#" class="btn toggle-dropdown" aria-label="Font Settings"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+    <div class="buttons">
+        <button type="button" id="reduce-font-size" class="button size-2">A</button>
+        <button type="button" id="enlarge-font-size" class="button size-2">A</button>
+    </div>
+
+    <div class="buttons font-family-list">
+        <button type="button" data-font="0" class="button">Serif</button>
+        <button type="button" data-font="1" class="button">Sans</button>
+    </div>
+
+    <div class="buttons color-theme-list">
+        <button type="button" id="color-theme-preview-0" class="button size-3" data-theme="0">White</button>
+        <button type="button" id="color-theme-preview-1" class="button size-3" data-theme="1">Sepia</button>
+        <button type="button" id="color-theme-preview-2" class="button size-3" data-theme="2">Night</button>
+    </div>
+</div>
+
+    </div>
+
+    <!-- Actions Right -->
+    
+    <div class="dropdown pull-right">
+        <a href="#" class="btn toggle-dropdown" aria-label="Share"><i class="fa fa-share-alt"></i>
+        </a>
+        <div class="dropdown-menu font-settings dropdown-left">
+            <div class="dropdown-caret">
+                <span class="caret-outer"></span>
+                <span class="caret-inner"></span>
+            </div>
+            <div class="buttons">
+                <button type="button" data-sharing="twitter" class="button">
+                    Share on Twitter
+                </button>
+                <button type="button" data-sharing="google-plus" class="button">
+                    Share on Google
+                </button>
+                <button type="button" data-sharing="facebook" class="button">
+                    Share on Facebook
+                </button>
+                <button type="button" data-sharing="weibo" class="button">
+                    Share on Weibo
+                </button>
+                <button type="button" data-sharing="instapaper" class="button">
+                    Share on Instapaper
+                </button>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    
+    
+    
+    
+
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="./" >CrSFML Tutorials</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="shapes">Shapes</h1>
+<h2 id="introduction">Introduction</h2>
+<p>SFML provides a set of classes that represent simple shape entities. Each type of shape is a separate class, but they all derive from the same base class so that they have access to the same subset of common features. Each class then adds its own specifics: a radius property for the circle class, a size for the rectangle class, points for the polygon class, etc. </p>
+<h2 id="common-shape-properties">Common shape properties</h2>
+<h3 id="transformation-position-rotation-scale">Transformation (position, rotation, scale)</h3>
+<p>These properties are common to all the SFML graphical classes, so they are explained in a separate tutorial: <a href="graphics-transform.html" title="&apos;Transforming entities&apos; tutorial">Transforming entities</a>. </p>
+<h3 id="color">Color</h3>
+<p>One of the basic properties of a shape is its color. You can change with the <code>setFillColor</code> function. </p>
+<pre><code>sf::CircleShape shape(50);
+
+// set the shape color to green
+shape.setFillColor(sf::Color(100, 250, 50));
+</code></pre><p><img src="images/graphics-shape-color.png" alt="A colored shape"></p>
+<h3 id="outline">Outline</h3>
+<p>Shapes can have an outline. You can set the thickness and color of the outline with the <code>setOutlineThickness</code> and <code>setOutlineColor</code> functions. </p>
+<pre><code>sf::CircleShape shape(50);
+shape.setFillColor(sf::Color(150, 50, 250));
+
+// set a 10-pixel wide orange outline
+shape.setOutlineThickness(10);
+shape.setOutlineColor(sf::Color(250, 150, 100));
+</code></pre><p><img src="images/graphics-shape-outline.png" alt="An outlined shape"></p>
+<p>By default, the outline is extruded outwards from the shape (e.g. if you have a circle with a radius of 10 and an outline thickness of 5, the total radius of the circle will be 15). You can make it extrude towards the center of the shape instead, by setting a negative thickness. </p>
+<p>To disable the outline, set its thickness to 0. If you only want the outline, you can set the fill color to <code>sf::Color::Transparent</code>. </p>
+<h3 id="texture">Texture</h3>
+<p>Shapes can also be textured, just like sprites. To specify a part of the texture to be mapped to the shape, you must use the <code>setTextureRect</code> function. It takes the texture rectangle to map to the bounding rectangle of the shape. This method doesn&apos;t offer maximum flexibility, but it is much easier to use than individually setting the texture coordinates of each point of the shape. </p>
+<pre><code>sf::CircleShape shape(50);
+
+// map a 100x100 textured rectangle to the shape
+shape.setTexture(&amp;texture); // texture is a sf::Texture
+shape.setTextureRect(sf::IntRect(10, 10, 100, 100));
+</code></pre><p><img src="images/graphics-shape-texture.png" alt="A textured shape"></p>
+<p>Note that the outline is not textured.<br>It is important to know that the texture is modulated (multiplied) with the shape&apos;s fill color. If its fill color is sf::Color::White, the texture will appear unmodified.<br>To disable texturing, call <code>setTexture(NULL)</code>. </p>
+<h2 id="drawing-a-shape">Drawing a shape</h2>
+<p>Drawing a shape is as simple as drawing any other SFML entity: </p>
+<pre><code>window.draw(shape);
+</code></pre><h2 id="built-in-shape-types">Built-in shape types</h2>
+<h3 id="rectangles">Rectangles</h3>
+<p>To draw rectangles, you can use the <a href="http://blaxpirit.github.io/crsfml/SF/api/RectangleShape.html" target="_blank">RectangleShape</a> class. It has a single attribute: The size of the rectangle. </p>
+<pre><code>// define a 120x50 rectangle
+sf::RectangleShape rectangle(sf::Vector2f(120, 50));
+
+// change the size to 100x100
+rectangle.setSize(sf::Vector2f(100, 100));
+</code></pre><p><img src="images/graphics-shape-rectangle.png" alt="A rectangle shape"></p>
+<h3 id="circles">Circles</h3>
+<p>Circles are represented by the <a href="http://blaxpirit.github.io/crsfml/SF/api/CircleShape.html" target="_blank">CircleShape</a> class. It has two attributes: The radius and the number of sides. The number of sides is an optional attribute, it allows you to adjust the &quot;quality&quot; of the circle: Circles have to be approximated by polygons with many sides (the graphics card is unable to draw a perfect circle directly), and this attribute defines how many sides your circle approximation will have. If you draw small circles, you&apos;ll probably only need a few sides. If you draw big circles, or zoom on regular circles, you&apos;ll most likely need more sides. </p>
+<pre><code>// define a circle with radius = 200
+sf::CircleShape circle(200);
+
+// change the radius to 40
+circle.setRadius(40);
+
+// change the number of sides (points) to 100
+circle.setPointCount(100);
+</code></pre><p><img src="images/graphics-shape-circle.png" alt="A circle shape"></p>
+<h3 id="regular-polygons">Regular polygons</h3>
+<p>There&apos;s no dedicated class for regular polygons, in fact you can represent a regular polygon with any number of sides using the <a href="http://blaxpirit.github.io/crsfml/SF/api/CircleShape.html" target="_blank">CircleShape</a> class: Since circles are approximated by polygons with many sides, you just have to play with the number of sides to get the desired polygons. A <a href="http://blaxpirit.github.io/crsfml/SF/api/CircleShape.html" target="_blank">CircleShape</a> with 3 points is a triangle, with 4 points it&apos;s a square, etc. </p>
+<pre><code>// define a triangle
+sf::CircleShape triangle(80, 3);
+
+// define a square
+sf::CircleShape square(80, 4);
+
+// define an octagon
+sf::CircleShape octagon(80, 8);
+</code></pre><p><img src="images/graphics-shape-regular.png" alt="Regular polygons"></p>
+<h3 id="convex-shapes">Convex shapes</h3>
+<p>The <a href="http://blaxpirit.github.io/crsfml/SF/api/ConvexShape.html" target="_blank">ConvexShape</a> class is the ultimate shape class: It allows you to define any <em>convex</em> shape. SFML is unable to draw concave shapes. If you need to draw a concave shape, you&apos;ll have to split it into multiple convex polygons. </p>
+<p>To construct a convex shape, you must first set the number of points it should have and then define the points. </p>
+<pre><code>// create an empty shape
+sf::ConvexShape convex;
+
+// resize it to 5 points
+convex.setPointCount(5);
+
+// define the points
+convex.setPoint(0, sf::Vector2f(0, 0));
+convex.setPoint(1, sf::Vector2f(150, 10));
+convex.setPoint(2, sf::Vector2f(120, 90));
+convex.setPoint(3, sf::Vector2f(30, 100));
+convex.setPoint(4, sf::Vector2f(0, 50));
+</code></pre><p>The order in which you define the points is very important. They must <em>all</em> be defined either in clockwise or counter-clockwise order. If you define them in an inconsistent order, the shape will be constructed incorrectly. </p>
+<p><img src="images/graphics-shape-convex.png" alt="A convex shape"></p>
+<p>Although the name of <a href="http://blaxpirit.github.io/crsfml/SF/api/ConvexShape.html" target="_blank">ConvexShape</a> implies that it should only be used to represent convex shapes, its requirements are a little more relaxed. In fact, the only requirement that your shape must meet is that if you went ahead and drew lines from its <em>center of gravity</em> to all of its points, these lines must be drawn in the same order. You are not allowed to &quot;jump behind a previous line&quot;. Internally, convex shapes are automatically constructed using <a href="http://en.wikipedia.org/wiki/Triangle_fan" title="Go to Wikipedia&apos;s article about triangle fans" target="_blank">triangle fans</a>, so if your shape is representable by a triangle fan, you can use <a href="http://blaxpirit.github.io/crsfml/SF/api/ConvexShape.html" target="_blank">ConvexShape</a>. With this relaxed definition, you can draw stars using <a href="http://blaxpirit.github.io/crsfml/SF/api/ConvexShape.html" target="_blank">ConvexShape</a> for example. </p>
+<h3 id="lines">Lines</h3>
+<p>There&apos;s no shape class for lines. The reason is simple: If your line has a thickness, it is a rectangle. If it doesn&apos;t, it can be drawn with a line primitive. </p>
+<p>Line with thickness: </p>
+<pre><code>sf::RectangleShape line(sf::Vector2f(150, 5));
+line.rotate(45);
+</code></pre><p><img src="images/graphics-shape-line-rectangle.png" alt="A line shape drawn as a rectangle"></p>
+<p>Line without thickness: </p>
+<pre><code>sf::Vertex line[] =
+{
+    sf::Vertex(sf::Vector2f(10, 10)),
+    sf::Vertex(sf::Vector2f(150, 150))
+};
+
+window.draw(line, 2, sf::Lines);
+</code></pre><p><img src="images/graphics-shape-line-primitive.png" alt="A line shape drawn as a primitive"></p>
+<p>To learn more about vertices and primitives, you can read the tutorial on <a href="graphics-vertex-array.html" title="&apos;Vertex arrays&apos; tutorial">vertex arrays</a>. </p>
+<h2 id="custom-shape-types">Custom shape types</h2>
+<p>You can extend the set of shape classes with your own shape types. To do so, you must derive from <a href="http://blaxpirit.github.io/crsfml/SF/api/Shape.html" target="_blank">Shape</a> and override two functions: </p>
+<ul>
+<li><code>getPointCount</code>: return the number of points in the shape</li>
+<li><code>getPoint</code>: return a point of the shape</li>
+</ul>
+<p>You must also call the <code>update()</code> protected function whenever any point in your shape changes, so that the base class is informed and can update its internal geometry. </p>
+<p>Here is a complete example of a custom shape class: EllipseShape. </p>
+<pre><code>class EllipseShape : public sf::Shape
+{
+public :
+
+    explicit EllipseShape(const sf::Vector2f&amp; radius = sf::Vector2f(0, 0)) :
+    m_radius(radius)
+    {
+        update();
+    }
+
+    void setRadius(const sf::Vector2f&amp; radius)
+    {
+        m_radius = radius;
+        update();
+    }
+
+    const sf::Vector2f&amp; getRadius() const
+    {
+        return m_radius;
+    }
+
+    virtual unsigned int getPointCount() const
+    {
+        return 30; // fixed, but could be an attribute of the class if needed
+    }
+
+    virtual sf::Vector2f getPoint(unsigned int index) const
+    {
+        static const float pi = 3.141592654f;
+
+        float angle = index * 2 * pi / getPointCount() - pi / 2;
+        float x = std::cos(angle) * m_radius.x;
+        float y = std::sin(angle) * m_radius.y;
+
+        return sf::Vector2f(m_radius.x + x, m_radius.y + y);
+    }
+
+private :
+
+    sf::Vector2f m_radius;
+};
+</code></pre><p><img src="images/graphics-shape-ellipse.png" alt="An ellipse shape"></p>
+<h2 id="antialiased-shapes">Antialiased shapes</h2>
+<p>There&apos;s no option to anti-alias a single shape. To get anti-aliased shapes (i.e. shapes with smoothed edges), you have to enable anti-aliasing globally when you create the window, with the corresponding attribute of the structure. </p>
+<pre><code>sf::ContextSettings settings;
+settings.antialiasingLevel = 8;
+
+sf::RenderWindow window(sf::VideoMode(800, 600), &quot;SFML shapes&quot;, sf::Style::Default, settings);
+</code></pre><p><img src="images/graphics-shape-antialiasing.png" alt="Aliased vs antialiased shape"></p>
+<p>Remember that anti-aliasing availability depends on the graphics card: It might not support it, or have it forced to disabled in the driver settings. </p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="./graphics-text.html" class="navigation navigation-prev " aria-label="Previous page: Text and fonts"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="./graphics-vertex-array.html" class="navigation navigation-next " aria-label="Next page: Designing your own entities with vertex arrays"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="gitbook/app.js"></script>
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"fontSettings":{"theme":null,"family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

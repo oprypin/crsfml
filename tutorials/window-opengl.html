@@ -1,0 +1,894 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Using OpenGL in a SFML window | CrSFML Tutorials</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.2.0">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="gitbook/style.css">
+    
+    
+
+        
+    
+    
+    <link rel="next" href="./graphics-draw.html" />
+    
+    
+    <link rel="prev" href="./window-inputs.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book" data-level="3.4" data-basepath="." data-revision="Thu Aug 20 2015 13:04:05 GMT+0300 (EEST)">
+    
+
+<div class="book-summary">
+    <div class="book-search">
+        <input type="text" placeholder="Type to search" class="form-control" />
+    </div>
+    <ul class="summary">
+        
+        
+        
+            
+            <li>
+                <a href="http://github.com/BlaXpirit/crsfml" target="blank" class="custom-link">CrSFML</a>
+            </li>
+        
+        
+
+        
+        <li class="divider"></li>
+        
+
+        
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="./index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" >
+            
+            <span><b>1.</b> Getting started</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="start-vc.html">
+            
+                
+                    <a href="./start-vc.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        SFML and Visual Studio
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="start-cb.html">
+            
+                
+                    <a href="./start-cb.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        SFML and Code::Blocks (MinGW)
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="start-linux.html">
+            
+                
+                    <a href="./start-linux.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.</b>
+                        
+                        SFML and Linux
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="start-osx.html">
+            
+                
+                    <a href="./start-osx.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.</b>
+                        
+                        SFML and Xcode (Mac OS X)
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="compile-with-cmake.html">
+            
+                
+                    <a href="./compile-with-cmake.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.5.</b>
+                        
+                        Compiling SFML with CMake
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" >
+            
+            <span><b>2.</b> System module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="system-time.html">
+            
+                
+                    <a href="./system-time.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        Handling time
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="system-thread.html">
+            
+                
+                    <a href="./system-thread.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        Threads
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="system-stream.html">
+            
+                
+                    <a href="./system-stream.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        User data streams
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" >
+            
+            <span><b>3.</b> Window module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="window-window.html">
+            
+                
+                    <a href="./window-window.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        Opening and managing an SFML window
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="window-events.html">
+            
+                
+                    <a href="./window-events.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        Events explained
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="window-inputs.html">
+            
+                
+                    <a href="./window-inputs.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        Keyboard, mouse and joysticks
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="3.4" data-path="window-opengl.html">
+            
+                
+                    <a href="./window-opengl.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        Using OpenGL in a SFML window
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" >
+            
+            <span><b>4.</b> Graphics module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="graphics-draw.html">
+            
+                
+                    <a href="./graphics-draw.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        Drawing 2D stuff
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="graphics-sprite.html">
+            
+                
+                    <a href="./graphics-sprite.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        Sprites and textures
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="graphics-text.html">
+            
+                
+                    <a href="./graphics-text.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.</b>
+                        
+                        Text and fonts
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="graphics-shape.html">
+            
+                
+                    <a href="./graphics-shape.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.</b>
+                        
+                        Shapes
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.5" data-path="graphics-vertex-array.html">
+            
+                
+                    <a href="./graphics-vertex-array.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.5.</b>
+                        
+                        Designing your own entities with vertex arrays
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.6" data-path="graphics-transform.html">
+            
+                
+                    <a href="./graphics-transform.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.6.</b>
+                        
+                        Position, rotation, scale: transforming entities
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.7" data-path="graphics-shader.html">
+            
+                
+                    <a href="./graphics-shader.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.7.</b>
+                        
+                        Adding special effects with shaders
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.8" data-path="graphics-view.html">
+            
+                
+                    <a href="./graphics-view.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.8.</b>
+                        
+                        Controlling the 2D camera with views
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5" >
+            
+            <span><b>5.</b> Audio module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1" data-path="audio-sounds.html">
+            
+                
+                    <a href="./audio-sounds.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.1.</b>
+                        
+                        Playing sounds and music
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="audio-recording.html">
+            
+                
+                    <a href="./audio-recording.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.</b>
+                        
+                        Recording audio
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.3" data-path="audio-streams.html">
+            
+                
+                    <a href="./audio-streams.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.3.</b>
+                        
+                        Custom audio streams
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4" data-path="audio-spatialization.html">
+            
+                
+                    <a href="./audio-spatialization.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.4.</b>
+                        
+                        Spatialization: Sounds in 3D
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="6" >
+            
+            <span><b>6.</b> Network module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1" data-path="network-socket.html">
+            
+                
+                    <a href="./network-socket.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.1.</b>
+                        
+                        Communication using sockets
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="network-packet.html">
+            
+                
+                    <a href="./network-packet.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.2.</b>
+                        
+                        Using and extending packets
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" data-path="network-http.html">
+            
+                
+                    <a href="./network-http.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.3.</b>
+                        
+                        Web requests with HTTP
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.4" data-path="network-ftp.html">
+            
+                
+                    <a href="./network-ftp.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.4.</b>
+                        
+                        File transfers with FTP
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+        
+        <li class="divider"></li>
+        <li>
+            <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                Published with GitBook
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header">
+    <!-- Actions Left -->
+    <a href="#" class="btn pull-left toggle-summary" aria-label="Table of Contents"><i class="fa fa-align-justify"></i></a>
+    <a href="#" class="btn pull-left toggle-search" aria-label="Search"><i class="fa fa-search"></i></a>
+    
+    <div id="font-settings-wrapper" class="dropdown pull-left">
+        <a href="#" class="btn toggle-dropdown" aria-label="Font Settings"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+    <div class="buttons">
+        <button type="button" id="reduce-font-size" class="button size-2">A</button>
+        <button type="button" id="enlarge-font-size" class="button size-2">A</button>
+    </div>
+
+    <div class="buttons font-family-list">
+        <button type="button" data-font="0" class="button">Serif</button>
+        <button type="button" data-font="1" class="button">Sans</button>
+    </div>
+
+    <div class="buttons color-theme-list">
+        <button type="button" id="color-theme-preview-0" class="button size-3" data-theme="0">White</button>
+        <button type="button" id="color-theme-preview-1" class="button size-3" data-theme="1">Sepia</button>
+        <button type="button" id="color-theme-preview-2" class="button size-3" data-theme="2">Night</button>
+    </div>
+</div>
+
+    </div>
+
+    <!-- Actions Right -->
+    
+    <div class="dropdown pull-right">
+        <a href="#" class="btn toggle-dropdown" aria-label="Share"><i class="fa fa-share-alt"></i>
+        </a>
+        <div class="dropdown-menu font-settings dropdown-left">
+            <div class="dropdown-caret">
+                <span class="caret-outer"></span>
+                <span class="caret-inner"></span>
+            </div>
+            <div class="buttons">
+                <button type="button" data-sharing="twitter" class="button">
+                    Share on Twitter
+                </button>
+                <button type="button" data-sharing="google-plus" class="button">
+                    Share on Google
+                </button>
+                <button type="button" data-sharing="facebook" class="button">
+                    Share on Facebook
+                </button>
+                <button type="button" data-sharing="weibo" class="button">
+                    Share on Weibo
+                </button>
+                <button type="button" data-sharing="instapaper" class="button">
+                    Share on Instapaper
+                </button>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    
+    
+    
+    
+
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="./" >CrSFML Tutorials</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="using-opengl-in-a-sfml-window">Using OpenGL in a SFML window</h1>
+<h2 id="introduction">Introduction</h2>
+<p>This tutorial is not about OpenGL itself, but rather how to use SFML as an environment for OpenGL, and how to mix them together. </p>
+<p>As you know, one of the most important features of OpenGL is portability. But OpenGL alone won&apos;t be enough to create complete programs: you need a window, a rendering context, user input, etc. You would have no choice but to write OS-specific code to handle this stuff on your own. That&apos;s where the sfml-window module comes into play. Let&apos;s see how it allows you to play with OpenGL. </p>
+<h2 id="including-and-linking-opengl-to-your-application">Including and linking OpenGL to your application</h2>
+<p>OpenGL headers are not the same on every OS. Therefore, SFML provides an &quot;abstract&quot; header that takes care of including the right file for you. </p>
+<pre><code>#include &lt;SFML/OpenGL.hpp&gt;
+</code></pre><p>This header includes OpenGL functions, and nothing else. People sometimes think that SFML automatically includes OpenGL extension headers because SFML loads extensions itself, but it&apos;s an implementation detail. From the user&apos;s point of view, OpenGL extension loading must be handled like any other external library. </p>
+<p>You will then need to link your program to the OpenGL library. Unlike what it does with the headers, SFML can&apos;t provide a unified way of linking OpenGL. Therefore, you need to know which library to link to according to what operating system you&apos;re using (&quot;opengl32&quot; on Windows, &quot;GL&quot; on Linux, etc.). </p>
+<p>OpenGL functions start with the &quot;gl&quot; prefix. Remember this when you get linker errors, it will help you find which library you forgot to link. </p>
+<h2 id="creating-an-opengl-window">Creating an OpenGL window</h2>
+<p>Since SFML is based on OpenGL, its windows are ready for OpenGL calls without any extra effort. </p>
+<pre><code>sf::Window window(sf::VideoMode(800, 600), &quot;OpenGL&quot;);
+
+// it works out of the box
+glEnable(GL_TEXTURE_2D);
+...
+</code></pre><p>In case you think it is <em>too</em> automatic, <a href="http://blaxpirit.github.io/crsfml/SF/api/Window.html" target="_blank">Window</a>&apos;s constructor has an extra argument that allows you to change the settings of the underlying OpenGL context. This argument is an instance of the structure, it provides access to the following settings: </p>
+<ul>
+<li><code>depthBits</code> is the number of bits per pixel to use for the depth buffer (0 to disable it)</li>
+<li><code>stencilBits</code> is the number of bits per pixel to use for the stencil buffer (0 to disable it)</li>
+<li><code>antialiasingLevel</code> is the multisampling level</li>
+<li><code>majorVersion</code> and <code>minorVersion</code> comprise the requested version of OpenGL</li>
+</ul>
+<pre><code>sf::ContextSettings settings;
+settings.depthBits = 24;
+settings.stencilBits = 8;
+settings.antialiasingLevel = 4;
+settings.majorVersion = 3;
+settings.minorVersion = 0;
+
+sf::Window window(sf::VideoMode(800, 600), &quot;OpenGL&quot;, sf::Style::Default, settings);
+</code></pre><p>If any of these settings is not supported by the graphics card, SFML tries to find the closest valid match. For example, if 4x anti-aliasing is too high, it tries 2x and then falls back to 0.<br>In any case, you can check what settings SFML actually used with the <code>getSettings</code> function: </p>
+<pre><code>sf::ContextSettings settings = window.getSettings();
+
+std::cout &lt;&lt; &quot;depth bits:&quot; &lt;&lt; settings.depthBits &lt;&lt; std::endl;
+std::cout &lt;&lt; &quot;stencil bits:&quot; &lt;&lt; settings.stencilBits &lt;&lt; std::endl;
+std::cout &lt;&lt; &quot;antialiasing level:&quot; &lt;&lt; settings.antialiasingLevel &lt;&lt; std::endl;
+std::cout &lt;&lt; &quot;version:&quot; &lt;&lt; settings.majorVersion &lt;&lt; &quot;.&quot; &lt;&lt; settings.minorVersion &lt;&lt; std::endl;
+</code></pre><p>OpenGL versions above 3.0 are supported by SFML (as long as your graphics driver can handle them). Support for selecting the profile of 3.2+ contexts and whether the context debug flag is set was added in SFML 2.3. The forward compatibility flag is not supported. By default, SFML creates 3.2+ contexts using the compatibility profile because the graphics module makes use of legacy OpenGL functionality. If you intend on using the graphics module, make sure to create your context without the core profile setting or the graphics module will not function correctly. On OS X, SFML supports creating OpenGL 3.2+ contexts using the core profile only. If you want to use the graphics module on OS X, you are limited to using a legacy context which implies OpenGL version 2.1. </p>
+<h2 id="a-typical-opengl-with-sfml-program">A typical OpenGL-with-SFML program</h2>
+<p>Here is what a complete OpenGL program would look like with SFML: </p>
+<pre><code>#include &lt;SFML/Window.hpp&gt;
+#include &lt;SFML/OpenGL.hpp&gt;
+
+int main()
+{
+    // create the window
+    sf::Window window(sf::VideoMode(800, 600), &quot;OpenGL&quot;, sf::Style::Default, sf::ContextSettings(32));
+    window.setVerticalSyncEnabled(true);
+
+    // load resources, initialize the OpenGL states, ...
+
+    // run the main loop
+    bool running = true;
+    while (running)
+    {
+        // handle events
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+            {
+                // end the program
+                running = false;
+            }
+            else if (event.type == sf::Event::Resized)
+            {
+                // adjust the viewport when the window is resized
+                glViewport(0, 0, event.size.width, event.size.height);
+            }
+        }
+
+        // clear the buffers
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        // draw...
+
+        // end the current frame (internally swaps the front and back buffers)
+        window.display();
+    }
+
+    // release resources...
+
+    return 0;
+}
+</code></pre><p>Here we don&apos;t use <code>window.isOpen()</code> as the condition of the main loop, because we need the window to remain open until the program ends, so that we still have a valid OpenGL context for the last iteration of the loop and the cleanup code. </p>
+<p>Don&apos;t hesitate to have a look at the &quot;OpenGL&quot; and &quot;Window&quot; examples in the SFML SDK if you have further problems, they are more complete and most likely contain solutions to your problems. </p>
+<h2 id="managing-multiple-opengl-windows">Managing multiple OpenGL windows</h2>
+<p>Managing multiple OpenGL windows is not more complicated than managing one, there are just a few things to keep in mind. </p>
+<p>OpenGL calls are made on the active context (thus the active window). Therefore if you want to draw to two different windows within the same program, you have to select which window is active before drawing something. This can be done with the <code>setActive</code> function: </p>
+<pre><code>// activate the first window
+window1.setActive(true);
+
+// draw to the first window...
+
+// activate the second window
+window2.setActive(true);
+
+// draw to the second window...
+</code></pre><p>Only one context (window) can be active in a thread, so you don&apos;t need to deactivate a window before activating another one, it is deactivated automatically. This is how OpenGL works. </p>
+<p>Another thing to know is that all the OpenGL contexts created by SFML share their resources. This means that you can create a texture or vertex buffer with any context active, and use it with any other. This also means that you don&apos;t have to reload all your OpenGL resources when you recreate your window. Only shareable OpenGL resources can be shared among contexts. An example of an unshareable resource is a vertex array object. </p>
+<h2 id="opengl-without-a-window">OpenGL without a window</h2>
+<p>Sometimes it might be necessary to call OpenGL functions without an active window, and thus no OpenGL context. For example, when you load textures from a separate thread, or before the first window is created. SFML allows you to create window-less contexts with the <a href="http://blaxpirit.github.io/crsfml/SF/api/Context.html" target="_blank">Context</a> class. All you have to do is instantiate it to get a valid context. </p>
+<pre><code>int main()
+{
+    sf::Context context;
+
+    // load OpenGL resources...
+
+    sf::Window window(sf::VideoMode(800, 600), &quot;OpenGL&quot;);
+
+    ...
+
+    return 0;
+}
+</code></pre><h2 id="rendering-from-threads">Rendering from threads</h2>
+<p>A typical configuration for a multi-threaded program is to handle the window and its events in one thread (the main one), and rendering in another one. If you do so, there&apos;s an important rule to keep in mind: you can&apos;t activate a context (window) if it&apos;s active in another thread. This means that you have to deactivate your window before launching the rendering thread. </p>
+<pre><code>void renderingThread(sf::Window* window)
+{
+    // activate the window&apos;s context
+    window-&gt;setActive(true);
+
+    // the rendering loop
+    while (window-&gt;isOpen())
+    {
+        // draw...
+
+        // end the current frame -- this is a rendering function (it requires the context to be active)
+        window-&gt;display();
+    }
+}
+
+int main()
+{
+    // create the window (remember: it&apos;s safer to create it in the main thread due to OS limitations)
+    sf::Window window(sf::VideoMode(800, 600), &quot;OpenGL&quot;);
+
+    // deactivate its OpenGL context
+    window.setActive(false);
+
+    // launch the rendering thread
+    sf::Thread thread(&amp;renderingThread, &amp;window);
+    thread.Launch();
+
+    // the event/logic/whatever loop
+    while (window.isOpen())
+    {
+        ...
+    }
+
+    return 0;
+}
+</code></pre><h2 id="using-opengl-together-with-the-graphics-module">Using OpenGL together with the graphics module</h2>
+<p>This tutorial was about mixing OpenGL with sfml-window, which is fairly easy since it&apos;s the only purpose of this module. Mixing with the graphics module is a little more complicated: sfml-graphics uses OpenGL too, so extra care must be taken so that SFML and user states don&apos;t conflict with each other. </p>
+<p>If you don&apos;t know the graphics module yet, all you have to know is that the <a href="http://blaxpirit.github.io/crsfml/SF/api/Window.html" target="_blank">Window</a> class is replaced with <a href="http://blaxpirit.github.io/crsfml/SF/api/RenderWindow.html" target="_blank">RenderWindow</a>, which inherits all its functions and adds features to draw SFML specific entities. </p>
+<p>The only way to avoid conflicts between SFML and your own OpenGL states, is to save/restore them every time you switch from OpenGL to SFML. </p>
+<pre><code>- draw with OpenGL
+
+- save OpenGL states
+
+- draw with SFML
+
+- restore OpenGL states
+
+- draw with OpenGL
+
+...
+</code></pre><p>The easiest solution is to let SFML do it for you, with the <code>pushGLStates</code>/<code>popGLStates</code> functions : </p>
+<pre><code>glDraw...
+
+window.pushGLStates();
+
+window.draw(...);
+
+window.popGLStates();
+
+glDraw...
+</code></pre><p>Since it has no knowledge about your OpenGL code, SFML can&apos;t optimize these steps and as a result it saves/restores all available OpenGL states and matrices. This may be acceptable for small projects, but it might also be too slow for bigger programs that require maximum performance. In this case, you can handle saving and restoring the OpenGL states yourself, with <code>glPushAttrib</code>/<code>glPopAttrib</code>, <code>glPushMatrix</code>/<code>glPopMatrix</code>, etc.<br>If you do this, you&apos;ll still need to restore SFML&apos;s own states before drawing. This is done with the <code>resetGLStates</code> function. </p>
+<pre><code>glDraw...
+
+glPush...
+window.resetGLStates();
+
+window.draw(...);
+
+glPop...
+
+glDraw...
+</code></pre><p>By saving and restoring OpenGL states yourself, you can manage only the ones that you really need which leads to reducing the number of unnecessary driver calls. </p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="./window-inputs.html" class="navigation navigation-prev " aria-label="Previous page: Keyboard, mouse and joysticks"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="./graphics-draw.html" class="navigation navigation-next " aria-label="Next page: Drawing 2D stuff"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="gitbook/app.js"></script>
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"fontSettings":{"theme":null,"family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

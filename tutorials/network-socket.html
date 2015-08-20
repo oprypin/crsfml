@@ -1,0 +1,860 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Communication using sockets | CrSFML Tutorials</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.2.0">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="gitbook/style.css">
+    
+    
+
+        
+    
+    
+    <link rel="next" href="./network-packet.html" />
+    
+    
+    <link rel="prev" href="./audio-spatialization.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book" data-level="6.1" data-basepath="." data-revision="Thu Aug 20 2015 13:04:05 GMT+0300 (EEST)">
+    
+
+<div class="book-summary">
+    <div class="book-search">
+        <input type="text" placeholder="Type to search" class="form-control" />
+    </div>
+    <ul class="summary">
+        
+        
+        
+            
+            <li>
+                <a href="http://github.com/BlaXpirit/crsfml" target="blank" class="custom-link">CrSFML</a>
+            </li>
+        
+        
+
+        
+        <li class="divider"></li>
+        
+
+        
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="./index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" >
+            
+            <span><b>1.</b> Getting started</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="start-vc.html">
+            
+                
+                    <a href="./start-vc.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        SFML and Visual Studio
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="start-cb.html">
+            
+                
+                    <a href="./start-cb.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        SFML and Code::Blocks (MinGW)
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="start-linux.html">
+            
+                
+                    <a href="./start-linux.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.</b>
+                        
+                        SFML and Linux
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="start-osx.html">
+            
+                
+                    <a href="./start-osx.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.</b>
+                        
+                        SFML and Xcode (Mac OS X)
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="compile-with-cmake.html">
+            
+                
+                    <a href="./compile-with-cmake.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.5.</b>
+                        
+                        Compiling SFML with CMake
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" >
+            
+            <span><b>2.</b> System module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="system-time.html">
+            
+                
+                    <a href="./system-time.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        Handling time
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="system-thread.html">
+            
+                
+                    <a href="./system-thread.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        Threads
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="system-stream.html">
+            
+                
+                    <a href="./system-stream.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        User data streams
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" >
+            
+            <span><b>3.</b> Window module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="window-window.html">
+            
+                
+                    <a href="./window-window.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        Opening and managing an SFML window
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="window-events.html">
+            
+                
+                    <a href="./window-events.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        Events explained
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="window-inputs.html">
+            
+                
+                    <a href="./window-inputs.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        Keyboard, mouse and joysticks
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="window-opengl.html">
+            
+                
+                    <a href="./window-opengl.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        Using OpenGL in a SFML window
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" >
+            
+            <span><b>4.</b> Graphics module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="graphics-draw.html">
+            
+                
+                    <a href="./graphics-draw.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        Drawing 2D stuff
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="graphics-sprite.html">
+            
+                
+                    <a href="./graphics-sprite.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        Sprites and textures
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="graphics-text.html">
+            
+                
+                    <a href="./graphics-text.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.</b>
+                        
+                        Text and fonts
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="graphics-shape.html">
+            
+                
+                    <a href="./graphics-shape.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.</b>
+                        
+                        Shapes
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.5" data-path="graphics-vertex-array.html">
+            
+                
+                    <a href="./graphics-vertex-array.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.5.</b>
+                        
+                        Designing your own entities with vertex arrays
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.6" data-path="graphics-transform.html">
+            
+                
+                    <a href="./graphics-transform.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.6.</b>
+                        
+                        Position, rotation, scale: transforming entities
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.7" data-path="graphics-shader.html">
+            
+                
+                    <a href="./graphics-shader.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.7.</b>
+                        
+                        Adding special effects with shaders
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.8" data-path="graphics-view.html">
+            
+                
+                    <a href="./graphics-view.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.8.</b>
+                        
+                        Controlling the 2D camera with views
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5" >
+            
+            <span><b>5.</b> Audio module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1" data-path="audio-sounds.html">
+            
+                
+                    <a href="./audio-sounds.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.1.</b>
+                        
+                        Playing sounds and music
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="audio-recording.html">
+            
+                
+                    <a href="./audio-recording.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.</b>
+                        
+                        Recording audio
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.3" data-path="audio-streams.html">
+            
+                
+                    <a href="./audio-streams.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.3.</b>
+                        
+                        Custom audio streams
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4" data-path="audio-spatialization.html">
+            
+                
+                    <a href="./audio-spatialization.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.4.</b>
+                        
+                        Spatialization: Sounds in 3D
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="6" >
+            
+            <span><b>6.</b> Network module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="6.1" data-path="network-socket.html">
+            
+                
+                    <a href="./network-socket.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.1.</b>
+                        
+                        Communication using sockets
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="network-packet.html">
+            
+                
+                    <a href="./network-packet.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.2.</b>
+                        
+                        Using and extending packets
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" data-path="network-http.html">
+            
+                
+                    <a href="./network-http.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.3.</b>
+                        
+                        Web requests with HTTP
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.4" data-path="network-ftp.html">
+            
+                
+                    <a href="./network-ftp.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.4.</b>
+                        
+                        File transfers with FTP
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+        
+        <li class="divider"></li>
+        <li>
+            <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                Published with GitBook
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header">
+    <!-- Actions Left -->
+    <a href="#" class="btn pull-left toggle-summary" aria-label="Table of Contents"><i class="fa fa-align-justify"></i></a>
+    <a href="#" class="btn pull-left toggle-search" aria-label="Search"><i class="fa fa-search"></i></a>
+    
+    <div id="font-settings-wrapper" class="dropdown pull-left">
+        <a href="#" class="btn toggle-dropdown" aria-label="Font Settings"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+    <div class="buttons">
+        <button type="button" id="reduce-font-size" class="button size-2">A</button>
+        <button type="button" id="enlarge-font-size" class="button size-2">A</button>
+    </div>
+
+    <div class="buttons font-family-list">
+        <button type="button" data-font="0" class="button">Serif</button>
+        <button type="button" data-font="1" class="button">Sans</button>
+    </div>
+
+    <div class="buttons color-theme-list">
+        <button type="button" id="color-theme-preview-0" class="button size-3" data-theme="0">White</button>
+        <button type="button" id="color-theme-preview-1" class="button size-3" data-theme="1">Sepia</button>
+        <button type="button" id="color-theme-preview-2" class="button size-3" data-theme="2">Night</button>
+    </div>
+</div>
+
+    </div>
+
+    <!-- Actions Right -->
+    
+    <div class="dropdown pull-right">
+        <a href="#" class="btn toggle-dropdown" aria-label="Share"><i class="fa fa-share-alt"></i>
+        </a>
+        <div class="dropdown-menu font-settings dropdown-left">
+            <div class="dropdown-caret">
+                <span class="caret-outer"></span>
+                <span class="caret-inner"></span>
+            </div>
+            <div class="buttons">
+                <button type="button" data-sharing="twitter" class="button">
+                    Share on Twitter
+                </button>
+                <button type="button" data-sharing="google-plus" class="button">
+                    Share on Google
+                </button>
+                <button type="button" data-sharing="facebook" class="button">
+                    Share on Facebook
+                </button>
+                <button type="button" data-sharing="weibo" class="button">
+                    Share on Weibo
+                </button>
+                <button type="button" data-sharing="instapaper" class="button">
+                    Share on Instapaper
+                </button>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    
+    
+    
+    
+
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="./" >CrSFML Tutorials</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="communicating-with-sockets">Communicating with sockets</h1>
+<h2 id="sockets">Sockets</h2>
+<p>A socket is the interface between your application and the outside world: through a socket, you can send and receive data. Therefore, any network program will most likely have to deal with sockets, they are the central element of network communication. </p>
+<p>There are several kinds of sockets, each providing specific features. SFML implements the most common ones: TCP sockets and UDP sockets. </p>
+<h2 id="tcp-vs-udp">TCP vs UDP</h2>
+<p>It is important to know what TCP and UDP sockets can do, and what they can&apos;t do, so that you can choose the best socket type according to the requirements of your application. </p>
+<p>The main difference is that TCP sockets are connection-based. You can&apos;t send or receive anything until you are connected to another TCP socket on the remote machine. Once connected, a TCP socket can only send and receive to/from the remote machine. This means that you&apos;ll need one TCP socket for each client in your application.<br>UDP is not connection-based, you can send and receive to/from anyone at any time with the same socket. </p>
+<p>The second difference is that TCP is reliable unlike UDP. It ensures that what you send is always received, without corruption and in the same order. UDP performs less checks, and doesn&apos;t provide any reliability: what you send might be received multiple times (duplication), or in a different order, or be lost and never reach the remote computer. However, UDP does guarantee that data which is received is always valid (not corrupted).<br>UDP may seem scary, but keep in mind that <em>almost all the time</em>, data arrives correctly and in the right order. </p>
+<p>The third difference is a direct consequence of the second one: UDP is faster and more lightweight than TCP. Because it has less requirements, thus less overhead. </p>
+<p>The last difference is about the way data is transported. TCP is a <em>stream</em> protocol: there&apos;s no message boundary, if you send &quot;Hello&quot; and then &quot;SFML&quot;, the remote machine might receive &quot;HelloSFML&quot;, &quot;Hel&quot; + &quot;loSFML&quot;, or even &quot;He&quot; + &quot;loS&quot; + &quot;FML&quot;.<br>UDP is a <em>datagram</em> protocol. Datagrams are packets that can&apos;t be mixed with each other. If you receive a datagram with UDP, it is guaranteed to be exactly the same as it was sent. </p>
+<p>Oh, and one last thing: since UDP is not connection-based, it allows broadcasting messages to multiple recipients, or even to an entire network. The one-to-one communication of TCP sockets doesn&apos;t allow that. </p>
+<h2 id="connecting-a-tcp-socket">Connecting a TCP socket</h2>
+<p>As you can guess, this part is specific to TCP sockets. There are two sides to a connection: the one that waits for the incoming connection (let&apos;s call it the server), and the one that triggers it (let&apos;s call it the client). </p>
+<p>On client side, things are simple: the user just needs to have a <a href="http://blaxpirit.github.io/crsfml/SF/api/TcpSocket.html" target="_blank">TcpSocket</a> and call its <code>connect</code> function to start the connection attempt. </p>
+<pre><code>#include &lt;SFML/Network.hpp&gt;
+
+sf::TcpSocket socket;
+sf::Socket::Status status = socket.connect(&quot;192.168.0.5&quot;, 53000);
+if (status != sf::Socket::Done)
+{
+    // error...
+}
+</code></pre><p>The first argument is the address of the host to connect to. It is an <a href="http://blaxpirit.github.io/crsfml/SF/api/IpAddress.html" target="_blank">IpAddress</a>, which can represent any valid address: a URL, an IP address, or a network host name. See its documentation for more details. </p>
+<p>The second argument is the port to connect to on the remote machine. The connection will succeed only if the server is accepting connections on that port. </p>
+<p>There&apos;s an optional third argument, a time out value. If set, and the connection attempt doesn&apos;t succeed before the time out is over, the function returns an error. If not specified, the default operating system time out is used. </p>
+<p>Once connected, you can retrieve the address and port of the remote computer if needed, with the <code>getRemoteAddress()</code> and <code>getRemotePort()</code> functions. </p>
+<p>All functions of socket classes are blocking by default. This means that your program (more specifically the thread that contains the function call) will be stuck until the operation is complete. This is important because some functions may take very long: For example, trying to connect to an unreachable host will only return after a few seconds, receiving will wait until there&apos;s data available, etc.<br>You can change this behavior and make all functions non-blocking by using the <code>setBlocking</code> function of the socket. See the next chapters for more details. </p>
+<p>On the server side, a few more things have to be done. Multiple sockets are required: One that listens for incoming connections, and one for each connected client. </p>
+<p>To listen for connections, you must use the special <a href="http://blaxpirit.github.io/crsfml/SF/api/TcpListener.html" target="_blank">TcpListener</a> class. Its only role is to wait for incoming connection attempts on a given port, it can&apos;t send or receive data. </p>
+<pre><code>sf::TcpListener listener;
+
+// bind the listener to a port
+if (listener.listen(53000) != sf::Socket::Done)
+{
+    // error...
+}
+
+// accept a new connection
+sf::TcpSocket client;
+if (listener.accept(client) != sf::Socket::Done)
+{
+    // error...
+}
+
+// use &quot;client&quot; to communicate with the connected client,
+// and continue to accept new connections with the listener
+</code></pre><p>The <code>accept</code> function blocks until a connection attempt arrives (unless the socket is configured as non-blocking). When it happens, it initializes the given socket and returns. The socket can now be used to communicate with the new client, and the listener can go back to waiting for another connection attempt. </p>
+<p>After a successful call to <code>connect</code> (on client side) and <code>accept</code> (on server side), the communication is established and both sockets are ready to exchange data. </p>
+<h2 id="binding-a-udp-socket">Binding a UDP socket</h2>
+<p>UDP sockets need not be connected, however you need to bind them to a specific port if you want to be able to receive data on that port. A UDP socket cannot receive on multiple ports simultaneously. </p>
+<pre><code>sf::UdpSocket socket;
+
+// bind the socket to a port
+if (socket.bind(54000) != sf::Socket::Done)
+{
+    // error...
+}
+</code></pre><p>After binding the socket to a port, it&apos;s ready to receive data on that port. If you want the operating system to bind the socket to a free port automatically, you can pass <code>sf::Socket::AnyPort</code>, and then retrieve the chosen port with <code>socket.getLocalPort()</code>. </p>
+<p>UDP sockets that send data don&apos;t need to do anything before sending. </p>
+<h2 id="sending-and-receiving-data">Sending and receiving data</h2>
+<p>Sending and receiving data is done in the same way for both types of sockets. The only difference is that UDP has two extra arguments: the address and port of the sender/recipient. There are two different functions for each operation: the low-level one, that sends/receives a raw array of bytes, and the higher-level one, which uses the <a href="http://blaxpirit.github.io/crsfml/SF/api/Packet.html" target="_blank">Packet</a> class. See the <a href="network-packet.html" title="Tutorial on packets">tutorial on packets</a> for more details about this class. In this tutorial, we&apos;ll only explain the low-level functions. </p>
+<p>To send data, you must call the <code>send</code> function with a pointer to the data that you want to send, and the number of bytes to send. </p>
+<pre><code>char data[100] = ...;
+
+// TCP socket:
+if (socket.send(data, 100) != sf::Socket::Done)
+{
+    // error...
+}
+
+// UDP socket:
+sf::IpAddress recipient = &quot;192.168.0.5&quot;;
+unsigned short port = 54000;
+if (socket.send(data, 100, recipient, port) != sf::Socket::Done)
+{
+    // error...
+}
+</code></pre><p>The <code>send</code> functions take a <code>void*</code> pointer, so you can pass the address of anything. However, it is generally a bad idea to send something other than an array of bytes because native types with a size larger than 1 byte are not guaranteed to be the same on every machine: Types such as int or long may have a different size, and/or a different endianness. Therefore, such types cannot be exchanged reliably across different systems. This problem is explained (and solved) in the <a href="network-packet.html" title="Tutorial on packets">tutorial on packets</a>. </p>
+<p>With UDP you can broadcast a message to an entire sub-network in a single call: to do so you can use the special address <code>sf::IpAddress::Broadcast</code>. </p>
+<p>There&apos;s another thing to keep in mind with UDP: Since data is sent in datagrams and the size of these datagrams has a limit, you are not allowed to exceed it. Every call to <code>send</code> must send less that <code>sf::UdpSocket::MaxDatagramSize</code> bytes -- which is a little less than 2^16 (65536) bytes. </p>
+<p>To receive data, you must call the <code>receive</code> function: </p>
+<pre><code>char data[100];
+std::size_t received;
+
+// TCP socket:
+if (socket.receive(data, 100, received) != sf::Socket::Done)
+{
+    // error...
+}
+std::cout &lt;&lt; &quot;Received &quot; &lt;&lt; received &lt;&lt; &quot; bytes&quot; &lt;&lt; std::endl;
+
+// UDP socket:
+sf::IpAddress sender;
+unsigned short port;
+if (socket.receive(data, 100, received, sender, port) != sf::Socket::Done)
+{
+    // error...
+}
+std::cout &lt;&lt; &quot;Received &quot; &lt;&lt; received &lt;&lt; &quot; bytes from &quot; &lt;&lt; sender &lt;&lt; &quot; on port &quot; &lt;&lt; port &lt;&lt; std::endl;
+</code></pre><p>It is important to keep in mind that if the socket is in blocking mode, <code>receive</code> will wait until something is received, blocking the thread that called it (and thus possibly the whole program). </p>
+<p>The first two arguments specify the buffer to which the received bytes are to be copied, along with its maximum size. The third argument is a variable that will contain the actual number of bytes received after the function returns.<br>With UDP sockets, the last two arguments will contain the address and port of the sender after the function returns. They can be used later if you want to send a response. </p>
+<p>These functions are low-level, and you should use them only if you have a very good reason to do so. A more robust and flexible approach involves using <a href="network-packet.html" title="Tutorial on packets">packets</a>. </p>
+<h2 id="blocking-on-a-group-of-sockets">Blocking on a group of sockets</h2>
+<p>Blocking on a single socket can quickly become annoying, because you will most likely have to handle more than one client. You most likely don&apos;t want socket A to block your program while socket B has received something that could be processed. What you would like is to block on multiple sockets at once, i.e. waiting until <em>any of them</em> has received something. This is possible with socket selectors, represented by the <a href="http://blaxpirit.github.io/crsfml/SF/api/SocketSelector.html" target="_blank">SocketSelector</a> class. </p>
+<p>A selector can monitor all types of sockets: <a href="http://blaxpirit.github.io/crsfml/SF/api/TcpSocket.html" target="_blank">TcpSocket</a>, <a href="http://blaxpirit.github.io/crsfml/SF/api/UdpSocket.html" target="_blank">UdpSocket</a>, and <a href="http://blaxpirit.github.io/crsfml/SF/api/TcpListener.html" target="_blank">TcpListener</a>. To add a socket to a selector, use its <code>add</code> function: </p>
+<pre><code>sf::TcpSocket socket;
+
+sf::SocketSelector selector;
+selector.add(socket);
+</code></pre><p>A selector is not a socket container. It only references (points to) the sockets that you add, it doesn&apos;t store them. There is no way to retrieve or count the sockets that you put inside. Instead, it is up to you to have your own separate socket storage (like a <code>std::vector</code> or a <code>std::list</code>). </p>
+<p>Once you have filled the selector with all the sockets that you want to monitor, you must call its <code>wait</code> function to wait until any one of them has received something (or has triggered an error). You can also pass an optional time out value, so that the function will fail if nothing has been received after a certain period of time -- this avoids staying stuck forever if nothing happens. </p>
+<pre><code>if (selector.wait(sf::seconds(10)))
+{
+    // received something
+}
+else
+{
+    // timeout reached, nothing was received...
+}
+</code></pre><p>If the <code>wait</code> function returns <code>true</code>, it means that one or more socket(s) have received something, and you can safely call <code>receive</code> on the socket(s) with pending data without having them block. If the socket is a <a href="http://blaxpirit.github.io/crsfml/SF/api/TcpListener.html" target="_blank">TcpListener</a>, it means that an incoming connection is ready to be accepted and that you can call its <code>accept</code> function without having it block. </p>
+<p>Since the selector is not a socket container, it cannot return the sockets that are ready to receive. Instead, you must test each candidate socket with the <code>isReady</code> function: </p>
+<pre><code>if (selector.wait(sf::seconds(10)))
+{
+    // for each socket... &lt;-- pseudo-code because I don&apos;t know how you store your sockets :)
+    {
+        if (selector.isReady(socket))
+        {
+            // this socket is ready, you can receive (or accept if it&apos;s a listener)
+            socket.receive(...);
+        }
+    }
+}
+</code></pre><p>You can have a look at the API documentation of the <a href="http://blaxpirit.github.io/crsfml/SF/api/SocketSelector.html" target="_blank">SocketSelector</a> class for a working example of how to use a selector to handle connections and messages from multiple clients. </p>
+<p>As a bonus, the time out capability of <code>Selector::wait</code> allows you to implement a receive-with-timeout function, which is not directly available in the socket classes, very easily: </p>
+<pre><code>sf::Socket::Status receiveWithTimeout(sf::TcpSocket&amp; socket, sf::Packet&amp; packet, sf::Time timeout)
+{
+    sf::SocketSelector selector;
+    selector.add(socket);
+    if (selector.wait(timeout))
+        return socket.receive(packet);
+    else
+        return sf::Socket::NotReady;
+}
+</code></pre><h2 id="non-blocking-sockets">Non-blocking sockets</h2>
+<p>All sockets are blocking by default, but you can change this behaviour at any time with the <code>setBlocking</code> function. </p>
+<pre><code>sf::TcpSocket tcpSocket;
+tcpSocket.setBlocking(false);
+
+sf::TcpListener listenerSocket;
+listenerSocket.setBlocking(false);
+
+sf::UdpSocket udpSocket;
+udpSocket.setBlocking(false);
+</code></pre><p>Once a socket is set as non-blocking, all of its functions always return immediately. For example, <code>receive</code> will return with status <code>sf::Socket::NotReady</code> if there&apos;s no data available. Or, <code>accept</code> will return immediately, with the same status, if there&apos;s no pending connection. </p>
+<p>Non-blocking sockets are the easiest solution if you already have a main loop that runs at a constant rate. You can simply check if something happened on your sockets in every iteration, without having to block program execution. </p>
+<p>When using <code>sf::TcpSocket</code> in non-blocking mode, calls to <code>send</code> are not guaranteed to actually send all the data you pass to it, whether it be as a <code>sf::Packet</code> or as raw data. Starting from SFML 2.3, when sending raw data over a non-blocking <code>sf::TcpSocket</code>, always make sure to use the <code>send(const void* data, std::size_t size, std::size_t&amp; sent)</code> overload which returns the number of bytes actually sent in the <code>sent</code> reference parameter after the function returns. Regardless of whether you send <code>sf::Packet</code>s or raw data, if only a part of the data was sent in the call, the return status will be <code>sf::Socket::Partial</code> to indicate a partial send. <em>If <code>sf::Socket::Partial</code> is returned, you must make sure to handle the partial send properly or else data corruption will occur.</em> When sending raw data, you must reattempt sending the raw data at the byte offset where the previous <code>send</code> call stopped. When sending <code>sf::Packet</code>s, the byte offset is saved within the <code>sf::Packet</code> itself. In this case, you must make sure to keep attempting to send <em>the exact same unmodified <code>sf::Packet</code> object</em> over and over until a status other than <code>sf::Socket::Partial</code> is returned. Constructing a new <code>sf::Packet</code> object and filling it with the same data will not work, it must be the same object that was previously sent. </p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="./audio-spatialization.html" class="navigation navigation-prev " aria-label="Previous page: Spatialization: Sounds in 3D"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="./network-packet.html" class="navigation navigation-next " aria-label="Next page: Using and extending packets"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="gitbook/app.js"></script>
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"fontSettings":{"theme":null,"family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

@@ -1,0 +1,819 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Sprites and textures | CrSFML Tutorials</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.2.0">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="gitbook/style.css">
+    
+    
+
+        
+    
+    
+    <link rel="next" href="./graphics-text.html" />
+    
+    
+    <link rel="prev" href="./graphics-draw.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book" data-level="4.2" data-basepath="." data-revision="Thu Aug 20 2015 13:04:05 GMT+0300 (EEST)">
+    
+
+<div class="book-summary">
+    <div class="book-search">
+        <input type="text" placeholder="Type to search" class="form-control" />
+    </div>
+    <ul class="summary">
+        
+        
+        
+            
+            <li>
+                <a href="http://github.com/BlaXpirit/crsfml" target="blank" class="custom-link">CrSFML</a>
+            </li>
+        
+        
+
+        
+        <li class="divider"></li>
+        
+
+        
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="./index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" >
+            
+            <span><b>1.</b> Getting started</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="start-vc.html">
+            
+                
+                    <a href="./start-vc.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        SFML and Visual Studio
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="start-cb.html">
+            
+                
+                    <a href="./start-cb.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        SFML and Code::Blocks (MinGW)
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="start-linux.html">
+            
+                
+                    <a href="./start-linux.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.</b>
+                        
+                        SFML and Linux
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="start-osx.html">
+            
+                
+                    <a href="./start-osx.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.</b>
+                        
+                        SFML and Xcode (Mac OS X)
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="compile-with-cmake.html">
+            
+                
+                    <a href="./compile-with-cmake.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.5.</b>
+                        
+                        Compiling SFML with CMake
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" >
+            
+            <span><b>2.</b> System module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="system-time.html">
+            
+                
+                    <a href="./system-time.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        Handling time
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="system-thread.html">
+            
+                
+                    <a href="./system-thread.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        Threads
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="system-stream.html">
+            
+                
+                    <a href="./system-stream.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        User data streams
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" >
+            
+            <span><b>3.</b> Window module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="window-window.html">
+            
+                
+                    <a href="./window-window.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        Opening and managing an SFML window
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="window-events.html">
+            
+                
+                    <a href="./window-events.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        Events explained
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="window-inputs.html">
+            
+                
+                    <a href="./window-inputs.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        Keyboard, mouse and joysticks
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="window-opengl.html">
+            
+                
+                    <a href="./window-opengl.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        Using OpenGL in a SFML window
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" >
+            
+            <span><b>4.</b> Graphics module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="graphics-draw.html">
+            
+                
+                    <a href="./graphics-draw.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        Drawing 2D stuff
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="4.2" data-path="graphics-sprite.html">
+            
+                
+                    <a href="./graphics-sprite.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        Sprites and textures
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="graphics-text.html">
+            
+                
+                    <a href="./graphics-text.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.</b>
+                        
+                        Text and fonts
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="graphics-shape.html">
+            
+                
+                    <a href="./graphics-shape.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.</b>
+                        
+                        Shapes
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.5" data-path="graphics-vertex-array.html">
+            
+                
+                    <a href="./graphics-vertex-array.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.5.</b>
+                        
+                        Designing your own entities with vertex arrays
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.6" data-path="graphics-transform.html">
+            
+                
+                    <a href="./graphics-transform.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.6.</b>
+                        
+                        Position, rotation, scale: transforming entities
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.7" data-path="graphics-shader.html">
+            
+                
+                    <a href="./graphics-shader.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.7.</b>
+                        
+                        Adding special effects with shaders
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.8" data-path="graphics-view.html">
+            
+                
+                    <a href="./graphics-view.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.8.</b>
+                        
+                        Controlling the 2D camera with views
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5" >
+            
+            <span><b>5.</b> Audio module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1" data-path="audio-sounds.html">
+            
+                
+                    <a href="./audio-sounds.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.1.</b>
+                        
+                        Playing sounds and music
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="audio-recording.html">
+            
+                
+                    <a href="./audio-recording.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.</b>
+                        
+                        Recording audio
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.3" data-path="audio-streams.html">
+            
+                
+                    <a href="./audio-streams.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.3.</b>
+                        
+                        Custom audio streams
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4" data-path="audio-spatialization.html">
+            
+                
+                    <a href="./audio-spatialization.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.4.</b>
+                        
+                        Spatialization: Sounds in 3D
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="6" >
+            
+            <span><b>6.</b> Network module</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1" data-path="network-socket.html">
+            
+                
+                    <a href="./network-socket.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.1.</b>
+                        
+                        Communication using sockets
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="network-packet.html">
+            
+                
+                    <a href="./network-packet.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.2.</b>
+                        
+                        Using and extending packets
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" data-path="network-http.html">
+            
+                
+                    <a href="./network-http.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.3.</b>
+                        
+                        Web requests with HTTP
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.4" data-path="network-ftp.html">
+            
+                
+                    <a href="./network-ftp.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.4.</b>
+                        
+                        File transfers with FTP
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+        
+        <li class="divider"></li>
+        <li>
+            <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                Published with GitBook
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header">
+    <!-- Actions Left -->
+    <a href="#" class="btn pull-left toggle-summary" aria-label="Table of Contents"><i class="fa fa-align-justify"></i></a>
+    <a href="#" class="btn pull-left toggle-search" aria-label="Search"><i class="fa fa-search"></i></a>
+    
+    <div id="font-settings-wrapper" class="dropdown pull-left">
+        <a href="#" class="btn toggle-dropdown" aria-label="Font Settings"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+    <div class="buttons">
+        <button type="button" id="reduce-font-size" class="button size-2">A</button>
+        <button type="button" id="enlarge-font-size" class="button size-2">A</button>
+    </div>
+
+    <div class="buttons font-family-list">
+        <button type="button" data-font="0" class="button">Serif</button>
+        <button type="button" data-font="1" class="button">Sans</button>
+    </div>
+
+    <div class="buttons color-theme-list">
+        <button type="button" id="color-theme-preview-0" class="button size-3" data-theme="0">White</button>
+        <button type="button" id="color-theme-preview-1" class="button size-3" data-theme="1">Sepia</button>
+        <button type="button" id="color-theme-preview-2" class="button size-3" data-theme="2">Night</button>
+    </div>
+</div>
+
+    </div>
+
+    <!-- Actions Right -->
+    
+    <div class="dropdown pull-right">
+        <a href="#" class="btn toggle-dropdown" aria-label="Share"><i class="fa fa-share-alt"></i>
+        </a>
+        <div class="dropdown-menu font-settings dropdown-left">
+            <div class="dropdown-caret">
+                <span class="caret-outer"></span>
+                <span class="caret-inner"></span>
+            </div>
+            <div class="buttons">
+                <button type="button" data-sharing="twitter" class="button">
+                    Share on Twitter
+                </button>
+                <button type="button" data-sharing="google-plus" class="button">
+                    Share on Google
+                </button>
+                <button type="button" data-sharing="facebook" class="button">
+                    Share on Facebook
+                </button>
+                <button type="button" data-sharing="weibo" class="button">
+                    Share on Weibo
+                </button>
+                <button type="button" data-sharing="instapaper" class="button">
+                    Share on Instapaper
+                </button>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    
+    
+    
+    
+
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="./" >CrSFML Tutorials</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="sprites-and-textures">Sprites and textures</h1>
+<h2 id="vocabulary">Vocabulary</h2>
+<p>Most (if not all) of you are already familiar with these two very common objects, so let&apos;s define them very briefly. </p>
+<p>A texture is an image. But we call it &quot;texture&quot; because it has a very specific role: being mapped to a 2D entity. </p>
+<p>A sprite is nothing more than a textured rectangle. </p>
+<p><img src="images/graphics-sprites-definition.png" alt=""></p>
+<p>Ok, that was short but if you really don&apos;t understand what sprites and textures are, then you&apos;ll find a much better description on Wikipedia. </p>
+<h2 id="loading-a-texture">Loading a texture</h2>
+<p>Before creating any sprite, we need a valid texture. The class that encapsulates textures in SFML is, surprisingly, <a href="http://blaxpirit.github.io/crsfml/SF/api/Texture.html" target="_blank">Texture</a>. Since the only role of a texture is to be loaded and mapped to graphical entities, almost all its functions are about loading and updating it. </p>
+<p>The most common way of loading a texture is from an image file on disk, which is done with the <code>loadFromFile</code> function. </p>
+<pre><code>sf::Texture texture;
+if (!texture.loadFromFile(&quot;image.png&quot;))
+{
+    // error...
+}
+</code></pre><p>The <code>loadFromFile</code> function can sometimes fail with no obvious reason. First, check the error message that SFML prints to the standard output (check the console). If the message is unable to open file, make sure that the <em>working directory</em> (which is the directory that any file path will be interpreted relative to) is what you think it is: When you run the application from your desktop environment, the working directory is the executable folder. However, when you launch your program from your IDE (Visual Studio, Code::Blocks, ...) the working directory might sometimes be set to the <em>project</em> directory instead. This can usually be changed quite easily in the project settings. </p>
+<p>You can also load an image file from memory (<code>loadFromMemory</code>), from a <a href="system-stream.html" title="Input streams tutorial">custom input stream</a> (<code>loadFromStream</code>), or from an image that has already been loaded (<code>loadFromImage</code>). The latter loads the texture from an <a href="http://blaxpirit.github.io/crsfml/SF/api/Image.html" target="_blank">Image</a>, which is a utility class that helps store and manipulate image data (modify pixels, create transparency channel, etc.). The pixels of an <a href="http://blaxpirit.github.io/crsfml/SF/api/Image.html" target="_blank">Image</a> stay in system memory, which ensures that operations on them will be as fast as possible, in contrast to the pixels of a texture which reside in video memory and are therefore slow to retrieve or update but very fast to draw. </p>
+<p>SFML supports most common image file formats. The full list is available in the API documentation. </p>
+<p>All these loading functions have an optional argument, which can be used if you want to load a smaller part of the image. </p>
+<pre><code>// load a 32x32 rectangle that starts at (10, 10)
+if (!texture.loadFromFile(&quot;image.png&quot;, sf::IntRect(10, 10, 32, 32)))
+{
+    // error...
+}
+</code></pre><p>The <a href="http://blaxpirit.github.io/crsfml/SF/api/IntRect" target="_blank">IntRect&quot;, &quot;Rect</a> class is a simple utility type that represents a rectangle. Its constructor takes the coordinates of the top-left corner, and the size of the rectangle. </p>
+<p>If you don&apos;t want to load a texture from an image, but instead want to update it directly from an array of pixels, you can create it empty and update it later: </p>
+<pre><code>// create an empty 200x200 texture
+if (!texture.create(200, 200))
+{
+    // error...
+}
+</code></pre><p>Note that the contents of the texture are undefined at this point. </p>
+<p>To update the pixels of an existing texture, you have to use the <code>update</code> function. It has overloads for many kinds of data sources: </p>
+<pre><code>// update a texture from an array of pixels
+sf::Uint8* pixels = new sf::Uint8[width * height * 4]; // * 4 because pixels have 4 components (RGBA)
+...
+texture.update(pixels);
+
+// update a texture from a sf::Image
+sf::Image image;
+...
+texture.update(image);
+
+// update the texture from the current contents of the window
+sf::RenderWindow window;
+...
+texture.update(window);
+</code></pre><p>These examples all assume that the source is of the same size as the texture. If this is not the case, i.e. if you want to update only a part of the texture, you can specify the coordinates of the sub-rectangle that you want to update. You can refer to the documentation for further details. </p>
+<p>Additionally, a texture has two properties that change how it is rendered. </p>
+<p>The first property allows one to smooth the texture. Smoothing a texture makes pixel boundaries less visible (but the image a little more blurry), which can be desirable if it is up-scaled. </p>
+<pre><code>texture.setSmooth(true);
+</code></pre><p><img src="images/graphics-sprites-smooth.png" alt=""></p>
+<p>Since smoothing samples from adjacent pixels in the texture as well, it can lead to the unwanted side effect of factoring in pixels outside the selected texture area. This can happen when your sprite is located at non-integer coordinates. </p>
+<p>The second property allows a texture to be repeatedly tiled within a single sprite. </p>
+<pre><code>texture.setRepeated(true);
+</code></pre><p><img src="images/graphics-sprites-repeated.png" alt=""></p>
+<p>This only works if your sprite is configured to show a rectangle which is larger than the texture, otherwise this property has no effect. </p>
+<h2 id="ok-can-i-have-my-sprite-now">Ok, can I have my sprite now?</h2>
+<p>Yes, you can now create your sprite. </p>
+<pre><code>sf::Sprite sprite;
+sprite.setTexture(texture);
+</code></pre><p>... and finally draw it. </p>
+<pre><code>// inside the main loop, between window.clear() and window.display()
+window.draw(sprite);
+</code></pre><p>If you don&apos;t want your sprite to use the entire texture, you can set its texture rectangle. </p>
+<pre><code>sprite.setTextureRect(sf::IntRect(10, 10, 32, 32));
+</code></pre><p>You can also change the color of a sprite. The color that you set is modulated (multiplied) with the texture of the sprite. This can also be used to change the global transparency (alpha) of the sprite. </p>
+<pre><code>sprite.setColor(sf::Color(0, 255, 0)); // green
+sprite.setColor(sf::Color(255, 255, 255, 128)); // half transparent
+</code></pre><p>These sprites all use the same texture, but have a different color: </p>
+<p><img src="images/graphics-sprites-color.png" alt=""></p>
+<p>Sprites can also be transformed: They have a position, an orientation and a scale. </p>
+<pre><code>// position
+sprite.setPosition(sf::Vector2f(10, 50)); // absolute position
+sprite.move(sf::Vector2f(5, 10)); // offset relative to the current position
+
+// rotation
+sprite.setRotation(90); // absolute angle
+sprite.rotate(15); // offset relative to the current angle
+
+// scale
+sprite.setScale(sf::Vector2f(0.5f, 2.f)); // absolute scale factor
+sprite.scale(sf::Vector2f(1.5f, 3.f)); // factor relative to the current scale
+</code></pre><p>By default, the origin for these three transformations is the top-left corner of the sprite. If you want to set the origin to a different point (for example the center of the sprite, or another corner), you can use the <code>setOrigin</code> function. </p>
+<pre><code>sprite.setOrigin(sf::Vector2f(25, 25));
+</code></pre><p>Since transformation functions are common to all SFML entities, they are explained in a separate tutorial: <a href="graphics-transform.html" title="&apos;Transforming entities&apos; tutorial">Transforming entities</a>. </p>
+<h2 id="the-white-square-problem">The white square problem</h2>
+<p>You successfully loaded a texture, constructed a sprite correctly, and... all you see on your screen now is a white square. What happened? </p>
+<p>This is a common mistake. When you set the texture of a sprite, all it does internally is store a <em>pointer</em> to the texture instance. Therefore, if the texture is destroyed or moves elsewhere in memory, the sprite ends up with an invalid texture pointer. </p>
+<p>This problem occurs when you write this kind of function: </p>
+<pre><code>sf::Sprite loadSprite(std::string filename)
+{
+    sf::Texture texture;
+    texture.loadFromFile(filename);
+
+    return sf::Sprite(texture);
+} // error: the texture is destroyed here
+</code></pre><p>You must correctly manage the lifetime of your textures and make sure that they live as long as they are used by any sprite. </p>
+<h2 id="the-importance-of-using-as-few-textures-as-possible">The importance of using as few textures as possible</h2>
+<p>Using as few textures as possible is a good strategy, and the reason is simple: Changing the current texture is an expensive operation for the graphics card. Drawing many sprites that use the same texture will yield the best performance. </p>
+<p>Additionally, using a single texture allows you to group static geometry into a single entity (you can only use one texture per <code>draw</code> call), which will be much faster to draw than a set of many entities. Batching static geometry involves other classes and is therefore beyond the scope of this tutorial, for further details see the <a href="graphics-vertex-array.html" title="Vertex array tutorial">vertex array</a> tutorial. </p>
+<p>Try to keep this in mind when you create your animation sheets or your tilesets: Use as little textures as possible. </p>
+<h2 id="using-sf-texture-with-opengl-code">Using sf::Texture with OpenGL code</h2>
+<p>If you&apos;re using OpenGL rather than the graphics entities of SFML, you can still use <a href="http://blaxpirit.github.io/crsfml/SF/api/Texture.html" target="_blank">Texture</a> as a wrapper around an OpenGL texture object and use it along with the rest if your OpenGL code. </p>
+<p>To bind a <a href="http://blaxpirit.github.io/crsfml/SF/api/Texture.html" target="_blank">Texture</a> for drawing (basically <code>glBindTexture</code>), you call the <code>bind</code> static function: </p>
+<pre><code>sf::Texture texture;
+...
+
+// bind the texture
+sf::Texture::bind(&amp;texture);
+
+// draw your textured OpenGL entity here...
+
+// bind no texture
+sf::Texture::bind(NULL);
+</code></pre>
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="./graphics-draw.html" class="navigation navigation-prev " aria-label="Previous page: Drawing 2D stuff"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="./graphics-text.html" class="navigation navigation-next " aria-label="Next page: Text and fonts"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="gitbook/app.js"></script>
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"fontSettings":{"theme":null,"family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>
