@@ -42,40 +42,63 @@ In this case, you'll also need to define the SFML_STATIC macro in the preprocess
 
 Starting from SFML 2.2, when static linking, you will have to link all of SFML's dependencies to your project as well. This means that if you are linking sfml-window-s.lib or sfml-window-s-d.lib for example, you will also have to link opengl32.lib, winmm.lib and gdi32.lib. Some of these dependency libraries might already be listed under "Inherited values", but adding them again yourself shouldn't cause any problems. 
 
-Here are the dependencies of each module, append the -d as described above if you want to link the SFML debug libraries: 
+Here are the dependencies of each module, append the -d as described above if you want to link the SFML debug libraries:   
 
-Module | Dependencies  
----|---  
-`sfml-graphics-s.lib` | 
+<table>
+    <thead>
+        <tr>
+            <th>Module</th>
+            <th>Dependencies</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>sfml-graphics-s.lib</code></td>
+            <td><ul>
+                <li>sfml-window-s.lib</li>
+                <li>sfml-system-s.lib</li>
+                <li>opengl32.lib</li>
+                <li>freetype.lib</li>
+                <li>jpeg.lib</li>
+            </ul></td>
+        </tr>
+        <tr>
+            <td><code>sfml-window-s.lib</code></td>
+            <td><ul>
+                <li>sfml-system-s.lib</li>
+                <li>opengl32.lib</li>
+                <li>winmm.lib</li>
+                <li>gdi32.lib</li>
+            </ul></td>
+        </tr>
+        <tr>
+            <td><code>sfml-audio-s.lib</code></td>
+            <td><ul>
+                <li>sfml-system-s.lib</li>
+                <li>openal32.lib</li>
+                <li>flac.lib</li>
+                <li>vorbisenc.lib</li>
+                <li>vorbisfile.lib</li>
+                <li>vorbis.lib</li>
+                <li>ogg.lib</li>
+            </ul></td>
+        </tr>
+        <tr>
+            <td><code>sfml-network-s.lib</code></td>
+            <td><ul>
+                <li>sfml-system-s.lib</li>
+                <li>ws2_32.lib</li>
+            </ul></td>
+        </tr>
+        <tr>
+            <td><code>sfml-system-s.lib</code></td>
+            <td><ul>
+                <li>winmm.lib</li>
+            </ul></td>
+        </tr>
+    </tbody>
+</table>
 
-  * sfml-window-s.lib
-  * sfml-system-s.lib
-  * opengl32.lib
-  * freetype.lib
-  * jpeg.lib  
-`sfml-window-s.lib` | 
-
-  * sfml-system-s.lib
-  * opengl32.lib
-  * winmm.lib
-  * gdi32.lib  
-`sfml-audio-s.lib` | 
-
-  * sfml-system-s.lib
-  * openal32.lib
-  * flac.lib
-  * vorbisenc.lib
-  * vorbisfile.lib
-  * vorbis.lib
-  * ogg.lib  
-`sfml-network-s.lib` | 
-
-  * sfml-system-s.lib
-  * ws2_32.lib  
-`sfml-system-s.lib` | 
-
-  * winmm.lib  
-  
 You might have noticed from the table that SFML modules can also depend on one another, e.g. sfml-graphics-s.lib depends both on sfml-window-s.lib and sfml-system-s.lib. If you static link to an SFML library, make sure to link to the dependencies of the library in question, as well as the dependencies of the dependencies and so on. If anything along the dependency chain is missing, you *will* get linker errors. 
 
 If you are slightly confused, don't worry, it is perfectly normal for beginners to be overwhelmed by all this information regarding static linking. If something doesn't work for you the first time around, you can simply keep trying always bearing in mind what has been said above. If you still can't get static linking to work, you can check the [FAQ](../../faq.php#build-link-static "Go to the FAQ page") and the [forum](http://en.sfml-dev.org/forums/index.php?board=4.0 "Go to the general help forum") for threads about static linking. 

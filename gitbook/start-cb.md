@@ -44,40 +44,63 @@ In this case, you'll also need to define the SFML_STATIC macro in the preprocess
 
 Starting from SFML 2.2, when static linking, you will have to link all of SFML's dependencies to your project as well. This means that if you are linking sfml-window-s or sfml-window-s-d for example, you will also have to link opengl32, winmm and gdi32. Some of these dependency libraries might already be listed under "Inherited values", but adding them again yourself shouldn't cause any problems. 
 
-Here are the dependencies of each module, append the -d as described above if you want to link the SFML debug libraries: 
+Here are the dependencies of each module, append the -d as described above if you want to link the SFML debug libraries:   
 
-Module | Dependencies  
----|---  
-`sfml-graphics-s` | 
+<table class="styled expanded">
+    <thead>
+        <tr>
+            <th>Module</th>
+            <th>Dependencies</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>sfml-graphics-s</code></td>
+            <td><ul>
+                <li>sfml-window-s</li>
+                <li>sfml-system-s</li>
+                <li>opengl32</li>
+                <li>freetype</li>
+                <li>jpeg</li>
+            </ul></td>
+        </tr>
+        <tr>
+            <td><code>sfml-window-s</code></td>
+            <td><ul>
+                <li>sfml-system-s</li>
+                <li>opengl32</li>
+                <li>winmm</li>
+                <li>gdi32</li>
+            </ul></td>
+        </tr>
+        <tr>
+            <td><code>sfml-audio-s</code></td>
+            <td><ul>
+                <li>sfml-system-s</li>
+                <li>openal32</li>
+                <li>flac</li>
+                <li>vorbisenc</li>
+                <li>vorbisfile</li>
+                <li>vorbis</li>
+                <li>ogg</li>
+            </ul></td>
+        </tr>
+        <tr>
+            <td><code>sfml-network-s</code></td>
+            <td><ul>
+                <li>sfml-system-s</li>
+                <li>ws2_32</li>
+            </ul></td>
+        </tr>
+        <tr>
+            <td><code>sfml-system-s</code></td>
+            <td><ul>
+                <li>winmm</li>
+            </ul></td>
+        </tr>
+    </tbody>
+</table>
 
-  * sfml-window-s
-  * sfml-system-s
-  * opengl32
-  * freetype
-  * jpeg  
-`sfml-window-s` | 
-
-  * sfml-system-s
-  * opengl32
-  * winmm
-  * gdi32  
-`sfml-audio-s` | 
-
-  * sfml-system-s
-  * openal32
-  * flac
-  * vorbisenc
-  * vorbisfile
-  * vorbis
-  * ogg  
-`sfml-network-s` | 
-
-  * sfml-system-s
-  * ws2_32  
-`sfml-system-s` | 
-
-  * winmm  
-  
 You might have noticed from the table that SFML modules can also depend on one another, e.g. sfml-graphics-s depends both on sfml-window-s and sfml-system-s. If you static link to an SFML library, make sure to link to the dependencies of the library in question, as well as the dependencies of the dependencies and so on. If anything along the dependency chain is missing, you *will* get linker errors. 
 
 Additionally, because Code::Blocks makes use of GCC, the linking order *does* matter. This means that libraries that depend on other libraries have to be added to the library list *before* the libraries they depend on. If you don't follow this rule, you *will* get linker errors. 

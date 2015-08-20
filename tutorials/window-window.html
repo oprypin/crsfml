@@ -36,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="3.1" data-basepath="." data-revision="Thu Aug 20 2015 13:04:05 GMT+0300 (EEST)">
+    <div class="book" data-level="3.1" data-basepath="." data-revision="Thu Aug 20 2015 14:04:14 GMT+0300 (EEST)">
     
 
 <div class="book-summary">
@@ -687,39 +687,34 @@ int main()
 }
 </code></pre><p>The first argument, the <em>video mode</em>, defines the size of the window (the inner size, without the title bar and borders). Here, we create a window with a size of 800x600 pixels.<br>The <a href="http://blaxpirit.github.io/crsfml/SF/api/VideoMode.html" target="_blank">VideoMode</a> class has some interesting static functions to get the desktop resolution, or the list of valid video modes for fullscreen mode. Don&apos;t hesitate to have a look at its documentation. </p>
 <p>The second argument is simply the title of the window. </p>
-<p>This constructor accepts a third optional argument: a style, which allows you to choose which decorations and features you want. You can use any combination of the following styles: </p>
+<p>This constructor accepts a third optional argument: a style, which allows you to choose which decorations and features you want. You can use any combination of the following styles:</p>
 <table>
-<thead>
-<tr>
-<th><code>sf::Style::None</code></th>
-<th>No decoration at all (useful for splash screens, for example); this style cannot be combined with others  </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>sf::Style::Titlebar</code></td>
-<td>The window has a titlebar  </td>
-</tr>
-<tr>
-<td><code>sf::Style::Resize</code></td>
-<td>The window can be resized and has a maximize button  </td>
-</tr>
-<tr>
-<td><code>sf::Style::Close</code></td>
-<td>The window has a close button  </td>
-</tr>
-<tr>
-<td><code>sf::Style::Fullscreen</code></td>
-<td>The window is shown in fullscreen mode; this style cannot be combined with others, and requires a valid video mode  </td>
-</tr>
-<tr>
-<td><code>sf::Style::Default</code></td>
-<td>The default style, which is a shortcut for `Titlebar</td>
-<td>Resize</td>
-<td>Close`  </td>
-</tr>
-</tbody>
+    <tr>
+        <td><code>sf::Style::None</code></td>
+        <td>No decoration at all (useful for splash screens, for example); this style cannot be combined with others</td>
+    </tr>
+    <tr>
+        <td><code>sf::Style::Titlebar</code></td>
+        <td>The window has a titlebar</td>
+    </tr>
+    <tr>
+        <td><code>sf::Style::Resize</code></td>
+        <td>The window can be resized and has a maximize button</td>
+    </tr>
+    <tr>
+        <td><code>sf::Style::Close</code></td>
+        <td>The window has a close button</td>
+    </tr>
+    <tr>
+        <td><code>sf::Style::Fullscreen</code></td>
+        <td>The window is shown in fullscreen mode; this style cannot be combined with others, and requires a valid video mode</td>
+    </tr>
+    <tr>
+        <td><code>sf::Style::Default</code></td>
+        <td>The default style, which is a shortcut for <code>Titlebar | Resize | Close</code></td>
+    </tr>
 </table>
+
 <p>There&apos;s also a fourth optional argument, which defines OpenGL specific options which are explained in the <a href="window-opengl.html" title="OpenGL tutorial">dedicated OpenGL tutorial</a>. </p>
 <p>If you want to create the window <em>after</em> the construction of the <a href="http://blaxpirit.github.io/crsfml/SF/api/Window.html" target="_blank">Window</a> instance, or re-create it with a different video mode or title, you can use the <code>create</code> function instead. It takes the exact same arguments as the constructor. </p>
 <pre><code>#include &lt;SFML/Window.hpp&gt;

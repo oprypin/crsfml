@@ -36,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="1.2" data-basepath="." data-revision="Thu Aug 20 2015 13:04:05 GMT+0300 (EEST)">
+    <div class="book" data-level="1.2" data-basepath="." data-revision="Thu Aug 20 2015 14:04:14 GMT+0300 (EEST)">
     
 
 <div class="book-summary">
@@ -694,50 +694,62 @@
 <p>The settings shown here will result in your application being linked to the dynamic version of SFML, the one that needs the DLL files. If you want to get rid of these DLLs and have SFML directly integrated into your executable, you must link to the static version. Static SFML libraries have the &quot;-s&quot; suffix: &quot;sfml-xxx-s-d&quot; for Debug, and &quot;sfml-xxx-s&quot; for Release.<br>In this case, you&apos;ll also need to define the SFML_STATIC macro in the preprocessor options of your project. </p>
 <p><img src="images/start-cb-static.png" alt="Screenshot of the dialog box for defining the SFML_STATIC macro"></p>
 <p>Starting from SFML 2.2, when static linking, you will have to link all of SFML&apos;s dependencies to your project as well. This means that if you are linking sfml-window-s or sfml-window-s-d for example, you will also have to link opengl32, winmm and gdi32. Some of these dependency libraries might already be listed under &quot;Inherited values&quot;, but adding them again yourself shouldn&apos;t cause any problems. </p>
-<p>Here are the dependencies of each module, append the -d as described above if you want to link the SFML debug libraries: </p>
-<table>
-<thead>
-<tr>
-<th>Module</th>
-<th>Dependencies  </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>sfml-graphics-s</code></td>
-<td></td>
-</tr>
-</tbody>
+<p>Here are the dependencies of each module, append the -d as described above if you want to link the SFML debug libraries:   </p>
+<table class="styled expanded">
+    <thead>
+        <tr>
+            <th>Module</th>
+            <th>Dependencies</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>sfml-graphics-s</code></td>
+            <td><ul>
+                <li>sfml-window-s</li>
+                <li>sfml-system-s</li>
+                <li>opengl32</li>
+                <li>freetype</li>
+                <li>jpeg</li>
+            </ul></td>
+        </tr>
+        <tr>
+            <td><code>sfml-window-s</code></td>
+            <td><ul>
+                <li>sfml-system-s</li>
+                <li>opengl32</li>
+                <li>winmm</li>
+                <li>gdi32</li>
+            </ul></td>
+        </tr>
+        <tr>
+            <td><code>sfml-audio-s</code></td>
+            <td><ul>
+                <li>sfml-system-s</li>
+                <li>openal32</li>
+                <li>flac</li>
+                <li>vorbisenc</li>
+                <li>vorbisfile</li>
+                <li>vorbis</li>
+                <li>ogg</li>
+            </ul></td>
+        </tr>
+        <tr>
+            <td><code>sfml-network-s</code></td>
+            <td><ul>
+                <li>sfml-system-s</li>
+                <li>ws2_32</li>
+            </ul></td>
+        </tr>
+        <tr>
+            <td><code>sfml-system-s</code></td>
+            <td><ul>
+                <li>winmm</li>
+            </ul></td>
+        </tr>
+    </tbody>
 </table>
-<ul>
-<li>sfml-window-s</li>
-<li>sfml-system-s</li>
-<li>opengl32</li>
-<li>freetype</li>
-<li><p>jpeg<br><code>sfml-window-s</code> | </p>
-</li>
-<li><p>sfml-system-s</p>
-</li>
-<li>opengl32</li>
-<li>winmm</li>
-<li><p>gdi32<br><code>sfml-audio-s</code> | </p>
-</li>
-<li><p>sfml-system-s</p>
-</li>
-<li>openal32</li>
-<li>flac</li>
-<li>vorbisenc</li>
-<li>vorbisfile</li>
-<li>vorbis</li>
-<li><p>ogg<br><code>sfml-network-s</code> | </p>
-</li>
-<li><p>sfml-system-s</p>
-</li>
-<li><p>ws2_32<br><code>sfml-system-s</code> | </p>
-</li>
-<li><p>winmm  </p>
-</li>
-</ul>
+
 <p>You might have noticed from the table that SFML modules can also depend on one another, e.g. sfml-graphics-s depends both on sfml-window-s and sfml-system-s. If you static link to an SFML library, make sure to link to the dependencies of the library in question, as well as the dependencies of the dependencies and so on. If anything along the dependency chain is missing, you <em>will</em> get linker errors. </p>
 <p>Additionally, because Code::Blocks makes use of GCC, the linking order <em>does</em> matter. This means that libraries that depend on other libraries have to be added to the library list <em>before</em> the libraries they depend on. If you don&apos;t follow this rule, you <em>will</em> get linker errors. </p>
 <p>If you are slightly confused, don&apos;t worry, it is perfectly normal for beginners to be overwhelmed by all this information regarding static linking. If something doesn&apos;t work for you the first time around, you can simply keep trying always bearing in mind what has been said above. If you still can&apos;t get static linking to work, you can check the <a href="../../faq.php#build-link-static" title="Go to the FAQ page">FAQ</a> and the <a href="http://en.sfml-dev.org/forums/index.php?board=4.0" title="Go to the general help forum" target="_blank">forum</a> for threads about static linking. </p>
