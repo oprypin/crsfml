@@ -34,7 +34,7 @@
     <body>
         
         
-    <div class="book" data-level="6.4" data-basepath="." data-revision="Thu Aug 20 2015 13:04:05 GMT+0300 (EEST)">
+    <div class="book" data-level="6.4" data-basepath="." data-revision="Thu Aug 20 2015 14:16:31 GMT+0300 (EEST)">
     
 
 <div class="book-summary">
@@ -675,8 +675,8 @@
 <p>So what can you do with FTP, and how can it be helpful to your program? Basically, with FTP you can access existing remote file systems, or even create your own. This can be useful if you want your network game to download resources (maps, images, ...) from a server, or your program to update itself automatically when it&apos;s connected to the internet. </p>
 <p>If you want to know more about the FTP protocol, the <a href="http://en.wikipedia.org/wiki/File_Transfer_Protocol" title="FTP on wikipedia" target="_blank">Wikipedia article</a> provides more detailed information than this short introduction. </p>
 <h2 id="the-ftp-client-class">The FTP client class</h2>
-<p>The class provided by SFML is <a href="http://blaxpirit.github.io/crsfml/SF/api/Ftp.html" target="_blank">Ftp</a> (surprising, isn&apos;t it?). It&apos;s a client, which means that it can connect to an FTP server, send commands to it and upload or download files. </p>
-<p>Every function of the <a href="http://blaxpirit.github.io/crsfml/SF/api/Ftp.html" target="_blank">Ftp</a> class wraps an FTP command, and returns a standard FTP response. An FTP response contains a status code (similar to HTTP status codes but not identical), and a message that informs the user of what happened. FTP responses are encapsulated in the <a href="http://blaxpirit.github.io/crsfml/SF/api/Ftp::Response.html" target="_blank">Ftp::Response</a> class. </p>
+<p>The class provided by SFML is <a href="http://blaxpirit.github.io/crsfml/api/SF/Ftp.html" target="_blank">Ftp</a> (surprising, isn&apos;t it?). It&apos;s a client, which means that it can connect to an FTP server, send commands to it and upload or download files. </p>
+<p>Every function of the <a href="http://blaxpirit.github.io/crsfml/api/SF/Ftp.html" target="_blank">Ftp</a> class wraps an FTP command, and returns a standard FTP response. An FTP response contains a status code (similar to HTTP status codes but not identical), and a message that informs the user of what happened. FTP responses are encapsulated in the <a href="http://blaxpirit.github.io/crsfml/api/SF/Ftp::Response.html" target="_blank">Ftp::Response</a> class. </p>
 <pre><code>#include &lt;SFML/Network.hpp&gt;
 
 sf::Ftp ftp;
@@ -710,7 +710,7 @@ else
 <p>The first thing to do is connect to an FTP server. </p>
 <pre><code>sf::Ftp ftp;
 ftp.connect(&quot;ftp.myserver.org&quot;);
-</code></pre><p>The server address can be any valid <a href="http://blaxpirit.github.io/crsfml/SF/api/IpAddress.html" target="_blank">IpAddress</a>: A URL, an IP address, a network name, ... </p>
+</code></pre><p>The server address can be any valid <a href="http://blaxpirit.github.io/crsfml/api/SF/IpAddress.html" target="_blank">IpAddress</a>: A URL, an IP address, a network name, ... </p>
 <p>The standard port for FTP is 21. If, for some reason, your server uses a different port, you can specify it as an additional argument: </p>
 <pre><code>sf::Ftp ftp;
 ftp.connect(&quot;ftp.myserver.org&quot;, 45000);
@@ -724,12 +724,12 @@ ftp.login(&quot;username&quot;, &quot;password&quot;);
 // or login anonymously, if the server allows it
 ftp.login();
 </code></pre><h2 id="ftp-commands">FTP commands</h2>
-<p>Here is a short description of all the commands available in the <a href="http://blaxpirit.github.io/crsfml/SF/api/Ftp.html" target="_blank">Ftp</a> class. Remember one thing: All these commands are performed relative to the <em>current working directory</em>, exactly as if you were executing file or directory commands in a console on your operating system. </p>
+<p>Here is a short description of all the commands available in the <a href="http://blaxpirit.github.io/crsfml/api/SF/Ftp.html" target="_blank">Ftp</a> class. Remember one thing: All these commands are performed relative to the <em>current working directory</em>, exactly as if you were executing file or directory commands in a console on your operating system. </p>
 <p>Getting the current working directory: </p>
 <pre><code>sf::Ftp::DirectoryResponse response = ftp.getWorkingDirectory();
 if (response.isOk())
     std::cout &lt;&lt; &quot;Current directory: &quot; &lt;&lt; response.getDirectory() &lt;&lt; std::endl;
-</code></pre><p><a href="http://blaxpirit.github.io/crsfml/SF/api/Ftp::DirectoryResponse.html" target="_blank">Ftp::DirectoryResponse</a> is a specialized <a href="http://blaxpirit.github.io/crsfml/SF/api/Ftp::Response.html" target="_blank">Ftp::Response</a> that also contains the requested directory. </p>
+</code></pre><p><a href="http://blaxpirit.github.io/crsfml/api/SF/Ftp::DirectoryResponse.html" target="_blank">Ftp::DirectoryResponse</a> is a specialized <a href="http://blaxpirit.github.io/crsfml/api/SF/Ftp::Response.html" target="_blank">Ftp::Response</a> that also contains the requested directory. </p>
 <p>Getting the list of directories and files contained in the current directory: </p>
 <pre><code>sf::Ftp::ListingResponse response = ftp.getDirectoryListing();
 if (response.isOk())
@@ -741,7 +741,7 @@ if (response.isOk())
 
 // you can also get the listing of a sub-directory of the current directory:
 response = ftp.getDirectoryListing(&quot;subfolder&quot;);
-</code></pre><p><a href="http://blaxpirit.github.io/crsfml/SF/api/Ftp::ListingResponse.html" target="_blank">Ftp::ListingResponse</a> is a specialized <a href="http://blaxpirit.github.io/crsfml/SF/api/Ftp::Response.html" target="_blank">Ftp::Response</a> that also contains the requested directory/file names. </p>
+</code></pre><p><a href="http://blaxpirit.github.io/crsfml/api/SF/Ftp::ListingResponse.html" target="_blank">Ftp::ListingResponse</a> is a specialized <a href="http://blaxpirit.github.io/crsfml/api/SF/Ftp::Response.html" target="_blank">Ftp::Response</a> that also contains the requested directory/file names. </p>
 <p>Changing the current directory: </p>
 <pre><code>ftp.changeDirectory(&quot;path/to/new_directory&quot;); // the given path is relative to the current directory
 </code></pre><p>Going to the parent directory of the current one: </p>

@@ -36,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="2.2" data-basepath="." data-revision="Thu Aug 20 2015 14:12:55 GMT+0300 (EEST)">
+    <div class="book" data-level="2.2" data-basepath="." data-revision="Thu Aug 20 2015 14:16:31 GMT+0300 (EEST)">
     
 
 <div class="book-summary">
@@ -679,7 +679,7 @@
 <p>In its newest version (2011), the C++ standard library provides a set of <a href="http://en.cppreference.com/w/cpp/thread" title="C++11 threading classes" target="_blank">classes for threading</a>. At the time SFML was written, the C++11 standard was not written and there was no standard way of creating threads. When SFML 2.0 was released, there were still a lot of compilers that didn&apos;t support this new standard. </p>
 <p>If you work with compilers that support the new standard and its <code>&lt;thread&gt;</code> header, forget about the SFML thread classes and use it instead -- it will be much better. But if you work with a pre-2011 compiler, or plan to distribute your code and want it to be fully portable, the SFML threading classes are a good solution. </p>
 <h2 id="creating-a-thread-with-sfml">Creating a thread with SFML</h2>
-<p>Enough talk, let&apos;s see some code. The class that makes it possible to create threads in SFML is <a href="http://blaxpirit.github.io/crsfml/SF/api/Thread.html" target="_blank">Thread</a>, and here is what it looks like in action: </p>
+<p>Enough talk, let&apos;s see some code. The class that makes it possible to create threads in SFML is <a href="http://blaxpirit.github.io/crsfml/api/SF/Thread.html" target="_blank">Thread</a>, and here is what it looks like in action: </p>
 <pre><code>#include &lt;SFML/System.hpp&gt;
 #include &lt;iostream&gt;
 
@@ -708,7 +708,7 @@ int main()
 }
 </code></pre><p>In this code, both <code>main</code> and <code>func</code> run in parallel after <code>thread.launch()</code> has been called. The result is that text from both functions should be mixed in the console. </p>
 <p><img src="images/system-thread-mixed.png" alt="Screenshot of the program output"></p>
-<p>The entry point of the thread, ie. the function that will be run when the thread is started, must be passed to the constructor of <a href="http://blaxpirit.github.io/crsfml/SF/api/Thread.html" target="_blank">Thread</a>. <a href="http://blaxpirit.github.io/crsfml/SF/api/Thread.html" target="_blank">Thread</a> tries to be flexible and accept a wide variety of entry points: non-member or member functions, with or without arguments, functors, etc. The example above shows how to use a non-member function, here are a few other examples. </p>
+<p>The entry point of the thread, ie. the function that will be run when the thread is started, must be passed to the constructor of <a href="http://blaxpirit.github.io/crsfml/api/SF/Thread.html" target="_blank">Thread</a>. <a href="http://blaxpirit.github.io/crsfml/api/SF/Thread.html" target="_blank">Thread</a> tries to be flexible and accept a wide variety of entry points: non-member or member functions, with or without arguments, functors, etc. The example above shows how to use a non-member function, here are a few other examples. </p>
 <ul>
 <li>Non-member function with one argument: </li>
 </ul>
@@ -742,7 +742,7 @@ sf::Thread thread(&amp;MyClass::func, &amp;object);
 };
 
 sf::Thread thread(MyFunctor());
-</code></pre><p>The last example, which uses functors, is the most powerful one since it can accept any type of functor and therefore makes <a href="http://blaxpirit.github.io/crsfml/SF/api/Thread.html" target="_blank">Thread</a> compatible with many types of functions that are not directly supported. This feature is especially interesting with C++11 lambdas or <code>std::bind</code>. </p>
+</code></pre><p>The last example, which uses functors, is the most powerful one since it can accept any type of functor and therefore makes <a href="http://blaxpirit.github.io/crsfml/api/SF/Thread.html" target="_blank">Thread</a> compatible with many types of functions that are not directly supported. This feature is especially interesting with C++11 lambdas or <code>std::bind</code>. </p>
 <pre><code>// with lambdas
 sf::Thread thread([](){
     std::cout &lt;&lt; &quot;I am in thread!&quot; &lt;&lt; std::endl;
@@ -753,7 +753,7 @@ void func(std::string, int, double)
 }
 
 sf::Thread thread(std::bind(&amp;func, &quot;hello&quot;, 24, 0.5));
-</code></pre><p>If you want to use a <a href="http://blaxpirit.github.io/crsfml/SF/api/Thread.html" target="_blank">Thread</a> inside a class, don&apos;t forget that it doesn&apos;t have a default constructor. Therefore, you have to initialize it directly in the constructor&apos;s <em>initialization list</em>: </p>
+</code></pre><p>If you want to use a <a href="http://blaxpirit.github.io/crsfml/api/SF/Thread.html" target="_blank">Thread</a> inside a class, don&apos;t forget that it doesn&apos;t have a default constructor. Therefore, you have to initialize it directly in the constructor&apos;s <em>initialization list</em>: </p>
 <pre><code>class ClassWithThread
 {
 public:
@@ -772,9 +772,9 @@ private:
 
     sf::Thread m_thread;
 };
-</code></pre><p>If you really need to construct your <a href="http://blaxpirit.github.io/crsfml/SF/api/Thread.html" target="_blank">Thread</a> instance <em>after</em> the construction of the owner object, you can also delay its construction by dynamically allocating it on the heap. </p>
+</code></pre><p>If you really need to construct your <a href="http://blaxpirit.github.io/crsfml/api/SF/Thread.html" target="_blank">Thread</a> instance <em>after</em> the construction of the owner object, you can also delay its construction by dynamically allocating it on the heap. </p>
 <h2 id="starting-threads">Starting threads</h2>
-<p>Once you&apos;ve created a <a href="http://blaxpirit.github.io/crsfml/SF/api/Thread.html" target="_blank">Thread</a> instance, you must start it with the <code>launch</code> function. </p>
+<p>Once you&apos;ve created a <a href="http://blaxpirit.github.io/crsfml/api/SF/Thread.html" target="_blank">Thread</a> instance, you must start it with the <code>launch</code> function. </p>
 <pre><code>sf::Thread thread(&amp;func);
 thread.launch();
 </code></pre><p><code>launch</code> calls the function that you passed to the constructor in a new thread, and returns immediately so that the calling thread can continue to run. </p>
@@ -789,9 +789,9 @@ thread.launch();
 
 // block execution until the thread is finished
 thread.wait();
-</code></pre><p>The <code>wait</code> function is also implicitly called by the destructor of <a href="http://blaxpirit.github.io/crsfml/SF/api/Thread.html" target="_blank">Thread</a>, so that a thread cannot remain alive (and out of control) after its owner <a href="http://blaxpirit.github.io/crsfml/SF/api/Thread.html" target="_blank">Thread</a> instance is destroyed. Keep this in mind when you manage your threads (see the last section of this tutorial). </p>
+</code></pre><p>The <code>wait</code> function is also implicitly called by the destructor of <a href="http://blaxpirit.github.io/crsfml/api/SF/Thread.html" target="_blank">Thread</a>, so that a thread cannot remain alive (and out of control) after its owner <a href="http://blaxpirit.github.io/crsfml/api/SF/Thread.html" target="_blank">Thread</a> instance is destroyed. Keep this in mind when you manage your threads (see the last section of this tutorial). </p>
 <h2 id="pausing-threads">Pausing threads</h2>
-<p>There&apos;s no function in <a href="http://blaxpirit.github.io/crsfml/SF/api/Thread.html" target="_blank">Thread</a> that allows another thread to pause it, the only way to pause a thread is to do it from the code that it runs. In other words, you can only pause the current thread. To do so, you can call the <code>sf::sleep</code> function: </p>
+<p>There&apos;s no function in <a href="http://blaxpirit.github.io/crsfml/api/SF/Thread.html" target="_blank">Thread</a> that allows another thread to pause it, the only way to pause a thread is to do it from the code that it runs. In other words, you can only pause the current thread. To do so, you can call the <code>sf::sleep</code> function: </p>
 <pre><code>void func()
 {
     ...
@@ -839,7 +839,7 @@ int main()
 <p>Mutexes are not the only primitive that you can use to protect your shared variables, but it should be enough for most cases. However, if your application does complicated things with threads, and you feel like it is not enough, don&apos;t hesitate to look for a true threading library, with more features. </p>
 <h2 id="protecting-mutexes">Protecting mutexes</h2>
 <p>Don&apos;t worry: mutexes are already thread-safe, there&apos;s no need to protect them. But they are not exception-safe! What happens if an exception is thrown while a mutex is locked? It never gets a chance to be unlocked and remains locked forever. All threads that try to lock it in the future will block forever, and in some cases, your whole application could freeze. Pretty bad result. </p>
-<p>To make sure that mutexes are always unlocked in an environment where exceptions can be thrown, SFML provides an RAII class to wrap them: <a href="http://blaxpirit.github.io/crsfml/SF/api/Lock.html" target="_blank">Lock</a>. It locks a mutex in its constructor, and unlocks it in its destructor. Simple and efficient. </p>
+<p>To make sure that mutexes are always unlocked in an environment where exceptions can be thrown, SFML provides an RAII class to wrap them: <a href="http://blaxpirit.github.io/crsfml/api/SF/Lock.html" target="_blank">Lock</a>. It locks a mutex in its constructor, and unlocks it in its destructor. Simple and efficient. </p>
 <pre><code>sf::Mutex mutex;
 
 void func()
@@ -849,7 +849,7 @@ void func()
     functionThatMightThrowAnException(); // mutex.unlock() if this function throws
 
 } // mutex.unlock()
-</code></pre><p>Note that <a href="http://blaxpirit.github.io/crsfml/SF/api/Lock.html" target="_blank">Lock</a> can also be useful in a function that has multiple <code>return</code> statements. </p>
+</code></pre><p>Note that <a href="http://blaxpirit.github.io/crsfml/api/SF/Lock.html" target="_blank">Lock</a> can also be useful in a function that has multiple <code>return</code> statements. </p>
 <pre><code>sf::Mutex mutex;
 
 bool func()
@@ -868,7 +868,7 @@ bool func()
     return true;
 } // mutex.unlock()
 </code></pre><h2 id="common-mistakes">Common mistakes</h2>
-<p>One thing that is often overlooked by programmers is that a thread cannot live without its corresponding <a href="http://blaxpirit.github.io/crsfml/SF/api/Thread.html" target="_blank">Thread</a> instance.<br>The following code is often seen on the forums: </p>
+<p>One thing that is often overlooked by programmers is that a thread cannot live without its corresponding <a href="http://blaxpirit.github.io/crsfml/api/SF/Thread.html" target="_blank">Thread</a> instance.<br>The following code is often seen on the forums: </p>
 <pre><code>void startThread()
 {
     sf::Thread thread(&amp;funcToRunInThread);
@@ -882,8 +882,8 @@ int main()
     return 0;
 }
 </code></pre><p>Programers who write this kind of code expect the <code>startThread()</code> function to start a thread that will live on its own and be destroyed when the threaded function ends. This is not what happens. The threaded function appears to block the main thread, as if the thread wasn&apos;t working. </p>
-<p>What is the cause of this? The <a href="http://blaxpirit.github.io/crsfml/SF/api/Thread.html" target="_blank">Thread</a> instance is local to the <code>startThread()</code> function and is therefore immediately destroyed, when the function returns. The destructor of <a href="http://blaxpirit.github.io/crsfml/SF/api/Thread.html" target="_blank">Thread</a> is invoked, which calls <code>wait()</code> as we&apos;ve learned above, and the result is that the main thread blocks and waits for the threaded function to be finished instead of continuing to run in parallel. </p>
-<p>So don&apos;t forget: You must manage your <a href="http://blaxpirit.github.io/crsfml/SF/api/Thread.html" target="_blank">Thread</a> instance so that it lives as long as the threaded function is supposed to run. </p>
+<p>What is the cause of this? The <a href="http://blaxpirit.github.io/crsfml/api/SF/Thread.html" target="_blank">Thread</a> instance is local to the <code>startThread()</code> function and is therefore immediately destroyed, when the function returns. The destructor of <a href="http://blaxpirit.github.io/crsfml/api/SF/Thread.html" target="_blank">Thread</a> is invoked, which calls <code>wait()</code> as we&apos;ve learned above, and the result is that the main thread blocks and waits for the threaded function to be finished instead of continuing to run in parallel. </p>
+<p>So don&apos;t forget: You must manage your <a href="http://blaxpirit.github.io/crsfml/api/SF/Thread.html" target="_blank">Thread</a> instance so that it lives as long as the threaded function is supposed to run. </p>
 
                     
                     </section>

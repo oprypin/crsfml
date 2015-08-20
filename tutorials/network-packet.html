@@ -36,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="6.2" data-basepath="." data-revision="Thu Aug 20 2015 13:04:05 GMT+0300 (EEST)">
+    <div class="book" data-level="6.2" data-basepath="." data-revision="Thu Aug 20 2015 14:16:31 GMT+0300 (EEST)">
     
 
 <div class="book-summary">
@@ -681,7 +681,7 @@
 <p>Since primitive types cannot be exchanged reliably on a network, the solution is simple: don&apos;t use them. SFML provides fixed-size types for data exchange: <code>sf::Int8, sf::Uint16, sf::Int32</code>, etc. These types are just typedefs to primitive types, but they are mapped to the type which has the expected size according to the platform. So they can (and must!) be used safely when you want to exchange data between two computers. </p>
 <p>SFML only provides fixed-size <em>integer</em> types. Floating-point types should normally have their fixed-size equivalent too, but in practice this is not needed (at least on platforms where SFML runs), <code>float</code> and <code>double</code> types always have the same size, 32 bits and 64 bits respectively. </p>
 <h2 id="packets">Packets</h2>
-<p>The two other problems (endianness and message boundaries) are solved by using a specific class to pack your data: <a href="http://blaxpirit.github.io/crsfml/SF/api/Packet.html" target="_blank">Packet</a>. As a bonus, it provides a much nicer interface than plain old byte arrays. </p>
+<p>The two other problems (endianness and message boundaries) are solved by using a specific class to pack your data: <a href="http://blaxpirit.github.io/crsfml/api/SF/Packet.html" target="_blank">Packet</a>. As a bonus, it provides a much nicer interface than plain old byte arrays. </p>
 <p>Packets have a programming interface similar to standard streams: you can insert data with the &lt;&lt; operator, and extract data with the &gt;&gt; operator. </p>
 <pre><code>// on sending side
 sf::Uint16 x = 10;
@@ -705,16 +705,16 @@ else
 {
     // error, failed to read &apos;x&apos; from the packet
 }
-</code></pre><p>Sending and receiving packets is as easy as sending/receiving an array of bytes: sockets have an overload of <code>send</code> and <code>receive</code> that directly accept a <a href="http://blaxpirit.github.io/crsfml/SF/api/Packet.html" target="_blank">Packet</a>. </p>
+</code></pre><p>Sending and receiving packets is as easy as sending/receiving an array of bytes: sockets have an overload of <code>send</code> and <code>receive</code> that directly accept a <a href="http://blaxpirit.github.io/crsfml/api/SF/Packet.html" target="_blank">Packet</a>. </p>
 <pre><code>// with a TCP socket
 tcpSocket.send(packet);
 tcpSocket.receive(packet);
 </code></pre><pre><code>// with a UDP socket
 udpSocket.send(packet, recipientAddress, recipientPort);
 udpSocket.receive(packet, senderAddress, senderPort);
-</code></pre><p>Packets solve the &quot;message boundaries&quot; problem, which means that when you send a packet on a TCP socket, you receive the exact same packet on the other end, it cannot contain less bytes, or bytes from the next packet that you send. However, it has a slight drawback: To preserve message boundaries, <a href="http://blaxpirit.github.io/crsfml/SF/api/Packet.html" target="_blank">Packet</a> has to send some extra bytes along with your data, which implies that you can only receive them with a <a href="http://blaxpirit.github.io/crsfml/SF/api/Packet.html" target="_blank">Packet</a> if you want them to be properly decoded. Simply put, you can&apos;t send an SFML packet to a non-SFML packet recipient, it has to use an SFML packet for receiving too. Note that this applies to TCP only, UDP is fine since the protocol itself preserves message boundaries. </p>
+</code></pre><p>Packets solve the &quot;message boundaries&quot; problem, which means that when you send a packet on a TCP socket, you receive the exact same packet on the other end, it cannot contain less bytes, or bytes from the next packet that you send. However, it has a slight drawback: To preserve message boundaries, <a href="http://blaxpirit.github.io/crsfml/api/SF/Packet.html" target="_blank">Packet</a> has to send some extra bytes along with your data, which implies that you can only receive them with a <a href="http://blaxpirit.github.io/crsfml/api/SF/Packet.html" target="_blank">Packet</a> if you want them to be properly decoded. Simply put, you can&apos;t send an SFML packet to a non-SFML packet recipient, it has to use an SFML packet for receiving too. Note that this applies to TCP only, UDP is fine since the protocol itself preserves message boundaries. </p>
 <h2 id="extending-packets-to-handle-user-types">Extending packets to handle user types</h2>
-<p>Packets have overloads of their operators for all the primitive types and the most common standard types, but what about your own classes? As with standard streams, you can make a type &quot;compatible&quot; with <a href="http://blaxpirit.github.io/crsfml/SF/api/Packet.html" target="_blank">Packet</a> by providing an overload of the &lt;&lt; and &gt;&gt; operators. </p>
+<p>Packets have overloads of their operators for all the primitive types and the most common standard types, but what about your own classes? As with standard streams, you can make a type &quot;compatible&quot; with <a href="http://blaxpirit.github.io/crsfml/api/SF/Packet.html" target="_blank">Packet</a> by providing an overload of the &lt;&lt; and &gt;&gt; operators. </p>
 <pre><code>struct Character
 {
     sf::Uint8 age;
@@ -738,7 +738,7 @@ sf::Packet&amp; operator &gt;&gt;(sf::Packet&amp; packet, Character&amp; charact
 packet &lt;&lt; bob;
 packet &gt;&gt; bob;
 </code></pre><h2 id="custom-packets">Custom packets</h2>
-<p>Packets provide nice features on top of your raw data, but what if you want to add your own features such as automatically compressing or encrypting the data? This can easily be done by deriving from <a href="http://blaxpirit.github.io/crsfml/SF/api/Packet.html" target="_blank">Packet</a> and overriding the following functions: </p>
+<p>Packets provide nice features on top of your raw data, but what if you want to add your own features such as automatically compressing or encrypting the data? This can easily be done by deriving from <a href="http://blaxpirit.github.io/crsfml/api/SF/Packet.html" target="_blank">Packet</a> and overriding the following functions: </p>
 <ul>
 <li><code>onSend</code>: called before the data is sent by the socket</li>
 <li><code>onReceive</code>: called after the data has been received by the socket</li>
@@ -760,7 +760,7 @@ packet &gt;&gt; bob;
         append(dstData, dstSize);
     }
 };
-</code></pre><p>Such a packet class can be used exactly like <a href="http://blaxpirit.github.io/crsfml/SF/api/Packet.html" target="_blank">Packet</a>. All your operator overloads will apply to them as well. </p>
+</code></pre><p>Such a packet class can be used exactly like <a href="http://blaxpirit.github.io/crsfml/api/SF/Packet.html" target="_blank">Packet</a>. All your operator overloads will apply to them as well. </p>
 <pre><code>ZipPacket packet;
 packet &lt;&lt; x &lt;&lt; bob;
 socket.send(packet);

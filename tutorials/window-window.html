@@ -36,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="3.1" data-basepath="." data-revision="Thu Aug 20 2015 14:04:14 GMT+0300 (EEST)">
+    <div class="book" data-level="3.1" data-basepath="." data-revision="Thu Aug 20 2015 14:16:31 GMT+0300 (EEST)">
     
 
 <div class="book-summary">
@@ -674,7 +674,7 @@
 <h2 id="introduction">Introduction</h2>
 <p>This tutorial only explains how to open and manage a window. Drawing stuff is beyond the scope of the sfml-window module: it is handled by the sfml-graphics module. However, the window management remains exactly the same so reading this tutorial is important in any case. </p>
 <h2 id="opening-a-window">Opening a window</h2>
-<p>Windows in SFML are defined by the <a href="http://blaxpirit.github.io/crsfml/SF/api/Window.html" target="_blank">Window</a> class. A window can be created and opened directly upon construction: </p>
+<p>Windows in SFML are defined by the <a href="http://blaxpirit.github.io/crsfml/api/SF/Window.html" target="_blank">Window</a> class. A window can be created and opened directly upon construction: </p>
 <pre><code>#include &lt;SFML/Window.hpp&gt;
 
 int main()
@@ -685,7 +685,7 @@ int main()
 
     return 0;
 }
-</code></pre><p>The first argument, the <em>video mode</em>, defines the size of the window (the inner size, without the title bar and borders). Here, we create a window with a size of 800x600 pixels.<br>The <a href="http://blaxpirit.github.io/crsfml/SF/api/VideoMode.html" target="_blank">VideoMode</a> class has some interesting static functions to get the desktop resolution, or the list of valid video modes for fullscreen mode. Don&apos;t hesitate to have a look at its documentation. </p>
+</code></pre><p>The first argument, the <em>video mode</em>, defines the size of the window (the inner size, without the title bar and borders). Here, we create a window with a size of 800x600 pixels.<br>The <a href="http://blaxpirit.github.io/crsfml/api/SF/VideoMode.html" target="_blank">VideoMode</a> class has some interesting static functions to get the desktop resolution, or the list of valid video modes for fullscreen mode. Don&apos;t hesitate to have a look at its documentation. </p>
 <p>The second argument is simply the title of the window. </p>
 <p>This constructor accepts a third optional argument: a style, which allows you to choose which decorations and features you want. You can use any combination of the following styles:</p>
 <table>
@@ -716,7 +716,7 @@ int main()
 </table>
 
 <p>There&apos;s also a fourth optional argument, which defines OpenGL specific options which are explained in the <a href="window-opengl.html" title="OpenGL tutorial">dedicated OpenGL tutorial</a>. </p>
-<p>If you want to create the window <em>after</em> the construction of the <a href="http://blaxpirit.github.io/crsfml/SF/api/Window.html" target="_blank">Window</a> instance, or re-create it with a different video mode or title, you can use the <code>create</code> function instead. It takes the exact same arguments as the constructor. </p>
+<p>If you want to create the window <em>after</em> the construction of the <a href="http://blaxpirit.github.io/crsfml/api/SF/Window.html" target="_blank">Window</a> instance, or re-create it with a different video mode or title, you can use the <code>create</code> function instead. It takes the exact same arguments as the constructor. </p>
 <pre><code>#include &lt;SFML/Window.hpp&gt;
 
 int main()
@@ -759,7 +759,7 @@ int main()
 <p>A mistake that people often make is to forget the event loop, simply because they don&apos;t yet care about handling events (they use real-time inputs instead). Without an event loop, the window will become unresponsive. It is important to note that the event loop has two roles: in addition to providing events to the user, it gives the window a chance to process its internal events too, which is required so that it can react to move or resize user actions. </p>
 <p>After the window has been closed, the main loop exits and the program terminates. </p>
 <p>At this point, you probably noticed that we haven&apos;t talked about <em>drawing something</em> to the window yet. As stated in the introduction, this is not the job of the sfml-window module, and you&apos;ll have to jump to the sfml-graphics tutorials if you want to draw things such as sprites, text or shapes. </p>
-<p>To draw stuff, you can also use OpenGL directly and totally ignore the sfml-graphics module. <a href="http://blaxpirit.github.io/crsfml/SF/api/Window.html" target="_blank">Window</a> internally creates an OpenGL context and is ready to accept your OpenGL calls. You can learn more about that in the <a href="window-opengl.html" title="OpenGL tutorial">corresponding tutorial</a>. </p>
+<p>To draw stuff, you can also use OpenGL directly and totally ignore the sfml-graphics module. <a href="http://blaxpirit.github.io/crsfml/api/SF/Window.html" target="_blank">Window</a> internally creates an OpenGL context and is ready to accept your OpenGL calls. You can learn more about that in the <a href="window-opengl.html" title="OpenGL tutorial">corresponding tutorial</a>. </p>
 <p>Don&apos;t expect to see something interesting in this window: you may see a uniform color (black or white), or the last contents of the previous application that used OpenGL, or... something else. </p>
 <h2 id="playing-with-the-window">Playing with the window</h2>
 <p>Of course, SFML allows you to play with your windows a bit. Basic window operations such as changing the size, position, title or icon are supported, but unlike dedicated GUI libraries (Qt, wxWidgets), SFML doesn&apos;t provide advanced features. SFML windows are only meant to provide an environment for OpenGL or SFML drawing. </p>
@@ -778,8 +778,8 @@ unsigned int width = size.x;
 unsigned int height = size.y;
 
 ...
-</code></pre><p>You can refer to the API documentation for a complete list of <a href="http://blaxpirit.github.io/crsfml/SF/api/Window.html" target="_blank">Window</a>&apos;s functions. </p>
-<p>In case you really need advanced features for your window, you can create one (or even a full GUI) with another library, and embed SFML into it. To do so, you can use the other constructor, or <code>create</code> function, of <a href="http://blaxpirit.github.io/crsfml/SF/api/Window.html" target="_blank">Window</a> which takes the OS-specific handle of an existing window. In this case, SFML will create a drawing context inside the given window and catch all its events without interfering with the parent window management. </p>
+</code></pre><p>You can refer to the API documentation for a complete list of <a href="http://blaxpirit.github.io/crsfml/api/SF/Window.html" target="_blank">Window</a>&apos;s functions. </p>
+<p>In case you really need advanced features for your window, you can create one (or even a full GUI) with another library, and embed SFML into it. To do so, you can use the other constructor, or <code>create</code> function, of <a href="http://blaxpirit.github.io/crsfml/api/SF/Window.html" target="_blank">Window</a> which takes the OS-specific handle of an existing window. In this case, SFML will create a drawing context inside the given window and catch all its events without interfering with the parent window management. </p>
 <pre><code>sf::WindowHandle handle = /* specific to what you&apos;re doing and the library you&apos;re using */;
 sf::Window window(handle);
 </code></pre><p>If you just want an additional, very specific feature, you can also do it the other way round: create an SFML window and get its OS-specific handle to implement things that SFML itself doesn&apos;t support. </p>
@@ -795,7 +795,7 @@ sf::WindowHandle handle = window.getSystemHandle();
 <p>Sometimes <code>setVerticalSyncEnabled</code> will have no effect: this is most likely because vertical synchronization is forced to &quot;off&quot; in your graphics driver&apos;s settings. It should be set to &quot;controlled by application&quot; instead. </p>
 <p>In other situations, you may also want your application to run at a given framerate, instead of the monitor&apos;s frequency. This can be done by calling <code>setFramerateLimit</code>: </p>
 <pre><code>window.setFramerateLimit(60); // call it once, after creating the window
-</code></pre><p>Unlike <code>setVerticalSyncEnabled</code>, this feature is implemented by SFML itself, using a combination of <a href="http://blaxpirit.github.io/crsfml/SF/api/Clock.html" target="_blank">Clock</a> and <code>sf::sleep</code>. An important consequence is that it is not 100% reliable, especially for high framerates: <code>sf::sleep</code>&apos;s resolution depends on the underlying operating system and hardware, and can be as high as 10 or 15 milliseconds. Don&apos;t rely on this feature to implement precise timing. </p>
+</code></pre><p>Unlike <code>setVerticalSyncEnabled</code>, this feature is implemented by SFML itself, using a combination of <a href="http://blaxpirit.github.io/crsfml/api/SF/Clock.html" target="_blank">Clock</a> and <code>sf::sleep</code>. An important consequence is that it is not 100% reliable, especially for high framerates: <code>sf::sleep</code>&apos;s resolution depends on the underlying operating system and hardware, and can be as high as 10 or 15 milliseconds. Don&apos;t rely on this feature to implement precise timing. </p>
 <p>Never use both <code>setVerticalSyncEnabled</code> and <code>setFramerateLimit</code> at the same time! They would badly mix and make things worse. </p>
 <h2 id="things-to-know-about-windows">Things to know about windows</h2>
 <p>Here is a brief list of what you can and cannot do with SFML windows. </p>

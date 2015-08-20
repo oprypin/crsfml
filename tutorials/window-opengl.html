@@ -36,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="3.4" data-basepath="." data-revision="Thu Aug 20 2015 13:04:05 GMT+0300 (EEST)">
+    <div class="book" data-level="3.4" data-basepath="." data-revision="Thu Aug 20 2015 14:16:31 GMT+0300 (EEST)">
     
 
 <div class="book-summary">
@@ -687,7 +687,7 @@
 // it works out of the box
 glEnable(GL_TEXTURE_2D);
 ...
-</code></pre><p>In case you think it is <em>too</em> automatic, <a href="http://blaxpirit.github.io/crsfml/SF/api/Window.html" target="_blank">Window</a>&apos;s constructor has an extra argument that allows you to change the settings of the underlying OpenGL context. This argument is an instance of the structure, it provides access to the following settings: </p>
+</code></pre><p>In case you think it is <em>too</em> automatic, <a href="http://blaxpirit.github.io/crsfml/api/SF/Window.html" target="_blank">Window</a>&apos;s constructor has an extra argument that allows you to change the settings of the underlying OpenGL context. This argument is an instance of the structure, it provides access to the following settings: </p>
 <ul>
 <li><code>depthBits</code> is the number of bits per pixel to use for the depth buffer (0 to disable it)</li>
 <li><code>stencilBits</code> is the number of bits per pixel to use for the stencil buffer (0 to disable it)</li>
@@ -773,7 +773,7 @@ window2.setActive(true);
 </code></pre><p>Only one context (window) can be active in a thread, so you don&apos;t need to deactivate a window before activating another one, it is deactivated automatically. This is how OpenGL works. </p>
 <p>Another thing to know is that all the OpenGL contexts created by SFML share their resources. This means that you can create a texture or vertex buffer with any context active, and use it with any other. This also means that you don&apos;t have to reload all your OpenGL resources when you recreate your window. Only shareable OpenGL resources can be shared among contexts. An example of an unshareable resource is a vertex array object. </p>
 <h2 id="opengl-without-a-window">OpenGL without a window</h2>
-<p>Sometimes it might be necessary to call OpenGL functions without an active window, and thus no OpenGL context. For example, when you load textures from a separate thread, or before the first window is created. SFML allows you to create window-less contexts with the <a href="http://blaxpirit.github.io/crsfml/SF/api/Context.html" target="_blank">Context</a> class. All you have to do is instantiate it to get a valid context. </p>
+<p>Sometimes it might be necessary to call OpenGL functions without an active window, and thus no OpenGL context. For example, when you load textures from a separate thread, or before the first window is created. SFML allows you to create window-less contexts with the <a href="http://blaxpirit.github.io/crsfml/api/SF/Context.html" target="_blank">Context</a> class. All you have to do is instantiate it to get a valid context. </p>
 <pre><code>int main()
 {
     sf::Context context;
@@ -825,7 +825,7 @@ int main()
 }
 </code></pre><h2 id="using-opengl-together-with-the-graphics-module">Using OpenGL together with the graphics module</h2>
 <p>This tutorial was about mixing OpenGL with sfml-window, which is fairly easy since it&apos;s the only purpose of this module. Mixing with the graphics module is a little more complicated: sfml-graphics uses OpenGL too, so extra care must be taken so that SFML and user states don&apos;t conflict with each other. </p>
-<p>If you don&apos;t know the graphics module yet, all you have to know is that the <a href="http://blaxpirit.github.io/crsfml/SF/api/Window.html" target="_blank">Window</a> class is replaced with <a href="http://blaxpirit.github.io/crsfml/SF/api/RenderWindow.html" target="_blank">RenderWindow</a>, which inherits all its functions and adds features to draw SFML specific entities. </p>
+<p>If you don&apos;t know the graphics module yet, all you have to know is that the <a href="http://blaxpirit.github.io/crsfml/api/SF/Window.html" target="_blank">Window</a> class is replaced with <a href="http://blaxpirit.github.io/crsfml/api/SF/RenderWindow.html" target="_blank">RenderWindow</a>, which inherits all its functions and adds features to draw SFML specific entities. </p>
 <p>The only way to avoid conflicts between SFML and your own OpenGL states, is to save/restore them every time you switch from OpenGL to SFML. </p>
 <pre><code>- draw with OpenGL
 

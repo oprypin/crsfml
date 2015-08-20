@@ -36,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="4.5" data-basepath="." data-revision="Thu Aug 20 2015 13:04:05 GMT+0300 (EEST)">
+    <div class="book" data-level="4.5" data-basepath="." data-revision="Thu Aug 20 2015 14:16:31 GMT+0300 (EEST)">
     
 
 <div class="book-summary">
@@ -679,7 +679,7 @@
 <p>Vertices (plural of vertex) alone don&apos;t do much. They are always grouped into <em>primitives</em>: Points (1 vertex), lines (2 vertices), triangles (3 vertices) or quads (4 vertices). You can then combine multiple primitives together to create the final geometry of the entity. </p>
 <p>Now you understand why we always talk about vertex arrays, and not vertices alone. </p>
 <h2 id="a-simple-vertex-array">A simple vertex array</h2>
-<p>Let&apos;s have a look at the <a href="http://blaxpirit.github.io/crsfml/SF/api/Vertex.html" target="_blank">Vertex</a> class now. It&apos;s simply a container which contains three public members and no functions besides its constructors. These constructors allow you to construct vertices from the set of attributes you care about -- you don&apos;t always need to color or texture your entity. </p>
+<p>Let&apos;s have a look at the <a href="http://blaxpirit.github.io/crsfml/api/SF/Vertex.html" target="_blank">Vertex</a> class now. It&apos;s simply a container which contains three public members and no functions besides its constructors. These constructors allow you to construct vertices from the set of attributes you care about -- you don&apos;t always need to color or texture your entity. </p>
 <pre><code>// create a new vertex
 sf::Vertex vertex;
 
@@ -693,7 +693,7 @@ vertex.color = sf::Color::Red;
 vertex.texCoords = sf::Vector2f(100, 100);
 </code></pre><p>... or, using the correct constructor: </p>
 <pre><code>sf::Vertex vertex(sf::Vector2f(10, 50), sf::Color::Red, sf::Vector2f(100, 100));
-</code></pre><p>Now, let&apos;s define a primitive. Remember, a primitive consists of several vertices, therefore we need a vertex array. SFML provides a simple wrapper for this: <a href="http://blaxpirit.github.io/crsfml/SF/api/VertexArray.html" target="_blank">VertexArray</a>. It provides the semantics of an array (similar to <code>std::vector</code>), and also stores the type of primitive its vertices define. </p>
+</code></pre><p>Now, let&apos;s define a primitive. Remember, a primitive consists of several vertices, therefore we need a vertex array. SFML provides a simple wrapper for this: <a href="http://blaxpirit.github.io/crsfml/api/SF/VertexArray.html" target="_blank">VertexArray</a>. It provides the semantics of an array (similar to <code>std::vector</code>), and also stores the type of primitive its vertices define. </p>
 <pre><code>// create an array of 3 vertices that define a triangle primitive
 sf::VertexArray triangle(sf::Triangles, 3);
 
@@ -712,7 +712,7 @@ triangle[2].color = sf::Color::Green;
 <pre><code>window.draw(triangle);
 </code></pre><p><img src="images/graphics-vertex-array-triangle.png" alt="A triangle made with vertices"></p>
 <p>You can see that the vertices&apos; color is interpolated to fill the primitive. This is a nice way of creating gradients. </p>
-<p>Note that you don&apos;t have to use the <a href="http://blaxpirit.github.io/crsfml/SF/api/VertexArray.html" target="_blank">VertexArray</a> class. It&apos;s just defined for convenience, it&apos;s nothing more than a <code>std::vector&lt;sf::Vertex&gt;</code> along with a <code>sf::PrimitiveType</code>. If you need more flexibility, or a static array, you can use your own storage. You must then use the overload of the <code>draw</code> function which takes a pointer to the vertices, the vertex count and the primitive type. </p>
+<p>Note that you don&apos;t have to use the <a href="http://blaxpirit.github.io/crsfml/api/SF/VertexArray.html" target="_blank">VertexArray</a> class. It&apos;s just defined for convenience, it&apos;s nothing more than a <code>std::vector&lt;sf::Vertex&gt;</code> along with a <code>sf::PrimitiveType</code>. If you need more flexibility, or a static array, you can use your own storage. You must then use the overload of the <code>draw</code> function which takes a pointer to the vertices, the vertex count and the primitive type. </p>
 <pre><code>std::vector&lt;sf::Vertex&gt; vertices;
 vertices.push_back(sf::Vertex(...));
 ...
@@ -798,7 +798,7 @@ sf::Texture texture;
 ...
 
 window.draw(vertices, &amp;texture);
-</code></pre><p>This is the short version, if you need to pass other render states (like a blend mode or a transform), you can use the explicit version which takes a <a href="http://blaxpirit.github.io/crsfml/SF/api/RenderStates.html" target="_blank">RenderStates</a> object: </p>
+</code></pre><p>This is the short version, if you need to pass other render states (like a blend mode or a transform), you can use the explicit version which takes a <a href="http://blaxpirit.github.io/crsfml/api/SF/RenderStates.html" target="_blank">RenderStates</a> object: </p>
 <pre><code>sf::VertexArray vertices;
 sf::Texture texture;
 
@@ -826,10 +826,10 @@ sf::RenderStates states;
 states.transform = transform;
 
 window.draw(vertices, states);
-</code></pre><p>To know more about transformations and the <a href="http://blaxpirit.github.io/crsfml/SF/api/Transform.html" target="_blank">Transform</a> class, you can read the tutorial on <a href="graphics-transform.html" title="Transforming entities tutorial">transforming entities</a>. </p>
+</code></pre><p>To know more about transformations and the <a href="http://blaxpirit.github.io/crsfml/api/SF/Transform.html" target="_blank">Transform</a> class, you can read the tutorial on <a href="graphics-transform.html" title="Transforming entities tutorial">transforming entities</a>. </p>
 <h2 id="creating-an-sfml-like-entity">Creating an SFML-like entity</h2>
-<p>Now that you know how to define your own textured/colored/transformed entity, wouldn&apos;t it be nice to wrap it in an SFML-style class? Fortunately, SFML makes this easy for you by providing the <a href="http://blaxpirit.github.io/crsfml/SF/api/Drawable.html" target="_blank">Drawable</a> and <a href="http://blaxpirit.github.io/crsfml/SF/api/Transformable.html" target="_blank">Transformable</a> base classes. These two classes are the base of the built-in SFML entities <a href="http://blaxpirit.github.io/crsfml/SF/api/Sprite.html" target="_blank">Sprite</a>, <a href="http://blaxpirit.github.io/crsfml/SF/api/Text.html" target="_blank">Text</a> and <a href="http://blaxpirit.github.io/crsfml/SF/api/Shape.html" target="_blank">Shape</a>. </p>
-<p><a href="http://blaxpirit.github.io/crsfml/SF/api/Drawable.html" target="_blank">Drawable</a> is an interface: It declares a single pure virtual function and has no members nor concrete functions. Inheriting from <a href="http://blaxpirit.github.io/crsfml/SF/api/Drawable.html" target="_blank">Drawable</a> allows you to draw instances of your class the same way as SFML classes: </p>
+<p>Now that you know how to define your own textured/colored/transformed entity, wouldn&apos;t it be nice to wrap it in an SFML-style class? Fortunately, SFML makes this easy for you by providing the <a href="http://blaxpirit.github.io/crsfml/api/SF/Drawable.html" target="_blank">Drawable</a> and <a href="http://blaxpirit.github.io/crsfml/api/SF/Transformable.html" target="_blank">Transformable</a> base classes. These two classes are the base of the built-in SFML entities <a href="http://blaxpirit.github.io/crsfml/api/SF/Sprite.html" target="_blank">Sprite</a>, <a href="http://blaxpirit.github.io/crsfml/api/SF/Text.html" target="_blank">Text</a> and <a href="http://blaxpirit.github.io/crsfml/api/SF/Shape.html" target="_blank">Shape</a>. </p>
+<p><a href="http://blaxpirit.github.io/crsfml/api/SF/Drawable.html" target="_blank">Drawable</a> is an interface: It declares a single pure virtual function and has no members nor concrete functions. Inheriting from <a href="http://blaxpirit.github.io/crsfml/api/SF/Drawable.html" target="_blank">Drawable</a> allows you to draw instances of your class the same way as SFML classes: </p>
 <pre><code>class MyEntity : public sf::Drawable
 {
 private:
@@ -839,8 +839,8 @@ private:
 
 MyEntity entity;
 window.draw(entity); // internally calls entity.draw
-</code></pre><p>Note that doing this is not mandatory, you could also just have a similar <code>draw</code> function in your class and simply call it with <code>entity.draw(window)</code>. But the other way, with <a href="http://blaxpirit.github.io/crsfml/SF/api/Drawable.html" target="_blank">Drawable</a> as a base class, is nicer and more consistent. This also means that if you plan on storing an array of drawable objects, you can do it without any additional effort since all drawable objects (SFML&apos;s and yours) derive from the same class. </p>
-<p>The other base class, <a href="http://blaxpirit.github.io/crsfml/SF/api/Transformable.html" target="_blank">Transformable</a>, has no virtual function. Inheriting from it automatically adds the same transformation functions to your class as other SFML classes (<code>setPosition</code>, <code>setRotation</code>, <code>move</code>, <code>scale</code>, ...). You can learn more about this class in the tutorial on <a href="graphics-transform.html" title="Transforming entities tutorial">transforming entities</a>. </p>
+</code></pre><p>Note that doing this is not mandatory, you could also just have a similar <code>draw</code> function in your class and simply call it with <code>entity.draw(window)</code>. But the other way, with <a href="http://blaxpirit.github.io/crsfml/api/SF/Drawable.html" target="_blank">Drawable</a> as a base class, is nicer and more consistent. This also means that if you plan on storing an array of drawable objects, you can do it without any additional effort since all drawable objects (SFML&apos;s and yours) derive from the same class. </p>
+<p>The other base class, <a href="http://blaxpirit.github.io/crsfml/api/SF/Transformable.html" target="_blank">Transformable</a>, has no virtual function. Inheriting from it automatically adds the same transformation functions to your class as other SFML classes (<code>setPosition</code>, <code>setRotation</code>, <code>move</code>, <code>scale</code>, ...). You can learn more about this class in the tutorial on <a href="graphics-transform.html" title="Transforming entities tutorial">transforming entities</a>. </p>
 <p>Using these two base classes and a vertex array (in this example we&apos;ll also add a texture), here is what a typical SFML-like graphical class would look like: </p>
 <pre><code>class MyEntity : public sf::Drawable, public sf::Transformable
 {

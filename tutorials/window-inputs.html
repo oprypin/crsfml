@@ -36,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="3.3" data-basepath="." data-revision="Thu Aug 20 2015 13:04:05 GMT+0300 (EEST)">
+    <div class="book" data-level="3.3" data-basepath="." data-revision="Thu Aug 20 2015 14:16:31 GMT+0300 (EEST)">
     
 
 <div class="book-summary">
@@ -674,7 +674,7 @@
 <h2 id="introduction">Introduction</h2>
 <p>This tutorial explains how to access global input devices: keyboard, mouse and joysticks. This must not be confused with events. Real-time input allows you to query the global state of keyboard, mouse and joysticks at any time (&quot;<em>is this button currently pressed?</em>&quot;, &quot;<em>where is the mouse currently?</em>&quot;) while events notify you when something happens (&quot;<em>this button was pressed</em>&quot;, &quot;<em>the mouse has moved</em>&quot;). </p>
 <h2 id="keyboard">Keyboard</h2>
-<p>The class that provides access to the keyboard state is <a href="http://blaxpirit.github.io/crsfml/SF/api/Keyboard.html" target="_blank">Keyboard</a>. It only contains one function, <code>isKeyPressed</code>, which checks the current state of a key (pressed or released). It is a static function, so you don&apos;t need to instantiate <a href="http://blaxpirit.github.io/crsfml/SF/api/Keyboard.html" target="_blank">Keyboard</a> to use it. </p>
+<p>The class that provides access to the keyboard state is <a href="http://blaxpirit.github.io/crsfml/api/SF/Keyboard.html" target="_blank">Keyboard</a>. It only contains one function, <code>isKeyPressed</code>, which checks the current state of a key (pressed or released). It is a static function, so you don&apos;t need to instantiate <a href="http://blaxpirit.github.io/crsfml/api/SF/Keyboard.html" target="_blank">Keyboard</a> to use it. </p>
 <p>This function directly reads the keyboard state, ignoring the focus state of your window. This means that <code>isKeyPressed</code> may return true even if your window is inactive. </p>
 <pre><code>if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 {
@@ -684,7 +684,7 @@
 </code></pre><p>Key codes are defined in the <code>sf::Keyboard::Key</code> enum. </p>
 <p>Depending on your operating system and keyboard layout, some key codes might be missing or interpreted incorrectly. This is something that will be improved in a future version of SFML. </p>
 <h2 id="mouse">Mouse</h2>
-<p>The class that provides access to the mouse state is <a href="http://blaxpirit.github.io/crsfml/SF/api/Mouse.html" target="_blank">Mouse</a>. Like its friend <a href="http://blaxpirit.github.io/crsfml/SF/api/Keyboard.html" target="_blank">Keyboard</a>, <a href="http://blaxpirit.github.io/crsfml/SF/api/Mouse.html" target="_blank">Mouse</a> only contains static functions and is not meant to be instantiated (SFML only handles a single mouse for the time being). </p>
+<p>The class that provides access to the mouse state is <a href="http://blaxpirit.github.io/crsfml/api/SF/Mouse.html" target="_blank">Mouse</a>. Like its friend <a href="http://blaxpirit.github.io/crsfml/api/SF/Keyboard.html" target="_blank">Keyboard</a>, <a href="http://blaxpirit.github.io/crsfml/api/SF/Mouse.html" target="_blank">Mouse</a> only contains static functions and is not meant to be instantiated (SFML only handles a single mouse for the time being). </p>
 <p>You can check if buttons are pressed: </p>
 <pre><code>if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 {
@@ -705,8 +705,8 @@ sf::Mouse::setPosition(sf::Vector2i(10, 50));
 sf::Mouse::setPosition(sf::Vector2i(10, 50), window); // window is a sf::Window
 </code></pre><p>There is no function for reading the current state of the mouse wheel. Since the wheel can only be moved relatively, it has no absolute state that can be queried. By looking at a key you can tell whether it&apos;s pressed or released. By looking at the mouse cursor you can tell where it is located on the screen. However, looking at the mouse wheel doesn&apos;t tell you which &quot;tick&quot; it is on. You can only be notified when it moves (<code>MouseWheelMoved</code> event). </p>
 <h2 id="joystick">Joystick</h2>
-<p>The class that provides access to the joysticks&apos; states is <a href="http://blaxpirit.github.io/crsfml/SF/api/Joystick.html" target="_blank">Joystick</a>. Like the other classes in this tutorial, it only contains static functions. </p>
-<p>Joysticks are identified by their index (0 to 7, since SFML supports up to 8 joysticks). Therefore, the first argument of every function of <a href="http://blaxpirit.github.io/crsfml/SF/api/Joystick.html" target="_blank">Joystick</a> is the index of the joystick that you want to query. </p>
+<p>The class that provides access to the joysticks&apos; states is <a href="http://blaxpirit.github.io/crsfml/api/SF/Joystick.html" target="_blank">Joystick</a>. Like the other classes in this tutorial, it only contains static functions. </p>
+<p>Joysticks are identified by their index (0 to 7, since SFML supports up to 8 joysticks). Therefore, the first argument of every function of <a href="http://blaxpirit.github.io/crsfml/api/SF/Joystick.html" target="_blank">Joystick</a> is the index of the joystick that you want to query. </p>
 <p>You can check whether a joystick is connected or not: </p>
 <pre><code>if (sf::Joystick::isConnected(0))
 {

@@ -36,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="4.8" data-basepath="." data-revision="Thu Aug 20 2015 13:04:05 GMT+0300 (EEST)">
+    <div class="book" data-level="4.8" data-basepath="." data-revision="Thu Aug 20 2015 14:16:31 GMT+0300 (EEST)">
     
 
 <div class="book-summary">
@@ -676,7 +676,7 @@
 <p>Since what is seen in the window is just a small part of the entire 2D world, you need a way to specify which part of the world is shown in the window. Additionally, you may also want to define where/how this area will be shown <em>within</em> the window. These are the two main features of SFML views. </p>
 <p>To summarize, views are what you need if you want to scroll, rotate or zoom your world. They are also the key to creating split screens and mini-maps. </p>
 <h2 id="defining-what-the-view-views">Defining what the view views</h2>
-<p>The class which encapsulates views in SFML is <a href="http://blaxpirit.github.io/crsfml/SF/api/View.html" target="_blank">View</a>. It can be constructed directly with a definition of the area to view: </p>
+<p>The class which encapsulates views in SFML is <a href="http://blaxpirit.github.io/crsfml/api/SF/View.html" target="_blank">View</a>. It can be constructed directly with a definition of the area to view: </p>
 <pre><code>// create a view with the rectangular area of the 2D world to show
 sf::View view1(sf::FloatRect(200, 200, 300, 200));
 
@@ -739,7 +739,7 @@ gameView.setViewport(sf::FloatRect(0, 0, 1, 1));
 minimapView.setViewport(sf::FloatRect(0.75f, 0, 0.25f, 0.25f));
 </code></pre><p><img src="images/graphics-view-minimap.png" alt=""></p>
 <h2 id="using-a-view">Using a view</h2>
-<p>To draw something using a view, you must draw it after calling the <code>setView</code> function of the target to which you are drawing (<a href="http://blaxpirit.github.io/crsfml/SF/api/RenderWindow.html" target="_blank">RenderWindow</a> or <a href="http://blaxpirit.github.io/crsfml/SF/api/RenderTexture.html" target="_blank">RenderTexture</a>). </p>
+<p>To draw something using a view, you must draw it after calling the <code>setView</code> function of the target to which you are drawing (<a href="http://blaxpirit.github.io/crsfml/api/SF/RenderWindow.html" target="_blank">RenderWindow</a> or <a href="http://blaxpirit.github.io/crsfml/api/SF/RenderTexture.html" target="_blank">RenderTexture</a>). </p>
 <pre><code>// let&apos;s define a view
 sf::View view(sf::FloatRect(0, 0, 1000, 600));
 

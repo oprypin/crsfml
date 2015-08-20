@@ -36,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="4.6" data-basepath="." data-revision="Thu Aug 20 2015 13:04:05 GMT+0300 (EEST)">
+    <div class="book" data-level="4.6" data-basepath="." data-revision="Thu Aug 20 2015 14:16:31 GMT+0300 (EEST)">
     
 
 <div class="book-summary">
@@ -672,8 +672,8 @@
                     
                         <h1 id="position-rotation-scale-transforming-entities">Position, rotation, scale: Transforming entities</h1>
 <h2 id="transforming-sfml-entities">Transforming SFML entities</h2>
-<p>All SFML classes (sprites, text, shapes) use the same interface for transformations: <a href="http://blaxpirit.github.io/crsfml/SF/api/Transformable.html" target="_blank">Transformable</a>. This base class provides a simple API to move, rotate and scale your entities. It doesn&apos;t provide maximum flexibility, but instead defines an interface which is easy to understand and to use, and which covers 99% of all use cases -- for the remaining 1%, see the last chapters. </p>
-<p><a href="http://blaxpirit.github.io/crsfml/SF/api/Transformable.html" target="_blank">Transformable</a> (and all its derived classes) defines four properties: <strong>position</strong>, <strong>rotation</strong>, <strong>scale</strong> and <strong>origin</strong>. They all have their respective getters and setters. These transformation components are all independent of one another: If you want to change the orientation of the entity, you just have to set its rotation property, you don&apos;t have to care about the current position and scale. </p>
+<p>All SFML classes (sprites, text, shapes) use the same interface for transformations: <a href="http://blaxpirit.github.io/crsfml/api/SF/Transformable.html" target="_blank">Transformable</a>. This base class provides a simple API to move, rotate and scale your entities. It doesn&apos;t provide maximum flexibility, but instead defines an interface which is easy to understand and to use, and which covers 99% of all use cases -- for the remaining 1%, see the last chapters. </p>
+<p><a href="http://blaxpirit.github.io/crsfml/api/SF/Transformable.html" target="_blank">Transformable</a> (and all its derived classes) defines four properties: <strong>position</strong>, <strong>rotation</strong>, <strong>scale</strong> and <strong>origin</strong>. They all have their respective getters and setters. These transformation components are all independent of one another: If you want to change the orientation of the entity, you just have to set its rotation property, you don&apos;t have to care about the current position and scale. </p>
 <h3 id="position">Position</h3>
 <p>The position is the... position of the entity in the 2D world. I don&apos;t think it needs more explanation :). </p>
 <pre><code>// &apos;entity&apos; can be a sf::Sprite, a sf::Text, a sf::Shape or any other transformable class
@@ -728,7 +728,7 @@ entity.setOrigin(10, 20);
 sf::Vector2f origin = entity.getOrigin(); // = (10, 20)
 </code></pre><p>Note that changing the origin also changes where the entity is drawn on screen, even though its position property hasn&apos;t changed. If you don&apos;t understand why, read this tutorial one more time! </p>
 <h2 id="transforming-your-own-classes">Transforming your own classes</h2>
-<p><a href="http://blaxpirit.github.io/crsfml/SF/api/Transformable.html" target="_blank">Transformable</a> is not only made for SFML classes, it can also be a base (or member) of your own classes. </p>
+<p><a href="http://blaxpirit.github.io/crsfml/api/SF/Transformable.html" target="_blank">Transformable</a> is not only made for SFML classes, it can also be a base (or member) of your own classes. </p>
 <pre><code>class MyGraphicalEntity : public sf::Transformable
 {
     // ...
@@ -738,11 +738,11 @@ MyGraphicalEntity entity;
 entity.setPosition(10, 30);
 entity.setRotation(110);
 entity.setScale(0.5f, 0.2f);
-</code></pre><p>To retrieve the final transform of the entity (commonly needed when drawing it), call the <code>getTransform</code> function. This function returns a <a href="http://blaxpirit.github.io/crsfml/SF/api/Transform.html" target="_blank">Transform</a> object. See below for an explanation about it, and how to use it to transform an SFML entity. </p>
-<p>If you don&apos;t need/want the complete set of functions provided by the <a href="http://blaxpirit.github.io/crsfml/SF/api/Transformable.html" target="_blank">Transformable</a> interface, don&apos;t hesitate to simply use it as a member instead and provide your own functions on top of it. It is not abstract, so it is possible to instantiate it instead of only being able to use it as a base class. </p>
+</code></pre><p>To retrieve the final transform of the entity (commonly needed when drawing it), call the <code>getTransform</code> function. This function returns a <a href="http://blaxpirit.github.io/crsfml/api/SF/Transform.html" target="_blank">Transform</a> object. See below for an explanation about it, and how to use it to transform an SFML entity. </p>
+<p>If you don&apos;t need/want the complete set of functions provided by the <a href="http://blaxpirit.github.io/crsfml/api/SF/Transformable.html" target="_blank">Transformable</a> interface, don&apos;t hesitate to simply use it as a member instead and provide your own functions on top of it. It is not abstract, so it is possible to instantiate it instead of only being able to use it as a base class. </p>
 <h2 id="custom-transforms">Custom transforms</h2>
-<p>The <a href="http://blaxpirit.github.io/crsfml/SF/api/Transformable.html" target="_blank">Transformable</a> class is easy to use, but it is also limited. Some users might need more flexibility. They might need to specify a final transformation as a custom combination of individual transformations. For these users, a lower-level class is available: <a href="http://blaxpirit.github.io/crsfml/SF/api/Transform.html" target="_blank">Transform</a>. It is nothing more than a 3x3 matrix, so it can represent any transformation in 2D space. </p>
-<p>There are many ways to construct a <a href="http://blaxpirit.github.io/crsfml/SF/api/Transform.html" target="_blank">Transform</a>: </p>
+<p>The <a href="http://blaxpirit.github.io/crsfml/api/SF/Transformable.html" target="_blank">Transformable</a> class is easy to use, but it is also limited. Some users might need more flexibility. They might need to specify a final transformation as a custom combination of individual transformations. For these users, a lower-level class is available: <a href="http://blaxpirit.github.io/crsfml/api/SF/Transform.html" target="_blank">Transform</a>. It is nothing more than a 3x3 matrix, so it can represent any transformation in 2D space. </p>
+<p>There are many ways to construct a <a href="http://blaxpirit.github.io/crsfml/api/SF/Transform.html" target="_blank">Transform</a>: </p>
 <ul>
 <li>by using the predefined functions for the most common transformations (translation, rotation, scale)</li>
 <li>by combining two transforms</li>
@@ -775,7 +775,7 @@ t.scale(0.5f, 0.75f);
 <pre><code>sf::RenderStates states;
 states.transform = transform;
 window.draw(entity, states);
-</code></pre><p>If your entity is a <a href="http://blaxpirit.github.io/crsfml/SF/api/Transformable.html" target="_blank">Transformable</a> (sprite, text, shape), which contains its own internal transform, both the internal and the passed transform are combined to produce the final transform. </p>
+</code></pre><p>If your entity is a <a href="http://blaxpirit.github.io/crsfml/api/SF/Transformable.html" target="_blank">Transformable</a> (sprite, text, shape), which contains its own internal transform, both the internal and the passed transform are combined to produce the final transform. </p>
 <h2 id="bounding-boxes">Bounding boxes</h2>
 <p>After transforming entities and drawing them, you might want to perform some computations using them e.g. checking for collisions. </p>
 <p>SFML entities can give you their bounding box. The bounding box is the minimal rectangle that contains all points belonging to the entity, with sides aligned to the X and Y axes. </p>

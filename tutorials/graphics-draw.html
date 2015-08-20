@@ -36,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="4.1" data-basepath="." data-revision="Thu Aug 20 2015 13:04:05 GMT+0300 (EEST)">
+    <div class="book" data-level="4.1" data-basepath="." data-revision="Thu Aug 20 2015 14:16:31 GMT+0300 (EEST)">
     
 
 <div class="book-summary">
@@ -675,8 +675,8 @@
 <p>As you learnt in the previous tutorials, SFML&apos;s window module provides an easy way to open an OpenGL window and handle its events, but it doesn&apos;t help when it comes to drawing something. The only option which is left to you is to use the powerful, yet complex and low level OpenGL API. </p>
 <p>Fortunately, SFML provides a graphics module which will help you draw 2D entities in a much simpler way than with OpenGL. </p>
 <h2 id="the-drawing-window">The drawing window</h2>
-<p>To draw the entities provided by the graphics module, you must use a specialized window class: <a href="http://blaxpirit.github.io/crsfml/SF/api/RenderWindow.html" target="_blank">RenderWindow</a>. This class is derived from <a href="http://blaxpirit.github.io/crsfml/SF/api/Window.html" target="_blank">Window</a>, and inherits all its functions. Everything that you&apos;ve learnt about <a href="http://blaxpirit.github.io/crsfml/SF/api/Window.html" target="_blank">Window</a> (creation, event handling, controlling the framerate, mixing with OpenGL, etc.) is applicable to <a href="http://blaxpirit.github.io/crsfml/SF/api/RenderWindow.html" target="_blank">RenderWindow</a> as well. </p>
-<p>On top of that, <a href="http://blaxpirit.github.io/crsfml/SF/api/RenderWindow.html" target="_blank">RenderWindow</a> adds high-level functions to help you draw things easily. In this tutorial we&apos;ll focus on two of these functions: <code>clear</code> and <code>draw</code>. They are as simple as their name implies: <code>clear</code> clears the whole window with the chosen color, and <code>draw</code> draws whatever object you pass to it. </p>
+<p>To draw the entities provided by the graphics module, you must use a specialized window class: <a href="http://blaxpirit.github.io/crsfml/api/SF/RenderWindow.html" target="_blank">RenderWindow</a>. This class is derived from <a href="http://blaxpirit.github.io/crsfml/api/SF/Window.html" target="_blank">Window</a>, and inherits all its functions. Everything that you&apos;ve learnt about <a href="http://blaxpirit.github.io/crsfml/api/SF/Window.html" target="_blank">Window</a> (creation, event handling, controlling the framerate, mixing with OpenGL, etc.) is applicable to <a href="http://blaxpirit.github.io/crsfml/api/SF/RenderWindow.html" target="_blank">RenderWindow</a> as well. </p>
+<p>On top of that, <a href="http://blaxpirit.github.io/crsfml/api/SF/RenderWindow.html" target="_blank">RenderWindow</a> adds high-level functions to help you draw things easily. In this tutorial we&apos;ll focus on two of these functions: <code>clear</code> and <code>draw</code>. They are as simple as their name implies: <code>clear</code> clears the whole window with the chosen color, and <code>draw</code> draws whatever object you pass to it. </p>
 <p>Here is what a typical main loop looks like with a render window: </p>
 <pre><code>#include &lt;SFML/Graphics.hpp&gt;
 
@@ -723,7 +723,7 @@ int main()
 <li><a href="graphics-vertex-array.html" title="Learn how to create and draw vertex arrays">Vertex array tutorial</a></li>
 </ul>
 <h2 id="off-screen-drawing">Off-screen drawing</h2>
-<p>SFML also provides a way to draw to a texture instead of directly to a window. To do so, use a <a href="http://blaxpirit.github.io/crsfml/SF/api/RenderTexture.html" target="_blank">RenderTexture</a> instead of a <a href="http://blaxpirit.github.io/crsfml/SF/api/RenderWindow.html" target="_blank">RenderWindow</a>. It has the same functions for drawing, inherited from their common base: <a href="http://blaxpirit.github.io/crsfml/SF/api/RenderTarget.html" target="_blank">RenderTarget</a>. </p>
+<p>SFML also provides a way to draw to a texture instead of directly to a window. To do so, use a <a href="http://blaxpirit.github.io/crsfml/api/SF/RenderTexture.html" target="_blank">RenderTexture</a> instead of a <a href="http://blaxpirit.github.io/crsfml/api/SF/RenderWindow.html" target="_blank">RenderWindow</a>. It has the same functions for drawing, inherited from their common base: <a href="http://blaxpirit.github.io/crsfml/api/SF/RenderTarget.html" target="_blank">RenderTarget</a>. </p>
 <pre><code>// create a 500x500 render-texture
 sf::RenderTexture renderTexture;
 if (!renderTexture.create(500, 500))
@@ -742,8 +742,8 @@ const sf::Texture&amp; texture = renderTexture.getTexture();
 // draw it to the window
 sf::Sprite sprite(texture);
 window.draw(sprite);
-</code></pre><p>The <code>getTexture</code> function returns a read-only texture, which means that you can only use it, not modify it. If you need to modify it before using it, you can copy it to your own <a href="http://blaxpirit.github.io/crsfml/SF/api/Texture.html" target="_blank">Texture</a> instance and modify that instead. </p>
-<p><a href="http://blaxpirit.github.io/crsfml/SF/api/RenderTexture.html" target="_blank">RenderTexture</a> also has the same functions as <a href="http://blaxpirit.github.io/crsfml/SF/api/RenderWindow.html" target="_blank">RenderWindow</a> for handling views and OpenGL (see the corresponding tutorials for more details). If you use OpenGL to draw to the render-texture, you can request creation of a depth buffer by using the third optional argument of the <code>create</code> function. </p>
+</code></pre><p>The <code>getTexture</code> function returns a read-only texture, which means that you can only use it, not modify it. If you need to modify it before using it, you can copy it to your own <a href="http://blaxpirit.github.io/crsfml/api/SF/Texture.html" target="_blank">Texture</a> instance and modify that instead. </p>
+<p><a href="http://blaxpirit.github.io/crsfml/api/SF/RenderTexture.html" target="_blank">RenderTexture</a> also has the same functions as <a href="http://blaxpirit.github.io/crsfml/api/SF/RenderWindow.html" target="_blank">RenderWindow</a> for handling views and OpenGL (see the corresponding tutorials for more details). If you use OpenGL to draw to the render-texture, you can request creation of a depth buffer by using the third optional argument of the <code>create</code> function. </p>
 <pre><code>renderTexture.create(500, 500, true); // enable depth buffer
 </code></pre><h2 id="drawing-from-threads">Drawing from threads</h2>
 <p>SFML supports multi-threaded drawing, and you don&apos;t even have to do anything to make it work. The only thing to remember is to deactivate a window before using it in another thread. That&apos;s because a window (more precisely its OpenGL context) cannot be active in more than one thread at the same time. </p>

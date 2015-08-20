@@ -36,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="4.4" data-basepath="." data-revision="Thu Aug 20 2015 13:04:05 GMT+0300 (EEST)">
+    <div class="book" data-level="4.4" data-basepath="." data-revision="Thu Aug 20 2015 14:16:31 GMT+0300 (EEST)">
     
 
 <div class="book-summary">
@@ -708,7 +708,7 @@ shape.setTextureRect(sf::IntRect(10, 10, 100, 100));
 <pre><code>window.draw(shape);
 </code></pre><h2 id="built-in-shape-types">Built-in shape types</h2>
 <h3 id="rectangles">Rectangles</h3>
-<p>To draw rectangles, you can use the <a href="http://blaxpirit.github.io/crsfml/SF/api/RectangleShape.html" target="_blank">RectangleShape</a> class. It has a single attribute: The size of the rectangle. </p>
+<p>To draw rectangles, you can use the <a href="http://blaxpirit.github.io/crsfml/api/SF/RectangleShape.html" target="_blank">RectangleShape</a> class. It has a single attribute: The size of the rectangle. </p>
 <pre><code>// define a 120x50 rectangle
 sf::RectangleShape rectangle(sf::Vector2f(120, 50));
 
@@ -716,7 +716,7 @@ sf::RectangleShape rectangle(sf::Vector2f(120, 50));
 rectangle.setSize(sf::Vector2f(100, 100));
 </code></pre><p><img src="images/graphics-shape-rectangle.png" alt="A rectangle shape"></p>
 <h3 id="circles">Circles</h3>
-<p>Circles are represented by the <a href="http://blaxpirit.github.io/crsfml/SF/api/CircleShape.html" target="_blank">CircleShape</a> class. It has two attributes: The radius and the number of sides. The number of sides is an optional attribute, it allows you to adjust the &quot;quality&quot; of the circle: Circles have to be approximated by polygons with many sides (the graphics card is unable to draw a perfect circle directly), and this attribute defines how many sides your circle approximation will have. If you draw small circles, you&apos;ll probably only need a few sides. If you draw big circles, or zoom on regular circles, you&apos;ll most likely need more sides. </p>
+<p>Circles are represented by the <a href="http://blaxpirit.github.io/crsfml/api/SF/CircleShape.html" target="_blank">CircleShape</a> class. It has two attributes: The radius and the number of sides. The number of sides is an optional attribute, it allows you to adjust the &quot;quality&quot; of the circle: Circles have to be approximated by polygons with many sides (the graphics card is unable to draw a perfect circle directly), and this attribute defines how many sides your circle approximation will have. If you draw small circles, you&apos;ll probably only need a few sides. If you draw big circles, or zoom on regular circles, you&apos;ll most likely need more sides. </p>
 <pre><code>// define a circle with radius = 200
 sf::CircleShape circle(200);
 
@@ -727,7 +727,7 @@ circle.setRadius(40);
 circle.setPointCount(100);
 </code></pre><p><img src="images/graphics-shape-circle.png" alt="A circle shape"></p>
 <h3 id="regular-polygons">Regular polygons</h3>
-<p>There&apos;s no dedicated class for regular polygons, in fact you can represent a regular polygon with any number of sides using the <a href="http://blaxpirit.github.io/crsfml/SF/api/CircleShape.html" target="_blank">CircleShape</a> class: Since circles are approximated by polygons with many sides, you just have to play with the number of sides to get the desired polygons. A <a href="http://blaxpirit.github.io/crsfml/SF/api/CircleShape.html" target="_blank">CircleShape</a> with 3 points is a triangle, with 4 points it&apos;s a square, etc. </p>
+<p>There&apos;s no dedicated class for regular polygons, in fact you can represent a regular polygon with any number of sides using the <a href="http://blaxpirit.github.io/crsfml/api/SF/CircleShape.html" target="_blank">CircleShape</a> class: Since circles are approximated by polygons with many sides, you just have to play with the number of sides to get the desired polygons. A <a href="http://blaxpirit.github.io/crsfml/api/SF/CircleShape.html" target="_blank">CircleShape</a> with 3 points is a triangle, with 4 points it&apos;s a square, etc. </p>
 <pre><code>// define a triangle
 sf::CircleShape triangle(80, 3);
 
@@ -738,7 +738,7 @@ sf::CircleShape square(80, 4);
 sf::CircleShape octagon(80, 8);
 </code></pre><p><img src="images/graphics-shape-regular.png" alt="Regular polygons"></p>
 <h3 id="convex-shapes">Convex shapes</h3>
-<p>The <a href="http://blaxpirit.github.io/crsfml/SF/api/ConvexShape.html" target="_blank">ConvexShape</a> class is the ultimate shape class: It allows you to define any <em>convex</em> shape. SFML is unable to draw concave shapes. If you need to draw a concave shape, you&apos;ll have to split it into multiple convex polygons. </p>
+<p>The <a href="http://blaxpirit.github.io/crsfml/api/SF/ConvexShape.html" target="_blank">ConvexShape</a> class is the ultimate shape class: It allows you to define any <em>convex</em> shape. SFML is unable to draw concave shapes. If you need to draw a concave shape, you&apos;ll have to split it into multiple convex polygons. </p>
 <p>To construct a convex shape, you must first set the number of points it should have and then define the points. </p>
 <pre><code>// create an empty shape
 sf::ConvexShape convex;
@@ -754,7 +754,7 @@ convex.setPoint(3, sf::Vector2f(30, 100));
 convex.setPoint(4, sf::Vector2f(0, 50));
 </code></pre><p>The order in which you define the points is very important. They must <em>all</em> be defined either in clockwise or counter-clockwise order. If you define them in an inconsistent order, the shape will be constructed incorrectly. </p>
 <p><img src="images/graphics-shape-convex.png" alt="A convex shape"></p>
-<p>Although the name of <a href="http://blaxpirit.github.io/crsfml/SF/api/ConvexShape.html" target="_blank">ConvexShape</a> implies that it should only be used to represent convex shapes, its requirements are a little more relaxed. In fact, the only requirement that your shape must meet is that if you went ahead and drew lines from its <em>center of gravity</em> to all of its points, these lines must be drawn in the same order. You are not allowed to &quot;jump behind a previous line&quot;. Internally, convex shapes are automatically constructed using <a href="http://en.wikipedia.org/wiki/Triangle_fan" title="Go to Wikipedia&apos;s article about triangle fans" target="_blank">triangle fans</a>, so if your shape is representable by a triangle fan, you can use <a href="http://blaxpirit.github.io/crsfml/SF/api/ConvexShape.html" target="_blank">ConvexShape</a>. With this relaxed definition, you can draw stars using <a href="http://blaxpirit.github.io/crsfml/SF/api/ConvexShape.html" target="_blank">ConvexShape</a> for example. </p>
+<p>Although the name of <a href="http://blaxpirit.github.io/crsfml/api/SF/ConvexShape.html" target="_blank">ConvexShape</a> implies that it should only be used to represent convex shapes, its requirements are a little more relaxed. In fact, the only requirement that your shape must meet is that if you went ahead and drew lines from its <em>center of gravity</em> to all of its points, these lines must be drawn in the same order. You are not allowed to &quot;jump behind a previous line&quot;. Internally, convex shapes are automatically constructed using <a href="http://en.wikipedia.org/wiki/Triangle_fan" title="Go to Wikipedia&apos;s article about triangle fans" target="_blank">triangle fans</a>, so if your shape is representable by a triangle fan, you can use <a href="http://blaxpirit.github.io/crsfml/api/SF/ConvexShape.html" target="_blank">ConvexShape</a>. With this relaxed definition, you can draw stars using <a href="http://blaxpirit.github.io/crsfml/api/SF/ConvexShape.html" target="_blank">ConvexShape</a> for example. </p>
 <h3 id="lines">Lines</h3>
 <p>There&apos;s no shape class for lines. The reason is simple: If your line has a thickness, it is a rectangle. If it doesn&apos;t, it can be drawn with a line primitive. </p>
 <p>Line with thickness: </p>
@@ -772,7 +772,7 @@ window.draw(line, 2, sf::Lines);
 </code></pre><p><img src="images/graphics-shape-line-primitive.png" alt="A line shape drawn as a primitive"></p>
 <p>To learn more about vertices and primitives, you can read the tutorial on <a href="graphics-vertex-array.html" title="&apos;Vertex arrays&apos; tutorial">vertex arrays</a>. </p>
 <h2 id="custom-shape-types">Custom shape types</h2>
-<p>You can extend the set of shape classes with your own shape types. To do so, you must derive from <a href="http://blaxpirit.github.io/crsfml/SF/api/Shape.html" target="_blank">Shape</a> and override two functions: </p>
+<p>You can extend the set of shape classes with your own shape types. To do so, you must derive from <a href="http://blaxpirit.github.io/crsfml/api/SF/Shape.html" target="_blank">Shape</a> and override two functions: </p>
 <ul>
 <li><code>getPointCount</code>: return the number of points in the shape</li>
 <li><code>getPoint</code>: return a point of the shape</li>

@@ -36,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="2.1" data-basepath="." data-revision="Thu Aug 20 2015 13:04:05 GMT+0300 (EEST)">
+    <div class="book" data-level="2.1" data-basepath="." data-revision="Thu Aug 20 2015 14:16:31 GMT+0300 (EEST)">
     
 
 <div class="book-summary">
@@ -672,22 +672,22 @@
                     
                         <h1 id="handling-time">Handling time</h1>
 <h2 id="time-in-sfml">Time in SFML</h2>
-<p>Unlike many other libraries where time is a uint32 number of milliseconds, or a float number of seconds, SFML doesn&apos;t impose any specific unit or type for time values. Instead it leaves this choice to the user through a flexible class: <a href="http://blaxpirit.github.io/crsfml/SF/api/Time.html" target="_blank">Time</a>. All SFML classes and functions that manipulate time values use this class. </p>
-<p><a href="http://blaxpirit.github.io/crsfml/SF/api/Time.html" target="_blank">Time</a> represents a time period (in other words, the time that elapses between two events). It is <em>not</em> a date-time class which would represent the current year/month/day/hour/minute/second as a timestamp, it&apos;s just a value that represents a certain amount of time, and how to interpret it depends on the context where it is used. </p>
+<p>Unlike many other libraries where time is a uint32 number of milliseconds, or a float number of seconds, SFML doesn&apos;t impose any specific unit or type for time values. Instead it leaves this choice to the user through a flexible class: <a href="http://blaxpirit.github.io/crsfml/api/SF/Time.html" target="_blank">Time</a>. All SFML classes and functions that manipulate time values use this class. </p>
+<p><a href="http://blaxpirit.github.io/crsfml/api/SF/Time.html" target="_blank">Time</a> represents a time period (in other words, the time that elapses between two events). It is <em>not</em> a date-time class which would represent the current year/month/day/hour/minute/second as a timestamp, it&apos;s just a value that represents a certain amount of time, and how to interpret it depends on the context where it is used. </p>
 <h2 id="converting-time">Converting time</h2>
-<p>A <a href="http://blaxpirit.github.io/crsfml/SF/api/Time.html" target="_blank">Time</a> value can be constructed from different source units: seconds, milliseconds and microseconds. There is a (non-member) function to turn each of them into a <a href="http://blaxpirit.github.io/crsfml/SF/api/Time.html" target="_blank">Time</a>: </p>
+<p>A <a href="http://blaxpirit.github.io/crsfml/api/SF/Time.html" target="_blank">Time</a> value can be constructed from different source units: seconds, milliseconds and microseconds. There is a (non-member) function to turn each of them into a <a href="http://blaxpirit.github.io/crsfml/api/SF/Time.html" target="_blank">Time</a>: </p>
 <pre><code>sf::Time t1 = sf::microseconds(10000);
 sf::Time t2 = sf::milliseconds(10);
 sf::Time t3 = sf::seconds(0.01f);
 </code></pre><p>Note that these three times are all equal. </p>
-<p>Similarly, a <a href="http://blaxpirit.github.io/crsfml/SF/api/Time.html" target="_blank">Time</a> can be converted back to either seconds, milliseconds or microseconds: </p>
+<p>Similarly, a <a href="http://blaxpirit.github.io/crsfml/api/SF/Time.html" target="_blank">Time</a> can be converted back to either seconds, milliseconds or microseconds: </p>
 <pre><code>sf::Time time = ...;
 
 sf::Int64 usec = time.asMicroseconds();
 sf::Int32 msec = time.asMilliseconds();
 float     sec  = time.asSeconds();
 </code></pre><h2 id="playing-with-time-values">Playing with time values</h2>
-<p><a href="http://blaxpirit.github.io/crsfml/SF/api/Time.html" target="_blank">Time</a> is just an amount of time, so it supports arithmetic operations such as addition, subtraction, comparison, etc. Times can also be negative. </p>
+<p><a href="http://blaxpirit.github.io/crsfml/api/SF/Time.html" target="_blank">Time</a> is just an amount of time, so it supports arithmetic operations such as addition, subtraction, comparison, etc. Times can also be negative. </p>
 <pre><code>sf::Time t1 = ...;
 sf::Time t2 = t1 * 2;
 sf::Time t3 = t1 + t2;
@@ -697,7 +697,7 @@ bool b1 = (t1 == t2);
 bool b2 = (t3 &gt; t4);
 </code></pre><h2 id="measuring-time">Measuring time</h2>
 <p>Now that we&apos;ve seen how to manipulate time values with SFML, let&apos;s see how to do something that almost every program needs: measuring the time elapsed. </p>
-<p>SFML has a very simple class for measuring time: <a href="http://blaxpirit.github.io/crsfml/SF/api/Clock.html" target="_blank">Clock</a>. It only has two functions: <code>getElapsedTime</code>, to retrieve the time elapsed since the clock started, and <code>restart</code>, to restart the clock. </p>
+<p>SFML has a very simple class for measuring time: <a href="http://blaxpirit.github.io/crsfml/api/SF/Clock.html" target="_blank">Clock</a>. It only has two functions: <code>getElapsedTime</code>, to retrieve the time elapsed since the clock started, and <code>restart</code>, to restart the clock. </p>
 <pre><code>sf::Clock clock; // starts the clock
 ...
 sf::Time elapsed1 = clock.getElapsedTime();

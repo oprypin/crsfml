@@ -36,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="2.3" data-basepath="." data-revision="Thu Aug 20 2015 13:04:05 GMT+0300 (EEST)">
+    <div class="book" data-level="2.3" data-basepath="." data-revision="Thu Aug 20 2015 14:16:31 GMT+0300 (EEST)">
     
 
 <div class="book-summary">
@@ -673,14 +673,14 @@
                         <h1 id="user-data-streams">User data streams</h1>
 <h2 id="introduction">Introduction</h2>
 <p>SFML has several resource classes: images, fonts, sounds, etc. In most programs, these resources will be loaded from files, with the help of their <code>loadFromFile</code> function. In a few other situations, resources will be packed directly into the executable or in a big data file, and loaded from memory with <code>loadFromMemory</code>. These functions cover <em>almost</em> all the possible use cases -- but not all. </p>
-<p>Sometimes you want to load files from unusual places, such as a compressed/encrypted archive, or a remote network location for example. For these special situations, SFML provides a third loading function: <code>loadFromStream</code>. This function reads data using an abstract <a href="http://blaxpirit.github.io/crsfml/SF/api/InputStream.html" target="_blank">InputStream</a> interface, which allows you to provide your own implementation of a stream class that works with SFML. </p>
+<p>Sometimes you want to load files from unusual places, such as a compressed/encrypted archive, or a remote network location for example. For these special situations, SFML provides a third loading function: <code>loadFromStream</code>. This function reads data using an abstract <a href="http://blaxpirit.github.io/crsfml/api/SF/InputStream.html" target="_blank">InputStream</a> interface, which allows you to provide your own implementation of a stream class that works with SFML. </p>
 <p>In this tutorial you&apos;ll learn how to write and use your own derived input stream. </p>
 <h2 id="and-standard-streams">And standard streams?</h2>
 <p>Like many other languages, C++ already has a class for input data streams: <code>std::istream</code>. In fact it has two: <code>std::istream</code> is only the front-end, the abstract interface to the custom data is <code>std::streambuf</code>. </p>
 <p>Unfortunately, these classes are not very user friendly, and can become very complicated if you want to implement non-trivial stuff. The <a href="http://www.boost.org/doc/libs/1_49_0/libs/iostreams/doc/index.html" title="Boost.Iostreams" target="_blank">Boost.Iostreams</a> library tries to provide a simpler interface to standard streams, but Boost is a big dependency and SFML cannot depend on it. </p>
 <p>That&apos;s why SFML provides its own stream interface, which is hopefully a lot more <em>simple and fast</em>. </p>
 <h2 id="inputstream">InputStream</h2>
-<p>The <a href="http://blaxpirit.github.io/crsfml/SF/api/InputStream.html" target="_blank">InputStream</a> class declares four virtual functions: </p>
+<p>The <a href="http://blaxpirit.github.io/crsfml/api/SF/InputStream.html" target="_blank">InputStream</a> class declares four virtual functions: </p>
 <pre><code>class InputStream
 {
 public :
@@ -711,9 +711,9 @@ sf::Texture texture;
 texture.loadFromStream(stream);
 </code></pre><h2 id="examples">Examples</h2>
 <p>If you need a demonstration that helps you focus on how the code works, and not get lost in implementation details, you could take a look at the implementation of <code>sf::FileInputStream</code> or <code>sf::MemoryInputStream</code>. </p>
-<p>Don&apos;t forget to check the forum and wiki. Chances are that another user already wrote a <a href="http://blaxpirit.github.io/crsfml/SF/api/InputStream.html" target="_blank">InputStream</a> class that suits your needs. And if you write a new one and feel like it could be useful to other people as well, don&apos;t hesitate to share! </p>
+<p>Don&apos;t forget to check the forum and wiki. Chances are that another user already wrote a <a href="http://blaxpirit.github.io/crsfml/api/SF/InputStream.html" target="_blank">InputStream</a> class that suits your needs. And if you write a new one and feel like it could be useful to other people as well, don&apos;t hesitate to share! </p>
 <h2 id="common-mistakes">Common mistakes</h2>
-<p>Some resource classes are not loaded completely after <code>loadFromStream</code> has been called. Instead, they continue to read from their data source as long as they are used. This is the case for <a href="http://blaxpirit.github.io/crsfml/SF/api/Music.html" target="_blank">Music</a>, which streams audio samples as they are played, and for <a href="http://blaxpirit.github.io/crsfml/SF/api/Font.html" target="_blank">Font</a>, which loads glyphs on the fly depending on the text that is displayed. </p>
+<p>Some resource classes are not loaded completely after <code>loadFromStream</code> has been called. Instead, they continue to read from their data source as long as they are used. This is the case for <a href="http://blaxpirit.github.io/crsfml/api/SF/Music.html" target="_blank">Music</a>, which streams audio samples as they are played, and for <a href="http://blaxpirit.github.io/crsfml/api/SF/Font.html" target="_blank">Font</a>, which loads glyphs on the fly depending on the text that is displayed. </p>
 <p>As a consequence, the stream instance that you used to load a music or a font, as well as its data source, must remain alive as long as the resource uses it. If it is destroyed while still being used, it results in undefined behavior (can be a crash, corrupt data, or nothing visible). </p>
 <p>Another common mistake is to return whatever the internal functions return directly, but sometimes it doesn&apos;t match what SFML expects. For example, in the <code>sf::FileInputStream</code> code, one might be tempted to write the <code>seek</code> function as follows: </p>
 <pre><code>sf::Int64 FileInputStream::seek(sf::Int64 position)

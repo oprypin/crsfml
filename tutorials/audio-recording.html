@@ -36,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="5.2" data-basepath="." data-revision="Thu Aug 20 2015 13:04:05 GMT+0300 (EEST)">
+    <div class="book" data-level="5.2" data-basepath="." data-revision="Thu Aug 20 2015 14:16:31 GMT+0300 (EEST)">
     
 
 <div class="book-summary">
@@ -672,8 +672,8 @@
                     
                         <h1 id="recording-audio">Recording audio</h1>
 <h2 id="recording-to-a-sound-buffer">Recording to a sound buffer</h2>
-<p>The most common use for captured audio data is for it to be saved to a sound buffer (<a href="http://blaxpirit.github.io/crsfml/SF/api/SoundBuffer.html" target="_blank">SoundBuffer</a>) so that it can either be played or saved to a file. </p>
-<p>This can be achieved with the very simple interface of the <a href="http://blaxpirit.github.io/crsfml/SF/api/SoundBufferRecorder.html" target="_blank">SoundBufferRecorder</a> class: </p>
+<p>The most common use for captured audio data is for it to be saved to a sound buffer (<a href="http://blaxpirit.github.io/crsfml/api/SF/SoundBuffer.html" target="_blank">SoundBuffer</a>) so that it can either be played or saved to a file. </p>
+<p>This can be achieved with the very simple interface of the <a href="http://blaxpirit.github.io/crsfml/api/SF/SoundBufferRecorder.html" target="_blank">SoundBufferRecorder</a> class: </p>
 <pre><code>// first check if an input audio device is available on the system
 if (!SoundBufferRecorder::isAvailable())
 {
@@ -694,7 +694,7 @@ recorder.stop();
 
 // retrieve the buffer that contains the captured audio data
 const sf::SoundBuffer&amp; buffer = recorder.getBuffer();
-</code></pre><p>The <code>SoundBufferRecorder::isAvailable</code> static function checks if audio recording is supported by the system. It if returns <code>false</code>, you won&apos;t be able to use the <a href="http://blaxpirit.github.io/crsfml/SF/api/SoundBufferRecorder.html" target="_blank">SoundBufferRecorder</a> class at all. </p>
+</code></pre><p>The <code>SoundBufferRecorder::isAvailable</code> static function checks if audio recording is supported by the system. It if returns <code>false</code>, you won&apos;t be able to use the <a href="http://blaxpirit.github.io/crsfml/api/SF/SoundBufferRecorder.html" target="_blank">SoundBufferRecorder</a> class at all. </p>
 <p>The <code>start</code> and <code>stop</code> functions are self-explanatory. The capture runs in its own thread, which means that you can do whatever you want between start and stop. After the end of the capture, the recorded audio data is available in a sound buffer that you can get with the <code>getBuffer</code> function. </p>
 <p>With the recorded data, you can then: </p>
 <ul>
@@ -715,7 +715,7 @@ doSomething(samples, count);
 </code></pre><p>If you want to use the captured audio data after the recorder is destroyed or restarted, don&apos;t forget to make a <em>copy</em> of the buffer. </p>
 <h2 id="custom-recording">Custom recording</h2>
 <p>If storing the captured data in a sound buffer is not what you want, you can write your own recorder. Doing so will allow you to process the audio data while it is captured, (almost) directly from the recording device. This way you can, for example, stream the captured audio over the network, perform real-time analysis on it, etc. </p>
-<p>To write your own recorder, you must inherit from the <a href="http://blaxpirit.github.io/crsfml/SF/api/SoundRecorder.html" target="_blank">SoundRecorder</a> abstract base class. In fact, <a href="http://blaxpirit.github.io/crsfml/SF/api/SoundBufferRecorder.html" target="_blank">SoundBufferRecorder</a> is just a built-in specialization of this class. </p>
+<p>To write your own recorder, you must inherit from the <a href="http://blaxpirit.github.io/crsfml/api/SF/SoundRecorder.html" target="_blank">SoundRecorder</a> abstract base class. In fact, <a href="http://blaxpirit.github.io/crsfml/api/SF/SoundBufferRecorder.html" target="_blank">SoundBufferRecorder</a> is just a built-in specialization of this class. </p>
 <p>You only have a single virtual function to override in your derived class: <code>onProcessSamples</code>. It is called every time a new chunk of audio samples is captured, so this is where you implement your specific stuff. </p>
 <p>Audio samples are provided to the <code>onProcessSamples</code> function every 100 ms. This is currently hard-coded into SFML and you can&apos;t change that (unless you modify SFML itself). This may change in the future. </p>
 <p>There are also two additional virtual functions that you can optionally override: <code>onStart</code> and <code>onStop</code>. They are called when the capture starts/stops respectively. They are useful for initialization/cleanup tasks. </p>
@@ -746,7 +746,7 @@ doSomething(samples, count);
         ...
     }
 }
-</code></pre><p>The <code>isAvailable</code>/<code>start</code>/<code>stop</code> functions are defined in the <a href="http://blaxpirit.github.io/crsfml/SF/api/SoundRecorder.html" target="_blank">SoundRecorder</a> base, and thus inherited in every derived classes. This means that you can use any recorder class exactly the same way as the <a href="http://blaxpirit.github.io/crsfml/SF/api/SoundBufferRecorder.html" target="_blank">SoundBufferRecorder</a> class above. </p>
+</code></pre><p>The <code>isAvailable</code>/<code>start</code>/<code>stop</code> functions are defined in the <a href="http://blaxpirit.github.io/crsfml/api/SF/SoundRecorder.html" target="_blank">SoundRecorder</a> base, and thus inherited in every derived classes. This means that you can use any recorder class exactly the same way as the <a href="http://blaxpirit.github.io/crsfml/api/SF/SoundBufferRecorder.html" target="_blank">SoundBufferRecorder</a> class above. </p>
 <pre><code>if (!MyRecorder::isAvailable())
 {
     // error...

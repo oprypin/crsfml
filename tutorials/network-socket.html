@@ -36,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="6.1" data-basepath="." data-revision="Thu Aug 20 2015 13:04:05 GMT+0300 (EEST)">
+    <div class="book" data-level="6.1" data-basepath="." data-revision="Thu Aug 20 2015 14:16:31 GMT+0300 (EEST)">
     
 
 <div class="book-summary">
@@ -683,7 +683,7 @@
 <p>Oh, and one last thing: since UDP is not connection-based, it allows broadcasting messages to multiple recipients, or even to an entire network. The one-to-one communication of TCP sockets doesn&apos;t allow that. </p>
 <h2 id="connecting-a-tcp-socket">Connecting a TCP socket</h2>
 <p>As you can guess, this part is specific to TCP sockets. There are two sides to a connection: the one that waits for the incoming connection (let&apos;s call it the server), and the one that triggers it (let&apos;s call it the client). </p>
-<p>On client side, things are simple: the user just needs to have a <a href="http://blaxpirit.github.io/crsfml/SF/api/TcpSocket.html" target="_blank">TcpSocket</a> and call its <code>connect</code> function to start the connection attempt. </p>
+<p>On client side, things are simple: the user just needs to have a <a href="http://blaxpirit.github.io/crsfml/api/SF/TcpSocket.html" target="_blank">TcpSocket</a> and call its <code>connect</code> function to start the connection attempt. </p>
 <pre><code>#include &lt;SFML/Network.hpp&gt;
 
 sf::TcpSocket socket;
@@ -692,13 +692,13 @@ if (status != sf::Socket::Done)
 {
     // error...
 }
-</code></pre><p>The first argument is the address of the host to connect to. It is an <a href="http://blaxpirit.github.io/crsfml/SF/api/IpAddress.html" target="_blank">IpAddress</a>, which can represent any valid address: a URL, an IP address, or a network host name. See its documentation for more details. </p>
+</code></pre><p>The first argument is the address of the host to connect to. It is an <a href="http://blaxpirit.github.io/crsfml/api/SF/IpAddress.html" target="_blank">IpAddress</a>, which can represent any valid address: a URL, an IP address, or a network host name. See its documentation for more details. </p>
 <p>The second argument is the port to connect to on the remote machine. The connection will succeed only if the server is accepting connections on that port. </p>
 <p>There&apos;s an optional third argument, a time out value. If set, and the connection attempt doesn&apos;t succeed before the time out is over, the function returns an error. If not specified, the default operating system time out is used. </p>
 <p>Once connected, you can retrieve the address and port of the remote computer if needed, with the <code>getRemoteAddress()</code> and <code>getRemotePort()</code> functions. </p>
 <p>All functions of socket classes are blocking by default. This means that your program (more specifically the thread that contains the function call) will be stuck until the operation is complete. This is important because some functions may take very long: For example, trying to connect to an unreachable host will only return after a few seconds, receiving will wait until there&apos;s data available, etc.<br>You can change this behavior and make all functions non-blocking by using the <code>setBlocking</code> function of the socket. See the next chapters for more details. </p>
 <p>On the server side, a few more things have to be done. Multiple sockets are required: One that listens for incoming connections, and one for each connected client. </p>
-<p>To listen for connections, you must use the special <a href="http://blaxpirit.github.io/crsfml/SF/api/TcpListener.html" target="_blank">TcpListener</a> class. Its only role is to wait for incoming connection attempts on a given port, it can&apos;t send or receive data. </p>
+<p>To listen for connections, you must use the special <a href="http://blaxpirit.github.io/crsfml/api/SF/TcpListener.html" target="_blank">TcpListener</a> class. Its only role is to wait for incoming connection attempts on a given port, it can&apos;t send or receive data. </p>
 <pre><code>sf::TcpListener listener;
 
 // bind the listener to a port
@@ -730,7 +730,7 @@ if (socket.bind(54000) != sf::Socket::Done)
 </code></pre><p>After binding the socket to a port, it&apos;s ready to receive data on that port. If you want the operating system to bind the socket to a free port automatically, you can pass <code>sf::Socket::AnyPort</code>, and then retrieve the chosen port with <code>socket.getLocalPort()</code>. </p>
 <p>UDP sockets that send data don&apos;t need to do anything before sending. </p>
 <h2 id="sending-and-receiving-data">Sending and receiving data</h2>
-<p>Sending and receiving data is done in the same way for both types of sockets. The only difference is that UDP has two extra arguments: the address and port of the sender/recipient. There are two different functions for each operation: the low-level one, that sends/receives a raw array of bytes, and the higher-level one, which uses the <a href="http://blaxpirit.github.io/crsfml/SF/api/Packet.html" target="_blank">Packet</a> class. See the <a href="network-packet.html" title="Tutorial on packets">tutorial on packets</a> for more details about this class. In this tutorial, we&apos;ll only explain the low-level functions. </p>
+<p>Sending and receiving data is done in the same way for both types of sockets. The only difference is that UDP has two extra arguments: the address and port of the sender/recipient. There are two different functions for each operation: the low-level one, that sends/receives a raw array of bytes, and the higher-level one, which uses the <a href="http://blaxpirit.github.io/crsfml/api/SF/Packet.html" target="_blank">Packet</a> class. See the <a href="network-packet.html" title="Tutorial on packets">tutorial on packets</a> for more details about this class. In this tutorial, we&apos;ll only explain the low-level functions. </p>
 <p>To send data, you must call the <code>send</code> function with a pointer to the data that you want to send, and the number of bytes to send. </p>
 <pre><code>char data[100] = ...;
 
@@ -773,8 +773,8 @@ std::cout &lt;&lt; &quot;Received &quot; &lt;&lt; received &lt;&lt; &quot; bytes
 <p>The first two arguments specify the buffer to which the received bytes are to be copied, along with its maximum size. The third argument is a variable that will contain the actual number of bytes received after the function returns.<br>With UDP sockets, the last two arguments will contain the address and port of the sender after the function returns. They can be used later if you want to send a response. </p>
 <p>These functions are low-level, and you should use them only if you have a very good reason to do so. A more robust and flexible approach involves using <a href="network-packet.html" title="Tutorial on packets">packets</a>. </p>
 <h2 id="blocking-on-a-group-of-sockets">Blocking on a group of sockets</h2>
-<p>Blocking on a single socket can quickly become annoying, because you will most likely have to handle more than one client. You most likely don&apos;t want socket A to block your program while socket B has received something that could be processed. What you would like is to block on multiple sockets at once, i.e. waiting until <em>any of them</em> has received something. This is possible with socket selectors, represented by the <a href="http://blaxpirit.github.io/crsfml/SF/api/SocketSelector.html" target="_blank">SocketSelector</a> class. </p>
-<p>A selector can monitor all types of sockets: <a href="http://blaxpirit.github.io/crsfml/SF/api/TcpSocket.html" target="_blank">TcpSocket</a>, <a href="http://blaxpirit.github.io/crsfml/SF/api/UdpSocket.html" target="_blank">UdpSocket</a>, and <a href="http://blaxpirit.github.io/crsfml/SF/api/TcpListener.html" target="_blank">TcpListener</a>. To add a socket to a selector, use its <code>add</code> function: </p>
+<p>Blocking on a single socket can quickly become annoying, because you will most likely have to handle more than one client. You most likely don&apos;t want socket A to block your program while socket B has received something that could be processed. What you would like is to block on multiple sockets at once, i.e. waiting until <em>any of them</em> has received something. This is possible with socket selectors, represented by the <a href="http://blaxpirit.github.io/crsfml/api/SF/SocketSelector.html" target="_blank">SocketSelector</a> class. </p>
+<p>A selector can monitor all types of sockets: <a href="http://blaxpirit.github.io/crsfml/api/SF/TcpSocket.html" target="_blank">TcpSocket</a>, <a href="http://blaxpirit.github.io/crsfml/api/SF/UdpSocket.html" target="_blank">UdpSocket</a>, and <a href="http://blaxpirit.github.io/crsfml/api/SF/TcpListener.html" target="_blank">TcpListener</a>. To add a socket to a selector, use its <code>add</code> function: </p>
 <pre><code>sf::TcpSocket socket;
 
 sf::SocketSelector selector;
@@ -789,7 +789,7 @@ else
 {
     // timeout reached, nothing was received...
 }
-</code></pre><p>If the <code>wait</code> function returns <code>true</code>, it means that one or more socket(s) have received something, and you can safely call <code>receive</code> on the socket(s) with pending data without having them block. If the socket is a <a href="http://blaxpirit.github.io/crsfml/SF/api/TcpListener.html" target="_blank">TcpListener</a>, it means that an incoming connection is ready to be accepted and that you can call its <code>accept</code> function without having it block. </p>
+</code></pre><p>If the <code>wait</code> function returns <code>true</code>, it means that one or more socket(s) have received something, and you can safely call <code>receive</code> on the socket(s) with pending data without having them block. If the socket is a <a href="http://blaxpirit.github.io/crsfml/api/SF/TcpListener.html" target="_blank">TcpListener</a>, it means that an incoming connection is ready to be accepted and that you can call its <code>accept</code> function without having it block. </p>
 <p>Since the selector is not a socket container, it cannot return the sockets that are ready to receive. Instead, you must test each candidate socket with the <code>isReady</code> function: </p>
 <pre><code>if (selector.wait(sf::seconds(10)))
 {
@@ -802,7 +802,7 @@ else
         }
     }
 }
-</code></pre><p>You can have a look at the API documentation of the <a href="http://blaxpirit.github.io/crsfml/SF/api/SocketSelector.html" target="_blank">SocketSelector</a> class for a working example of how to use a selector to handle connections and messages from multiple clients. </p>
+</code></pre><p>You can have a look at the API documentation of the <a href="http://blaxpirit.github.io/crsfml/api/SF/SocketSelector.html" target="_blank">SocketSelector</a> class for a working example of how to use a selector to handle connections and messages from multiple clients. </p>
 <p>As a bonus, the time out capability of <code>Selector::wait</code> allows you to implement a receive-with-timeout function, which is not directly available in the socket classes, very easily: </p>
 <pre><code>sf::Socket::Status receiveWithTimeout(sf::TcpSocket&amp; socket, sf::Packet&amp; packet, sf::Time timeout)
 {

@@ -36,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="4.2" data-basepath="." data-revision="Thu Aug 20 2015 13:04:05 GMT+0300 (EEST)">
+    <div class="book" data-level="4.2" data-basepath="." data-revision="Thu Aug 20 2015 14:16:31 GMT+0300 (EEST)">
     
 
 <div class="book-summary">
@@ -678,7 +678,7 @@
 <p><img src="images/graphics-sprites-definition.png" alt=""></p>
 <p>Ok, that was short but if you really don&apos;t understand what sprites and textures are, then you&apos;ll find a much better description on Wikipedia. </p>
 <h2 id="loading-a-texture">Loading a texture</h2>
-<p>Before creating any sprite, we need a valid texture. The class that encapsulates textures in SFML is, surprisingly, <a href="http://blaxpirit.github.io/crsfml/SF/api/Texture.html" target="_blank">Texture</a>. Since the only role of a texture is to be loaded and mapped to graphical entities, almost all its functions are about loading and updating it. </p>
+<p>Before creating any sprite, we need a valid texture. The class that encapsulates textures in SFML is, surprisingly, <a href="http://blaxpirit.github.io/crsfml/api/SF/Texture.html" target="_blank">Texture</a>. Since the only role of a texture is to be loaded and mapped to graphical entities, almost all its functions are about loading and updating it. </p>
 <p>The most common way of loading a texture is from an image file on disk, which is done with the <code>loadFromFile</code> function. </p>
 <pre><code>sf::Texture texture;
 if (!texture.loadFromFile(&quot;image.png&quot;))
@@ -686,7 +686,7 @@ if (!texture.loadFromFile(&quot;image.png&quot;))
     // error...
 }
 </code></pre><p>The <code>loadFromFile</code> function can sometimes fail with no obvious reason. First, check the error message that SFML prints to the standard output (check the console). If the message is unable to open file, make sure that the <em>working directory</em> (which is the directory that any file path will be interpreted relative to) is what you think it is: When you run the application from your desktop environment, the working directory is the executable folder. However, when you launch your program from your IDE (Visual Studio, Code::Blocks, ...) the working directory might sometimes be set to the <em>project</em> directory instead. This can usually be changed quite easily in the project settings. </p>
-<p>You can also load an image file from memory (<code>loadFromMemory</code>), from a <a href="system-stream.html" title="Input streams tutorial">custom input stream</a> (<code>loadFromStream</code>), or from an image that has already been loaded (<code>loadFromImage</code>). The latter loads the texture from an <a href="http://blaxpirit.github.io/crsfml/SF/api/Image.html" target="_blank">Image</a>, which is a utility class that helps store and manipulate image data (modify pixels, create transparency channel, etc.). The pixels of an <a href="http://blaxpirit.github.io/crsfml/SF/api/Image.html" target="_blank">Image</a> stay in system memory, which ensures that operations on them will be as fast as possible, in contrast to the pixels of a texture which reside in video memory and are therefore slow to retrieve or update but very fast to draw. </p>
+<p>You can also load an image file from memory (<code>loadFromMemory</code>), from a <a href="system-stream.html" title="Input streams tutorial">custom input stream</a> (<code>loadFromStream</code>), or from an image that has already been loaded (<code>loadFromImage</code>). The latter loads the texture from an <a href="http://blaxpirit.github.io/crsfml/api/SF/Image.html" target="_blank">Image</a>, which is a utility class that helps store and manipulate image data (modify pixels, create transparency channel, etc.). The pixels of an <a href="http://blaxpirit.github.io/crsfml/api/SF/Image.html" target="_blank">Image</a> stay in system memory, which ensures that operations on them will be as fast as possible, in contrast to the pixels of a texture which reside in video memory and are therefore slow to retrieve or update but very fast to draw. </p>
 <p>SFML supports most common image file formats. The full list is available in the API documentation. </p>
 <p>All these loading functions have an optional argument, which can be used if you want to load a smaller part of the image. </p>
 <pre><code>// load a 32x32 rectangle that starts at (10, 10)
@@ -694,7 +694,7 @@ if (!texture.loadFromFile(&quot;image.png&quot;, sf::IntRect(10, 10, 32, 32)))
 {
     // error...
 }
-</code></pre><p>The <a href="http://blaxpirit.github.io/crsfml/SF/api/IntRect" target="_blank">IntRect&quot;, &quot;Rect</a> class is a simple utility type that represents a rectangle. Its constructor takes the coordinates of the top-left corner, and the size of the rectangle. </p>
+</code></pre><p>The <a href="http://blaxpirit.github.io/crsfml/api/SF/IntRect" target="_blank">IntRect&quot;, &quot;Rect</a> class is a simple utility type that represents a rectangle. Its constructor takes the coordinates of the top-left corner, and the size of the rectangle. </p>
 <p>If you don&apos;t want to load a texture from an image, but instead want to update it directly from an array of pixels, you can create it empty and update it later: </p>
 <pre><code>// create an empty 200x200 texture
 if (!texture.create(200, 200))
@@ -773,8 +773,8 @@ sprite.scale(sf::Vector2f(1.5f, 3.f)); // factor relative to the current scale
 <p>Additionally, using a single texture allows you to group static geometry into a single entity (you can only use one texture per <code>draw</code> call), which will be much faster to draw than a set of many entities. Batching static geometry involves other classes and is therefore beyond the scope of this tutorial, for further details see the <a href="graphics-vertex-array.html" title="Vertex array tutorial">vertex array</a> tutorial. </p>
 <p>Try to keep this in mind when you create your animation sheets or your tilesets: Use as little textures as possible. </p>
 <h2 id="using-sf-texture-with-opengl-code">Using sf::Texture with OpenGL code</h2>
-<p>If you&apos;re using OpenGL rather than the graphics entities of SFML, you can still use <a href="http://blaxpirit.github.io/crsfml/SF/api/Texture.html" target="_blank">Texture</a> as a wrapper around an OpenGL texture object and use it along with the rest if your OpenGL code. </p>
-<p>To bind a <a href="http://blaxpirit.github.io/crsfml/SF/api/Texture.html" target="_blank">Texture</a> for drawing (basically <code>glBindTexture</code>), you call the <code>bind</code> static function: </p>
+<p>If you&apos;re using OpenGL rather than the graphics entities of SFML, you can still use <a href="http://blaxpirit.github.io/crsfml/api/SF/Texture.html" target="_blank">Texture</a> as a wrapper around an OpenGL texture object and use it along with the rest if your OpenGL code. </p>
+<p>To bind a <a href="http://blaxpirit.github.io/crsfml/api/SF/Texture.html" target="_blank">Texture</a> for drawing (basically <code>glBindTexture</code>), you call the <code>bind</code> static function: </p>
 <pre><code>sf::Texture texture;
 ...
 

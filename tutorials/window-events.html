@@ -36,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="3.2" data-basepath="." data-revision="Thu Aug 20 2015 13:04:05 GMT+0300 (EEST)">
+    <div class="book" data-level="3.2" data-basepath="." data-revision="Thu Aug 20 2015 14:16:31 GMT+0300 (EEST)">
     
 
 <div class="book-summary">
@@ -674,8 +674,8 @@
 <h2 id="introduction">Introduction</h2>
 <p>This tutorial is a detailed list of window events. It describes them, and shows how to (and how not to) use them. </p>
 <h2 id="the-sf-event-type">The sf::Event type</h2>
-<p>Before dealing with events, it is important to understand what the <a href="http://blaxpirit.github.io/crsfml/SF/api/Event.html" target="_blank">Event</a> type is, and how to correctly use it. <a href="http://blaxpirit.github.io/crsfml/SF/api/Event.html" target="_blank">Event</a> is a <em>union</em>, which means that only one of its members is valid at a time (remember your C++ lesson: all the members of a union share the same memory space). The valid member is the one that matches the event type, for example <code>event.key</code> for a <code>KeyPressed</code> event. Trying to read any other member will result in an undefined behavior (most likely: random or invalid values). It it important to never try to use an event member that doesn&apos;t match its type. </p>
-<p><a href="http://blaxpirit.github.io/crsfml/SF/api/Event.html" target="_blank">Event</a> instances are filled by the <code>pollEvent</code> (or <code>waitEvent</code>) function of the <a href="http://blaxpirit.github.io/crsfml/SF/api/Window.html" target="_blank">Window</a> class. Only these two functions can produce valid events, any attempt to use an <a href="http://blaxpirit.github.io/crsfml/SF/api/Event.html" target="_blank">Event</a> which was not returned by successful call to <code>pollEvent</code> (or <code>waitEvent</code>) will result in the same undefined behavior that was mentioned above. </p>
+<p>Before dealing with events, it is important to understand what the <a href="http://blaxpirit.github.io/crsfml/api/SF/Event.html" target="_blank">Event</a> type is, and how to correctly use it. <a href="http://blaxpirit.github.io/crsfml/api/SF/Event.html" target="_blank">Event</a> is a <em>union</em>, which means that only one of its members is valid at a time (remember your C++ lesson: all the members of a union share the same memory space). The valid member is the one that matches the event type, for example <code>event.key</code> for a <code>KeyPressed</code> event. Trying to read any other member will result in an undefined behavior (most likely: random or invalid values). It it important to never try to use an event member that doesn&apos;t match its type. </p>
+<p><a href="http://blaxpirit.github.io/crsfml/api/SF/Event.html" target="_blank">Event</a> instances are filled by the <code>pollEvent</code> (or <code>waitEvent</code>) function of the <a href="http://blaxpirit.github.io/crsfml/api/SF/Window.html" target="_blank">Window</a> class. Only these two functions can produce valid events, any attempt to use an <a href="http://blaxpirit.github.io/crsfml/api/SF/Event.html" target="_blank">Event</a> which was not returned by successful call to <code>pollEvent</code> (or <code>waitEvent</code>) will result in the same undefined behavior that was mentioned above. </p>
 <p>To be clear, here is what a typical event loop looks like: </p>
 <pre><code>sf::Event event;
 
@@ -700,12 +700,12 @@ while (window.pollEvent(event))
             break;
     }
 }
-</code></pre><p>Read the above paragraph once again and make sure that you fully understand it, the <a href="http://blaxpirit.github.io/crsfml/SF/api/Event.html" target="_blank">Event</a> union is the cause of many problems for inexperienced programmers. </p>
+</code></pre><p>Read the above paragraph once again and make sure that you fully understand it, the <a href="http://blaxpirit.github.io/crsfml/api/SF/Event.html" target="_blank">Event</a> union is the cause of many problems for inexperienced programmers. </p>
 <p>Alright, now we can see what events SFML supports, what they mean and how to use them properly. </p>
 <h2 id="the-closed-event">The Closed event</h2>
 <p>The <code>sf::Event::Closed</code> event is triggered when the user wants to close the window, through any of the possible methods the window manager provides (&quot;close&quot; button, keyboard shortcut, etc.). This event only represents a close request, the window is not yet closed when the event is received. </p>
 <p>Typical code will just call <code>window.close()</code> in reaction to this event, to actually close the window. However, you may also want to do something else first, like saving the current application state or asking the user what to do. If you don&apos;t do anything, the window remains open. </p>
-<p>There&apos;s no member associated with this event in the <a href="http://blaxpirit.github.io/crsfml/SF/api/Event.html" target="_blank">Event</a> union. </p>
+<p>There&apos;s no member associated with this event in the <a href="http://blaxpirit.github.io/crsfml/api/SF/Event.html" target="_blank">Event</a> union. </p>
 <pre><code>if (event.type == sf::Event::Closed)
     window.close();
 </code></pre><h2 id="the-resized-event">The Resized event</h2>
@@ -720,7 +720,7 @@ while (window.pollEvent(event))
 </code></pre><h2 id="the-lostfocus-and-gainedfocus-events">The LostFocus and GainedFocus events</h2>
 <p>The <code>sf::Event::LostFocus</code> and <code>sf::Event::GainedFocus</code> events are triggered when the window loses/gains focus, which happens when the user switches the currently active window. When the window is out of focus, it doesn&apos;t receive keyboard events. </p>
 <p>This event can be used e.g. if you want to pause your game when the window is inactive. </p>
-<p>There&apos;s no member associated with these events in the <a href="http://blaxpirit.github.io/crsfml/SF/api/Event.html" target="_blank">Event</a> union. </p>
+<p>There&apos;s no member associated with these events in the <a href="http://blaxpirit.github.io/crsfml/api/SF/Event.html" target="_blank">Event</a> union. </p>
 <pre><code>if (event.type == sf::Event::LostFocus)
     myGame.pause();
 
@@ -729,7 +729,7 @@ if (event.type == sf::Event::GainedFocus)
 </code></pre><h2 id="the-textentered-event">The TextEntered event</h2>
 <p>The <code>sf::Event::TextEntered</code> event is triggered when a character is typed. This must not be confused with the <code>KeyPressed</code> event: <code>TextEntered</code> interprets the user input and produces the appropriate printable character. For example, pressing &apos;^&apos; then &apos;e&apos; on a French keyboard will produce two <code>KeyPressed</code> events, but a single <code>TextEntered</code> event containing the &apos;&#xEA;&apos; character. It works with all the input methods provided by the operating system, even the most specific or complex ones. </p>
 <p>This event is typically used to catch user input in a text field. </p>
-<p>The member associated with this event is <code>event.text</code>, it contains the Unicode value of the entered character. You can either put it directly in a <a href="http://blaxpirit.github.io/crsfml/SF/api/String.html" target="_blank">String</a>, or cast it to a <code>char</code> after making sure that it is in the ASCII range (0 - 127). </p>
+<p>The member associated with this event is <code>event.text</code>, it contains the Unicode value of the entered character. You can either put it directly in a <a href="http://blaxpirit.github.io/crsfml/api/SF/String.html" target="_blank">String</a>, or cast it to a <code>char</code> after making sure that it is in the ASCII range (0 - 127). </p>
 <pre><code>if (event.type == sf::Event::TextEntered)
 {
     if (event.text.unicode &lt; 128)
@@ -741,7 +741,7 @@ if (event.type == sf::Event::GainedFocus)
 <p>The <code>sf::Event::KeyPressed</code> and <code>sf::Event::KeyReleased</code> events are triggered when a keyboard key is pressed/released. </p>
 <p>If a key is held, multiple <code>KeyPressed</code> events will be generated, at the default operating system delay (ie. the same delay that applies when you hold a letter in a text editor). To disable repeated <code>KeyPressed</code> events, you can call <code>window.setKeyRepeatEnabled(false)</code>. On the flip side, it is obvious that <code>KeyReleased</code> events can never be repeated. </p>
 <p>This event is the one to use if you want to trigger an action exactly once when a key is pressed or released, like making a character jump with space, or exiting something with escape. </p>
-<p>Sometimes, people try to react to <code>KeyPressed</code> events directly to implement smooth movement. Doing so will <em>not</em> produce the expected effect, because when you hold a key you only get a few events (remember, the repeat delay). To achieve smooth movement with events, you must use a boolean that you set on <code>KeyPressed</code> and clear on <code>KeyReleased</code>; you can then move (independently of events) as long as the boolean is set.<br>The other (easier) solution to produce smooth movement is to use real-time keyboard input with <a href="http://blaxpirit.github.io/crsfml/SF/api/Keyboard.html" target="_blank">Keyboard</a> (see the <a href="window-inputs.html" title="Real-time inputs tutorial">dedicated tutorial</a>). </p>
+<p>Sometimes, people try to react to <code>KeyPressed</code> events directly to implement smooth movement. Doing so will <em>not</em> produce the expected effect, because when you hold a key you only get a few events (remember, the repeat delay). To achieve smooth movement with events, you must use a boolean that you set on <code>KeyPressed</code> and clear on <code>KeyReleased</code>; you can then move (independently of events) as long as the boolean is set.<br>The other (easier) solution to produce smooth movement is to use real-time keyboard input with <a href="http://blaxpirit.github.io/crsfml/api/SF/Keyboard.html" target="_blank">Keyboard</a> (see the <a href="window-inputs.html" title="Real-time inputs tutorial">dedicated tutorial</a>). </p>
 <p>The member associated with these events is <code>event.key</code>, it contains the code of the pressed/released key, as well as the current state of the modifier keys (alt, control, shift, system). </p>
 <pre><code>if (event.type == sf::Event::KeyPressed)
 {
@@ -796,7 +796,7 @@ if (event.type == sf::Event::GainedFocus)
 }
 </code></pre><h2 id="the-mouseentered-and-mouseleft-event">The MouseEntered and MouseLeft event</h2>
 <p>The <code>sf::Event::MouseEntered</code> and <code>sf::Event::MouseLeft</code> events are triggered when the mouse cursor enters/leaves the window. </p>
-<p>There&apos;s no member associated with these events in the <a href="http://blaxpirit.github.io/crsfml/SF/api/Event.html" target="_blank">Event</a> union. </p>
+<p>There&apos;s no member associated with these events in the <a href="http://blaxpirit.github.io/crsfml/api/SF/Event.html" target="_blank">Event</a> union. </p>
 <pre><code>if (event.type == sf::Event::MouseEntered)
     std::cout &lt;&lt; &quot;the mouse cursor has entered the window&quot; &lt;&lt; std::endl;
 

@@ -36,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="6.3" data-basepath="." data-revision="Thu Aug 20 2015 13:04:05 GMT+0300 (EEST)">
+    <div class="book" data-level="6.3" data-basepath="." data-revision="Thu Aug 20 2015 14:16:31 GMT+0300 (EEST)">
     
 
 <div class="book-summary">
@@ -676,7 +676,7 @@
 <p>If you need more advanced features, such as secured HTTP (HTTPS) for example, you&apos;re better off using a true HTTP library, like libcurl or cpp-netlib. </p>
 <p>For basic interaction between your program and an HTTP server, it should be enough. </p>
 <h2 id="sf-http">sf::Http</h2>
-<p>To communicate with an HTTP server you must use the <a href="http://blaxpirit.github.io/crsfml/SF/api/Http.html" target="_blank">Http</a> class. </p>
+<p>To communicate with an HTTP server you must use the <a href="http://blaxpirit.github.io/crsfml/api/SF/Http.html" target="_blank">Http</a> class. </p>
 <pre><code>#include &lt;SFML/Network.hpp&gt;
 
 sf::Http http;
@@ -685,12 +685,12 @@ http.setHost(&quot;http://www.some-server.org/&quot;);
 // or
 sf::Http http(&quot;http://www.some-server.org/&quot;);
 </code></pre><p>Note that setting the host doesn&apos;t trigger any connection. A temporary connection is created for each request. </p>
-<p>The only other function in <a href="http://blaxpirit.github.io/crsfml/SF/api/Http.html" target="_blank">Http</a>, sends requests. This is basically all that the class does. </p>
+<p>The only other function in <a href="http://blaxpirit.github.io/crsfml/api/SF/Http.html" target="_blank">Http</a>, sends requests. This is basically all that the class does. </p>
 <pre><code>sf::Http::Request request;
 // fill the request...
 sf::Http::Response response = http.sendRequest(request);
 </code></pre><h2 id="requests">Requests</h2>
-<p>An HTTP request, represented by the <a href="http://blaxpirit.github.io/crsfml/SF/api/Http::Request.html" target="_blank">Http::Request</a> class, contains the following information: </p>
+<p>An HTTP request, represented by the <a href="http://blaxpirit.github.io/crsfml/api/SF/Http::Request.html" target="_blank">Http::Request</a> class, contains the following information: </p>
 <ul>
 <li>The method: POST (send content), GET (retrieve a resource), HEAD (retrieve a resource header, without its body)</li>
 <li>The URI: the address of the resource (page, image, ...) to get/post, relative to the root directory</li>
@@ -709,7 +709,7 @@ request.setBody(&quot;para1=value1&amp;param2=value2&quot;);
 sf::Http::Response response = http.sendRequest(request);
 </code></pre><p>SFML automatically fills mandatory header fields, such as &quot;Host&quot;, &quot;Content-Length&quot;, etc. You can send your requests without worrying about them. SFML will do its best to make sure they are valid. </p>
 <h2 id="responses">Responses</h2>
-<p>If the <a href="http://blaxpirit.github.io/crsfml/SF/api/Http.html" target="_blank">Http</a> class could successfully connect to the host and send the request, a response is sent back and returned to the user, encapsulated in an instance of the <a href="http://blaxpirit.github.io/crsfml/SF/api/Http::Response.html" target="_blank">Http::Response</a> class. Responses contain the following members: </p>
+<p>If the <a href="http://blaxpirit.github.io/crsfml/api/SF/Http.html" target="_blank">Http</a> class could successfully connect to the host and send the request, a response is sent back and returned to the user, encapsulated in an instance of the <a href="http://blaxpirit.github.io/crsfml/api/SF/Http::Response.html" target="_blank">Http::Response</a> class. Responses contain the following members: </p>
 <ul>
 <li>A status code which precisely indicates how the server processed the request (OK, redirected, not found, etc.)</li>
 <li>The HTTP version of the server</li>
