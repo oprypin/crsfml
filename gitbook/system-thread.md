@@ -53,7 +53,7 @@ In this code, both `main` and `func` run in parallel after `thread.launch()` has
 
 The entry point of the thread, ie. the function that will be run when the thread is started, must be passed to the constructor of [Thread]({{book.api}}/Thread.html). [Thread]({{book.api}}/Thread.html) tries to be flexible and accept a wide variety of entry points: non-member or member functions, with or without arguments, functors, etc. The example above shows how to use a non-member function, here are a few other examples. 
 
-\- Non-member function with one argument: 
+- Non-member function with one argument: 
 
 ```
 void func(int x)
@@ -63,7 +63,7 @@ void func(int x)
 sf::Thread thread(&func, 5);
 ```
 
-\- Member function: 
+- Member function: 
 
 ```
 class MyClass
@@ -79,7 +79,7 @@ MyClass object;
 sf::Thread thread(&MyClass::func, &object);
 ```
 
-\- Functor (function-object): 
+- Functor (function-object): 
 
 ```
 struct MyFunctor

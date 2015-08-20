@@ -73,7 +73,7 @@ music.play();
 It is important to note that, unlike all other SFML resources, the loading function is named `openFromFile` instead of `loadFromFile`. This is because the music is not really loaded, this function merely opens it. The data is only loaded later, when the music is played. It also helps to keep in mind that the audio file has to remain available as long as it is played.  
 The other loading functions of follow the same convention: `openFromMemory`, `openFromStream`. 
 
-## What\'s next?
+## What's next?
 
 Now that you are able to load and play a sound or music, let's see what you can do with it. 
 
