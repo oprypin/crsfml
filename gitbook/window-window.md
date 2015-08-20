@@ -26,16 +26,35 @@ The [VideoMode]({{book.api}}/VideoMode.html) class has some interesting static f
 
 The second argument is simply the title of the window. 
 
-This constructor accepts a third optional argument: a style, which allows you to choose which decorations and features you want. You can use any combination of the following styles: 
+This constructor accepts a third optional argument: a style, which allows you to choose which decorations and features you want. You can use any combination of the following styles:
 
-`sf::Style::None` | No decoration at all (useful for splash screens, for example); this style cannot be combined with others  
----|---  
-`sf::Style::Titlebar` | The window has a titlebar  
-`sf::Style::Resize` | The window can be resized and has a maximize button  
-`sf::Style::Close` | The window has a close button  
-`sf::Style::Fullscreen` | The window is shown in fullscreen mode; this style cannot be combined with others, and requires a valid video mode  
-`sf::Style::Default` | The default style, which is a shortcut for `Titlebar | Resize | Close`  
-  
+<table>
+    <tr>
+        <td><code>sf::Style::None</code></td>
+        <td>No decoration at all (useful for splash screens, for example); this style cannot be combined with others</td>
+    </tr>
+    <tr>
+        <td><code>sf::Style::Titlebar</code></td>
+        <td>The window has a titlebar</td>
+    </tr>
+    <tr>
+        <td><code>sf::Style::Resize</code></td>
+        <td>The window can be resized and has a maximize button</td>
+    </tr>
+    <tr>
+        <td><code>sf::Style::Close</code></td>
+        <td>The window has a close button</td>
+    </tr>
+    <tr>
+        <td><code>sf::Style::Fullscreen</code></td>
+        <td>The window is shown in fullscreen mode; this style cannot be combined with others, and requires a valid video mode</td>
+    </tr>
+    <tr>
+        <td><code>sf::Style::Default</code></td>
+        <td>The default style, which is a shortcut for <code>Titlebar | Resize | Close</code></td>
+    </tr>
+</table>
+
 There's also a fourth optional argument, which defines OpenGL specific options which are explained in the [dedicated OpenGL tutorial](./window-opengl.html "OpenGL tutorial"). 
 
 If you want to create the window *after* the construction of the [Window]({{book.api}}/Window.html) instance, or re-create it with a different video mode or title, you can use the `create` function instead. It takes the exact same arguments as the constructor. 

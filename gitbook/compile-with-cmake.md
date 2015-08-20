@@ -94,35 +94,115 @@ After selecting the generator, CMake will run a series of tests to gather inform
 ![Screenshot of the cmake-gui window after configure](./images/cmake-configure.png)
 
 After configuring is done, the build options appear in the center of the window. CMake itself has many options, but most of them are already set to the right value by default. Some of them are cache variables and better left unchanged, they simply provide feedback about what CMake automatically found.  
-Here are the few options that you may want to have a look at when configuring your SFML build: 
+Here are the few options that you may want to have a look at when configuring your SFML build:   
 
-Variable | Meaning  
----|---  
-`CMAKE_BUILD_TYPE` |  This option selects the build configuration type. Valid values are "Debug" and "Release" (there are other types such as "RelWithDebInfo" or "MinSizeRel", but they are meant for more advanced builds). Note that if you generate a workspace for an IDE that supports multiple configurations, such as Visual Studio, this option is ignored since the workspace can contain multiple configurations simultaneously.   
-`CMAKE_INSTALL_PREFIX` |  This is the install path. By default, it is set to the installation path that is most typical on the operating system ("/usr/local" for Linux and Mac OS X, "C:\Program Files" for Windows, etc.). Installing SFML after building it is not mandatory since you can use the binaries directly from where they were built. It may be a better solution, however, to install them properly so you can remove all the temporary files produced during the build process.   
-`CMAKE_INSTALL_FRAMEWORK_PREFIX  
-(Mac OS X only)` |  This is the install path for frameworks. By default, it is set to the root library folder i.e. /Library/Frameworks. As stated explained above for CMAKE_INSTALL_PREFIX, it is not mandatory to install SFML after building it, but it is definitely cleaner to do so.  
-This path is also used to install the sndfile framework on your system (a required dependency not provided by Apple) and SFML as frameworks if BUILD_FRAMEWORKS is selected.   
-`BUILD_SHARED_LIBS` |  This boolean option controls whether you build SFML as dynamic (shared) libraries, or as static ones.   
-This option should not be enabled simultaneously with SFML_USE_STATIC_STD_LIBS, they are mutually exclusive.   
-`SFML_BUILD_FRAMEWORKS  
-(Mac OS X only)` |  This boolean option controls whether you build SFML as [framework bundles](http://developer.apple.com/library/mac/#documentation/MacOSX/Conceptual/BPFrameworks/Frameworks.html "go to Apple documentation about frameworks") or as [dylib binaries](http://developer.apple.com/library/mac/#documentation/DeveloperTools/Conceptual/DynamicLibraries/000-Introduction/Introduction.html "go to Apple documentation about dynamic library"). Building frameworks requires BUILD_SHARED_LIBS to be selected.  
-It is recommended to use SFML as frameworks when publishing your applications. Note however, that SFML cannot be built in the debug configuration as frameworks. In that case, use dylibs instead.   
-`SFML_BUILD_EXAMPLES` |  This boolean option controls whether the SFML examples are built alongside the library or not.   
-`SFML_BUILD_DOC` |  This boolean option controls whether you generate the SFML documentation or not. Note that the [Doxygen](http://www.doxygen.org "go to doxygen website") tool must be installed and accessible, otherwise enabling this option will produce an error.  
-On Mac OS X you can either install the classic-Unix doxygen binary into /usr/bin or any similar directory, or install Doxygen.app into any "Applications" folder, e.g. ~/Applications.   
-`SFML_USE_STATIC_STD_LIBS  
-(Windows only)` |  This boolean option selects the type of the C/C++ runtime library which is linked to SFML.   
-TRUE statically links the standard libraries, which means that SFML is self-contained and doesn't depend on the compiler's specific DLLs.   
-FALSE (the default) dynamically links the standard libraries, which means that SFML depends on the compiler's DLLs (msvcrxx.dll/msvcpxx.dll for Visual C++, libgcc_s_xxx-1.dll/libstdc++-6.dll for GCC). Be careful when setting this. The setting must match your own project's setting or else your application may fail to run.   
-This option should not be enabled simultaneously with BUILD_SHARED_LIBS, they are mutually exclusive.   
-`CMAKE_OSX_ARCHITECTURES  
-(Mac OS X only)` |  This setting specifies for which architectures SFML should be built. The recommended value is "i386;x86_64" to generate universal binaries for both 32 and 64-bit systems.   
-`SFML_INSTALL_XCODE_TEMPLATES  
-(Mac OS X only)` |  This boolean option controls whether CMake will install the Xcode templates on your system or not. Please make sure that /Library/Developer/Xcode/Templates/SFML exists and is writable. More information about these templates is given in the "Getting started" tutorial for Mac OS X.   
-`SFML_INSTALL_PKGCONFIG_FILES  
-(Linux shared libraries only)` |  This boolean option controls whether CMake will install the pkg-config files on your system or not. pkg-config is a tool that provides a unified interface for querying installed libraries.   
-  
+<table>
+    <thead>
+        <tr>
+            <th>Variable</th>
+            <th>Meaning</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>CMAKE_BUILD_TYPE</code></td>
+            <td>
+                This option selects the build configuration type. Valid values are "Debug" and "Release" (there are other types such as "RelWithDebInfo" or "MinSizeRel",
+                but they are meant for more advanced builds). Note that if you generate a workspace for an IDE that supports multiple configurations,
+                such as Visual Studio, this option is ignored since the workspace can contain multiple configurations simultaneously.
+            </td>
+        </tr>
+        <tr>
+            <td><code>CMAKE_INSTALL_PREFIX</code></td>
+            <td>
+                This is the install path. By default, it is set to the installation path that is most typical on the operating system ("/usr/local" for Linux and Mac OS X,
+                "C:\Program Files" for Windows, etc.). Installing SFML after building it is not mandatory since you can use the binaries directly from where
+                they were built. It may be a better solution, however, to install them properly so you can remove all the temporary files produced during
+                the build process.
+            </td>
+        </tr>
+        <tr>
+            <td><code>CMAKE_INSTALL_FRAMEWORK_PREFIX<br/>(Mac OS X only)</code></td>
+            <td>
+                This is the install path for frameworks. By default, it is set to the root library folder
+                i.e. /Library/Frameworks. As stated explained above for CMAKE_INSTALL_PREFIX, it is not mandatory to install SFML
+                after building it, but it is definitely cleaner to do so.<br>
+                This path is also used to install the sndfile framework on your system (a required dependency not provided by Apple)
+                and SFML as frameworks if BUILD_FRAMEWORKS is selected.
+            </td>
+        </tr>
+        <tr>
+            <td><code>BUILD_SHARED_LIBS</code></td>
+            <td>
+                This boolean option controls whether you build SFML as dynamic (shared) libraries, or as static ones. <br/>
+                This option should not be enabled simultaneously with SFML_USE_STATIC_STD_LIBS, they are mutually exclusive.
+            </td>
+        </tr>
+        <tr>
+            <td><code>SFML_BUILD_FRAMEWORKS<br/>(Mac OS X only)</code></td>
+            <td>
+                This boolean option controls whether you build SFML as
+                <a title="go to Apple documentation about frameworks" href="http://developer.apple.com/library/mac/#documentation/MacOSX/Conceptual/BPFrameworks/Frameworks.html">framework bundles</a>
+                or as
+                <a title="go to Apple documentation about dynamic library" href="http://developer.apple.com/library/mac/#documentation/DeveloperTools/Conceptual/DynamicLibraries/000-Introduction/Introduction.html">dylib binaries</a>.
+                Building frameworks requires BUILD_SHARED_LIBS to be selected.<br>
+                It is recommended to use SFML as frameworks when publishing your applications. Note however,
+                that SFML cannot be built in the debug configuration as frameworks. In that case, use dylibs instead. 
+            </td>
+        </tr>
+        <tr>
+            <td><code>SFML_BUILD_EXAMPLES</code></td>
+            <td>
+                This boolean option controls whether the SFML examples are built alongside the library or not.
+            </td>
+        </tr>
+        <tr>
+            <td><code>SFML_BUILD_DOC</code></td>
+            <td>
+                This boolean option controls whether you generate the SFML documentation or not. Note that the
+                <a title="go to doxygen website" href="http://www.doxygen.org">Doxygen</a> tool must be installed and accessible, otherwise
+                enabling this option will produce an error.<br>
+                On Mac OS X you can either install the classic-Unix doxygen binary into /usr/bin or any similar directory,
+                or install Doxygen.app into any "Applications" folder, e.g. ~/Applications.
+            </td>
+        </tr>
+        <tr>
+            <td><code>SFML_USE_STATIC_STD_LIBS<br/>(Windows only)</code></td>
+            <td>
+                This boolean option selects the type of the C/C++ runtime library which is linked to SFML. <br/>
+                TRUE statically links the standard libraries, which means that SFML is self-contained and doesn't depend on the compiler's
+                specific DLLs. <br/>
+                FALSE (the default) dynamically links the standard libraries, which means that SFML depends on the compiler's DLLs
+                (msvcrxx.dll/msvcpxx.dll for Visual C++, libgcc_s_xxx-1.dll/libstdc++-6.dll for GCC). Be careful when setting this. The setting must match your own project's
+                setting or else your application may fail to run. <br/>
+                This option should not be enabled simultaneously with BUILD_SHARED_LIBS, they are mutually exclusive.
+            </td>
+        </tr>
+        <tr>
+            <td><code>CMAKE_OSX_ARCHITECTURES<br/>(Mac OS X only)</code></td>
+            <td>
+                This setting specifies for which architectures SFML should be built. The recommended value is "i386;x86_64" to generate universal binaries for both
+                32 and 64-bit systems.
+            </td>
+        </tr>
+        <tr>
+            <td><code>SFML_INSTALL_XCODE_TEMPLATES<br/>(Mac OS X only)</code></td>
+            <td>
+                This boolean option controls whether CMake will install the Xcode templates on your system or not.
+                Please make sure that /Library/Developer/Xcode/Templates/SFML exists and is writable.
+                More information about these templates is given in the "Getting started" tutorial for Mac OS X.
+            </td>
+        </tr>
+        <tr>
+            <td><code>SFML_INSTALL_PKGCONFIG_FILES<br/>(Linux shared libraries only)</code></td>
+            <td>
+                This boolean option controls whether CMake will install the pkg-config files on your system or not.
+                pkg-config is a tool that provides a unified interface for querying installed libraries.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
 After everything is configured, click the "Configure" button once again. There should no longer be any options highlighted in red, and the "Generate" button should be enabled. Click it to finally generate the chosen makefiles/projects. 
 
 ![Screenshot of the cmake-gui window after generate](./images/cmake-generate.png)
@@ -151,33 +231,60 @@ If you generated a makefile, open a command shell and execute the make command c
 Note: On Windows, the make program (nmake or mingw32-make) may not be accessible. If this is the case, don't forget to add its location to your PATH environment variable. See the explanations at the beginning of the "Configuring your SFML build" section for more details. 
 
 By default, building the project will build everything (all the SFML libraries, as well as all the examples if you enabled the SFML_BUILD_EXAMPLES option). If you just want to build a specific SFML library or example, you can select a different target. You can also choose to clean or install the built files, with the corresponding targets.  
-Here are all the targets that are available, depending on the configure options that you chose: 
+Here are all the targets that are available, depending on the configure options that you chose:   
 
-Target | Meaning  
----|---  
-`all` |  This is the default target, it is used if no target is explicitly specified. It builds all the targets that produce a binary (SFML libraries and examples).   
-`sfml‑system  
-sfml‑window  
-sfml‑network  
-sfml‑graphics  
-sfml‑audio  
-sfml‑main` |  Builds the corresponding SFML library. The "sfml-main" target is available only when building for Windows.   
-`cocoa  
-ftp  
-opengl  
-pong  
-shader  
-sockets  
-sound  
-sound‑capture  
-voip  
-window  
-win32  
-X11` |  Builds the corresponding SFML example. These targets are available only if the `SFML_BUILD_EXAMPLES` option is enabled. Note that some of the targets are available only on certain operating systems ("cocoa" is available on Mac OS X, "win32" on Windows, "X11" on Linux, etc.).   
-`doc` |  Generates the API documentation. This target is available only if `SFML_BUILD_DOC` is enabled.   
-`clean` |  Removes all the object files, libraries and example binaries produced by a previous build. You generally don't need to invoke this target, the exception being when you want to completely rebuild SFML (some source updates may be incompatible with existing object files and cleaning everything is the only solution).   
-`install` |  Installs SFML to the path given by `CMAKE_INSTALL_PREFIX` and `CMAKE_INSTALL_FRAMEWORK_PREFIX`. It copies over the SFML libraries and headers, as well as examples and documentation if `SFML_BUILD_EXAMPLES` and `SFML_BUILD_DOC` are enabled. After installing, you get a clean distribution of SFML, just as if you had downloaded the SDK or installed it from your distribution's package repository.   
-  
+<table>
+    <thead>
+        <tr>
+            <th>Target</th>
+            <th>Meaning</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>all</code></td>
+            <td>
+                This is the default target, it is used if no target is explicitly specified. It builds all the targets that produce a binary
+                (SFML libraries and examples).
+            </td>
+        </tr>
+        <tr>
+            <td><code>sfml&#8209;system<br/>sfml&#8209;window<br/>sfml&#8209;network<br/>sfml&#8209;graphics<br/>sfml&#8209;audio<br/>sfml&#8209;main</code></td>
+            <td>
+                Builds the corresponding SFML library. The "sfml-main" target is available only when building for Windows.
+            </td>
+        </tr>
+        <tr>
+            <td><code>cocoa<br/>ftp<br/>opengl<br/>pong<br/>shader<br/>sockets<br/>sound<br/>sound&#8209;capture<br/>voip<br/>window<br/>win32<br/>X11</code></td>
+            <td>
+                Builds the corresponding SFML example. These targets are available only if the <code>SFML_BUILD_EXAMPLES</code> option is enabled. Note that some of the
+                targets are available only on certain operating systems ("cocoa" is available on Mac OS X, "win32" on Windows, "X11" on Linux, etc.).
+            </td>
+        </tr>
+        <tr>
+            <td><code>doc</code></td>
+            <td>
+                Generates the API documentation. This target is available only if <code>SFML_BUILD_DOC</code> is enabled.
+            </td>
+        </tr>
+        <tr>
+            <td><code>clean</code></td>
+            <td>
+                Removes all the object files, libraries and example binaries produced by a previous build. You generally don't need to invoke this target, the exception being when you want
+                to completely rebuild SFML (some source updates may be incompatible with existing object files and cleaning everything is the only solution).
+            </td>
+        </tr>
+        <tr>
+            <td><code>install</code></td>
+            <td>
+                Installs SFML to the path given by <code>CMAKE_INSTALL_PREFIX</code> and <code>CMAKE_INSTALL_FRAMEWORK_PREFIX</code>. It copies over the
+                SFML libraries and headers, as well as examples and documentation if <code>SFML_BUILD_EXAMPLES</code> and <code>SFML_BUILD_DOC</code> are enabled.
+                After installing, you get a clean distribution of SFML, just as if you had downloaded the SDK or installed it from your distribution's package repository.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
 If you use an IDE, a target is simply a project. To build a target, select the corresponding project and compile it (even "clean" and "install" must be built to be executed -- don't be confused by the fact that no source code is actually compiled).  
 If you use a makefile, pass the name of the target to the make command to build the target. Examples: "`nmake doc`", "`mingw32-make install`", "`make sfml-network`". 
 
