@@ -1,20 +1,14 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
-  <link href="css/style.css" rel="stylesheet" type="text/css" />
-  <script type="text/javascript">
-    function setMainFrame() {
-      var mainFrame = document.getElementById("main");
-      if (window.location.hash == "") {
-        mainFrame.src = "main.html"
-      } else {
-        mainFrame.src = unescape(window.location.hash.substring(1));
-      }
-    }
-  </script>
+    <meta charset="utf-8"/>
+    <meta http-equiv="refresh" content="1;url=api/index.html"/>
+    <script type="text/javascript">
+        window.location.href = "api/index.html";
+    </script>
+    <title>Redirecting...</title>
 </head>
-<frameset cols="20%,*" onload="setMainFrame()">
-  <frame name="list" src="list.html" />
-  <frame id="main" name="main" />
-</frameset>
+<body>
+    <a href="api/index.html">Redirecting...</a>
+</body>
 </html>
