@@ -39,6 +39,20 @@ module SF
       end
       result
     end
+    
+    def start()
+      start(44100)
+    end
+  end
+  
+  class SoundBufferRecorder
+    def self.is_available
+      SoundRecorder.is_available
+    end
+    
+    def start()
+      start(44100)
+    end
   end
 end
 
