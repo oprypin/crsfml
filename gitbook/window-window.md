@@ -50,22 +50,6 @@ This constructor accepts a third optional argument: a style, which allows you to
 
 There's also a fourth optional argument, which defines OpenGL specific options which are explained in the [dedicated OpenGL tutorial](window-opengl.md "OpenGL tutorial").
 
-If you want to create the window *after* the construction of the [Window]({{book.api}}/Window.html) instance, or re-create it with a different video mode or title, you can use the `create` function instead. It takes the exact same arguments as the constructor.
-
-```
-#include <CrSFML/Window.hpp>
-
-int main()
-{
-    SF::Window window;
-    window.create(SF::VideoMode(800, 600), "My window");
-
-    ...
-
-    return 0;
-}
-```
-
 ## Bringing the window to life
 
 If you try to execute the code above with nothing in place of the "...", you will hardly see something. First, because the program ends immediately. Second, because there's no event handling -- so even if you added an endless loop to this code, you would see a dead window, unable to be moved, resized, or closed.
