@@ -120,25 +120,9 @@ More attributes are available, but they are related to spatialization and are ex
 
 ## Common mistakes
 
-### Destroyed sound buffer
-
-The most common mistake is to let a sound buffer go out of scope (and therefore be destroyed) while a sound still uses it.
-
-```ruby
-def load_sound(filename)
-    buffer = SF::SoundBuffer.from_file(filename) # this buffer is local to the function, it will be destroyed...
-    SF::Sound.new(buffer);
-end # ... here
-
-sound = load_sound("s.wav")
-sound.play # ERROR: the sound's buffer no longer exists, the behavior is undefined
-```
-
-Remember that a sound only keeps a *pointer* to the sound buffer that you give to it, it doesn't contain its own copy. You have to correctly manage the lifetime of your sound buffers so that they remain alive as long as they are used by sounds.
-
 ### Too many sounds
 
-Another source of error is when you try to create a huge number of sounds. CrSFML internally has a limit; it can vary depending on the OS, but you should never exceed 256. This limit is the number of and instances that can exist simultaneously. A good way to stay below the limit is to destroy (or recycle) unused sounds when they are no longer needed. This only applies if you have to manage a really large amount of sounds and music, of course.
+One source of error is when you try to create a huge number of sounds. CrSFML internally has a limit; it can vary depending on the OS, but you should never exceed 256. This limit is the number of and instances that can exist simultaneously. A good way to stay below the limit is to destroy (or recycle) unused sounds when they are no longer needed. This only applies if you have to manage a really large amount of sounds and music, of course.
 
 ### Destroying the music source while it plays
 
@@ -156,19 +140,5 @@ music.play
 file_data.clear
 
 # ERROR: the music was still streaming the contents of file_data! The behavior is now undefined
-```
-
-### SF::Music is not copyable
-
-The final "mistake" is a reminder: the class is *not copyable*, so you won't be allowed to do that:
-
-```ruby
-another_music = music # ERROR
-
-def do_something(music)
-    ...
-end
-
-do_something(music) # ERROR (the function should take its argument by reference, not by value)
 ```
 
