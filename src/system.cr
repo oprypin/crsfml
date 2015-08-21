@@ -127,9 +127,33 @@ module SF
   end
   
   
-  
   struct CSFML::Time
-    Zero = SF.milliseconds(0)
+    Zero = SF.microseconds(0)
+    
+    include Comparable(Time)
+    
+    def <=>(other: Time)
+      microseconds <=> other.microseconds
+    end
+    
+    def -
+      SF.microseconds(-microseconds)
+    end
+    def +(other: Time)
+      SF.microseconds(microseconds + other.microseconds)
+    end
+    def -(other: Time)
+      SF.microseconds(microseconds - other.microseconds)
+    end
+    def *(other: Number)
+      SF.microseconds((microseconds * other).to_i64)
+    end
+    def /(other: Number)
+      SF.microseconds((microseconds / other).to_i64)
+    end
+    def /(other: Time)
+      microseconds.divf other.microseconds
+    end
   end
 end
 
