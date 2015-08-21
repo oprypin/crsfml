@@ -126,6 +126,9 @@ module SF
     vector2i(x, y)
   end
   
+  def vector3f(x: Number, y: Number, z: Number)
+    SF::Vector3f.new(x: x.to_f32, y: y.to_f32, z: z.to_f32)
+  end
   
   struct CSFML::Time
     Zero = SF.microseconds(0)

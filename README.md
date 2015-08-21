@@ -32,8 +32,9 @@ The API attempts to be similar to SFML's, but some general changes are present:
 - Everything is renamed to `snake_case`.
 - To construct an object (`sf::SomeType x(param)`):
     - `x = SF::SomeType.new(param)` for classes.
-    - `x = SF::some_type(param)` for structs.
+    - `x = SF.some_type(param)` for structs.
     - Use `SF::Vector2(T)`, `SF.vector2(x, y)` instead of `Vector2(f|i)`. 2-tuples can often be used instead.
+        - But: `SF::Vector3f`, `SF.vector3f(x, y, z)`.
     - Member functions, such as `loadFromFile`, that are used for initialization, become class methods (`from_file`).
 - Getter, setter functions are changed:
     - `x.getSomeProperty()` becomes `x.some_property`.
