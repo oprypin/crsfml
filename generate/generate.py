@@ -418,11 +418,11 @@ def handle_function(main, params):
             obj(cls, '  {}.wrap_ptr({})'.format(nftype, call))
     elif nftype == 'Char*':
         obj(cls, '  ptr = {}'.format(call))
-        obj(cls, '  result = ""; i = 0')
-        obj(cls, '  while ptr[i] != \'\\0\'')
-        obj(cls, '    result += ptr[i]; i += 1')
+        obj(cls, '  String.build do |io|')
+        obj(cls, '    while ptr.value != \'\\0\'')
+        obj(cls, '      io << ptr.value; ptr += 1')
+        obj(cls, '    end')
         obj(cls, '  end')
-        obj(cls, '  result')
     elif nftype == 'UInt8*' and not nfname.endswith('_ptr'):
         obj(cls, '  String.new({})'.format(call))
     elif ftype == 'sfBool':

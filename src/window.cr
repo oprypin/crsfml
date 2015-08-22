@@ -62,11 +62,7 @@ module SF
   struct CSFML::VideoMode
     def self.fullscreen_modes
       ptr = CSFML.video_mode_get_fullscreen_modes(out count)
-      result = [] of VideoMode
-      (0...count).each do |i|
-        result.push ptr[i]
-      end
-      result
+      ptr.to_slice(count.to_i).to_a
     end
   end
   

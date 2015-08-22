@@ -4134,11 +4134,11 @@ module SF
     # *Returns*: String as UTF-32
     def string
       ptr = CSFML.text_get_unicode_string(@this)
-      result = ""; i = 0
-      while ptr[i] != '\0'
-        result += ptr[i]; i += 1
+      String.build do |io|
+        while ptr.value != '\0'
+          io << ptr.value; ptr += 1
+        end
       end
-      result
     end
     
     # Get the font used by a text
