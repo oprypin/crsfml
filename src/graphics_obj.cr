@@ -1762,6 +1762,11 @@ module SF
     # any attempt to use Shader will fail.
     # 
     # *Returns*: True if the system can use shaders, False otherwise
+    def self.available?
+      CSFML.shader_is_available() != 0
+    end
+    
+    # Deprecated alias to `available?`
     def self.is_available()
       CSFML.shader_is_available() != 0
     end
@@ -4520,6 +4525,11 @@ module SF
     # Get the maximum texture size allowed
     # 
     # *Returns*: Maximum size allowed for textures, in pixels
+    def self.maximum_size
+      CSFML.texture_get_maximum_size()
+    end
+    
+    # Deprecated alias to `maximum_size`
     def self.get_maximum_size()
       CSFML.texture_get_maximum_size()
     end

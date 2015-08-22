@@ -42,8 +42,8 @@ module SF
   end
   
   class SoundBufferRecorder
-    def self.is_available
-      SoundRecorder.is_available
+    def self.available?
+      SoundRecorder.available?
     end
     
     def start()

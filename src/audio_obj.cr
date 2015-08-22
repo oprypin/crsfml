@@ -14,14 +14,24 @@ module SF
     # *Arguments*:
     # 
     # * `volume`: New global volume, in the range [0, 100]
-    def self.set_global_volume(volume: Number)
+    def self.global_volume=(volume: Number)
       volume = volume.to_f32
       CSFML.listener_set_global_volume(volume)
+    end
+    
+    # Deprecated alias to `global_volume=`
+    def self.set_global_volume(number: Volume)
+      CSFML.listener_set_global_volume(number)
     end
     
     # Get the current value of the global volume
     # 
     # *Returns*: Current global volume, in the range [0, 100]
+    def self.global_volume
+      CSFML.listener_get_global_volume()
+    end
+    
+    # Deprecated alias to `global_volume`
     def self.get_global_volume()
       CSFML.listener_get_global_volume()
     end
@@ -33,13 +43,23 @@ module SF
     # *Arguments*:
     # 
     # * `position`: New position of the listener
-    def self.set_position(position: Vector3f)
+    def self.position=(position: Vector3f)
       CSFML.listener_set_position(position)
+    end
+    
+    # Deprecated alias to `position=`
+    def self.set_position(vector3f: Position)
+      CSFML.listener_set_position(vector3f)
     end
     
     # Get the current position of the listener in the scene
     # 
     # *Returns*: The listener's position
+    def self.position
+      CSFML.listener_get_position()
+    end
+    
+    # Deprecated alias to `position`
     def self.get_position()
       CSFML.listener_get_position()
     end
@@ -56,13 +76,23 @@ module SF
     # *Arguments*:
     # 
     # * `direction`: New listener's direction
-    def self.set_direction(direction: Vector3f)
+    def self.direction=(direction: Vector3f)
       CSFML.listener_set_direction(direction)
+    end
+    
+    # Deprecated alias to `direction=`
+    def self.set_direction(vector3f: Direction)
+      CSFML.listener_set_direction(vector3f)
     end
     
     # Get the current forward vector of the listener in the scene
     # 
     # *Returns*: Listener's forward vector (not normalized)
+    def self.direction
+      CSFML.listener_get_direction()
+    end
+    
+    # Deprecated alias to `direction`
     def self.get_direction()
       CSFML.listener_get_direction()
     end
@@ -79,13 +109,23 @@ module SF
     # *Arguments*:
     # 
     # * `up_vector`: New listener's up vector
-    def self.set_up_vector(up_vector: Vector3f)
+    def self.up_vector=(up_vector: Vector3f)
       CSFML.listener_set_up_vector(up_vector)
+    end
+    
+    # Deprecated alias to `up_vector=`
+    def self.set_up_vector(vector3f: Up_vector)
+      CSFML.listener_set_up_vector(vector3f)
     end
     
     # Get the current upward vector of the listener in the scene
     # 
     # *Returns*: Listener's upward vector (not normalized)
+    def self.up_vector
+      CSFML.listener_get_up_vector()
+    end
+    
+    # Deprecated alias to `up_vector`
     def self.get_up_vector()
       CSFML.listener_get_up_vector()
     end
@@ -1144,6 +1184,11 @@ module SF
     # any attempt to use SoundRecorder will fail.
     # 
     # *Returns*: True if audio capture is supported, False otherwise
+    def self.available?
+      CSFML.sound_recorder_is_available() != 0
+    end
+    
+    # Deprecated alias to `available?`
     def self.is_available()
       CSFML.sound_recorder_is_available() != 0
     end
@@ -1189,6 +1234,11 @@ module SF
     # capture device. If none is available, NULL is returned.
     # 
     # *Returns*: The name of the default audio capture device (null terminated)
+    def self.default_device
+      String.new(CSFML.sound_recorder_get_default_device())
+    end
+    
+    # Deprecated alias to `default_device`
     def self.get_default_device()
       String.new(CSFML.sound_recorder_get_default_device())
     end

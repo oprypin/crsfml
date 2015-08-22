@@ -238,7 +238,7 @@ def handle_class(name):
     obj(pname, 'include Wrapper', '')
 
 
-def handle_function(main, params):
+def handle_function(main, params, alias=None):
     public = True
     orparams = params
     ftype, ofname = main
@@ -252,6 +252,7 @@ def handle_function(main, params):
         nfname = re.sub(r'_set(.+)Parameter$', r'_setParameter', nfname)
     cls = ''
     p1 = rename_type(params[0][0]) if params else ''
+    clsmethod = False
     if 'initialize' in nfname:
         cls = rename_type(ftype)
         nfname = 'initialize'
@@ -259,8 +260,10 @@ def handle_function(main, params):
         nfname = nfname[len(p1.rstrip('*'))+1:]
         cls = p1.rstrip('*')
     elif '_' in nfname:
-        nfname = 'self.'+nfname.split('_', 1)[1]
+        nfname = nfname.split('_', 1)[1]
         cls = ofname.split('_')[0][2:]
+        clsmethod = True
+        make_alias = True
     if cls and cls not in objs[cmodule]:
         obj(cls, ('struct CSFML::' if cls in structs else 'class ')+cls)
 
@@ -270,28 +273,35 @@ def handle_function(main, params):
     getter = False
     if nfname == 'copy':
         nfname = 'dup'
-    if nfname.startswith('get_') and len(params)==1 and cls:
-        getter = True
-        nfname = nfname[4:]
-    elif nfname.startswith('is_') and len(params)==1 and cls:
-        getter = True
-        nfname = nfname[3:]+'?'
-    elif nfname.startswith('has_') and len(params)==1 and cls:
-        getter = True
-    elif nfname.startswith('set_') and len(params)==2 and cls:
-        nfname = nfname[4:]+'='
-    if nfname.startswith('unicode_'):
-        nfname = nfname[8:]
-    if nftype=='Void':
-        main_sgn = main_sgn[:-10]
-    if nftype=='UInt8*' and nfname in ['string', 'title']:
-        nfname += '_c'
-        public = False
-    if nftype=='UInt32*':
-        nftype = 'Char*'
-    if nftype=='UInt32':
-        if nfname == 'style':
-            rtype = 'WindowStyle' if 'Window' in ofname else 'TextStyle'
+
+    if not alias:
+        if nfname.startswith('get_') and len(params) == 1-clsmethod and cls:
+            getter = True
+            nfname = nfname[4:]
+        elif nfname.startswith('is_') and len(params) == 1-clsmethod and cls:
+            getter = True
+            nfname = nfname[3:]+'?'
+        elif nfname.startswith('has_') and len(params) == 1-clsmethod and cls:
+            getter = True
+        elif nfname.startswith('set_') and len(params) == 2-clsmethod and cls:
+            nfname = nfname[4:]+'='
+        else:
+            make_alias = False
+        if nfname.startswith('unicode_'):
+            nfname = nfname[8:]
+        if nftype=='Void':
+            main_sgn = main_sgn[:-10]
+        if nftype=='UInt8*' and nfname in ['string', 'title']:
+            nfname += '_c'
+            public = False
+        if nftype=='UInt32*':
+            nftype = 'Char*'
+        if nftype=='UInt32':
+            if nfname == 'style':
+                rtype = 'WindowStyle' if 'Window' in ofname else 'TextStyle'
+    
+    if clsmethod:
+        nfname = 'self.'+nfname
 
     aparams = []
     const = []
@@ -328,9 +338,17 @@ def handle_function(main, params):
         aparams.append((rname, rrtype))
     sparams = ', '.join('{}: {}'.format(*p) for p in aparams)
 
-    d = get_doc()
-    if d: lib(d)
-    lib(main_sgn.format(**locals()), '')
+    d = None
+    if alias:
+        if alias.startswith('self.'):
+            alias = alias[5:]
+        else:
+            alias = '#' + alias
+        d = '# Deprecated alias to `{}`'.format(alias)
+    else:
+        d = get_doc()
+        if d: lib(d)
+        lib(main_sgn.format(**locals()), '')
     
     if not public:
         return
@@ -436,6 +454,9 @@ def handle_function(main, params):
             obj(cls, '  self.{0} = cself.{0}'.format(p))
             obj(cls, '  self')
     obj(cls, 'end', '')
+
+    if clsmethod and make_alias and not alias:
+        handle_function(main, oparams, alias=nfname)
 
 
 def handle_functiondef(main, params):

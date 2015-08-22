@@ -5,7 +5,7 @@ require "crsfml/system"
 require "crsfml/audio"
 
 
-unless SF::SoundRecorder.is_available
+unless SF::SoundRecorder.available?
   puts "Sorry, audio capture is not supported by your system"
   exit
 end

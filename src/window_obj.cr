@@ -1036,6 +1036,11 @@ module SF
     # Get the current desktop video mode
     # 
     # *Returns*: Current desktop video mode
+    def self.desktop_mode
+      CSFML.video_mode_get_desktop_mode()
+    end
+    
+    # Deprecated alias to `desktop_mode`
     def self.get_desktop_mode()
       CSFML.video_mode_get_desktop_mode()
     end

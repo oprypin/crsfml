@@ -34,6 +34,11 @@ module SF
     # and may be used safely anywhere.
     # 
     # *Returns*: Local IP address of the computer
+    def self.local_address
+      CSFML.ip_address_get_local_address()
+    end
+    
+    # Deprecated alias to `local_address`
     def self.get_local_address()
       CSFML.ip_address_get_local_address()
     end
