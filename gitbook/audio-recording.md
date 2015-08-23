@@ -8,7 +8,7 @@ This can be achieved with the very simple interface of the [SoundBufferRecorder]
 
 ```ruby
 # first check if an input audio device is available on the system
-unless SF::SoundBufferRecorder.is_available
+unless SF::SoundBufferRecorder.available?
     # error: audio capture is not available on this system
     ...
 end
@@ -28,7 +28,7 @@ recorder.stop
 buffer = recorder.buffer
 ```
 
-The `SoundBufferRecorder.is_available` static function checks if audio recording is supported by the system. It if returns `false`, you won't be able to use the [SoundBufferRecorder]({{book.api}}/SoundBufferRecorder.html) class at all.
+The `SoundBufferRecorder.available?` static function checks if audio recording is supported by the system. It if returns `false`, you won't be able to use the [SoundBufferRecorder]({{book.api}}/SoundBufferRecorder.html) class at all.
 
 The `start` and `stop` functions are self-explanatory. The capture runs in its own thread, which means that you can do whatever you want between start and stop. After the end of the capture, the recorded audio data is available in a sound buffer that you can get with the `buffer` function.
 
@@ -96,10 +96,10 @@ class MyRecorder < SF::SoundRecorder
 end
 ```
 
-The `is_available`/`start`/`stop` functions are defined in the [SoundRecorder]({{book.api}}/SoundRecorder.html) base, and thus inherited in every derived classes. This means that you can use any recorder class exactly the same way as the [SoundBufferRecorder]({{book.api}}/SoundBufferRecorder.html) class above.
+The `available?`/`start`/`stop` functions are defined in the [SoundRecorder]({{book.api}}/SoundRecorder.html) base, and thus inherited in every derived classes. This means that you can use any recorder class exactly the same way as the [SoundBufferRecorder]({{book.api}}/SoundBufferRecorder.html) class above.
 
 ```ruby
-unless MyRecorder.is_available()
+unless MyRecorder.available?()
     # error...
 end
 
