@@ -63,9 +63,9 @@ module SF
       x, y = point
       contains(x, y)
     end
-    def intersects(other: self)
+    def intersects(other: FloatRect)
       intersection = FloatRect.new()
-      float_rect_intersects(@self, other, pointerof(intersection)) ? intersection : nil
+      intersects(other, pointerof(intersection)) ? intersection : nil
     end
   end
   
@@ -74,9 +74,9 @@ module SF
       x, y = point
       contains(x, y)
     end
-    def intersects(other: self)
+    def intersects(other: IntRect)
       intersection = IntRect.new()
-      int_rect_intersects(@self, other, pointerof(intersection)) ? intersection : nil
+      intersects(other, pointerof(intersection)) ? intersection : nil
     end
   end
     
