@@ -612,7 +612,7 @@ module SF
     # 
     # *Returns*: Sound buffer attached to the sound (can be NULL)
     def buffer
-      SoundBuffer.wrap_ptr(CSFML.sound_get_buffer(@this))
+      SoundBuffer.wrap_ptr?(CSFML.sound_get_buffer(@this))
     end
     
     # Set whether or not a sound should loop after reaching the end

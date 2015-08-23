@@ -447,7 +447,7 @@ module SF
     # 
     # *Returns*: Pointer to the shape's texture
     def texture
-      Texture.wrap_ptr(CSFML.circle_shape_get_texture(@this))
+      Texture.wrap_ptr?(CSFML.circle_shape_get_texture(@this))
     end
     
     # Get the sub-rectangle of the texture displayed by a circle shape
@@ -887,7 +887,7 @@ module SF
     # 
     # *Returns*: Pointer to the shape's texture
     def texture
-      Texture.wrap_ptr(CSFML.convex_shape_get_texture(@this))
+      Texture.wrap_ptr?(CSFML.convex_shape_get_texture(@this))
     end
     
     # Get the sub-rectangle of the texture displayed by a convex shape
@@ -2071,7 +2071,7 @@ module SF
     # 
     # *Returns*: Pointer to the shape's texture
     def texture
-      Texture.wrap_ptr(CSFML.rectangle_shape_get_texture(@this))
+      Texture.wrap_ptr?(CSFML.rectangle_shape_get_texture(@this))
     end
     
     # Get the sub-rectangle of the texture displayed by a rectangle shape
@@ -3408,7 +3408,7 @@ module SF
     # 
     # *Returns*: Pointer to the shape's texture
     def texture
-      Texture.wrap_ptr(CSFML.shape_get_texture(@this))
+      Texture.wrap_ptr?(CSFML.shape_get_texture(@this))
     end
     
     # Get the sub-rectangle of the texture displayed by a shape
@@ -3793,7 +3793,7 @@ module SF
     # 
     # *Returns*: Pointer to the sprite's texture
     def texture
-      Texture.wrap_ptr(CSFML.sprite_get_texture(@this))
+      Texture.wrap_ptr?(CSFML.sprite_get_texture(@this))
     end
     
     # Get the sub-rectangle of the texture displayed by a sprite
@@ -4158,7 +4158,7 @@ module SF
     # 
     # *Returns*: Pointer to the font
     def font
-      Font.wrap_ptr(CSFML.text_get_font(@this))
+      Font.wrap_ptr?(CSFML.text_get_font(@this))
     end
     
     # Get the size of the characters of a text
@@ -5289,10 +5289,10 @@ module SF
 
   struct CSFML::RenderStates
     def texture
-      SF::Texture.wrap_ptr(@texture)
+      SF::Texture.wrap_ptr?(@texture)
     end
     def shader
-      SF::Shader.wrap_ptr(@shader)
+      SF::Shader.wrap_ptr?(@shader)
     end
   end
 

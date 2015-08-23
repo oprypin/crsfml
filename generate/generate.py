@@ -206,7 +206,7 @@ def handle_struct(name, items):
             if 'Vector2' in t:
                 obj(name, '  SF.vector2(@{})'.format(n))
             else:
-                obj(name, '  SF::{}.wrap_ptr(@{})'.format(rename_type(t), n))
+                obj(name, '  SF::{}.wrap_ptr?(@{})'.format(rename_type(t), n))
             obj(name, 'end')
 
 def handle_union(name, items):
@@ -435,7 +435,7 @@ def handle_function(main, params, alias=None):
         if nfname == 'dup' or '_create' in ofname:
             obj(cls, '  {}.transfer_ptr({})'.format(nftype, call))
         else:
-            obj(cls, '  {}.wrap_ptr({})'.format(nftype, call))
+            obj(cls, '  {}.wrap_ptr{}({})'.format(nftype, '?' if 'NULL' in d else '', call))
     elif nftype == 'Char*':
         obj(cls, '  ptr = {}'.format(call))
         obj(cls, '  String.build do |io|')

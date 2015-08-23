@@ -43,6 +43,14 @@ module SF
         new(ptr, false)
       end
       
+      # Put the pointer into the wrapper object.
+      # The pointer will **not** be freed on GC.
+      #
+      # Returns nil instead of `null` pointer.
+      def self.wrap_ptr?(ptr: T)
+        ptr ? new(ptr, false) : nil
+      end
+      
       # Transfer ownership of the pointer to the wrapper object.
       # The pointer will be freed on GC.
       #
