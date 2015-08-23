@@ -24,6 +24,15 @@ require "./system"
 module SF
   extend self
   
+  def ip_address()
+    ip_address(0u8, 0u8, 0u8, 0u8)
+  end
+  struct CSFML::IpAddress
+    None = SF.ip_address()
+    LocalHost = SF.ip_address(127u8, 0u8, 0u8, 1u8)
+    Broadcast = SF.ip_address(255u8, 255u8, 255u8, 255u8)
+  end
+  
   class Http
     def initialize(host: String, port=0)
       initialize()

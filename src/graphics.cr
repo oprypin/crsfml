@@ -235,6 +235,10 @@ module SF
     def self.from_file(filename: String)
       self.from_file(filename, nil)
     end
+    
+    def self.bind(texture: Texture?)
+      CSFML.texture_bind(texture)
+    end
   end
   
   class Sprite
@@ -298,6 +302,10 @@ module SF
     
     def set_parameter(name: String, current_texture: CurrentTextureType)
       CSFML.shader_set_current_texture_parameter(@this, name)
+    end
+    
+    def self.bind(shader: Shader?)
+      CSFML.shader_bind(shader)
     end
   end
   

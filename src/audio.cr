@@ -45,6 +45,12 @@ module SF
     def self.available?
       SoundRecorder.available?
     end
+    def self.default_device
+      SoundRecorder.default_device
+    end
+    def self.available_devices
+      SoundRecorder.available_devices
+    end
     
     def start()
       start(44100)
