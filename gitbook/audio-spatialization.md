@@ -22,7 +22,7 @@ The class which defines the listener's properties is [Listener]({{book.api}}/Lis
 First, you can set the listener's position in the scene:
 
 ```ruby
-SF::Listener.set_position(SF.vector3(10.0, 0.0, 5.0))
+SF::Listener.position = SF.vector3(10.0, 0.0, 5.0)
 ```
 
 If you have a 2D world you can just use the same Y value everywhere, usually 0.
@@ -30,7 +30,7 @@ If you have a 2D world you can just use the same Y value everywhere, usually 0.
 In addition to its position, you can define the listener's orientation:
 
 ```ruby
-SF::Listener.set_direction(SF.vector3(1.0, 0.0, 0.0))
+SF::Listener.direction = SF.vector3(1.0, 0.0, 0.0)
 ```
 
 Here, the listener is oriented along the +X axis. This means that, for example, a sound emitted at (15, 0, 5) will be heard from the right speaker.
@@ -38,7 +38,7 @@ Here, the listener is oriented along the +X axis. This means that, for example, 
 The "up" vector of the listener is set to (0, 1, 0) by default, in other words, the top of the listener's head is pointing towards +Y. You can change the "up" vector if you want. It is rarely necessary though.
 
 ```ruby
-SF::Listener.set_up_vector(SF.vector3(1.0, 1.0, 0.0))
+SF::Listener.up_vector = SF.vector3(1.0, 1.0, 0.0)
 ```
 
 This corresponds to the listener tilting their head towards the right (+X).
@@ -46,12 +46,12 @@ This corresponds to the listener tilting their head towards the right (+X).
 Finally, the listener can adjust the global volume of the scene:
 
 ```ruby
-SF::Listener.set_global_volume(50.0)
+SF::Listener.global_volume = 50.0
 ```
 
 The value of the volume is in the range [0 .. 100], so setting it to 50 reduces it to half of the original volume.
 
-Of course, all these properties can be read with the corresponding `get` functions.
+Of course, all these properties can be read with the corresponding getter functions.
 
 ## Audio sources
 
