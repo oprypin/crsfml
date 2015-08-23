@@ -146,7 +146,7 @@ module SF
   end
 
   class Music
-    include Wrapper
+    include Wrapper(CSFML::Music)
     
     # Create a new music and load it from a file
     # 
@@ -160,7 +160,7 @@ module SF
     # 
     # * `filename`: Path of the music file to open
     # 
-    # *Returns*: A new Music object (NULL if failed)
+    # *Returns*: A new Music object (raises `NullResult` if failed)
     def self.from_file(filename: String)
       Music.transfer_ptr(CSFML.music_create_from_file(filename))
     end
@@ -178,7 +178,7 @@ module SF
     # * `data`: Pointer to the file data in memory
     # * `size_in_bytes`: Size of the data to load, in bytes
     # 
-    # *Returns*: A new Music object (NULL if failed)
+    # *Returns*: A new Music object (raises `NullResult` if failed)
     def self.from_memory(data: Void*, size_in_bytes: Int)
       size_in_bytes = LibC::SizeT.cast(size_in_bytes)
       Music.transfer_ptr(CSFML.music_create_from_memory(data, size_in_bytes))
@@ -196,7 +196,7 @@ module SF
     # 
     # * `stream`: Source stream to read from
     # 
-    # *Returns*: A new Music object (NULL if failed)
+    # *Returns*: A new Music object (raises `NullResult` if failed)
     def self.from_stream(stream: InputStream*)
       Music.transfer_ptr(CSFML.music_create_from_stream(stream))
     end
@@ -520,7 +520,7 @@ module SF
   end
 
   class Sound
-    include Wrapper
+    include Wrapper(CSFML::Sound)
     
     # Create a new sound
     # 
@@ -847,7 +847,7 @@ module SF
   end
 
   class SoundBuffer
-    include Wrapper
+    include Wrapper(CSFML::SoundBuffer)
     
     # Create a new sound buffer and load it from a file
     # 
@@ -859,7 +859,7 @@ module SF
     # 
     # * `filename`: Path of the sound file to load
     # 
-    # *Returns*: A new SoundBuffer object (NULL if failed)
+    # *Returns*: A new SoundBuffer object (raises `NullResult` if failed)
     def self.from_file(filename: String)
       SoundBuffer.transfer_ptr(CSFML.sound_buffer_create_from_file(filename))
     end
@@ -875,7 +875,7 @@ module SF
     # * `data`: Pointer to the file data in memory
     # * `size_in_bytes`: Size of the data to load, in bytes
     # 
-    # *Returns*: A new SoundBuffer object (NULL if failed)
+    # *Returns*: A new SoundBuffer object (raises `NullResult` if failed)
     def self.from_memory(data: Void*, size_in_bytes: Int)
       size_in_bytes = LibC::SizeT.cast(size_in_bytes)
       SoundBuffer.transfer_ptr(CSFML.sound_buffer_create_from_memory(data, size_in_bytes))
@@ -891,7 +891,7 @@ module SF
     # 
     # * `stream`: Source stream to read from
     # 
-    # *Returns*: A new SoundBuffer object (NULL if failed)
+    # *Returns*: A new SoundBuffer object (raises `NullResult` if failed)
     def self.from_stream(stream: InputStream*)
       SoundBuffer.transfer_ptr(CSFML.sound_buffer_create_from_stream(stream))
     end
@@ -908,7 +908,7 @@ module SF
     # * `channel_count`: Number of channels (1 = mono, 2 = stereo, ...)
     # * `sample_rate`: Sample rate (number of samples to play per second)
     # 
-    # *Returns*: A new SoundBuffer object (NULL if failed)
+    # *Returns*: A new SoundBuffer object (raises `NullResult` if failed)
     def self.from_samples(samples, sample_count: Int, channel_count: Int, sample_rate: Int)
       if samples.responds_to?(:to_unsafe); psamples = samples.to_unsafe
       elsif samples; csamples = samples; psamples = pointerof(csamples)
@@ -1027,11 +1027,11 @@ module SF
   end
 
   class SoundBufferRecorder
-    include Wrapper
+    include Wrapper(CSFML::SoundBufferRecorder)
     
     # Create a new sound buffer recorder
     # 
-    # *Returns*: A new SoundBufferRecorder object (NULL if failed)
+    # *Returns*: A new SoundBufferRecorder object (raises `NullResult` if failed)
     def initialize()
       @owned = true
       @this = CSFML.sound_buffer_recorder_create()
@@ -1107,7 +1107,7 @@ module SF
   end
 
   class SoundRecorder
-    include Wrapper
+    include Wrapper(CSFML::SoundRecorder)
     
     # Construct a new sound recorder from callback functions
     # 
@@ -1118,7 +1118,7 @@ module SF
     # * `on_stop`: Callback function which will be called when the current capture stops (can be NULL)
     # * `user_data`: Data to pass to the callback function (can be NULL)
     # 
-    # *Returns*: A new SoundRecorder object (NULL if failed)
+    # *Returns*: A new SoundRecorder object (raises `NullResult` if failed)
     def initialize(on_start: SoundRecorderStartCallback, on_process: SoundRecorderProcessCallback, on_stop: SoundRecorderStopCallback, user_data: Void*)
       @owned = true
       @this = CSFML.sound_recorder_create(on_start, on_process, on_stop, user_data)
@@ -1235,12 +1235,14 @@ module SF
     # 
     # *Returns*: The name of the default audio capture device (null terminated)
     def self.default_device
-      String.new(CSFML.sound_recorder_get_default_device())
+      ptr = CSFML.sound_recorder_get_default_device()
+      ptr ? String.new(ptr) : ""
     end
     
     # Deprecated alias to `default_device`
     def self.get_default_device()
-      String.new(CSFML.sound_recorder_get_default_device())
+      ptr = CSFML.sound_recorder_get_default_device()
+      ptr ? String.new(ptr) : ""
     end
     
     # Set the audio capture device
@@ -1268,13 +1270,14 @@ module SF
     # 
     # *Returns*: The name of the current audio capture device
     def device
-      String.new(CSFML.sound_recorder_get_device(@this))
+      ptr = CSFML.sound_recorder_get_device(@this)
+      ptr ? String.new(ptr) : ""
     end
     
   end
 
   class SoundStream
-    include Wrapper
+    include Wrapper(CSFML::SoundStream)
     
     # Create a new sound stream
     # 

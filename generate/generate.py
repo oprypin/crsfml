@@ -235,7 +235,7 @@ def handle_class(name):
     
     obj(pname, 'class {}'.format(pname))
     if d: obj(pname, d)
-    obj(pname, 'include Wrapper', '')
+    obj(pname, 'include Wrapper(CSFML::{})'.format(pname), '')
 
 
 def handle_function(main, params, alias=None):
@@ -413,7 +413,9 @@ def handle_function(main, params, alias=None):
     if nfname == 'destroy':
         nfname = 'finalize'
     
-    if d: obj(cls, d)
+    if d:
+        d = re.sub(r'\bNULL (if\b.*?\bfail[a-z]+)', r'raises `NullResult` \1', d)
+        obj(cls, d)
     obj(cls, 'def {nfname}{sparams}'.format(**locals()))
     for line in conv:
         obj(cls, '  '+line)
@@ -442,7 +444,8 @@ def handle_function(main, params, alias=None):
         obj(cls, '    end')
         obj(cls, '  end')
     elif nftype == 'UInt8*' and not nfname.endswith('_ptr'):
-        obj(cls, '  String.new({})'.format(call))
+        obj(cls, '  ptr = {}'.format(call))
+        obj(cls, '  ptr ? String.new(ptr) : ""'.format(call))
     elif ftype == 'sfBool':
         obj(cls, '  {} != 0'.format(call))
     elif 'Vector2' in ftype:

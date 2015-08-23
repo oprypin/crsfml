@@ -69,7 +69,7 @@ module SF
   end
 
   class FtpDirectoryResponse
-    include Wrapper
+    include Wrapper(CSFML::FtpDirectoryResponse)
     
     # Destroy a FTP directory response
     # 
@@ -113,7 +113,8 @@ module SF
     # 
     # *Returns*: The response message
     def message
-      String.new(CSFML.ftp_directory_response_get_message(@this))
+      ptr = CSFML.ftp_directory_response_get_message(@this)
+      ptr ? String.new(ptr) : ""
     end
     
     # Get the directory returned in a FTP directory response
@@ -124,13 +125,14 @@ module SF
     # 
     # *Returns*: Directory name
     def directory
-      String.new(CSFML.ftp_directory_response_get_directory(@this))
+      ptr = CSFML.ftp_directory_response_get_directory(@this)
+      ptr ? String.new(ptr) : ""
     end
     
   end
 
   class FtpListingResponse
-    include Wrapper
+    include Wrapper(CSFML::FtpListingResponse)
     
     # Destroy a FTP listing response
     # 
@@ -174,7 +176,8 @@ module SF
     # 
     # *Returns*: The response message
     def message
-      String.new(CSFML.ftp_listing_response_get_message(@this))
+      ptr = CSFML.ftp_listing_response_get_message(@this)
+      ptr ? String.new(ptr) : ""
     end
     
     # Return the number of directory/file names contained in a FTP listing response
@@ -198,13 +201,14 @@ module SF
     # *Returns*: The requested name
     def get_name(index: Int)
       index = LibC::SizeT.cast(index)
-      String.new(CSFML.ftp_listing_response_get_name(@this, index))
+      ptr = CSFML.ftp_listing_response_get_name(@this, index)
+      ptr ? String.new(ptr) : ""
     end
     
   end
 
   class FtpResponse
-    include Wrapper
+    include Wrapper(CSFML::FtpResponse)
     
     RestartMarkerReply = CSFML::FtpStatus::RestartMarkerReply
     ServiceReadySoon = CSFML::FtpStatus::ServiceReadySoon
@@ -291,13 +295,14 @@ module SF
     # 
     # *Returns*: The response message
     def message
-      String.new(CSFML.ftp_response_get_message(@this))
+      ptr = CSFML.ftp_response_get_message(@this)
+      ptr ? String.new(ptr) : ""
     end
     
   end
 
   class Ftp
-    include Wrapper
+    include Wrapper(CSFML::Ftp)
     
     Binary = CSFML::FtpTransferMode::Binary
     Ascii = CSFML::FtpTransferMode::Ascii
@@ -560,7 +565,7 @@ module SF
   end
 
   class HttpRequest
-    include Wrapper
+    include Wrapper(CSFML::HttpRequest)
     
     Get = CSFML::HttpMethod::Get
     Post = CSFML::HttpMethod::Post
@@ -661,7 +666,7 @@ module SF
   end
 
   class HttpResponse
-    include Wrapper
+    include Wrapper(CSFML::HttpResponse)
     
     Ok = CSFML::HttpStatus::Ok
     Created = CSFML::HttpStatus::Created
@@ -708,7 +713,8 @@ module SF
     # 
     # *Returns*: Value of the field, or empty string if not found
     def get_field(field: String)
-      String.new(CSFML.http_response_get_field(@this, field))
+      ptr = CSFML.http_response_get_field(@this, field)
+      ptr ? String.new(ptr) : ""
     end
     
     # Get the status code of a HTTP reponse
@@ -763,13 +769,14 @@ module SF
     # 
     # *Returns*: The response body
     def body
-      String.new(CSFML.http_response_get_body(@this))
+      ptr = CSFML.http_response_get_body(@this)
+      ptr ? String.new(ptr) : ""
     end
     
   end
 
   class Http
-    include Wrapper
+    include Wrapper(CSFML::Http)
     
     # Create a new Http object
     # 
@@ -833,7 +840,7 @@ module SF
   end
 
   class Packet
-    include Wrapper
+    include Wrapper(CSFML::Packet)
     
     # Create a new packet
     # 
@@ -1036,7 +1043,7 @@ module SF
   end
 
   class SocketSelector
-    include Wrapper
+    include Wrapper(CSFML::SocketSelector)
     
     # Create a new selector
     # 
@@ -1170,7 +1177,7 @@ module SF
   end
 
   class TcpListener
-    include Wrapper
+    include Wrapper(CSFML::TcpListener)
     
     # Create a new TCP listener
     # 
@@ -1274,7 +1281,7 @@ module SF
   end
 
   class TcpSocket
-    include Wrapper
+    include Wrapper(CSFML::TcpSocket)
     
     # Create a new TCP socket
     # 
@@ -1489,7 +1496,7 @@ module SF
   end
 
   class UdpSocket
-    include Wrapper
+    include Wrapper(CSFML::UdpSocket)
     
     # Create a new UDP socket
     # 

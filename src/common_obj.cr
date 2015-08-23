@@ -20,10 +20,16 @@
 
 
 module SF
+  class Error < Exception
+  end
+  
+  class NullResult < Error
+  end
+  
   # Every wrapper class has these methods
-  module Wrapper
+  module Wrapper(T)
     macro included
-      private def initialize(@this, @owned: Bool)
+      private def initialize(@this: T, @owned: Bool)
       end
       
       # Get the underlying pointer
@@ -31,22 +37,18 @@ module SF
         @this
       end
       
-      private def self.new(ptr, owned: Bool)
-        allocate.tap do |obj|
-          obj.initialize(ptr, owned)
-        end
-      end
-      
       # Put the pointer into the wrapper object.
       # The pointer will **not** be freed on GC.
-      def self.wrap_ptr(ptr)
-        #ptr ? new(ptr, false) : nil
+      def self.wrap_ptr(ptr: T)
         new(ptr, false)
       end
       
       # Transfer ownership of the pointer to the wrapper object.
       # The pointer will be freed on GC.
-      def self.transfer_ptr(ptr)
+      #
+      # Raises `NullResult` if the passed pointer is `null`.
+      def self.transfer_ptr(ptr: T)
+        raise NullResult.new unless ptr
         new(ptr, true)
       end
     end

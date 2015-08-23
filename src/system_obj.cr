@@ -44,7 +44,7 @@ module SF
   end
 
   class Clock
-    include Wrapper
+    include Wrapper(CSFML::Clock)
     
     # Create a new clock and start it
     # 

@@ -5,7 +5,7 @@ module SF
   extend self
 
   class Context
-    include Wrapper
+    include Wrapper(CSFML::Context)
     
     # Create a new context
     # 
@@ -40,7 +40,7 @@ module SF
   end
 
   class Window
-    include Wrapper
+    include Wrapper(CSFML::Window)
     
     # Construct a new window (with a UTF-32 title)
     # 

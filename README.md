@@ -36,6 +36,7 @@ The API attempts to be similar to SFML's, but some general changes are present:
     - Use `SF::Vector2(T)`, `SF.vector2(x, y)` instead of `Vector2(f|i)`. 2-tuples can often be used instead.
         - But: `SF::Vector3f`, `SF.vector3f(x, y, z)`.
     - Member functions, such as `loadFromFile`, that are used for initialization, become class methods (`from_file`).
+- Functions that fail and can return `false`/`NULL` raise `SF::NullResult` instead.
 - Getter, setter functions are changed:
     - `x.getSomeProperty()` becomes `x.some_property`.
     - `x.isSomeProperty()` becomes `x.some_property?`.

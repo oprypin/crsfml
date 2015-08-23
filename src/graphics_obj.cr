@@ -150,11 +150,11 @@ module SF
   end
 
   class CircleShape
-    include Wrapper
+    include Wrapper(CSFML::CircleShape)
     
     # Create a new circle shape
     # 
-    # *Returns*: A new CircleShape object, or NULL if it failed
+    # *Returns*: A new CircleShape object, or raises `NullResult` if it failed
     def initialize()
       @owned = true
       @this = CSFML.circle_shape_create()
@@ -590,11 +590,11 @@ module SF
   end
 
   class ConvexShape
-    include Wrapper
+    include Wrapper(CSFML::ConvexShape)
     
     # Create a new convex shape
     # 
-    # *Returns*: A new ConvexShape object, or NULL if it failed
+    # *Returns*: A new ConvexShape object, or raises `NullResult` if it failed
     def initialize()
       @owned = true
       @this = CSFML.convex_shape_create()
@@ -1029,7 +1029,7 @@ module SF
   end
 
   class Font
-    include Wrapper
+    include Wrapper(CSFML::Font)
     
     # Create a new font from a file
     # 
@@ -1037,7 +1037,7 @@ module SF
     # 
     # * `filename`: Path of the font file to load
     # 
-    # *Returns*: A new Font object, or NULL if it failed
+    # *Returns*: A new Font object, or raises `NullResult` if it failed
     def self.from_file(filename: String)
       Font.transfer_ptr(CSFML.font_create_from_file(filename))
     end
@@ -1049,7 +1049,7 @@ module SF
     # * `data`: Pointer to the file data in memory
     # * `size_in_bytes`: Size of the data to load, in bytes
     # 
-    # *Returns*: A new Font object, or NULL if it failed
+    # *Returns*: A new Font object, or raises `NullResult` if it failed
     def self.from_memory(data: Void*, size_in_bytes: Int)
       size_in_bytes = LibC::SizeT.cast(size_in_bytes)
       Font.transfer_ptr(CSFML.font_create_from_memory(data, size_in_bytes))
@@ -1061,7 +1061,7 @@ module SF
     # 
     # * `stream`: Source stream to read from
     # 
-    # *Returns*: A new Font object, or NULL if it failed
+    # *Returns*: A new Font object, or raises `NullResult` if it failed
     def self.from_stream(stream: InputStream*)
       Font.transfer_ptr(CSFML.font_create_from_stream(stream))
     end
@@ -1192,7 +1192,7 @@ module SF
   end
 
   class Image
-    include Wrapper
+    include Wrapper(CSFML::Image)
     
     # Create an image
     # 
@@ -1260,7 +1260,7 @@ module SF
     # 
     # * `filename`: Path of the image file to load
     # 
-    # *Returns*: A new Image object, or NULL if it failed
+    # *Returns*: A new Image object, or raises `NullResult` if it failed
     def self.from_file(filename: String)
       Image.transfer_ptr(CSFML.image_create_from_file(filename))
     end
@@ -1277,7 +1277,7 @@ module SF
     # * `data`: Pointer to the file data in memory
     # * `size`: Size of the data to load, in bytes
     # 
-    # *Returns*: A new Image object, or NULL if it failed
+    # *Returns*: A new Image object, or raises `NullResult` if it failed
     def self.from_memory(data: Void*, size: Int)
       size = LibC::SizeT.cast(size)
       Image.transfer_ptr(CSFML.image_create_from_memory(data, size))
@@ -1294,7 +1294,7 @@ module SF
     # 
     # * `stream`: Source stream to read from
     # 
-    # *Returns*: A new Image object, or NULL if it failed
+    # *Returns*: A new Image object, or raises `NullResult` if it failed
     def self.from_stream(stream: InputStream*)
       Image.transfer_ptr(CSFML.image_create_from_stream(stream))
     end
@@ -1465,7 +1465,7 @@ module SF
   end
 
   class Shader
-    include Wrapper
+    include Wrapper(CSFML::Shader)
     
     # Load both the vertex and fragment shaders from files
     # 
@@ -1482,7 +1482,7 @@ module SF
     # * `vertex_shader_filename`: Path of the vertex shader file to load, or NULL to skip this shader
     # * `fragment_shader_filename`: Path of the fragment shader file to load, or NULL to skip this shader
     # 
-    # *Returns*: A new Shader object, or NULL if it failed
+    # *Returns*: A new Shader object, or raises `NullResult` if it failed
     def self.from_file(vertex_shader_filename: String, fragment_shader_filename: String)
       Shader.transfer_ptr(CSFML.shader_create_from_file(vertex_shader_filename, fragment_shader_filename))
     end
@@ -1502,7 +1502,7 @@ module SF
     # * `vertex_shader`: String containing the source code of the vertex shader, or NULL to skip this shader
     # * `fragment_shader`: String containing the source code of the fragment shader, or NULL to skip this shader
     # 
-    # *Returns*: A new Shader object, or NULL if it failed
+    # *Returns*: A new Shader object, or raises `NullResult` if it failed
     def self.from_memory(vertex_shader: String, fragment_shader: String)
       Shader.transfer_ptr(CSFML.shader_create_from_memory(vertex_shader, fragment_shader))
     end
@@ -1522,7 +1522,7 @@ module SF
     # * `vertex_shader_stream`: Source stream to read the vertex shader from, or NULL to skip this shader
     # * `fragment_shader_stream`: Source stream to read the fragment shader from, or NULL to skip this shader
     # 
-    # *Returns*: A new Shader object, or NULL if it failed
+    # *Returns*: A new Shader object, or raises `NullResult` if it failed
     def self.from_stream(vertex_shader_stream: InputStream*, fragment_shader_stream: InputStream*)
       Shader.transfer_ptr(CSFML.shader_create_from_stream(vertex_shader_stream, fragment_shader_stream))
     end
@@ -1774,11 +1774,11 @@ module SF
   end
 
   class RectangleShape
-    include Wrapper
+    include Wrapper(CSFML::RectangleShape)
     
     # Create a new rectangle shape
     # 
-    # *Returns*: A new RectangleShape object, or NULL if it failed
+    # *Returns*: A new RectangleShape object, or raises `NullResult` if it failed
     def initialize()
       @owned = true
       @this = CSFML.rectangle_shape_create()
@@ -2203,7 +2203,7 @@ module SF
   end
 
   class RenderTexture
-    include Wrapper
+    include Wrapper(CSFML::RenderTexture)
     
     # Construct a new render texture
     # 
@@ -2213,7 +2213,7 @@ module SF
     # * `height`: Height of the render texture
     # * `depth_buffer`: Do you want a depth-buffer attached? (useful only if you're doing 3D OpenGL on the rendertexture)
     # 
-    # *Returns*: A new RenderTexture object, or NULL if it failed
+    # *Returns*: A new RenderTexture object, or raises `NullResult` if it failed
     def initialize(width: Int, height: Int, depth_buffer: Bool)
       width = width.to_i32
       height = height.to_i32
@@ -2560,7 +2560,7 @@ module SF
   end
 
   class RenderWindow
-    include Wrapper
+    include Wrapper(CSFML::RenderWindow)
     
     # Construct a new render window (with a UTF-32 title)
     # 
@@ -3116,7 +3116,7 @@ module SF
   end
 
   class Shape
-    include Wrapper
+    include Wrapper(CSFML::Shape)
     
     # Create a new shape
     # 
@@ -3527,11 +3527,11 @@ module SF
   end
 
   class Sprite
-    include Wrapper
+    include Wrapper(CSFML::Sprite)
     
     # Create a new sprite
     # 
-    # *Returns*: A new Sprite object, or NULL if it failed
+    # *Returns*: A new Sprite object, or raises `NullResult` if it failed
     def initialize()
       @owned = true
       @this = CSFML.sprite_create()
@@ -3855,7 +3855,7 @@ module SF
   end
 
   class Text
-    include Wrapper
+    include Wrapper(CSFML::Text)
     
     Regular = CSFML::TextStyle::Regular
     Bold = CSFML::TextStyle::Bold
@@ -3864,7 +3864,7 @@ module SF
     StrikeThrough = CSFML::TextStyle::StrikeThrough
     # Create a new text
     # 
-    # *Returns*: A new Text object, or NULL if it failed
+    # *Returns*: A new Text object, or raises `NullResult` if it failed
     def initialize()
       @owned = true
       @this = CSFML.text_create()
@@ -4251,7 +4251,7 @@ module SF
   end
 
   class Texture
-    include Wrapper
+    include Wrapper(CSFML::Texture)
     
     # Create a new texture
     # 
@@ -4260,7 +4260,7 @@ module SF
     # * `width`: Texture width
     # * `height`: Texture height
     # 
-    # *Returns*: A new Texture object, or NULL if it failed
+    # *Returns*: A new Texture object, or raises `NullResult` if it failed
     def initialize(width: Int, height: Int)
       width = width.to_i32
       height = height.to_i32
@@ -4275,7 +4275,7 @@ module SF
     # * `filename`: Path of the image file to load
     # * `area`: Area of the source image to load (NULL to load the entire image)
     # 
-    # *Returns*: A new Texture object, or NULL if it failed
+    # *Returns*: A new Texture object, or raises `NullResult` if it failed
     def self.from_file(filename: String, area)
       if area.responds_to?(:to_unsafe); parea = area.to_unsafe
       elsif area; carea = area; parea = pointerof(carea)
@@ -4291,7 +4291,7 @@ module SF
     # * `size_in_bytes`: Size of the data to load, in bytes
     # * `area`: Area of the source image to load (NULL to load the entire image)
     # 
-    # *Returns*: A new Texture object, or NULL if it failed
+    # *Returns*: A new Texture object, or raises `NullResult` if it failed
     def self.from_memory(data: Void*, size_in_bytes: Int, area)
       size_in_bytes = LibC::SizeT.cast(size_in_bytes)
       if area.responds_to?(:to_unsafe); parea = area.to_unsafe
@@ -4307,7 +4307,7 @@ module SF
     # * `stream`: Source stream to read from
     # * `area`: Area of the source image to load (NULL to load the entire image)
     # 
-    # *Returns*: A new Texture object, or NULL if it failed
+    # *Returns*: A new Texture object, or raises `NullResult` if it failed
     def self.from_stream(stream: InputStream*, area)
       if area.responds_to?(:to_unsafe); parea = area.to_unsafe
       elsif area; carea = area; parea = pointerof(carea)
@@ -4322,7 +4322,7 @@ module SF
     # * `image`: Image to upload to the texture
     # * `area`: Area of the source image to load (NULL to load the entire image)
     # 
-    # *Returns*: A new Texture object, or NULL if it failed
+    # *Returns*: A new Texture object, or raises `NullResult` if it failed
     def self.from_image(image: Image, area)
       if area.responds_to?(:to_unsafe); parea = area.to_unsafe
       elsif area; carea = area; parea = pointerof(carea)
@@ -4537,7 +4537,7 @@ module SF
   end
 
   class Transformable
-    include Wrapper
+    include Wrapper(CSFML::Transformable)
     
     # Create a new transformable
     # 
@@ -4743,7 +4743,7 @@ module SF
   end
 
   class VertexArray
-    include Wrapper
+    include Wrapper(CSFML::VertexArray)
     
     # Create a new vertex array
     # 
@@ -4888,7 +4888,7 @@ module SF
   end
 
   class View
-    include Wrapper
+    include Wrapper(CSFML::View)
     
     # Create a default view
     # 
