@@ -24,6 +24,19 @@ require "./system"
 module SF
   extend self
   
+  class Ftp
+    def connect(server: IpAddress, port=21: Int)
+      connect(server, port, Time::Zero)
+    end
+    def login()
+      login_anonymous()
+    end
+    
+    def get_directory_listing()
+      get_directory_listing("")
+    end
+  end
+  
   def ip_address()
     ip_address(0u8, 0u8, 0u8, 0u8)
   end
