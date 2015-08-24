@@ -58,7 +58,8 @@ The first thing to do is connect to an FTP server.
 
 ```ruby
 ftp = SF::Ftp.new
-ftp.connect("ftp.myserver.org")
+ip_address = SF.ip_address("ftp.myserver.org")
+ftp.connect(ip_address)
 ```
 
 The server address can be any valid [IpAddress]({{book.api}}/IpAddress.html): A URL, an IP address, a network name, ...
@@ -67,14 +68,16 @@ The standard port for FTP is 21. If, for some reason, your server uses a differe
 
 ```ruby
 ftp = SF::Ftp.new
-ftp.connect("ftp.myserver.org", 45000)
+ip_address = SF.ip_address("ftp.myserver.org")
+ftp.connect(ip_address, 45000)
 ```
 
 You can also pass a third parameter, which is a time out value. This prevents you from having to wait forever (or at least a very long time) if the server doesn't respond.
 
 ```ruby
 ftp = SF::Ftp.new
-ftp.connect("ftp.myserver.org", 21, SF.seconds(5))
+ip_address = SF.ip_address("ftp.myserver.org")
+ftp.connect(ip_address, 21, SF.seconds(5))
 ```
 
 Once you're connected to the server, the next step is to authenticate yourself:
