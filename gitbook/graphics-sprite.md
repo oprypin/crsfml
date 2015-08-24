@@ -164,16 +164,15 @@ If you're using OpenGL rather than the graphics entities of CrSFML, you can stil
 
 To bind a [Texture]({{book.api}}/Texture.html) for drawing (basically `glBindTexture`), you call the `bind` static function:
 
-```cpp
-SF::Texture texture;
-...
+```ruby
+texture = ...
 
-// bind the texture
-SF::Texture::bind(&texture);
+# bind the texture
+SF::Texture.bind(texture)
 
-// draw your textured OpenGL entity here...
+# draw your textured OpenGL entity here...
 
-// bind no texture
-SF::Texture::bind(NULL);
+# bind no texture
+SF::Texture.bind(nil)
 ```
 
