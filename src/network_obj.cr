@@ -348,6 +348,39 @@ module SF
       FtpResponse.wrap_ptr(CSFML.ftp_connect(@this, server, port, timeout))
     end
     
+    # Connect to the specified FTP server
+    # 
+    # The port should be 21, which is the standard
+    # port used by the FTP protocol. You shouldn't use a different
+    # value, unless you really know what you do.
+    # 
+    # *Arguments*:
+    # 
+    # * `ftp`: Ftp object
+    # * `server`: Name or address of the FTP server to connect to
+    # * `port`: Port used for the connection
+    # 
+    # *Returns*: Server response to the request
+    def connect(server: IpAddress, port: Int)
+      port = port.to_u16
+      timeout = Time::Zero
+      FtpResponse.wrap_ptr(CSFML.ftp_connect(@this, server, port, timeout))
+    end
+    
+    # Connect to the specified FTP server
+    # 
+    # *Arguments*:
+    # 
+    # * `ftp`: Ftp object
+    # * `server`: Name or address of the FTP server to connect to
+    # 
+    # *Returns*: Server response to the request
+    def connect(server: IpAddress)
+      port = 21.to_u16
+      timeout = Time::Zero
+      FtpResponse.wrap_ptr(CSFML.ftp_connect(@this, server, port, timeout))
+    end
+    
     # Log in using an anonymous account
     # 
     # Logging in is mandatory after connecting to the server.
@@ -376,6 +409,20 @@ module SF
     # *Returns*: Server response to the request
     def login(user_name: String, password: String)
       FtpResponse.wrap_ptr(CSFML.ftp_login(@this, user_name, password))
+    end
+    
+    # Log in using an anonymous account
+    # 
+    # Logging in is mandatory after connecting to the server.
+    # Users that are not logged in cannot perform any operation.
+    # 
+    # *Arguments*:
+    # 
+    # * `ftp`: Ftp object
+    # 
+    # *Returns*: Server response to the request
+    def login()
+      FtpResponse.wrap_ptr(CSFML.ftp_login_anonymous(@this))
     end
     
     # Close the connection with the server
