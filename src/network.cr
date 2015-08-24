@@ -31,6 +31,13 @@ module SF
     None = SF.ip_address()
     LocalHost = SF.ip_address(127u8, 0u8, 0u8, 1u8)
     Broadcast = SF.ip_address(255u8, 255u8, 255u8, 255u8)
+    
+    def to_s
+      #buffer = Slice(UInt8).new(16)
+      #CSFML.ip_address_to_string(self, buffer)
+      #String.new(buffer.to_unsafe)
+      String.new(self.address.to_unsafe)
+    end
   end
   
   class Http
@@ -53,6 +60,21 @@ module SF
       self.uri = uri
       self.method = method
       self.body = body
+    end
+  end
+  
+  class Packet
+    def read_string()
+      size = dup.read_uint32
+      return "" unless size > 0
+      String.new(size) do |buffer|
+        CSFML.packet_read_string(@this, buffer)
+        {size, 0}
+      end
+    end
+    
+    def write_string(string: String)
+      CSFML.packet_write_string(@this, string)
     end
   end
   
