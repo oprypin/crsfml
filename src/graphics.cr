@@ -356,6 +356,15 @@ module SF
       end
       CSFML.render_texture_draw_primitives(@this, vertices, LibC::SizeT.cast(vertices.length), type, pstates)
     end
+    
+    def map_pixel_to_coords(point)
+      point = SF.vector2i(point) unless point.is_a? Vector2i
+      SF.vector2(CSFML.render_texture_map_pixel_to_coords(@this, point, nil))
+    end
+    def map_coords_to_pixel(point)
+      point = SF.vector2f(point) unless point.is_a? Vector2f
+      SF.vector2(CSFML.render_texture_map_coords_to_pixel(@this, point, nil))
+    end
   end
   
   class RenderWindow
@@ -388,6 +397,15 @@ module SF
     
     def clear()
       clear(Color::Black)
+    end
+    
+    def map_pixel_to_coords(point)
+      point = SF.vector2i(point) unless point.is_a? Vector2i
+      SF.vector2(CSFML.render_window_map_pixel_to_coords(@this, point, nil))
+    end
+    def map_coords_to_pixel(point)
+      point = SF.vector2f(point) unless point.is_a? Vector2f
+      SF.vector2(CSFML.render_window_map_coords_to_pixel(@this, point, nil))
     end
   end
 end
