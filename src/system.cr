@@ -20,6 +20,10 @@
 
 require "./system_lib"
 
+lib CSFML
+  fun thread_create = sfThread_create(function: (Void*) -> Void, user_data: Void*): Thread
+end
+
 module SF
   extend self
   
@@ -156,6 +160,26 @@ module SF
     end
     def /(other: Time)
       microseconds.divf other.microseconds
+    end
+  end
+  
+  class Thread
+    def initialize(function: ->)
+      @owned = true
+      @func = Box.box(function)
+      @this = CSFML.thread_create(
+        ->(data) { Box(->).unbox(data).call },
+        @func
+      )
+    end
+  end
+  
+  struct Lock
+    def initialize(@mutex)
+      @mutex.lock
+    end
+    def finalize
+      @mutex.unlock
     end
   end
 end

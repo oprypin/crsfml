@@ -309,7 +309,7 @@ def handle_function(main, params, alias=None):
     
     anon_index = 0
     for i, (ptype, pname) in enumerate(params, 1):
-        if 'wchar_t' in ptype:
+        if 'wchar_t' in ptype or ')' in ptype:
             return
         rtype = rename_type(ptype, pname)
         if pname:

@@ -25,7 +25,7 @@ import re
 
 inc_path = 'CSFML/include'
 
-skip = 'Thread Mutex WindowHandle'.split()
+skip = 'WindowHandle'.split()
 
 
 src = ['''

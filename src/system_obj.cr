@@ -105,6 +105,109 @@ module SF
     
   end
 
+  class Mutex
+    include Wrapper(CSFML::Mutex)
+    
+    # Create a new mutex
+    # 
+    # *Returns*: A new Mutex object
+    def initialize()
+      @owned = true
+      @this = CSFML.mutex_create()
+    end
+    
+    # Destroy a mutex
+    # 
+    # *Arguments*:
+    # 
+    # * `mutex`: Mutex to destroy
+    def finalize()
+      CSFML.mutex_destroy(@this) if @owned
+    end
+    
+    # Lock a mutex
+    # 
+    # *Arguments*:
+    # 
+    # * `mutex`: Mutex object
+    def lock()
+      CSFML.mutex_lock(@this)
+    end
+    
+    # Unlock a mutex
+    # 
+    # *Arguments*:
+    # 
+    # * `mutex`: Mutex object
+    def unlock()
+      CSFML.mutex_unlock(@this)
+    end
+    
+  end
+
+  class Thread
+    include Wrapper(CSFML::Thread)
+    
+    # Destroy a thread
+    # 
+    # This function calls Thread_wait, so that the internal thread
+    # cannot survive after the Thread object is destroyed.
+    # 
+    # *Arguments*:
+    # 
+    # * `thread`: Thread to destroy
+    def finalize()
+      CSFML.thread_destroy(@this) if @owned
+    end
+    
+    # Run a thread
+    # 
+    # This function starts the entry point passed to the
+    # thread's constructor, and returns immediately.
+    # After this function returns, the thread's function is
+    # running in parallel to the calling code.
+    # 
+    # *Arguments*:
+    # 
+    # * `thread`: Thread object
+    def launch()
+      CSFML.thread_launch(@this)
+    end
+    
+    # Wait until a thread finishes
+    # 
+    # This function will block the execution until the
+    # thread's function ends.
+    # Warning: if the thread function never ends, the calling
+    # thread will block forever.
+    # If this function is called from its owner thread, it
+    # returns without doing anything.
+    # 
+    # *Arguments*:
+    # 
+    # * `thread`: Thread object
+    def wait()
+      CSFML.thread_wait(@this)
+    end
+    
+    # Terminate a thread
+    # 
+    # This function immediately stops the thread, without waiting
+    # for its function to finish.
+    # Terminating a thread with this function is not safe,
+    # and can lead to local variables not being destroyed
+    # on some operating systems. You should rather try to make
+    # the thread function terminate by itself.
+    # 
+    # *Arguments*:
+    # 
+    # * `thread`: Thread object
+    def terminate()
+      CSFML.thread_terminate(@this)
+    end
+    
+  end
+
   # Set of callbacks that allow users to define custom file streams
   alias InputStream = CSFML::InputStream
 

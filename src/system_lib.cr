@@ -64,6 +64,10 @@ lib CSFML
   
   type Clock = Void*
   
+  type Mutex = Void*
+  
+  type Thread = Void*
+  
   # Create a new clock and start it
   # 
   # *Returns*: A new Clock object
@@ -123,6 +127,32 @@ lib CSFML
     user_data: Void*
   end
   
+  # Create a new mutex
+  # 
+  # *Returns*: A new Mutex object
+  fun mutex_create = sfMutex_create(): Mutex
+  
+  # Destroy a mutex
+  # 
+  # *Arguments*:
+  # 
+  # * `mutex`: Mutex to destroy
+  fun mutex_destroy = sfMutex_destroy(mutex: Mutex)
+  
+  # Lock a mutex
+  # 
+  # *Arguments*:
+  # 
+  # * `mutex`: Mutex object
+  fun mutex_lock = sfMutex_lock(mutex: Mutex)
+  
+  # Unlock a mutex
+  # 
+  # *Arguments*:
+  # 
+  # * `mutex`: Mutex object
+  fun mutex_unlock = sfMutex_unlock(mutex: Mutex)
+  
   # Make the current thread sleep for a given duration
   # 
   # Sleep is the best way to block a program or one of its
@@ -132,6 +162,56 @@ lib CSFML
   # 
   # * `duration`: Time to sleep
   fun sleep = sfSleep(duration: Time)
+  
+  # Destroy a thread
+  # 
+  # This function calls Thread_wait, so that the internal thread
+  # cannot survive after the Thread object is destroyed.
+  # 
+  # *Arguments*:
+  # 
+  # * `thread`: Thread to destroy
+  fun thread_destroy = sfThread_destroy(thread: Thread)
+  
+  # Run a thread
+  # 
+  # This function starts the entry point passed to the
+  # thread's constructor, and returns immediately.
+  # After this function returns, the thread's function is
+  # running in parallel to the calling code.
+  # 
+  # *Arguments*:
+  # 
+  # * `thread`: Thread object
+  fun thread_launch = sfThread_launch(thread: Thread)
+  
+  # Wait until a thread finishes
+  # 
+  # This function will block the execution until the
+  # thread's function ends.
+  # Warning: if the thread function never ends, the calling
+  # thread will block forever.
+  # If this function is called from its owner thread, it
+  # returns without doing anything.
+  # 
+  # *Arguments*:
+  # 
+  # * `thread`: Thread object
+  fun thread_wait = sfThread_wait(thread: Thread)
+  
+  # Terminate a thread
+  # 
+  # This function immediately stops the thread, without waiting
+  # for its function to finish.
+  # Terminating a thread with this function is not safe,
+  # and can lead to local variables not being destroyed
+  # on some operating systems. You should rather try to make
+  # the thread function terminate by itself.
+  # 
+  # *Arguments*:
+  # 
+  # * `thread`: Thread object
+  fun thread_terminate = sfThread_terminate(thread: Thread)
   
   # 2-component vector of integers
   struct Vector2i
