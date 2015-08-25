@@ -4,7 +4,7 @@
 
 A socket is the interface between your application and the outside world: through a socket, you can send and receive data. Therefore, any network program will most likely have to deal with sockets, they are the central element of network communication. 
 
-There are several kinds of sockets, each providing specific features. SFML implements the most common ones: TCP sockets and UDP sockets. 
+There are several kinds of sockets, each providing specific features. CrSFML implements the most common ones: TCP sockets and UDP sockets. 
 
 ## TCP vs UDP
 
@@ -18,7 +18,7 @@ UDP may seem scary, but keep in mind that *almost all the time*, data arrives co
 
 The third difference is a direct consequence of the second one: UDP is faster and more lightweight than TCP. Because it has less requirements, thus less overhead. 
 
-The last difference is about the way data is transported. TCP is a *stream* protocol: there's no message boundary, if you send "Hello" and then "SFML", the remote machine might receive "HelloSFML", "Hel" + "loSFML", or even "He" + "loS" + "FML".  
+The last difference is about the way data is transported. TCP is a *stream* protocol: there's no message boundary, if you send "Hello" and then "CrSFML", the remote machine might receive "HelloCrSFML", "Hel" + "loCrSFML", or even "He" + "loS" + "FML".  
 UDP is a *datagram* protocol. Datagrams are packets that can't be mixed with each other. If you receive a datagram with UDP, it is guaranteed to be exactly the same as it was sent. 
 
 Oh, and one last thing: since UDP is not connection-based, it allows broadcasting messages to multiple recipients, or even to an entire network. The one-to-one communication of TCP sockets doesn't allow that. 
@@ -30,11 +30,11 @@ As you can guess, this part is specific to TCP sockets. There are two sides to a
 On client side, things are simple: the user just needs to have a [TcpSocket]({{book.api}}/TcpSocket.html) and call its `connect` function to start the connection attempt. 
 
 ```
-#include <SFML/Network.hpp>
+#include <CrSFML/Network.hpp>
 
-sf::TcpSocket socket;
-sf::Socket::Status status = socket.connect("192.168.0.5", 53000);
-if (status != sf::Socket::Done)
+SF::TcpSocket socket;
+SF::Socket::Status status = socket.connect("192.168.0.5", 53000);
+if (status != SF::Socket::Done)
 {
     // error...
 }
@@ -56,17 +56,17 @@ On the server side, a few more things have to be done. Multiple sockets are requ
 To listen for connections, you must use the special [TcpListener]({{book.api}}/TcpListener.html) class. Its only role is to wait for incoming connection attempts on a given port, it can't send or receive data. 
 
 ```
-sf::TcpListener listener;
+SF::TcpListener listener;
 
 // bind the listener to a port
-if (listener.listen(53000) != sf::Socket::Done)
+if (listener.listen(53000) != SF::Socket::Done)
 {
     // error...
 }
 
 // accept a new connection
-sf::TcpSocket client;
-if (listener.accept(client) != sf::Socket::Done)
+SF::TcpSocket client;
+if (listener.accept(client) != SF::Socket::Done)
 {
     // error...
 }
@@ -84,16 +84,16 @@ After a successful call to `connect` (on client side) and `accept` (on server si
 UDP sockets need not be connected, however you need to bind them to a specific port if you want to be able to receive data on that port. A UDP socket cannot receive on multiple ports simultaneously. 
 
 ```
-sf::UdpSocket socket;
+SF::UdpSocket socket;
 
 // bind the socket to a port
-if (socket.bind(54000) != sf::Socket::Done)
+if (socket.bind(54000) != SF::Socket::Done)
 {
     // error...
 }
 ```
 
-After binding the socket to a port, it's ready to receive data on that port. If you want the operating system to bind the socket to a free port automatically, you can pass `sf::Socket::AnyPort`, and then retrieve the chosen port with `socket.getLocalPort()`. 
+After binding the socket to a port, it's ready to receive data on that port. If you want the operating system to bind the socket to a free port automatically, you can pass `SF::Socket::AnyPort`, and then retrieve the chosen port with `socket.getLocalPort()`. 
 
 UDP sockets that send data don't need to do anything before sending. 
 
@@ -107,15 +107,15 @@ To send data, you must call the `send` function with a pointer to the data that 
 char data[100] = ...;
 
 // TCP socket:
-if (socket.send(data, 100) != sf::Socket::Done)
+if (socket.send(data, 100) != SF::Socket::Done)
 {
     // error...
 }
 
 // UDP socket:
-sf::IpAddress recipient = "192.168.0.5";
+SF::IpAddress recipient = "192.168.0.5";
 unsigned short port = 54000;
-if (socket.send(data, 100, recipient, port) != sf::Socket::Done)
+if (socket.send(data, 100, recipient, port) != SF::Socket::Done)
 {
     // error...
 }
@@ -123,9 +123,9 @@ if (socket.send(data, 100, recipient, port) != sf::Socket::Done)
 
 The `send` functions take a `void*` pointer, so you can pass the address of anything. However, it is generally a bad idea to send something other than an array of bytes because native types with a size larger than 1 byte are not guaranteed to be the same on every machine: Types such as int or long may have a different size, and/or a different endianness. Therefore, such types cannot be exchanged reliably across different systems. This problem is explained (and solved) in the [tutorial on packets](./network-packet.html "Tutorial on packets"). 
 
-With UDP you can broadcast a message to an entire sub-network in a single call: to do so you can use the special address `sf::IpAddress::Broadcast`. 
+With UDP you can broadcast a message to an entire sub-network in a single call: to do so you can use the special address `SF::IpAddress::Broadcast`. 
 
-There's another thing to keep in mind with UDP: Since data is sent in datagrams and the size of these datagrams has a limit, you are not allowed to exceed it. Every call to `send` must send less that `sf::UdpSocket::MaxDatagramSize` bytes -- which is a little less than 2^16 (65536) bytes. 
+There's another thing to keep in mind with UDP: Since data is sent in datagrams and the size of these datagrams has a limit, you are not allowed to exceed it. Every call to `send` must send less that `SF::UdpSocket::MaxDatagramSize` bytes -- which is a little less than 2^16 (65536) bytes. 
 
 To receive data, you must call the `receive` function: 
 
@@ -134,16 +134,16 @@ char data[100];
 std::size_t received;
 
 // TCP socket:
-if (socket.receive(data, 100, received) != sf::Socket::Done)
+if (socket.receive(data, 100, received) != SF::Socket::Done)
 {
     // error...
 }
 std::cout << "Received " << received << " bytes" << std::endl;
 
 // UDP socket:
-sf::IpAddress sender;
+SF::IpAddress sender;
 unsigned short port;
-if (socket.receive(data, 100, received, sender, port) != sf::Socket::Done)
+if (socket.receive(data, 100, received, sender, port) != SF::Socket::Done)
 {
     // error...
 }
@@ -164,9 +164,9 @@ Blocking on a single socket can quickly become annoying, because you will most l
 A selector can monitor all types of sockets: [TcpSocket]({{book.api}}/TcpSocket.html), [UdpSocket]({{book.api}}/UdpSocket.html), and [TcpListener]({{book.api}}/TcpListener.html). To add a socket to a selector, use its `add` function: 
 
 ```
-sf::TcpSocket socket;
+SF::TcpSocket socket;
 
-sf::SocketSelector selector;
+SF::SocketSelector selector;
 selector.add(socket);
 ```
 
@@ -175,7 +175,7 @@ A selector is not a socket container. It only references (points to) the sockets
 Once you have filled the selector with all the sockets that you want to monitor, you must call its `wait` function to wait until any one of them has received something (or has triggered an error). You can also pass an optional time out value, so that the function will fail if nothing has been received after a certain period of time -- this avoids staying stuck forever if nothing happens. 
 
 ```
-if (selector.wait(sf::seconds(10)))
+if (selector.wait(SF::seconds(10)))
 {
     // received something
 }
@@ -190,7 +190,7 @@ If the `wait` function returns `true`, it means that one or more socket(s) have 
 Since the selector is not a socket container, it cannot return the sockets that are ready to receive. Instead, you must test each candidate socket with the `isReady` function: 
 
 ```
-if (selector.wait(sf::seconds(10)))
+if (selector.wait(SF::seconds(10)))
 {
     // for each socket... <-- pseudo-code because I don't know how you store your sockets :)
     {
@@ -208,14 +208,14 @@ You can have a look at the API documentation of the [SocketSelector]({{book.api}
 As a bonus, the time out capability of `Selector::wait` allows you to implement a receive-with-timeout function, which is not directly available in the socket classes, very easily: 
 
 ```
-sf::Socket::Status receiveWithTimeout(sf::TcpSocket& socket, sf::Packet& packet, sf::Time timeout)
+SF::Socket::Status receiveWithTimeout(SF::TcpSocket& socket, SF::Packet& packet, SF::Time timeout)
 {
-    sf::SocketSelector selector;
+    SF::SocketSelector selector;
     selector.add(socket);
     if (selector.wait(timeout))
         return socket.receive(packet);
     else
-        return sf::Socket::NotReady;
+        return SF::Socket::NotReady;
 }
 ```
 
@@ -224,18 +224,18 @@ sf::Socket::Status receiveWithTimeout(sf::TcpSocket& socket, sf::Packet& packet,
 All sockets are blocking by default, but you can change this behaviour at any time with the `setBlocking` function. 
 
 ```
-sf::TcpSocket tcpSocket;
+SF::TcpSocket tcpSocket;
 tcpSocket.setBlocking(false);
 
-sf::TcpListener listenerSocket;
+SF::TcpListener listenerSocket;
 listenerSocket.setBlocking(false);
 
-sf::UdpSocket udpSocket;
+SF::UdpSocket udpSocket;
 udpSocket.setBlocking(false);
 ```
 
-Once a socket is set as non-blocking, all of its functions always return immediately. For example, `receive` will return with status `sf::Socket::NotReady` if there's no data available. Or, `accept` will return immediately, with the same status, if there's no pending connection. 
+Once a socket is set as non-blocking, all of its functions always return immediately. For example, `receive` will return with status `SF::Socket::NotReady` if there's no data available. Or, `accept` will return immediately, with the same status, if there's no pending connection. 
 
 Non-blocking sockets are the easiest solution if you already have a main loop that runs at a constant rate. You can simply check if something happened on your sockets in every iteration, without having to block program execution. 
 
-When using `sf::TcpSocket` in non-blocking mode, calls to `send` are not guaranteed to actually send all the data you pass to it, whether it be as a `sf::Packet` or as raw data. Starting from SFML 2.3, when sending raw data over a non-blocking `sf::TcpSocket`, always make sure to use the `send(const void* data, std::size_t size, std::size_t& sent)` overload which returns the number of bytes actually sent in the `sent` reference parameter after the function returns. Regardless of whether you send `sf::Packet`s or raw data, if only a part of the data was sent in the call, the return status will be `sf::Socket::Partial` to indicate a partial send. *If `sf::Socket::Partial` is returned, you must make sure to handle the partial send properly or else data corruption will occur.* When sending raw data, you must reattempt sending the raw data at the byte offset where the previous `send` call stopped. When sending `sf::Packet`s, the byte offset is saved within the `sf::Packet` itself. In this case, you must make sure to keep attempting to send *the exact same unmodified `sf::Packet` object* over and over until a status other than `sf::Socket::Partial` is returned. Constructing a new `sf::Packet` object and filling it with the same data will not work, it must be the same object that was previously sent. 
+When using `SF::TcpSocket` in non-blocking mode, calls to `send` are not guaranteed to actually send all the data you pass to it, whether it be as a `SF::Packet` or as raw data. Starting from CrSFML 2.3, when sending raw data over a non-blocking `SF::TcpSocket`, always make sure to use the `send(const void* data, std::size_t size, std::size_t& sent)` overload which returns the number of bytes actually sent in the `sent` reference parameter after the function returns. Regardless of whether you send `SF::Packet`s or raw data, if only a part of the data was sent in the call, the return status will be `SF::Socket::Partial` to indicate a partial send. *If `SF::Socket::Partial` is returned, you must make sure to handle the partial send properly or else data corruption will occur.* When sending raw data, you must reattempt sending the raw data at the byte offset where the previous `send` call stopped. When sending `SF::Packet`s, the byte offset is saved within the `SF::Packet` itself. In this case, you must make sure to keep attempting to send *the exact same unmodified `SF::Packet` object* over and over until a status other than `SF::Socket::Partial` is returned. Constructing a new `SF::Packet` object and filling it with the same data will not work, it must be the same object that was previously sent. 
