@@ -8,18 +8,18 @@ A thread is basically a sequence of instructions that run in parallel to other t
 
 So, in short, threads are a way to do multiple things at the same time. This can be useful, for example, to display an animation and reacting to user input while loading images or sounds. Threads are also widely used in network programming, to wait for data to be received while continuing to update and draw the application. 
 
-## SFML threads or std::thread?
+## CrSFML threads or std::thread?
 
-In its newest version (2011), the C++ standard library provides a set of [classes for threading](http://en.cppreference.com/w/cpp/thread "C++11 threading classes"). At the time SFML was written, the C++11 standard was not written and there was no standard way of creating threads. When SFML 2.0 was released, there were still a lot of compilers that didn't support this new standard. 
+In its newest version (2011), the C++ standard library provides a set of [classes for threading](http://en.cppreference.com/w/cpp/thread "C++11 threading classes"). At the time CrSFML was written, the C++11 standard was not written and there was no standard way of creating threads. When CrSFML 2.0 was released, there were still a lot of compilers that didn't support this new standard. 
 
-If you work with compilers that support the new standard and its `<thread>` header, forget about the SFML thread classes and use it instead -- it will be much better. But if you work with a pre-2011 compiler, or plan to distribute your code and want it to be fully portable, the SFML threading classes are a good solution. 
+If you work with compilers that support the new standard and its `<thread>` header, forget about the CrSFML thread classes and use it instead -- it will be much better. But if you work with a pre-2011 compiler, or plan to distribute your code and want it to be fully portable, the CrSFML threading classes are a good solution. 
 
-## Creating a thread with SFML
+## Creating a thread with CrSFML
 
-Enough talk, let's see some code. The class that makes it possible to create threads in SFML is [Thread]({{book.api}}/Thread.html), and here is what it looks like in action: 
+Enough talk, let's see some code. The class that makes it possible to create threads in CrSFML is [Thread]({{book.api}}/Thread.html), and here is what it looks like in action: 
 
 ```
-#include <SFML/System.hpp>
+#include <CrSFML/System.hpp>
 #include <iostream>
 
 void func()
@@ -33,7 +33,7 @@ void func()
 int main()
 {
     // create a thread with func() as entry point
-    sf::Thread thread(&func);
+    SF::Thread thread(&func);
 
     // run it
     thread.launch();
@@ -60,7 +60,7 @@ void func(int x)
 {
 }
 
-sf::Thread thread(&func, 5);
+SF::Thread thread(&func, 5);
 ```
 
 - Member function: 
@@ -76,7 +76,7 @@ public:
 };
 
 MyClass object;
-sf::Thread thread(&MyClass::func, &object);
+SF::Thread thread(&MyClass::func, &object);
 ```
 
 - Functor (function-object): 
@@ -89,14 +89,14 @@ struct MyFunctor
     }
 };
 
-sf::Thread thread(MyFunctor());
+SF::Thread thread(MyFunctor());
 ```
 
 The last example, which uses functors, is the most powerful one since it can accept any type of functor and therefore makes [Thread]({{book.api}}/Thread.html) compatible with many types of functions that are not directly supported. This feature is especially interesting with C++11 lambdas or `std::bind`. 
 
 ```
 // with lambdas
-sf::Thread thread([](){
+SF::Thread thread([](){
     std::cout << "I am in thread!" << std::endl;
 });
 ```
@@ -109,7 +109,7 @@ void func(std::string, int, double)
 {
 }
 
-sf::Thread thread(std::bind(&func, "hello", 24, 0.5));
+SF::Thread thread(std::bind(&func, "hello", 24, 0.5));
 ```
 
 If you want to use a [Thread]({{book.api}}/Thread.html) inside a class, don't forget that it doesn't have a default constructor. Therefore, you have to initialize it directly in the constructor's *initialization list*: 
@@ -131,7 +131,7 @@ private:
         ...
     }
 
-    sf::Thread m_thread;
+    SF::Thread m_thread;
 };
 ```
 
@@ -142,7 +142,7 @@ If you really need to construct your [Thread]({{book.api}}/Thread.html) instance
 Once you've created a [Thread]({{book.api}}/Thread.html) instance, you must start it with the `launch` function. 
 
 ```
-sf::Thread thread(&func);
+SF::Thread thread(&func);
 thread.launch();
 ```
 
@@ -153,7 +153,7 @@ thread.launch();
 A thread automatically stops when its entry point function returns. If you want to wait for a thread to finish from another thread, you can call its `wait` function. 
 
 ```
-sf::Thread thread(&func);
+SF::Thread thread(&func);
 
 // start the thread
 thread.launch();
@@ -168,21 +168,21 @@ The `wait` function is also implicitly called by the destructor of [Thread]({{bo
 
 ## Pausing threads
 
-There's no function in [Thread]({{book.api}}/Thread.html) that allows another thread to pause it, the only way to pause a thread is to do it from the code that it runs. In other words, you can only pause the current thread. To do so, you can call the `sf::sleep` function: 
+There's no function in [Thread]({{book.api}}/Thread.html) that allows another thread to pause it, the only way to pause a thread is to do it from the code that it runs. In other words, you can only pause the current thread. To do so, you can call the `SF::sleep` function: 
 
 ```
 void func()
 {
     ...
-    sf::sleep(sf::milliseconds(10));
+    SF::sleep(SF::milliseconds(10));
     ...
 }
 ```
 
-`sf::sleep` has one argument, which is the time to sleep. This duration can be given with any unit/precision, as seen in the [time tutorial](./system-time.html "Time tutorial").  
+`SF::sleep` has one argument, which is the time to sleep. This duration can be given with any unit/precision, as seen in the [time tutorial](./system-time.html "Time tutorial").  
 Note that you can make any thread sleep with this function, even the main one. 
 
-`sf::sleep` is the most efficient way to pause a thread: as long as the thread sleeps, it requires zero CPU. Pauses based on active waiting, like empty `while` loops, would consume 100% CPU just to do... nothing. However, keep in mind that the sleep duration is just a hint, depending on the OS it will be more or less accurate. So don't rely on it for very precise timing. 
+`SF::sleep` is the most efficient way to pause a thread: as long as the thread sleeps, it requires zero CPU. Pauses based on active waiting, like empty `while` loops, would consume 100% CPU just to do... nothing. However, keep in mind that the sleep duration is just a hint, depending on the OS it will be more or less accurate. So don't rely on it for very precise timing. 
 
 ## Protecting shared data
 
@@ -193,10 +193,10 @@ Several programming tools exist to help you protect shared data and make your co
 The most basic (and used) primitive is the mutex. Mutex stands for "MUTual EXclusion": it ensures that only a single thread is able to run the code that it guards. Let's see how they can bring some order to the example above: 
 
 ```
-#include <SFML/System.hpp>
+#include <CrSFML/System.hpp>
 #include <iostream>
 
-sf::Mutex mutex;
+SF::Mutex mutex;
 
 void func()
 {
@@ -210,7 +210,7 @@ void func()
 
 int main()
 {
-    sf::Thread thread(&func);
+    SF::Thread thread(&func);
     thread.launch();
 
     mutex.lock();
@@ -226,7 +226,7 @@ int main()
 
 This code uses a shared resource (`std::cout`), and as we've seen it produces unwanted results -- everything is mixed in the console. To make sure that complete lines are properly printed instead of being randomly mixed, we protect the corresponding region of the code with a mutex. 
 
-The first thread that reaches its `mutex.lock()` line succeeds to lock the mutex, directly gains access to the code that follows and prints its text. When the other thread reaches its `mutex.lock()` line, the mutex is already locked and thus the thread is put to sleep (like `sf::sleep`, no CPU time is consumed by the sleeping thread). When the first thread finally unlocks the mutex, the second thread is awoken and is allowed to lock the mutex and print its text block as well. This leads to the lines of text appearing sequentially in the console instead of being mixed. 
+The first thread that reaches its `mutex.lock()` line succeeds to lock the mutex, directly gains access to the code that follows and prints its text. When the other thread reaches its `mutex.lock()` line, the mutex is already locked and thus the thread is put to sleep (like `SF::sleep`, no CPU time is consumed by the sleeping thread). When the first thread finally unlocks the mutex, the second thread is awoken and is allowed to lock the mutex and print its text block as well. This leads to the lines of text appearing sequentially in the console instead of being mixed. 
 
 ![Screenshot of the program output](./images/system-thread-ordered.png)
 
@@ -236,14 +236,14 @@ Mutexes are not the only primitive that you can use to protect your shared varia
 
 Don't worry: mutexes are already thread-safe, there's no need to protect them. But they are not exception-safe! What happens if an exception is thrown while a mutex is locked? It never gets a chance to be unlocked and remains locked forever. All threads that try to lock it in the future will block forever, and in some cases, your whole application could freeze. Pretty bad result. 
 
-To make sure that mutexes are always unlocked in an environment where exceptions can be thrown, SFML provides an RAII class to wrap them: [Lock]({{book.api}}/Lock.html). It locks a mutex in its constructor, and unlocks it in its destructor. Simple and efficient. 
+To make sure that mutexes are always unlocked in an environment where exceptions can be thrown, CrSFML provides an RAII class to wrap them: [Lock]({{book.api}}/Lock.html). It locks a mutex in its constructor, and unlocks it in its destructor. Simple and efficient. 
 
 ```
-sf::Mutex mutex;
+SF::Mutex mutex;
 
 void func()
 {
-    sf::Lock lock(mutex); // mutex.lock()
+    SF::Lock lock(mutex); // mutex.lock()
 
     functionThatMightThrowAnException(); // mutex.unlock() if this function throws
 
@@ -253,11 +253,11 @@ void func()
 Note that [Lock]({{book.api}}/Lock.html) can also be useful in a function that has multiple `return` statements. 
 
 ```
-sf::Mutex mutex;
+SF::Mutex mutex;
 
 bool func()
 {
-    sf::Lock lock(mutex); // mutex.lock()
+    SF::Lock lock(mutex); // mutex.lock()
 
     if (!image1.loadFromFile("..."))
         return false; // mutex.unlock()
@@ -280,7 +280,7 @@ The following code is often seen on the forums:
 ```
 void startThread()
 {
-    sf::Thread thread(&funcToRunInThread);
+    SF::Thread thread(&funcToRunInThread);
     thread.launch();
 }
 

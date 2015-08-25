@@ -1,20 +1,20 @@
-# Tutorials for SFML 2.3
+# Tutorials for CrSFML 2.3
 
 * Getting started
-  * [SFML and Visual Studio](start-vc.md "SFML and Visual Studio")
-  * [SFML and Code::Blocks (MinGW)](start-cb.md "SFML and Code::Blocks")
-  * [SFML and Linux](start-linux.md "SFML and Linux")
-  * [SFML and Xcode (Mac OS X)](start-osx.md "SFML and Mac OS X")
-  * [Compiling SFML with CMake](compile-with-cmake.md "Compiling SFML with CMake")
+  * [CrSFML and Visual Studio](start-vc.md "CrSFML and Visual Studio")
+  * [CrSFML and Code::Blocks (MinGW)](start-cb.md "CrSFML and Code::Blocks")
+  * [CrSFML and Linux](start-linux.md "CrSFML and Linux")
+  * [CrSFML and Xcode (Mac OS X)](start-osx.md "CrSFML and Mac OS X")
+  * [Compiling CrSFML with CMake](compile-with-cmake.md "Compiling CrSFML with CMake")
 * System module
   * [Handling time](system-time.md "Handling time")
   * [Threads](system-thread.md "Threads")
   * [User data streams](system-stream.md "User data streams")
 * Window module
-  * [Opening and managing an SFML window](window-window.md "Opening and managing an SFML window")
+  * [Opening and managing an CrSFML window](window-window.md "Opening and managing an CrSFML window")
   * [Events explained](window-events.md "Events")
   * [Keyboard, mouse and joysticks](window-inputs.md "Real-time inputs")
-  * [Using OpenGL in a SFML window](window-opengl.md "OpenGL")
+  * [Using OpenGL in a CrSFML window](window-opengl.md "OpenGL")
 * Graphics module
   * [Drawing 2D stuff](graphics-draw.md "Drawing 2D stuff")
   * [Sprites and textures](graphics-sprite.md "Sprites and textures")
