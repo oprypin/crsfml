@@ -15,7 +15,7 @@ On top of that, [RenderWindow]({{book.api}}/RenderWindow.html) adds high-level f
 Here is what a typical main loop looks like with a render window:
 
 ```ruby
-require "./crsfml/*"
+require "crsfml"
 
 # create the window
 window = SF::RenderWindow.new(SF.video_mode(800, 600), "My window")
@@ -34,7 +34,7 @@ while window.open?
     window.clear(SF::Color::Black)
 
     # draw everything here...
-    # window.draw(...)
+    window.draw(...)
 
     # end the current frame
     window.display
@@ -68,9 +68,6 @@ CrSFML also provides a way to draw to a texture instead of directly to a window.
 ```ruby
 # create a 500x500 render-texture
 render_texture = SF::RenderTexture.new(500, 500)
-unless render_texture
-    # error...
-end
 
 # drawing uses the same functions
 render_texture.clear(SF::Color::Blue)
@@ -108,8 +105,6 @@ def render_thread(window)
     end
 end
 
-thread_renderer = ->render_thread(SF::RenderWindow)
-
 # create the window (remember: it's safer to create it in the main thread due to OS limitations)
 window = SF::RenderWindow.new(SF.video_mode(800, 600), "OpenGL")
 
@@ -117,7 +112,7 @@ window = SF::RenderWindow.new(SF.video_mode(800, 600), "OpenGL")
 window.active = false
 
 # launch the rendering thread
-thread = SF::Thread.new(thread_renderer, window)
+thread = SF::Thread.new(->{ render_thread(window) })
 thread.launch
 
 # the event/logic/whatever loop

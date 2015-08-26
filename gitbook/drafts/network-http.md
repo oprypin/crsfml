@@ -65,8 +65,8 @@ If the [Http]({{book.api}}/Http.html) class could successfully connect to the ho
 
 ```ruby
 response = http.send_request(request)
-puts "status: " + response.status.to_s
-puts "HTTP version: " + response.major_version.to_s + "." + response.minor_version.to_s
+puts "status: #{response.status}"
+puts "HTTP version: #{response.major_version}.{response.minor_version}
 puts "Content-Type header:" + response.get_field("Content-Type")
 puts "body: " + response.body
 ```

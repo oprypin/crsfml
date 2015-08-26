@@ -6,7 +6,7 @@ This tutorial is a detailed list of window events. It describes them, and shows 
 
 ## The SF::Event type
 
-Before dealing with events, it is important to understand what the [Event]({{book.api}}/Event.html) type is, and how to correctly use it. [Event]({{book.api}}/Event.html) is a *union*, which means that only one of its members is valid at a time (remember your C++ lesson: all the members of a union share the same memory space). The valid member is the one that matches the event type, for example `event.key` for a `KeyPressed` event. Trying to read any other member will result in an undefined behavior (most likely: random or invalid values). It it important to never try to use an event member that doesn't match its type.
+Before dealing with events, it is important to understand what the [Event]({{book.api}}/Event.html) type is, and how to correctly use it. [Event]({{book.api}}/Event.html) is a *union*, which means that only one of its members is valid at a time (all the members of a union share the same memory space). The valid member is the one that matches the event type, for example `event.key` for a `KeyPressed` event. Trying to read any other member will result in an undefined behavior (most likely: random or invalid values). It is important to never try to use an event member that doesn't match its type.
 
 [Event]({{book.api}}/Event.html) instances are filled by the `poll_event` (or `wait_event`) function of the [Window]({{book.api}}/Window.html) class. Only these two functions can produce valid events, any attempt to use an [Event]({{book.api}}/Event.html) which was not returned by successful call to `poll_event` (or `wait_event`) will result in the same undefined behavior that was mentioned above.
 
@@ -56,8 +56,8 @@ The member associated with this event is `event.size`, it contains the new size 
 
 ```ruby
 if event.type == SF::Event::Resized
-    puts "new width: " + event.size.width.to_s
-    puts "new height: " + event.size.height.to_s
+    puts "new width: #{event.size.width}"
+    puts "new height: #{event.size.height}"
 end
 ```
 
@@ -85,12 +85,12 @@ The `SF::Event::TextEntered` event is triggered when a character is typed. This 
 
 This event is typically used to catch user input in a text field.
 
-The member associated with this event is `event.text`, it contains the Unicode value of the entered character. You can either put it directly in a [String]({{book.api}}/String.html), or cast it to a `char` after making sure that it is in the ASCII range (0 - 127).
+The member associated with this event is `event.text`, it contains the Unicode value of the entered character (`Char`).
 
 ```ruby
 if event.type == SF::Event::TextEntered
-    if event.text.unicode.to_i < 128
-        puts "ASCII character typed: " + event.text.unicode
+    if event.text.unicode.ord < 128
+        puts "ASCII character typed: #{event.text.unicode}"
     end
 end
 ```
@@ -103,7 +103,7 @@ Many programmers use the `KeyPressed` event to get user input, and start to impl
 
 The `SF::Event::KeyPressed` and `SF::Event::KeyReleased` events are triggered when a keyboard key is pressed/released.
 
-If a key is held, multiple `KeyPressed` events will be generated, at the default operating system delay (ie. the same delay that applies when you hold a letter in a text editor). To disable repeated `KeyPressed` events, you can call `window.setKeyRepeatEnabled(false)`. On the flip side, it is obvious that `KeyReleased` events can never be repeated.
+If a key is held, multiple `KeyPressed` events will be generated, at the default operating system delay (ie. the same delay that applies when you hold a letter in a text editor). To disable repeated `KeyPressed` events, you can set `window.key_repeat_enabled = false`. On the flip side, it is obvious that `KeyReleased` events can never be repeated.
 
 This event is the one to use if you want to trigger an action exactly once when a key is pressed or released, like making a character jump with space, or exiting something with escape.
 
@@ -116,10 +116,10 @@ The member associated with these events is `event.key`, it contains the code of 
 if event.type == SF::Event::KeyPressed
     if event.key.code == SF::Keyboard::Escape
         puts "the escape key was pressed"
-        puts "control: " + event.key.control.to_s
-        puts "alt: " + event.key.alt.to_s
-        puts "shift: " + event.key.shift.to_s
-        puts "system: " + event.key.system.to_s
+        puts "control: #{event.key.control}"
+        puts "alt: #{event.key.alt}"
+        puts "shift: #{event.key.shift}"
+        puts "system: #{event.key.system}"
     end
 end
 ```
@@ -146,9 +146,9 @@ if event.type == SF::Event::MouseWheelScrolled
         puts "wheel type: unknown"
     end
 
-    puts "wheel movement: " + event.mouse_wheel_scroll.delta.to_s
-    puts "mouse x: " + event.mouse_wheel_scroll.x.to_s
-    puts "mouse y: " + event.mouse_wheel_scroll.y.to_s
+    puts "wheel movement: #{event.mouse_wheel_scroll.delta}"
+    puts "mouse x: #{event.mouse_wheel_scroll.x}"
+    puts "mouse y: #{event.mouse_wheel_scroll.y}"
 end
 ```
 
@@ -164,8 +164,8 @@ The member associated with these events is `event.mouse_button`, it contains the
 if event.type == SF::Event::MouseButtonPressed
     if event.mouse_button.button == SF::Mouse::Right
         puts "the right button was pressed"
-        puts "mouse x: " + event.mouse_button.x.to_s
-        puts "mouse y: " + event.mouse_button.y.to_s
+        puts "mouse x: #{event.mouse_button.x}"
+        puts "mouse y: #{event.mouse_button.y}"
     end
 end
 ```
@@ -180,8 +180,8 @@ The member associated with this event is `event.mouse_move`, it contains the cur
 
 ```ruby
 if event.type == SF::Event::MouseMoved
-    puts "new mouse x: " + event.mouse_move.x.to_s
-    puts "new mouse y: " + event.mouse_move.y.to_s
+    puts "new mouse x: #{event.mouse_move.x}"
+    puts "new mouse y: #{event.mouse_move.y}"
 end
 ```
 
@@ -212,8 +212,8 @@ The member associated with these events is `event.joystick_button`, it contains 
 ```ruby
 if event.type == SF::Event::JoystickButtonPressed
     puts "joystick button pressed!"
-    puts "joystick id: " + event.joystick_button.joystick_id.to_s
-    puts "button: " + event.joystick_button.button.to_s
+    puts "joystick id: #{event.joystick_button.joystick_id}"
+    puts "button: #{event.joystick_button.button}"
 end
 ```
 
@@ -231,8 +231,8 @@ The member associated with this event is `event.joystick_move`, it contains the 
 if event.type == SF::Event::JoystickMoved
     if event.joystick_move.axis == SF::Joystick::X
         puts "X axis moved!"
-        puts "joystick id: " + event.joystick_move.joystick_id.to_s
-        puts "new position: " + event.joystick_move.position.to_s
+        puts "joystick id: #{event.joystick_move.joystick_id}"
+        puts "new position: #{event.joystick_move.position}"
     end
 end
 ```
@@ -245,11 +245,11 @@ The member associated with this event is `event.joystick_connect`, it contains t
 
 ```ruby
 if event.type == SF::Event::JoystickConnected
-    puts "joystick connected: " + event.joystick_connect.joystick_id.to_s
+    puts "joystick connected: #{event.joystick_connect.joystick_id}"
 end
 
 if event.type == SF::Event::JoystickDisconnected
-    puts "joystick disconnected: " + event.joystick_connect.joystick_id.to_s
+    puts "joystick disconnected: #{event.joystick_connect.joystick_id}"
 end
 ```
 

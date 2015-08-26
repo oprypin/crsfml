@@ -6,23 +6,13 @@ This tutorial is not about OpenGL itself, but rather how to use CrSFML as an env
 
 As you know, one of the most important features of OpenGL is portability. But OpenGL alone won't be enough to create complete programs: you need a window, a rendering context, user input, etc. You would have no choice but to write OS-specific code to handle this stuff on your own. That's where the sfml-window module comes into play. Let's see how it allows you to play with OpenGL.
 
-## Including and linking OpenGL to your application
+## OpenGL?
 
-OpenGL headers are not the same on every OS. Therefore, CrSFML provides an "abstract" header that takes care of including the right file for you.
-
-```
-#include <CrSFML/OpenGL.hpp>
-```
-
-This header includes OpenGL functions, and nothing else. People sometimes think that CrSFML automatically includes OpenGL extension headers because CrSFML loads extensions itself, but it's an implementation detail. From the user's point of view, OpenGL extension loading must be handled like any other external library.
-
-You will then need to link your program to the OpenGL library. Unlike what it does with the headers, CrSFML can't provide a unified way of linking OpenGL. Therefore, you need to know which library to link to according to what operating system you're using ("opengl32" on Windows, "GL" on Linux, etc.).
-
-OpenGL functions start with the "gl" prefix. Remember this when you get linker errors, it will help you find which library you forgot to link.
+To use OpenGL, you'll need to find a library that implements Crystal bindings to it. This tutorial also contains small bits of OpenGL bindings.
 
 ## Creating an OpenGL window
 
-Since CrSFML is based on OpenGL, its windows are ready for OpenGL calls without any extra effort.
+Since SFML is based on OpenGL, its windows are ready for OpenGL calls without any extra effort.
 
 ```ruby
 @[Link("GL")] # Use @[Link(framework: "OpenGL")] on Mac OSX
@@ -40,18 +30,18 @@ GL.enable(GL::TEXTURE_2D)
 
 In case you think it is *too* automatic, [Window]({{book.api}}/Window.html)'s constructor has an extra argument that allows you to change the settings of the underlying OpenGL context. This argument is an instance of the structure, it provides access to the following settings:
 
-  * `depthBits` is the number of bits per pixel to use for the depth buffer (0 to disable it)
-  * `stencilBits` is the number of bits per pixel to use for the stencil buffer (0 to disable it)
-  * `antialiasingLevel` is the multisampling level
-  * `majorVersion` and `minorVersion` comprise the requested version of OpenGL
+  * `depth_bits` is the number of bits per pixel to use for the depth buffer (0 to disable it)
+  * `stencil_bits` is the number of bits per pixel to use for the stencil buffer (0 to disable it)
+  * `antialiasing_level` is the multisampling level
+  * `major_version` and `minor_version` comprise the requested version of OpenGL
 
 ```ruby
 settings = SF.context_settings(
-    depth_bits = 24,
-    stencil_bits = 8,
-    antialiasing_level = 4,
-    major_version = 3,
-    minor_version = 0
+    depth_bits: 24,
+    stencil_bits: 8,
+    antialiasing_level: 4,
+    major_version: 3,
+    minor_version: 0
 )
 
 window = SF::RenderWindow.new(SF.video_mode(800, 600), "OpenGL", settings: settings)
@@ -63,10 +53,10 @@ In any case, you can check what settings CrSFML actually used with the `settings
 ```ruby
 settings = window.settings
 
-puts "depth bits:" + settings.depth_bits.to_s
-puts "stencil bits:" + settings.stencil_bits.to_s
-puts "antialiasing level:" + settings.antialiasing_level.to_s
-puts "version:" + settings.major_version.to_s + "." + settings.minor_version.to_s
+puts "depth bits: #{settings.depth_bits}"
+puts "stencil bits: #{settings.stencil_bits}"
+puts "antialiasing level #{settings.antialiasing_level}"
+puts "version #{settings.major_version}.#{settings.minor_version}"
 ```
 
 OpenGL versions above 3.0 are supported by CrSFML (as long as your graphics driver can handle them). Support for selecting the profile of 3.2+ contexts and whether the context debug flag is set was added in CrSFML 2.3. The forward compatibility flag is not supported. By default, CrSFML creates 3.2+ contexts using the compatibility profile because the graphics module makes use of legacy OpenGL functionality. If you intend on using the graphics module, make sure to create your context without the core profile setting or the graphics module will not function correctly. On OS X, CrSFML supports creating OpenGL 3.2+ contexts using the core profile only. If you want to use the graphics module on OS X, you are limited to using a legacy context which implies OpenGL version 2.1.
@@ -118,8 +108,6 @@ while running
     # end the current frame (internally swaps the front and back buffers)
     window.display
 end
-
-# release resources...
 ```
 
 Here we don't use `window.open?` as the condition of the main loop, because we need the window to remain open until the program ends, so that we still have a valid OpenGL context for the last iteration of the loop and the cleanup code.
@@ -156,21 +144,14 @@ If you don't know the graphics module yet, all you have to know is that the [Win
 
 The only way to avoid conflicts between CrSFML and your own OpenGL states, is to save/restore them every time you switch from OpenGL to CrSFML.
 
-```
 - draw with OpenGL
-
 - save OpenGL states
-
 - draw with CrSFML
-
 - restore OpenGL states
-
 - draw with OpenGL
+- ...
 
-...
-```
-
-The easiest solution is to let CrSFML do it for you, with the `push_gl_states`/`pop_gl_states` functions :
+The easiest solution is to let CrSFML do it for you, with the `push_gl_states`/`pop_gl_states` functions:
 
 ```ruby
 glDraw...
@@ -184,7 +165,7 @@ window.pop_gl_states
 glDraw...
 ```
 
-Since it has no knowledge about your OpenGL code, CrSFML can't optimize these steps and as a result it saves/restores all available OpenGL states and matrices. This may be acceptable for small projects, but it might also be too slow for bigger programs that require maximum performance. In this case, you can handle saving and restoring the OpenGL states yourself, with `glPushAttrib`/`glPopAttrib`, `glPushMatrix`/`glPopMatrix`, etc.
+Since it has no knowledge about your OpenGL code, CrSFML can't optimize these steps and as a result it saves/restores all available OpenGL states and matrices. This may be acceptable for small projects, but it might also be too slow for bigger programs that require maximum performance. In this case, you can handle saving and restoring the OpenGL states yourself, with `glPushAttrib`/`glPopAttrib`, `glPushMatrix`/`glPopMatrix`, etc.  
 If you do this, you'll still need to restore CrSFML's own states before drawing. This is done with the `reset_gl_states` function.
 
 ```ruby

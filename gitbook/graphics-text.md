@@ -7,11 +7,7 @@ Before drawing any text, you need to have an available font, just like any other
 The most common way of loading a font is from a file on disk, which is done with the `from_file` function.
 
 ```ruby
-font = SF::Font.from_file("arial.ttf")
-
-unless font
-    # error...
-end
+font = SF::Font.from_file("DejaVuSans.ttf")
 ```
 
 Note that CrSFML won't load your system fonts automatically, i.e. `SF::Font.from_file("Courier New")` won't work. Firstly, because CrSFML requires *file names*, not font names, and secondly because CrSFML doesn't have magical access to your system's font folder. If you want to load a font, you will need to include the font file with your application, just like every other resource (images, sounds, ...).
@@ -74,13 +70,13 @@ To do something meaningful with the font texture, you must get the texture coord
 glyph = font.get_glyph(character, character_size, bold)
 ```
 
-`character` is the UTF-32 code of the character whose glyph that you want to get. You must also specify the character size, and whether you want the bold or the regular version of the glyph.
+`character` is the character, the glyph of which you want to get. You must also specify the character size, and whether you want the bold or the regular version of the glyph.
 
 The [Glyph]({{book.api}}/Glyph.html) structure contains three members:
 
-  * `texture_rect` contains the texture coordinates of the glyph within the texture
-  * `bounds` contains the bounding rectangle of the glyph, which helps position it relative to the baseline of the text
-  * `advance` is the horizontal offset to apply to get the starting position of the next glyph in the text
+* `texture_rect` contains the texture coordinates of the glyph within the texture
+* `bounds` contains the bounding rectangle of the glyph, which helps position it relative to the baseline of the text
+* `advance` is the horizontal offset to apply to get the starting position of the next glyph in the text
 
 You can also get some of the font's other metrics, such as the kerning between two characters or the line spacing (always for a certain character size):
 

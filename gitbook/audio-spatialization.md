@@ -84,12 +84,10 @@ The *attenuation* is a multiplicative factor. The greater the attenuation, the l
 
 Here is the exact attenuation formula, in case you need accurate values:
 
-```
-*MinDistance*   is the sound's minimum distance, set with min_distance=
-*Attenuation*   is the sound's attenuation, set with attenuation=
-*Distance*      is the distance between the sound and the listener
-*Volume factor* is the calculated factor, in range [0 .. 1], that will be applied to the sound's volume
+- *MinDistance*   is the sound's minimum distance, set with min_distance=
+- *Attenuation*   is the sound's attenuation, set with attenuation=
+- *Distance*      is the distance between the sound and the listener
+- *Volume factor* is the calculated factor, in range [0 .. 1], that will be applied to the sound's volume
 
-Volume factor = MinDistance / (MinDistance + Attenuation * (max(Distance, MinDistance) - MinDistance))
-```
+`Volume factor = MinDistance / (MinDistance + Attenuation * (max(Distance, MinDistance) - MinDistance))`
 

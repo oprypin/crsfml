@@ -17,9 +17,7 @@ In fact, the / classes work the same way as / from the graphics module. So if yo
 You can load a sound buffer from a file on disk with its `from_file` function:
 
 ```ruby
-unless SF::SoundBuffer.from_file("sound.wav")
-    return false
-end
+SF::SoundBuffer.from_file("sound.wav")
 ```
 
 As with everything else, you can also load an audio file from memory (`from_memory`) or from a [custom input stream](system-stream.md "Input streams tutorial") (`from_stream`).
@@ -29,7 +27,7 @@ CrSFML supports the audio file formats WAV, OGG/Vorbis and FLAC. Due to licensin
 You can also load a sound buffer directly from an array of samples, in the case they originate from another source:
 
 ```ruby
-buffer.from_samples(samples[0], samples.size, 2, 44100)
+buffer.from_samples(samples, samples.size, 2, 44100)
 ```
 
 Since `from_samples` loads a raw array of samples rather than an audio file, it requires additional arguments in order to have a complete description of the sound. The first one (third argument) is the number of channels; 1 channel defines a mono sound, 2 channels define a stereo sound, etc. The second additional attribute (fourth argument) is the sample rate; it defines how many samples must be played per second in order to reconstruct the original sound.
@@ -54,9 +52,6 @@ Unlike , doesn't pre-load the audio data, instead it streams the data directly f
 
 ```ruby
 music = SF::Music.from_file("music.ogg")
-unless music
-    return false # error
-end
 
 music.play
 ```
@@ -133,7 +128,7 @@ Remember that a music needs its source as long as it is played. A music file on 
 file_data = ...
 
 # we play it
-music = SF::Music.from_memory(file_data[0], file_data.size)
+music = SF::Music.from_memory(file_data, file_data.size)
 music.play
 
 # "ok, it seems that we don't need the source file any longer"

@@ -2,7 +2,7 @@
 
 ## Time in CrSFML
 
-Unlike many other libraries where time is a uint32 number of milliseconds, or a float number of seconds, CrSFML doesn't impose any specific unit or type for time values. Instead it leaves this choice to the user through a flexible class: [Time]({{book.api}}/Time.html). All CrSFML classes and functions that manipulate time values use this class.
+Unlike many other libraries where time is a number of milliseconds, or a decimal number of seconds, CrSFML doesn't impose any specific unit or type for time values. Instead it leaves this choice to the user through a flexible class: [Time]({{book.api}}/Time.html). All CrSFML classes and functions that manipulate time values use this class.
 
 [Time]({{book.api}}/Time.html) represents a time period (in other words, the time that elapses between two events). It is *not* a date-time class which would represent the current year/month/day/hour/minute/second as a timestamp, it's just a value that represents a certain amount of time, and how to interpret it depends on the context where it is used.
 

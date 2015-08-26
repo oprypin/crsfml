@@ -57,6 +57,8 @@ do_something(samples, count)
 
 If you want to use the captured audio data after the recorder is destroyed or restarted, don't forget to make a *copy* of the buffer.
 
+<!--
+
 ## Custom recording
 
 If storing the captured data in a sound buffer is not what you want, you can write your own recorder. Doing so will allow you to process the audio data while it is captured, (almost) directly from the recording device. This way you can, for example, stream the captured audio over the network, perform real-time analysis on it, etc.
@@ -99,7 +101,7 @@ end
 The `available?`/`start`/`stop` functions are defined in the [SoundRecorder]({{book.api}}/SoundRecorder.html) base, and thus inherited in every derived classes. This means that you can use any recorder class exactly the same way as the [SoundBufferRecorder]({{book.api}}/SoundBufferRecorder.html) class above.
 
 ```ruby
-unless MyRecorder.available?()
+unless MyRecorder.available?
     # error...
 end
 
@@ -118,3 +120,5 @@ Since recording is done in a separate thread, it is important to know what exact
 If your recorder uses data that may be accessed *concurrently* in both the caller thread and in the recording thread, you have to protect it (with a mutex for example) in order to avoid concurrent access, which may cause undefined behavior -- corrupt data being recorded, crashes, etc.
 
 If you're not familiar enough with threading, you can refer to the [corresponding tutorial](system-thread.md "Threading tutorial") for more information.
+
+-->

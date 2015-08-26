@@ -9,13 +9,15 @@ This tutorial only explains how to open and manage a window. Drawing stuff is be
 Windows in CrSFML are defined by the [Window]({{book.api}}/Window.html) class. A window can be created and opened directly upon construction:
 
 ```ruby
-require "./crsfml/*"
+require "crsfml"
 
 window = SF::RenderWindow.new(SF.video_mode(800, 600), "My window")
+
+...
 ```
 
 The first argument, the *video mode*, defines the size of the window (the inner size, without the title bar and borders). Here, we create a window with a size of 800x600 pixels.
-The [VideoMode]({{book.api}}/VideoMode.html) class has some interesting static functions to get the desktop resolution, or the list of valid video modes for fullscreen mode. Don't hesitate to have a look at its documentation.
+The [VideoMode]({{book.api}}/VideoMode.html) class has some interesting class methods to get the desktop resolution, or the list of valid video modes for fullscreen mode. Don't hesitate to have a look at its documentation.
 
 The second argument is simply the title of the window.
 
@@ -52,12 +54,12 @@ There's also a fourth optional argument, which defines OpenGL specific options w
 
 ## Bringing the window to life
 
-If you try to execute the code above with nothing in place of the "...", you will hardly see something. First, because the program ends immediately. Second, because there's no event handling -- so even if you added an endless loop to this code, you would see a dead window, unable to be moved, resized, or closed.
+If you try to execute the code above with nothing in place of the "...", you will hardly see anything. First, because the program ends immediately. Second, because there's no event handling -- so even if you added an endless loop to this code, you would see a dead window, unable to be resized or closed.
 
 Let's add some code to make this program a bit more interesting:
 
 ```ruby
-require "./crsfml/*"
+require "crsfml"
 
 window = SF::RenderWindow.new(SF.video_mode(800, 600), "My window")
 
@@ -89,11 +91,11 @@ At this point, you probably noticed that we haven't talked about *drawing someth
 
 To draw stuff, you can also use OpenGL directly and totally ignore the sfml-graphics module. [Window]({{book.api}}/Window.html) internally creates an OpenGL context and is ready to accept your OpenGL calls. You can learn more about that in the [corresponding tutorial](window-opengl.md "OpenGL tutorial").
 
-Don't expect to see something interesting in this window: you may see a uniform color (black or white), or the last contents of the previous application that used OpenGL, or... something else.
+Don't expect to see anything interesting in this window: you may see a uniform color (black or white), or the last contents of the previous application that used OpenGL, or... something else.
 
 ## Playing with the window
 
-Of course, CrSFML allows you to play with your windows a bit. Basic window operations such as changing the size, position, title or icon are supported, but unlike dedicated GUI libraries (Qt, wxWidgets), CrSFML doesn't provide advanced features. CrSFML windows are only meant to provide an environment for OpenGL or CrSFML drawing.
+Of course, CrSFML allows you to play with your windows a bit. Basic window operations such as changing the size, position, title or icon are supported, but unlike dedicated GUI libraries, CrSFML doesn't provide advanced features. CrSFML windows are only meant to provide an environment for OpenGL or CrSFML drawing.
 
 ```ruby
 # change the position of the window (relatively to the desktop)
@@ -115,17 +117,17 @@ height = size.y
 
 You can refer to the API documentation for a complete list of [Window]({{book.api}}/Window.html)'s functions.
 
-In case you really need advanced features for your window, you can create one (or even a full GUI) with another library, and embed CrSFML into it. To do so, you can use the other constructor, or `create` function, of [Window]({{book.api}}/Window.html) which takes the OS-specific handle of an existing window. In this case, CrSFML will create a drawing context inside the given window and catch all its events without interfering with the parent window management.
+In case you really need advanced features for your window, you can create one (or even a full GUI) with another library, and embed CrSFML into it. To do so, you can use the other constructor of [Window]({{book.api}}/Window.html) which takes the OS-specific handle of an existing window. In this case, CrSFML will create a drawing context inside the given window and catch all its events without interfering with the parent window management.
 
 ```ruby
 handle = ... # specific to what you're doing and the library you're using
-SF::Window.from_handle(handle);
+SF::Window.from_handle(handle)
 ```
 
 If you just want an additional, very specific feature, you can also do it the other way round: create an CrSFML window and get its OS-specific handle to implement things that CrSFML itself doesn't support.
 
 ```ruby
-window = SF::RenderWindow.new(SF.video_mode(800, 600), "CrSFML window");
+window = SF::RenderWindow.new(SF.video_mode(800, 600), "CrSFML window")
 handle = window.system_handle
 
 # you can now use the handle with OS specific functions
@@ -154,7 +156,7 @@ window.framerate_limit = 60 # call it once, after creating the window
 
 Unlike `vertical_sync_enabled=`, this feature is implemented by CrSFML itself, using a combination of [Clock]({{book.api}}/Clock.html) and `SF.sleep`. An important consequence is that it is not 100% reliable, especially for high framerates: `SF.sleep`'s resolution depends on the underlying operating system and hardware, and can be as high as 10 or 15 milliseconds. Don't rely on this feature to implement precise timing.
 
-Never use both `vertical_sync_enabled=` and `framerate_limit=` at the same time! They would badly mix and make things worse.
+Never use both `vertical_sync_enabled` and `framerate_limit` at the same time! They would badly mix and make things worse.
 
 ## Things to know about windows
 

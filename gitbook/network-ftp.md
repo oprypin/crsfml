@@ -23,8 +23,8 @@ ftp = SF::Ftp.new
 
 response = ftp.login("username", "password") # just an example, could be any function
 
-puts "Response status: " + response.status.to_s
-puts "Response message: " + response.message
+puts "Response status: #{response.status}"
+puts "Response message: #{response.message}"
 ```
 
 The status code can be used to check whether the command was successful or failed: Codes lower than 400 represent success, all others represent errors. You can use the `ok?` function as a shortcut to test a status code for success.
@@ -84,7 +84,7 @@ Once you're connected to the server, the next step is to authenticate yourself:
 
 ```ruby
 # authenticate with name and password
-ftp.login("username", "password");
+ftp.login("username", "password")
 
 # or login anonymously, if the server allows it
 ftp.login
@@ -187,4 +187,3 @@ You can close the connection with the server at any moment with the `disconnect`
 ```ruby
 ftp.disconnect
 ```
-

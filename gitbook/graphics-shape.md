@@ -133,11 +133,11 @@ convex = SF::ConvexShape.new
 convex.point_count = 5
 
 # define the points
-convex.set_point(0, SF.vector2(0, 0))
-convex.set_point(1, SF.vector2(150, 10))
-convex.set_point(2, SF.vector2(120, 90))
-convex.set_point(3, SF.vector2(30, 100))
-convex.set_point(4, SF.vector2(0, 50))
+convex[0] = SF.vector2(0, 0)
+convex[1] = SF.vector2(150, 10)
+convex[2] = SF.vector2(120, 90)
+convex[3] = SF.vector2(30, 100)
+convex[4] = SF.vector2(0, 50)
 ```
 
 The order in which you define the points is very important. They must *all* be defined either in clockwise or counter-clockwise order. If you define them in an inconsistent order, the shape will be constructed incorrectly.
@@ -176,6 +176,10 @@ To learn more about vertices and primitives, you can read the tutorial on [verte
 
 ## Custom shape types
 
+[Shape]({{book.api}}/Shape.html) currently [does not work](https://github.com/manastech/crystal/issues/605); use `ConvexShape` (it can be subclassed).
+
+<!--
+
 You can extend the set of shape classes with your own shape types. To do so, you must derive from [Shape]({{book.api}}/Shape.html) and override two functions:
 
   * `point_count`: return the number of points in the shape
@@ -183,31 +187,29 @@ You can extend the set of shape classes with your own shape types. To do so, you
 
 You must also call the `update()` protected function whenever any point in your shape changes, so that the base class is informed and can update its internal geometry.
 
-Here is a complete example of a custom shape class: EllipseShape.
+Here is a complete example of a custom shape class: `EllipseShape`.
 
 ```ruby
-# broken https://github.com/manastech/crystal/issues/605
 class EllipseShape < SF::Shape
-    def initialize(radius = SF.vector2(0, 0))
-        @radius = radius
-    end
-
-    def radius=(radius)
-        @radius = radius
+    def initialize(@radius = SF.vector2(0, 0))
     end
 
     def radius
         @radius
     end
+    def radius=(radius)
+        @radius = radius
+        update
+    end
 
     def point_count
-        30
+        30  # fixed, but could be an attribute of the class if needed
     end
 
     def get_point(index)
         pi = Math::PI
 
-        angle = index * 2 * pi / point_count - pi / 2;
+        angle = index * 2 * pi / point_count - pi / 2
         x = Math.cos(angle) * @radius.x
         y = Math.sin(angle) * @radius.y
 
@@ -217,6 +219,8 @@ end
 ```
 
 ![An ellipse shape](./images/graphics-shape-ellipse.png)
+
+-->
 
 ## Antialiased shapes
 
@@ -232,4 +236,5 @@ window = SF::RenderWindow.new(
 
 ![Aliased vs antialiased shape](./images/graphics-shape-antialiasing.png)
 
-Remember that anti-aliasing availability depends on the graphics card: It might not support it, or have it forced to disabled in the driver settings.
+Remember that anti-aliasing availability depends on the graphics card: It might not support it, or have it forced to disabled in the driver settings.  
+Sometimes antialiasing does not work if `depth_bits` is not specified (use 24 if unsure).

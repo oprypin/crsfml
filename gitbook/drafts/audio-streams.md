@@ -28,8 +28,8 @@ end
 ```ruby
 class MyAudioStream < SF::SoundStream
     def on_get_data(data)
-        data.samples = ... # put the pointer to the new audio samples */;
-        data.sample_count = ... # put the number of audio samples available in the new chunk */;
+        data.samples = ... # put the pointer to the new audio samples
+        data.sample_count = ... # put the number of audio samples available in the new chunk
         true
     end
 end
@@ -98,8 +98,8 @@ class MyStream < SF::SoundStream
         # have we reached the end of the sound?
         if (@current_sample + samples_to_stream <= m_samples.size())
             # end not reached: stream the samples and continue
-            data.sample_count = samples_to_stream;
-            @current_sample += samples_to_stream;
+            data.sample_count = samples_to_stream
+            @current_sample += samples_to_stream
             true
         else
             # end of stream reached: stream the remaining samples and stop playback

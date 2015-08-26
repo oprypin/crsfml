@@ -14,18 +14,15 @@ Ok, that was short but if you really don't understand what sprites and textures 
 
 ## Loading a texture
 
-Before creating any sprite, we need a valid texture. The class that encapsulates textures in CrSFML is, surprisingly, [Texture]({{book.api}}/Texture.html). Since the only role of a texture is to be loaded and mapped to graphical entities, almost all its functions are about loading and updating it.
+Before creating any sprite, we need a valid texture. The class that encapsulates textures in CrSFML is, unsurprisingly, [Texture]({{book.api}}/Texture.html). Since the only role of a texture is to be loaded and mapped to graphical entities, almost all its functions are about loading and updating it.
 
 The most common way of loading a texture is from an image file on disk, which is done with the `from_file` function.
 
 ```ruby
 texture = SF::Texture.from_file("image.png")
-unless texture
-    # error...
-end
 ```
 
-The `from_file` function can sometimes fail with no obvious reason. First, check the error message that CrSFML prints to the standard output (check the console). If the message is unable to open file, make sure that the *working directory* (which is the directory that any file path will be interpreted relative to) is what you think it is: When you run the application from your desktop environment, the working directory is the executable folder. However, when you launch your program from your IDE (Visual Studio, Code::Blocks, ...) the working directory might sometimes be set to the *project* directory instead. This can usually be changed quite easily in the project settings.
+The `from_file` function can sometimes fail with no obvious reason. First, check the error message that CrSFML prints to the standard output (check the console). If the message is unable to open file, make sure that the *working directory* (which is the directory that any file path will be interpreted relative to) is what you think it is.
 
 You can also load an image file from memory (`from_memory`), from a [custom input stream](system-stream.md "Input streams tutorial") (`from_stream`), or from an image that has already been loaded (`from_image`). The latter loads the texture from an [Image]({{book.api}}/Image.html), which is a utility class that helps store and manipulate image data (modify pixels, create transparency channel, etc.). The pixels of an [Image]({{book.api}}/Image.html) stay in system memory, which ensures that operations on them will be as fast as possible, in contrast to the pixels of a texture which reside in video memory and are therefore slow to retrieve or update but very fast to draw.
 
@@ -36,23 +33,15 @@ All these loading functions have an optional argument, which can be used if you 
 ```ruby
 # load a 32x32 rectangle that starts at (10, 10)
 texture = SF::Texture.from_file("image.png", SF.int_rect(10, 10, 32, 32))
-
-unless texture
-    # error...
-end
 ```
 
-The [IntRect", "Rect]({{book.api}}/IntRect) class is a simple utility type that represents a rectangle. Its constructor takes the coordinates of the top-left corner, and the size of the rectangle.
+The [IntRect]({{book.api}}/IntRect) class is a simple utility type that represents a rectangle. Its constructor takes the coordinates of the top-left corner, and the size of the rectangle.
 
 If you don't want to load a texture from an image, but instead want to update it directly from an array of pixels, you can create it empty and update it later:
 
 ```ruby
 # create an empty 200x200 texture
 texture = SF::Texture.new(200, 200)
-
-unless texture
-    # error...
-end
 ```
 
 Note that the contents of the texture are undefined at this point.

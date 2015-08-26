@@ -2,9 +2,9 @@
 
 ## Transforming CrSFML entities
 
-All CrSFML classes (sprites, text, shapes) use the same interface for transformations: [Transformable]({{book.api}}/Transformable.html). This base class provides a simple API to move, rotate and scale your entities. It doesn't provide maximum flexibility, but instead defines an interface which is easy to understand and to use, and which covers 99% of all use cases -- for the remaining 1%, see the last chapters.
+All CrSFML classes (sprites, text, shapes) use the same interface for transformations: [TransformableM]({{book.api}}/TransformableM.html). This module provides a simple API to move, rotate and scale your entities. It doesn't provide maximum flexibility, but instead defines an interface which is easy to understand and to use, and which covers 99% of all use cases -- for the remaining 1%, see the last chapters.
 
-[Transformable]({{book.api}}/Transformable.html) (and all its derived classes) defines four properties: **position**, **rotation**, **scale** and **origin**. They all have their respective getters and setters. These transformation components are all independent of one another: If you want to change the orientation of the entity, you just have to set its rotation property, you don't have to care about the current position and scale.
+[TransformableM]({{book.api}}/TransformableM.html) (and all classes that include it) defines four properties: **position**, **rotation**, **scale** and **origin**. They all have their respective getters and setters. These transformation components are all independent of one another: If you want to change the orientation of the entity, you just have to set its rotation property, you don't have to care about the current position and scale.
 
 ### Position
 
@@ -89,7 +89,7 @@ Note that changing the origin also changes where the entity is drawn on screen, 
 
 ## Transforming your own classes
 
-[Transformable]({{book.api}}/Transformable.html) is not only made for CrSFML classes, it can also be a base (or member) of your own classes.
+[TransformableM]({{book.api}}/TransformableM.html) is not only made for CrSFML classes, it can also be included in your own classes (or be a member, using [Transformable]({{book.api}}/Transformable.html)).
 
 ```ruby
 class MyGraphicalEntity
@@ -105,7 +105,7 @@ entity.scale = SF.vector2(0.5, 0.2)
 
 To retrieve the final transform of the entity (commonly needed when drawing it), call the `transform` function. This function returns a [Transform]({{book.api}}/Transform.html) object. See below for an explanation about it, and how to use it to transform an CrSFML entity.
 
-If you don't need/want the complete set of functions provided by the [Transformable]({{book.api}}/Transformable.html) interface, don't hesitate to simply use it as a member instead and provide your own functions on top of it. It is not abstract, so it is possible to instantiate it instead of only being able to use it as a base class.
+If you don't need/want the complete set of functions provided by the [TransformableM]({{book.api}}/TransformableM.html) interface, don't hesitate to simply use it as a member instead and provide your own functions on top of it. It is not abstract, so it is possible to instantiate it ([Transformable]({{book.api}}/Transformable.html)) instead of only being able to use it as a module.
 
 ## Custom transforms
 
@@ -200,7 +200,7 @@ class Node
 
     def draw(target, parent_transform)
         # combine the parent transform with the node's one
-        combined_transform = parent_transform * @transform;
+        combined_transform = parent_transform * @transform
 
         # let the node draw itself
         on_draw(target, combined_transform)
@@ -211,7 +211,7 @@ class Node
         end
     end
 
-    private def on_draw(target, const transform)
+    private def on_draw(target, transform)
         ...
     end
 end

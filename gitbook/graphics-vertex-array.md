@@ -29,7 +29,7 @@ vertex.position = SF.vector2(10, 50)
 vertex.color = SF::Color::Red
 
 # set its texture coordinates
-vertex.tex_coords = SF.vector2(100, 100)
+vertex.tex_coords = SF.vector2f(100, 100)
 ```
 
 ... or, using the correct constructor:
@@ -44,15 +44,10 @@ Now, let's define a primitive. Remember, a primitive consists of several vertice
 # create an array of 3 vertices that define a triangle primitive
 triangle = SF::VertexArray.new(SF::Triangles, 3)
 
-# define the position of the triangle's points
-triangle[0].position = SF.vector2(10, 10)
-triangle[1].position = SF.vector2(100, 10)
-triangle[2].position = SF.vector2(100, 100)
-
-# define the color of the triangle's points
-triangle[0].color = SF::Color::Red
-triangle[1].color = SF::Color::Blue
-triangle[2].color = SF::Color::Green
+# define the positions and colors of the triangle's points
+triangle[0] = SF.vertex(SF.vector2f(10, 10), SF::Color::Red)
+triangle[1] = SF.vertex(SF.vector2f(100, 10), SF::Color::Blue)
+triangle[2] = SF.vertex(SF.vector2f(100, 100), SF::Color::Green)
 
 # no texture coordinates here, we'll see that later
 ```
@@ -67,7 +62,7 @@ window.draw(triangle)
 
 You can see that the vertices' color is interpolated to fill the primitive. This is a nice way of creating gradients.
 
-Note that you don't have to use the [VertexArray]({{book.api}}/VertexArray.html) class. It's just defined for convenience, it's nothing more than an array along with a `SF::PrimitiveType`. If you need more flexibility, or a static array, you can use your own storage. You must then use the overload of the `draw` function which takes a pointer to the vertices, the vertex count and the primitive type.
+Note that you don't have to use the [VertexArray]({{book.api}}/VertexArray.html) class. It's just defined for convenience, it's nothing more than an array along with a `SF::PrimitiveType`. If you need more flexibility, or a static array, you can use your own storage. You must then use the overload of the `draw` function which takes an array of vertices and the primitive type.
 
 ```ruby
 vertices = [
@@ -103,32 +98,16 @@ Like other CrSFML entities, vertex arrays can also be textured. To do so, you'll
 quad = SF::VertexArray.new(SF::Quads, 4)
 
 # define it as a rectangle, located at (10, 10) and with size 100x100
-quad[0].position = SF.vector2(10, 10)
-quad[1].position = SF.vector2(110, 10)
-quad[2].position = SF.vector2(110, 110)
-quad[3].position = SF.vector2(10, 110)
-
 # define its texture area to be a 25x50 rectangle starting at (0, 0)
-quad[0].tex_coords = SF.vector2(0, 0)
-quad[1].tex_coords = SF.vector2(25, 0)
-quad[2].tex_coords = SF.vector2(25, 50)
-quad[3].tex_coords = SF.vector2(0, 50)
+quad.append SF.vertex({ 10,  10}, tex_coords: { 0,  0})
+quad.append SF.vertex({110,  10}, tex_coords: {25,  0})
+quad.append SF.vertex({110, 110}, tex_coords: {25, 50})
+quad.append SF.vertex({ 10, 110}, tex_coords: { 0, 50})
 ```
 
 Texture coordinates are defined in *pixels* (just like the `texture_rect` of sprites and shapes). They are *not* normalized (between 0 and 1), as people who are used to OpenGL programming might expect.
 
-Vertex arrays are low-level entities, they only deal with geometry and do not store additional attributes like a texture. To draw a vertex array with a texture, you must pass it directly to the `draw` function:
-
-```ruby
-vertices = ... # SF::VertexArray
-texture = ... # SF::Texture
-
-...
-
-window.draw(vertices, texture);
-```
-
-This is the short version, if you need to pass other render states (like a blend mode or a transform), you can use the explicit version which takes a [RenderStates]({{book.api}}/RenderStates.html) object:
+Vertex arrays are low-level entities, they only deal with geometry and do not store additional attributes like a texture. To draw a vertex array with a texture, you must pass it directly to the `draw` function, through a [RenderStates]({{book.api}}/RenderStates.html) object:
 
 ```ruby
 vertices = ... # SF::VertexArray
@@ -152,19 +131,8 @@ transform = ... # SF::Transform
 
 ...
 
-window.draw(vertices, transform)
-```
-
-Or, if you need to pass other render states:
-
-```ruby
-vertices = ... # SF::VertexArray
-transform = ... # SF::Transform
-
-...
-
 states = SF::RenderStates.new
-states.transform = transform;
+states.transform = transform
 
 window.draw(vertices, states)
 ```
@@ -185,13 +153,13 @@ entity = MyEntity.new
 window.draw(entity) # internally calls entity.draw
 ```
 
-The [TransformableM]({{book.api}}/TransformableM.html) mixin has no virtual function. Inheriting from it automatically adds the same transformation functions to your class as other CrSFML classes (`position=`, `rotation=`, `move`, `scale`, ...). You can learn more about this class in the tutorial on [transforming entities](graphics-transform.md "Transforming entities tutorial").
+Including the [TransformableM]({{book.api}}/TransformableM.html) module automatically adds the same transformation functions to your class as other CrSFML classes (`position=`, `rotation=`, `move`, `scale`, ...). You can learn more about this in the tutorial on [transforming entities](graphics-transform.md "Transforming entities tutorial").
 
 Using these two features and a vertex array (in this example we'll also add a texture), here is what a typical CrSFML-like graphical class would look like:
 
 ```ruby
 class MyEntity
-    include SF::Transformable
+    include SF::TransformableM
 
     # add functions to play with the entity's geometry / colors / texturing...
 
@@ -202,7 +170,7 @@ class MyEntity
         # apply the texture
         states.texture = @texture
 
-        # you may also override states.shader or states.blendMode if you want
+        # you may also override states.shader or states.blend_mode if you want
 
         # draw the vertex array
         target.draw(@vertices, states)
@@ -234,42 +202,31 @@ class TileMap
     def load(tileset, tile_size, tiles, width, height)
         # load the tileset texture
         @tileset = SF::Texture.from_file(tileset)
-        unless @tileset
-            return false
-        end
 
         # resize the vertex array to fit the level size
-        @vertices.primitive_type = SF::Quads
-        @vertices.resize(width * height * 4)
+        @vertices = SF::VertexArray.new(SF::Quads)
 
         # populate the vertex array, with one quad per tile
         (0...width).each do |i|
             (0...height).each do |j|
                 # get the current tile number
-                tile_number = tiles[i + j * width];
+                tile_number = tiles[i + j * width]
 
                 # find its position in the tileset texture
-                tu = tile_number % (@tileset.size.x / tile_size.x);
-                tv = tile_number / (@tileset.size.x / tile_size.x);
+                tu = tile_number % (@tileset.size.x / tile_size.x)
+                tv = tile_number / (@tileset.size.x / tile_size.x)
 
-                # get a pointer to the current tile's quad
-                quad = @vertices[(i + j * width) * 4];
-
-                # define its 4 corners
-                quad[0].position = SF.vector2(i * tile_size.x, j * tile_size.y);
-                quad[1].position = SF.vector2((i + 1) * tile_size.x, j * tile_size.y);
-                quad[2].position = SF.vector2((i + 1) * tile_size.x, (j + 1) * tile_size.y);
-                quad[3].position = SF.vector2(i * tile_size.x, (j + 1) * tile_size.y);
-
-                # define its 4 texture coordinates
-                quad[0].tex_coords = SF.vector2(tu * tile_size.x, tv * tile_size.y);
-                quad[1].tex_coords = SF.vector2((tu + 1) * tile_size.x, tv * tile_size.y);
-                quad[2].tex_coords = SF.vector2((tu + 1) * tile_size.x, (tv + 1) * tile_size.y);
-                quad[3].tex_coords = SF.vector2(tu * tile_size.x, (tv + 1) * tile_size.y);
+                # define its 4 corners and texture coordinates
+                @vertices.append SF.vertex({i * tile_size.x, j * tile_size.y},
+                    tex_coords={tu * tile_size.x, tv * tile_size.y})
+                @vertices.append SF.vertex({(i + 1) * tile_size.x, j * tile_size.y},
+                    tex_coords={(tu + 1) * tile_size.x, tv * tile_size.y})
+                @vertices.append SF.vertex({(i + 1) * tile_size.x, (j + 1) * tile_size.y},
+                    tex_coords={(tu + 1) * tile_size.x, (tv + 1) * tile_size.y)})
+                @vertices.append SF.vertex({i * tile_size.x, (j + 1) * tile_size.y},
+                    tex_coords={tu * tile_size.x, (tv + 1) * tile_size.y})
             end
         end
-
-        true
     end
 
     def draw(target, states)
@@ -305,9 +262,7 @@ level = [
 
 # create the tilemap from the level definition
 map = TileMap.new
-unless map.load("tileset.png", SF.vector2(32, 32), level, 16, 8)
-    return -1
-end
+map.load("tileset.png", SF.vector2(32, 32), level, 16, 8)
 
 # run the main loop
 while window.open?
@@ -334,50 +289,47 @@ This second example implements another common entity: The particle system. This 
 
 ```ruby
 class Particle
-    getter :velocity, :lifetime
-    setter :velocity, :lifetime
+    def initialize(@velocity, @lifetime, @position)
+        @total_lifetime = @lifetime
+    end
+    property velocity, lifetime, position
+    getter total_lifetime
 end
 
 class ParticleSystem
     include SF::TransformableM
 
-    def initialize(count)
+    def initialize(@count)
         @particles = [] of Particle
-        @count = count
-        (0...@count).each do |i|
-            @particles.push(Particle.new)
-            reset_particle(i)
-        end
-        @vertices = SF::VertexArray.new(SF::Points, count)
-        @lifetime = SF.seconds(3)
         @emitter = SF.vector2(0, 0)
     end
 
-    def emitter=(position)
-        @emitter = position
-    end
+    property emitter
 
     def update(elapsed)
-        (0...@count).each do |i|
+        @particles.reject! do |p|
+            # update the position of the particle
+            p.position += p.velocity * elapsed.as_seconds
+
             # update the particle lifetime
-            p = @particles[i]
             p.lifetime -= elapsed
-
-            # if the particle is dead, respawn it
-            if p.lifetime <= SF::Time::Zero
-                reset_particle(i)
-            end
-
-            # update the position of the corresponding vertex
-            @vertices[i].position += p.velocity * elapsed.as_seconds
-
-            # update the alpha (transparency) of the particle according to its lifetime
-            ratio = p.lifetime.as_seconds / @lifetime.as_seconds
-            @vertices[i].color.a = ratio * 255
+            # if the particle is dead, remove it
+            p.lifetime <= SF::Time::Zero
+        end
+        while @particles.length < @count
+            @particles << new_particle
         end
     end
 
     def draw(target, states)
+        vertices = @particles.map do |p|
+            # set the alpha (transparency) of the particle according to its lifetime
+            ratio = p.lifetime / p.total_lifetime
+            color = SF.color(255, 255, 255, (ratio * 255).to_u8)
+            
+            SF.vertex(p.position, color)
+        end
+      
         #apply the transform
         states.transform *= transform()
 
@@ -385,18 +337,18 @@ class ParticleSystem
         states.texture = nil
 
         # draw the vertex array
-        target.draw(@vertices, states)
+        target.draw(vertices, SF::Points, states)
     end
 
-    private def reset_particle(index)
+    private def new_particle
         # give a random velocity and lifetime to the particle
-        angle = (rand() % 360) * 3.14 / 180.0
-        speed = (rand() % 50) + 50.0
-        @particles[index].velocity = SF.vector2(Math.cos(angle) * speed, Math.sin(angle) * speed)
-        @particles[index].lifetime = SF.milliseconds(((rand() % 2000) + 1000).to_i)
+        angle = rand(360) * Math::PI / 180.0
+        speed = rand(50) + 50.0
+        velocity = SF.vector2(Math.cos(angle) * speed, Math.sin(angle) * speed)
+        lifetime = SF.milliseconds(rand(2000) + 1000)
+        position = @emitter
 
-        # reset the position of the corresponding vertex
-        @vertices[index].position = @emitter
+        Particle.new(velocity, lifetime, @emitter)
     end
 end
 ```
@@ -405,7 +357,7 @@ And a little demo that uses it:
 
 ```ruby
 # create the window
-window = SF::RenderWindow.new(SF.video_mode(512, 256), "Particles")
+window = SF::RenderWindow.new(SF.video_mode(800, 600), "Particles")
 
 # create the particle system
 particles = ParticleSystem.new(1000)
