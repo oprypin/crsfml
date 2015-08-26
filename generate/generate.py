@@ -182,32 +182,42 @@ def handle_struct(name, items):
     if d: lib(d)
     lib('struct {}'.format(name))
     
-    for t, n in items:
-        t = rename_type(t)
-        if t=='UInt32' and n=='unicode':
-            t = 'Char'
-        elif t=='UInt32' and n=='attributeFlags':
-            t = 'ContextAttribute'
-        lib('  {}: {}'.format(rename_identifier(n), t))
-    lib('end')
-    
     if d: obj(name+'ALIAS', d)
     obj(name+'ALIAS', 'alias {0} = CSFML::{0}'.format(name))
     
     for t, n in items:
-        if 'Vector2' in t or '*' in t and 'void' not in t:
-            t = rename_type(t)
-            if '*' in t:
-                continue
+        rt = rename_type(t)
+        rn = rename_identifier(n)
+
+        special = ''
+        if 'Vector2' in t or '*' in t and 'void' not in t and '*' not in rt:
+            special = '_'
+
+        if rt=='UInt32' and n=='unicode':
+            rt = 'Char'
+        elif rt=='UInt32' and n=='attributeFlags':
+            rt = 'ContextAttribute'
+        lib('  {}{}: {}'.format(rename_identifier(n), special, rt))
+
+        if special:
             if name and name not in objs[cmodule]:
                 obj(name, 'struct CSFML::'+name)
-
-            obj(name, 'def {}'.format(n))
+            
+            obj(name, 'def {}'.format(rn))
             if 'Vector2' in t:
-                obj(name, '  SF.vector2(@{})'.format(n))
+                obj(name, '  SF.vector2({}_)'.format(rn))
             else:
-                obj(name, '  SF::{}.wrap_ptr?(@{})'.format(rename_type(t), n))
+                obj(name, '  SF::{}.wrap_ptr?({}_)'.format(rt, rn))
             obj(name, 'end')
+            
+            obj(name, 'def {}=(value)'.format(rn))
+            if 'Vector2' in t:
+                obj(name, '  self.{}_ = SF.{}(value)'.format(rn, rt.lower()))
+            else:
+                obj(name, '  self.{}_ = value ? value.to_unsafe : Pointer(Void).null as CSFML::{}'.format(rn, rt))
+            obj(name, 'end')
+    
+    lib('end')
 
 def handle_union(name, items):
     name = rename_type(name)
@@ -653,7 +663,7 @@ for mod, classes in objs.items():
                 if ind == 2 and not l.startswith('#'):
                     ii = i
                     ind = 4
-            if not lines[ii].startswith(('alias')):
+            if not lines[ii].startswith('alias'):
                 f.write('  end\n')
             f.write('\n')
         if '' in classes:

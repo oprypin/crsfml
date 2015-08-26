@@ -1738,14 +1738,14 @@ lib CSFML
   struct RenderStates
     blend_mode: BlendMode
     transform: Transform
-    texture: Texture
-    shader: Shader
+    texture_: Texture
+    shader_: Shader
   end
   
   struct Vertex
-    position: Vector2f
+    position_: Vector2f
     color: Color
-    tex_coords: Vector2f
+    tex_coords_: Vector2f
   end
   
   # Construct a new render texture

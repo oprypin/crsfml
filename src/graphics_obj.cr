@@ -5289,10 +5289,16 @@ module SF
 
   struct CSFML::RenderStates
     def texture
-      SF::Texture.wrap_ptr?(@texture)
+      SF::Texture.wrap_ptr?(texture_)
+    end
+    def texture=(value)
+      self.texture_ = value ? value.to_unsafe : Pointer(Void).null as CSFML::Texture
     end
     def shader
-      SF::Shader.wrap_ptr?(@shader)
+      SF::Shader.wrap_ptr?(shader_)
+    end
+    def shader=(value)
+      self.shader_ = value ? value.to_unsafe : Pointer(Void).null as CSFML::Shader
     end
   end
 
@@ -5300,10 +5306,16 @@ module SF
 
   struct CSFML::Vertex
     def position
-      SF.vector2(@position)
+      SF.vector2(position_)
     end
-    def texCoords
-      SF.vector2(@texCoords)
+    def position=(value)
+      self.position_ = SF.vector2f(value)
+    end
+    def tex_coords
+      SF.vector2(tex_coords_)
+    end
+    def tex_coords=(value)
+      self.tex_coords_ = SF.vector2f(value)
     end
   end
 

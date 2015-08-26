@@ -161,8 +161,8 @@ module SF
     result = RenderStates.new()
     result.blend_mode = blend_mode
     result.transform = transform
-    result.texture = texture.to_unsafe if texture
-    result.shader = shader.to_unsafe if shader
+    result.texture = texture
+    result.shader = shader
     result
   end
   
@@ -310,7 +310,7 @@ module SF
   end
   
   def vertex(position=SF.vector2(0.0, 0.0), color=Color::White, tex_coords=SF.vector2(0.0, 0.0))
-    Vertex.new(position: SF.vector2f(position), color: color, tex_coords: SF.vector2f(tex_coords))
+    Vertex.new(position_: SF.vector2f(position), color: color, tex_coords_: SF.vector2f(tex_coords))
   end
   
   class VertexArray
