@@ -159,7 +159,7 @@ module SF
       SF.microseconds((microseconds / other).to_i64)
     end
     def /(other: Time)
-      microseconds.divf other.microseconds
+      microseconds.fdiv other.microseconds
     end
   end
   
