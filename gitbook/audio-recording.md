@@ -28,9 +28,9 @@ recorder.stop
 buffer = recorder.buffer
 ```
 
-The `SoundBufferRecorder.available?` static function checks if audio recording is supported by the system. It if returns `false`, you won't be able to use the [SoundBufferRecorder]({{book.api}}/SoundBufferRecorder.html) class at all.
+The `SoundBufferRecorder.available?` class method checks if audio recording is supported by the system. It if returns `false`, you won't be able to use the [SoundBufferRecorder]({{book.api}}/SoundBufferRecorder.html) class at all.
 
-The `start` and `stop` functions are self-explanatory. The capture runs in its own thread, which means that you can do whatever you want between start and stop. After the end of the capture, the recorded audio data is available in a sound buffer that you can get with the `buffer` function.
+The `start` and `stop` methods are self-explanatory. The capture runs in its own thread, which means that you can do whatever you want between start and stop. After the end of the capture, the recorded audio data is available in a sound buffer that you can get with the `buffer` method.
 
 With the recorded data, you can then:
 
@@ -67,7 +67,7 @@ To write your own recorder, you must inherit from the [SoundRecorder]({{book.api
 
 You only have a single virtual function to override in your derived class: `onProcessSamples`. It is called every time a new chunk of audio samples is captured, so this is where you implement your specific stuff.
 
-Audio samples are provided to the `onProcessSamples` function every 100 ms. This is currently hard-coded into CrSFML and you can't change that (unless you modify CrSFML itself). This may change in the future.
+Audio samples are provided to the `onProcessSamples` function every 100 ms. This is currently hard-coded into SFML and you can't change that (unless you modify SFML itself). This may change in the future.
 
 There are also two additional virtual functions that you can optionally override: `onStart` and `onStop`. They are called when the capture starts/stops respectively. They are useful for initialization/cleanup tasks.
 
@@ -115,7 +115,7 @@ recorder.stop
 
 Since recording is done in a separate thread, it is important to know what exactly happens, and where.
 
-`on_start` will be called directly by the `start` function, so it is executed in the same thread that called it. However, `on_process_sample` and `on_stop` will always be called from the internal recording thread that CrSFML creates.
+`on_start` will be called directly by the `start` function, so it is executed in the same thread that called it. However, `on_process_sample` and `on_stop` will always be called from the internal recording thread that SFML creates.
 
 If your recorder uses data that may be accessed *concurrently* in both the caller thread and in the recording thread, you have to protect it (with a mutex for example) in order to avoid concurrent access, which may cause undefined behavior -- corrupt data being recorded, crashes, etc.
 

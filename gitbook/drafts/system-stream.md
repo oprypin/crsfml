@@ -2,15 +2,15 @@
 
 ## Introduction
 
-CrSFML has several resource classes: images, fonts, sounds, etc. In most programs, these resources will be loaded from files, with the help of their `from_file` function. In a few other situations, resources will be packed directly into the executable or in a big data file, and loaded from memory with `from_memory`. These functions cover *almost* all the possible use cases -- but not all.
+SFML has several resource classes: images, fonts, sounds, etc. In most programs, these resources will be loaded from files, with the help of their `from_file` class method. In a few other situations, resources will be packed directly into the executable or in a big data file, and loaded from memory with `from_memory`. These methods cover *almost* all the possible use cases -- but not all.
 
-Sometimes you want to load files from unusual places, such as a compressed/encrypted archive, or a remote network location for example. For these special situations, CrSFML provides a third loading function: `from_stream`. This function reads data using an abstract [InputStream]({{book.api}}/InputStream.html) interface, which allows you to provide your own implementation of a stream class that works with CrSFML.
+Sometimes you want to load files from unusual places, such as a compressed/encrypted archive, or a remote network location for example. For these special situations, SFML provides a third loading method: `from_stream`. This method reads data using an abstract [InputStream]({{book.api}}/InputStream.html) interface, which allows you to provide your own implementation of a stream class that works with SFML.
 
 In this tutorial you'll learn how to write and use your own derived input stream.
 
 ## InputStream
 
-The [InputStream]({{book.api}}/InputStream.html) class declares four virtual functions:
+The [InputStream]({{book.api}}/InputStream.html) class declares four virtual methods:
 
 ```ruby
 class InputStream
@@ -43,15 +43,15 @@ end
 
 **size** must return the total size (in bytes) of the data which is contained in the stream, or -1 on error.
 
-To create your own working stream, you must implement every one of these four functions according to their requirements.
+To create your own working stream, you must implement every one of these four methods according to their requirements.
 
 ## FileInputStream and MemoryInputStream
 
-Starting with CrSFML 2.3 two new classes have been created to provide streams for the new internal audio management. `SF::FileInputStream` provides the read-only data stream of a file, while `SF::MemoryInputStream` serves the read-only stream from memory. Both are derived from `SF::InputStream` and can thus be used polymorphic.
+Starting with SFML 2.3 two new classes have been created to provide streams for the new internal audio management. `SF::FileInputStream` provides the read-only data stream of a file, while `SF::MemoryInputStream` serves the read-only stream from memory. Both are derived from `SF::InputStream` and can thus be used polymorphic.
 
 ## Using an InputStream
 
-Using a custom stream class is straight-forward: instantiate it, and pass it to the `from_stream` function of the object that you want to load.
+Using a custom stream class is straight-forward: instantiate it, and pass it to the `from_stream` class method of the object that you want to load.
 
 ```
 SF::FileStream stream;
@@ -73,7 +73,7 @@ Some resource classes are not loaded completely after `from_stream` has been cal
 
 As a consequence, the stream instance that you used to load a music or a font, as well as its data source, must remain alive as long as the resource uses it. If it is destroyed while still being used, it results in undefined behavior (can be a crash, corrupt data, or nothing visible).
 
-Another common mistake is to return whatever the internal functions return directly, but sometimes it doesn't match what CrSFML expects. For example, in the `SF::FileInputStream` code, one might be tempted to write the `seek` function as follows:
+Another common mistake is to return whatever the internal functions return directly, but sometimes it doesn't match what SFML expects. For example, in the `SF::FileInputStream` code, one might be tempted to write the `seek` method as follows:
 
 ```
 SF::Int64 FileInputStream::seek(SF::Int64 position)
@@ -82,4 +82,4 @@ SF::Int64 FileInputStream::seek(SF::Int64 position)
 }
 ```
 
-This code is wrong, because `std::fseek` returns zero on success, whereas CrSFML expects the new position to be returned.
+This code is wrong, because `std::fseek` returns zero on success, whereas SFML expects the new position to be returned.

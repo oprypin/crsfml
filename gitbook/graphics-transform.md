@@ -29,7 +29,7 @@ By default, entities are positioned relative to their top-left corner. We'll see
 
 ### Rotation
 
-The rotation is the orientation of the entity in the 2D world. It is defined in *degrees*, in clockwise order (because the Y axis is pointing down in CrSFML).
+The rotation is the orientation of the entity in the 2D world. It is defined in *degrees*, in clockwise order (because the Y axis is pointing down in SFML).
 
 ```ruby
 # 'entity' can be a SF::Sprite, a SF::Text, a SF::Shape or any other transformable class
@@ -46,7 +46,7 @@ rotation = entity.rotation # = 55
 
 ![A rotated entity](images/graphics-transform-rotation.png)
 
-Note that CrSFML always returns an angle in range [0, 360) when you call `rotation`.
+Note that SFML always returns an angle in range [0, 360) when you call `rotation`.
 
 As with the position, the rotation is performed around the top-left corner by default, but this can be changed by setting the origin.
 
@@ -103,9 +103,9 @@ entity.rotation = 110
 entity.scale = SF.vector2(0.5, 0.2)
 ```
 
-To retrieve the final transform of the entity (commonly needed when drawing it), call the `transform` function. This function returns a [Transform]({{book.api}}/Transform.html) object. See below for an explanation about it, and how to use it to transform an CrSFML entity.
+To retrieve the final transform of the entity (commonly needed when drawing it), call the `transform` method. This method returns a [Transform]({{book.api}}/Transform.html) object. See below for an explanation about it, and how to use it to transform an SFML entity.
 
-If you don't need/want the complete set of functions provided by the [TransformableM]({{book.api}}/TransformableM.html) interface, don't hesitate to simply use it as a member instead and provide your own functions on top of it. It is not abstract, so it is possible to instantiate it ([Transformable]({{book.api}}/Transformable.html)) instead of only being able to use it as a module.
+If you don't need/want the complete set of methods provided by the [TransformableM]({{book.api}}/TransformableM.html) interface, don't hesitate to simply use it as a member instead and provide your own methods on top of it. It is not abstract, so it is possible to instantiate it ([Transformable]({{book.api}}/Transformable.html)) instead of only being able to use it as a module.
 
 ## Custom transforms
 
@@ -113,7 +113,7 @@ The [Transformable]({{book.api}}/Transformable.html) class is easy to use, but i
 
 There are many ways to construct a [Transform]({{book.api}}/Transform.html):
 
-  * by using the predefined functions for the most common transformations (translation, rotation, scale)
+  * by using the predefined methods for the most common transformations (translation, rotation, scale)
   * by combining two transforms
   * by specifying its 9 elements directly
 
@@ -144,7 +144,7 @@ t.translate(-10, 50)
 t.scale(0.5, 0.75)
 ```
 
-Back to the point: How can a custom transform be applied to a graphical entity? Simple: Pass it to the draw function.
+Back to the point: How can a custom transform be applied to a graphical entity? Simple: Pass it to the draw method.
 
 ```ruby
 states = SF::RenderStates.new
@@ -158,7 +158,7 @@ If your entity is a [Transformable]({{book.api}}/Transformable.html) (sprite, te
 
 After transforming entities and drawing them, you might want to perform some computations using them e.g. checking for collisions.
 
-CrSFML entities can give you their bounding box. The bounding box is the minimal rectangle that contains all points belonging to the entity, with sides aligned to the X and Y axes.
+SFML entities can give you their bounding box. The bounding box is the minimal rectangle that contains all points belonging to the entity, with sides aligned to the X and Y axes.
 
 ![Bounding box of entities](images/graphics-transform-bounds.png)
 
@@ -183,9 +183,9 @@ if bounding_box.intersects(other_box)
 end
 ```
 
-The function is named `global_bounds` because it returns the bounding box of the entity in the global coordinate system, i.e. after all of its transformations (position, rotation, scale) have been applied.
+The method is named `global_bounds` because it returns the bounding box of the entity in the global coordinate system, i.e. after all of its transformations (position, rotation, scale) have been applied.
 
-There's another function that returns the bounding box of the entity in its *local* coordinate system (before its transformations are applied): `local_bounds`. This function can be used to get the initial size of an entity, for example, or to perform more specific calculations.
+There's another method that returns the bounding box of the entity in its *local* coordinate system (before its transformations are applied): `local_bounds`. This method can be used to get the initial size of an entity, for example, or to perform more specific calculations.
 
 ## Object hierarchies (scene graph)
 
@@ -194,9 +194,9 @@ With the custom transforms seen previously, it becomes easy to implement a hiera
 ```ruby
 # the abstract base class
 class Node
-    # ... functions to transform the node
+    # ... methods to transform the node
 
-    # ... functions to manage the node's children
+    # ... methods to manage the node's children
 
     def draw(target, parent_transform)
         # combine the parent transform with the node's one
@@ -218,7 +218,7 @@ end
 
 # a simple derived class: a node that draws a sprite
 class SpriteNode < Node
-    # .. functions to define the sprite
+    # .. methods to define the sprite
 
     private def on_draw(target, transform)
         target.draw(@sprite, transform)

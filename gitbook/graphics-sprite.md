@@ -14,21 +14,21 @@ Ok, that was short but if you really don't understand what sprites and textures 
 
 ## Loading a texture
 
-Before creating any sprite, we need a valid texture. The class that encapsulates textures in CrSFML is, unsurprisingly, [Texture]({{book.api}}/Texture.html). Since the only role of a texture is to be loaded and mapped to graphical entities, almost all its functions are about loading and updating it.
+Before creating any sprite, we need a valid texture. The class that encapsulates textures in CrSFML is, unsurprisingly, [Texture]({{book.api}}/Texture.html). Since the only role of a texture is to be loaded and mapped to graphical entities, almost all its methods are about loading and updating it.
 
-The most common way of loading a texture is from an image file on disk, which is done with the `from_file` function.
+The most common way of loading a texture is from an image file on disk, which is done with the `from_file` class method.
 
 ```ruby
 texture = SF::Texture.from_file("image.png")
 ```
 
-The `from_file` function can sometimes fail with no obvious reason. First, check the error message that CrSFML prints to the standard output (check the console). If the message is unable to open file, make sure that the *working directory* (which is the directory that any file path will be interpreted relative to) is what you think it is.
+The `from_file` class method can sometimes fail with no obvious reason. First, check the error message that SFML prints to the standard output (check the console). If the message is unable to open file, make sure that the *working directory* (which is the directory that any file path will be interpreted relative to) is what you think it is.
 
 You can also load an image file from memory (`from_memory`), from a [custom input stream](system-stream.md "Input streams tutorial") (`from_stream`), or from an image that has already been loaded (`from_image`). The latter loads the texture from an [Image]({{book.api}}/Image.html), which is a utility class that helps store and manipulate image data (modify pixels, create transparency channel, etc.). The pixels of an [Image]({{book.api}}/Image.html) stay in system memory, which ensures that operations on them will be as fast as possible, in contrast to the pixels of a texture which reside in video memory and are therefore slow to retrieve or update but very fast to draw.
 
-CrSFML supports most common image file formats. The full list is available in the API documentation.
+SFML supports most common image file formats. The full list is available in the API documentation.
 
-All these loading functions have an optional argument, which can be used if you want to load a smaller part of the image.
+All these loading class methods have an optional argument, which can be used if you want to load a smaller part of the image.
 
 ```ruby
 # load a 32x32 rectangle that starts at (10, 10)
@@ -46,7 +46,7 @@ texture = SF::Texture.new(200, 200)
 
 Note that the contents of the texture are undefined at this point.
 
-To update the pixels of an existing texture, you have to use the `update` function. It has overloads for many kinds of data sources:
+To update the pixels of an existing texture, you have to use the `update` method. It has overloads for many kinds of data sources:
 
 ```ruby
 # update a texture from an array of pixels
@@ -131,13 +131,13 @@ sprite.scale = SF.vector2(0.5, 2.0) # absolute scale factor
 sprite.scale(SF.vector2(1.5, 3.0)) # factor relative to the current scale
 ```
 
-By default, the origin for these three transformations is the top-left corner of the sprite. If you want to set the origin to a different point (for example the center of the sprite, or another corner), you can use the `origin=` function.
+By default, the origin for these three transformations is the top-left corner of the sprite. If you want to set the origin to a different point (for example the center of the sprite, or another corner), you can use the `origin=` method.
 
 ```ruby
 sprite.origin = SF.vector2(25, 25)
 ```
 
-Since transformation functions are common to all CrSFML entities, they are explained in a separate tutorial: [Transforming entities](graphics-transform.md "'Transforming entities' tutorial").
+Since transformation methods are common to all CrSFML entities, they are explained in a separate tutorial: [Transforming entities](graphics-transform.md "'Transforming entities' tutorial").
 
 ## The importance of using as few textures as possible
 
@@ -151,7 +151,7 @@ Try to keep this in mind when you create your animation sheets or your tilesets:
 
 If you're using OpenGL rather than the graphics entities of CrSFML, you can still use [Texture]({{book.api}}/Texture.html) as a wrapper around an OpenGL texture object and use it along with the rest if your OpenGL code.
 
-To bind a [Texture]({{book.api}}/Texture.html) for drawing (basically `glBindTexture`), you call the `bind` static function:
+To bind a [Texture]({{book.api}}/Texture.html) for drawing (basically `glBindTexture`), you call the `bind` class method:
 
 ```ruby
 texture = ...

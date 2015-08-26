@@ -8,7 +8,7 @@ This tutorial is a detailed list of window events. It describes them, and shows 
 
 Before dealing with events, it is important to understand what the [Event]({{book.api}}/Event.html) type is, and how to correctly use it. [Event]({{book.api}}/Event.html) is a *union*, which means that only one of its members is valid at a time (all the members of a union share the same memory space). The valid member is the one that matches the event type, for example `event.key` for a `KeyPressed` event. Trying to read any other member will result in an undefined behavior (most likely: random or invalid values). It is important to never try to use an event member that doesn't match its type.
 
-[Event]({{book.api}}/Event.html) instances are filled by the `poll_event` (or `wait_event`) function of the [Window]({{book.api}}/Window.html) class. Only these two functions can produce valid events, any attempt to use an [Event]({{book.api}}/Event.html) which was not returned by successful call to `poll_event` (or `wait_event`) will result in the same undefined behavior that was mentioned above.
+[Event]({{book.api}}/Event.html) instances are filled by the `poll_event` (or `wait_event`) method of the [Window]({{book.api}}/Window.html) class. Only these two methods can produce valid events, any attempt to use an [Event]({{book.api}}/Event.html) which was not returned by successful call to `poll_event` (or `wait_event`) will result in the same undefined behavior that was mentioned above.
 
 To be clear, here is what a typical event loop looks like:
 
@@ -30,7 +30,7 @@ end
 
 Read the above paragraph once again and make sure that you fully understand it, the [Event]({{book.api}}/Event.html) union is the cause of many problems for inexperienced programmers.
 
-Alright, now we can see what events CrSFML supports, what they mean and how to use them properly.
+Alright, now we can see what events SFML supports, what they mean and how to use them properly.
 
 ## The Closed event
 
@@ -124,11 +124,11 @@ if event.type == SF::Event::KeyPressed
 end
 ```
 
-Note that some keys have a special meaning for the operating system, and will lead to unexpected behavior. An example is the F10 key on Windows, which "steals" the focus, or the F12 key which starts the debugger when using Visual Studio. This will probably be solved in a future version of CrSFML.
+Note that some keys have a special meaning for the operating system, and will lead to unexpected behavior. An example is the F10 key on Windows, which "steals" the focus, or the F12 key which starts the debugger when using Visual Studio. This will probably be solved in a future version of SFML.
 
 ## The MouseWheelMoved event
 
-The `SF::Event::MouseWheelMoved` event is **deprecated** since CrSFML 2.3, use the MouseWheelScrolled event instead.
+The `SF::Event::MouseWheelMoved` event is **deprecated** since SFML 2.3, use the MouseWheelScrolled event instead.
 
 ## The MouseWheelScrolled event
 
@@ -156,7 +156,7 @@ end
 
 The `SF::Event::MouseButtonPressed` and `SF::Event::MouseButtonReleased` events are triggered when a mouse button is pressed/released.
 
-CrSFML supports 5 mouse buttons: left, right, middle (wheel), extra #1 and extra #2 (side buttons).
+SFML supports 5 mouse buttons: left, right, middle (wheel), extra #1 and extra #2 (side buttons).
 
 The member associated with these events is `event.mouse_button`, it contains the code of the pressed/released button, as well as the current position of the mouse cursor.
 
@@ -205,7 +205,7 @@ end
 
 The `SF::Event::JoystickButtonPressed` and `SF::Event::JoystickButtonReleased` events are triggered when a joystick button is pressed/released.
 
-CrSFML supports up to 8 joysticks and 32 buttons.
+SFML supports up to 8 joysticks and 32 buttons.
 
 The member associated with these events is `event.joystick_button`, it contains the identifier of the joystick and the index of the pressed/released button.
 
@@ -221,9 +221,9 @@ end
 
 The `SF::Event::JoystickMoved` event is triggered when a joystick axis moves.
 
-Joystick axes are typically very sensitive, that's why CrSFML uses a detection threshold to avoid spamming your event loop with tons of `JoystickMoved` events. This threshold can be changed with the `Window::setJoystickThreshold` function, in case you want to receive more or less joystick move events.
+Joystick axes are typically very sensitive, that's why SFML uses a detection threshold to avoid spamming your event loop with tons of `JoystickMoved` events. This threshold can be changed with the `Window#joystick_threshold=` method, in case you want to receive more or less joystick move events.
 
-CrSFML supports 8 joystick axes: X, Y, Z, R, U, V, POV X and POV Y. How they map to your joystick depends on its driver.
+SFML supports 8 joystick axes: X, Y, Z, R, U, V, POV X and POV Y. How they map to your joystick depends on its driver.
 
 The member associated with this event is `event.joystick_move`, it contains the identifier of the joystick, the name of the axis, and its current position (in the range [-100, 100]).
 

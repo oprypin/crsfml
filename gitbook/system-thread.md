@@ -8,11 +8,11 @@ A thread is basically a sequence of instructions that run in parallel to other t
 
 So, in short, threads are a way to do multiple things at the same time. This can be useful, for example, to display an animation and reacting to user input while loading images or sounds. Threads are also widely used in network programming, to wait for data to be received while continuing to update and draw the application. 
 
-## CrSFML threads or alternatives?
+## SFML threads or alternatives?
 
 Multithreaded code is inherently unsafe. Crystal itself has a `Thread` class, but it is classified as internal, because better ways to do concurrency are being developed. Crystal's standard library is not intended to be used with raw threads. Exceptions break in additional threads...
 
-Please make sure you know what you're doing before choosing CrSFML threads.
+Please make sure you know what you're doing before choosing SFML threads.
 
 ## Creating a thread with CrSFML
 
@@ -74,7 +74,7 @@ The entry point of the thread, ie. the function that will be run when the thread
 
 ## Starting threads
 
-Once you've created a [Thread]({{book.api}}/Thread.html) instance, you must start it with the `launch` function.
+Once you've created a [Thread]({{book.api}}/Thread.html) instance, you must start it with the `launch` method.
 
 ```ruby
 thread = SF::Thread(->func)
@@ -85,7 +85,7 @@ thread.launch()
 
 ## Stopping threads
 
-A thread automatically stops when its entry point function returns. If you want to wait for a thread to finish from another thread, you can call its `wait` function.
+A thread automatically stops when its entry point function returns. If you want to wait for a thread to finish from another thread, you can call its `wait` method.
 
 ```ruby
 thread = SF::Thread(->func)
@@ -99,11 +99,11 @@ thread.launch()
 thread.wait()
 ```
 
-The `wait` function is also implicitly called by the destructor of [Thread]({{book.api}}/Thread.html), so that a thread cannot remain alive (and out of control) after its owner [Thread]({{book.api}}/Thread.html) instance is destroyed. Keep this in mind when you manage your threads (see the last section of this tutorial). 
+The `wait` method is also implicitly called by the destructor of [Thread]({{book.api}}/Thread.html), so that a thread cannot remain alive (and out of control) after its owner [Thread]({{book.api}}/Thread.html) instance is destroyed. Keep this in mind when you manage your threads (see the last section of this tutorial). 
 
 ## Pausing threads
 
-There's no function in [Thread]({{book.api}}/Thread.html) that allows another thread to pause it, the only way to pause a thread is to do it from the code that it runs. In other words, you can only pause the current thread. To do so, you can call the `SF.sleep` function, as demonstrated in the first example.
+There's no method in [Thread]({{book.api}}/Thread.html) that allows another thread to pause it, the only way to pause a thread is to do it from the code that it runs. In other words, you can only pause the current thread. To do so, you can call the `SF.sleep` function, as demonstrated in the first example.
 
 `SF.sleep` has one argument, which is the time to sleep. This duration can be given with any unit/precision, as seen in the [time tutorial](system-time.md "Time tutorial").  
 Note that you can make any thread sleep with this function, even the main one. 

@@ -2,9 +2,9 @@
 
 ## Introduction
 
-CrSFML provides simple classes for the most common 2D entities. And while more complex entities can easily be created from these building blocks, it isn't always the most efficient solution. For example, you'll reach the limits of your graphics card very quickly if you draw a large number of sprites. The reason is that performance depends in large part on the number of calls to the `draw` function. Indeed, each call involves setting a set of OpenGL states, resetting matrices, changing textures, etc. All of this is required even when simply drawing two triangles (a sprite). This is far from optimal for your graphics card: Today's GPUs are designed to process large batches of triangles, typically several thousand to millions.
+SFML provides simple classes for the most common 2D entities. And while more complex entities can easily be created from these building blocks, it isn't always the most efficient solution. For example, you'll reach the limits of your graphics card very quickly if you draw a large number of sprites. The reason is that performance depends in large part on the number of calls to the `draw` method. Indeed, each call involves setting a set of OpenGL states, resetting matrices, changing textures, etc. All of this is required even when simply drawing two triangles (a sprite). This is far from optimal for your graphics card: Today's GPUs are designed to process large batches of triangles, typically several thousand to millions.
 
-To fill this gap, CrSFML provides a lower-level mechanism to draw things: Vertex arrays. As a matter of fact, vertex arrays are used internally by all other CrSFML classes. They allow for a more flexible definition of 2D entities, containing as many triangles as you need. They even allow drawing points or lines.
+To fill this gap, SFML provides a lower-level mechanism to draw things: Vertex arrays. As a matter of fact, vertex arrays are used internally by all other SFML classes. They allow for a more flexible definition of 2D entities, containing as many triangles as you need. They even allow drawing points or lines.
 
 ## What is a vertex, and why are they always in arrays?
 
@@ -62,7 +62,7 @@ window.draw(triangle)
 
 You can see that the vertices' color is interpolated to fill the primitive. This is a nice way of creating gradients.
 
-Note that you don't have to use the [VertexArray]({{book.api}}/VertexArray.html) class. It's just defined for convenience, it's nothing more than an array along with a `SF::PrimitiveType`. If you need more flexibility, or a static array, you can use your own storage. You must then use the overload of the `draw` function which takes an array of vertices and the primitive type.
+Note that you don't have to use the [VertexArray]({{book.api}}/VertexArray.html) class. It's just defined for convenience, it's nothing more than an array along with a `SF::PrimitiveType`. If you need more flexibility, or a normal (or static) array, you can use your own storage. You must then use the overload of the `draw` function which takes an array of vertices and the primitive type.
 
 ```ruby
 vertices = [
@@ -91,7 +91,7 @@ Primitive type | Description | Example
 
 ## Texturing
 
-Like other CrSFML entities, vertex arrays can also be textured. To do so, you'll need to manipulate the `tex_coords` attribute of the vertices. This attribute defines which pixel of the texture is mapped to the vertex.
+Like other SFML entities, vertex arrays can also be textured. To do so, you'll need to manipulate the `tex_coords` attribute of the vertices. This attribute defines which pixel of the texture is mapped to the vertex.
 
 ```ruby
 # create a quad
@@ -107,7 +107,7 @@ quad.append SF.vertex({ 10, 110}, tex_coords: { 0, 50})
 
 Texture coordinates are defined in *pixels* (just like the `texture_rect` of sprites and shapes). They are *not* normalized (between 0 and 1), as people who are used to OpenGL programming might expect.
 
-Vertex arrays are low-level entities, they only deal with geometry and do not store additional attributes like a texture. To draw a vertex array with a texture, you must pass it directly to the `draw` function, through a [RenderStates]({{book.api}}/RenderStates.html) object:
+Vertex arrays are low-level entities, they only deal with geometry and do not store additional attributes like a texture. To draw a vertex array with a texture, you must pass it directly to the `draw` method, through a [RenderStates]({{book.api}}/RenderStates.html) object:
 
 ```ruby
 vertices = ... # SF::VertexArray
@@ -123,7 +123,7 @@ window.draw(vertices, states)
 
 ## Transforming a vertex array
 
-Transforming is similar to texturing. The transform is not stored in the vertex array, you must pass it to the `draw` function.
+Transforming is similar to texturing. The transform is not stored in the vertex array, you must pass it to the `draw` method.
 
 ```ruby
 vertices = ... # SF::VertexArray
@@ -139,9 +139,9 @@ window.draw(vertices, states)
 
 To know more about transformations and the [Transform]({{book.api}}/Transform.html) class, you can read the tutorial on [transforming entities](graphics-transform.md "Transforming entities tutorial").
 
-## Creating an CrSFML-like entity
+## Creating an SFML-like entity
 
-Now that you know how to define your own textured/colored/transformed entity, wouldn't it be nice to wrap it in an CrSFML-style class? Writing a `draw` method allows you to draw instances of your class the same way as CrSFML classes:
+Now that you know how to define your own textured/colored/transformed entity, wouldn't it be nice to wrap it in a CrSFML-style class? Writing a `draw` method allows you to draw instances of your class the same way as CrSFML classes:
 
 ```ruby
 class MyEntity
@@ -153,7 +153,7 @@ entity = MyEntity.new
 window.draw(entity) # internally calls entity.draw
 ```
 
-Including the [TransformableM]({{book.api}}/TransformableM.html) module automatically adds the same transformation functions to your class as other CrSFML classes (`position=`, `rotation=`, `move`, `scale`, ...). You can learn more about this in the tutorial on [transforming entities](graphics-transform.md "Transforming entities tutorial").
+Including the [TransformableM]({{book.api}}/TransformableM.html) module automatically adds the same transformation methods to your class as other CrSFML classes (`position=`, `rotation=`, `move`, `scale`, ...). You can learn more about this in the tutorial on [transforming entities](graphics-transform.md "Transforming entities tutorial").
 
 Using these two features and a vertex array (in this example we'll also add a texture), here is what a typical CrSFML-like graphical class would look like:
 
@@ -161,7 +161,7 @@ Using these two features and a vertex array (in this example we'll also add a te
 class MyEntity
     include SF::TransformableM
 
-    # add functions to play with the entity's geometry / colors / texturing...
+    # add methods to play with the entity's geometry / colors / texturing...
 
     def draw(target, states)
         # apply the entity's transform -- combine it with the one that was passed by the caller

@@ -4,19 +4,19 @@
 
 Before drawing any text, you need to have an available font, just like any other program that prints text. Fonts are encapsulated in the [Font]({{book.api}}/Font.html) class, which provides three main features: loading a font, getting glyphs (i.e. visual characters) from it, and reading its attributes. In a typical program, you'll only have to make use of the first feature, loading the font, so let's focus on that first.
 
-The most common way of loading a font is from a file on disk, which is done with the `from_file` function.
+The most common way of loading a font is from a file on disk, which is done with the `from_file` class method.
 
 ```ruby
 font = SF::Font.from_file("DejaVuSans.ttf")
 ```
 
-Note that CrSFML won't load your system fonts automatically, i.e. `SF::Font.from_file("Courier New")` won't work. Firstly, because CrSFML requires *file names*, not font names, and secondly because CrSFML doesn't have magical access to your system's font folder. If you want to load a font, you will need to include the font file with your application, just like every other resource (images, sounds, ...).
+Note that SFML won't load your system fonts automatically, i.e. `SF::Font.from_file("Courier New")` won't work. Firstly, because SFML requires *file names*, not font names, and secondly because SFML doesn't have magical access to your system's font folder. If you want to load a font, you will need to include the font file with your application, just like every other resource (images, sounds, ...).
 
-The `from_file` function can sometimes fail with no obvious reason. First, check the error message that CrSFML prints to the standard output (check the console). If the message is unable to open file, make sure that the *working directory* (which is the directory that any file path will be interpreted relative to) is what you think it is: When you run the application from your desktop environment, the working directory is the executable folder. However, when you launch your program from your IDE (Visual Studio, Code::Blocks, ...) the working directory might sometimes be set to the *project* directory instead. This can usually be changed quite easily in the project settings.
+The `from_file` class method can sometimes fail with no obvious reason. First, check the error message that SFML prints to the standard output (check the console). If the message is unable to open file, make sure that the *working directory* (which is the directory that any file path will be interpreted relative to) is what you think it is: When you run the application from your desktop environment, the working directory is the executable folder. However, when you launch your program from your IDE (Visual Studio, Code::Blocks, ...) the working directory might sometimes be set to the *project* directory instead. This can usually be changed quite easily in the project settings.
 
 You can also load a font file from memory (`loadFromMemory`), or from a [custom input stream](system-stream.md "Input streams tutorial") (`loadFromStream`).
 
-CrSFML supports most common font formats. The full list is available in the API documentation.
+SFML supports most common font formats. The full list is available in the API documentation.
 
 That's all you need to do. Once your font is loaded, you can start drawing text.
 
@@ -50,7 +50,7 @@ window.draw(text)
 
 ![](images/graphics-text-draw.png)
 
-Text can also be transformed: They have a position, an orientation and a scale. The functions involved are the same as for the [Sprite]({{book.api}}/Sprite.html) class and other CrSFML entities. They are explained in the [Transforming entities](graphics-transform.md "'Transforming entities' tutorial") tutorial.
+Text can also be transformed: They have a position, an orientation and a scale. The methods involved are the same as for the [Sprite]({{book.api}}/Sprite.html) class and other CrSFML entities. They are explained in the [Transforming entities](graphics-transform.md "'Transforming entities' tutorial") tutorial.
 
 ## Making your own text class
 
@@ -62,7 +62,7 @@ You can retrieve the texture which contains all the pre-rendered glyphs of a cer
 texture = font.get_texture(character_size)
 ```
 
-It is important to note that glyphs are added to the texture when they are requested. There are so many characters (remember, more than 100000) that they can't all be generated when you load the font. Instead, they are rendered on the fly when you call the `get_glyph` function (see below).
+It is important to note that glyphs are added to the texture when they are requested. There are so many characters (remember, more than 100000) that they can't all be generated when you load the font. Instead, they are rendered on the fly when you call the `get_glyph` method (see below).
 
 To do something meaningful with the font texture, you must get the texture coordinates of glyphs that are contained in it:
 

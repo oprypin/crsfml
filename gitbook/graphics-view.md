@@ -4,13 +4,13 @@
 
 In games, it is not uncommon to have levels which are much bigger than the window itself. You only see is a small part of them. This is typically the case in RPGs, platform games, and many other genres. What developers might tend to forget is that they define entities *in a 2D world*, not directly in the window. The window is just a view, it shows a specific area of the whole world. It is perfectly fine to draw several views of the same world in parallel, or draw the world to a texture rather than to a window. The world itself remains unchanged, what changes is just the way it is seen.
 
-Since what is seen in the window is just a small part of the entire 2D world, you need a way to specify which part of the world is shown in the window. Additionally, you may also want to define where/how this area will be shown *within* the window. These are the two main features of CrSFML views.
+Since what is seen in the window is just a small part of the entire 2D world, you need a way to specify which part of the world is shown in the window. Additionally, you may also want to define where/how this area will be shown *within* the window. These are the two main features of SFML views.
 
 To summarize, views are what you need if you want to scroll, rotate or zoom your world. They are also the key to creating split screens and mini-maps.
 
 ## Defining what the view views
 
-The class which encapsulates views in CrSFML is [View]({{book.api}}/View.html). It can be constructed directly with a definition of the area to view:
+The class which encapsulates views in SFML is [View]({{book.api}}/View.html). It can be constructed directly with a definition of the area to view:
 
 ```ruby
 # create a view with the rectangular area of the 2D world to show
@@ -37,7 +37,7 @@ Once your view is defined, you can transform it to make it show a translated/rot
 
 ### Moving (scrolling) the view
 
-Unlike drawable entities, such as sprites or shapes whose positions are defined by their top-left corner (and can be changed to any other point), views are always manipulated by their center -- this is simply more convenient. That's why the function to change the position of a view is named `center=`, and not `position=`.
+Unlike drawable entities, such as sprites or shapes whose positions are defined by their top-left corner (and can be changed to any other point), views are always manipulated by their center -- this is simply more convenient. That's why the method to change the position of a view is named `center=`, and not `position=`.
 
 ```ruby
 # move the view at point (200, 200)
@@ -51,7 +51,7 @@ view.move(SF.vector2(100, 100))
 
 ### Rotating the view
 
-To rotate a view, use the `rotation=` function.
+To rotate a view, use the `rotation=` method.
 
 ```ruby
 # rotate the view at 20 degrees
@@ -65,7 +65,7 @@ view.rotate(5)
 
 ### Zooming (scaling) the view
 
-Zooming in (or out) a view is done through to resizing it, so the function to use is `size=`.
+Zooming in (or out) a view is done through to resizing it, so the method to use is `size=`.
 
 ```ruby
 # resize the view to show a 1200x800 area (we see a bigger area, so this is a zoom out)
@@ -83,7 +83,7 @@ Now that you've defined which part of the 2D world is seen in the window, let's 
 
 This default behavior is suitable for most situations, but it might need to be changed sometimes. For example, to split the screen in a multiplayer game, you may want to use two views which each only occupy half of the window. You can also implement a minimap by drawing your entire world to a view which is rendered in a small area in a corner of the window. The area in which the contents of the view is shown is called the *viewport*.
 
-To set the viewport of a view, you can use the `viewport=` function.
+To set the viewport of a view, you can use the `viewport=` method.
 
 ```ruby
 # define a centered viewport, with half the size of the window
@@ -120,7 +120,7 @@ minimap_view.viewport = SF.float_rect(0.75, 0, 0.25, 0.25)
 
 ## Using a view
 
-To draw something using a view, you must draw it after calling the `view=` function of the target to which you are drawing ([RenderWindow]({{book.api}}/RenderWindow.html) or [RenderTexture]({{book.api}}/RenderTexture.html)).
+To draw something using a view, you must draw it after calling the `view=` method of the target to which you are drawing ([RenderWindow]({{book.api}}/RenderWindow.html) or [RenderTexture]({{book.api}}/RenderTexture.html)).
 
 ```ruby
 # let's define a view
@@ -138,7 +138,7 @@ current_view = window.view
 ...
 ```
 
-The view remains active until you set another one. This means that there is always a view which defines what appears in the target, and where it is drawn. If you don't explicitly set any view, the render-target uses its own default view, which matches its size 1:1. You can get the default view of a render-target with the `default_view` function. This can be useful if you want to define your own view based on it, or restore it to draw fixed entities (like a GUI) on top of your scene.
+The view remains active until you set another one. This means that there is always a view which defines what appears in the target, and where it is drawn. If you don't explicitly set any view, the render-target uses its own default view, which matches its size 1:1. You can get the default view of a render-target with the `default_view` method. This can be useful if you want to define your own view based on it, or restore it to draw fixed entities (like a GUI) on top of your scene.
 
 ```ruby
 # create a view half the size of the default view
@@ -175,7 +175,7 @@ end
 
 ## Coordinates conversions
 
-When you use a custom view, or when you resize the window without using the code above, pixels displayed on the target no longer match units in the 2D world. For example, clicking on pixel (10, 50) may hit the point (26.5, -84) of your world. You end up having to use a conversion function to map your pixel coordinates to world coordinates: `map_pixel_to_coords`.
+When you use a custom view, or when you resize the window without using the code above, pixels displayed on the target no longer match units in the 2D world. For example, clicking on pixel (10, 50) may hit the point (26.5, -84) of your world. You end up having to use a conversion method to map your pixel coordinates to world coordinates: `map_pixel_to_coords`.
 
 ```ruby
 # get the current mouse position in the window
@@ -185,6 +185,6 @@ pixel_pos = SF::Mouse.get_position(window)
 world_pos = window.map_pixel_to_coords(pixel_pos, window.view)
 ```
 
-By default, `map_pixel_to_coords` uses the current view. If you want to convert the coordinates using view which is not the active one, you can pass it as an additional argument to the function.
+By default, `map_pixel_to_coords` uses the current view. If you want to convert the coordinates using view which is not the active one, you can pass it as an additional argument to the method.
 
-The opposite, converting world coordinates to pixel coordinates, is also possible with the `map_coords_to_pixel` function.
+The opposite, converting world coordinates to pixel coordinates, is also possible with the `map_coords_to_pixel` method.

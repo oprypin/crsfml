@@ -11,13 +11,13 @@ The second problem is the size of primitive types. The C++ standard doesn't set 
 
 The third problem is specific to how the TCP protocol works. Because it doesn't preserve message boundaries, and can split or combine chunks of data, receivers must properly reconstruct incoming messages before interpreting them. Otherwise bad things might happen, like reading incomplete variables, or ignoring useful bytes.
 
-You may of course face other problems with network programming, but these are the lowest-level ones, that almost everybody will have to solve. This is the reason why CrSFML provides some simple tools to avoid them.
+You may of course face other problems with network programming, but these are the lowest-level ones, that almost everybody will have to solve. This is the reason why SFML provides some simple tools to avoid them.
 
 ## Fixed-size primitive types
 
-Since primitive types cannot be exchanged reliably on a network, the solution is simple: don't use them. CrSFML provides fixed-size types for data exchange: `SF::Int8, SF::Uint16, SF::Int32`, etc. These types are just typedefs to primitive types, but they are mapped to the type which has the expected size according to the platform. So they can (and must!) be used safely when you want to exchange data between two computers.
+Since primitive types cannot be exchanged reliably on a network, the solution is simple: don't use them. SFML provides fixed-size types for data exchange: `SF::Int8, SF::Uint16, SF::Int32`, etc. These types are just typedefs to primitive types, but they are mapped to the type which has the expected size according to the platform. So they can (and must!) be used safely when you want to exchange data between two computers.
 
-CrSFML only provides fixed-size *integer* types. Floating-point types should normally have their fixed-size equivalent too, but in practice this is not needed (at least on platforms where CrSFML runs), `float` and `double` types always have the same size, 32 bits and 64 bits respectively.
+SFML only provides fixed-size *integer* types. Floating-point types should normally have their fixed-size equivalent too, but in practice this is not needed (at least on platforms where SFML runs), `float` and `double` types always have the same size, 32 bits and 64 bits respectively.
 
 ## Packets
 
@@ -75,7 +75,7 @@ udpSocket.send(packet, recipientAddress, recipientPort);
 udpSocket.receive(packet, senderAddress, senderPort);
 ```
 
-Packets solve the "message boundaries" problem, which means that when you send a packet on a TCP socket, you receive the exact same packet on the other end, it cannot contain less bytes, or bytes from the next packet that you send. However, it has a slight drawback: To preserve message boundaries, [Packet]({{book.api}}/Packet.html) has to send some extra bytes along with your data, which implies that you can only receive them with a [Packet]({{book.api}}/Packet.html) if you want them to be properly decoded. Simply put, you can't send an CrSFML packet to a non-CrSFML packet recipient, it has to use an CrSFML packet for receiving too. Note that this applies to TCP only, UDP is fine since the protocol itself preserves message boundaries.
+Packets solve the "message boundaries" problem, which means that when you send a packet on a TCP socket, you receive the exact same packet on the other end, it cannot contain less bytes, or bytes from the next packet that you send. However, it has a slight drawback: To preserve message boundaries, [Packet]({{book.api}}/Packet.html) has to send some extra bytes along with your data, which implies that you can only receive them with a [Packet]({{book.api}}/Packet.html) if you want them to be properly decoded. Simply put, you can't send an SFML packet to a non-SFML packet recipient, it has to use an SFML packet for receiving too. Note that this applies to TCP only, UDP is fine since the protocol itself preserves message boundaries.
 
 ## Extending packets to handle user types
 
@@ -113,12 +113,12 @@ packet >> bob;
 
 ## Custom packets
 
-Packets provide nice features on top of your raw data, but what if you want to add your own features such as automatically compressing or encrypting the data? This can easily be done by deriving from [Packet]({{book.api}}/Packet.html) and overriding the following functions:
+Packets provide nice features on top of your raw data, but what if you want to add your own features such as automatically compressing or encrypting the data? This can easily be done by deriving from [Packet]({{book.api}}/Packet.html) and overriding the following methods:
 
   * `onSend`: called before the data is sent by the socket
   * `onReceive`: called after the data has been received by the socket
 
-These functions provide direct access to the data, so that you can transform them according to your needs.
+These methods provide direct access to the data, so that you can transform them according to your needs.
 
 Here is a mock-up of a packet that performs automatic compression/decompression:
 

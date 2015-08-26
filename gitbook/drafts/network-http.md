@@ -22,7 +22,7 @@ http = SF::Http.new("http://www.some-server.org/")
 
 Note that setting the host doesn't trigger any connection. A temporary connection is created for each request.
 
-The only other function in [Http]({{book.api}}/Http.html), sends requests. This is basically all that the class does.
+The only other method in [Http]({{book.api}}/Http.html), sends requests. This is basically all that the class does.
 
 ```ruby
 request = SF::HttpRequest.new
@@ -52,7 +52,7 @@ request.body = "para1=value1&param2=value2"
 response = http.send_request(request)
 ```
 
-CrSFML automatically fills mandatory header fields, such as "Host", "Content-Length", etc. You can send your requests without worrying about them. CrSFML will do its best to make sure they are valid.
+SFML automatically fills mandatory header fields, such as "Host", "Content-Length", etc. You can send your requests without worrying about them. SFML will do its best to make sure they are valid.
 
 ## Responses
 
@@ -71,7 +71,7 @@ puts "Content-Type header:" + response.get_field("Content-Type")
 puts "body: " + response.body
 ```
 
-The status code can be used to check whether the request was successfully processed or not: codes 2xx represent success, codes 3xx represent a redirection, codes 4xx represent client errors, codes 5xx represent server errors, and codes 10xx represent CrSFML specific errors which are *not* part of the HTTP standard.
+The status code can be used to check whether the request was successfully processed or not: codes 2xx represent success, codes 3xx represent a redirection, codes 4xx represent client errors, codes 5xx represent server errors, and codes 10xx represent SFML specific errors which are *not* part of the HTTP standard.
 
 ## Example: sending scores to an online server
 

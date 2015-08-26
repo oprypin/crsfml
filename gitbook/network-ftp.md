@@ -2,7 +2,7 @@
 
 ## FTP for dummies
 
-If you know what FTP is, and just want to know how to use the FTP class that CrSFML provides, you can skip this section.
+If you know what FTP is, and just want to know how to use the FTP class that SFML provides, you can skip this section.
 
 FTP (*File Transfer Protocol*) is a simple protocol that allows manipulation of files and directories on a remote server. The protocol consists of commands such as "create directory", "delete file", "download file", etc. You can't send FTP commands to any remote computer, it needs to have an FTP server running which can understand and execute the commands that clients send.
 
@@ -14,20 +14,20 @@ If you want to know more about the FTP protocol, the [Wikipedia article](http://
 
 The class provided by CrSFML is [Ftp]({{book.api}}/Ftp.html) (surprising, isn't it?). It's a client, which means that it can connect to an FTP server, send commands to it and upload or download files.
 
-Every function of the [Ftp]({{book.api}}/Ftp.html) class wraps an FTP command, and returns a standard FTP response. An FTP response contains a status code (similar to HTTP status codes but not identical), and a message that informs the user of what happened. FTP responses are encapsulated in the [Ftp::Response]({{book.api}}/Ftp::Response.html) class.
+Every method of the [Ftp]({{book.api}}/Ftp.html) class wraps an FTP command, and returns a standard FTP response. An FTP response contains a status code (similar to HTTP status codes but not identical), and a message that informs the user of what happened. FTP responses are encapsulated in the [Ftp::Response]({{book.api}}/Ftp::Response.html) class.
 
 ```ruby
 ftp = SF::Ftp.new
 
 ...
 
-response = ftp.login("username", "password") # just an example, could be any function
+response = ftp.login("username", "password") # just an example, could be any method
 
 puts "Response status: #{response.status}"
 puts "Response message: #{response.message}"
 ```
 
-The status code can be used to check whether the command was successful or failed: Codes lower than 400 represent success, all others represent errors. You can use the `ok?` function as a shortcut to test a status code for success.
+The status code can be used to check whether the command was successful or failed: Codes lower than 400 represent success, all others represent errors. You can use the `ok?` method as a shortcut to test a status code for success.
 
 ```ruby
 response = ftp.login("username", "password")
@@ -182,7 +182,7 @@ ftp.keep_alive
 
 ## Disconnecting from the FTP server
 
-You can close the connection with the server at any moment with the `disconnect` function.
+You can close the connection with the server at any moment with the `disconnect` method.
 
 ```ruby
 ftp.disconnect

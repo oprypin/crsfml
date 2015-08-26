@@ -2,7 +2,7 @@
 
 ## Sound or music?
 
-CrSFML provides two classes for playing audio: and . They both provide more or less the same features, the main difference is how they work.
+SFML provides two classes for playing audio: and . They both provide more or less the same features, the main difference is how they work.
 
 is a lightweight object that plays loaded audio data from a . It should be used for small sounds that can fit in memory and should suffer no lag when they are played. Examples are gun shots, foot steps, etc.
 
@@ -14,7 +14,7 @@ As mentioned above, the sound data is not stored directly in but in a separate c
 
 In fact, the / classes work the same way as / from the graphics module. So if you understand how sprites and textures work together, you can apply the same concept to sounds and sound buffers.
 
-You can load a sound buffer from a file on disk with its `from_file` function:
+You can load a sound buffer from a file on disk with its `from_file` class method:
 
 ```ruby
 SF::SoundBuffer.from_file("sound.wav")
@@ -22,7 +22,7 @@ SF::SoundBuffer.from_file("sound.wav")
 
 As with everything else, you can also load an audio file from memory (`from_memory`) or from a [custom input stream](system-stream.md "Input streams tutorial") (`from_stream`).
 
-CrSFML supports the audio file formats WAV, OGG/Vorbis and FLAC. Due to licensing issues MP3 is **not** supported.
+SFML supports the audio file formats WAV, OGG/Vorbis and FLAC. Due to licensing issues MP3 is **not** supported.
 
 You can also load a sound buffer directly from an array of samples, in the case they originate from another source:
 
@@ -56,14 +56,14 @@ music = SF::Music.from_file("music.ogg")
 music.play
 ```
 
-It is important to note that, unlike all other CrSFML resources, the loading function only opens the file. The music is not really loaded, this function merely opens it. The data is only loaded later, when the music is played. It also helps to keep in mind that the audio file has to remain available as long as it is played.
-The other loading functions of follow the same convention: `from_memory`, `from_stream`.
+It is important to note that, unlike all other SFML resources, the loading class method only opens the file. The music is not really loaded, this method merely opens it. The data is only loaded later, when the music is played. It also helps to keep in mind that the audio file has to remain available as long as it is played.
+The other loading methods of follow the same convention: `from_memory`, `from_stream`.
 
 ## What's next?
 
 Now that you are able to load and play a sound or music, let's see what you can do with it.
 
-To control playback, the following functions are available:
+To control playback, the following methods are available:
 
   * `play` starts or resumes playback
   * `pause` pauses playback
@@ -89,7 +89,7 @@ sound.play
 sound.stop
 ```
 
-The `status` function returns the current status of a sound or music, you can use it to know whether it is stopped, playing or paused.
+The `status` method returns the current status of a sound or music, you can use it to know whether it is stopped, playing or paused.
 
 Sound and music playback is also controlled by a few attributes which can be changed at any moment.
 
@@ -117,7 +117,7 @@ More attributes are available, but they are related to spatialization and are ex
 
 ### Too many sounds
 
-One source of error is when you try to create a huge number of sounds. CrSFML internally has a limit; it can vary depending on the OS, but you should never exceed 256. This limit is the number of and instances that can exist simultaneously. A good way to stay below the limit is to destroy (or recycle) unused sounds when they are no longer needed. This only applies if you have to manage a really large amount of sounds and music, of course.
+One source of error is when you try to create a huge number of sounds. SFML internally has a limit; it can vary depending on the OS, but you should never exceed 256. This limit is the number of and instances that can exist simultaneously. A good way to stay below the limit is to destroy (or recycle) unused sounds when they are no longer needed. This only applies if you have to manage a really large amount of sounds and music, of course.
 
 ### Destroying the music source while it plays
 

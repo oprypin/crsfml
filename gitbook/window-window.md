@@ -1,4 +1,4 @@
-# Opening and managing a CrSFML window
+# Opening and managing an SFML window
 
 ## Introduction
 
@@ -79,9 +79,9 @@ The above code will open a window, and terminate when the user closes it. Let's 
 
 First, we added a loop that ensures that the application will be refreshed/updated until the window is closed. Most (if not all) CrSFML programs will have this kind of loop, sometimes called the *main loop* or *game loop*.
 
-Then, the first thing that we want to do inside our game loop is check for any events that occurred. Note that we use a `while` loop so that all pending events are processed in case there were several. The `poll_event` function returns true if an event was pending, or false if there was none.
+Then, the first thing that we want to do inside our game loop is check for any events that occurred. Note that we use a `while` loop so that all pending events are processed in case there were several. The `poll_event` method returns true if an event was pending, or false if there was none.
 
-Whenever we get an event, we must check its type (window closed? key pressed? mouse moved? joystick connected? ...), and react accordingly if we are interested in it. In this case, we only care about the `Event::Closed` event, which is triggered when the user wants to close the window. At this point, the window is still open and we have to close it explicitly with the `close` function. This enables you to do something before the window is closed, such as saving the current state of the application, or displaying a message.
+Whenever we get an event, we must check its type (window closed? key pressed? mouse moved? joystick connected? ...), and react accordingly if we are interested in it. In this case, we only care about the `Event::Closed` event, which is triggered when the user wants to close the window. At this point, the window is still open and we have to close it explicitly with the `close` method. This enables you to do something before the window is closed, such as saving the current state of the application, or displaying a message.
 
 A mistake that people often make is to forget the event loop, simply because they don't yet care about handling events (they use real-time inputs instead). Without an event loop, the window will become unresponsive. It is important to note that the event loop has two roles: in addition to providing events to the user, it gives the window a chance to process its internal events too, which is required so that it can react to move or resize user actions.
 
@@ -95,7 +95,7 @@ Don't expect to see anything interesting in this window: you may see a uniform c
 
 ## Playing with the window
 
-Of course, CrSFML allows you to play with your windows a bit. Basic window operations such as changing the size, position, title or icon are supported, but unlike dedicated GUI libraries, CrSFML doesn't provide advanced features. CrSFML windows are only meant to provide an environment for OpenGL or CrSFML drawing.
+Of course, CrSFML allows you to play with your windows a bit. Basic window operations such as changing the size, position, title or icon are supported, but unlike dedicated GUI libraries, SFML doesn't provide advanced features. SFML windows are only meant to provide an environment for OpenGL or SFML drawing.
 
 ```ruby
 # change the position of the window (relatively to the desktop)
@@ -105,7 +105,7 @@ window.position = SF.vector2(10, 50)
 window.size = SF.vector2(640, 480)
 
 # change the title of the window
-window.title = "CrSFML window"
+window.title = "SFML window"
 
 # get the size of the window
 size = window.size
@@ -115,30 +115,30 @@ height = size.y
 ...
 ```
 
-You can refer to the API documentation for a complete list of [Window]({{book.api}}/Window.html)'s functions.
+You can refer to the API documentation for a complete list of [Window]({{book.api}}/Window.html)'s methods.
 
-In case you really need advanced features for your window, you can create one (or even a full GUI) with another library, and embed CrSFML into it. To do so, you can use the other constructor of [Window]({{book.api}}/Window.html) which takes the OS-specific handle of an existing window. In this case, CrSFML will create a drawing context inside the given window and catch all its events without interfering with the parent window management.
+In case you really need advanced features for your window, you can create one (or even a full GUI) with another library, and embed SFML into it. To do so, you can use the other constructor of [Window]({{book.api}}/Window.html) which takes the OS-specific handle of an existing window. In this case, SFML will create a drawing context inside the given window and catch all its events without interfering with the parent window management.
 
 ```ruby
 handle = ... # specific to what you're doing and the library you're using
 SF::Window.from_handle(handle)
 ```
 
-If you just want an additional, very specific feature, you can also do it the other way round: create an CrSFML window and get its OS-specific handle to implement things that CrSFML itself doesn't support.
+If you just want an additional, very specific feature, you can also do it the other way round: create an SFML window and get its OS-specific handle to implement things that SFML itself doesn't support.
 
 ```ruby
-window = SF::RenderWindow.new(SF.video_mode(800, 600), "CrSFML window")
+window = SF::RenderWindow.new(SF.video_mode(800, 600), "SFML window")
 handle = window.system_handle
 
 # you can now use the handle with OS specific functions
 ```
 
-Integrating CrSFML with other libraries requires some work and won't be described here, but you can refer to the dedicated tutorials, examples or forum posts.
+Integrating SFML with other libraries requires some work and won't be described here, but you can refer to the dedicated tutorials, examples or forum posts.
 
 ## Controlling the framerate
 
 Sometimes, when your application runs fast, you may notice visual artifacts such as tearing. The reason is that your application's refresh rate is not synchronized with the vertical frequency of the monitor, and as a result, the bottom of the previous frame is mixed with the top of the next one.
-The solution to this problem is to activate *vertical synchronization*. It is automatically handled by the graphics card, and can easily be switched on and off with the `vertical_sync_enabled=` function:
+The solution to this problem is to activate *vertical synchronization*. It is automatically handled by the graphics card, and can easily be switched on and off with the `vertical_sync_enabled=` method:
 
 ```ruby
 window.vertical_sync_enabled = true # call it once, after creating the window
@@ -154,25 +154,25 @@ In other situations, you may also want your application to run at a given framer
 window.framerate_limit = 60 # call it once, after creating the window
 ```
 
-Unlike `vertical_sync_enabled=`, this feature is implemented by CrSFML itself, using a combination of [Clock]({{book.api}}/Clock.html) and `SF.sleep`. An important consequence is that it is not 100% reliable, especially for high framerates: `SF.sleep`'s resolution depends on the underlying operating system and hardware, and can be as high as 10 or 15 milliseconds. Don't rely on this feature to implement precise timing.
+Unlike `vertical_sync_enabled=`, this feature is implemented by SFML itself, using a combination of [Clock]({{book.api}}/Clock.html) and `SF.sleep`. An important consequence is that it is not 100% reliable, especially for high framerates: `SF.sleep`'s resolution depends on the underlying operating system and hardware, and can be as high as 10 or 15 milliseconds. Don't rely on this feature to implement precise timing.
 
 Never use both `vertical_sync_enabled` and `framerate_limit` at the same time! They would badly mix and make things worse.
 
 ## Things to know about windows
 
-Here is a brief list of what you can and cannot do with CrSFML windows.
+Here is a brief list of what you can and cannot do with SFML windows.
 
 ### You can create multiple windows
 
-CrSFML allows you to create multiple windows, and to handle them either all in the main thread, or each one in its own thread (but... see below). In this case, don't forget to have an event loop for each window.
+SFML allows you to create multiple windows, and to handle them either all in the main thread, or each one in its own thread (but... see below). In this case, don't forget to have an event loop for each window.
 
 ### Multiple monitors are not correctly supported yet
 
-CrSFML doesn't explicitly manage multiple monitors. As a consequence, you won't be able to choose which monitor a window appears on, and you won't be able to create more than one fullscreen window. This should be improved in a future version.
+SFML doesn't explicitly manage multiple monitors. As a consequence, you won't be able to choose which monitor a window appears on, and you won't be able to create more than one fullscreen window. This should be improved in a future version.
 
 ### Events must be polled in the window's thread
 
-This is an important limitation of most operating systems: the event loop (more precisely, the `poll_event` or `wait_event` function) must be called in the same thread that created the window. This means that if you want to create a dedicated thread for event handling, you'll have to make sure that the window is created in this thread too. If you really want to split things between threads, it is more convenient to keep event handling in the main thread and move the rest (rendering, physics, logic, ...) to a separate thread instead. This configuration will also be compatible with the other limitation described below.
+This is an important limitation of most operating systems: the event loop (more precisely, the `poll_event` or `wait_event` method) must be called in the same thread that created the window. This means that if you want to create a dedicated thread for event handling, you'll have to make sure that the window is created in this thread too. If you really want to split things between threads, it is more convenient to keep event handling in the main thread and move the rest (rendering, physics, logic, ...) to a separate thread instead. This configuration will also be compatible with the other limitation described below.
 
 ### On OS X, windows and events must be managed in the main thread
 

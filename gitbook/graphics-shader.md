@@ -8,7 +8,7 @@ Shaders are written in GLSL (*OpenGL Shading Language*), which is very similar t
 
 There are two types of shaders: vertex shaders and fragment (or pixel) shaders. Vertex shaders are run for each vertex, while fragment shaders are run for every generated fragment (pixel). Depending on what kind of effect you want to achieve, you can provide a vertex shader, a fragment shader, or both.
 
-To understand what shaders do and how to use them efficiently, it is important to understand the basics of the rendering pipeline. You must also learn how to write GLSL programs and find good tutorials and examples to get started. You can also have a look at the "Shader" example that comes with the CrSFML SDK.
+To understand what shaders do and how to use them efficiently, it is important to understand the basics of the rendering pipeline. You must also learn how to write GLSL programs and find good tutorials and examples to get started. You can also have a look at the "Shader" example that comes with the SFML SDK.
 
 This tutorial will only focus on the CrSFML specific part: Loading and applying your shaders -- not writing them.
 
@@ -26,7 +26,7 @@ end
 
 Any attempt to use the [Shader]({{book.api}}/Shader.html) class will fail if `SF::Shader.available?` returns `false`.
 
-The most common way of loading a shader is from a file on disk, which is done with the `from_file` function.
+The most common way of loading a shader is from a file on disk, which is done with the `from_file` class method.
 
 ```ruby
 # load only the vertex shader
@@ -41,9 +41,9 @@ shader = SF::Shader.from_file("vertex_shader.vert", "fragment_shader.frag")
 
 Shader source is contained in simple text files (like your Crystal code). Their extension doesn't really matter, it can be anything you want, you can even omit it. ".vert" and ".frag" are just examples of possible extensions.
 
-The `from_file` function can sometimes fail with no obvious reason. First, check the error message that CrSFML prints to the standard output (check the console). If the message is unable to open file, make sure that the *working directory* (which is the directory that any file path will be interpreted relative to) is what you think it is: When you run the application from your desktop environment, the working directory is the executable folder.
+The `from_file` class method can sometimes fail with no obvious reason. First, check the error message that SFML prints to the standard output (check the console). If the message is unable to open file, make sure that the *working directory* (which is the directory that any file path will be interpreted relative to) is what you think it is: When you run the application from your desktop environment, the working directory is the executable folder.
 
-Shaders can also be loaded directly from strings, with the `from_memory` function. This can be useful if you want to embed the shader source directly into your program.
+Shaders can also be loaded directly from strings, with the `from_memory` class method. This can be useful if you want to embed the shader source directly into your program.
 
 ```ruby
 vertex_shader = "
@@ -70,13 +70,13 @@ shader = SF::Shader.from_memory(fragment_shader, SF::Shader::Fragment)
 shader = SF::Shader.from_memory(vertex_shader, fragment_shader)
 ```
 
-And finally, like all other CrSFML resources, shaders can also be loaded from a [custom input stream](system-stream.md "Input streams tutorial") with the `from_stream` function.
+And finally, like all other SFML resources, shaders can also be loaded from a [custom input stream](system-stream.md "Input streams tutorial") with the `from_stream` class method.
 
 If loading fails, don't forget to check the standard error output (the console) to see a detailed report from the GLSL compiler.
 
 ## Using a shader
 
-Using a shader is simple, just pass it as an additional argument to the `draw` function.
+Using a shader is simple, just pass it as an additional argument to the `draw` method.
 
 ```ruby
 window.draw(whatever, SF.render_states(shader: shader))
@@ -95,7 +95,7 @@ void main()
 }
 ```
 
-Uniforms can be set by the Crystal program, using the various overloads of the `set_parameter` function in the [Shader]({{book.api}}/Shader.html) class.
+Uniforms can be set by the Crystal program, using the various overloads of the `set_parameter` method in the [Shader]({{book.api}}/Shader.html) class.
 
 ```ruby
 shader.set_parameter("my_var", 5.0)
@@ -115,11 +115,11 @@ The GLSL compiler optimizes out unused variables (here, "unused" means "not invo
 
 ## Minimal shaders
 
-You won't learn how to write GLSL shaders here, but it is essential that you know what input CrSFML provides to the shaders and what it expects you to do with it.
+You won't learn how to write GLSL shaders here, but it is essential that you know what input SFML provides to the shaders and what it expects you to do with it.
 
 ### Vertex shader
 
-CrSFML has a fixed vertex format which is described by the [Vertex]({{book.api}}/Vertex.html) structure. A CrSFML vertex contains a 2D position, a color, and 2D texture coordinates. This is the exact input that you will get in the vertex shader, stored in the built-in `gl_Vertex`, `gl_MultiTexCoord0` and `gl_Color` variables (you don't need to declare them).
+SFML has a fixed vertex format which is described by the [Vertex]({{book.api}}/Vertex.html) structure. A SFML vertex contains a 2D position, a color, and 2D texture coordinates. This is the exact input that you will get in the vertex shader, stored in the built-in `gl_Vertex`, `gl_MultiTexCoord0` and `gl_Color` variables (you don't need to declare them).
 
 ```cpp
 void main()
@@ -135,7 +135,7 @@ void main()
 }
 ```
 
-The position usually needs to be transformed by the model-view and projection matrices, which contain the entity transform combined with the current view. The texture coordinates need to be transformed by the texture matrix (this matrix likely doesn't mean anything to you, it is just an CrSFML implementation detail). And finally, the color just needs to be forwarded. Of course, you can ignore the texture coordinates and/or the color if you don't make use of them.
+The position usually needs to be transformed by the model-view and projection matrices, which contain the entity transform combined with the current view. The texture coordinates need to be transformed by the texture matrix (this matrix likely doesn't mean anything to you, it is just an SFML implementation detail). And finally, the color just needs to be forwarded. Of course, you can ignore the texture coordinates and/or the color if you don't make use of them.
 All these variables will then be interpolated over the primitive by the graphics card, and passed to the fragment shader.
 
 ### Fragment shader
@@ -155,24 +155,24 @@ void main()
 }
 ```
 
-The current texture is not automatic, you need to treat it like you do the other input variables, and explicitly set it from your C++ program. Since each entity can have a different texture, and worse, there might be no way for you to get it and pass it to the shader, CrSFML provides a special overload of the `set_parameter` function that does this job for you.
+The current texture is not automatic, you need to treat it like you do the other input variables, and explicitly set it from your C++ program. Since each entity can have a different texture, and worse, there might be no way for you to get it and pass it to the shader, SFML provides a special overload of the `set_parameter` method that does this job for you.
 
 ```
 shader.set_parameter("texture", SF::Shader::CurrentTexture)
 ```
 
-This special parameter automatically sets the texture of the entity being drawn to the shader variable with the given name. Every time you draw a new entity, CrSFML will update the shader texture variable accordingly.
+This special parameter automatically sets the texture of the entity being drawn to the shader variable with the given name. Every time you draw a new entity, SFML will update the shader texture variable accordingly.
 
-If you want to see nice examples of shaders in action, you can have a look at the Shader example in the CrSFML SDK.
+If you want to see nice examples of shaders in action, you can have a look at the Shader example in the SFML SDK.
 
 ## Using a SF::Shader with OpenGL code
 
-If you're using OpenGL rather than the graphics entities of CrSFML, you can still use [Shader]({{book.api}}/Shader.html) as a wrapper around an OpenGL program object and use it within your OpenGL code.
+If you're using OpenGL rather than the graphics entities of SFML, you can still use [Shader]({{book.api}}/Shader.html) as a wrapper around an OpenGL program object and use it within your OpenGL code.
 
-To activate a [Shader]({{book.api}}/Shader.html) for drawing (the equivalent of `glUseProgram`), you have to call the `bind` static function:
+To activate a [Shader]({{book.api}}/Shader.html) for drawing (the equivalent of `glUseProgram`), you have to call the `bind` class method:
 
 ```ruby
-SF::Shader shader
+shader = SF::Shader.new
 ...
 
 # bind the shader

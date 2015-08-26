@@ -8,9 +8,9 @@ Fortunately, CrSFML provides a graphics module which will help you draw 2D entit
 
 ## The drawing window
 
-To draw the entities provided by the graphics module, you must use a specialized window class: [RenderWindow]({{book.api}}/RenderWindow.html). This class is derived from [Window]({{book.api}}/Window.html), and inherits all its functions. Everything that you've learnt about [Window]({{book.api}}/Window.html) (creation, event handling, controlling the framerate, mixing with OpenGL, etc.) is applicable to [RenderWindow]({{book.api}}/RenderWindow.html) as well.
+To draw the entities provided by the graphics module, you must use a specialized window class: [RenderWindow]({{book.api}}/RenderWindow.html). This class is derived from [Window]({{book.api}}/Window.html), and inherits all its methods. Everything that you've learnt about [Window]({{book.api}}/Window.html) (creation, event handling, controlling the framerate, mixing with OpenGL, etc.) is applicable to [RenderWindow]({{book.api}}/RenderWindow.html) as well.
 
-On top of that, [RenderWindow]({{book.api}}/RenderWindow.html) adds high-level functions to help you draw things easily. In this tutorial we'll focus on two of these functions: `clear` and `draw`. They are as simple as their name implies: `clear` clears the whole window with the chosen color, and `draw` draws whatever object you pass to it.
+On top of that, [RenderWindow]({{book.api}}/RenderWindow.html) adds high-level methods to help you draw things easily. In this tutorial we'll focus on two of these methods: `clear` and `draw`. They are as simple as their name implies: `clear` clears the whole window with the chosen color, and `draw` draws whatever object you pass to it.
 
 Here is what a typical main loop looks like with a render window:
 
@@ -52,7 +52,7 @@ Modern graphics hardware and APIs are *really* made for repeated clear/draw/disp
 
 Now that you have a main loop which is ready to draw, let's see what, and how, you can actually draw there.
 
-CrSFML provides four kinds of drawable entities: three of them are ready to be used (*sprites*, *text* and *shapes*), the last one is the building block that will help you create your own drawable entities (*vertex arrays*).
+SFML provides four kinds of drawable entities: three of them are ready to be used (*sprites*, *text* and *shapes*), the last one is the building block that will help you create your own drawable entities (*vertex arrays*).
 
 Although they share some common properties, each of these entities come with their own nuances and are therefore explained in dedicated tutorials:
 
@@ -63,13 +63,13 @@ Although they share some common properties, each of these entities come with the
 
 ## Off-screen drawing
 
-CrSFML also provides a way to draw to a texture instead of directly to a window. To do so, use a [RenderTexture]({{book.api}}/RenderTexture.html) instead of a [RenderWindow]({{book.api}}/RenderWindow.html). It has the same functions for drawing, inherited from their common base: [RenderTarget]({{book.api}}/RenderTarget.html).
+SFML also provides a way to draw to a texture instead of directly to a window. To do so, use a [RenderTexture]({{book.api}}/RenderTexture.html) instead of a [RenderWindow]({{book.api}}/RenderWindow.html). It has the same methods for drawing, inherited from their common base: [RenderTarget]({{book.api}}/RenderTarget.html).
 
 ```ruby
 # create a 500x500 render-texture
 render_texture = SF::RenderTexture.new(500, 500)
 
-# drawing uses the same functions
+# drawing uses the same methods
 render_texture.clear(SF::Color::Blue)
 render_texture.draw(sprite) # or any other drawable
 render_texture.display
@@ -82,9 +82,9 @@ sprite = SF::Sprite.new(texture)
 window.draw(sprite)
 ```
 
-The `texture` function returns a read-only texture, which means that you can only use it, not modify it. If you need to modify it before using it, you can copy it to your own [Texture]({{book.api}}/Texture.html) instance and modify that instead.
+The `texture` method returns a read-only texture, which means that you can only use it, not modify it. If you need to modify it before using it, you can copy it to your own [Texture]({{book.api}}/Texture.html) instance and modify that instead.
 
-[RenderTexture]({{book.api}}/RenderTexture.html) also has the same functions as [RenderWindow]({{book.api}}/RenderWindow.html) for handling views and OpenGL (see the corresponding tutorials for more details). If you use OpenGL to draw to the render-texture, you can request creation of a depth buffer by using the third optional argument of the constructor function.
+[RenderTexture]({{book.api}}/RenderTexture.html) also has the same methods as [RenderWindow]({{book.api}}/RenderWindow.html) for handling views and OpenGL (see the corresponding tutorials for more details). If you use OpenGL to draw to the render-texture, you can request creation of a depth buffer by using the third optional argument of the constructor.
 
 ```ruby
 SF::RenderTexture.new(500, 500, true) # enable depth buffer

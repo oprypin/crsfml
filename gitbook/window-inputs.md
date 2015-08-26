@@ -6,9 +6,9 @@ This tutorial explains how to access global input devices: keyboard, mouse and j
 
 ## Keyboard
 
-The class that provides access to the keyboard state is [Keyboard]({{book.api}}/Keyboard.html). It only contains one function, `is_key_pressed`, which checks the current state of a key (pressed or released). It is a static function, so you don't need to instantiate [Keyboard]({{book.api}}/Keyboard.html) to use it.
+The class that provides access to the keyboard state is [Keyboard]({{book.api}}/Keyboard.html). It only contains one class method, `is_key_pressed`, which checks the current state of a key (pressed or released). It is a class method, so you don't need to instantiate [Keyboard]({{book.api}}/Keyboard.html) to use it.
 
-This function directly reads the keyboard state, ignoring the focus state of your window. This means that `is_key_pressed` may return true even if your window is inactive.
+This class method directly reads the keyboard state, ignoring the focus state of your window. This means that `is_key_pressed` may return true even if your window is inactive.
 
 ```ruby
 if SF::Keyboard.is_key_pressed(SF::Keyboard::Left)
@@ -19,11 +19,11 @@ end
 
 Key codes are defined in the `SF::Keyboard::Key` enum.
 
-Depending on your operating system and keyboard layout, some key codes might be missing or interpreted incorrectly. This is something that will be improved in a future version of CrSFML.
+Depending on your operating system and keyboard layout, some key codes might be missing or interpreted incorrectly. This is something that will be improved in a future version of SFML.
 
 ## Mouse
 
-The class that provides access to the mouse state is [Mouse]({{book.api}}/Mouse.html). Like its friend [Keyboard]({{book.api}}/Keyboard.html), [Mouse]({{book.api}}/Mouse.html) only contains static functions and is not meant to be instantiated (CrSFML only handles a single mouse for the time being).
+The class that provides access to the mouse state is [Mouse]({{book.api}}/Mouse.html). Like its friend [Keyboard]({{book.api}}/Keyboard.html), [Mouse]({{book.api}}/Mouse.html) only contains class methods and is not meant to be instantiated (SFML only handles a single mouse for the time being).
 
 You can check if buttons are pressed:
 
@@ -34,7 +34,7 @@ if SF::Mouse.is_button_pressed(SF::Mouse::Left)
 end
 ```
 
-Mouse button codes are defined in the `SF::Mouse::Button` enum. CrSFML supports up to 5 buttons: left, right, middle (wheel), and two additional buttons whatever they may be.
+Mouse button codes are defined in the `SF::Mouse::Button` enum. SFML supports up to 5 buttons: left, right, middle (wheel), and two additional buttons whatever they may be.
 
 You can also get and set the current position of the mouse, either relative to the desktop or to a window:
 
@@ -60,9 +60,9 @@ There is no function for reading the current state of the mouse wheel. Since the
 
 ## Joystick
 
-The class that provides access to the joysticks' states is [Joystick]({{book.api}}/Joystick.html). Like the other classes in this tutorial, it only contains static functions.
+The class that provides access to the joysticks' states is [Joystick]({{book.api}}/Joystick.html). Like the other classes in this tutorial, it only contains class methods.
 
-Joysticks are identified by their index (0 to 7, since CrSFML supports up to 8 joysticks). Therefore, the first argument of every function of [Joystick]({{book.api}}/Joystick.html) is the index of the joystick that you want to query.
+Joysticks are identified by their index (0 to 7, since SFML supports up to 8 joysticks). Therefore, the first argument of every class method of [Joystick]({{book.api}}/Joystick.html) is the index of the joystick that you want to query.
 
 You can check whether a joystick is connected or not:
 
@@ -100,4 +100,4 @@ y = SF::Joystick.get_axis_position(0, SF::Joystick::Y)
 character.move(x, y)
 ```
 
-Joystick states are automatically updated when you check for events. If you don't check for events, or need to query a joystick state (for example, checking which joysticks are connected) before starting your game loop, you'll have to manually call the `SF::Joystick.update` function yourself to make sure that the joystick states are up to date.
+Joystick states are automatically updated when you check for events. If you don't check for events, or need to query a joystick state (for example, checking which joysticks are connected) before starting your game loop, you'll have to manually call the `SF::Joystick.update` class method yourself to make sure that the joystick states are up to date.

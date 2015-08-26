@@ -17,7 +17,7 @@ Spatialization is disabled for sounds with more channels, since they already exp
 
 All the sounds and music in your audio environment will be heard by a single actor: the *listener*. What is output from your speakers is determined by what the listener hears.
 
-The class which defines the listener's properties is [Listener]({{book.api}}/Listener.html). Since the listener is unique in the environment, this class only contains static functions and is not meant to be instantiated.
+The class which defines the listener's properties is [Listener]({{book.api}}/Listener.html). Since the listener is unique in the environment, this class only contains class methods and is not meant to be instantiated.
 
 First, you can set the listener's position in the scene:
 
@@ -51,11 +51,11 @@ SF::Listener.global_volume = 50.0
 
 The value of the volume is in the range [0 .. 100], so setting it to 50 reduces it to half of the original volume.
 
-Of course, all these properties can be read with the corresponding getter functions.
+Of course, all these properties can be read with the corresponding getter methods.
 
 ## Audio sources
 
-Every audio source provided by CrSFML (sounds, music, streams) defines the same properties for spatialization.
+Every audio source provided by SFML (sounds, music, streams) defines the same properties for spatialization.
 
 The main property is the position of the audio source.
 

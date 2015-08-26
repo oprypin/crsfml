@@ -12,7 +12,7 @@ These properties are common to all the CrSFML graphical classes, so they are exp
 
 ### Color
 
-One of the basic properties of a shape is its color. You can change with the `fill_color=` function.
+One of the basic properties of a shape is its color. You can change with the `fill_color=` method.
 
 ```ruby
 shape = SF::CircleShape.new(50)
@@ -25,7 +25,7 @@ shape.fill_color = SF.color(100, 250, 50)
 
 ### Outline
 
-Shapes can have an outline. You can set the thickness and color of the outline with the `outline_thickness=` and `setOutlineColor` functions.
+Shapes can have an outline. You can set the thickness and color of the outline with the `outline_thickness=` and `outline_color=` methods.
 
 ```ruby
 shape = SF::CircleShape.new(50)
@@ -44,7 +44,7 @@ To disable the outline, set its thickness to 0. If you only want the outline, yo
 
 ### Texture
 
-Shapes can also be textured, just like sprites. To specify a part of the texture to be mapped to the shape, you must use the `texture_rect=` function. It takes the texture rectangle to map to the bounding rectangle of the shape. This method doesn't offer maximum flexibility, but it is much easier to use than individually setting the texture coordinates of each point of the shape.
+Shapes can also be textured, just like sprites. To specify a part of the texture to be mapped to the shape, you must use the `texture_rect=` method. It takes the texture rectangle to map to the bounding rectangle of the shape. This method doesn't offer maximum flexibility, but it is much easier to use than individually setting the texture coordinates of each point of the shape.
 
 ```ruby
 shape = SF::CircleShape.new(50)
@@ -63,7 +63,7 @@ To disable texturing, call `set_texture(nil, false)`.
 
 ## Drawing a shape
 
-Drawing a shape is as simple as drawing any other CrSFML entity:
+Drawing a shape is as simple as drawing any other SFML entity:
 
 ```ruby
 window.draw(shape)
@@ -121,7 +121,7 @@ octagon = SF::CircleShape.new(80, 8)
 
 ### Convex shapes
 
-The [ConvexShape]({{book.api}}/ConvexShape.html) class is the ultimate shape class: It allows you to define any *convex* shape. CrSFML is unable to draw concave shapes. If you need to draw a concave shape, you'll have to split it into multiple convex polygons.
+The [ConvexShape]({{book.api}}/ConvexShape.html) class is the ultimate shape class: It allows you to define any *convex* shape. SFML is unable to draw concave shapes. If you need to draw a concave shape, you'll have to split it into multiple convex polygons.
 
 To construct a convex shape, you must first set the number of points it should have and then define the points.
 
@@ -180,12 +180,12 @@ To learn more about vertices and primitives, you can read the tutorial on [verte
 
 <!--
 
-You can extend the set of shape classes with your own shape types. To do so, you must derive from [Shape]({{book.api}}/Shape.html) and override two functions:
+You can extend the set of shape classes with your own shape types. To do so, you must derive from [Shape]({{book.api}}/Shape.html) and override two methods:
 
   * `point_count`: return the number of points in the shape
   * `get_point`: return a point of the shape
 
-You must also call the `update()` protected function whenever any point in your shape changes, so that the base class is informed and can update its internal geometry.
+You must also call the `update()` method whenever any point in your shape changes, so that the base class is informed and can update its internal geometry.
 
 Here is a complete example of a custom shape class: `EllipseShape`.
 
@@ -229,7 +229,7 @@ There's no option to anti-alias a single shape. To get anti-aliased shapes (i.e.
 ```ruby
 window = SF::RenderWindow.new(
   SF.video_mode(800, 600),
-  "CrSFML shapes",
+  "SFML shapes",
   settings: SF.context_settings(antialiasing: 8)
 )
 ```
