@@ -6,6 +6,8 @@
   * [SFML and Linux](start-linux.md "SFML and Linux")
   * [SFML and Xcode (Mac OS X)](start-osx.md "SFML and Mac OS X")
   * [Compiling SFML with CMake](compile-with-cmake.md "Compiling SFML with CMake")
+* CrSFML
+  * [Differences between SFML and CrSFML](crsfml-differences.md)
 * System module
   * [Handling time](system-time.md "Handling time")
   * [Threads](system-thread.md "Threads")
