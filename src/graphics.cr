@@ -412,60 +412,32 @@ end
 
 require "./graphics_obj"
 
+private macro delegate_to_transformable(*signatures)
+  {% for signature in signatures %}
+    def {{signature.id}}
+      (@transformable ||= SF::Transformable.new()).{{signature.id}}
+    end
+  {% end %}
+end
+
 module SF
   # Include this module to get all methods of a `Transformable`
+  
   module TransformableM
-    def position=(position)
-      @transformable = SF::Transformable.new() unless @transformable
-      (@transformable || SF::Transformable.new()).position = position
-    end
-    def rotation=(angle: Number)
-      @transformable = SF::Transformable.new() unless @transformable
-      (@transformable || SF::Transformable.new()).rotation = angle
-    end
-    def scale=(scale)
-      @transformable = SF::Transformable.new() unless @transformable
-      (@transformable || SF::Transformable.new()).scale = scale
-    end
-    def origin=(origin)
-      @transformable = SF::Transformable.new() unless @transformable
-      (@transformable || SF::Transformable.new()).origin = origin
-    end
-    def position
-      @transformable = SF::Transformable.new() unless @transformable
-      (@transformable || SF::Transformable.new()).position
-    end
-    def rotation
-      @transformable = SF::Transformable.new() unless @transformable
-      (@transformable || SF::Transformable.new()).rotation
-    end
-    def scale
-      @transformable = SF::Transformable.new() unless @transformable
-      (@transformable || SF::Transformable.new()).scale
-    end
-    def origin
-      @transformable = SF::Transformable.new() unless @transformable
-      (@transformable || SF::Transformable.new()).origin
-    end
-    def move(offset)
-      @transformable = SF::Transformable.new() unless @transformable
-      (@transformable || SF::Transformable.new()).move(offset)
-    end
-    def rotate(angle: Number)
-      @transformable = SF::Transformable.new() unless @transformable
-      (@transformable || SF::Transformable.new()).rotate(angle)
-    end
-    def scale(factors)
-      @transformable = SF::Transformable.new() unless @transformable
-      (@transformable || SF::Transformable.new()).scale(factors)
-    end
-    def transform
-      @transformable = SF::Transformable.new() unless @transformable
-      (@transformable || SF::Transformable.new()).transform
-    end
-    def inverse_transform
-      @transformable = SF::Transformable.new() unless @transformable
-      (@transformable || SF::Transformable.new()).inverse_transform
-    end
+    delegate_to_transformable(
+      "position=(position)",
+      "rotation=(angle)",
+      "scale=(scale)",
+      "origin=(origin)",
+      "position",
+      "rotation",
+      "scale",
+      "origin",
+      "move(offset)",
+      "rotate(angle)",
+      "scale(factors)",
+      "transform",
+      "inverse_transform"
+    )
   end
 end
