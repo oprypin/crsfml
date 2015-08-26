@@ -48,7 +48,7 @@ text.style = (SF::Text::Bold | SF::Text::Underlined)
 window.draw(text)
 ```
 
-![](./images/graphics-text-draw.png)
+![](images/graphics-text-draw.png)
 
 Text can also be transformed: They have a position, an orientation and a scale. The functions involved are the same as for the [Sprite]({{book.api}}/Sprite.html) class and other CrSFML entities. They are explained in the [Transforming entities](graphics-transform.md "'Transforming entities' tutorial") tutorial.
 

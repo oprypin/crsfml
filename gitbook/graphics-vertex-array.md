@@ -58,7 +58,7 @@ Your triangle is ready and you can now draw it. Drawing a vertex array can be do
 window.draw(triangle)
 ```
 
-![A triangle made with vertices](./images/graphics-vertex-array-triangle.png)
+![A triangle made with vertices](images/graphics-vertex-array-triangle.png)
 
 You can see that the vertices' color is interpolated to fill the primitive. This is a nice way of creating gradients.
 
@@ -81,13 +81,13 @@ Let's have a look at the full list:
 
 Primitive type | Description | Example
 ---|---|---
-`SF::Points` |  A set of unconnected points. These points have no thickness: They will always occupy a single pixel, regardless of the current transform and view.  |  ![The SF::Points primitive type](./images/graphics-vertex-array-points.png)
-`SF::Lines` |  A set of unconnected lines. These lines have no thickness: They will always be one pixel wide, regardless of the current transform and view.  |  ![The SF::Lines primitive type](./images/graphics-vertex-array-lines.png)
-`SF::LinesStrip` |  A set of connected lines. The end vertex of one line is used as the start vertex of the next one.  |  ![The SF::LinesStrip primitive type](./images/graphics-vertex-array-lines-strip.png)
-`SF::Triangles` |  A set of unconnected triangles.  |  ![The SF::Triangles primitive type](./images/graphics-vertex-array-triangles.png)
-`SF::TrianglesStrip` |  A set of connected triangles. Each triangle shares its two last vertices with the next one.  |  ![The SF::TrianglesStrip primitive type](./images/graphics-vertex-array-triangles-strip.png)
-`SF::TrianglesFan` |  A set of triangles connected to a central point. The first vertex is the center, then each new vertex defines a new triangle, using the center and the previous vertex.  |  ![The SF::TrianglesFan primitive type](./images/graphics-vertex-array-triangles-fan.png)
-`SF::Quads` |  A set of unconnected quads. The 4 points of each quad must be defined consistently, either in clockwise or counter-clockwise order.  |  ![The SF::Quads primitive type](./images/graphics-vertex-array-quads.png)
+`SF::Points` |  A set of unconnected points. These points have no thickness: They will always occupy a single pixel, regardless of the current transform and view.  |  ![The SF::Points primitive type](images/graphics-vertex-array-points.png)
+`SF::Lines` |  A set of unconnected lines. These lines have no thickness: They will always be one pixel wide, regardless of the current transform and view.  |  ![The SF::Lines primitive type](images/graphics-vertex-array-lines.png)
+`SF::LinesStrip` |  A set of connected lines. The end vertex of one line is used as the start vertex of the next one.  |  ![The SF::LinesStrip primitive type](images/graphics-vertex-array-lines-strip.png)
+`SF::Triangles` |  A set of unconnected triangles.  |  ![The SF::Triangles primitive type](images/graphics-vertex-array-triangles.png)
+`SF::TrianglesStrip` |  A set of connected triangles. Each triangle shares its two last vertices with the next one.  |  ![The SF::TrianglesStrip primitive type](images/graphics-vertex-array-triangles-strip.png)
+`SF::TrianglesFan` |  A set of triangles connected to a central point. The first vertex is the center, then each new vertex defines a new triangle, using the center and the previous vertex.  |  ![The SF::TrianglesFan primitive type](images/graphics-vertex-array-triangles-fan.png)
+`SF::Quads` |  A set of unconnected quads. The 4 points of each quad must be defined consistently, either in clockwise or counter-clockwise order.  |  ![The SF::Quads primitive type](images/graphics-vertex-array-quads.png)
 
 ## Texturing
 
@@ -281,7 +281,7 @@ while window.open?
 end
 ```
 
-![The tilemap example](./images/graphics-vertex-array-tilemap.png)
+![The tilemap example](images/graphics-vertex-array-tilemap.png)
 
 ## Example: particle system
 
@@ -390,4 +390,4 @@ while window.open?
 end
 ```
 
-![The particles example](./images/graphics-vertex-array-particles.png)
+![The particles example](images/graphics-vertex-array-particles.png)

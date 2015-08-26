@@ -8,7 +8,7 @@ This tutorial is the first one you should read if you're using CrSFML with the V
 
 First, you must download the CrSFML SDK from the [download page](../../download.html "Go to the download page"). 
 
-You must download the package that matches your version of Visual C++. Indeed, a library compiled with VC++ 10 (Visual Studio 2010) won't be compatible with VC++ 12 (Visual Studio 2013) for example. If there's no CrSFML package compiled for your version of Visual C++, you will have to [build CrSFML yourself](./compile-with-cmake.html "How to compile CrSFML"). 
+You must download the package that matches your version of Visual C++. Indeed, a library compiled with VC++ 10 (Visual Studio 2010) won't be compatible with VC++ 12 (Visual Studio 2013) for example. If there's no CrSFML package compiled for your version of Visual C++, you will have to [build CrSFML yourself](compile-with-cmake.md "How to compile CrSFML"). 
 
 You can then unpack the CrSFML archive wherever you like. Copying headers and libraries to your installation of Visual Studio is not recommended, it's better to keep libraries in their own separate location, especially if you intend to use several versions of the same library, or several compilers. 
 
@@ -26,19 +26,19 @@ In the project's properties, add:
 
 These paths are the same in both Debug and Release configuration, so you can set them globally for your project ("All configurations"). 
 
-![Screenshot of the dialog box for setting up the search paths](./images/start-vc-paths.png)
+![Screenshot of the dialog box for setting up the search paths](images/start-vc-paths.png)
 
 The next step is to link your application to the CrSFML libraries (.lib files) that your code will need. CrSFML is made of 5 modules (system, window, graphics, network and audio), and there's one library for each of them.  
 Libraries must be added in the project's properties, in Linker » Input » Additional Dependencies. Add all the CrSFML libraries that you need, for example "sfml-graphics.lib", "sfml-window.lib" and "sfml-system.lib". 
 
-![Screenshot of the dialog box for setting up the project's libraries](./images/start-vc-link-libs.png)
+![Screenshot of the dialog box for setting up the project's libraries](images/start-vc-link-libs.png)
 
 It is important to link to the libraries that match the configuration: "sfml-xxx-d.lib" for Debug, and "sfml-xxx.lib" for Release. A bad mix may result in crashes. 
 
 The settings shown here will result in your application being linked to the dynamic version of CrSFML, the one that needs the DLL files. If you want to get rid of these DLLs and have CrSFML directly integrated into your executable, you must link to the static version. Static CrSFML libraries have the "-s" suffix: "sfml-xxx-s-d.lib" for Debug, and "sfml-xxx-s.lib" for Release.  
 In this case, you'll also need to define the CrSFML_STATIC macro in the preprocessor options of your project. 
 
-![Screenshot of the dialog box for defining the CrSFML_STATIC macro](./images/start-vc-static.png)
+![Screenshot of the dialog box for defining the CrSFML_STATIC macro](images/start-vc-static.png)
 
 Starting from CrSFML 2.2, when static linking, you will have to link all of CrSFML's dependencies to your project as well. This means that if you are linking sfml-window-s.lib or sfml-window-s-d.lib for example, you will also have to link opengl32.lib, winmm.lib and gdi32.lib. Some of these dependency libraries might already be listed under "Inherited values", but adding them again yourself shouldn't cause any problems. 
 
@@ -138,7 +138,7 @@ If you chose to create a "Windows application" project, the entry point of your 
 
 Now compile the project, and if you linked to the dynamic version of CrSFML, don't forget to copy the CrSFML DLLs (they are in *&lt;sfml-install-path/bin&gt;*) to the directory where your compiled executable is. Run it, and if everything works you should see this: 
 
-![Screenshot of the Hello CrSFML application](./images/start-vc-app.png)
+![Screenshot of the Hello CrSFML application](images/start-vc-app.png)
 
 If you are using the sfml-audio module (regardless whether statically or dynamically), you must also copy the DLL of the external library needed by it, which is OpenAL32.dll.  
 These files can be found in *&lt;sfml-install-path/bin&gt;* too. 

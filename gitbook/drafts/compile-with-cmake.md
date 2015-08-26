@@ -72,7 +72,7 @@ In this tutorial we will be using cmake-gui, as this is what most beginners are 
 
 Here is what the CMake GUI looks like: 
 
-![Screenshot of the cmake-gui tool](./images/cmake-gui-start.png)
+![Screenshot of the cmake-gui tool](images/cmake-gui-start.png)
 
 The first steps that need to be done are as follows (perform them in order): 
 
@@ -82,7 +82,7 @@ The first steps that need to be done are as follows (perform them in order):
 
 If this is the first time CMake is run in this directory (or if you cleared the cache), the CMake GUI will prompt you to select a generator. In other words, this is where you select your compiler/IDE. 
 
-![Screenshot of the generator selection dialog box](./images/cmake-choose-generator.png)
+![Screenshot of the generator selection dialog box](images/cmake-choose-generator.png)
 
 For example, if you are using Visual Studio 2010, you should select "Visual Studio 10 2010" from the drop-down list. To generate makefiles usable with NMake on the Visual Studio command line, select "NMake Makefiles". To create makefiles usable with MinGW (GCC), select "MinGW Makefiles". It is generally easier to build CrSFML using makefiles rather than IDE projects: you can build the entire library with a single command, or even batch together multiple builds in a single script. Since you only plan to build CrSFML and not edit its source files, IDE projects aren't as useful.  
 More importantly, the installation process (described further down) may not work with the "Xcode" generator. It is therefore highly recommended to use the "Makefile" generator when building on Mac OS X. 
@@ -91,7 +91,7 @@ Always keep the "Use default native compilers" option enabled. The other three f
 
 After selecting the generator, CMake will run a series of tests to gather information about your toolchain environment: compiler path, standard headers, CrSFML dependencies, etc. If the tests succeed, it should finish with the "Configuring done" message. If something goes wrong, read the error(s) printed to the output log carefully. It might be the case that your compiler is not accessible (see above) or configured properly, or that one of CrSFML's external dependencies is missing. 
 
-![Screenshot of the cmake-gui window after configure](./images/cmake-configure.png)
+![Screenshot of the cmake-gui window after configure](images/cmake-configure.png)
 
 After configuring is done, the build options appear in the center of the window. CMake itself has many options, but most of them are already set to the right value by default. Some of them are cache variables and better left unchanged, they simply provide feedback about what CMake automatically found.  
 Here are the few options that you may want to have a look at when configuring your CrSFML build:   
@@ -205,7 +205,7 @@ Here are the few options that you may want to have a look at when configuring yo
 
 After everything is configured, click the "Configure" button once again. There should no longer be any options highlighted in red, and the "Generate" button should be enabled. Click it to finally generate the chosen makefiles/projects. 
 
-![Screenshot of the cmake-gui window after generate](./images/cmake-generate.png)
+![Screenshot of the cmake-gui window after generate](images/cmake-generate.png)
 
 CMake creates a variable cache for every project. Therefore, if you decide to reconfigure something at a later time, you'll find that your settings have been saved from the previous configuration. Make the necessary changes, reconfigure and generate the updated makefiles/projects. 
 
@@ -219,7 +219,7 @@ Here are the settings to use to build CrSFML with clang and libc++:
   * Set `CMAKE_CXX_COMPILER` to /usr/bin/clang++ (see screenshot).
   * Set `CMAKE_C_COMPILER` to /usr/bin/clang (see screenshot).
   * Set `CMAKE_CXX_FLAGS` and `CMAKE_C_FLAGS` to "-stdlib=libc++".
-![Screenshot of the compiler configuration on OS X](./images/cmake-osx-compilers.png)
+![Screenshot of the compiler configuration on OS X](images/cmake-osx-compilers.png)
 
 ## Building CrSFML
 

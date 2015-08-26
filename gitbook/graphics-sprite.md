@@ -8,7 +8,7 @@ A texture is an image. But we call it "texture" because it has a very specific r
 
 A sprite is nothing more than a textured rectangle.
 
-![](./images/graphics-sprites-definition.png)
+![](images/graphics-sprites-definition.png)
 
 Ok, that was short but if you really don't understand what sprites and textures are, then you'll find a much better description on Wikipedia.
 
@@ -69,7 +69,7 @@ The first property allows one to smooth the texture. Smoothing a texture makes p
 texture.smooth = true
 ```
 
-![](./images/graphics-sprites-smooth.png)
+![](images/graphics-sprites-smooth.png)
 
 Since smoothing samples from adjacent pixels in the texture as well, it can lead to the unwanted side effect of factoring in pixels outside the selected texture area. This can happen when your sprite is located at non-integer coordinates.
 
@@ -79,7 +79,7 @@ The second property allows a texture to be repeatedly tiled within a single spri
 texture.repeated = true
 ```
 
-![](./images/graphics-sprites-repeated.png)
+![](images/graphics-sprites-repeated.png)
 
 This only works if your sprite is configured to show a rectangle which is larger than the texture, otherwise this property has no effect.
 
@@ -113,7 +113,7 @@ sprite.color = SF.color(255, 255, 255, 128) # half transparent
 
 These sprites all use the same texture, but have a different color:
 
-![](./images/graphics-sprites-color.png)
+![](images/graphics-sprites-color.png)
 
 Sprites can also be transformed: They have a position, an orientation and a scale.
 

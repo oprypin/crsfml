@@ -105,7 +105,7 @@ The `wait` function is also implicitly called by the destructor of [Thread]({{bo
 
 There's no function in [Thread]({{book.api}}/Thread.html) that allows another thread to pause it, the only way to pause a thread is to do it from the code that it runs. In other words, you can only pause the current thread. To do so, you can call the `SF.sleep` function, as demonstrated in the first example.
 
-`SF.sleep` has one argument, which is the time to sleep. This duration can be given with any unit/precision, as seen in the [time tutorial](./system-time.html "Time tutorial").  
+`SF.sleep` has one argument, which is the time to sleep. This duration can be given with any unit/precision, as seen in the [time tutorial](system-time.md "Time tutorial").  
 Note that you can make any thread sleep with this function, even the main one. 
 
 `SF.sleep` is the most efficient way to pause a thread: as long as the thread sleeps, it requires zero CPU. Pauses based on active waiting, like empty `while` loops, would consume 100% CPU just to do... nothing. However, keep in mind that the sleep duration is just a hint, depending on the OS it will be more or less accurate. So don't rely on it for very precise timing. 

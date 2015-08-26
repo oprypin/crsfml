@@ -21,7 +21,7 @@ shape = SF::CircleShape.new(50)
 shape.fill_color = SF.color(100, 250, 50)
 ```
 
-![A colored shape](./images/graphics-shape-color.png)
+![A colored shape](images/graphics-shape-color.png)
 
 ### Outline
 
@@ -36,7 +36,7 @@ shape.outline_thickness = 10
 shape.outline_color = SF.color(250, 150, 100)
 ```
 
-![An outlined shape](./images/graphics-shape-outline.png)
+![An outlined shape](images/graphics-shape-outline.png)
 
 By default, the outline is extruded outwards from the shape (e.g. if you have a circle with a radius of 10 and an outline thickness of 5, the total radius of the circle will be 15). You can make it extrude towards the center of the shape instead, by setting a negative thickness.
 
@@ -55,7 +55,7 @@ shape.set_texture(texture, reset_rect) # texture is a SF::Texture
 shape.texture_rect = SF.int_rect(10, 10, 100, 100)
 ```
 
-![A textured shape](./images/graphics-shape-texture.png)
+![A textured shape](images/graphics-shape-texture.png)
 
 Note that the outline is not textured.
 It is important to know that the texture is modulated (multiplied) with the shape's fill color. If its fill color is SF::Color::White, the texture will appear unmodified.
@@ -83,7 +83,7 @@ rectangle = SF::RectangleShape.new(SF.vector2(120, 50))
 rectangle.size = SF.vector2(100, 100)
 ```
 
-![A rectangle shape](./images/graphics-shape-rectangle.png)
+![A rectangle shape](images/graphics-shape-rectangle.png)
 
 ### Circles
 
@@ -100,7 +100,7 @@ circle.radius = 40
 circle.point_count = 100
 ```
 
-![A circle shape](./images/graphics-shape-circle.png)
+![A circle shape](images/graphics-shape-circle.png)
 
 ### Regular polygons
 
@@ -117,7 +117,7 @@ square = SF::CircleShape.new(80, 4)
 octagon = SF::CircleShape.new(80, 8)
 ```
 
-![Regular polygons](./images/graphics-shape-regular.png)
+![Regular polygons](images/graphics-shape-regular.png)
 
 ### Convex shapes
 
@@ -142,7 +142,7 @@ convex[4] = SF.vector2(0, 50)
 
 The order in which you define the points is very important. They must *all* be defined either in clockwise or counter-clockwise order. If you define them in an inconsistent order, the shape will be constructed incorrectly.
 
-![A convex shape](./images/graphics-shape-convex.png)
+![A convex shape](images/graphics-shape-convex.png)
 
 Although the name of [ConvexShape]({{book.api}}/ConvexShape.html) implies that it should only be used to represent convex shapes, its requirements are a little more relaxed. In fact, the only requirement that your shape must meet is that if you went ahead and drew lines from its *center of gravity* to all of its points, these lines must be drawn in the same order. You are not allowed to "jump behind a previous line". Internally, convex shapes are automatically constructed using [triangle fans](http://en.wikipedia.org/wiki/Triangle_fan "Go to Wikipedia's article about triangle fans"), so if your shape is representable by a triangle fan, you can use [ConvexShape]({{book.api}}/ConvexShape.html). With this relaxed definition, you can draw stars using [ConvexShape]({{book.api}}/ConvexShape.html) for example.
 
@@ -157,7 +157,7 @@ line = SF::RectangleShape.new(SF.vector2(150, 5))
 line.rotate(45)
 ```
 
-![A line shape drawn as a rectangle](./images/graphics-shape-line-rectangle.png)
+![A line shape drawn as a rectangle](images/graphics-shape-line-rectangle.png)
 
 Line without thickness:
 
@@ -170,7 +170,7 @@ line = [
 window.draw(line, SF::Lines)
 ```
 
-![A line shape drawn as a primitive](./images/graphics-shape-line-primitive.png)
+![A line shape drawn as a primitive](images/graphics-shape-line-primitive.png)
 
 To learn more about vertices and primitives, you can read the tutorial on [vertex arrays](graphics-vertex-array.md "'Vertex arrays' tutorial").
 
@@ -218,7 +218,7 @@ class EllipseShape < SF::Shape
 end
 ```
 
-![An ellipse shape](./images/graphics-shape-ellipse.png)
+![An ellipse shape](images/graphics-shape-ellipse.png)
 
 -->
 
@@ -234,7 +234,7 @@ window = SF::RenderWindow.new(
 )
 ```
 
-![Aliased vs antialiased shape](./images/graphics-shape-antialiasing.png)
+![Aliased vs antialiased shape](images/graphics-shape-antialiasing.png)
 
 Remember that anti-aliasing availability depends on the graphics card: It might not support it, or have it forced to disabled in the driver settings.  
 Sometimes antialiasing does not work if `depth_bits` is not specified (use 24 if unsure).

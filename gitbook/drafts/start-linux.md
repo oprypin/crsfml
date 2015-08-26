@@ -19,7 +19,7 @@ sudo apt-get install libsfml-dev
 ```
 
 Option 3 requires more work: you need to ensure all of CrSFML's dependencies including their development headers are available, make sure CMake is installed, and manually execute some commands. This will result in a package which is tailored to your system.  
-If you want to go this way, there's a dedicated tutorial on [building CrSFML yourself](./compile-with-cmake.html "How to compile CrSFML"). 
+If you want to go this way, there's a dedicated tutorial on [building CrSFML yourself](compile-with-cmake.md "How to compile CrSFML"). 
 
 Finally, option 2 is a good choice for quick installation if CrSFML is not available as an official package. Download the SDK from the [download page](../../download.html "Go to the download page"), unpack it and copy the files to your preferred location: either a separate path in your personal folder (like */home/me/sfml*), or a standard path (like */usr/local*). 
 
@@ -28,7 +28,7 @@ If you already had an older version of CrSFML installed, make sure that it won't
 ## Compiling a CrSFML program
 
 In this tutorial we're not going to talk about IDEs such as Code::Blocks or Eclipse. We'll focus on the commands required to compile and link an CrSFML executable. Writing a complete makefile or configuring a project in an IDE is beyond the scope of this tutorial -- there are better dedicated tutorials for this.  
-If you're using Code::Blocks, you may refer to the [Code::Blocks tutorial for Windows](./start-cb.html "CrSFML and Code::Blocks"); many things should be similar. You won't have to set the compiler and linker search paths if you installed CrSFML to one of your system's standard paths. 
+If you're using Code::Blocks, you may refer to the [Code::Blocks tutorial for Windows](start-cb.md "CrSFML and Code::Blocks"); many things should be similar. You won't have to set the compiler and linker search paths if you installed CrSFML to one of your system's standard paths. 
 
 First, create a source file. For this tutorial we'll name it "main.cpp". Put the following code inside the main.cpp file: 
 
@@ -100,4 +100,4 @@ export LD_LIBRARY_PATH=*<sfml-install-path>*/lib && ./sfml-app
 
 If everything works, you should see this in a new window: 
 
-![Screenshot of the Hello CrSFML application](./images/start-linux-app.png)
+![Screenshot of the Hello CrSFML application](images/start-linux-app.png)
