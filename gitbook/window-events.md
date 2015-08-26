@@ -107,7 +107,7 @@ If a key is held, multiple `KeyPressed` events will be generated, at the default
 
 This event is the one to use if you want to trigger an action exactly once when a key is pressed or released, like making a character jump with space, or exiting something with escape.
 
-Sometimes, people try to react to `KeyPressed` events directly to implement smooth movement. Doing so will *not* produce the expected effect, because when you hold a key you only get a few events (remember, the repeat delay). To achieve smooth movement with events, you must use a boolean that you set on `KeyPressed` and clear on `KeyReleased`; you can then move (independently of events) as long as the boolean is set.
+Sometimes, people try to react to `KeyPressed` events directly to implement smooth movement. Doing so will *not* produce the expected effect, because when you hold a key you only get a few events (remember, the repeat delay). To achieve smooth movement with events, you must use a boolean that you set on `KeyPressed` and clear on `KeyReleased`; you can then move (independently of events) as long as the boolean is set.  
 The other (easier) solution to produce smooth movement is to use real-time keyboard input with [Keyboard]({{book.api}}/Keyboard.html) (see the [dedicated tutorial](window-inputs.md "Real-time inputs tutorial")).
 
 The member associated with these events is `event.key`, it contains the code of the pressed/released key, as well as the current state of the modifier keys (alt, control, shift, system).

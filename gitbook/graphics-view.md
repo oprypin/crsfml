@@ -150,7 +150,7 @@ window.view = view
 window.view = window.default_view
 ```
 
-When you call `view=`, the render-target makes a *copy* of the view, and doesn't store a pointer to the one that is passed. This means that whenever you update your view, you need to call `view=` again to apply the modifications.
+When you call `view=`, the render-target makes a *copy* of the view, and doesn't store a pointer to the one that is passed. This means that whenever you update your view, you need to call `view=` again to apply the modifications.  
 Don't be afraid to copy views or create them on the fly, they aren't expensive objects (they just hold a few floats).
 
 ## Showing more when the window is resized

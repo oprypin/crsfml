@@ -30,10 +30,10 @@ GL.enable(GL::TEXTURE_2D)
 
 In case you think it is *too* automatic, [Window]({{book.api}}/Window.html)'s constructor has an extra argument that allows you to change the settings of the underlying OpenGL context. This argument is an instance of the structure, it provides access to the following settings:
 
-  * `depth_bits` is the number of bits per pixel to use for the depth buffer (0 to disable it)
-  * `stencil_bits` is the number of bits per pixel to use for the stencil buffer (0 to disable it)
-  * `antialiasing_level` is the multisampling level
-  * `major_version` and `minor_version` comprise the requested version of OpenGL
+* `depth_bits` is the number of bits per pixel to use for the depth buffer (0 to disable it)
+* `stencil_bits` is the number of bits per pixel to use for the stencil buffer (0 to disable it)
+* `antialiasing_level` is the multisampling level
+* `major_version` and `minor_version` comprise the requested version of OpenGL
 
 ```ruby
 settings = SF.context_settings(
@@ -47,7 +47,7 @@ settings = SF.context_settings(
 window = SF::RenderWindow.new(SF.video_mode(800, 600), "OpenGL", settings: settings)
 ```
 
-If any of these settings is not supported by the graphics card, SFML tries to find the closest valid match. For example, if 4x anti-aliasing is too high, it tries 2x and then falls back to 0.
+If any of these settings is not supported by the graphics card, SFML tries to find the closest valid match. For example, if 4x anti-aliasing is too high, it tries 2x and then falls back to 0.  
 In any case, you can check what settings SFML actually used with the `settings` method:
 
 ```ruby

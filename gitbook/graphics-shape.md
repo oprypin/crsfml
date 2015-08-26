@@ -57,8 +57,8 @@ shape.texture_rect = SF.int_rect(10, 10, 100, 100)
 
 ![A textured shape](images/graphics-shape-texture.png)
 
-Note that the outline is not textured.
-It is important to know that the texture is modulated (multiplied) with the shape's fill color. If its fill color is SF::Color::White, the texture will appear unmodified.
+Note that the outline is not textured.  
+It is important to know that the texture is modulated (multiplied) with the shape's fill color. If its fill color is SF::Color::White, the texture will appear unmodified.  
 To disable texturing, call `set_texture(nil, false)`.
 
 ## Drawing a shape

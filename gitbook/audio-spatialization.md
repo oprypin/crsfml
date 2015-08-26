@@ -10,7 +10,7 @@ How can this be achieved?
 
 ## Spatialized sounds are mono
 
-A sound can be spatialized only if it has a single channel, i.e. if it's a mono sound.
+A sound can be spatialized only if it has a single channel, i.e. if it's a mono sound.  
 Spatialization is disabled for sounds with more channels, since they already explicitly decide how to use the speakers. This is very important to keep in mind.
 
 ## The listener

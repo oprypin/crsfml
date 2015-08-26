@@ -63,7 +63,7 @@ elapsed_2 = clock.elapsed_time
 puts elapsed_2.as_seconds
 ```
 
-Note that `restart` also returns the elapsed time, so that you can avoid the slight gap that would exist if you had to call `elapsed_time` explicitly before `restart`.
+Note that `restart` also returns the elapsed time, so that you can avoid the slight gap that would exist if you had to call `elapsed_time` explicitly before `restart`.  
 Here is an example that uses the time elapsed at each iteration of the game loop to update the game logic:
 
 ```ruby

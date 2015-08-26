@@ -34,11 +34,11 @@ response = http.send_request(request)
 
 An HTTP request, represented by the [HttpRequest]({{book.api}}/HttpRequest.html) class, contains the following information:
 
-  * The method: POST (send content), GET (retrieve a resource), HEAD (retrieve a resource header, without its body)
-  * The URI: the address of the resource (page, image, ...) to get/post, relative to the root directory
-  * The HTTP version (it is 1.0 by default but you can choose a different version if you use specific features)
-  * The header: a set of fields with key and value
-  * The body of the page (used only with the POST method)
+* The method: POST (send content), GET (retrieve a resource), HEAD (retrieve a resource header, without its body)
+* The URI: the address of the resource (page, image, ...) to get/post, relative to the root directory
+* The HTTP version (it is 1.0 by default but you can choose a different version if you use specific features)
+* The header: a set of fields with key and value
+* The body of the page (used only with the POST method)
 
 ```ruby
 request = SF::HttpRequest.new
@@ -58,10 +58,10 @@ SFML automatically fills mandatory header fields, such as "Host", "Content-Lengt
 
 If the [Http]({{book.api}}/Http.html) class could successfully connect to the host and send the request, a response is sent back and returned to the user, encapsulated in an instance of the [HttpResponse]({{book.api}}/HttpResponse.html) class. Responses contain the following members:
 
-  * A status code which precisely indicates how the server processed the request (OK, redirected, not found, etc.)
-  * The HTTP version of the server
-  * The header: a set of fields with key and value
-  * The body of the response
+* A status code which precisely indicates how the server processed the request (OK, redirected, not found, etc.)
+* The HTTP version of the server
+* The header: a set of fields with key and value
+* The body of the response
 
 ```ruby
 response = http.send_request(request)

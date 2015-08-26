@@ -113,9 +113,9 @@ The [Transformable]({{book.api}}/Transformable.html) class is easy to use, but i
 
 There are many ways to construct a [Transform]({{book.api}}/Transform.html):
 
-  * by using the predefined methods for the most common transformations (translation, rotation, scale)
-  * by combining two transforms
-  * by specifying its 9 elements directly
+* by using the predefined methods for the most common transformations (translation, rotation, scale)
+* by combining two transforms
+* by specifying its 9 elements directly
 
 Here are a few examples:
 

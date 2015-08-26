@@ -65,10 +65,10 @@ Now that you are able to load and play a sound or music, let's see what you can 
 
 To control playback, the following methods are available:
 
-  * `play` starts or resumes playback
-  * `pause` pauses playback
-  * `stop` stops playback and rewind
-  * `playing_offset=` changes the current playing position
+* `play` starts or resumes playback
+* `pause` pauses playback
+* `stop` stops playback and rewind
+* `playing_offset=` changes the current playing position
 
 Example:
 
