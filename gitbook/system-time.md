@@ -70,8 +70,8 @@ Here is an example that uses the time elapsed at each iteration of the game loop
 clock = SF::Clock.new
 
 while window.open?
-    elapsed = clock.restart
-    update_game(elapsed)
-    ...
+  elapsed = clock.restart
+  update_game(elapsed)
+  ...
 end
 ```

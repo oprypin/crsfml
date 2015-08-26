@@ -14,12 +14,12 @@ In order to define your own audio stream, you need to inherit from the [SoundStr
 
 ```ruby
 class MyAudioStream < SF::SoundStream
-    def on_get_data(data)
-        true
-    end
+  def on_get_data(data)
+    true
+  end
 
-    def on_seek(time_offset)
-    end
+  def on_seek(time_offset)
+  end
 end
 ```
 
@@ -27,11 +27,11 @@ end
 
 ```ruby
 class MyAudioStream < SF::SoundStream
-    def on_get_data(data)
-        data.samples = ... # put the pointer to the new audio samples
-        data.sample_count = ... # put the number of audio samples available in the new chunk
-        true
-    end
+  def on_get_data(data)
+    data.samples = ... # put the pointer to the new audio samples
+    data.sample_count = ... # put the number of audio samples available in the new chunk
+    true
+  end
 end
 ```
 
@@ -69,50 +69,50 @@ Here is a very simple example of a custom audio stream class which plays the dat
 ```ruby
 # custom audio stream that plays a loaded buffer
 class MyStream < SF::SoundStream
-    def initialize
-        super
-        @samples = []
-        @current_sample = nil
+  def initialize
+    super
+    @samples = []
+    @current_sample = nil
+  end
+
+  def load(buffer)
+    # extract the audio samples from the sound buffer to our own container
+    @samples.assign(buffer.samples, buffer.samples + buffer.sample_count)
+
+    # reset the current playing position
+    @current_sample = 0
+
+    # initialize the base class
+    initialize(buffer.channel_count, buffer.sample_rate)
+  end
+
+  private def on_get_data(data)
+    # number of samples to stream every time the function is called;
+    # in a more robust implementation, it should be a fixed
+    # amount of time rather than an arbitrary number of samples
+    samples_to_stream = 50000
+
+    # set the pointer to the next audio samples to be played
+    data.samples = @samples[@current_sample]
+
+    # have we reached the end of the sound?
+    if (@current_sample + samples_to_stream <= m_samples.size())
+      # end not reached: stream the samples and continue
+      data.sample_count = samples_to_stream
+      @current_sample += samples_to_stream
+      true
+    else
+      # end of stream reached: stream the remaining samples and stop playback
+      data.sample_count = @samples.size - @current_sample
+      @current_sample = @samples.size
+      false
     end
+  end
 
-    def load(buffer)
-        # extract the audio samples from the sound buffer to our own container
-        @samples.assign(buffer.samples, buffer.samples + buffer.sample_count)
-
-        # reset the current playing position
-        @current_sample = 0
-
-        # initialize the base class
-        initialize(buffer.channel_count, buffer.sample_rate)
-    end
-
-    private def on_get_data(data)
-        # number of samples to stream every time the function is called;
-        # in a more robust implementation, it should be a fixed
-        # amount of time rather than an arbitrary number of samples
-        samples_to_stream = 50000
-
-        # set the pointer to the next audio samples to be played
-        data.samples = @samples[@current_sample]
-
-        # have we reached the end of the sound?
-        if (@current_sample + samples_to_stream <= m_samples.size())
-            # end not reached: stream the samples and continue
-            data.sample_count = samples_to_stream
-            @current_sample += samples_to_stream
-            true
-        else
-            # end of stream reached: stream the remaining samples and stop playback
-            data.sample_count = @samples.size - @current_sample
-            @current_sample = @samples.size
-            false
-        end
-    end
-
-    private def on_seek(time_offset)
-        # compute the corresponding sample index according to the sample rate and channel count
-        @current_sample = (time_offset.as_seconds * sample_rate * channel_count)
-    end
+  private def on_seek(time_offset)
+    # compute the corresponding sample index according to the sample rate and channel count
+    @current_sample = (time_offset.as_seconds * sample_rate * channel_count)
+  end
 end
 
 # load an audio buffer from a sound file
@@ -124,7 +124,7 @@ stream.play
 
 # let it play until it is finished
 while stream.status == MyStream::Playing
-    SF.sleep(SF.seconds(0.1))
+  SF.sleep(SF.seconds(0.1))
 end
 ```
 

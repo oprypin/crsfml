@@ -66,8 +66,8 @@ Note that you don't have to use the [VertexArray]({{book.api}}/VertexArray.html)
 
 ```ruby
 vertices = [
-    SF.vertex(...),
-    SF.vertex(...)
+  SF.vertex(...),
+  SF.vertex(...)
 ]
 
 window.draw(vertices, SF::Lines)
@@ -145,8 +145,8 @@ Now that you know how to define your own textured/colored/transformed entity, wo
 
 ```ruby
 class MyEntity
-    def draw(target, states)
-    end
+  def draw(target, states)
+  end
 end
 
 entity = MyEntity.new
@@ -159,22 +159,22 @@ Using these two features and a vertex array (in this example we'll also add a te
 
 ```ruby
 class MyEntity
-    include SF::TransformableM
+  include SF::TransformableM
 
-    # add methods to play with the entity's geometry / colors / texturing...
+  # add methods to play with the entity's geometry / colors / texturing...
 
-    def draw(target, states)
-        # apply the entity's transform -- combine it with the one that was passed by the caller
-        states.transform *= transform # transform() is defined by SF::Transformable
+  def draw(target, states)
+    # apply the entity's transform -- combine it with the one that was passed by the caller
+    states.transform *= transform # transform() is defined by SF::Transformable
 
-        # apply the texture
-        states.texture = @texture
+    # apply the texture
+    states.texture = @texture
 
-        # you may also override states.shader or states.blend_mode if you want
+    # you may also override states.shader or states.blend_mode if you want
 
-        # draw the vertex array
-        target.draw(@vertices, states)
-    end
+    # draw the vertex array
+    target.draw(@vertices, states)
+  end
 end
 ```
 
@@ -197,48 +197,48 @@ With what we've seen above, let's create a class that encapsulates a tile map. T
 
 ```ruby
 class TileMap
-    include SF::TransformableM
+  include SF::TransformableM
 
-    def load(tileset, tile_size, tiles, width, height)
-        # load the tileset texture
-        @tileset = SF::Texture.from_file(tileset)
+  def load(tileset, tile_size, tiles, width, height)
+    # load the tileset texture
+    @tileset = SF::Texture.from_file(tileset)
 
-        # resize the vertex array to fit the level size
-        @vertices = SF::VertexArray.new(SF::Quads)
+    # resize the vertex array to fit the level size
+    @vertices = SF::VertexArray.new(SF::Quads)
 
-        # populate the vertex array, with one quad per tile
-        (0...width).each do |i|
-            (0...height).each do |j|
-                # get the current tile number
-                tile_number = tiles[i + j * width]
+    # populate the vertex array, with one quad per tile
+    (0...width).each do |i|
+      (0...height).each do |j|
+        # get the current tile number
+        tile_number = tiles[i + j * width]
 
-                # find its position in the tileset texture
-                tu = tile_number % (@tileset.size.x / tile_size.x)
-                tv = tile_number / (@tileset.size.x / tile_size.x)
+        # find its position in the tileset texture
+        tu = tile_number % (@tileset.size.x / tile_size.x)
+        tv = tile_number / (@tileset.size.x / tile_size.x)
 
-                # define its 4 corners and texture coordinates
-                @vertices.append SF.vertex({i * tile_size.x, j * tile_size.y},
-                    tex_coords={tu * tile_size.x, tv * tile_size.y})
-                @vertices.append SF.vertex({(i + 1) * tile_size.x, j * tile_size.y},
-                    tex_coords={(tu + 1) * tile_size.x, tv * tile_size.y})
-                @vertices.append SF.vertex({(i + 1) * tile_size.x, (j + 1) * tile_size.y},
-                    tex_coords={(tu + 1) * tile_size.x, (tv + 1) * tile_size.y)})
-                @vertices.append SF.vertex({i * tile_size.x, (j + 1) * tile_size.y},
-                    tex_coords={tu * tile_size.x, (tv + 1) * tile_size.y})
-            end
-        end
+        # define its 4 corners and texture coordinates
+        @vertices.append SF.vertex({i * tile_size.x, j * tile_size.y},
+          tex_coords={tu * tile_size.x, tv * tile_size.y})
+        @vertices.append SF.vertex({(i + 1) * tile_size.x, j * tile_size.y},
+          tex_coords={(tu + 1) * tile_size.x, tv * tile_size.y})
+        @vertices.append SF.vertex({(i + 1) * tile_size.x, (j + 1) * tile_size.y},
+          tex_coords={(tu + 1) * tile_size.x, (tv + 1) * tile_size.y)})
+        @vertices.append SF.vertex({i * tile_size.x, (j + 1) * tile_size.y},
+          tex_coords={tu * tile_size.x, (tv + 1) * tile_size.y})
+      end
     end
+  end
 
-    def draw(target, states)
-        # apply the transform
-        states.transform *= transform()
+  def draw(target, states)
+    # apply the transform
+    states.transform *= transform()
 
-        # apply the tileset texture
-        states.texture = @tileset
+    # apply the tileset texture
+    states.texture = @tileset
 
-        # draw the vertex array
-        target.draw(@vertices, states)
-    end
+    # draw the vertex array
+    target.draw(@vertices, states)
+  end
 end
 ```
 
@@ -250,14 +250,14 @@ window = SF::RenderWindow.new(SF.video_mode(512, 256), "Tilemap")
 
 # define the level with an array of tile indices
 level = [
-    0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-    0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 2, 0, 0, 0, 0,
-    1, 1, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3,
-    0, 1, 0, 0, 2, 0, 3, 3, 3, 0, 1, 1, 1, 0, 0, 0,
-    0, 1, 1, 0, 3, 3, 3, 0, 0, 0, 1, 1, 1, 2, 0, 0,
-    0, 0, 1, 0, 3, 0, 2, 2, 0, 0, 1, 1, 1, 1, 2, 0,
-    2, 0, 1, 0, 3, 0, 2, 2, 2, 0, 1, 1, 1, 1, 1, 1,
-    0, 0, 1, 0, 3, 2, 2, 2, 0, 0, 0, 0, 1, 1, 1, 1
+  0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+  0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 2, 0, 0, 0, 0,
+  1, 1, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3,
+  0, 1, 0, 0, 2, 0, 3, 3, 3, 0, 1, 1, 1, 0, 0, 0,
+  0, 1, 1, 0, 3, 3, 3, 0, 0, 0, 1, 1, 1, 2, 0, 0,
+  0, 0, 1, 0, 3, 0, 2, 2, 0, 0, 1, 1, 1, 1, 2, 0,
+  2, 0, 1, 0, 3, 0, 2, 2, 2, 0, 1, 1, 1, 1, 1, 1,
+  0, 0, 1, 0, 3, 2, 2, 2, 0, 0, 0, 0, 1, 1, 1, 1
 ]
 
 # create the tilemap from the level definition
@@ -267,17 +267,17 @@ map.load("tileset.png", SF.vector2(32, 32), level, 16, 8)
 # run the main loop
 while window.open?
 
-    # handle events
-    while event = window.poll_event
-        if event.type == SF::Event::Closed
-            window.close
-        end
+  # handle events
+  while event = window.poll_event
+    if event.type == SF::Event::Closed
+      window.close
     end
+  end
 
-    # draw the map
-    window.clear
-    window.draw(map)
-    window.display
+  # draw the map
+  window.clear
+  window.draw(map)
+  window.display
 end
 ```
 
@@ -289,67 +289,67 @@ This second example implements another common entity: The particle system. This 
 
 ```ruby
 class Particle
-    def initialize(@velocity, @lifetime, @position)
-        @total_lifetime = @lifetime
-    end
-    property velocity, lifetime, position
-    getter total_lifetime
+  def initialize(@velocity, @lifetime, @position)
+    @total_lifetime = @lifetime
+  end
+  property velocity, lifetime, position
+  getter total_lifetime
 end
 
 class ParticleSystem
-    include SF::TransformableM
+  include SF::TransformableM
 
-    def initialize(@count)
-        @particles = [] of Particle
-        @emitter = SF.vector2(0, 0)
+  def initialize(@count)
+    @particles = [] of Particle
+    @emitter = SF.vector2(0, 0)
+  end
+
+  property emitter
+
+  def update(elapsed)
+    @particles.reject! do |p|
+      # update the position of the particle
+      p.position += p.velocity * elapsed.as_seconds
+
+      # update the particle lifetime
+      p.lifetime -= elapsed
+      # if the particle is dead, remove it
+      p.lifetime <= SF::Time::Zero
+    end
+    while @particles.length < @count
+      @particles << new_particle
+    end
+  end
+
+  def draw(target, states)
+    vertices = @particles.map do |p|
+      # set the alpha (transparency) of the particle according to its lifetime
+      ratio = p.lifetime / p.total_lifetime
+      color = SF.color(255, 255, 255, (ratio * 255).to_u8)
+
+      SF.vertex(p.position, color)
     end
 
-    property emitter
+    #apply the transform
+    states.transform *= transform()
 
-    def update(elapsed)
-        @particles.reject! do |p|
-            # update the position of the particle
-            p.position += p.velocity * elapsed.as_seconds
+    # our particles don't use a texture
+    states.texture = nil
 
-            # update the particle lifetime
-            p.lifetime -= elapsed
-            # if the particle is dead, remove it
-            p.lifetime <= SF::Time::Zero
-        end
-        while @particles.length < @count
-            @particles << new_particle
-        end
-    end
+    # draw the vertex array
+    target.draw(vertices, SF::Points, states)
+  end
 
-    def draw(target, states)
-        vertices = @particles.map do |p|
-            # set the alpha (transparency) of the particle according to its lifetime
-            ratio = p.lifetime / p.total_lifetime
-            color = SF.color(255, 255, 255, (ratio * 255).to_u8)
-            
-            SF.vertex(p.position, color)
-        end
-      
-        #apply the transform
-        states.transform *= transform()
+  private def new_particle
+    # give a random velocity and lifetime to the particle
+    angle = rand(360) * Math::PI / 180.0
+    speed = rand(50) + 50.0
+    velocity = SF.vector2(Math.cos(angle) * speed, Math.sin(angle) * speed)
+    lifetime = SF.milliseconds(rand(2000) + 1000)
+    position = @emitter
 
-        # our particles don't use a texture
-        states.texture = nil
-
-        # draw the vertex array
-        target.draw(vertices, SF::Points, states)
-    end
-
-    private def new_particle
-        # give a random velocity and lifetime to the particle
-        angle = rand(360) * Math::PI / 180.0
-        speed = rand(50) + 50.0
-        velocity = SF.vector2(Math.cos(angle) * speed, Math.sin(angle) * speed)
-        lifetime = SF.milliseconds(rand(2000) + 1000)
-        position = @emitter
-
-        Particle.new(velocity, lifetime, @emitter)
-    end
+    Particle.new(velocity, lifetime, @emitter)
+  end
 end
 ```
 
@@ -368,25 +368,25 @@ clock = SF::Clock.new
 # run the main loop
 while window.open?
 
-    # handle events
-    while event = window.poll_event
-        if event.type == SF::Event::Closed
-            window.close
-        end
+  # handle events
+  while event = window.poll_event
+    if event.type == SF::Event::Closed
+      window.close
     end
+  end
 
-    # make the particle system emitter follow the mouse
-    mouse = SF::Mouse.get_position(window)
-    particles.emitter = window.map_pixel_to_coords(mouse)
+  # make the particle system emitter follow the mouse
+  mouse = SF::Mouse.get_position(window)
+  particles.emitter = window.map_pixel_to_coords(mouse)
 
-    # update it
-    elapsed = clock.restart
-    particles.update(elapsed)
+  # update it
+  elapsed = clock.restart
+  particles.update(elapsed)
 
-    # draw it
-    window.clear
-    window.draw(particles)
-    window.display
+  # draw it
+  window.clear
+  window.draw(particles)
+  window.display
 end
 ```
 

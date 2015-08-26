@@ -163,8 +163,8 @@ Line without thickness:
 
 ```ruby
 line = [
-    SF.vertex(SF.vector2(10, 10)),
-    SF.vertex(SF.vector2(150, 150))
+  SF.vertex(SF.vector2(10, 10)),
+  SF.vertex(SF.vector2(150, 150))
 ]
 
 window.draw(line, SF::Lines)
@@ -182,8 +182,8 @@ To learn more about vertices and primitives, you can read the tutorial on [verte
 
 You can extend the set of shape classes with your own shape types. To do so, you must derive from [Shape]({{book.api}}/Shape.html) and override two methods:
 
-  * `point_count`: return the number of points in the shape
-  * `get_point`: return a point of the shape
+* `point_count`: return the number of points in the shape
+* `get_point`: return a point of the shape
 
 You must also call the `update()` method whenever any point in your shape changes, so that the base class is informed and can update its internal geometry.
 
@@ -191,30 +191,30 @@ Here is a complete example of a custom shape class: `EllipseShape`.
 
 ```ruby
 class EllipseShape < SF::Shape
-    def initialize(@radius = SF.vector2(0, 0))
-    end
+  def initialize(@radius = SF.vector2(0, 0))
+  end
 
-    def radius
-        @radius
-    end
-    def radius=(radius)
-        @radius = radius
-        update
-    end
+  def radius
+    @radius
+  end
+  def radius=(radius)
+    @radius = radius
+    update
+  end
 
-    def point_count
-        30  # fixed, but could be an attribute of the class if needed
-    end
+  def point_count
+    30  # fixed, but could be an attribute of the class if needed
+  end
 
-    def get_point(index)
-        pi = Math::PI
+  def get_point(index)
+    pi = Math::PI
 
-        angle = index * 2 * pi / point_count - pi / 2
-        x = Math.cos(angle) * @radius.x
-        y = Math.sin(angle) * @radius.y
+    angle = index * 2 * pi / point_count - pi / 2
+    x = Math.cos(angle) * @radius.x
+    y = Math.sin(angle) * @radius.y
 
-        SF.vector2(@radius.x + x, @radius.y + y)
-    end
+    SF.vector2(@radius.x + x, @radius.y + y)
+  end
 end
 ```
 

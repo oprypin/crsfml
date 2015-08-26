@@ -12,8 +12,8 @@ This class method directly reads the keyboard state, ignoring the focus state of
 
 ```ruby
 if SF::Keyboard.is_key_pressed(SF::Keyboard::Left)
-    # left key is pressed: move our character
-    character.move(1, 0)
+  # left key is pressed: move our character
+  character.move(1, 0)
 end
 ```
 
@@ -29,8 +29,8 @@ You can check if buttons are pressed:
 
 ```ruby
 if SF::Mouse.is_button_pressed(SF::Mouse::Left)
-    # left mouse button is pressed: shoot
-    gun.fire
+  # left mouse button is pressed: shoot
+  gun.fire
 end
 ```
 
@@ -68,8 +68,8 @@ You can check whether a joystick is connected or not:
 
 ```ruby
 if SF::Joystick.is_connected(0)
-    # joystick number 0 is connected
-    ...
+  # joystick number 0 is connected
+  ...
 end
 ```
 
@@ -90,8 +90,8 @@ Finally, you can query the state of a joystick's axes and buttons as well:
 ```ruby
 # is button 1 of joystick number 0 pressed?
 if SF::Joystick.is_button_pressed(0, 1)
-    # yes: shoot!
-    gun.fire
+  # yes: shoot!
+  gun.fire
 end
 
 # what's the current position of the X and Y axes of joystick number 0?

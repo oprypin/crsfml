@@ -79,23 +79,23 @@ Here is a short example that demonstrates how to perform a simple task: Sending 
 
 ```ruby
 def send_score(score, name)
-    # prepare the request
-    request = SF::HttpRequest.new("/send-score.html", SF::HttpRequest::Post)
+  # prepare the request
+  request = SF::HttpRequest.new("/send-score.html", SF::HttpRequest::Post)
 
-    # encode the parameters in the request body
-    request.body = "name=" + name + "&score=" + score
+  # encode the parameters in the request body
+  request.body = "name=" + name + "&score=" + score
 
-    # send the request
-    http = SF::Http.new("http://www.myserver.com/")
-    response = http.send_request(request)
+  # send the request
+  http = SF::Http.new("http://www.myserver.com/")
+  response = http.send_request(request)
 
-    # check the status
-    if (response.status == SF::HttpResponse::Ok)
-        # check the contents of the response
-        puts response.body
-    else
-        puts "request failed"
-    end
+  # check the status
+  if (response.status == SF::HttpResponse::Ok)
+    # check the contents of the response
+    puts response.body
+  else
+    puts "request failed"
+  end
 end
 ```
 

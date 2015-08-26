@@ -15,16 +15,16 @@ To be clear, here is what a typical event loop looks like:
 ```ruby
 # while there are pending events...
 while event = window.poll_event
-    # check the type of the event...
-    case event.type
-        # window closed
-        when SF::Event::Closed
-            window.close
-        # key pressed
-        when SF::Event::KeyPressed
-            ...
-        # we don't process other types of events
-    end
+  # check the type of the event...
+  case event.type
+    # window closed
+    when SF::Event::Closed
+      window.close
+    # key pressed
+    when SF::Event::KeyPressed
+      ...
+    # we don't process other types of events
+  end
 end
 ```
 
@@ -42,7 +42,7 @@ There's no member associated with this event in the [Event]({{book.api}}/Event.h
 
 ```ruby
 if event.type == SF::Event::Closed
-    window.close
+  window.close
 end
 ```
 
@@ -56,8 +56,8 @@ The member associated with this event is `event.size`, it contains the new size 
 
 ```ruby
 if event.type == SF::Event::Resized
-    puts "new width: #{event.size.width}"
-    puts "new height: #{event.size.height}"
+  puts "new width: #{event.size.width}"
+  puts "new height: #{event.size.height}"
 end
 ```
 
@@ -71,11 +71,11 @@ There's no member associated with these events in the [Event]({{book.api}}/Event
 
 ```ruby
 if event.type == SF::Event::LostFocus
-    my_game.pause
+  my_game.pause
 end
 
 if event.type == SF::Event::GainedFocus
-    my_game.resume
+  my_game.resume
 end
 ```
 
@@ -89,9 +89,9 @@ The member associated with this event is `event.text`, it contains the Unicode v
 
 ```ruby
 if event.type == SF::Event::TextEntered
-    if event.text.unicode.ord < 128
-        puts "ASCII character typed: #{event.text.unicode}"
-    end
+  if event.text.unicode.ord < 128
+    puts "ASCII character typed: #{event.text.unicode}"
+  end
 end
 ```
 
@@ -114,13 +114,13 @@ The member associated with these events is `event.key`, it contains the code of 
 
 ```ruby
 if event.type == SF::Event::KeyPressed
-    if event.key.code == SF::Keyboard::Escape
-        puts "the escape key was pressed"
-        puts "control: #{event.key.control}"
-        puts "alt: #{event.key.alt}"
-        puts "shift: #{event.key.shift}"
-        puts "system: #{event.key.system}"
-    end
+  if event.key.code == SF::Keyboard::Escape
+    puts "the escape key was pressed"
+    puts "control: #{event.key.control}"
+    puts "alt: #{event.key.alt}"
+    puts "shift: #{event.key.shift}"
+    puts "system: #{event.key.system}"
+  end
 end
 ```
 
@@ -138,17 +138,17 @@ The member associated with this event is `event.mouse_wheel_scroll`, it contains
 
 ```ruby
 if event.type == SF::Event::MouseWheelScrolled
-    if event.mouse_wheel_scroll.wheel == SF::Mouse::VerticalWheel
-        puts "wheel type: vertical"
-    elsif event.mouse_wheel_scroll.wheel == SF::Mouse::HorizontalWheel
-        puts "wheel type: horizontal"
-    else
-        puts "wheel type: unknown"
-    end
+  if event.mouse_wheel_scroll.wheel == SF::Mouse::VerticalWheel
+    puts "wheel type: vertical"
+  elsif event.mouse_wheel_scroll.wheel == SF::Mouse::HorizontalWheel
+    puts "wheel type: horizontal"
+  else
+    puts "wheel type: unknown"
+  end
 
-    puts "wheel movement: #{event.mouse_wheel_scroll.delta}"
-    puts "mouse x: #{event.mouse_wheel_scroll.x}"
-    puts "mouse y: #{event.mouse_wheel_scroll.y}"
+  puts "wheel movement: #{event.mouse_wheel_scroll.delta}"
+  puts "mouse x: #{event.mouse_wheel_scroll.x}"
+  puts "mouse y: #{event.mouse_wheel_scroll.y}"
 end
 ```
 
@@ -162,11 +162,11 @@ The member associated with these events is `event.mouse_button`, it contains the
 
 ```ruby
 if event.type == SF::Event::MouseButtonPressed
-    if event.mouse_button.button == SF::Mouse::Right
-        puts "the right button was pressed"
-        puts "mouse x: #{event.mouse_button.x}"
-        puts "mouse y: #{event.mouse_button.y}"
-    end
+  if event.mouse_button.button == SF::Mouse::Right
+    puts "the right button was pressed"
+    puts "mouse x: #{event.mouse_button.x}"
+    puts "mouse y: #{event.mouse_button.y}"
+  end
 end
 ```
 
@@ -180,8 +180,8 @@ The member associated with this event is `event.mouse_move`, it contains the cur
 
 ```ruby
 if event.type == SF::Event::MouseMoved
-    puts "new mouse x: #{event.mouse_move.x}"
-    puts "new mouse y: #{event.mouse_move.y}"
+  puts "new mouse x: #{event.mouse_move.x}"
+  puts "new mouse y: #{event.mouse_move.y}"
 end
 ```
 
@@ -193,11 +193,11 @@ There's no member associated with these events in the [Event]({{book.api}}/Event
 
 ```ruby
 if event.type == SF::Event::MouseEntered
-    puts "the mouse cursor has entered the window"
+  puts "the mouse cursor has entered the window"
 end
 
 if event.type == SF::Event::MouseLeft
-    puts "the mouse cursor has left the window"
+  puts "the mouse cursor has left the window"
 end
 ```
 
@@ -211,9 +211,9 @@ The member associated with these events is `event.joystick_button`, it contains 
 
 ```ruby
 if event.type == SF::Event::JoystickButtonPressed
-    puts "joystick button pressed!"
-    puts "joystick id: #{event.joystick_button.joystick_id}"
-    puts "button: #{event.joystick_button.button}"
+  puts "joystick button pressed!"
+  puts "joystick id: #{event.joystick_button.joystick_id}"
+  puts "button: #{event.joystick_button.button}"
 end
 ```
 
@@ -229,11 +229,11 @@ The member associated with this event is `event.joystick_move`, it contains the 
 
 ```ruby
 if event.type == SF::Event::JoystickMoved
-    if event.joystick_move.axis == SF::Joystick::X
-        puts "X axis moved!"
-        puts "joystick id: #{event.joystick_move.joystick_id}"
-        puts "new position: #{event.joystick_move.position}"
-    end
+  if event.joystick_move.axis == SF::Joystick::X
+    puts "X axis moved!"
+    puts "joystick id: #{event.joystick_move.joystick_id}"
+    puts "new position: #{event.joystick_move.position}"
+  end
 end
 ```
 
@@ -245,11 +245,11 @@ The member associated with this event is `event.joystick_connect`, it contains t
 
 ```ruby
 if event.type == SF::Event::JoystickConnected
-    puts "joystick connected: #{event.joystick_connect.joystick_id}"
+  puts "joystick connected: #{event.joystick_connect.joystick_id}"
 end
 
 if event.type == SF::Event::JoystickDisconnected
-    puts "joystick disconnected: #{event.joystick_connect.joystick_id}"
+  puts "joystick disconnected: #{event.joystick_connect.joystick_id}"
 end
 ```
 

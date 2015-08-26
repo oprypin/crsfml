@@ -14,24 +14,24 @@ The [InputStream]({{book.api}}/InputStream.html) class declares four virtual met
 
 ```ruby
 class InputStream
-    def initialize()
-    end
+  def initialize()
+  end
 
-    def read(data, Int64 size) : Int64
-        0
-    end
+  def read(data, Int64 size) : Int64
+    0
+  end
 
-    def seek(position : Int64) : Int64
-        0
-    end
+  def seek(position : Int64) : Int64
+    0
+  end
 
-    def tell() : Int64
-        0
-    end
+  def tell() : Int64
+    0
+  end
 
-    def size() : Int64
-        0
-    end
+  def size() : Int64
+    0
+  end
 end
 ```
 

@@ -22,12 +22,12 @@ Enough talk, let's see some code. The class that makes it possible to create thr
 require "crsfml/system"
 
 def func
-    # this function is started when thread.launch() is called
-    
-    10.times do
-        puts "I'm thread number one"
-        SF.sleep(SF.seconds(0.3))
-    end
+  # this function is started when thread.launch() is called
+
+  10.times do
+    puts "I'm thread number one"
+    SF.sleep(SF.seconds(0.3))
+  end
 end
 
 # create a thread with func() as entry point
@@ -40,8 +40,8 @@ thread.launch()
 SF.sleep(SF.seconds(0.15))
 
 10.times do
-    puts "I'm the main thread"
-    SF.sleep(SF.seconds(0.3))
+  puts "I'm the main thread"
+  SF.sleep(SF.seconds(0.3))
 end
 ```
 
@@ -124,13 +124,13 @@ The most basic (and used) primitive is the mutex. Mutex stands for "MUTual EXclu
 $mutex = SF::Mutex.new
 
 def func
-    $mutex.lock
+  $mutex.lock
 
-    10.times do
-        puts "I'm thread number one"
-    end
+  10.times do
+    puts "I'm thread number one"
+  end
 
-    $mutex.unlock
+  $mutex.unlock
 end
 
 thread = SF::Thread.new(->func)
@@ -139,7 +139,7 @@ thread.launch
 $mutex.lock
 
 10.times do
-    puts "I'm the main thread"
+  puts "I'm the main thread"
 end
 
 $mutex.unlock
@@ -190,21 +190,21 @@ require "crsfml"
 $mutex = SF::Mutex.new()
 
 def func
-    lock = SF::Lock.new($mutex) # $mutex.lock()
+  lock = SF::Lock.new($mutex) # $mutex.lock()
 
-    begin
-        image1 = SF::Image.from_file("...")
-    rescue
-        return false # $mutex.unlock()
-    end
+  begin
+    image1 = SF::Image.from_file("...")
+  rescue
+    return false # $mutex.unlock()
+  end
 
-    begin
-        image2 = SF::Image.from_file("...")
-    rescue
-        return false # $mutex.unlock()
-    end
+  begin
+    image2 = SF::Image.from_file("...")
+  rescue
+    return false # $mutex.unlock()
+  end
 
-    true
+  true
 end # $mutex.unlock()
 
 func()

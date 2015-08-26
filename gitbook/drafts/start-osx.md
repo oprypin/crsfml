@@ -10,8 +10,8 @@ You will see several external links in this document. They are meant for further
 
 All you need to create an CrSFML application is: 
 
-  * An Intel Mac with Lion or later (10.7+)
-  * [Xcode](http://developer.apple.com/xcode/ "Download Xcode") (preferably version 4 or later of the IDE which is available on the *App Store*) and clang.
+* An Intel Mac with Lion or later (10.7+)
+* [Xcode](http://developer.apple.com/xcode/ "Download Xcode") (preferably version 4 or later of the IDE which is available on the *App Store*) and clang.
 
 With recent versions of Xcode you also need to install the `Command Line Tools` from `Xcode > Preferences > Downloads > Components`. If you can't find the CLT there use `xcode-select --install` in a Terminal and follow onscreen instructions. 
 
@@ -62,13 +62,12 @@ Now you can fill in the required fields as shown in the following screenshot. Wh
 
 ![Xcode template form](images/start-osx-new-project-settings.png)
 
-Your new project is now set to create an [application bundle ".app"](https://developer.apple.com/library/mac/#documentation/CoreFoundation/Conceptual/CFBundles/BundleTypes/BundleTypes.html "Go to Apple's documentation
-    about application bundle"). 
+Your new project is now set to create an [application bundle ".app"](https://developer.apple.com/library/mac/#documentation/CoreFoundation/Conceptual/CFBundles/BundleTypes/BundleTypes.html "Go to Apple's documentation about application bundle"). 
 
 A few words about the templates settings. If you choose an incompatible option for `C++ Compiler and Standard Library` you will end up with linker errors. Make sure you follow this guideline: 
 
-  * If you downloaded the "Clang" version from the download page, you should select `C++11 with Clang and libc++`.
-  * If you compiled CrSFML yourself, you should be able to figure out which option you should use. ;-)
+* If you downloaded the "Clang" version from the download page, you should select `C++11 with Clang and libc++`.
+* If you compiled CrSFML yourself, you should be able to figure out which option you should use. ;-)
 
 Now that your project is ready, let's see what is inside: 
 

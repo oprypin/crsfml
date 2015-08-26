@@ -20,7 +20,7 @@ Even though shaders have become commonplace, there are still old graphics cards 
 
 ```ruby
 unless SF::Shader.available?
-    # shaders are not available...
+  # shaders are not available...
 end
 ```
 

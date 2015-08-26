@@ -17,8 +17,8 @@ Since SFML is based on OpenGL, its windows are ready for OpenGL calls without an
 ```ruby
 @[Link("GL")] # Use @[Link(framework: "OpenGL")] on Mac OSX
 lib GL
-  fun enable = glEnable(cap: Int32)
-  TEXTURE_2D = 3553
+ fun enable = glEnable(cap: Int32)
+ TEXTURE_2D = 3553
 end
 
 window = SF::RenderWindow.new(SF.video_mode(800, 600), "OpenGL")
@@ -37,11 +37,11 @@ In case you think it is *too* automatic, [Window]({{book.api}}/Window.html)'s co
 
 ```ruby
 settings = SF.context_settings(
-    depth_bits: 24,
-    stencil_bits: 8,
-    antialiasing_level: 4,
-    major_version: 3,
-    minor_version: 0
+  depth_bits: 24,
+  stencil_bits: 8,
+  antialiasing_level: 4,
+  major_version: 3,
+  minor_version: 0
 )
 
 window = SF::RenderWindow.new(SF.video_mode(800, 600), "OpenGL", settings: settings)
@@ -89,24 +89,24 @@ window.vertical_sync_enabled = true
 # run the main loop
 running = true
 while running
-    # handle events
-    while event = window.poll_event
-        if event.type == SF::Event::Closed
-            # end the program
-            running = false
-        elsif event.type == SF::Event::Resized
-            # adjust the viewport when the window is resized
-            GL.viewport(0, 0, event.size.width, event.size.height)
-        end
+  # handle events
+  while event = window.poll_event
+    if event.type == SF::Event::Closed
+      # end the program
+      running = false
+    elsif event.type == SF::Event::Resized
+      # adjust the viewport when the window is resized
+      GL.viewport(0, 0, event.size.width, event.size.height)
     end
+  end
 
-    # clear the buffers
-    GL.clear(GL::COLOR_BUFFER_BIT | GL::DEPTH_BUFFER_BIT)
+  # clear the buffers
+  GL.clear(GL::COLOR_BUFFER_BIT | GL::DEPTH_BUFFER_BIT)
 
-    # draw...
+  # draw...
 
-    # end the current frame (internally swaps the front and back buffers)
-    window.display
+  # end the current frame (internally swaps the front and back buffers)
+  window.display
 end
 ```
 

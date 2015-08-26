@@ -162,14 +162,14 @@ If, instead of this default behavior, you'd like to show more/less stuff dependi
 ```ruby
 # the event loop
 while event = window.poll_event
-    ...
+  ...
 
-    # catch the resize events
-    if event.type == SF::Event::Resized
-        # update the view to the new size of the window
-        visible_area = SF.float_rect(0, 0, event.size.width, event.size.height)
-        window.view = SF::View.from_rect(visible_area)
-    end
+  # catch the resize events
+  if event.type == SF::Event::Resized
+    # update the view to the new size of the window
+    visible_area = SF.float_rect(0, 0, event.size.width, event.size.height)
+    window.view = SF::View.from_rect(visible_area)
+  end
 end
 ```
 

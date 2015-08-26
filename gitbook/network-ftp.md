@@ -32,9 +32,9 @@ The status code can be used to check whether the command was successful or faile
 ```ruby
 response = ftp.login("username", "password")
 if response.ok?
-    # success!
+  # success!
 else
-    # error...
+  # error...
 end
 ```
 
@@ -42,9 +42,9 @@ If you don't care about the details of the response, you can check for success w
 
 ```ruby
 if ftp.login("username", "password").ok?
-    # success!
+  # success!
 else
-    # error...
+  # error...
 end
 ```
 
@@ -100,7 +100,7 @@ Getting the current working directory:
 response = ftp.working_directory
 
 if response.ok?
-    puts "Current directory: " + response.directory
+  puts "Current directory: " + response.directory
 end
 ```
 
@@ -112,10 +112,10 @@ Getting the list of directories and files contained in the current directory:
 response = ftp.get_directory_listing
 
 if response.ok?
-    listing = response.listing
-    listing.each do |item|
-        puts "- " + item
-    end
+  listing = response.listing
+  listing.each do |item|
+    puts "- " + item
+  end
 end
 
 # you can also get the listing of a sub-directory of the current directory:

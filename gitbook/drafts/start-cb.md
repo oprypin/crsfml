@@ -21,8 +21,8 @@ Now we need to tell the compiler where to find the CrSFML headers (.hpp files), 
 
 In the project's "Build options", "Search directories" tab, add: 
 
-  * The path to the CrSFML headers (*&lt;sfml-install-path&gt;/include*) to the Compiler search directories
-  * The path to the CrSFML libraries (*&lt;sfml-install-path&gt;/lib*) to the Linker search directories
+* The path to the CrSFML headers (*&lt;sfml-install-path&gt;/include*) to the Compiler search directories
+* The path to the CrSFML libraries (*&lt;sfml-install-path&gt;/lib*) to the Linker search directories
 
 These paths are the same in both Debug and Release configuration, so you can set them globally for your project. 
 

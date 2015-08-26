@@ -9,8 +9,8 @@ This can be achieved with the very simple interface of the [SoundBufferRecorder]
 ```ruby
 # first check if an input audio device is available on the system
 unless SF::SoundBufferRecorder.available?
-    # error: audio capture is not available on this system
-    ...
+  # error: audio capture is not available on this system
+  ...
 end
 
 # create the recorder
@@ -34,20 +34,20 @@ The `start` and `stop` methods are self-explanatory. The capture runs in its own
 
 With the recorded data, you can then:
 
-  * Save it to a file
+* Save it to a file
 
 ```ruby
 buffer.save_to_file("my_record.ogg")
 ```
 
-  * Play it directly
+* Play it directly
 
 ```ruby
 sound = SF::Sound.new(buffer)
 sound.play
 ```
 
-  * Access the raw audio data and analyze it, transform it, etc.
+* Access the raw audio data and analyze it, transform it, etc.
 
 ```ruby
 samples = buffer.samples
@@ -75,26 +75,26 @@ Here is the skeleton of a complete derived class:
 
 ```ruby
 class MyRecorder < SF::SoundRecorder
-    def on_start # optional
-        # initialize whatever has to be done before the capture starts
-        ...
+  def on_start # optional
+    # initialize whatever has to be done before the capture starts
+    ...
 
-        # return true to start the capture, or false to cancel it
-        true
-    end
+    # return true to start the capture, or false to cancel it
+    true
+  end
 
-    def on_process_samples(samples, sample_count)
-        # do something useful with the new chunk of samples
-        ...
+  def on_process_samples(samples, sample_count)
+    # do something useful with the new chunk of samples
+    ...
 
-        # return true to continue the capture, or false to stop it
-        true
-    end
+    # return true to continue the capture, or false to stop it
+    true
+  end
 
-    def on_stop # optional
-        # clean up whatever has to be done after the capture is finished
-        ...
-    end
+  def on_stop # optional
+    # clean up whatever has to be done after the capture is finished
+    ...
+  end
 end
 ```
 
@@ -102,7 +102,7 @@ The `available?`/`start`/`stop` functions are defined in the [SoundRecorder]({{b
 
 ```ruby
 unless MyRecorder.available?
-    # error...
+  # error...
 end
 
 recorder = MyRecorder.new

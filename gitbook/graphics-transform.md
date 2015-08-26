@@ -172,14 +172,14 @@ bounding_box = entity.global_bounds
 point = ...
 
 if bounding_box.contains(point)
-    # collision!
+  # collision!
 end
 
 # check collision with another box (like the bounding box of another entity)
 other_box = ...
 
 if bounding_box.intersects(other_box)
-    # collision!
+  # collision!
 end
 ```
 
@@ -194,35 +194,35 @@ With the custom transforms seen previously, it becomes easy to implement a hiera
 ```ruby
 # the abstract base class
 class Node
-    # ... methods to transform the node
+  # ... methods to transform the node
 
-    # ... methods to manage the node's children
+  # ... methods to manage the node's children
 
-    def draw(target, parent_transform)
-        # combine the parent transform with the node's one
-        combined_transform = parent_transform * @transform
+  def draw(target, parent_transform)
+    # combine the parent transform with the node's one
+    combined_transform = parent_transform * @transform
 
-        # let the node draw itself
-        on_draw(target, combined_transform)
+    # let the node draw itself
+    on_draw(target, combined_transform)
 
-        # draw its children
-        @children.each do |child|
-            child.draw(target, combined_transform)
-        end
+    # draw its children
+    @children.each do |child|
+      child.draw(target, combined_transform)
     end
+  end
 
-    private def on_draw(target, transform)
-        ...
-    end
+  private def on_draw(target, transform)
+    ...
+  end
 end
 
 # a simple derived class: a node that draws a sprite
 class SpriteNode < Node
-    # .. methods to define the sprite
+  # .. methods to define the sprite
 
-    private def on_draw(target, transform)
-        target.draw(@sprite, transform)
-    end
+  private def on_draw(target, transform)
+    target.draw(@sprite, transform)
+  end
 end
 ```
 

@@ -22,22 +22,22 @@ window = SF::RenderWindow.new(SF.video_mode(800, 600), "My window")
 
 # run the program as long as the window is open
 while window.open?
-    # check all the window's events that were triggered since the last iteration of the loop
-    while event = window.poll_event
-        # "close requested" event: we close the window
-        if event.type == SF::Event::Closed
-            window.close
-        end
+  # check all the window's events that were triggered since the last iteration of the loop
+  while event = window.poll_event
+    # "close requested" event: we close the window
+    if event.type == SF::Event::Closed
+      window.close
     end
+  end
 
-    # clear the window with black color
-    window.clear(SF::Color::Black)
+  # clear the window with black color
+  window.clear(SF::Color::Black)
 
-    # draw everything here...
-    window.draw(...)
+  # draw everything here...
+  window.draw(...)
 
-    # end the current frame
-    window.display
+  # end the current frame
+  window.display
 end
 ```
 
@@ -56,10 +56,10 @@ SFML provides four kinds of drawable entities: three of them are ready to be use
 
 Although they share some common properties, each of these entities come with their own nuances and are therefore explained in dedicated tutorials:
 
-  * [Sprite tutorial](graphics-sprite.md "Learn how to create and draw sprites")
-  * [Text tutorial](graphics-text.md "Learn how to create and draw text")
-  * [Shape tutorial](graphics-shape.md "Learn how to create and draw shapes")
-  * [Vertex array tutorial](graphics-vertex-array.md "Learn how to create and draw vertex arrays")
+* [Sprite tutorial](graphics-sprite.md "Learn how to create and draw sprites")
+* [Text tutorial](graphics-text.md "Learn how to create and draw text")
+* [Shape tutorial](graphics-shape.md "Learn how to create and draw shapes")
+* [Vertex array tutorial](graphics-vertex-array.md "Learn how to create and draw vertex arrays")
 
 ## Off-screen drawing
 
@@ -96,13 +96,13 @@ CrSFML supports multi-threaded drawing, and you don't even have to do anything t
 
 ```ruby
 def render_thread(window)
-    # the rendering loop
-    while window.open?
-        # draw...
+  # the rendering loop
+  while window.open?
+    # draw...
 
-        # end the current frame
-        window.display
-    end
+    # end the current frame
+    window.display
+  end
 end
 
 # create the window (remember: it's safer to create it in the main thread due to OS limitations)
@@ -117,7 +117,7 @@ thread.launch
 
 # the event/logic/whatever loop
 while window.open?
-    ...
+  ...
 end
 ```
 

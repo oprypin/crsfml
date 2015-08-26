@@ -8,9 +8,9 @@ This tutorial is the first one you should read if you're using CrSFML on Linux. 
 
 There are different approaches to the installation of CrSFML on Linux: 
 
-  * Install it directly from your distribution's package repository
-  * Download the precompiled SDK and manually copy the files
-  * Get the source code, build it and install it
+* Install it directly from your distribution's package repository
+* Download the precompiled SDK and manually copy the files
+* Get the source code, build it and install it
 
 Option 1 is the preferred one; if the version of CrSFML that you want to install is available in the official repository, then install it using your package manager. For example, on Debian you would do: 
 
@@ -37,7 +37,7 @@ First, create a source file. For this tutorial we'll name it "main.cpp". Put the
 
 int main()
 {
-    SF::RenderWindow window(SF::VideoMode(200, 200), "CrSFML works!");
+    SF::RenderWindow window(SF::VideoMode(200, 200), "SFML works!");
     SF::CircleShape shape(100.f);
     shape.setFillColor(SF::Color::Green);
 
