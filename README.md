@@ -2,68 +2,57 @@
 
 #### [Crystal][] bindings to [Simple and Fast Multimedia Library][sfml] (through [CSFML][]).
 
-**See [introduction](#introduction), [examples](examples), [documentation][].**
+Documentation
+-------------
 
-*CrSFML* supports CSFML 2.3; see older releases for CSFML 2.2. It has been tested on Linux 64-bit. It should work on other major systems if Crystal supports them.
-
-[CSFML][] 2.3, which requires [SFML][] 2.3, must be installed to use it.
-
-Crystal 0.6.1 and earlier are **not** supported.
-
-
-[Troubleshooting][]
--------------------
+#### [Tutorials][]
+#### [API Documentation][api]
+#### [Examples](examples)
 
 
-Introduction
-------------
+Information
+-----------
 
-*CrSFML* allows you to use [SFML][], which is a library made in C++. So most information and [tutorials][sfml-tutorials] for SFML revolve around C++. It is a good idea to get familiar with SFML itself first.
+*CrSFML* is a library that allows you to use [SFML][] with Crystal. [SFML][] is a library written in C++, but it has official bindings to C, called [CSFML][], which is what *CrSFML* actually provides bindings to.
 
-Each SFML module is implemented with 3 source files.
+[CSFML][] 2.3, which requires [SFML][] 2.3, must be installed to use *CrSFML* (see older releases for 2.2).
 
-- *lib*-files are an auto-generated definition of CSFML API: `lib CSFML`. These can be used directly, by themselves or in combination
-with wrappers.
-- *obj*-files are auto-generated convenient object and function wrappers. These make up the `module SF`. The main file for each SFML module just imports these and adds some more convenience functionality, like overloaded functions that were dropped in CSFML compared to SFML, and ways to avoid dealing with the remaining exposed pointers.
+- [Installing CSFML][]
+- [Troubleshooting][]
+- [Contributing](CONTRIBUTING.md) + implementation details
 
-The API attempts to be similar to SFML's, but some general changes are present:
+*CrSFML* has been tested on Linux 64-bit. It should work on other major systems if Crystal supports them.
 
-- There is a clear separation between "classes" and "structs". Classes are wrapped, and structs are taken directly from `lib`s, making them limited, for example, instead of instance methods they have functions in the root of the namespace.
-- Everything is renamed to `snake_case`.
-- To construct an object (`sf::SomeType x(param)`):
-    - `x = SF::SomeType.new(param)` for classes.
-    - `x = SF.some_type(param)` for structs.
-    - Use `SF::Vector2(T)`, `SF.vector2(x, y)` instead of `Vector2(f|i)`. 2-tuples can often be used instead.
-        - But: `SF::Vector3f`, `SF.vector3f(x, y, z)`.
-    - Member functions, such as `loadFromFile`, that are used for initialization, become class methods (`from_file`).
-- Functions that fail and can return `false`/`NULL` raise `SF::NullResult` instead.
-- Getter, setter functions are changed:
-    - `x.getSomeProperty()` becomes `x.some_property`.
-    - `x.isSomeProperty()` becomes `x.some_property?`.
-    - `x.setSomeProperty(v)` becomes `x.some_property = v`.
-- SFML sometimes uses `enum` values as bitmasks. You can combine them using the `|` operator.
-- Unicode just works.
-- Type differences:
-    - `unsigned int` is mapped as `Int32`, etc., so you don't have to bother with unsigned types. This shouldn't cause problems, but it might.
-- Most of the [documentation][] is taken directly from CSFML, so don't be surprised if it talks in C/C++ terms.
-
-See [examples](examples) to learn more.
+*Audio* and *Network* modules are considered experimental. Expect some rough edges.
 
 
-Acknowledgements
-----------------
+Credits
+-------
 
-[License](LICENSE): zlib/libpng
+*CrSFML* was made by [Oleh Prypin][blaxpirit].
 
-This library uses and is based on [SFML][] and [CSFML][].
+*CrSFML* is [licensed](LICENSE) under the terms and conditions of the *zlib/libpng* license.
+
+This library uses and is based on [SFML][sfml-authors] and [CSFML][csfml-authors].
+
+Thanks to [Alan Willms][alanwillms] for translating [tutorials][] to Crystal and finding multiple bugs.
 
 [Crystal][] and [Python][] programming languages are used.
 
 
-[documentation]: http://blaxpirit.github.io/crsfml/
+
+[tutorials]: http://blaxpirit.github.io/crsfml/tutorials/
+[api]: http://blaxpirit.github.io/crsfml/api/
 [troubleshooting]: https://github.com/BlaXpirit/crsfml/wiki/Troubleshooting
+[installing csfml]: https://github.com/BlaXpirit/crsfml/wiki/Installing-CSFML
+
 [sfml]: http://www.sfml-dev.org/ "Simple and Fast Multimedia Library"
 [csfml]: http://www.sfml-dev.org/download/csfml/
-[sfml-tutorials]: http://www.sfml-dev.org/tutorials/
+[sfml-authors]: https://github.com/SFML/SFML#readme
+[csfml-authors]: https://github.com/SFML/CSFML#readme
+
+[blaxpirit]: https://github.com/BlaXpirit
+[alanwillms]: https://github.com/alanwillms
+
 [crystal]: http://crystal-lang.org/
 [python]: http://python.org/
