@@ -6,17 +6,17 @@ module SF
 
   # Enumeration of the blending factors
   #
-  # * BlendMode::Zero
-  # * BlendMode::One
-  # * BlendMode::SrcColor
-  # * BlendMode::OneMinusSrcColor
-  # * BlendMode::DstColor
-  # * BlendMode::OneMinusDstColor
-  # * BlendMode::SrcAlpha
-  # * BlendMode::OneMinusSrcAlpha
-  # * BlendMode::DstAlpha
-  # * BlendMode::OneMinusDstAlpha
-  alias BlendFactor = CSFML::BlendFactor
+  # * `BlendMode`::Zero
+  # * `BlendMode`::One
+  # * `BlendMode`::SrcColor
+  # * `BlendMode`::OneMinusSrcColor
+  # * `BlendMode`::DstColor
+  # * `BlendMode`::OneMinusDstColor
+  # * `BlendMode`::SrcAlpha
+  # * `BlendMode`::OneMinusSrcAlpha
+  # * `BlendMode`::DstAlpha
+  # * `BlendMode`::OneMinusDstAlpha
+  alias BlendFactor = CSFML::BlendFactor # enum
 
   struct CSFML::BlendMode
     Zero = CSFML::BlendFactor::Zero
@@ -35,15 +35,31 @@ module SF
 
   # Enumeration of the blending equations
   #
-  # * BlendMode::Add
-  # * BlendMode::Subtract
-  alias BlendEquation = CSFML::BlendEquation
+  # * `BlendMode`::Add
+  # * `BlendMode`::Subtract
+  alias BlendEquation = CSFML::BlendEquation # enum
 
   # Blending mode for drawing
-  alias BlendMode = CSFML::BlendMode
+  #
+  # * color_src_factor : `BlendFactor`
+  # * color_dst_factor : `BlendFactor`
+  # * color_equation : `BlendEquation`
+  # * alpha_src_factor : `BlendFactor`
+  # * alpha_dst_factor : `BlendFactor`
+  # * alpha_equation : `BlendEquation`
+  #
+  # Do not use `.new`; `SF` module may contain constructor methods for this struct.
+  alias BlendMode = CSFML::BlendMode # struct
 
   # Utility class for manpulating RGBA colors
-  alias Color = CSFML::Color
+  #
+  # * r : `UInt8`
+  # * g : `UInt8`
+  # * b : `UInt8`
+  # * a : `UInt8`
+  #
+  # Do not use `.new`; `SF` module may contain constructor methods for this struct.
+  alias Color = CSFML::Color # struct
 
   struct CSFML::Color
     # Convert a color to a 32-bit unsigned integer
@@ -91,9 +107,21 @@ module SF
     
   end
 
-  alias FloatRect = CSFML::FloatRect
+  # * left : `Float32`
+  # * top : `Float32`
+  # * width : `Float32`
+  # * height : `Float32`
+  #
+  # Do not use `.new`; `SF` module may contain constructor methods for this struct.
+  alias FloatRect = CSFML::FloatRect # struct
 
-  alias IntRect = CSFML::IntRect
+  # * left : `Int32`
+  # * top : `Int32`
+  # * width : `Int32`
+  # * height : `Int32`
+  #
+  # Do not use `.new`; `SF` module may contain constructor methods for this struct.
+  alias IntRect = CSFML::IntRect # struct
 
   struct CSFML::FloatRect
     # Check if a point is inside a rectangle's area
@@ -5082,7 +5110,11 @@ module SF
   end
 
   # Encapsulate a 3x3 transform matrix
-  alias Transform = CSFML::Transform
+  #
+  # * matrix : `Float32[9]`
+  #
+  # Do not use `.new`; `SF` module may contain constructor methods for this struct.
+  alias Transform = CSFML::Transform # struct
 
   struct CSFML::Transform
     # Return the 4x4 matrix of a transform
@@ -5264,10 +5296,19 @@ module SF
     
   end
 
-  alias FontInfo = CSFML::FontInfo
+  # * family : `UInt8*`
+  #
+  # Do not use `.new`; `SF` module may contain constructor methods for this struct.
+  alias FontInfo = CSFML::FontInfo # struct
 
   # Glyph describes a glyph (a visual character)
-  alias Glyph = CSFML::Glyph
+  #
+  # * advance : `Float32`
+  # * bounds : `FloatRect`
+  # * texture_rect : `IntRect`
+  #
+  # Do not use `.new`; `SF` module may contain constructor methods for this struct.
+  alias Glyph = CSFML::Glyph # struct
 
   # Types of primitives that a sf::VertexArray can render
   # 
@@ -5275,17 +5316,24 @@ module SF
   # will always be 1 pixel, regardless the current transform
   # and view.
   #
-  # * Points
-  # * Lines
-  # * LinesStrip
-  # * Triangles
-  # * TrianglesStrip
-  # * TrianglesFan
-  # * Quads
-  alias PrimitiveType = CSFML::PrimitiveType
+  # * `SF`::Points
+  # * `SF`::Lines
+  # * `SF`::LinesStrip
+  # * `SF`::Triangles
+  # * `SF`::TrianglesStrip
+  # * `SF`::TrianglesFan
+  # * `SF`::Quads
+  alias PrimitiveType = CSFML::PrimitiveType # enum
 
   # Define the states used for drawing to a RenderTarget
-  alias RenderStates = CSFML::RenderStates
+  #
+  # * blend_mode : `BlendMode`
+  # * transform : `Transform`
+  # * texture : `Texture`
+  # * shader : `Shader`
+  #
+  # Do not use `.new`; `SF` module may contain constructor methods for this struct.
+  alias RenderStates = CSFML::RenderStates # struct
 
   struct CSFML::RenderStates
     def texture
@@ -5302,7 +5350,12 @@ module SF
     end
   end
 
-  alias Vertex = CSFML::Vertex
+  # * position : `Vector2`
+  # * color : `Color`
+  # * tex_coords : `Vector2`
+  #
+  # Do not use `.new`; `SF` module may contain constructor methods for this struct.
+  alias Vertex = CSFML::Vertex # struct
 
   struct CSFML::Vertex
     def position
@@ -5369,12 +5422,12 @@ module SF
     
   end
 
-  # * Text::Regular
-  # * Text::Bold
-  # * Text::Italic
-  # * Text::Underlined
-  # * Text::StrikeThrough
-  alias TextStyle = CSFML::TextStyle
+  # * `Text`::Regular
+  # * `Text`::Bold
+  # * `Text`::Italic
+  # * `Text`::Underlined
+  # * `Text`::StrikeThrough
+  alias TextStyle = CSFML::TextStyle # enum
 
   # Construct a color from its 3 RGB components
   # 

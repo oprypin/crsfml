@@ -5,7 +5,11 @@ module SF
   extend self
 
   # Represents a time value
-  alias Time = CSFML::Time
+  #
+  # * microseconds : `Int64`
+  #
+  # Do not use `.new`; `SF` module may contain constructor methods for this struct.
+  alias Time = CSFML::Time # struct
 
   struct CSFML::Time
     # Return a time value as a number of seconds
@@ -209,16 +213,40 @@ module SF
   end
 
   # Set of callbacks that allow users to define custom file streams
-  alias InputStream = CSFML::InputStream
+  #
+  # * read : `InputStreamReadFunc`
+  # * seek : `InputStreamSeekFunc`
+  # * tell : `InputStreamTellFunc`
+  # * get_size : `InputStreamGetSizeFunc`
+  # * user_data : `Void*`
+  #
+  # Do not use `.new`; `SF` module may contain constructor methods for this struct.
+  alias InputStream = CSFML::InputStream # struct
 
   # 2-component vector of integers
-  alias Vector2i = CSFML::Vector2i
+  #
+  # * x : `Int32`
+  # * y : `Int32`
+  #
+  # Do not use `.new`; `SF` module may contain constructor methods for this struct.
+  alias Vector2i = CSFML::Vector2i # struct
 
   # 2-component vector of floats
-  alias Vector2f = CSFML::Vector2f
+  #
+  # * x : `Float32`
+  # * y : `Float32`
+  #
+  # Do not use `.new`; `SF` module may contain constructor methods for this struct.
+  alias Vector2f = CSFML::Vector2f # struct
 
   # 3-component vector of floats
-  alias Vector3f = CSFML::Vector3f
+  #
+  # * x : `Float32`
+  # * y : `Float32`
+  # * z : `Float32`
+  #
+  # Do not use `.new`; `SF` module may contain constructor methods for this struct.
+  alias Vector3f = CSFML::Vector3f # struct
 
   # Construct a time value from a number of seconds
   # 

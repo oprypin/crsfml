@@ -92,7 +92,7 @@ for m in ['system', 'window', 'graphics', 'audio', 'network']:
     visit_header('SFML/{}.h'.format(m.capitalize()))
 
 
-with open('headers_gen.h', 'w') as f:
+with open('headers_gen.h', 'w', encoding='utf-8') as f:
     f.write('\n'.join(src))
-with open('docs_gen.txt', 'w') as f:
+with open('docs_gen.txt', 'w', encoding='utf-8') as f:
     f.write('\n'.join(doc[1:-1]))

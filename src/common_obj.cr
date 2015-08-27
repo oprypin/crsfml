@@ -26,8 +26,9 @@ module SF
   class NullResult < Error
   end
   
-  # Every wrapper class has these methods
+  # :nodoc:
   module Wrapper(T)
+    # Every wrapper class has these methods
     macro included
       private def initialize(@this: T, @owned: Bool)
       end

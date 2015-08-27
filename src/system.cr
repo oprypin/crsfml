@@ -27,7 +27,9 @@ end
 module SF
   extend self
   
-  module Vector2M
+  module Vector2M(T)
+    include Enumerable(T)
+    
     def each
       yield @x
       yield @y
@@ -49,7 +51,7 @@ module SF
     def initialize(@x: T, @y: T)
     end
     
-    include Vector2M
+    include Vector2M(T)
     
     def +(other)
       ox, oy = other
@@ -109,7 +111,7 @@ module SF
   end
   
   struct CSFML::Vector2f
-    include SF::Vector2M
+    include SF::Vector2M(T)
   end
   def vector2f(x: Number, y: Number)
     Vector2f.new(x: x.to_f32, y: y.to_f32)
@@ -120,7 +122,7 @@ module SF
   end
   
   struct CSFML::Vector2i
-    include SF::Vector2M
+    include SF::Vector2M(T)
   end
   def vector2i(x: Int, y: Int)
     Vector2i.new(x: x.to_i32, y: y.to_i32)

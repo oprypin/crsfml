@@ -29,7 +29,7 @@ from pycparser import parse_file, c_ast, c_generator
 
 
 
-with open('docs_gen.txt') as f:
+with open('docs_gen.txt', encoding='utf-8') as f:
     docs = f.read().strip().split('\n--------\n')
 
 
@@ -158,10 +158,9 @@ def handle_enum(name, items):
     
     if d: obj(nname+'ALIAS', d, '#')
     for name, value in nitems:
-        cls = enum_relations[nname]
-        if cls: cls += '::'
-        obj(nname+'ALIAS', '# * {cls}{name}'.format(**locals()))
-    obj(nname+'ALIAS', 'alias {0} = CSFML::{0}'.format(nname))
+        cls = enum_relations[nname] or 'SF'
+        obj(nname+'ALIAS', '# * `{cls}`::{name}'.format(**locals()))
+    obj(nname+'ALIAS', 'alias {0} = CSFML::{0} # enum'.format(nname))
     for name, value in nitems:
         orcls = cls = enum_relations[nname]
         if cls and cls in structs:
@@ -182,8 +181,15 @@ def handle_struct(name, items):
     if d: lib(d)
     lib('struct {}'.format(name))
     
-    if d: obj(name+'ALIAS', d)
-    obj(name+'ALIAS', 'alias {0} = CSFML::{0}'.format(name))
+    if d: obj(name+'ALIAS', d, '#')
+    for t, n in items:
+        t = rename_type(t)
+        if t in ['Vector2f', 'Vector2i']:
+            t = 'Vector2'
+        n = rename_identifier(n)
+        obj(name+'ALIAS', '# * {n} : `{t}`'.format(**locals()))
+    obj(name+'ALIAS', '#', "# Do not use `.new`; `SF` module may contain constructor methods for this struct.")
+    obj(name+'ALIAS', 'alias {0} = CSFML::{0} # struct'.format(name))
     
     for t, n in items:
         rt = rename_type(t)
@@ -232,7 +238,7 @@ def handle_union(name, items):
     lib('end')
 
     if d: obj(name+'ALIAS', d)
-    obj(name+'ALIAS', 'alias {0} = CSFML::{0}'.format(name))
+    obj(name+'ALIAS', 'alias {0} = CSFML::{0} # union'.format(name))
 
 
 classes = set()
@@ -640,7 +646,7 @@ Visitor().visit(ast)
 
 deps = {'system': [], 'window': ['system'], 'graphics': ['system', 'window'], 'audio': ['system'], 'network': ['system']}
 for mod, lines in libs.items():
-    with open('{}_lib.cr'.format(mod), 'w') as f:
+    with open('{}_lib.cr'.format(mod), 'w', encoding='utf-8') as f:
         f.write('\n'.join(lines[0]))
         f.write('require "./common_lib"\n')
         for d in deps[mod]:
@@ -650,7 +656,7 @@ for mod, lines in libs.items():
         f.write('\n'.join('  '+l for l in lines[1:]))
         f.write('\nend\n')
 for mod, classes in objs.items():
-    with open('{}_obj.cr'.format(mod), 'w') as f:
+    with open('{}_obj.cr'.format(mod), 'w', encoding='utf-8') as f:
         f.write('require "./{}_lib"\n'.format(mod))
         f.write('require "./common_obj"\n\n')
         f.write('module SF\n  extend self\n\n')

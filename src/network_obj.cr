@@ -5,7 +5,11 @@ module SF
   extend self
 
   # Encapsulate an IPv4 network address
-  alias IpAddress = CSFML::IpAddress
+  #
+  # * address : `UInt8[16]`
+  #
+  # Do not use `.new`; `SF` module may contain constructor methods for this struct.
+  alias IpAddress = CSFML::IpAddress # struct
 
   struct CSFML::IpAddress
     # Get an integer representation of the address
@@ -1684,102 +1688,102 @@ module SF
 
   # Enumeration of transfer modes
   #
-  # * Ftp::Binary
-  # * Ftp::Ascii
-  # * Ftp::Ebcdic
-  alias FtpTransferMode = CSFML::FtpTransferMode
+  # * `Ftp`::Binary
+  # * `Ftp`::Ascii
+  # * `Ftp`::Ebcdic
+  alias FtpTransferMode = CSFML::FtpTransferMode # enum
 
   # Status codes possibly returned by a FTP response
   #
-  # * FtpResponse::RestartMarkerReply
-  # * FtpResponse::ServiceReadySoon
-  # * FtpResponse::DataConnectionAlreadyOpened
-  # * FtpResponse::OpeningDataConnection
-  # * FtpResponse::Ok
-  # * FtpResponse::PointlessCommand
-  # * FtpResponse::SystemStatus
-  # * FtpResponse::DirectoryStatus
-  # * FtpResponse::FileStatus
-  # * FtpResponse::HelpMessage
-  # * FtpResponse::SystemType
-  # * FtpResponse::ServiceReady
-  # * FtpResponse::ClosingConnection
-  # * FtpResponse::DataConnectionOpened
-  # * FtpResponse::ClosingDataConnection
-  # * FtpResponse::EnteringPassiveMode
-  # * FtpResponse::LoggedIn
-  # * FtpResponse::FileActionOk
-  # * FtpResponse::DirectoryOk
-  # * FtpResponse::NeedPassword
-  # * FtpResponse::NeedAccountToLogIn
-  # * FtpResponse::NeedInformation
-  # * FtpResponse::ServiceUnavailable
-  # * FtpResponse::DataConnectionUnavailable
-  # * FtpResponse::TransferAborted
-  # * FtpResponse::FileActionAborted
-  # * FtpResponse::LocalError
-  # * FtpResponse::InsufficientStorageSpace
-  # * FtpResponse::CommandUnknown
-  # * FtpResponse::ParametersUnknown
-  # * FtpResponse::CommandNotImplemented
-  # * FtpResponse::BadCommandSequence
-  # * FtpResponse::ParameterNotImplemented
-  # * FtpResponse::NotLoggedIn
-  # * FtpResponse::NeedAccountToStore
-  # * FtpResponse::FileUnavailable
-  # * FtpResponse::PageTypeUnknown
-  # * FtpResponse::NotEnoughMemory
-  # * FtpResponse::FilenameNotAllowed
-  # * FtpResponse::InvalidResponse
-  # * FtpResponse::ConnectionFailed
-  # * FtpResponse::ConnectionClosed
-  # * FtpResponse::InvalidFile
-  alias FtpStatus = CSFML::FtpStatus
+  # * `FtpResponse`::RestartMarkerReply
+  # * `FtpResponse`::ServiceReadySoon
+  # * `FtpResponse`::DataConnectionAlreadyOpened
+  # * `FtpResponse`::OpeningDataConnection
+  # * `FtpResponse`::Ok
+  # * `FtpResponse`::PointlessCommand
+  # * `FtpResponse`::SystemStatus
+  # * `FtpResponse`::DirectoryStatus
+  # * `FtpResponse`::FileStatus
+  # * `FtpResponse`::HelpMessage
+  # * `FtpResponse`::SystemType
+  # * `FtpResponse`::ServiceReady
+  # * `FtpResponse`::ClosingConnection
+  # * `FtpResponse`::DataConnectionOpened
+  # * `FtpResponse`::ClosingDataConnection
+  # * `FtpResponse`::EnteringPassiveMode
+  # * `FtpResponse`::LoggedIn
+  # * `FtpResponse`::FileActionOk
+  # * `FtpResponse`::DirectoryOk
+  # * `FtpResponse`::NeedPassword
+  # * `FtpResponse`::NeedAccountToLogIn
+  # * `FtpResponse`::NeedInformation
+  # * `FtpResponse`::ServiceUnavailable
+  # * `FtpResponse`::DataConnectionUnavailable
+  # * `FtpResponse`::TransferAborted
+  # * `FtpResponse`::FileActionAborted
+  # * `FtpResponse`::LocalError
+  # * `FtpResponse`::InsufficientStorageSpace
+  # * `FtpResponse`::CommandUnknown
+  # * `FtpResponse`::ParametersUnknown
+  # * `FtpResponse`::CommandNotImplemented
+  # * `FtpResponse`::BadCommandSequence
+  # * `FtpResponse`::ParameterNotImplemented
+  # * `FtpResponse`::NotLoggedIn
+  # * `FtpResponse`::NeedAccountToStore
+  # * `FtpResponse`::FileUnavailable
+  # * `FtpResponse`::PageTypeUnknown
+  # * `FtpResponse`::NotEnoughMemory
+  # * `FtpResponse`::FilenameNotAllowed
+  # * `FtpResponse`::InvalidResponse
+  # * `FtpResponse`::ConnectionFailed
+  # * `FtpResponse`::ConnectionClosed
+  # * `FtpResponse`::InvalidFile
+  alias FtpStatus = CSFML::FtpStatus # enum
 
   # Enumerate the available HTTP methods for a request
   #
-  # * HttpRequest::Get
-  # * HttpRequest::Post
-  # * HttpRequest::Head
-  # * HttpRequest::Put
-  # * HttpRequest::Delete
-  alias HttpMethod = CSFML::HttpMethod
+  # * `HttpRequest`::Get
+  # * `HttpRequest`::Post
+  # * `HttpRequest`::Head
+  # * `HttpRequest`::Put
+  # * `HttpRequest`::Delete
+  alias HttpMethod = CSFML::HttpMethod # enum
 
   # Enumerate all the valid status codes for a response
   #
-  # * HttpResponse::Ok
-  # * HttpResponse::Created
-  # * HttpResponse::Accepted
-  # * HttpResponse::NoContent
-  # * HttpResponse::ResetContent
-  # * HttpResponse::PartialContent
-  # * HttpResponse::MultipleChoices
-  # * HttpResponse::MovedPermanently
-  # * HttpResponse::MovedTemporarily
-  # * HttpResponse::NotModified
-  # * HttpResponse::BadRequest
-  # * HttpResponse::Unauthorized
-  # * HttpResponse::Forbidden
-  # * HttpResponse::NotFound
-  # * HttpResponse::RangeNotSatisfiable
-  # * HttpResponse::InternalServerError
-  # * HttpResponse::NotImplemented
-  # * HttpResponse::BadGateway
-  # * HttpResponse::ServiceNotAvailable
-  # * HttpResponse::GatewayTimeout
-  # * HttpResponse::VersionNotSupported
-  # * HttpResponse::InvalidResponse
-  # * HttpResponse::ConnectionFailed
-  alias HttpStatus = CSFML::HttpStatus
+  # * `HttpResponse`::Ok
+  # * `HttpResponse`::Created
+  # * `HttpResponse`::Accepted
+  # * `HttpResponse`::NoContent
+  # * `HttpResponse`::ResetContent
+  # * `HttpResponse`::PartialContent
+  # * `HttpResponse`::MultipleChoices
+  # * `HttpResponse`::MovedPermanently
+  # * `HttpResponse`::MovedTemporarily
+  # * `HttpResponse`::NotModified
+  # * `HttpResponse`::BadRequest
+  # * `HttpResponse`::Unauthorized
+  # * `HttpResponse`::Forbidden
+  # * `HttpResponse`::NotFound
+  # * `HttpResponse`::RangeNotSatisfiable
+  # * `HttpResponse`::InternalServerError
+  # * `HttpResponse`::NotImplemented
+  # * `HttpResponse`::BadGateway
+  # * `HttpResponse`::ServiceNotAvailable
+  # * `HttpResponse`::GatewayTimeout
+  # * `HttpResponse`::VersionNotSupported
+  # * `HttpResponse`::InvalidResponse
+  # * `HttpResponse`::ConnectionFailed
+  alias HttpStatus = CSFML::HttpStatus # enum
 
   # Define the status that can be returned by the socket functions
   #
-  # * Socket::Done
-  # * Socket::NotReady
-  # * Socket::Partial
-  # * Socket::Disconnected
-  # * Socket::Error
-  alias SocketStatus = CSFML::SocketStatus
+  # * `Socket`::Done
+  # * `Socket`::NotReady
+  # * `Socket`::Partial
+  # * `Socket`::Disconnected
+  # * `Socket`::Error
+  alias SocketStatus = CSFML::SocketStatus # enum
 
   class Socket
     Done = CSFML::SocketStatus::Done

@@ -430,19 +430,24 @@ module SF
     
   end
 
-  alias JoystickIdentification = CSFML::JoystickIdentification
+  # * name : `UInt8*`
+  # * vendor_id : `Int32`
+  # * product_id : `Int32`
+  #
+  # Do not use `.new`; `SF` module may contain constructor methods for this struct.
+  alias JoystickIdentification = CSFML::JoystickIdentification # struct
 
   # Axes supported by SFML joysticks
   #
-  # * Joystick::X
-  # * Joystick::Y
-  # * Joystick::Z
-  # * Joystick::R
-  # * Joystick::U
-  # * Joystick::V
-  # * Joystick::PovX
-  # * Joystick::PovY
-  alias JoystickAxis = CSFML::JoystickAxis
+  # * `Joystick`::X
+  # * `Joystick`::Y
+  # * `Joystick`::Z
+  # * `Joystick`::R
+  # * `Joystick`::U
+  # * `Joystick`::V
+  # * `Joystick`::PovX
+  # * `Joystick`::PovY
+  alias JoystickAxis = CSFML::JoystickAxis # enum
 
   class Joystick
     X = CSFML::JoystickAxis::X
@@ -554,110 +559,110 @@ module SF
 
   # Key codes
   #
-  # * Keyboard::Unknown
-  # * Keyboard::A
-  # * Keyboard::B
-  # * Keyboard::C
-  # * Keyboard::D
-  # * Keyboard::E
-  # * Keyboard::F
-  # * Keyboard::G
-  # * Keyboard::H
-  # * Keyboard::I
-  # * Keyboard::J
-  # * Keyboard::K
-  # * Keyboard::L
-  # * Keyboard::M
-  # * Keyboard::N
-  # * Keyboard::O
-  # * Keyboard::P
-  # * Keyboard::Q
-  # * Keyboard::R
-  # * Keyboard::S
-  # * Keyboard::T
-  # * Keyboard::U
-  # * Keyboard::V
-  # * Keyboard::W
-  # * Keyboard::X
-  # * Keyboard::Y
-  # * Keyboard::Z
-  # * Keyboard::Num0
-  # * Keyboard::Num1
-  # * Keyboard::Num2
-  # * Keyboard::Num3
-  # * Keyboard::Num4
-  # * Keyboard::Num5
-  # * Keyboard::Num6
-  # * Keyboard::Num7
-  # * Keyboard::Num8
-  # * Keyboard::Num9
-  # * Keyboard::Escape
-  # * Keyboard::LControl
-  # * Keyboard::LShift
-  # * Keyboard::LAlt
-  # * Keyboard::LSystem
-  # * Keyboard::RControl
-  # * Keyboard::RShift
-  # * Keyboard::RAlt
-  # * Keyboard::RSystem
-  # * Keyboard::Menu
-  # * Keyboard::LBracket
-  # * Keyboard::RBracket
-  # * Keyboard::SemiColon
-  # * Keyboard::Comma
-  # * Keyboard::Period
-  # * Keyboard::Quote
-  # * Keyboard::Slash
-  # * Keyboard::BackSlash
-  # * Keyboard::Tilde
-  # * Keyboard::Equal
-  # * Keyboard::Dash
-  # * Keyboard::Space
-  # * Keyboard::Return
-  # * Keyboard::Back
-  # * Keyboard::Tab
-  # * Keyboard::PageUp
-  # * Keyboard::PageDown
-  # * Keyboard::End
-  # * Keyboard::Home
-  # * Keyboard::Insert
-  # * Keyboard::Delete
-  # * Keyboard::Add
-  # * Keyboard::Subtract
-  # * Keyboard::Multiply
-  # * Keyboard::Divide
-  # * Keyboard::Left
-  # * Keyboard::Right
-  # * Keyboard::Up
-  # * Keyboard::Down
-  # * Keyboard::Numpad0
-  # * Keyboard::Numpad1
-  # * Keyboard::Numpad2
-  # * Keyboard::Numpad3
-  # * Keyboard::Numpad4
-  # * Keyboard::Numpad5
-  # * Keyboard::Numpad6
-  # * Keyboard::Numpad7
-  # * Keyboard::Numpad8
-  # * Keyboard::Numpad9
-  # * Keyboard::F1
-  # * Keyboard::F2
-  # * Keyboard::F3
-  # * Keyboard::F4
-  # * Keyboard::F5
-  # * Keyboard::F6
-  # * Keyboard::F7
-  # * Keyboard::F8
-  # * Keyboard::F9
-  # * Keyboard::F10
-  # * Keyboard::F11
-  # * Keyboard::F12
-  # * Keyboard::F13
-  # * Keyboard::F14
-  # * Keyboard::F15
-  # * Keyboard::Pause
-  # * Keyboard::Count
-  alias KeyCode = CSFML::KeyCode
+  # * `Keyboard`::Unknown
+  # * `Keyboard`::A
+  # * `Keyboard`::B
+  # * `Keyboard`::C
+  # * `Keyboard`::D
+  # * `Keyboard`::E
+  # * `Keyboard`::F
+  # * `Keyboard`::G
+  # * `Keyboard`::H
+  # * `Keyboard`::I
+  # * `Keyboard`::J
+  # * `Keyboard`::K
+  # * `Keyboard`::L
+  # * `Keyboard`::M
+  # * `Keyboard`::N
+  # * `Keyboard`::O
+  # * `Keyboard`::P
+  # * `Keyboard`::Q
+  # * `Keyboard`::R
+  # * `Keyboard`::S
+  # * `Keyboard`::T
+  # * `Keyboard`::U
+  # * `Keyboard`::V
+  # * `Keyboard`::W
+  # * `Keyboard`::X
+  # * `Keyboard`::Y
+  # * `Keyboard`::Z
+  # * `Keyboard`::Num0
+  # * `Keyboard`::Num1
+  # * `Keyboard`::Num2
+  # * `Keyboard`::Num3
+  # * `Keyboard`::Num4
+  # * `Keyboard`::Num5
+  # * `Keyboard`::Num6
+  # * `Keyboard`::Num7
+  # * `Keyboard`::Num8
+  # * `Keyboard`::Num9
+  # * `Keyboard`::Escape
+  # * `Keyboard`::LControl
+  # * `Keyboard`::LShift
+  # * `Keyboard`::LAlt
+  # * `Keyboard`::LSystem
+  # * `Keyboard`::RControl
+  # * `Keyboard`::RShift
+  # * `Keyboard`::RAlt
+  # * `Keyboard`::RSystem
+  # * `Keyboard`::Menu
+  # * `Keyboard`::LBracket
+  # * `Keyboard`::RBracket
+  # * `Keyboard`::SemiColon
+  # * `Keyboard`::Comma
+  # * `Keyboard`::Period
+  # * `Keyboard`::Quote
+  # * `Keyboard`::Slash
+  # * `Keyboard`::BackSlash
+  # * `Keyboard`::Tilde
+  # * `Keyboard`::Equal
+  # * `Keyboard`::Dash
+  # * `Keyboard`::Space
+  # * `Keyboard`::Return
+  # * `Keyboard`::Back
+  # * `Keyboard`::Tab
+  # * `Keyboard`::PageUp
+  # * `Keyboard`::PageDown
+  # * `Keyboard`::End
+  # * `Keyboard`::Home
+  # * `Keyboard`::Insert
+  # * `Keyboard`::Delete
+  # * `Keyboard`::Add
+  # * `Keyboard`::Subtract
+  # * `Keyboard`::Multiply
+  # * `Keyboard`::Divide
+  # * `Keyboard`::Left
+  # * `Keyboard`::Right
+  # * `Keyboard`::Up
+  # * `Keyboard`::Down
+  # * `Keyboard`::Numpad0
+  # * `Keyboard`::Numpad1
+  # * `Keyboard`::Numpad2
+  # * `Keyboard`::Numpad3
+  # * `Keyboard`::Numpad4
+  # * `Keyboard`::Numpad5
+  # * `Keyboard`::Numpad6
+  # * `Keyboard`::Numpad7
+  # * `Keyboard`::Numpad8
+  # * `Keyboard`::Numpad9
+  # * `Keyboard`::F1
+  # * `Keyboard`::F2
+  # * `Keyboard`::F3
+  # * `Keyboard`::F4
+  # * `Keyboard`::F5
+  # * `Keyboard`::F6
+  # * `Keyboard`::F7
+  # * `Keyboard`::F8
+  # * `Keyboard`::F9
+  # * `Keyboard`::F10
+  # * `Keyboard`::F11
+  # * `Keyboard`::F12
+  # * `Keyboard`::F13
+  # * `Keyboard`::F14
+  # * `Keyboard`::F15
+  # * `Keyboard`::Pause
+  # * `Keyboard`::Count
+  alias KeyCode = CSFML::KeyCode # enum
 
   class Keyboard
     Unknown = CSFML::KeyCode::Unknown
@@ -778,13 +783,13 @@ module SF
 
   # Mouse buttons
   #
-  # * Mouse::Left
-  # * Mouse::Right
-  # * Mouse::Middle
-  # * Mouse::XButton1
-  # * Mouse::XButton2
-  # * Mouse::ButtonCount
-  alias MouseButton = CSFML::MouseButton
+  # * `Mouse`::Left
+  # * `Mouse`::Right
+  # * `Mouse`::Middle
+  # * `Mouse`::XButton1
+  # * `Mouse`::XButton2
+  # * `Mouse`::ButtonCount
+  alias MouseButton = CSFML::MouseButton # enum
 
   class Mouse
     Left = CSFML::MouseButton::Left
@@ -838,20 +843,20 @@ module SF
 
   # Mouse wheels
   #
-  # * Mouse::VerticalWheel
-  # * Mouse::HorizontalWheel
-  alias MouseWheel = CSFML::MouseWheel
+  # * `Mouse`::VerticalWheel
+  # * `Mouse`::HorizontalWheel
+  alias MouseWheel = CSFML::MouseWheel # enum
 
   # Sensor Types
   #
-  # * Sensor::Accelerometer
-  # * Sensor::Gyroscope
-  # * Sensor::Magnetometer
-  # * Sensor::Gravity
-  # * Sensor::UserAcceleration
-  # * Sensor::Orientation
-  # * Sensor::Count
-  alias SensorType = CSFML::SensorType
+  # * `Sensor`::Accelerometer
+  # * `Sensor`::Gyroscope
+  # * `Sensor`::Magnetometer
+  # * `Sensor`::Gravity
+  # * `Sensor`::UserAcceleration
+  # * `Sensor`::Orientation
+  # * `Sensor`::Count
+  alias SensorType = CSFML::SensorType # enum
 
   class Sensor
     Accelerometer = CSFML::SensorType::Accelerometer
@@ -904,31 +909,31 @@ module SF
 
   # Definition of all the event types
   #
-  # * Event::Closed
-  # * Event::Resized
-  # * Event::LostFocus
-  # * Event::GainedFocus
-  # * Event::TextEntered
-  # * Event::KeyPressed
-  # * Event::KeyReleased
-  # * Event::MouseWheelMoved
-  # * Event::MouseWheelScrolled
-  # * Event::MouseButtonPressed
-  # * Event::MouseButtonReleased
-  # * Event::MouseMoved
-  # * Event::MouseEntered
-  # * Event::MouseLeft
-  # * Event::JoystickButtonPressed
-  # * Event::JoystickButtonReleased
-  # * Event::JoystickMoved
-  # * Event::JoystickConnected
-  # * Event::JoystickDisconnected
-  # * Event::TouchBegan
-  # * Event::TouchMoved
-  # * Event::TouchEnded
-  # * Event::SensorChanged
-  # * Event::Count
-  alias EventType = CSFML::EventType
+  # * `Event`::Closed
+  # * `Event`::Resized
+  # * `Event`::LostFocus
+  # * `Event`::GainedFocus
+  # * `Event`::TextEntered
+  # * `Event`::KeyPressed
+  # * `Event`::KeyReleased
+  # * `Event`::MouseWheelMoved
+  # * `Event`::MouseWheelScrolled
+  # * `Event`::MouseButtonPressed
+  # * `Event`::MouseButtonReleased
+  # * `Event`::MouseMoved
+  # * `Event`::MouseEntered
+  # * `Event`::MouseLeft
+  # * `Event`::JoystickButtonPressed
+  # * `Event`::JoystickButtonReleased
+  # * `Event`::JoystickMoved
+  # * `Event`::JoystickConnected
+  # * `Event`::JoystickDisconnected
+  # * `Event`::TouchBegan
+  # * `Event`::TouchMoved
+  # * `Event`::TouchEnded
+  # * `Event`::SensorChanged
+  # * `Event`::Count
+  alias EventType = CSFML::EventType # enum
 
   struct CSFML::Event
     Closed = CSFML::EventType::Closed
@@ -958,43 +963,124 @@ module SF
   end
 
   # Keyboard event parameters
-  alias KeyEvent = CSFML::KeyEvent
+  #
+  # * type : `EventType`
+  # * code : `KeyCode`
+  # * alt : `CSFML::Bool`
+  # * control : `CSFML::Bool`
+  # * shift : `CSFML::Bool`
+  # * system : `CSFML::Bool`
+  #
+  # Do not use `.new`; `SF` module may contain constructor methods for this struct.
+  alias KeyEvent = CSFML::KeyEvent # struct
 
   # Text event parameters
-  alias TextEvent = CSFML::TextEvent
+  #
+  # * type : `EventType`
+  # * unicode : `UInt32`
+  #
+  # Do not use `.new`; `SF` module may contain constructor methods for this struct.
+  alias TextEvent = CSFML::TextEvent # struct
 
   # Mouse move event parameters
-  alias MouseMoveEvent = CSFML::MouseMoveEvent
+  #
+  # * type : `EventType`
+  # * x : `Int32`
+  # * y : `Int32`
+  #
+  # Do not use `.new`; `SF` module may contain constructor methods for this struct.
+  alias MouseMoveEvent = CSFML::MouseMoveEvent # struct
 
   # Mouse buttons events parameters
-  alias MouseButtonEvent = CSFML::MouseButtonEvent
+  #
+  # * type : `EventType`
+  # * button : `MouseButton`
+  # * x : `Int32`
+  # * y : `Int32`
+  #
+  # Do not use `.new`; `SF` module may contain constructor methods for this struct.
+  alias MouseButtonEvent = CSFML::MouseButtonEvent # struct
 
   # Mouse wheel events parameters (deprecated)
-  alias MouseWheelEvent = CSFML::MouseWheelEvent
+  #
+  # * type : `EventType`
+  # * delta : `Int32`
+  # * x : `Int32`
+  # * y : `Int32`
+  #
+  # Do not use `.new`; `SF` module may contain constructor methods for this struct.
+  alias MouseWheelEvent = CSFML::MouseWheelEvent # struct
 
   # Mouse wheel events parameters
-  alias MouseWheelScrollEvent = CSFML::MouseWheelScrollEvent
+  #
+  # * type : `EventType`
+  # * wheel : `MouseWheel`
+  # * delta : `Float32`
+  # * x : `Int32`
+  # * y : `Int32`
+  #
+  # Do not use `.new`; `SF` module may contain constructor methods for this struct.
+  alias MouseWheelScrollEvent = CSFML::MouseWheelScrollEvent # struct
 
   # Joystick axis move event parameters
-  alias JoystickMoveEvent = CSFML::JoystickMoveEvent
+  #
+  # * type : `EventType`
+  # * joystick_id : `Int32`
+  # * axis : `JoystickAxis`
+  # * position : `Float32`
+  #
+  # Do not use `.new`; `SF` module may contain constructor methods for this struct.
+  alias JoystickMoveEvent = CSFML::JoystickMoveEvent # struct
 
   # Joystick buttons events parameters
-  alias JoystickButtonEvent = CSFML::JoystickButtonEvent
+  #
+  # * type : `EventType`
+  # * joystick_id : `Int32`
+  # * button : `Int32`
+  #
+  # Do not use `.new`; `SF` module may contain constructor methods for this struct.
+  alias JoystickButtonEvent = CSFML::JoystickButtonEvent # struct
 
   # Joystick connection/disconnection event parameters
-  alias JoystickConnectEvent = CSFML::JoystickConnectEvent
+  #
+  # * type : `EventType`
+  # * joystick_id : `Int32`
+  #
+  # Do not use `.new`; `SF` module may contain constructor methods for this struct.
+  alias JoystickConnectEvent = CSFML::JoystickConnectEvent # struct
 
   # Size events parameters
-  alias SizeEvent = CSFML::SizeEvent
+  #
+  # * type : `EventType`
+  # * width : `Int32`
+  # * height : `Int32`
+  #
+  # Do not use `.new`; `SF` module may contain constructor methods for this struct.
+  alias SizeEvent = CSFML::SizeEvent # struct
 
   # Touch events parameters
-  alias TouchEvent = CSFML::TouchEvent
+  #
+  # * type : `EventType`
+  # * finger : `Int32`
+  # * x : `Int32`
+  # * y : `Int32`
+  #
+  # Do not use `.new`; `SF` module may contain constructor methods for this struct.
+  alias TouchEvent = CSFML::TouchEvent # struct
 
   # Sensor event parameters
-  alias SensorEvent = CSFML::SensorEvent
+  #
+  # * type : `EventType`
+  # * sensor_type : `SensorType`
+  # * x : `Float32`
+  # * y : `Float32`
+  # * z : `Float32`
+  #
+  # Do not use `.new`; `SF` module may contain constructor methods for this struct.
+  alias SensorEvent = CSFML::SensorEvent # struct
 
   # Event defines a system event and its parameters
-  alias Event = CSFML::Event
+  alias Event = CSFML::Event # union
 
   class Touch
     # Check if a touch event is currently down
@@ -1030,7 +1116,13 @@ module SF
   # VideoMode defines a video mode (width, height, bpp, frequency)
   # and provides functions for getting modes supported
   # by the display device
-  alias VideoMode = CSFML::VideoMode
+  #
+  # * width : `Int32`
+  # * height : `Int32`
+  # * bits_per_pixel : `Int32`
+  #
+  # Do not use `.new`; `SF` module may contain constructor methods for this struct.
+  alias VideoMode = CSFML::VideoMode # struct
 
   struct CSFML::VideoMode
     # Get the current desktop video mode
@@ -1084,20 +1176,20 @@ module SF
 
   # Enumeration of window creation styles
   #
-  # * None
-  # * Titlebar
-  # * Resize
-  # * Close
-  # * DefaultStyle
-  # * Fullscreen
-  alias WindowStyle = CSFML::WindowStyle
+  # * `SF`::None
+  # * `SF`::Titlebar
+  # * `SF`::Resize
+  # * `SF`::Close
+  # * `SF`::DefaultStyle
+  # * `SF`::Fullscreen
+  alias WindowStyle = CSFML::WindowStyle # enum
 
   # Enumeration of the context attribute flags
   #
-  # * ContextSettings::Default
-  # * ContextSettings::Core
-  # * ContextSettings::Debug
-  alias ContextAttribute = CSFML::ContextAttribute
+  # * `ContextSettings`::Default
+  # * `ContextSettings`::Core
+  # * `ContextSettings`::Debug
+  alias ContextAttribute = CSFML::ContextAttribute # enum
 
   struct CSFML::ContextSettings
     Default = CSFML::ContextAttribute::Default
@@ -1106,7 +1198,16 @@ module SF
   end
 
   # Structure defining the window's creation settings
-  alias ContextSettings = CSFML::ContextSettings
+  #
+  # * depth_bits : `Int32`
+  # * stencil_bits : `Int32`
+  # * antialiasing_level : `Int32`
+  # * major_version : `Int32`
+  # * minor_version : `Int32`
+  # * attribute_flags : `UInt32`
+  #
+  # Do not use `.new`; `SF` module may contain constructor methods for this struct.
+  alias ContextSettings = CSFML::ContextSettings # struct
 
   None = CSFML::WindowStyle::None
   Titlebar = CSFML::WindowStyle::Titlebar

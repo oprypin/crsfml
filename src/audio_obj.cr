@@ -134,10 +134,10 @@ module SF
 
   # Enumeration of statuses for sounds and musics
   #
-  # * SoundSource::Stopped
-  # * SoundSource::Paused
-  # * SoundSource::Playing
-  alias SoundStatus = CSFML::SoundStatus
+  # * `SoundSource`::Stopped
+  # * `SoundSource`::Paused
+  # * `SoundSource`::Playing
+  alias SoundStatus = CSFML::SoundStatus # enum
 
   class SoundSource
     Stopped = CSFML::SoundStatus::Stopped
@@ -1605,7 +1605,12 @@ module SF
   end
 
   # defines the data to fill by the OnGetData callback
-  alias SoundStreamChunk = CSFML::SoundStreamChunk
+  #
+  # * samples : `Int16*`
+  # * sample_count : `Int32`
+  #
+  # Do not use `.new`; `SF` module may contain constructor methods for this struct.
+  alias SoundStreamChunk = CSFML::SoundStreamChunk # struct
 
 
 end
