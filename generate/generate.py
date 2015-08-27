@@ -663,6 +663,8 @@ for mod, classes in objs.items():
         for cls, lines in classes.items():
             if not cls:
                 continue
+            if cls in ['Shape']:
+                continue
             ind = 2
             for i, l in enumerate(lines):
                 f.write(' '*ind + l + '\n')

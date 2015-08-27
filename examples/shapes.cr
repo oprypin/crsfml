@@ -37,7 +37,6 @@ while window.open?
   window.draw convex_shape
   
   # Bottom right
-  # broken: https://github.com/manastech/crystal/issues/605
   class CustomShape < SF::Shape
     def point_count
       3

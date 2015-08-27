@@ -170,26 +170,6 @@ module SF
     Default = SF.render_states()
   end
   
-  class Shape
-    def initialize()
-      @owned = true
-      @funcs = Box.box({
-        -> { LibC::SizeT.cast(point_count) },
-        ->(i: LibC::SizeT) { SF.vector2f(get_point(i)) }
-      })
-      @this = CSFML.shape_create(
-        ->(data) { Box({(-> LibC::SizeT), (LibC::SizeT -> SF::Vector2f)}).unbox(data)[0].call },
-        ->(i, data) { Box({(-> LibC::SizeT), (LibC::SizeT -> SF::Vector2f)}).unbox(data)[1].call(i) },
-        @funcs
-      )
-      update
-    end
-    
-    def draw(target, states: RenderStates)
-      target.draw_shape(self, states)
-    end
-  end
-  
   class CircleShape
     def initialize(radius: Number, point_count=30: Int)
       initialize()
@@ -229,6 +209,23 @@ module SF
     def draw(target, states: RenderStates)
       target.draw_convex_shape(self, states)
     end
+  end
+  
+  abstract class Shape < SF::ConvexShape
+    def initialize()
+      super
+      update
+    end
+    
+    def update
+      self.point_count = n = point_count
+      (0...n).each do |i|
+        set_point(i, get_point(i))
+      end
+    end
+    
+    abstract def point_count: Int
+    abstract def get_point(index: Int): SF::Vector2
   end
   
   class Texture
