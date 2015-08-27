@@ -179,8 +179,8 @@ module SF
     # * `size_in_bytes`: Size of the data to load, in bytes
     # 
     # *Returns*: A new Music object (raises `NullResult` if failed)
-    def self.from_memory(data: Void*, size_in_bytes: Int)
-      size_in_bytes = LibC::SizeT.cast(size_in_bytes)
+    def self.from_memory(data: Slice|Array)
+      data, size_in_bytes = (data.to_unsafe as Pointer(Void)), LibC::SizeT.cast(data.length*sizeof(typeof(data[0])))
       Music.transfer_ptr(CSFML.music_create_from_memory(data, size_in_bytes))
     end
     
@@ -197,7 +197,7 @@ module SF
     # * `stream`: Source stream to read from
     # 
     # *Returns*: A new Music object (raises `NullResult` if failed)
-    def self.from_stream(stream: InputStream*)
+    def self.from_stream(stream: InputStream)
       Music.transfer_ptr(CSFML.music_create_from_stream(stream))
     end
     
@@ -876,8 +876,8 @@ module SF
     # * `size_in_bytes`: Size of the data to load, in bytes
     # 
     # *Returns*: A new SoundBuffer object (raises `NullResult` if failed)
-    def self.from_memory(data: Void*, size_in_bytes: Int)
-      size_in_bytes = LibC::SizeT.cast(size_in_bytes)
+    def self.from_memory(data: Slice|Array)
+      data, size_in_bytes = (data.to_unsafe as Pointer(Void)), LibC::SizeT.cast(data.length*sizeof(typeof(data[0])))
       SoundBuffer.transfer_ptr(CSFML.sound_buffer_create_from_memory(data, size_in_bytes))
     end
     
@@ -892,7 +892,7 @@ module SF
     # * `stream`: Source stream to read from
     # 
     # *Returns*: A new SoundBuffer object (raises `NullResult` if failed)
-    def self.from_stream(stream: InputStream*)
+    def self.from_stream(stream: InputStream)
       SoundBuffer.transfer_ptr(CSFML.sound_buffer_create_from_stream(stream))
     end
     

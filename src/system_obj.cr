@@ -212,17 +212,6 @@ module SF
     
   end
 
-  # Set of callbacks that allow users to define custom file streams
-  #
-  # * read : `InputStreamReadFunc`
-  # * seek : `InputStreamSeekFunc`
-  # * tell : `InputStreamTellFunc`
-  # * get_size : `InputStreamGetSizeFunc`
-  # * user_data : `Void*`
-  #
-  # Do not use `.new`; `SF` module may contain constructor methods for this struct.
-  alias InputStream = CSFML::InputStream # struct
-
   # 2-component vector of integers
   #
   # * x : `Int32`

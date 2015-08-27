@@ -229,8 +229,14 @@ module SF
   end
   
   class Texture
-    def self.from_file(filename: String)
+    def self.from_file(filename)
       self.from_file(filename, nil)
+    end
+    def self.from_memory(data)
+      self.from_memory(data, nil)
+    end
+    def self.from_stream(stream)
+      self.from_stream(stream, nil)
     end
     
     def self.bind(texture: Texture?)
@@ -289,6 +295,13 @@ module SF
       Shader.transfer_ptr(CSFML.shader_create_from_memory(
         type == Vertex ? shader.to_unsafe : Pointer(UInt8).null,
         type == Fragment ? shader.to_unsafe : Pointer(UInt8).null
+      ))
+    end
+    
+    def self.from_stream(stream: InputStream, type: Type)
+      Shader.transfer_ptr(CSFML.shader_create_from_stream(
+        type == Vertex ? stream.to_unsafe : Pointer(CSFML::InputStream).null,
+        type == Fragment ? stream.to_unsafe : Pointer(CSFML::InputStream).null
       ))
     end
     

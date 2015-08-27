@@ -1078,8 +1078,8 @@ module SF
     # * `size_in_bytes`: Size of the data to load, in bytes
     # 
     # *Returns*: A new Font object, or raises `NullResult` if it failed
-    def self.from_memory(data: Void*, size_in_bytes: Int)
-      size_in_bytes = LibC::SizeT.cast(size_in_bytes)
+    def self.from_memory(data: Slice|Array)
+      data, size_in_bytes = (data.to_unsafe as Pointer(Void)), LibC::SizeT.cast(data.length*sizeof(typeof(data[0])))
       Font.transfer_ptr(CSFML.font_create_from_memory(data, size_in_bytes))
     end
     
@@ -1090,7 +1090,7 @@ module SF
     # * `stream`: Source stream to read from
     # 
     # *Returns*: A new Font object, or raises `NullResult` if it failed
-    def self.from_stream(stream: InputStream*)
+    def self.from_stream(stream: InputStream)
       Font.transfer_ptr(CSFML.font_create_from_stream(stream))
     end
     
@@ -1306,8 +1306,8 @@ module SF
     # * `size`: Size of the data to load, in bytes
     # 
     # *Returns*: A new Image object, or raises `NullResult` if it failed
-    def self.from_memory(data: Void*, size: Int)
-      size = LibC::SizeT.cast(size)
+    def self.from_memory(data: Slice|Array)
+      data, size = (data.to_unsafe as Pointer(Void)), LibC::SizeT.cast(data.length*sizeof(typeof(data[0])))
       Image.transfer_ptr(CSFML.image_create_from_memory(data, size))
     end
     
@@ -1323,7 +1323,7 @@ module SF
     # * `stream`: Source stream to read from
     # 
     # *Returns*: A new Image object, or raises `NullResult` if it failed
-    def self.from_stream(stream: InputStream*)
+    def self.from_stream(stream: InputStream)
       Image.transfer_ptr(CSFML.image_create_from_stream(stream))
     end
     
@@ -1551,7 +1551,7 @@ module SF
     # * `fragment_shader_stream`: Source stream to read the fragment shader from, or NULL to skip this shader
     # 
     # *Returns*: A new Shader object, or raises `NullResult` if it failed
-    def self.from_stream(vertex_shader_stream: InputStream*, fragment_shader_stream: InputStream*)
+    def self.from_stream(vertex_shader_stream: InputStream, fragment_shader_stream: InputStream)
       Shader.transfer_ptr(CSFML.shader_create_from_stream(vertex_shader_stream, fragment_shader_stream))
     end
     
@@ -3909,8 +3909,8 @@ module SF
     # * `area`: Area of the source image to load (NULL to load the entire image)
     # 
     # *Returns*: A new Texture object, or raises `NullResult` if it failed
-    def self.from_memory(data: Void*, size_in_bytes: Int, area)
-      size_in_bytes = LibC::SizeT.cast(size_in_bytes)
+    def self.from_memory(data: Slice|Array, area)
+      data, size_in_bytes = (data.to_unsafe as Pointer(Void)), LibC::SizeT.cast(data.length*sizeof(typeof(data[0])))
       if area.responds_to?(:to_unsafe); parea = area.to_unsafe
       elsif area; carea = area; parea = pointerof(carea)
       else; parea = nil; end
@@ -3925,7 +3925,7 @@ module SF
     # * `area`: Area of the source image to load (NULL to load the entire image)
     # 
     # *Returns*: A new Texture object, or raises `NullResult` if it failed
-    def self.from_stream(stream: InputStream*, area)
+    def self.from_stream(stream: InputStream, area)
       if area.responds_to?(:to_unsafe); parea = area.to_unsafe
       elsif area; carea = area; parea = pointerof(carea)
       else; parea = nil; end

@@ -242,6 +242,7 @@ def handle_union(name, items):
 
 
 classes = set()
+reimplemented = {'Shape', 'InputStream'}
 def handle_class(name):
     pname = rename_sf(name)
     classes.add(pname)
@@ -377,7 +378,17 @@ def handle_function(main, params, alias=None):
         oparams = aparams[1:]
         params = params[1:]
     conv = []
+    i = 0
+    while i < len(oparams)-1:
+        if oparams[i][1] == 'Void*' and oparams[i+1][1] == 'LibC::SizeT' and 'size' in oparams[i+1][0]:
+            oparams[i:i+2] = [(oparams[i][0]+', '+oparams[i+1][0], 'Slice|Array')]
+        i += 1
+    
+    if 'Void*' in repr(oparams):
+        print(ofname, ftype, oparams)
     for i, (n, t) in enumerate(oparams):
+        if t.rstrip('*') in reimplemented:
+            t = t.rstrip('*')
         if t == 'UInt8*':
             t = 'String'
         elif t == 'Char*':
@@ -407,6 +418,8 @@ def handle_function(main, params, alias=None):
         elif t in ['Vector2f', 'Vector2i']:
             conv.append('{0} = SF.{2}({0}) unless {0}.is_a? {1}'.format(n, t, t.lower()))
             t = None
+        elif t == 'Slice|Array':
+            conv.append('{0} = ({1}.to_unsafe as Pointer(Void)), LibC::SizeT.cast({1}.length*sizeof(typeof({1}[0])))'.format(n, n.split(', ')[0]))
         if n in const and t not in classes:
             conv += (
                 'if {0}.responds_to?(:to_unsafe); '
@@ -420,7 +433,7 @@ def handle_function(main, params, alias=None):
             ).format(n).splitlines()
             t = None
         oparams[i] = (n, t)
-    sparams = ', '.join('{}: {}'.format(n, t) if t else n for n, t in oparams)
+    sparams = ', '.join(n.split(', ')[0] + ((': '+t) if t else '') for n, t in oparams)
     if not getter: sparams = '('+sparams+')'
     for i, (n, t) in enumerate(oparams):
         if n in const and t is None:
@@ -663,7 +676,9 @@ for mod, classes in objs.items():
         for cls, lines in classes.items():
             if not cls:
                 continue
-            if cls in ['Shape']:
+            if cls.endswith('ALIAS'):
+                cls = cls[:-5]
+            if cls in reimplemented:
                 continue
             ind = 2
             for i, l in enumerate(lines):

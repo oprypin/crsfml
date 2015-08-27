@@ -161,7 +161,7 @@ module SF
       SF.microseconds((microseconds / other).to_i64)
     end
     def /(other: Time)
-      microseconds.fdiv other.microseconds
+      microseconds.fdiv other.microseconds # /
     end
   end
   
@@ -182,6 +182,64 @@ module SF
     end
     def finalize
       @mutex.unlock
+    end
+  end
+  
+  abstract class InputStream
+    abstract def read(buffer: Slice(UInt8)): Int
+    abstract def seek(position: Int): Int
+    abstract def tell(): Int
+    abstract def size(): Int
+    
+    alias FuncBox = Box({((Void*, Int64) -> Int64), ((Int64) -> Int64), (-> Int64), (-> Int64)})
+    
+    def initialize
+      @funcs = FuncBox.box({
+        ->(data: Pointer(Void), size: Int64) { read((data as Pointer(UInt8)).to_slice(size.to_i)).to_i64 },
+        ->(position: Int64) { seek(position).to_i64 },
+        -> { tell.to_i64 },
+        -> { size.to_i64 }
+      })
+      @input_stream = CSFML::InputStream.new(
+        read: ->(data: Void*, size: Int64, ud: Void*) {
+          FuncBox.unbox(ud)[0].call(data, size).to_i64
+        },
+        seek: ->(position: Int64, ud: Void*) {
+          FuncBox.unbox(ud)[1].call(position).to_i64
+        },
+        tell: ->(ud: Void*) {
+          FuncBox.unbox(ud)[2].call().to_i64
+        },
+        get_size: ->(ud: Void*) {
+          FuncBox.unbox(ud)[3].call().to_i64
+        },
+        user_data: @funcs
+      )
+    end
+    def to_unsafe()
+      pointerof(@input_stream)
+    end
+  end
+  
+  class FileInputStream < InputStream
+    def initialize(@io)
+      super()
+    end
+    def self.open(filename)
+      self.new(File.open(filename, "rb"))
+    end
+    property io
+    def read(buffer)
+      io.read(buffer, buffer.length)
+    end
+    def seek(position)
+      io.seek(position)
+    end
+    def tell
+      io.tell
+    end
+    def size
+      io.size
     end
   end
 end
