@@ -224,6 +224,9 @@ module SF
   class FileInputStream < InputStream
     def initialize(@io)
       super()
+      if @io.responds_to? :"sync="
+        @io.sync = true
+      end
     end
     def self.open(filename)
       self.new(File.open(filename, "rb"))
