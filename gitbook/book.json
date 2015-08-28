@@ -10,6 +10,8 @@
     "api": "http://blaxpirit.github.io/crsfml/api/SF"
 },
 
+"plugins": ["ungrey", "toggle-chapters"],
+
 "links": {
     "sidebar": {
         "CrSFML": "http://github.com/BlaXpirit/crsfml"
