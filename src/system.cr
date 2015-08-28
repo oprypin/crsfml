@@ -245,6 +245,30 @@ module SF
       io.size
     end
   end
+  
+  class MemoryInputStream < InputStream
+    def initialize(@data: Slice(UInt8))
+      super()
+      @position = 0
+    end
+    def read(buffer)
+      finish = Math.min(@position + buffer.length, @data.length)
+      to_read = finish - @position
+      buffer.copy_from(@data.to_unsafe + @position, to_read)
+      @position = finish
+      to_read
+    end
+    def seek(position)
+      return -1 unless 0 <= position < @data.length
+      @position = position
+    end
+    def tell
+      @position
+    end
+    def size
+      @data.length
+    end
+  end
 end
 
 require "./system_obj"
