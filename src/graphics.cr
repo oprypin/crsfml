@@ -177,6 +177,9 @@ module SF
       self.point_count = point_count
     end
     
+    def texture=(texture: Texture)
+      set_texture(texture, false)
+    end
     def draw(target, states: RenderStates)
       target.draw_circle_shape(self, states)
     end
@@ -187,7 +190,10 @@ module SF
       initialize()
       self.size = size
     end
-
+    
+    def texture=(texture: Texture)
+      set_texture(texture, false)
+    end
     def draw(target, states: RenderStates)
       target.draw_rectangle_shape(self, states)
     end
@@ -206,6 +212,9 @@ module SF
       set_point(index, point)
     end
     
+    def texture=(texture: Texture)
+      set_texture(texture, false)
+    end
     def draw(target, states: RenderStates)
       target.draw_convex_shape(self, states)
     end
