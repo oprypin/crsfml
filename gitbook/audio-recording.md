@@ -1,5 +1,7 @@
 # Recording audio
 
+Relevant example: **[sound_capture]({{book.examples}}/sound_capture.cr)**
+
 ## Recording to a sound buffer
 
 The most common use for captured audio data is for it to be saved to a sound buffer ([SoundBuffer]({{book.api}}/SoundBuffer.html)) so that it can either be played or saved to a file.

@@ -1,5 +1,7 @@
 # Web requests with HTTP
 
+Relevant example: **[shader]({{book.examples}}/shader.cr)**
+
 ## Introduction
 
 CrSFML provides a simple HTTP client class which you can use to communicate with HTTP servers. "Simple" means that it supports the most basic features of HTTP: POST, GET and HEAD request types, accessing HTTP header fields, and reading/writing the pages body.

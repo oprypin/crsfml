@@ -193,6 +193,8 @@ window.draw(entity)
 
 ## Example: tile map
 
+Relevant example: **[minesweeper]({{book.examples2}}/minesweeper)**
+
 With what we've seen above, let's create a class that encapsulates a tile map. The whole map will be contained in a single vertex array, therefore it will be super fast to draw. Note that we can apply this strategy only if the whole tile set can fit into a single texture. Otherwise, we would have to use at least one vertex array per texture.
 
 ```ruby

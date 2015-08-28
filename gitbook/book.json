@@ -8,7 +8,8 @@
 
 "variables": {
     "api": "http://blaxpirit.github.io/crsfml/api/SF",
-    "examples": "https://github.com/BlaXpirit/crsfml/tree/master/examples"
+    "examples": "https://github.com/BlaXpirit/crsfml/tree/master/examples",
+    "examples2": "https://github.com/BlaXpirit/crsfml-examples/tree/master"
 },
 
 "plugins": ["ungrey", "toggle-chapters"],

@@ -1,5 +1,7 @@
 # Sprites and textures
 
+Relevant example: **[flippy_bird]({{book.examples}}/flippy_bird.cr)**
+
 ## Vocabulary
 
 Most (if not all) of you are already familiar with these two very common objects, so let's define them very briefly.

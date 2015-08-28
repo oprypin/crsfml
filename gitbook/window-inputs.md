@@ -1,5 +1,7 @@
 # Keyboard, mouse and joystick
 
+Relevant example: **[diagnostics]({{book.examples}}/diagnostics.cr)**
+
 ## Introduction
 
 This tutorial explains how to access global input devices: keyboard, mouse and joysticks. This must not be confused with events. Real-time input allows you to query the global state of keyboard, mouse and joysticks at any time ("*is this button currently pressed?*", "*where is the mouse currently?*") while events notify you when something happens ("*this button was pressed*", "*the mouse has moved*").

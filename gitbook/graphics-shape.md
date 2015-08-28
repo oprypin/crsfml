@@ -73,6 +73,8 @@ window.draw(shape)
 
 ### Rectangles
 
+Relevant example: **[tetrominos]({{book.examples2}}/tetrominos)**
+
 To draw rectangles, you can use the [RectangleShape]({{book.api}}/RectangleShape.html) class. It has a single attribute: The size of the rectangle.
 
 ```ruby
@@ -86,6 +88,8 @@ rectangle.size = SF.vector2(100, 100)
 ![A rectangle shape](images/graphics-shape-rectangle.png)
 
 ### Circles
+
+Relevant example: **[snakes]({{book.examples}}/snakes.cr)**
 
 Circles are represented by the [CircleShape]({{book.api}}/CircleShape.html) class. It has two attributes: The radius and the number of sides. The number of sides is an optional attribute, it allows you to adjust the "quality" of the circle: Circles have to be approximated by polygons with many sides (the graphics card is unable to draw a perfect circle directly), and this attribute defines how many sides your circle approximation will have. If you draw small circles, you'll probably only need a few sides. If you draw big circles, or zoom on regular circles, you'll most likely need more sides.
 
@@ -120,6 +124,8 @@ octagon = SF::CircleShape.new(80, 8)
 ![Regular polygons](images/graphics-shape-regular.png)
 
 ### Convex shapes
+
+Relevant example: **[rounded_rectangle]({{book.examples2}}/2048/rounded_rectangle.cr)**
 
 The [ConvexShape]({{book.api}}/ConvexShape.html) class is the ultimate shape class: It allows you to define any *convex* shape. SFML is unable to draw concave shapes. If you need to draw a concave shape, you'll have to split it into multiple convex polygons.
 
@@ -176,6 +182,8 @@ To learn more about vertices and primitives, you can read the tutorial on [verte
 
 ## Custom shape types
 
+Relevant example: **[shapes]({{book.examples}}/shapes.cr)**
+
 You can extend the set of shape classes with your own shape types. To do so, you must derive from [Shape]({{book.api}}/Shape.html) and override two methods:
 
 * `point_count`: return the number of points in the shape
@@ -218,13 +226,15 @@ end
 
 ## Antialiased shapes
 
+Relevant example: **[snakes]({{book.examples}}/snakes.cr)**
+
 There's no option to anti-alias a single shape. To get anti-aliased shapes (i.e. shapes with smoothed edges), you have to enable anti-aliasing globally when you create the window, with the corresponding attribute of the structure.
 
 ```ruby
 window = SF::RenderWindow.new(
   SF.video_mode(800, 600),
   "SFML shapes",
-  settings: SF.context_settings(antialiasing: 8)
+  settings: SF.context_settings(depth_bits: 24, antialiasing: 8)
 )
 ```
 

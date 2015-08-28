@@ -44,6 +44,8 @@ b2 = (t3 > t4)
 
 ## Measuring time
 
+Relevant example: **[transformable]({{book.examples}}/transformable.cr)**
+
 Now that we've seen how to manipulate time values with CrSFML, let's see how to do something that almost every program needs: measuring the time elapsed.
 
 CrSFML has a very simple class for measuring time: [Clock]({{book.api}}/Clock.html). It only has two methods: `elapsed_time`, to retrieve the time elapsed since the clock started, and `restart`, to restart the clock.

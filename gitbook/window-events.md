@@ -34,6 +34,8 @@ Alright, now we can see what events SFML supports, what they mean and how to use
 
 ## The Closed event
 
+Relevant example: **[simple]({{book.examples}}/simple.cr)**
+
 The `SF::Event::Closed` event is triggered when the user wants to close the window, through any of the possible methods the window manager provides ("close" button, keyboard shortcut, etc.). This event only represents a close request, the window is not yet closed when the event is received.
 
 Typical code will just call `window.close` in reaction to this event, to actually close the window. However, you may also want to do something else first, like saving the current application state or asking the user what to do. If you don't do anything, the window remains open.
@@ -47,6 +49,8 @@ end
 ```
 
 ## The Resized event
+
+Relevant example: **[gl]({{book.examples}}/gl.cr)**
 
 The `SF::Event::Resized` event is triggered when the window is resized, either through user action or programmatically by calling `window.size=`.
 
@@ -81,6 +85,8 @@ end
 
 ## The TextEntered event
 
+Relevant example: **[typing]({{book.examples}}/typing.cr)**
+
 The `SF::Event::TextEntered` event is triggered when a character is typed. This must not be confused with the `KeyPressed` event: `TextEntered` interprets the user input and produces the appropriate printable character. For example, pressing '^' then 'e' on a French keyboard will produce two `KeyPressed` events, but a single `TextEntered` event containing the 'ê' character. It works with all the input methods provided by the operating system, even the most specific or complex ones.
 
 This event is typically used to catch user input in a text field.
@@ -100,6 +106,8 @@ Note that, since they are part of the Unicode standard, some non-printable chara
 Many programmers use the `KeyPressed` event to get user input, and start to implement crazy algorithms that try to interpret all the possible key combinations to produce correct characters. Don't do that!
 
 ## The KeyPressed and KeyReleased events
+
+Relevant example: **[snakes]({{book.examples}}/snakes.cr)**
 
 The `SF::Event::KeyPressed` and `SF::Event::KeyReleased` events are triggered when a keyboard key is pressed/released.
 
@@ -132,6 +140,8 @@ The `SF::Event::MouseWheelMoved` event is **deprecated** since SFML 2.3, use the
 
 ## The MouseWheelScrolled event
 
+Relevant example: **[diagnostics]({{book.examples}}/diagnostics.cr)**
+
 The `SF::Event::MouseWheelScrolled` event is triggered when a mouse wheel moves up or down, but also laterally if the mouse supports it.
 
 The member associated with this event is `event.mouse_wheel_scroll`, it contains the number of ticks the wheel has moved, what the orientation of the wheel is and the current position of the mouse cursor.
@@ -153,6 +163,8 @@ end
 ```
 
 ## The MouseButtonPressed and MouseButtonReleased events
+
+Relevant example: **[diagnostics]({{book.examples}}/diagnostics.cr)**
 
 The `SF::Event::MouseButtonPressed` and `SF::Event::MouseButtonReleased` events are triggered when a mouse button is pressed/released.
 

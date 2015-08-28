@@ -1,5 +1,7 @@
 # Text and fonts
 
+Relevant example: **[typing]({{book.examples}}/typing.cr)**
+
 ## Loading a font
 
 Before drawing any text, you need to have an available font, just like any other program that prints text. Fonts are encapsulated in the [Font]({{book.api}}/Font.html) class, which provides three main features: loading a font, getting glyphs (i.e. visual characters) from it, and reading its attributes. In a typical program, you'll only have to make use of the first feature, loading the font, so let's focus on that first.

@@ -1,5 +1,7 @@
 # Position, rotation, scale: Transforming entities
 
+Relevant example: **[transformable]({{book.examples}}/transformable.cr)**
+
 ## Transforming CrSFML entities
 
 All CrSFML classes (sprites, text, shapes) use the same interface for transformations: [TransformableM]({{book.api}}/TransformableM.html). This module provides a simple API to move, rotate and scale your entities. It doesn't provide maximum flexibility, but instead defines an interface which is easy to understand and to use, and which covers 99% of all use cases -- for the remaining 1%, see the last chapters.

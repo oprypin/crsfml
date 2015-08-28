@@ -1,5 +1,7 @@
 # Using OpenGL in an SFML window
 
+Relevant examples: **[gl]({{book.examples}}/gl.cr)**, **[cube]({{book.examples2}}/cube)**
+
 ## Introduction
 
 This tutorial is not about OpenGL itself, but rather how to use CrSFML as an environment for OpenGL, and how to mix them together.

@@ -1,5 +1,7 @@
 # Opening and managing an SFML window
 
+Relevant example: **[simple]({{book.examples}}/simple.cr)**
+
 ## Introduction
 
 This tutorial only explains how to open and manage a window. Drawing stuff is beyond the scope of the sfml-window module: it is handled by the sfml-graphics module. However, the window management remains exactly the same so reading this tutorial is important in any case.
