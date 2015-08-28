@@ -13,29 +13,15 @@ In this tutorial you'll learn how to write and use your own derived input stream
 The [InputStream]({{book.api}}/InputStream.html) class declares four virtual methods:
 
 ```ruby
-class InputStream
-  def initialize()
-  end
-
-  def read(data, Int64 size) : Int64
-    0
-  end
-
-  def seek(position : Int64) : Int64
-    0
-  end
-
-  def tell() : Int64
-    0
-  end
-
-  def size() : Int64
-    0
-  end
+abstract class InputStream
+  abstract def read(buffer: Slice(UInt8)): Int
+  abstract def seek(position: Int): Int
+  abstract def tell(): Int
+  abstract def size(): Int
 end
 ```
 
-**read** must extract *size* bytes of data from the stream, and copy them to the supplied *data* address. It returns the number of bytes read, or -1 on error.
+**read** must extract *buffer.length* bytes of data from the stream, and copy them to the supplied *buffer* slice. It returns the number of bytes read, or -1 on error.
 
 **seek** must change the current reading position in the stream. Its *position* argument is the absolute byte offset to jump to (so it is relative to the beginning of the data, not to the current position). It returns the new position, or -1 on error.
 
@@ -47,25 +33,34 @@ To create your own working stream, you must implement every one of these four me
 
 ## FileInputStream and MemoryInputStream
 
-Starting with SFML 2.3 two new classes have been created to provide streams for the new internal audio management. `SF::FileInputStream` provides the read-only data stream of a file, while `SF::MemoryInputStream` serves the read-only stream from memory. Both are derived from `SF::InputStream` and can thus be used polymorphic.
+`SF::FileInputStream` provides the read-only data stream of a file, while `SF::MemoryInputStream` serves the read-only stream from memory. Both are derived from `SF::InputStream`.
 
 ## Using an InputStream
 
 Using a custom stream class is straight-forward: instantiate it, and pass it to the `from_stream` class method of the object that you want to load.
 
+```ruby
+stream = SF::FileInputStream.open("image.png")
+texture = SF::Texture.from_stream(stream)
 ```
-SF::FileStream stream;
-stream.open("image.png");
 
-SF::Texture texture;
-texture.from_stream(stream);
+```ruby
+file = File.open("music.ogg", "rb")
+stream = SF::FileInputStream.new(file)
+music = SF::Music.from_stream(stream)
 ```
+
+```ruby
+string = File.read("image.png")
+stream = SF::MemoryInputStream.new(string.to_slice)
+texture = SF::Texture.from_stream(stream)
+```
+
+Note that the examples above are redundant, because `from_file` can be used instead. The real use cases are if you want to implement custom loading of resources. Option 1: read from file, extract into memory, use [MemoryInputStream]({{book.api}}/MemoryInputStream.html). Option 2: implement a custom stream that reads and extracts on the fly.
 
 ## Examples
 
-If you need a demonstration that helps you focus on how the code works, and not get lost in implementation details, you could take a look at the implementation of `SF::FileInputStream` or `SF::MemoryInputStream`.
-
-Don't forget to check the forum and wiki. Chances are that another user already wrote a [InputStream]({{book.api}}/InputStream.html) class that suits your needs. And if you write a new one and feel like it could be useful to other people as well, don't hesitate to share!
+If you need a demonstration that helps you focus on how the code works, and not get lost in implementation details, you could take a look at the implementation of [FileInputStream]({{book.api}}/FileInputStream.html) or [MemoryInputStream]({{book.api}}/MemoryInputStream.html).
 
 ## Common mistakes
 
@@ -73,13 +68,4 @@ Some resource classes are not loaded completely after `from_stream` has been cal
 
 As a consequence, the stream instance that you used to load a music or a font, as well as its data source, must remain alive as long as the resource uses it. If it is destroyed while still being used, it results in undefined behavior (can be a crash, corrupt data, or nothing visible).
 
-Another common mistake is to return whatever the internal functions return directly, but sometimes it doesn't match what SFML expects. For example, in the `SF::FileInputStream` code, one might be tempted to write the `seek` method as follows:
-
-```
-SF::Int64 FileInputStream::seek(SF::Int64 position)
-{
-    return std::fseek(m_file, position, SEEK_SET);
-}
-```
-
-This code is wrong, because `std::fseek` returns zero on success, whereas SFML expects the new position to be returned.
+Another common mistake is to return whatever the internal functions return directly, but sometimes it doesn't match what SFML expects. For example, some function may return 0 on success, but `InputStream#seek` expects the actual new position to be returned. Also keep in mind that in case of error -1 must be returned.

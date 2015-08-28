@@ -176,10 +176,6 @@ To learn more about vertices and primitives, you can read the tutorial on [verte
 
 ## Custom shape types
 
-[Shape]({{book.api}}/Shape.html) currently [does not work](https://github.com/manastech/crystal/issues/605); use `ConvexShape` (it can be subclassed).
-
-<!--
-
 You can extend the set of shape classes with your own shape types. To do so, you must derive from [Shape]({{book.api}}/Shape.html) and override two methods:
 
 * `point_count`: return the number of points in the shape
@@ -192,6 +188,7 @@ Here is a complete example of a custom shape class: `EllipseShape`.
 ```ruby
 class EllipseShape < SF::Shape
   def initialize(@radius = SF.vector2(0, 0))
+    super()
   end
 
   def radius
@@ -205,7 +202,6 @@ class EllipseShape < SF::Shape
   def point_count
     30  # fixed, but could be an attribute of the class if needed
   end
-
   def get_point(index)
     pi = Math::PI
 
@@ -219,8 +215,6 @@ end
 ```
 
 ![An ellipse shape](images/graphics-shape-ellipse.png)
-
--->
 
 ## Antialiased shapes
 

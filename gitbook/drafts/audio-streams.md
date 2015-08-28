@@ -14,11 +14,11 @@ In order to define your own audio stream, you need to inherit from the [SoundStr
 
 ```ruby
 class MyAudioStream < SF::SoundStream
-  def on_get_data(data)
+  def get_data(data)
     true
   end
 
-  def on_seek(time_offset)
+  def seek(time_offset)
   end
 end
 ```
@@ -27,7 +27,7 @@ end
 
 ```ruby
 class MyAudioStream < SF::SoundStream
-  def on_get_data(data)
+  def get_data(data)
     data.samples = ... # put the pointer to the new audio samples
     data.sample_count = ... # put the number of audio samples available in the new chunk
     true
