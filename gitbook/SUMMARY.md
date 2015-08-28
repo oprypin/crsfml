@@ -1,12 +1,7 @@
 # Tutorials for CrSFML
 
-* Getting started
-  * [SFML and Visual Studio](start-vc.md)
-  * [SFML and Code::Blocks (MinGW)](start-cb.md)
-  * [SFML and Linux](start-linux.md)
-  * [SFML and Xcode (Mac OS X)](start-osx.md)
-  * [Compiling SFML with CMake](compile-with-cmake.md)
 * CrSFML
+  * [Installing CrSFML](crsfml-install.md)
   * [Differences between SFML and CrSFML](crsfml-differences.md)
 * System module
   * [Handling time](system-time.md)
