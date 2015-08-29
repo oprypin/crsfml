@@ -8,6 +8,7 @@ Documentation
 #### [Tutorials][]
 #### [API Documentation][api]
 #### [Examples](examples)
+#### [Installing][]
 
 
 Information
@@ -17,9 +18,7 @@ Information
 
 [CSFML][] 2.3, which requires [SFML][] 2.3, must be installed to use *CrSFML* (see older releases for 2.2).
 
-- [Installing CSFML][]
-- [Troubleshooting][]
-- [Contributing](CONTRIBUTING.md) + implementation details
+[Information on contributing](CONTRIBUTING.md) + implementation details.
 
 *CrSFML* has been tested on Linux 64-bit. It should work on other major systems if Crystal supports them.
 
@@ -43,8 +42,7 @@ Thanks to [Alan Willms][alanwillms] for translating [tutorials][] to Crystal and
 
 [tutorials]: http://blaxpirit.github.io/crsfml/tutorials/
 [api]: http://blaxpirit.github.io/crsfml/api/
-[troubleshooting]: https://github.com/BlaXpirit/crsfml/wiki/Troubleshooting
-[installing csfml]: https://github.com/BlaXpirit/crsfml/wiki/Installing-CSFML
+[installing]: http://blaxpirit.github.io/crsfml/tutorials/crsfml-install.html
 
 [sfml]: http://www.sfml-dev.org/ "Simple and Fast Multimedia Library"
 [csfml]: http://www.sfml-dev.org/download/csfml/

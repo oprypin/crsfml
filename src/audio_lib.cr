@@ -2,7 +2,7 @@ require "./common_lib"
 require "./system_lib"
 
 @[Link("csfml-audio")]
-
+# :nodoc:
 lib CSFML
   # Change the global volume of all the sounds and musics
   # 

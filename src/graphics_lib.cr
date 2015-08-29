@@ -3,7 +3,7 @@ require "./system_lib"
 require "./window_lib"
 
 @[Link("csfml-graphics")]
-
+# :nodoc:
 lib CSFML
   # Enumeration of the blending factors
   enum BlendFactor

@@ -61,6 +61,7 @@ module SF
     abstract def on_get_data(): Slice(Int16)
     abstract def on_seek(position: Time): Void
     
+    # :nodoc:
     alias FuncBox = Box({(CSFML::SoundStreamChunk* -> CSFML::Bool), (Time -> Nil)})
     
     def initialize(channel_count: Int, sample_rate: Int)
@@ -88,6 +89,7 @@ module SF
     abstract def on_process_samples(samples: Slice(Int16)): Bool
     abstract def on_stop(): Void
     
+    # :nodoc:
     alias FuncBox = Box({(-> CSFML::Bool), ((Int16*, LibC::SizeT) -> CSFML::Bool), (-> Nil)})
     
     def initialize()

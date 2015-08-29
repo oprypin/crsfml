@@ -1,7 +1,7 @@
 require "./common_lib"
 
 @[Link("csfml-system")]
-
+# :nodoc:
 lib CSFML
   # Represents a time value
   struct Time

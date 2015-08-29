@@ -35,6 +35,8 @@ sub(r'^  struct CSFML::(.+)$', r'  struct \1')
 sub(r'^  alias (.+) = CSFML::\1 # union', r'  struct \1; end')
 sub(r'^  alias (.+) = CSFML::\1 # ([a-z]+)$', r'  \2 \1; end')
 
+sub(r'^( *)# :nodoc:\n\1alias.+$')
+
 sub(r'^ *include Wrapper.+$')
 
 

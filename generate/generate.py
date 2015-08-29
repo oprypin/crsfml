@@ -662,7 +662,8 @@ for mod, lines in libs.items():
         f.write('require "./common_lib"\n')
         for d in deps[mod]:
             f.write('require "./{}_lib"\n'.format(d))
-        f.write('\n@[Link("csfml-{}")]\n\n'.format(mod))
+        f.write('\n@[Link("csfml-{}")]\n'.format(mod))
+        f.write('# :nodoc:\n')
         f.write('lib CSFML\n')
         f.write('\n'.join('  '+l for l in lines[1:]))
         f.write('\nend\n')

@@ -2,7 +2,7 @@ require "./common_lib"
 require "./system_lib"
 
 @[Link("csfml-network")]
-
+# :nodoc:
 lib CSFML
   # Encapsulate an IPv4 network address
   struct IpAddress
