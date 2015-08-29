@@ -54,7 +54,7 @@ def rename_type(name, var=''):
     ptr = name.count('*')
     name = name.replace('*', '').strip()
     name = {
-        'char': 'UInt8',
+        'char': 'LibC::Char',
         'int': 'Int32',
         'size_t': 'LibC::SizeT',
         'sfBool': 'CSFML::Bool',
@@ -308,7 +308,7 @@ def handle_function(main, params, alias=None):
             nfname = nfname[8:]
         if nftype=='Void':
             main_sgn = main_sgn[:-10]
-        if nftype=='UInt8*' and nfname in ['string', 'title']:
+        if nftype=='LibC::Char*' and nfname in ['string', 'title']:
             nfname += '_c'
             public = False
         if nftype=='UInt32*':
@@ -342,12 +342,12 @@ def handle_function(main, params, alias=None):
             else:
                 if 'Font' in ofname:
                     rtype = 'Char'
-        elif rtype=='UInt8*' and rname in ['string', 'title']:
+        elif rtype=='LibC::Char*' and rname in ['string', 'title']:
             if not nfname.rstrip('=').endswith('_c'):
                 nfname = nfname.rstrip('=') + '_c' + '='*nfname.count('=')
                 public = False
         elif ptype.startswith('const '):
-            if ptype.endswith('*') and ' sf' in ptype:
+            if ptype.endswith('*') and ' sf' in ptype and not re.search(r'U?Int[0-9]+', rtype):
                 const.append(rname)
         rrtype = rtype
         #if rtype.startswith('ptr ') or rtype=='pointer':
@@ -380,14 +380,19 @@ def handle_function(main, params, alias=None):
     conv = []
     i = 0
     while i < len(oparams)-1:
+        rs = oparams[i][1].rstrip('*')
         if oparams[i][1] == 'Void*' and oparams[i+1][1] == 'LibC::SizeT' and 'size' in oparams[i+1][0]:
             oparams[i:i+2] = [(oparams[i][0]+', '+oparams[i+1][0], 'Slice|Array')]
+            params[i:i+2] = [('', '')]
+        elif len(oparams[i][1]) == len(rs)+1 and '_count' in oparams[i+1][0]:
+            oparams[i:i+2] = [(oparams[i][0]+', '+oparams[i+1][0], 'Slice({0})|Array({0})'.format(rs))]
+            params[i:i+2] = [('', '')]
         i += 1
     
     for i, (n, t) in enumerate(oparams):
         if t.rstrip('*') in reimplemented:
             t = t.rstrip('*')
-        if t == 'UInt8*':
+        if t == 'LibC::Char*':
             t = 'String'
         elif t == 'Char*':
             t = 'String'
@@ -418,6 +423,8 @@ def handle_function(main, params, alias=None):
             t = None
         elif t == 'Slice|Array':
             conv.append('{0} = ({1}.to_unsafe as Pointer(Void)), LibC::SizeT.cast({1}.length*sizeof(typeof({1}[0])))'.format(n, n.split(', ')[0]))
+        elif 'Slice(' in t:
+            conv.append('{0} = {1}.to_unsafe, LibC::SizeT.cast({1}.length*sizeof(typeof({1}[0])))'.format(n, n.split(', ')[0]))
         if n in const and t not in classes:
             conv += (
                 'if {0}.responds_to?(:to_unsafe); '
@@ -470,7 +477,7 @@ def handle_function(main, params, alias=None):
         obj(cls, '      io << ptr.value; ptr += 1')
         obj(cls, '    end')
         obj(cls, '  end')
-    elif nftype == 'UInt8*' and not nfname.endswith('_ptr'):
+    elif nftype == 'LibC::Char*' and not nfname.endswith('_ptr'):
         obj(cls, '  ptr = {}'.format(call))
         obj(cls, '  ptr ? String.new(ptr) : ""'.format(call))
     elif ftype == 'sfBool':

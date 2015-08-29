@@ -1268,13 +1268,10 @@ module SF
     # * `pixels`: Array of pixels to copy to the image
     # 
     # *Returns*: A new Image object
-    def self.from_pixels(width: Int, height: Int, pixels)
+    def self.from_pixels(width: Int, height: Int, pixels: UInt8*)
       width = width.to_i32
       height = height.to_i32
-      if pixels.responds_to?(:to_unsafe); ppixels = pixels.to_unsafe
-      elsif pixels; cpixels = pixels; ppixels = pointerof(cpixels)
-      else; ppixels = nil; end
-      Image.transfer_ptr(CSFML.image_create_from_pixels(width, height, ppixels))
+      Image.transfer_ptr(CSFML.image_create_from_pixels(width, height, pixels))
     end
     
     # Create an image from a file on disk
@@ -2468,15 +2465,12 @@ module SF
     # * `vertex_count`: Number of vertices in the array
     # * `type`: Type of primitives to draw
     # * `states`: Render states to use for drawing (NULL to use the default states)
-    def draw_primitives(vertices, vertex_count: Int, type: PrimitiveType, states)
-      if vertices.responds_to?(:to_unsafe); pvertices = vertices.to_unsafe
-      elsif vertices; cvertices = vertices; pvertices = pointerof(cvertices)
-      else; pvertices = nil; end
-      vertex_count = LibC::SizeT.cast(vertex_count)
+    def draw_primitives(vertices: Slice(Vertex)|Array(Vertex), type: PrimitiveType, states)
+      vertices, vertex_count = vertices.to_unsafe, LibC::SizeT.cast(vertices.length*sizeof(typeof(vertices[0])))
       if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
       elsif states; cstates = states; pstates = pointerof(cstates)
       else; pstates = nil; end
-      CSFML.render_texture_draw_primitives(@this, pvertices, vertex_count, type, pstates)
+      CSFML.render_texture_draw_primitives(@this, vertices, vertex_count, type, pstates)
     end
     
     # Save the current OpenGL render states and matrices
@@ -2747,13 +2741,10 @@ module SF
     # * `width`: Icon's width, in pixels
     # * `height`: Icon's height, in pixels
     # * `pixels`: Pointer to the pixels in memory, format must be RGBA 32 bits
-    def set_icon(width: Int, height: Int, pixels)
+    def set_icon(width: Int, height: Int, pixels: UInt8*)
       width = width.to_i32
       height = height.to_i32
-      if pixels.responds_to?(:to_unsafe); ppixels = pixels.to_unsafe
-      elsif pixels; cpixels = pixels; ppixels = pointerof(cpixels)
-      else; ppixels = nil; end
-      CSFML.render_window_set_icon(@this, width, height, ppixels)
+      CSFML.render_window_set_icon(@this, width, height, pixels)
     end
     
     # Show or hide a render window
@@ -3060,15 +3051,12 @@ module SF
     # * `vertex_count`: Number of vertices in the array
     # * `type`: Type of primitives to draw
     # * `states`: Render states to use for drawing (NULL to use the default states)
-    def draw_primitives(vertices, vertex_count: Int, type: PrimitiveType, states)
-      if vertices.responds_to?(:to_unsafe); pvertices = vertices.to_unsafe
-      elsif vertices; cvertices = vertices; pvertices = pointerof(cvertices)
-      else; pvertices = nil; end
-      vertex_count = LibC::SizeT.cast(vertex_count)
+    def draw_primitives(vertices: Slice(Vertex)|Array(Vertex), type: PrimitiveType, states)
+      vertices, vertex_count = vertices.to_unsafe, LibC::SizeT.cast(vertices.length*sizeof(typeof(vertices[0])))
       if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
       elsif states; cstates = states; pstates = pointerof(cstates)
       else; pstates = nil; end
-      CSFML.render_window_draw_primitives(@this, pvertices, vertex_count, type, pstates)
+      CSFML.render_window_draw_primitives(@this, vertices, vertex_count, type, pstates)
     end
     
     # Save the current OpenGL render states and matrices
@@ -3999,15 +3987,12 @@ module SF
     # * `height`: Height of the pixel region contained in `pixels`
     # * `x`: X offset in the texture where to copy the source pixels
     # * `y`: Y offset in the texture where to copy the source pixels
-    def update(pixels, width: Int, height: Int, x: Int, y: Int)
-      if pixels.responds_to?(:to_unsafe); ppixels = pixels.to_unsafe
-      elsif pixels; cpixels = pixels; ppixels = pointerof(cpixels)
-      else; ppixels = nil; end
+    def update(pixels: UInt8*, width: Int, height: Int, x: Int, y: Int)
       width = width.to_i32
       height = height.to_i32
       x = x.to_i32
       y = y.to_i32
-      CSFML.texture_update_from_pixels(@this, ppixels, width, height, x, y)
+      CSFML.texture_update_from_pixels(@this, pixels, width, height, x, y)
     end
     
     # Update a texture from an image
@@ -4885,7 +4870,7 @@ module SF
     
   end
 
-  # * family : `UInt8*`
+  # * family : `LibC::Char*`
   #
   # Do not use `.new`; `SF` module may contain constructor methods for this struct.
   alias FontInfo = CSFML::FontInfo # struct

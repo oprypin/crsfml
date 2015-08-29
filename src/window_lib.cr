@@ -31,7 +31,7 @@ lib CSFML
   fun context_set_active = sfContext_setActive(context: Context, active: CSFML::Bool)
   
   struct JoystickIdentification
-    name: UInt8*
+    name: LibC::Char*
     vendor_id: Int32
     product_id: Int32
   end
@@ -450,7 +450,7 @@ lib CSFML
   # * `settings`: Additional settings for the underlying OpenGL context
   # 
   # *Returns*: A new Window object
-  fun window_create = sfWindow_create(mode: VideoMode, title: UInt8*, style: WindowStyle, settings: ContextSettings*): Window
+  fun window_create = sfWindow_create(mode: VideoMode, title: LibC::Char*, style: WindowStyle, settings: ContextSettings*): Window
   
   # Construct a new window (with a UTF-32 title)
   # 
@@ -619,7 +619,7 @@ lib CSFML
   # 
   # * `window`: Window object
   # * `title`: New title
-  fun window_set_title = sfWindow_setTitle(window: Window, title: UInt8*)
+  fun window_set_title = sfWindow_setTitle(window: Window, title: LibC::Char*)
   
   # Change the title of a window (with a UTF-32 string)
   # 

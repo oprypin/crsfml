@@ -102,7 +102,7 @@ lib CSFML
   # * `filename`: Path of the music file to open
   # 
   # *Returns*: A new Music object (NULL if failed)
-  fun music_create_from_file = sfMusic_createFromFile(filename: UInt8*): Music
+  fun music_create_from_file = sfMusic_createFromFile(filename: LibC::Char*): Music
   
   # Create a new music and load it from a file in memory
   # 
@@ -673,7 +673,7 @@ lib CSFML
   # * `filename`: Path of the sound file to load
   # 
   # *Returns*: A new SoundBuffer object (NULL if failed)
-  fun sound_buffer_create_from_file = sfSoundBuffer_createFromFile(filename: UInt8*): SoundBuffer
+  fun sound_buffer_create_from_file = sfSoundBuffer_createFromFile(filename: LibC::Char*): SoundBuffer
   
   # Create a new sound buffer and load it from a file in memory
   # 
@@ -745,7 +745,7 @@ lib CSFML
   # * `filename`: Path of the sound file to write
   # 
   # *Returns*: True if saving succeeded, False if it failed
-  fun sound_buffer_save_to_file = sfSoundBuffer_saveToFile(sound_buffer: SoundBuffer, filename: UInt8*): CSFML::Bool
+  fun sound_buffer_save_to_file = sfSoundBuffer_saveToFile(sound_buffer: SoundBuffer, filename: LibC::Char*): CSFML::Bool
   
   # Get the array of audio samples stored in a sound buffer
   # 
@@ -964,7 +964,7 @@ lib CSFML
   # * `count`: Pointer to a variable that will be filled with the number of modes in the array
   # 
   # *Returns*: An array of strings containing the names
-  fun sound_recorder_get_available_devices = sfSoundRecorder_getAvailableDevices(count: LibC::SizeT*): UInt8**
+  fun sound_recorder_get_available_devices = sfSoundRecorder_getAvailableDevices(count: LibC::SizeT*): LibC::Char**
   
   # Get the name of the default audio capture device
   # 
@@ -972,7 +972,7 @@ lib CSFML
   # capture device. If none is available, NULL is returned.
   # 
   # *Returns*: The name of the default audio capture device (null terminated)
-  fun sound_recorder_get_default_device = sfSoundRecorder_getDefaultDevice(): UInt8*
+  fun sound_recorder_get_default_device = sfSoundRecorder_getDefaultDevice(): LibC::Char*
   
   # Set the audio capture device
   # 
@@ -987,7 +987,7 @@ lib CSFML
   # * `The`: name of the audio capture device
   # 
   # *Returns*: True, if it was able to set the requested device
-  fun sound_recorder_set_device = sfSoundRecorder_setDevice(sound_recorder: SoundRecorder, name: UInt8*): CSFML::Bool
+  fun sound_recorder_set_device = sfSoundRecorder_setDevice(sound_recorder: SoundRecorder, name: LibC::Char*): CSFML::Bool
   
   # Get the name of the current audio capture device
   # 
@@ -996,7 +996,7 @@ lib CSFML
   # * `sound_recorder`: Sound recorder object
   # 
   # *Returns*: The name of the current audio capture device
-  fun sound_recorder_get_device = sfSoundRecorder_getDevice(sound_recorder: SoundRecorder): UInt8*
+  fun sound_recorder_get_device = sfSoundRecorder_getDevice(sound_recorder: SoundRecorder): LibC::Char*
   
   # defines the data to fill by the OnGetData callback
   struct SoundStreamChunk

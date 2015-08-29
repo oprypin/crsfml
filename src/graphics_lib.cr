@@ -1025,7 +1025,7 @@ lib CSFML
   fun convex_shape_get_global_bounds = sfConvexShape_getGlobalBounds(shape: ConvexShape): FloatRect
   
   struct FontInfo
-    family: UInt8*
+    family: LibC::Char*
   end
   
   # Glyph describes a glyph (a visual character)
@@ -1042,7 +1042,7 @@ lib CSFML
   # * `filename`: Path of the font file to load
   # 
   # *Returns*: A new Font object, or NULL if it failed
-  fun font_create_from_file = sfFont_createFromFile(filename: UInt8*): Font
+  fun font_create_from_file = sfFont_createFromFile(filename: LibC::Char*): Font
   
   # Create a new image font a file in memory
   # 
@@ -1212,7 +1212,7 @@ lib CSFML
   # * `filename`: Path of the image file to load
   # 
   # *Returns*: A new Image object, or NULL if it failed
-  fun image_create_from_file = sfImage_createFromFile(filename: UInt8*): Image
+  fun image_create_from_file = sfImage_createFromFile(filename: LibC::Char*): Image
   
   # Create an image from a file in memory
   # 
@@ -1272,7 +1272,7 @@ lib CSFML
   # * `filename`: Path of the file to save
   # 
   # *Returns*: True if saving was successful
-  fun image_save_to_file = sfImage_saveToFile(image: Image, filename: UInt8*): CSFML::Bool
+  fun image_save_to_file = sfImage_saveToFile(image: Image, filename: LibC::Char*): CSFML::Bool
   
   # Return the size of an image
   # 
@@ -2015,7 +2015,7 @@ lib CSFML
   # * `title`: Title of the window
   # * `style`: Window style
   # * `settings`: Creation settings (pass NULL to use default values)
-  fun render_window_create = sfRenderWindow_create(mode: VideoMode, title: UInt8*, style: WindowStyle, settings: ContextSettings*): RenderWindow
+  fun render_window_create = sfRenderWindow_create(mode: VideoMode, title: LibC::Char*, style: WindowStyle, settings: ContextSettings*): RenderWindow
   
   # Construct a new render window (with a UTF-32 title)
   # 
@@ -2127,7 +2127,7 @@ lib CSFML
   # 
   # * `render_window`: Render window object
   # * `title`: New title
-  fun render_window_set_title = sfRenderWindow_setTitle(render_window: RenderWindow, title: UInt8*)
+  fun render_window_set_title = sfRenderWindow_setTitle(render_window: RenderWindow, title: LibC::Char*)
   
   # Change the title of a render window (with a UTF-32 string)
   # 
@@ -2487,7 +2487,7 @@ lib CSFML
   # * `fragment_shader_filename`: Path of the fragment shader file to load, or NULL to skip this shader
   # 
   # *Returns*: A new Shader object, or NULL if it failed
-  fun shader_create_from_file = sfShader_createFromFile(vertex_shader_filename: UInt8*, fragment_shader_filename: UInt8*): Shader
+  fun shader_create_from_file = sfShader_createFromFile(vertex_shader_filename: LibC::Char*, fragment_shader_filename: LibC::Char*): Shader
   
   # Load both the vertex and fragment shaders from source codes in memory
   # 
@@ -2505,7 +2505,7 @@ lib CSFML
   # * `fragment_shader`: String containing the source code of the fragment shader, or NULL to skip this shader
   # 
   # *Returns*: A new Shader object, or NULL if it failed
-  fun shader_create_from_memory = sfShader_createFromMemory(vertex_shader: UInt8*, fragment_shader: UInt8*): Shader
+  fun shader_create_from_memory = sfShader_createFromMemory(vertex_shader: LibC::Char*, fragment_shader: LibC::Char*): Shader
   
   # Load both the vertex and fragment shaders from custom streams
   # 
@@ -2544,7 +2544,7 @@ lib CSFML
   # * `shader`: Shader object
   # * `name`: Name of the parameter in the shader
   # * `x`: Value to assign
-  fun shader_set_float_parameter = sfShader_setFloatParameter(shader: Shader, name: UInt8*, x: Float32)
+  fun shader_set_float_parameter = sfShader_setFloatParameter(shader: Shader, name: LibC::Char*, x: Float32)
   
   # Change a 2-components vector parameter of a shader
   # 
@@ -2559,7 +2559,7 @@ lib CSFML
   # * `name`: Name of the parameter in the shader
   # * `x`: First component of the value to assign
   # * `y`: Second component of the value to assign
-  fun shader_set_float2_parameter = sfShader_setFloat2Parameter(shader: Shader, name: UInt8*, x: Float32, y: Float32)
+  fun shader_set_float2_parameter = sfShader_setFloat2Parameter(shader: Shader, name: LibC::Char*, x: Float32, y: Float32)
   
   # Change a 3-components vector parameter of a shader
   # 
@@ -2575,7 +2575,7 @@ lib CSFML
   # * `x`: First component of the value to assign
   # * `y`: Second component of the value to assign
   # * `z`: Third component of the value to assign
-  fun shader_set_float3_parameter = sfShader_setFloat3Parameter(shader: Shader, name: UInt8*, x: Float32, y: Float32, z: Float32)
+  fun shader_set_float3_parameter = sfShader_setFloat3Parameter(shader: Shader, name: LibC::Char*, x: Float32, y: Float32, z: Float32)
   
   # Change a 4-components vector parameter of a shader
   # 
@@ -2592,7 +2592,7 @@ lib CSFML
   # * `y`: Second component of the value to assign
   # * `z`: Third component of the value to assign
   # * `w`: Fourth component of the value to assign
-  fun shader_set_float4_parameter = sfShader_setFloat4Parameter(shader: Shader, name: UInt8*, x: Float32, y: Float32, z: Float32, w: Float32)
+  fun shader_set_float4_parameter = sfShader_setFloat4Parameter(shader: Shader, name: LibC::Char*, x: Float32, y: Float32, z: Float32, w: Float32)
   
   # Change a 2-components vector parameter of a shader
   # 
@@ -2606,7 +2606,7 @@ lib CSFML
   # * `shader`: Shader object
   # * `name`: Name of the parameter in the shader
   # * `vector`: Vector to assign
-  fun shader_set_vector2_parameter = sfShader_setVector2Parameter(shader: Shader, name: UInt8*, vector: Vector2f)
+  fun shader_set_vector2_parameter = sfShader_setVector2Parameter(shader: Shader, name: LibC::Char*, vector: Vector2f)
   
   # Change a 3-components vector parameter of a shader
   # 
@@ -2620,7 +2620,7 @@ lib CSFML
   # * `shader`: Shader object
   # * `name`: Name of the parameter in the shader
   # * `vector`: Vector to assign
-  fun shader_set_vector3_parameter = sfShader_setVector3Parameter(shader: Shader, name: UInt8*, vector: Vector3f)
+  fun shader_set_vector3_parameter = sfShader_setVector3Parameter(shader: Shader, name: LibC::Char*, vector: Vector3f)
   
   # Change a color parameter of a shader
   # 
@@ -2640,7 +2640,7 @@ lib CSFML
   # * `shader`: Shader object
   # * `name`: Name of the parameter in the shader
   # * `color`: Color to assign
-  fun shader_set_color_parameter = sfShader_setColorParameter(shader: Shader, name: UInt8*, color: Color)
+  fun shader_set_color_parameter = sfShader_setColorParameter(shader: Shader, name: LibC::Char*, color: Color)
   
   # Change a matrix parameter of a shader
   # 
@@ -2654,7 +2654,7 @@ lib CSFML
   # * `shader`: Shader object
   # * `name`: Name of the parameter in the shader
   # * `transform`: Transform to assign
-  fun shader_set_transform_parameter = sfShader_setTransformParameter(shader: Shader, name: UInt8*, transform: Transform)
+  fun shader_set_transform_parameter = sfShader_setTransformParameter(shader: Shader, name: LibC::Char*, transform: Transform)
   
   # Change a texture parameter of a shader
   # 
@@ -2674,7 +2674,7 @@ lib CSFML
   # * `shader`: Shader object
   # * `name`: Name of the texture in the shader
   # * `texture`: Texture to assign
-  fun shader_set_texture_parameter = sfShader_setTextureParameter(shader: Shader, name: UInt8*, texture: Texture)
+  fun shader_set_texture_parameter = sfShader_setTextureParameter(shader: Shader, name: LibC::Char*, texture: Texture)
   
   # Change a texture parameter of a shader
   # 
@@ -2689,7 +2689,7 @@ lib CSFML
   # 
   # * `shader`: Shader object
   # * `name`: Name of the texture in the shader
-  fun shader_set_current_texture_parameter = sfShader_setCurrentTextureParameter(shader: Shader, name: UInt8*)
+  fun shader_set_current_texture_parameter = sfShader_setCurrentTextureParameter(shader: Shader, name: LibC::Char*)
   
   # Get the underlying OpenGL handle of the shader.
   # 
@@ -3502,7 +3502,7 @@ lib CSFML
   # 
   # * `text`: Text object
   # * `string`: New string
-  fun text_set_string = sfText_setString(text: Text, string: UInt8*)
+  fun text_set_string = sfText_setString(text: Text, string: LibC::Char*)
   
   # Set the string of a text (from a unicode string)
   # 
@@ -3566,7 +3566,7 @@ lib CSFML
   # * `text`: Text object
   # 
   # *Returns*: String as a locale-dependant ANSI string
-  fun text_get_string = sfText_getString(text: Text): UInt8*
+  fun text_get_string = sfText_getString(text: Text): LibC::Char*
   
   # Get the string of a text (returns a unicode string)
   # 
@@ -3682,7 +3682,7 @@ lib CSFML
   # * `area`: Area of the source image to load (NULL to load the entire image)
   # 
   # *Returns*: A new Texture object, or NULL if it failed
-  fun texture_create_from_file = sfTexture_createFromFile(filename: UInt8*, area: IntRect*): Texture
+  fun texture_create_from_file = sfTexture_createFromFile(filename: LibC::Char*, area: IntRect*): Texture
   
   # Create a new texture from a file in memory
   # 

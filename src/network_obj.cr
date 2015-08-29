@@ -6,7 +6,7 @@ module SF
 
   # Encapsulate an IPv4 network address
   #
-  # * address : `UInt8[16]`
+  # * address : `LibC::Char[16]`
   #
   # Do not use `.new`; `SF` module may contain constructor methods for this struct.
   alias IpAddress = CSFML::IpAddress # struct

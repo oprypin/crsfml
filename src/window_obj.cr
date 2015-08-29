@@ -259,13 +259,10 @@ module SF
     # * `width`: Icon's width, in pixels
     # * `height`: Icon's height, in pixels
     # * `pixels`: Pointer to the array of pixels in memory
-    def set_icon(width: Int, height: Int, pixels)
+    def set_icon(width: Int, height: Int, pixels: UInt8*)
       width = width.to_i32
       height = height.to_i32
-      if pixels.responds_to?(:to_unsafe); ppixels = pixels.to_unsafe
-      elsif pixels; cpixels = pixels; ppixels = pointerof(cpixels)
-      else; ppixels = nil; end
-      CSFML.window_set_icon(@this, width, height, ppixels)
+      CSFML.window_set_icon(@this, width, height, pixels)
     end
     
     # Show or hide a window
@@ -430,7 +427,7 @@ module SF
     
   end
 
-  # * name : `UInt8*`
+  # * name : `LibC::Char*`
   # * vendor_id : `Int32`
   # * product_id : `Int32`
   #

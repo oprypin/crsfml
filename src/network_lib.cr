@@ -6,7 +6,7 @@ require "./system_lib"
 lib CSFML
   # Encapsulate an IPv4 network address
   struct IpAddress
-    address: UInt8[16]
+    address: LibC::Char[16]
   end
   
   # Create an address from a string
@@ -19,7 +19,7 @@ lib CSFML
   # * `address`: IP address or network name
   # 
   # *Returns*: Resulting address
-  fun ip_address_from_string = sfIpAddress_fromString(address: UInt8*): IpAddress
+  fun ip_address_from_string = sfIpAddress_fromString(address: LibC::Char*): IpAddress
   
   # Create an address from 4 bytes
   # 
@@ -63,7 +63,7 @@ lib CSFML
   # * `address`: Address object
   # 
   # *Returns*: String representation of the address
-  fun ip_address_to_string = sfIpAddress_toString(address: IpAddress, string: UInt8*)
+  fun ip_address_to_string = sfIpAddress_toString(address: IpAddress, string: LibC::Char*)
   
   # Get an integer representation of the address
   # 
@@ -195,7 +195,7 @@ lib CSFML
   # * `ftp_listing_response`: Ftp listing response
   # 
   # *Returns*: The response message
-  fun ftp_listing_response_get_message = sfFtpListingResponse_getMessage(ftp_listing_response: FtpListingResponse): UInt8*
+  fun ftp_listing_response_get_message = sfFtpListingResponse_getMessage(ftp_listing_response: FtpListingResponse): LibC::Char*
   
   # Return the number of directory/file names contained in a FTP listing response
   # 
@@ -214,7 +214,7 @@ lib CSFML
   # * `index`: Index of the name to get (in range [0 .. get_count])
   # 
   # *Returns*: The requested name
-  fun ftp_listing_response_get_name = sfFtpListingResponse_getName(ftp_listing_response: FtpListingResponse, index: LibC::SizeT): UInt8*
+  fun ftp_listing_response_get_name = sfFtpListingResponse_getName(ftp_listing_response: FtpListingResponse, index: LibC::SizeT): LibC::Char*
   
   # Destroy a FTP directory response
   # 
@@ -251,7 +251,7 @@ lib CSFML
   # * `ftp_directory_response`: Ftp directory response
   # 
   # *Returns*: The response message
-  fun ftp_directory_response_get_message = sfFtpDirectoryResponse_getMessage(ftp_directory_response: FtpDirectoryResponse): UInt8*
+  fun ftp_directory_response_get_message = sfFtpDirectoryResponse_getMessage(ftp_directory_response: FtpDirectoryResponse): LibC::Char*
   
   # Get the directory returned in a FTP directory response
   # 
@@ -260,7 +260,7 @@ lib CSFML
   # * `ftp_directory_response`: Ftp directory response
   # 
   # *Returns*: Directory name
-  fun ftp_directory_response_get_directory = sfFtpDirectoryResponse_getDirectory(ftp_directory_response: FtpDirectoryResponse): UInt8*
+  fun ftp_directory_response_get_directory = sfFtpDirectoryResponse_getDirectory(ftp_directory_response: FtpDirectoryResponse): LibC::Char*
   
   # Destroy a FTP response
   # 
@@ -297,7 +297,7 @@ lib CSFML
   # * `ftp_response`: Ftp response object
   # 
   # *Returns*: The response message
-  fun ftp_response_get_message = sfFtpResponse_getMessage(ftp_response: FtpResponse): UInt8*
+  fun ftp_response_get_message = sfFtpResponse_getMessage(ftp_response: FtpResponse): LibC::Char*
   
   # Create a new Ftp object
   # 
@@ -356,7 +356,7 @@ lib CSFML
   # * `password`: Password
   # 
   # *Returns*: Server response to the request
-  fun ftp_login = sfFtp_login(ftp: Ftp, user_name: UInt8*, password: UInt8*): FtpResponse
+  fun ftp_login = sfFtp_login(ftp: Ftp, user_name: LibC::Char*, password: LibC::Char*): FtpResponse
   
   # Close the connection with the server
   # 
@@ -404,7 +404,7 @@ lib CSFML
   # * `directory`: Directory to list
   # 
   # *Returns*: Server response to the request
-  fun ftp_get_directory_listing = sfFtp_getDirectoryListing(ftp: Ftp, directory: UInt8*): FtpListingResponse
+  fun ftp_get_directory_listing = sfFtp_getDirectoryListing(ftp: Ftp, directory: LibC::Char*): FtpListingResponse
   
   # Change the current working directory
   # 
@@ -416,7 +416,7 @@ lib CSFML
   # * `directory`: New working directory
   # 
   # *Returns*: Server response to the request
-  fun ftp_change_directory = sfFtp_changeDirectory(ftp: Ftp, directory: UInt8*): FtpResponse
+  fun ftp_change_directory = sfFtp_changeDirectory(ftp: Ftp, directory: LibC::Char*): FtpResponse
   
   # Go to the parent directory of the current one
   # 
@@ -438,7 +438,7 @@ lib CSFML
   # * `name`: Name of the directory to create
   # 
   # *Returns*: Server response to the request
-  fun ftp_create_directory = sfFtp_createDirectory(ftp: Ftp, name: UInt8*): FtpResponse
+  fun ftp_create_directory = sfFtp_createDirectory(ftp: Ftp, name: LibC::Char*): FtpResponse
   
   # Remove an existing directory
   # 
@@ -453,7 +453,7 @@ lib CSFML
   # * `name`: Name of the directory to remove
   # 
   # *Returns*: Server response to the request
-  fun ftp_delete_directory = sfFtp_deleteDirectory(ftp: Ftp, name: UInt8*): FtpResponse
+  fun ftp_delete_directory = sfFtp_deleteDirectory(ftp: Ftp, name: LibC::Char*): FtpResponse
   
   # Rename an existing file
   # 
@@ -467,7 +467,7 @@ lib CSFML
   # * `new_name`: New name of the file
   # 
   # *Returns*: Server response to the request
-  fun ftp_rename_file = sfFtp_renameFile(ftp: Ftp, file: UInt8*, new_name: UInt8*): FtpResponse
+  fun ftp_rename_file = sfFtp_renameFile(ftp: Ftp, file: LibC::Char*, new_name: LibC::Char*): FtpResponse
   
   # Remove an existing file
   # 
@@ -482,7 +482,7 @@ lib CSFML
   # * `name`: File to remove
   # 
   # *Returns*: Server response to the request
-  fun ftp_delete_file = sfFtp_deleteFile(ftp: Ftp, name: UInt8*): FtpResponse
+  fun ftp_delete_file = sfFtp_deleteFile(ftp: Ftp, name: LibC::Char*): FtpResponse
   
   # Download a file from a FTP server
   # 
@@ -499,7 +499,7 @@ lib CSFML
   # * `mode`: Transfer mode
   # 
   # *Returns*: Server response to the request
-  fun ftp_download = sfFtp_download(ftp: Ftp, distant_file: UInt8*, dest_path: UInt8*, mode: FtpTransferMode): FtpResponse
+  fun ftp_download = sfFtp_download(ftp: Ftp, distant_file: LibC::Char*, dest_path: LibC::Char*, mode: FtpTransferMode): FtpResponse
   
   # Upload a file to a FTP server
   # 
@@ -516,7 +516,7 @@ lib CSFML
   # * `mode`: Transfer mode
   # 
   # *Returns*: Server response to the request
-  fun ftp_upload = sfFtp_upload(ftp: Ftp, local_file: UInt8*, dest_path: UInt8*, mode: FtpTransferMode): FtpResponse
+  fun ftp_upload = sfFtp_upload(ftp: Ftp, local_file: LibC::Char*, dest_path: LibC::Char*, mode: FtpTransferMode): FtpResponse
   
   # Enumerate the available HTTP methods for a request
   enum HttpMethod
@@ -559,7 +559,7 @@ lib CSFML
   # * `http_request`: HTTP request
   # * `field`: Name of the field to set
   # * `value`: Value of the field
-  fun http_request_set_field = sfHttpRequest_setField(http_request: HttpRequest, field: UInt8*, value: UInt8*)
+  fun http_request_set_field = sfHttpRequest_setField(http_request: HttpRequest, field: LibC::Char*, value: LibC::Char*)
   
   # Set a HTTP request method
   # 
@@ -583,7 +583,7 @@ lib CSFML
   # 
   # * `http_request`: HTTP request
   # * `uri`: URI to request, relative to the host
-  fun http_request_set_uri = sfHttpRequest_setUri(http_request: HttpRequest, uri: UInt8*)
+  fun http_request_set_uri = sfHttpRequest_setUri(http_request: HttpRequest, uri: LibC::Char*)
   
   # Set the HTTP version of a HTTP request
   # 
@@ -606,7 +606,7 @@ lib CSFML
   # 
   # * `http_request`: HTTP request
   # * `body`: Content of the body
-  fun http_request_set_body = sfHttpRequest_setBody(http_request: HttpRequest, body: UInt8*)
+  fun http_request_set_body = sfHttpRequest_setBody(http_request: HttpRequest, body: LibC::Char*)
   
   # Destroy a HTTP response
   # 
@@ -627,7 +627,7 @@ lib CSFML
   # * `field`: Name of the field to get
   # 
   # *Returns*: Value of the field, or empty string if not found
-  fun http_response_get_field = sfHttpResponse_getField(http_response: HttpResponse, field: UInt8*): UInt8*
+  fun http_response_get_field = sfHttpResponse_getField(http_response: HttpResponse, field: LibC::Char*): LibC::Char*
   
   # Get the status code of a HTTP reponse
   # 
@@ -674,7 +674,7 @@ lib CSFML
   # * `http_response`: HTTP response
   # 
   # *Returns*: The response body
-  fun http_response_get_body = sfHttpResponse_getBody(http_response: HttpResponse): UInt8*
+  fun http_response_get_body = sfHttpResponse_getBody(http_response: HttpResponse): LibC::Char*
   
   # Create a new Http object
   # 
@@ -703,7 +703,7 @@ lib CSFML
   # * `http`: Http object
   # * `host`: Web server to connect to
   # * `port`: Port to use for connection
-  fun http_set_host = sfHttp_setHost(http: Http, host: UInt8*, port: UInt16)
+  fun http_set_host = sfHttp_setHost(http: Http, host: LibC::Char*, port: UInt16)
   
   # Send a HTTP request and return the server's response.
   # 
@@ -841,7 +841,7 @@ lib CSFML
   
   fun packet_read_double = sfPacket_readDouble(packet: Packet): Float64
   
-  fun packet_read_string = sfPacket_readString(packet: Packet, string: UInt8*)
+  fun packet_read_string = sfPacket_readString(packet: Packet, string: LibC::Char*)
   
   # Functions to insert data into a packet
   # 
@@ -866,7 +866,7 @@ lib CSFML
   
   fun packet_write_double = sfPacket_writeDouble(packet: Packet, p1: Float64)
   
-  fun packet_write_string = sfPacket_writeString(packet: Packet, string: UInt8*)
+  fun packet_write_string = sfPacket_writeString(packet: Packet, string: LibC::Char*)
   
   # Create a new selector
   # 

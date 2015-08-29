@@ -909,14 +909,11 @@ module SF
     # * `sample_rate`: Sample rate (number of samples to play per second)
     # 
     # *Returns*: A new SoundBuffer object (raises `NullResult` if failed)
-    def self.from_samples(samples, sample_count: Int, channel_count: Int, sample_rate: Int)
-      if samples.responds_to?(:to_unsafe); psamples = samples.to_unsafe
-      elsif samples; csamples = samples; psamples = pointerof(csamples)
-      else; psamples = nil; end
-      sample_count = sample_count.to_u64
+    def self.from_samples(samples: Slice(Int16)|Array(Int16), channel_count: Int, sample_rate: Int)
+      samples, sample_count = samples.to_unsafe, LibC::SizeT.cast(samples.length*sizeof(typeof(samples[0])))
       channel_count = channel_count.to_i32
       sample_rate = sample_rate.to_i32
-      SoundBuffer.transfer_ptr(CSFML.sound_buffer_create_from_samples(psamples, sample_count, channel_count, sample_rate))
+      SoundBuffer.transfer_ptr(CSFML.sound_buffer_create_from_samples(samples, sample_count, channel_count, sample_rate))
     end
     
     # Create a new sound buffer by copying an existing one

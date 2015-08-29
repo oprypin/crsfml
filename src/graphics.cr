@@ -237,6 +237,12 @@ module SF
     abstract def get_point(index: Int): SF::Vector2
   end
   
+  class Image
+    def pixels
+      pixels_ptr.to_slice(size.x * size.y * 4)
+    end
+  end
+  
   class Texture
     def self.from_file(filename)
       self.from_file(filename, nil)
@@ -295,15 +301,15 @@ module SF
     
     def self.from_file(filename: String, type: Type)
       Shader.transfer_ptr(CSFML.shader_create_from_file(
-        type == Vertex ? filename.to_unsafe : Pointer(UInt8).null,
-        type == Fragment ? filename.to_unsafe : Pointer(UInt8).null
+        type == Vertex ? filename.to_unsafe : Pointer(LibC::Char).null,
+        type == Fragment ? filename.to_unsafe : Pointer(LibC::Char).null
       ))
     end
     
     def self.from_memory(shader: String, type: Type)
       Shader.transfer_ptr(CSFML.shader_create_from_memory(
-        type == Vertex ? shader.to_unsafe : Pointer(UInt8).null,
-        type == Fragment ? shader.to_unsafe : Pointer(UInt8).null
+        type == Vertex ? shader.to_unsafe : Pointer(LibC::Char).null,
+        type == Fragment ? shader.to_unsafe : Pointer(LibC::Char).null
       ))
     end
     
