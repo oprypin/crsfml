@@ -1,15 +1,15 @@
 # Copyright (C) 2015 Oleh Prypin <blaxpirit@gmail.com>
-# 
+#
 # This file is part of CrSFML.
-# 
+#
 # This software is provided 'as-is', without any express or implied
 # warranty. In no event will the authors be held liable for any damages
 # arising from the use of this software.
-# 
+#
 # Permission is granted to anyone to use this software for any purpose,
 # including commercial applications, and to alter it and redistribute it
 # freely, subject to the following restrictions:
-# 
+#
 # 1. The origin of this software must not be misrepresented; you must not
 #    claim that you wrote the original software. If you use this software
 #    in a product, an acknowledgement in the product documentation would be
@@ -18,7 +18,7 @@
 #    misrepresented as being the original software.
 # 3. This notice may not be removed or altered from any source distribution.
 
-require "./graphics_lib"
+require "./lib/csfml/graphics"
 
 module SF
   extend self
@@ -36,7 +36,7 @@ module SF
     Magenta = SF.color(255, 0, 255)
     Cyan = SF.color(0, 255, 255)
     Transparent = SF.color(0, 0, 0, 0)
-    
+
     def ==(other: self)
       r == other.r && g == other.g && b == other.b && a == other.a
     end
@@ -50,7 +50,7 @@ module SF
       subtract other
     end
   end
-  
+
   def float_rect(left: Number, top: Number, width: Number, height: Number)
     FloatRect.new(left: left.to_f32, top: top.to_f32, width: width.to_f32, height: height.to_f32)
   end
@@ -68,7 +68,7 @@ module SF
       intersects(other, pointerof(intersection)) ? intersection : nil
     end
   end
-  
+
   struct CSFML::IntRect
     def contains(point)
       x, y = point
@@ -79,14 +79,14 @@ module SF
       intersects(other, pointerof(intersection)) ? intersection : nil
     end
   end
-    
-  
+
+
   def transform()
     transform(1.0, 0.0, 0.0,  0.0, 1.0, 0.0,  0.0, 0.0, 1.0)
   end
   struct CSFML::Transform
     Identity = SF.transform()
-    
+
     def transform_point(x, y)
       transform_point(SF.vector2f(x, y))
     end
@@ -107,7 +107,7 @@ module SF
       cx, cy = center
       scale(x, y, cx, cy)
     end
-    
+
     def *(other: self)
       out = self
       out.combine(other)
@@ -116,14 +116,14 @@ module SF
     def *(point)
       transform_point(point)
     end
-    
+
     def get_matrix()
       cself = self
       CSFML.transform_get_matrix(pointerof(cself), out matrix)
       matrix
     end
   end
-  
+
   def blend_mode(color_source_factor: BlendFactor, color_destination_factor: BlendFactor, color_blend_equation: BlendEquation, alpha_source_factor: BlendFactor, alpha_destination_factor: BlendFactor, alpha_blend_equation: BlendEquation)
     BlendMode.new(
       color_src_factor: color_source_factor,
@@ -134,14 +134,14 @@ module SF
       alpha_equation: alpha_blend_equation
     )
   end
-  
+
   def blend_mode(source_factor: BlendFactor, destination_factor: BlendFactor, blend_equation=CSFML::BlendEquation::Add)
     blend_mode(
       source_factor, destination_factor, blend_equation,
       source_factor, destination_factor, blend_equation
     )
   end
-  
+
   BlendAlpha = blend_mode(
     CSFML::BlendFactor::SrcAlpha, CSFML::BlendFactor::OneMinusSrcAlpha, CSFML::BlendEquation::Add,
     CSFML::BlendFactor::One, CSFML::BlendFactor::OneMinusSrcAlpha, CSFML::BlendEquation::Add
@@ -152,11 +152,11 @@ module SF
   )
   BlendMultiply = blend_mode(CSFML::BlendFactor::DstColor, CSFML::BlendFactor::Zero)
   BlendNone = blend_mode(CSFML::BlendFactor::One, CSFML::BlendFactor::Zero)
-  
+
   def blend_mode()
     BlendAlpha
   end
-  
+
   def render_states(blend_mode=BlendAlpha, transform=Transform::Identity, texture=nil, shader=nil)
     result = RenderStates.new()
     result.blend_mode = blend_mode
@@ -165,18 +165,18 @@ module SF
     result.shader = shader
     result
   end
-  
+
   struct CSFML::RenderStates
     Default = SF.render_states()
   end
-  
+
   class CircleShape
     def initialize(radius: Number, point_count=30: Int)
       initialize()
       self.radius = radius
       self.point_count = point_count
     end
-    
+
     def texture=(texture: Texture)
       set_texture(texture, false)
     end
@@ -184,13 +184,13 @@ module SF
       target.draw_circle_shape(self, states)
     end
   end
-  
+
   class RectangleShape
     def initialize(size)
       initialize()
       self.size = size
     end
-    
+
     def texture=(texture: Texture)
       set_texture(texture, false)
     end
@@ -198,20 +198,20 @@ module SF
       target.draw_rectangle_shape(self, states)
     end
   end
-  
+
   class ConvexShape
     def initialize(point_count: Int)
       initialize()
       self.point_count = point_count
     end
-    
+
     def [](index)
       get_point(index)
     end
     def []=(index, point)
       set_point(index, point)
     end
-    
+
     def texture=(texture: Texture)
       set_texture(texture, false)
     end
@@ -219,24 +219,24 @@ module SF
       target.draw_convex_shape(self, states)
     end
   end
-  
+
   abstract class Shape < SF::ConvexShape
     def initialize()
       super
       update
     end
-    
+
     def update
       self.point_count = n = point_count
       (0...n).each do |i|
         set_point(i, get_point(i))
       end
     end
-    
+
     abstract def point_count: Int
     abstract def get_point(index: Int): SF::Vector2
   end
-  
+
   class Texture
     def self.from_file(filename)
       self.from_file(filename, nil)
@@ -247,12 +247,12 @@ module SF
     def self.from_stream(stream)
       self.from_stream(stream, nil)
     end
-    
+
     def self.bind(texture: Texture?)
       CSFML.texture_bind(texture)
     end
   end
-  
+
   class Sprite
     def initialize(texture: Texture)
       initialize()
@@ -263,16 +263,16 @@ module SF
       self.texture = texture
       self.texture_rect = rectangle
     end
-    
+
     def texture=(texture: Texture)
       set_texture(texture, false)
     end
-    
+
     def draw(target, states: RenderStates)
       target.draw_sprite(self, states)
     end
   end
-  
+
   class Text
     def initialize(string: String, font: Font, character_size=30: Int)
       initialize()
@@ -280,65 +280,65 @@ module SF
       self.font = font
       self.character_size = character_size
     end
-    
+
     def draw(target, states: RenderStates)
       target.draw_text(self, states)
     end
   end
-  
+
   class Shader
     enum Type
       Vertex, Fragment
     end
     Vertex = Type::Vertex
     Fragment = Type::Fragment
-    
+
     def self.from_file(filename: String, type: Type)
       Shader.transfer_ptr(CSFML.shader_create_from_file(
         type == Vertex ? filename.to_unsafe : Pointer(UInt8).null,
         type == Fragment ? filename.to_unsafe : Pointer(UInt8).null
       ))
     end
-    
+
     def self.from_memory(shader: String, type: Type)
       Shader.transfer_ptr(CSFML.shader_create_from_memory(
         type == Vertex ? shader.to_unsafe : Pointer(UInt8).null,
         type == Fragment ? shader.to_unsafe : Pointer(UInt8).null
       ))
     end
-    
+
     def self.from_stream(stream: InputStream, type: Type)
       Shader.transfer_ptr(CSFML.shader_create_from_stream(
         type == Vertex ? stream.to_unsafe : Pointer(CSFML::InputStream).null,
         type == Fragment ? stream.to_unsafe : Pointer(CSFML::InputStream).null
       ))
     end
-    
+
     struct CurrentTextureType
     end
-    
+
     CurrentTexture = CurrentTextureType.new()
-    
+
     def set_parameter(name: String, current_texture: CurrentTextureType)
       CSFML.shader_set_current_texture_parameter(@this, name)
     end
-    
+
     def self.bind(shader: Shader?)
       CSFML.shader_bind(shader)
     end
   end
-  
+
   def vertex(position=SF.vector2(0.0, 0.0), color=Color::White, tex_coords=SF.vector2(0.0, 0.0))
     Vertex.new(position_: SF.vector2f(position), color: color, tex_coords_: SF.vector2f(tex_coords))
   end
-  
+
   class VertexArray
     def initialize(primitive_type: PrimitiveType, vertex_count=0)
       initialize()
       self.primitive_type = primitive_type
       self.resize(vertex_count)
     end
-    
+
     def [](index)
       get_vertex(index)[0]
     end
@@ -350,7 +350,7 @@ module SF
       target.draw_vertex_array(self, states)
     end
   end
-  
+
   class View
     def initialize(center, size)
       initialize()
@@ -358,12 +358,12 @@ module SF
       self.size = size
     end
   end
-  
+
   class RenderTexture
     def initialize(width, height)
       initialize(width, height, false)
     end
-    
+
     def draw(drawable, states=CSFML::RenderStates::Default)
       drawable.draw(self, states)
     end
@@ -375,7 +375,7 @@ module SF
       end
       CSFML.render_texture_draw_primitives(@this, vertices, LibC::SizeT.cast(vertices.length), type, pstates)
     end
-    
+
     def map_pixel_to_coords(point)
       point = SF.vector2i(point) unless point.is_a? Vector2i
       SF.vector2(CSFML.render_texture_map_pixel_to_coords(@this, point, nil))
@@ -385,12 +385,12 @@ module SF
       SF.vector2(CSFML.render_texture_map_coords_to_pixel(@this, point, nil))
     end
   end
-  
+
   class RenderWindow
     def initialize(mode: VideoMode, title: String, style=CSFML::WindowStyle::Default, settings=SF.context_settings())
       initialize(mode, title, style, settings)
     end
-    
+
     def draw(drawable, states=CSFML::RenderStates::Default)
       drawable.draw(self, states)
     end
@@ -402,7 +402,7 @@ module SF
       end
       CSFML.render_window_draw_primitives(@this, vertices, LibC::SizeT.cast(vertices.length), type, pstates)
     end
-    
+
     def poll_event()
       if CSFML.render_window_poll_event(@this, out event) != 0
         event
@@ -413,11 +413,11 @@ module SF
         event
       end
     end
-    
+
     def clear()
       clear(Color::Black)
     end
-    
+
     def map_pixel_to_coords(point)
       point = SF.vector2i(point) unless point.is_a? Vector2i
       SF.vector2(CSFML.render_window_map_pixel_to_coords(@this, point, nil))
@@ -441,7 +441,7 @@ end
 
 module SF
   # Include this module to get all methods of a `Transformable`
-  
+
   module TransformableM
     delegate_to_transformable(
       "position=(position)",

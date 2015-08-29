@@ -1,11 +1,11 @@
-*
 !.gitignore
 
+.crystal
 !README*
 !*.md
 !LICENSE
-!/src/
-!/src/*.cr
+/generate/headers_gen.h
+/generate/docs_gen.txt
 !/generate/
 !/generate/*.sh
 !/generate/*.py
