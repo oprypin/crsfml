@@ -974,7 +974,7 @@ module SF
   # Text event parameters
   #
   # * type : `EventType`
-  # * unicode : `UInt32`
+  # * unicode : `Char`
   #
   # Do not use `.new`; `SF` module may contain constructor methods for this struct.
   alias TextEvent = CSFML::TextEvent # struct
@@ -1201,7 +1201,7 @@ module SF
   # * antialiasing_level : `Int32`
   # * major_version : `Int32`
   # * minor_version : `Int32`
-  # * attribute_flags : `UInt32`
+  # * attribute_flags : `ContextAttribute`
   #
   # Do not use `.new`; `SF` module may contain constructor methods for this struct.
   alias ContextSettings = CSFML::ContextSettings # struct

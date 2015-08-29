@@ -184,6 +184,10 @@ def handle_struct(name, items):
     if d: obj(name+'ALIAS', d, '#')
     for t, n in items:
         t = rename_type(t)
+        if t=='UInt32' and n=='unicode':
+            t = 'Char'
+        elif t=='UInt32' and n=='attributeFlags':
+            t = 'ContextAttribute'
         if t in ['Vector2f', 'Vector2i']:
             t = 'Vector2'
         n = rename_identifier(n)
