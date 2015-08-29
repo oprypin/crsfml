@@ -101,9 +101,16 @@ def get_doc(indent=0):
     global doc
     if doc is None:
         return None
-    r = '\n'.join(indent*' '+'# '+l for l in doc.splitlines())
+
+    comments = ''
+
+    for line in doc.splitlines():
+        start = '# ' if line else '#'
+        comments += '\n' + indent * ' ' + start + line
+
     doc = None
-    return r
+
+    return comments.strip()
 
 enum_relations = {
     'JoystickAxis': 'Joystick',
@@ -675,8 +682,8 @@ for mod, lines in libs.items():
             f.write('require "./{}_lib"\n'.format(d))
         f.write('\n@[Link("csfml-{}")]\n'.format(mod))
         f.write('# :nodoc:\n')
-        f.write('lib CSFML\n')
-        f.write('\n'.join('  '+l for l in lines[1:]))
+        f.write('lib CSFML\n\n')
+        f.write('\n'.join((('  ' + line) if line else '') for line in lines[1:]))
         f.write('\nend\n')
 for mod, classes in objs.items():
     with open('{}_obj.cr'.format(mod), 'w', encoding='utf-8') as f:
@@ -690,15 +697,27 @@ for mod, classes in objs.items():
                 cls = cls[:-5]
             if cls in reimplemented:
                 continue
-            ind = 2
-            for i, l in enumerate(lines):
-                f.write(' '*ind + l + '\n')
-                if ind == 2 and not l.startswith('#'):
+
+            indent = 2
+
+            for i, line in enumerate(lines):
+                if line:
+                    f.write(' ' * indent + line + '\n')
+                else:
+                    f.write('\n')
+
+                if indent == 2 and not line.startswith('#'):
                     ii = i
-                    ind = 4
+                    indent = 4
+
             if not lines[ii].startswith('alias'):
                 f.write('  end\n')
             f.write('\n')
         if '' in classes:
-            f.write('\n'.join('  '+l for l in classes['']))
+            for line in classes['']:
+                if line:
+                    f.write('\n' + '  ' + line)
+                else:
+                    f.write('\n')
+
         f.write('\nend\n')
