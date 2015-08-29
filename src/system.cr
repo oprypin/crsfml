@@ -170,7 +170,7 @@ module SF
       @owned = true
       @func = Box.box(function)
       @this = CSFML.thread_create(
-        ->(data) { Box(->).unbox(data).call },
+        ->(ud) { Box(->).unbox(ud).call },
         @func
       )
     end
@@ -195,23 +195,23 @@ module SF
     
     def initialize
       @funcs = FuncBox.box({
-        ->(data: Pointer(Void), size: Int64) { read((data as Pointer(UInt8)).to_slice(size.to_i)).to_i64 },
+        ->(data: Void*, size: Int64) { read((data as Pointer(UInt8)).to_slice(size.to_i)).to_i64 },
         ->(position: Int64) { seek(position).to_i64 },
         -> { tell.to_i64 },
         -> { size.to_i64 }
       })
       @input_stream = CSFML::InputStream.new(
         read: ->(data: Void*, size: Int64, ud: Void*) {
-          FuncBox.unbox(ud)[0].call(data, size).to_i64
+          FuncBox.unbox(ud)[0].call(data, size)
         },
         seek: ->(position: Int64, ud: Void*) {
-          FuncBox.unbox(ud)[1].call(position).to_i64
+          FuncBox.unbox(ud)[1].call(position)
         },
         tell: ->(ud: Void*) {
-          FuncBox.unbox(ud)[2].call().to_i64
+          FuncBox.unbox(ud)[2].call()
         },
         get_size: ->(ud: Void*) {
-          FuncBox.unbox(ud)[3].call().to_i64
+          FuncBox.unbox(ud)[3].call()
         },
         user_data: @funcs
       )

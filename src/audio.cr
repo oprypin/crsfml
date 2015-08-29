@@ -56,6 +56,58 @@ module SF
       start(44100)
     end
   end
+  
+  class SoundStream
+    abstract def on_get_data(): Slice(Int16)
+    abstract def on_seek(position: Time): Void
+    
+    alias FuncBox = Box({(CSFML::SoundStreamChunk* -> CSFML::Bool), (Time -> Nil)})
+    
+    def initialize(channel_count: Int, sample_rate: Int)
+      @owned = true
+      @funcs = FuncBox.box({
+        ->(data: CSFML::SoundStreamChunk*) {
+          slice = on_get_data()
+          data.value.samples = slice.to_unsafe
+          data.value.sample_count = slice.length
+          slice.length > 0 ? 1 : 0
+        },
+        ->(time_offset: Time) { on_seek(time_offset); nil }
+      })
+      @this = CSFML.sound_stream_create(
+        ->(data, ud) { FuncBox.unbox(ud)[0].call(data) },
+        ->(time_offset, ud) { FuncBox.unbox(ud)[1].call(time_offset) if ud },
+        channel_count.to_i, sample_rate.to_i,
+        @funcs
+      )
+    end
+  end
+
+  class SoundRecorder
+    abstract def on_start(): Bool
+    abstract def on_process_samples(samples: Slice(Int16)): Bool
+    abstract def on_stop(): Void
+    
+    alias FuncBox = Box({(-> CSFML::Bool), ((Int16*, LibC::SizeT) -> CSFML::Bool), (-> Nil)})
+    
+    def initialize()
+      @owned = true
+      @funcs = FuncBox.box({
+        ->() { on_start() ? 1 : 0 },
+        ->(samples: Int16*, sample_count: LibC::SizeT) {
+          slice = samples.to_slice(sample_count.to_i)
+          on_process_samples(slice) ? 1 : 0
+        },
+        ->() { on_stop(); nil }
+      })
+      @this = CSFML.sound_recorder_create(
+        ->(ud) { FuncBox.unbox(ud)[0].call() },
+        ->(samples, sample_count, ud) { FuncBox.unbox(ud)[1].call(samples, sample_count) },
+        ->(ud) { FuncBox.unbox(ud)[2].call() },
+        @funcs
+      )
+    end
+  end
 end
 
 require "./audio_obj"

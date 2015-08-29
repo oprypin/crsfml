@@ -242,7 +242,7 @@ def handle_union(name, items):
 
 
 classes = set()
-reimplemented = {'Shape', 'InputStream'}
+reimplemented = {'Shape', 'InputStream', 'SoundStreamChunk'}
 def handle_class(name):
     pname = rename_sf(name)
     classes.add(pname)
@@ -384,8 +384,6 @@ def handle_function(main, params, alias=None):
             oparams[i:i+2] = [(oparams[i][0]+', '+oparams[i+1][0], 'Slice|Array')]
         i += 1
     
-    if 'Void*' in repr(oparams):
-        print(ofname, ftype, oparams)
     for i, (n, t) in enumerate(oparams):
         if t.rstrip('*') in reimplemented:
             t = t.rstrip('*')

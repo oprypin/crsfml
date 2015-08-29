@@ -77,6 +77,12 @@ Parts of the Shader example [from SFML][shader]
 
 - Basic OpenGL
 
+### [echo](echo.cr)
+
+- Record and play back the same stream
+    - `SoundRecorder`
+    - `SoundStream`
+
 ### [low_level](low_level.cr)
 
 **flippy_bird** using low-level API.

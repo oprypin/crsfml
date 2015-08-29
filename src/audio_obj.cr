@@ -1604,13 +1604,5 @@ module SF
     
   end
 
-  # defines the data to fill by the OnGetData callback
-  #
-  # * samples : `Int16*`
-  # * sample_count : `Int32`
-  #
-  # Do not use `.new`; `SF` module may contain constructor methods for this struct.
-  alias SoundStreamChunk = CSFML::SoundStreamChunk # struct
-
 
 end
