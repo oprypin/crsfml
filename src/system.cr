@@ -62,7 +62,7 @@ module SF
       SF.vector2(x - ox, y - oy)
     end
     def *(other)
-      if other.responds_to? :[]
+      if other.responds_to?(:[])
         ox, oy = other
         SF.vector2(x * ox, y * oy)
       else
@@ -224,7 +224,7 @@ module SF
   class FileInputStream < InputStream
     def initialize(@io)
       super()
-      if @io.responds_to? :"sync="
+      if @io.responds_to?(:"sync=")
         @io.sync = true
       end
     end
