@@ -28,6 +28,6 @@
   * [Spatialization: Sounds in 3D](audio-spatialization.md)
 * Network module
   * [Communication using sockets](network-socket.md)
-  * [Using and extending packets](network-packet.md)
+  * [Using packets](network-packet.md)
   * [Web requests with HTTP](network-http.md)
   * [File transfers with FTP](network-ftp.md)
