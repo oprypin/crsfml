@@ -21,9 +21,12 @@
 
 import os.path
 import re
+import sys
 
-
-inc_path = 'CSFML/include'
+try:
+    inc_path = sys.argv[1]
+except IndexError:
+    inc_path = 'CSFML/include'
 
 skip = 'WindowHandle'.split()
 
