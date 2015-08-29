@@ -190,12 +190,8 @@ module SF
     abstract def seek(position: Int): Int
     abstract def tell(): Int
     abstract def size(): Int
-<<<<<<< HEAD
-    
-    # :nodoc:
-=======
 
->>>>>>> Generate csfml lib files into lib/csfml/ directory
+    # :nodoc:
     alias FuncBox = Box({((Void*, Int64) -> Int64), ((Int64) -> Int64), (-> Int64), (-> Int64)})
 
     def initialize
