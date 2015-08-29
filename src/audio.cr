@@ -30,6 +30,12 @@ module SF
     end
   end
   
+  class SoundBuffer
+    def to_slice
+      samples.to_slice(sample_count.to_i)
+    end
+  end
+  
   class SoundRecorder
     def self.available_devices
       ptr = CSFML.sound_recorder_get_available_devices(out count)

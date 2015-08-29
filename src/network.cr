@@ -35,6 +35,9 @@ module SF
     def get_directory_listing()
       get_directory_listing("")
     end
+    #def send_command(command)
+      #send_command(command, "")
+    #end
   end
   
   def ip_address()
@@ -63,7 +66,7 @@ module SF
     end
     
     def send_request(request: SF::HttpRequest)
-      send_request(request, SF.milliseconds(0))
+      send_request(request, SF.microseconds(0))
     end
   end
   
@@ -95,6 +98,33 @@ module SF
     def wait()
       wait(SF::Time::Zero)
     end
+    def add(socket: TcpListener)
+      add_tcp_listener(socket)
+    end
+    def add(socket: TcpSocket)
+      add_tcp_socket(socket)
+    end
+    def add(socket: UdpSocket)
+      add_udp_socket(socket)
+    end
+    def remove(socket: TcpListener)
+      remove_tcp_listener(socket)
+    end
+    def remove(socket: TcpSocket)
+      remove_tcp_socket(socket)
+    end
+    def remove(socket: UdpSocket)
+      remove_udp_socket(socket)
+    end
+    def ready?(socket: TcpListener)
+      is_tcp_listener_ready(socket)
+    end
+    def ready?(socket: TcpSocket)
+      is_tcp_socket_ready(socket)
+    end
+    def ready?(socket: UdpSocket)
+      is_udp_socket_ready(socket)
+    end
   end
   
   class TcpSocket
@@ -102,14 +132,19 @@ module SF
       connect(host, port, SF::Time::Zero)
     end
     
-    def send_partial(data: Void*, size: Int): {SocketStatus, Int}
-      r = CSFML.tcp_socket_send_partial(@this, data, LibC::SizeT.cast(size), out sent)
+    def send_partial(data: Slice|Array)
+      data, size = (data.to_unsafe as Pointer(Void)), LibC::SizeT.cast(data.length*sizeof(typeof(data[0])))
+      r = CSFML.tcp_socket_send_partial(@this, data, size, out sent)
       {r, sent}
     end
-    
-    def receive(data: Void*, max_size: Int): {SocketStatus, Int}
-      r = CSFML.tcp_socket_receive(@this, data, LibC::SizeT.cast(max_size), out size_received)
+    def receive(data: Slice|Array)
+      data, max_size = (data.to_unsafe as Pointer(Void)), LibC::SizeT.cast(data.length*sizeof(typeof(data[0])))
+      r = CSFML.tcp_socket_receive(@this, data, max_size, out size_received)
       {r, size_received}
+    end
+    def receive_packet()
+      packet = SF::Packet.new
+      receive_packet(packet)
     end
   end
   
@@ -121,9 +156,19 @@ module SF
   end
   
   class UdpSocket
-    def receive(data: Void*, max_size: Int, size_received: SizeT*, address: IpAddress*, port: UInt16*): {SocketStatus, Int, IpAddress, UInt16}
-      r = CSFML.udp_socket_receive(@this, data, LibC::SizeT.cast(max_size), out size_received, out address, out port)
+    def receive(data: Slice|Array)
+      data, max_size = (data.to_unsafe as Pointer(Void)), LibC::SizeT.cast(data.length*sizeof(typeof(data[0])))
+      r = CSFML.udp_socket_receive(@this, data, max_size, out size_received, out address, out port)
       {r, size_received, address, port}
+    end
+    def receive_packet(packet: Packet)
+      CSFML.udp_socket_receive_packet(@this, packet, out address, out port)
+      {address, port}
+    end
+    def receive_packet
+      packet = SF::Packet.new
+      CSFML.udp_socket_receive_packet(@this, packet, out address, out port)
+      {packet, address, port}
     end
   end
 end
