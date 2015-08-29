@@ -1,8 +1,10 @@
-require "./common_lib"
+require "./common"
 
 @[Link("csfml-system")]
+
 # :nodoc:
 lib CSFML
+
   # Represents a time value
   struct Time
     microseconds: Int64

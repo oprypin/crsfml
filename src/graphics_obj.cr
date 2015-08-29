@@ -1,4 +1,4 @@
-require "./graphics_lib"
+require "./lib/csfml/graphics"
 require "./common_obj"
 
 module SF

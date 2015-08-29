@@ -1,4 +1,4 @@
-require "./network_lib"
+require "./lib/csfml/network"
 require "./common_obj"
 
 module SF

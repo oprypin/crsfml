@@ -1,4 +1,4 @@
-require "./system_lib"
+require "./lib/csfml/system"
 require "./common_obj"
 
 module SF

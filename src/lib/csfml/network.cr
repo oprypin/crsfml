@@ -1,9 +1,11 @@
-require "./common_lib"
-require "./system_lib"
+require "./common"
+require "./system"
 
 @[Link("csfml-network")]
+
 # :nodoc:
 lib CSFML
+
   # Encapsulate an IPv4 network address
   struct IpAddress
     address: UInt8[16]

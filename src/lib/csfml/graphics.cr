@@ -1,10 +1,12 @@
-require "./common_lib"
-require "./system_lib"
-require "./window_lib"
+require "./common"
+require "./system"
+require "./window"
 
 @[Link("csfml-graphics")]
+
 # :nodoc:
 lib CSFML
+
   # Enumeration of the blending factors
   enum BlendFactor
     Zero, One, SrcColor, OneMinusSrcColor, DstColor, OneMinusDstColor, SrcAlpha,

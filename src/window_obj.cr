@@ -1,4 +1,4 @@
-require "./window_lib"
+require "./lib/csfml/window"
 require "./common_obj"
 
 module SF

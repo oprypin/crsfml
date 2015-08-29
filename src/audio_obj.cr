@@ -1,4 +1,4 @@
-require "./audio_lib"
+require "./lib/csfml/audio"
 require "./common_obj"
 
 module SF
