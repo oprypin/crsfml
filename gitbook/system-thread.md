@@ -10,7 +10,7 @@ So, in short, threads are a way to do multiple things at the same time. This can
 
 ## SFML threads or alternatives?
 
-Multithreaded code is inherently unsafe. Crystal itself has a `Thread` class, but it is classified as internal, because better ways to do concurrency are being developed. Crystal's standard library is not intended to be used with raw threads. Exceptions break in additional threads...
+Multithreaded code is inherently unsafe. Crystal itself has a `Thread` class, but it is classified as internal, because better ways to do concurrency are being developed. Crystal's standard library is not intended to be used with raw threads. **Garbage collection in additional thread causes crashes.** Exceptions don't work either.
 
 Please make sure you know what you're doing before choosing SFML threads.
 
