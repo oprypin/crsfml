@@ -1,15 +1,15 @@
 # Copyright (C) 2015 Oleh Prypin <blaxpirit@gmail.com>
-# 
+#
 # This file is part of CrSFML.
-# 
+#
 # This software is provided 'as-is', without any express or implied
 # warranty. In no event will the authors be held liable for any damages
 # arising from the use of this software.
-# 
+#
 # Permission is granted to anyone to use this software for any purpose,
 # including commercial applications, and to alter it and redistribute it
 # freely, subject to the following restrictions:
-# 
+#
 # 1. The origin of this software must not be misrepresented; you must not
 #    claim that you wrote the original software. If you use this software
 #    in a product, an acknowledgement in the product documentation would be
@@ -22,31 +22,31 @@ require "./audio_lib"
 
 module SF
   extend self
-  
+
   class Sound
     def initialize(buffer: SoundBuffer)
       initialize()
       self.buffer = buffer
     end
   end
-  
+
   class SoundBuffer
     def to_slice
       samples.to_slice(sample_count.to_i)
     end
   end
-  
+
   class SoundRecorder
     def self.available_devices
       ptr = CSFML.sound_recorder_get_available_devices(out count)
       ptr.to_slice(count.to_i).map { |p| p ? String.new(p) : "" }
     end
-    
+
     def start()
       start(44100)
     end
   end
-  
+
   class SoundBufferRecorder
     def self.available?
       SoundRecorder.available?
@@ -57,19 +57,19 @@ module SF
     def self.available_devices
       SoundRecorder.available_devices
     end
-    
+
     def start()
       start(44100)
     end
   end
-  
+
   class SoundStream
     abstract def on_get_data(): Slice(Int16)
     abstract def on_seek(position: Time): Void
-    
+
     # :nodoc:
     alias FuncBox = Box({(CSFML::SoundStreamChunk* -> CSFML::Bool), (Time -> Nil)})
-    
+
     def initialize(channel_count: Int, sample_rate: Int)
       @owned = true
       @funcs = FuncBox.box({
@@ -94,10 +94,10 @@ module SF
     abstract def on_start(): Bool
     abstract def on_process_samples(samples: Slice(Int16)): Bool
     abstract def on_stop(): Void
-    
+
     # :nodoc:
     alias FuncBox = Box({(-> CSFML::Bool), ((Int16*, LibC::SizeT) -> CSFML::Bool), (-> Nil)})
-    
+
     def initialize()
       @owned = true
       @funcs = FuncBox.box({

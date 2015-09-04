@@ -1,15 +1,15 @@
 # Copyright (C) 2015 Oleh Prypin <blaxpirit@gmail.com>
-# 
+#
 # This file is part of CrSFML.
-# 
+#
 # This software is provided 'as-is', without any express or implied
 # warranty. In no event will the authors be held liable for any damages
 # arising from the use of this software.
-# 
+#
 # Permission is granted to anyone to use this software for any purpose,
 # including commercial applications, and to alter it and redistribute it
 # freely, subject to the following restrictions:
-# 
+#
 # 1. The origin of this software must not be misrepresented; you must not
 #    claim that you wrote the original software. If you use this software
 #    in a product, an acknowledgement in the product documentation would be
@@ -26,10 +26,10 @@ end
 
 module SF
   extend self
-  
+
   module Vector2M(T)
     include Enumerable(T)
-    
+
     def each
       yield @x
       yield @y
@@ -44,15 +44,15 @@ module SF
       end
     end
   end
-  
+
   struct Vector2(T)
     property x
     property y
     def initialize(@x: T, @y: T)
     end
-    
+
     include Vector2M(T)
-    
+
     def +(other)
       ox, oy = other
       SF.vector2(x + ox, y + oy)
@@ -77,7 +77,7 @@ module SF
       x == ox && y == oy
     end
   end
-  
+
   def vector2(x: Number, y: Number)
     Vector2.new(x, y)
   end
@@ -109,7 +109,7 @@ module SF
   def vector2(v: Vector2i)
     Vector2.new(v.x, v.y)
   end
-  
+
   struct CSFML::Vector2f
     include SF::Vector2M(T)
   end
@@ -120,7 +120,7 @@ module SF
     x, y = v
     vector2f(x, y)
   end
-  
+
   struct CSFML::Vector2i
     include SF::Vector2M(T)
   end
@@ -131,20 +131,20 @@ module SF
     x, y = v
     vector2i(x, y)
   end
-  
+
   def vector3f(x: Number, y: Number, z: Number)
     SF::Vector3f.new(x: x.to_f32, y: y.to_f32, z: z.to_f32)
   end
-  
+
   struct CSFML::Time
     Zero = SF.microseconds(0)
-    
+
     include Comparable(Time)
-    
+
     def <=>(other: Time)
       microseconds <=> other.microseconds
     end
-    
+
     def -
       SF.microseconds(-microseconds)
     end
@@ -164,7 +164,7 @@ module SF
       microseconds.fdiv other.microseconds # /
     end
   end
-  
+
   class Thread
     def initialize(function: ->)
       @owned = true
@@ -175,7 +175,7 @@ module SF
       )
     end
   end
-  
+
   struct Lock
     def initialize(@mutex)
       @mutex.lock
@@ -184,16 +184,16 @@ module SF
       @mutex.unlock
     end
   end
-  
+
   abstract class InputStream
     abstract def read(buffer: Slice(UInt8)): Int
     abstract def seek(position: Int): Int
     abstract def tell(): Int
     abstract def size(): Int
-    
+
     # :nodoc:
     alias FuncBox = Box({((Void*, Int64) -> Int64), ((Int64) -> Int64), (-> Int64), (-> Int64)})
-    
+
     def initialize
       @funcs = FuncBox.box({
         ->(data: Void*, size: Int64) { read((data as Pointer(UInt8)).to_slice(size.to_i)).to_i64 },
@@ -221,7 +221,7 @@ module SF
       pointerof(@input_stream)
     end
   end
-  
+
   class FileInputStream < InputStream
     def initialize(@io)
       super()
@@ -246,7 +246,7 @@ module SF
       io.size
     end
   end
-  
+
   class MemoryInputStream < InputStream
     def initialize(@data: Slice(UInt8))
       super()
