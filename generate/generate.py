@@ -714,10 +714,6 @@ for mod, classes in objs.items():
                 f.write('  end\n')
             f.write('\n')
         if '' in classes:
-            for line in classes['']:
-                if line:
-                    f.write('\n' + '  ' + line)
-                else:
-                    f.write('\n')
+            f.write('\n'.join('  ' + line if line else '' for line in classes['']))
 
         f.write('\nend\n')
