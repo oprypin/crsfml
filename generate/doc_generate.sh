@@ -15,13 +15,15 @@ rm -r doc/*
 # Use $1 (default `crystal`) to generate docs
 ${1:-crystal} doc
 
+rm -r src
+
 # Find the current tag or commit name
 TAG=$(git describe --tags --exact-match || git rev-parse HEAD)
 
 # Replace commit name with tag name in links
 find doc/ -type f -exec sed -i -r -e "s,blob/$(git rev-parse HEAD),blob/$TAG,g" {} \;
 
-LOGO='<a href="https://github.com/BlaXpirit/crsfml"><img src="https://raw.githubusercontent.com/BlaXpirit/crsfml/master/logo.png" alt="CrSFML" height="64"/></a>'
+LOGO='<a href="https://github.com/BlaXpirit/crsfml#readme"><img src="https://raw.githubusercontent.com/BlaXpirit/crsfml/master/logo.png" alt="CrSFML" height="64"/></a>'
 # Replace README link with CrSFML
 find doc/ -type f -exec sed -i -r -e "s,<a.+>README</a>,$LOGO," {} \;
 
@@ -33,9 +35,7 @@ CSFML_TAG=$(cd CSFML && git describe --tags --exact-match)
 
 # Add links to SFML docs
 if [ ! -z "$CSFML_TAG" ]; then
-
-find doc/ -type f -exec sed -i -r -e 's,(class="kind">(class|struct).+)(SF::([A-Za-z0-9]+)),\1<a href="http://www.sfml-dev.org/documentation/'"$CSFML_TAG"'/classsf_1_1\4.php" title="Go to SFML documentation for \4">\3</a>,' {} \;
-
+    find doc/ -type f -exec sed -i -r -e 's,(class="kind">(class|struct).+)(SF::([A-Za-z0-9]+)),\1<a href="http://www.sfml-dev.org/documentation/'"$CSFML_TAG"'/classsf_1_1\4.php" title="Go to SFML documentation for \4">\3</a>,' {} \;
 fi
 
 
