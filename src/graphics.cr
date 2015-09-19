@@ -379,7 +379,7 @@ module SF
       else
         pstates = nil
       end
-      CSFML.render_texture_draw_primitives(@this, vertices, LibC::SizeT.cast(vertices.length), type, pstates)
+      CSFML.render_texture_draw_primitives(@this, vertices, LibC::SizeT.new(vertices.size), type, pstates)
     end
 
     def map_pixel_to_coords(point)
@@ -406,7 +406,7 @@ module SF
       else
         pstates = nil
       end
-      CSFML.render_window_draw_primitives(@this, vertices, LibC::SizeT.cast(vertices.length), type, pstates)
+      CSFML.render_window_draw_primitives(@this, vertices, LibC::SizeT.new(vertices.size), type, pstates)
     end
 
     def poll_event()

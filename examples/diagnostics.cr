@@ -146,7 +146,7 @@ def test_controller()
       begin
         delta = button_pos[btn]
       rescue
-        delta = {0, button_pos.length - btn - 1}
+        delta = {0, button_pos.size - btn - 1}
       end
       shape.position = SF.vector2(400, 300) + SF.vector2(delta) * {30, 30}
       text.position = shape.position

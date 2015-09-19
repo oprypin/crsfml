@@ -133,12 +133,12 @@ module SF
     end
 
     def send_partial(data: Slice|Array)
-      data, size = (data.to_unsafe as Pointer(Void)), LibC::SizeT.cast(data.length*sizeof(typeof(data[0])))
+      data, size = (data.to_unsafe as Pointer(Void)), LibC::SizeT.new(data.size*sizeof(typeof(data[0])))
       r = CSFML.tcp_socket_send_partial(@this, data, size, out sent)
       {r, sent}
     end
     def receive(data: Slice|Array)
-      data, max_size = (data.to_unsafe as Pointer(Void)), LibC::SizeT.cast(data.length*sizeof(typeof(data[0])))
+      data, max_size = (data.to_unsafe as Pointer(Void)), LibC::SizeT.new(data.size*sizeof(typeof(data[0])))
       r = CSFML.tcp_socket_receive(@this, data, max_size, out size_received)
       {r, size_received}
     end
@@ -157,7 +157,7 @@ module SF
 
   class UdpSocket
     def receive(data: Slice|Array)
-      data, max_size = (data.to_unsafe as Pointer(Void)), LibC::SizeT.cast(data.length*sizeof(typeof(data[0])))
+      data, max_size = (data.to_unsafe as Pointer(Void)), LibC::SizeT.new(data.size*sizeof(typeof(data[0])))
       r = CSFML.udp_socket_receive(@this, data, max_size, out size_received, out address, out port)
       {r, size_received, address, port}
     end

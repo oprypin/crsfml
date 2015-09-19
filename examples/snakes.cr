@@ -11,7 +11,7 @@ Directions = [Left, Up, Right, Down]
 # Missing functionality from Ruby
 module Enumerable
   def drop(n)
-    self[n...length]
+    self[n...size]
   end
 end
 
@@ -95,7 +95,7 @@ class Snake
         td.y %= @field.size.y
         
         if (i > 0 && td == @body[i-1]) ||\
-        (i < @body.length-1 && td == @body[i+1])
+        (i < @body.size-1 && td == @body[i+1])
           connection = SF::RectangleShape.new({0.9, 0.9})
           connection.position = current + d / 2.0 + {0.05, 0.05}
           connection.fill_color = @color
@@ -134,7 +134,7 @@ class Field
   end
   
   def step()
-    while @foods.length < @snakes.length + 1
+    while @foods.size < @snakes.size + 1
       food = Food.new(SF.vector2(rand(@size.x), rand(@size.y)), random_color())
       
       @foods.push food unless @snakes.any? do |snake|

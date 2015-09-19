@@ -11,7 +11,7 @@ unless SF::SoundRecorder.available?
 end
 
 puts "Please choose the sample rate for sound capture (44100 is CD quality):"
-sample_rate = gets().to_i
+sample_rate = gets().not_nil!.to_i
 
 recorder = SF::SoundBufferRecorder.new()
 

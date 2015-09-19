@@ -34,7 +34,7 @@ module SF
       yield @x
       yield @y
     end
-    def length
+    def size
       2
     end
     def [](i)
@@ -234,7 +234,7 @@ module SF
     end
     property io
     def read(buffer)
-      io.read(buffer, buffer.length)
+      io.read(buffer, buffer.size)
     end
     def seek(position)
       io.seek(position)
@@ -253,21 +253,21 @@ module SF
       @position = 0
     end
     def read(buffer)
-      finish = Math.min(@position + buffer.length, @data.length)
+      finish = Math.min(@position + buffer.size, @data.size)
       to_read = finish - @position
       buffer.copy_from(@data.to_unsafe + @position, to_read)
       @position = finish
       to_read
     end
     def seek(position)
-      return -1 unless 0 <= position < @data.length
+      return -1 unless 0 <= position < @data.size
       @position = position
     end
     def tell
       @position
     end
     def size
-      @data.length
+      @data.size
     end
   end
 end

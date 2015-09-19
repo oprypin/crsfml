@@ -180,7 +180,7 @@ module SF
     #
     # *Returns*: A new Music object (raises `NullResult` if failed)
     def self.from_memory(data: Slice|Array)
-      data, size_in_bytes = (data.to_unsafe as Pointer(Void)), LibC::SizeT.cast(data.length*sizeof(typeof(data[0])))
+      data, size_in_bytes = (data.to_unsafe as Pointer(Void)), LibC::SizeT.new(data.size*sizeof(typeof(data[0])))
       Music.transfer_ptr(CSFML.music_create_from_memory(data, size_in_bytes))
     end
 
@@ -877,7 +877,7 @@ module SF
     #
     # *Returns*: A new SoundBuffer object (raises `NullResult` if failed)
     def self.from_memory(data: Slice|Array)
-      data, size_in_bytes = (data.to_unsafe as Pointer(Void)), LibC::SizeT.cast(data.length*sizeof(typeof(data[0])))
+      data, size_in_bytes = (data.to_unsafe as Pointer(Void)), LibC::SizeT.new(data.size*sizeof(typeof(data[0])))
       SoundBuffer.transfer_ptr(CSFML.sound_buffer_create_from_memory(data, size_in_bytes))
     end
 
@@ -910,7 +910,7 @@ module SF
     #
     # *Returns*: A new SoundBuffer object (raises `NullResult` if failed)
     def self.from_samples(samples: Slice(Int16)|Array(Int16), channel_count: Int, sample_rate: Int)
-      samples, sample_count = samples.to_unsafe, LibC::SizeT.cast(samples.length*sizeof(typeof(samples[0])))
+      samples, sample_count = samples.to_unsafe, LibC::SizeT.new(samples.size*sizeof(typeof(samples[0])))
       channel_count = channel_count.to_i32
       sample_rate = sample_rate.to_i32
       SoundBuffer.transfer_ptr(CSFML.sound_buffer_create_from_samples(samples, sample_count, channel_count, sample_rate))

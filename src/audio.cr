@@ -76,8 +76,8 @@ module SF
         ->(data: CSFML::SoundStreamChunk*) {
           slice = on_get_data()
           data.value.samples = slice.to_unsafe
-          data.value.sample_count = slice.length
-          slice.length > 0 ? 1 : 0
+          data.value.sample_count = slice.size
+          slice.size > 0 ? 1 : 0
         },
         ->(time_offset: Time) { on_seek(time_offset); nil }
       })

@@ -544,7 +544,7 @@ module SF
     #
     # *Returns*: Index-th point of the shape
     def get_point(index: Int)
-      index = LibC::SizeT.cast(index)
+      index = LibC::SizeT.new(index)
       SF.vector2(CSFML.circle_shape_get_point(@this, index))
     end
 
@@ -577,7 +577,7 @@ module SF
     # * `shape`: Shape object
     # * `count`: New number of points of the circle
     def point_count=(count: Int)
-      count = LibC::SizeT.cast(count)
+      count = LibC::SizeT.new(count)
       CSFML.circle_shape_set_point_count(@this, count)
     end
 
@@ -984,7 +984,7 @@ module SF
     #
     # *Returns*: Index-th point of the shape
     def get_point(index: Int)
-      index = LibC::SizeT.cast(index)
+      index = LibC::SizeT.new(index)
       SF.vector2(CSFML.convex_shape_get_point(@this, index))
     end
 
@@ -997,7 +997,7 @@ module SF
     # * `shape`: Shape object
     # * `count`: New number of points of the shape
     def point_count=(count: Int)
-      count = LibC::SizeT.cast(count)
+      count = LibC::SizeT.new(count)
       CSFML.convex_shape_set_point_count(@this, count)
     end
 
@@ -1015,7 +1015,7 @@ module SF
     # * `index`: Index of the point to change, in range [0 .. GetPointCount() - 1]
     # * `point`: New point
     def set_point(index: Int, point)
-      index = LibC::SizeT.cast(index)
+      index = LibC::SizeT.new(index)
       point = SF.vector2f(point) unless point.is_a? Vector2f
       CSFML.convex_shape_set_point(@this, index, point)
     end
@@ -1079,7 +1079,7 @@ module SF
     #
     # *Returns*: A new Font object, or raises `NullResult` if it failed
     def self.from_memory(data: Slice|Array)
-      data, size_in_bytes = (data.to_unsafe as Pointer(Void)), LibC::SizeT.cast(data.length*sizeof(typeof(data[0])))
+      data, size_in_bytes = (data.to_unsafe as Pointer(Void)), LibC::SizeT.new(data.size*sizeof(typeof(data[0])))
       Font.transfer_ptr(CSFML.font_create_from_memory(data, size_in_bytes))
     end
 
@@ -1304,7 +1304,7 @@ module SF
     #
     # *Returns*: A new Image object, or raises `NullResult` if it failed
     def self.from_memory(data: Slice|Array)
-      data, size = (data.to_unsafe as Pointer(Void)), LibC::SizeT.cast(data.length*sizeof(typeof(data[0])))
+      data, size = (data.to_unsafe as Pointer(Void)), LibC::SizeT.new(data.size*sizeof(typeof(data[0])))
       Image.transfer_ptr(CSFML.image_create_from_memory(data, size))
     end
 
@@ -2165,7 +2165,7 @@ module SF
     #
     # *Returns*: Index-th point of the shape
     def get_point(index: Int)
-      index = LibC::SizeT.cast(index)
+      index = LibC::SizeT.new(index)
       SF.vector2(CSFML.rectangle_shape_get_point(@this, index))
     end
 
@@ -2466,7 +2466,7 @@ module SF
     # * `type`: Type of primitives to draw
     # * `states`: Render states to use for drawing (NULL to use the default states)
     def draw_primitives(vertices: Slice(Vertex)|Array(Vertex), type: PrimitiveType, states)
-      vertices, vertex_count = vertices.to_unsafe, LibC::SizeT.cast(vertices.length*sizeof(typeof(vertices[0])))
+      vertices, vertex_count = vertices.to_unsafe, LibC::SizeT.new(vertices.size*sizeof(typeof(vertices[0])))
       if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
       elsif states; cstates = states; pstates = pointerof(cstates)
       else; pstates = nil; end
@@ -3052,7 +3052,7 @@ module SF
     # * `type`: Type of primitives to draw
     # * `states`: Render states to use for drawing (NULL to use the default states)
     def draw_primitives(vertices: Slice(Vertex)|Array(Vertex), type: PrimitiveType, states)
-      vertices, vertex_count = vertices.to_unsafe, LibC::SizeT.cast(vertices.length*sizeof(typeof(vertices[0])))
+      vertices, vertex_count = vertices.to_unsafe, LibC::SizeT.new(vertices.size*sizeof(typeof(vertices[0])))
       if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
       elsif states; cstates = states; pstates = pointerof(cstates)
       else; pstates = nil; end
@@ -3815,7 +3815,7 @@ module SF
     #
     # *Returns*: Position of the character
     def find_character_pos(index: Int)
-      index = LibC::SizeT.cast(index)
+      index = LibC::SizeT.new(index)
       SF.vector2(CSFML.text_find_character_pos(@this, index))
     end
 
@@ -3898,7 +3898,7 @@ module SF
     #
     # *Returns*: A new Texture object, or raises `NullResult` if it failed
     def self.from_memory(data: Slice|Array, area)
-      data, size_in_bytes = (data.to_unsafe as Pointer(Void)), LibC::SizeT.cast(data.length*sizeof(typeof(data[0])))
+      data, size_in_bytes = (data.to_unsafe as Pointer(Void)), LibC::SizeT.new(data.size*sizeof(typeof(data[0])))
       if area.responds_to?(:to_unsafe); parea = area.to_unsafe
       elsif area; carea = area; parea = pointerof(carea)
       else; parea = nil; end
@@ -4399,7 +4399,7 @@ module SF
     #
     # *Returns*: Pointer to the index-th vertex
     def get_vertex(index: Int)
-      index = LibC::SizeT.cast(index)
+      index = LibC::SizeT.new(index)
       CSFML.vertex_array_get_vertex(@this, index)
     end
 
@@ -4430,7 +4430,7 @@ module SF
     # * `vertex_array`: Vertex array objet
     # * `vertex_count`: New size of the array (number of vertices)
     def resize(vertex_count: Int)
-      vertex_count = LibC::SizeT.cast(vertex_count)
+      vertex_count = LibC::SizeT.new(vertex_count)
       CSFML.vertex_array_resize(@this, vertex_count)
     end
 

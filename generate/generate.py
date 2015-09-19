@@ -419,7 +419,7 @@ def handle_function(main, params, alias=None):
             conv.append('{0} = {0}.to_i32'.format(n))
         elif t == 'LibC::SizeT':
             t = 'Int'
-            conv.append('{0} = LibC::SizeT.cast({0})'.format(n))
+            conv.append('{0} = LibC::SizeT.new({0})'.format(n))
         elif t == 'UInt64':
             t = 'Int'
             conv.append('{0} = {0}.to_u64'.format(n))
@@ -433,9 +433,9 @@ def handle_function(main, params, alias=None):
             conv.append('{0} = SF.{2}({0}) unless {0}.is_a? {1}'.format(n, t, t.lower()))
             t = None
         elif t == 'Slice|Array':
-            conv.append('{0} = ({1}.to_unsafe as Pointer(Void)), LibC::SizeT.cast({1}.length*sizeof(typeof({1}[0])))'.format(n, n.split(', ')[0]))
+            conv.append('{0} = ({1}.to_unsafe as Pointer(Void)), LibC::SizeT.new({1}.size*sizeof(typeof({1}[0])))'.format(n, n.split(', ')[0]))
         elif 'Slice(' in t:
-            conv.append('{0} = {1}.to_unsafe, LibC::SizeT.cast({1}.length*sizeof(typeof({1}[0])))'.format(n, n.split(', ')[0]))
+            conv.append('{0} = {1}.to_unsafe, LibC::SizeT.new({1}.size*sizeof(typeof({1}[0])))'.format(n, n.split(', ')[0]))
         if n in const and t not in classes:
             conv += (
                 'if {0}.responds_to?(:to_unsafe); '

@@ -1,5 +1,21 @@
 require "crsfml"
 
+class CustomShape < SF::Shape
+  def point_count
+    3
+  end
+  def get_point(i)
+    case i
+    when 0
+      SF.vector2(100, 200)
+    when 1
+      SF.vector2(200, 200)
+    else
+      SF.vector2(200, 100)
+    end
+  end
+end
+
 window = SF::RenderWindow.new(
   SF.video_mode(200, 200), "Shapes",
   settings: SF.context_settings(depth: 24, antialiasing: 8)
@@ -37,21 +53,6 @@ while window.open?
   window.draw convex_shape
   
   # Bottom right
-  class CustomShape < SF::Shape
-    def point_count
-      3
-    end
-    def get_point(i)
-      case i
-      when 0
-        SF.vector2(100, 200)
-      when 1
-        SF.vector2(200, 200)
-      else
-        SF.vector2(200, 100)
-      end
-    end
-  end
   custom_shape = CustomShape.new()
   custom_shape.fill_color = SF::Color::Green
   window.draw custom_shape
