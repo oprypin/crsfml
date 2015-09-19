@@ -566,27 +566,6 @@ module SF
       FtpResponse.wrap_ptr(CSFML.ftp_upload(@this, local_file, dest_path, mode))
     end
 
-    # Send a command to the FTP server
-    #
-    # While the most often used commands are provided as member
-    # functions in the Ftp class, this method can be used
-    # to send any FTP command to the server. If the command
-    # requires one or more parameters, they can be specified
-    # in `parameter`. Otherwise it should be an empty string.
-    # If the server returns information, you can extract it
-    # from the response using Response_getMessage().
-    #
-    # *Arguments*:
-    #
-    # * `ftp`: Ftp object
-    # * `command`: Command to send
-    # * `parameter`: Command parameter
-    #
-    # *Returns*: Server response to the request
-    def send_command(command: String, parameter: String)
-      FtpResponse.wrap_ptr(CSFML.ftp_send_command(@this, command, parameter))
-    end
-
   end
 
   class HttpRequest

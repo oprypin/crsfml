@@ -519,25 +519,6 @@ lib CSFML
   # *Returns*: Server response to the request
   fun ftp_upload = sfFtp_upload(ftp: Ftp, local_file: LibC::Char*, dest_path: LibC::Char*, mode: FtpTransferMode): FtpResponse
 
-  # Send a command to the FTP server
-  #
-  # While the most often used commands are provided as member
-  # functions in the Ftp class, this method can be used
-  # to send any FTP command to the server. If the command
-  # requires one or more parameters, they can be specified
-  # in `parameter`. Otherwise it should be an empty string.
-  # If the server returns information, you can extract it
-  # from the response using Response_getMessage().
-  #
-  # *Arguments*:
-  #
-  # * `ftp`: Ftp object
-  # * `command`: Command to send
-  # * `parameter`: Command parameter
-  #
-  # *Returns*: Server response to the request
-  fun ftp_send_command = sfFtp_sendCommand(ftp: Ftp, command: LibC::Char*, parameter: LibC::Char*): FtpResponse
-
   # Enumerate the available HTTP methods for a request
   enum HttpMethod
     Get, Post, Head, Put, Delete
