@@ -42,15 +42,17 @@ One of the typical problems is incompatible versions of SFML and CSFML. CSFML la
 
 Source libraries for Crystal are not installed globally. To use CrSFML in your project you need to have its source files available in the *libs/crsfml* subfolder.
 
-The easiest way to do this is to create a *Projectfile* in your project's folder (or add to it) with the following contents:
+To do this manually: get [the *src* folder](https://github.com/BlaXpirit/crsfml/tree/master/src), rename it to *crsfml* and put it into *libs* folder in your project's folder.
 
-```ruby
-deps do
-  github "BlaXpirit/crsfml"
-end
+The proper way to do this is to create a *shard.yml* file in your project's folder (or add to it) with the following contents:
+
+```yaml
+name: awesome-game
+
+dependencies:
+  crsfml:
+    github: BlaXpirit/crsfml
 ```
-
-**[An example Projectfile](https://github.com/BlaXpirit/crsfml-examples/blob/master/cube/Projectfile)**
 
 Then running `crystal deps` downloads and puts CrSFML in the mentioned subfolder automatically.
 
