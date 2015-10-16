@@ -6,7 +6,7 @@ lib CSFML
 
   # Represents a time value
   struct Time
-    microseconds: Int64
+    microseconds : Int64
   end
 
   # Return a time value as a number of seconds
@@ -16,7 +16,7 @@ lib CSFML
   # * `time`: Time value
   #
   # *Returns*: Time in seconds
-  fun time_as_seconds = sfTime_asSeconds(time: Time): Float32
+  fun time_as_seconds = sfTime_asSeconds(time : Time): Float32
 
   # Return a time value as a number of milliseconds
   #
@@ -25,7 +25,7 @@ lib CSFML
   # * `time`: Time value
   #
   # *Returns*: Time in milliseconds
-  fun time_as_milliseconds = sfTime_asMilliseconds(time: Time): Int32
+  fun time_as_milliseconds = sfTime_asMilliseconds(time : Time): Int32
 
   # Return a time value as a number of microseconds
   #
@@ -34,7 +34,7 @@ lib CSFML
   # * `time`: Time value
   #
   # *Returns*: Time in microseconds
-  fun time_as_microseconds = sfTime_asMicroseconds(time: Time): Int64
+  fun time_as_microseconds = sfTime_asMicroseconds(time : Time): Int64
 
   # Construct a time value from a number of seconds
   #
@@ -43,7 +43,7 @@ lib CSFML
   # * `amount`: Number of seconds
   #
   # *Returns*: Time value constructed from the amount of seconds
-  fun seconds = sfSeconds(amount: Float32): Time
+  fun seconds = sfSeconds(amount : Float32): Time
 
   # Construct a time value from a number of milliseconds
   #
@@ -52,7 +52,7 @@ lib CSFML
   # * `amount`: Number of milliseconds
   #
   # *Returns*: Time value constructed from the amount of milliseconds
-  fun milliseconds = sfMilliseconds(amount: Int32): Time
+  fun milliseconds = sfMilliseconds(amount : Int32): Time
 
   # Construct a time value from a number of microseconds
   #
@@ -61,7 +61,7 @@ lib CSFML
   # * `amount`: Number of microseconds
   #
   # *Returns*: Time value constructed from the amount of microseconds
-  fun microseconds = sfMicroseconds(amount: Int64): Time
+  fun microseconds = sfMicroseconds(amount : Int64): Time
 
   type Clock = Void*
 
@@ -81,14 +81,14 @@ lib CSFML
   # * `clock`: Clock to copy
   #
   # *Returns*: A new Clock object which is a copy of `clock`
-  fun clock_copy = sfClock_copy(clock: Clock): Clock
+  fun clock_copy = sfClock_copy(clock : Clock): Clock
 
   # Destroy a clock
   #
   # *Arguments*:
   #
   # * `clock`: Clock to destroy
-  fun clock_destroy = sfClock_destroy(clock: Clock)
+  fun clock_destroy = sfClock_destroy(clock : Clock)
 
   # Get the time elapsed in a clock
   #
@@ -101,7 +101,7 @@ lib CSFML
   # * `clock`: Clock object
   #
   # *Returns*: Time elapsed
-  fun clock_get_elapsed_time = sfClock_getElapsedTime(clock: Clock): Time
+  fun clock_get_elapsed_time = sfClock_getElapsedTime(clock : Clock): Time
 
   # Restart a clock
   #
@@ -113,7 +113,7 @@ lib CSFML
   # * `clock`: Clock object
   #
   # *Returns*: Time elapsed
-  fun clock_restart = sfClock_restart(clock: Clock): Time
+  fun clock_restart = sfClock_restart(clock : Clock): Time
 
   alias InputStreamReadFunc = (Void*, Int64, Void*) -> Int64
   alias InputStreamSeekFunc = (Int64, Void*) -> Int64
@@ -121,11 +121,11 @@ lib CSFML
   alias InputStreamGetSizeFunc = (Void*) -> Int64
   # Set of callbacks that allow users to define custom file streams
   struct InputStream
-    read: InputStreamReadFunc
-    seek: InputStreamSeekFunc
-    tell: InputStreamTellFunc
-    get_size: InputStreamGetSizeFunc
-    user_data: Void*
+    read : InputStreamReadFunc
+    seek : InputStreamSeekFunc
+    tell : InputStreamTellFunc
+    get_size : InputStreamGetSizeFunc
+    user_data : Void*
   end
 
   # Create a new mutex
@@ -138,21 +138,21 @@ lib CSFML
   # *Arguments*:
   #
   # * `mutex`: Mutex to destroy
-  fun mutex_destroy = sfMutex_destroy(mutex: Mutex)
+  fun mutex_destroy = sfMutex_destroy(mutex : Mutex)
 
   # Lock a mutex
   #
   # *Arguments*:
   #
   # * `mutex`: Mutex object
-  fun mutex_lock = sfMutex_lock(mutex: Mutex)
+  fun mutex_lock = sfMutex_lock(mutex : Mutex)
 
   # Unlock a mutex
   #
   # *Arguments*:
   #
   # * `mutex`: Mutex object
-  fun mutex_unlock = sfMutex_unlock(mutex: Mutex)
+  fun mutex_unlock = sfMutex_unlock(mutex : Mutex)
 
   # Make the current thread sleep for a given duration
   #
@@ -162,7 +162,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `duration`: Time to sleep
-  fun sleep = sfSleep(duration: Time)
+  fun sleep = sfSleep(duration : Time)
 
   # Destroy a thread
   #
@@ -172,7 +172,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `thread`: Thread to destroy
-  fun thread_destroy = sfThread_destroy(thread: Thread)
+  fun thread_destroy = sfThread_destroy(thread : Thread)
 
   # Run a thread
   #
@@ -184,7 +184,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `thread`: Thread object
-  fun thread_launch = sfThread_launch(thread: Thread)
+  fun thread_launch = sfThread_launch(thread : Thread)
 
   # Wait until a thread finishes
   #
@@ -198,7 +198,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `thread`: Thread object
-  fun thread_wait = sfThread_wait(thread: Thread)
+  fun thread_wait = sfThread_wait(thread : Thread)
 
   # Terminate a thread
   #
@@ -212,25 +212,25 @@ lib CSFML
   # *Arguments*:
   #
   # * `thread`: Thread object
-  fun thread_terminate = sfThread_terminate(thread: Thread)
+  fun thread_terminate = sfThread_terminate(thread : Thread)
 
   # 2-component vector of integers
   struct Vector2i
-    x: Int32
-    y: Int32
+    x : Int32
+    y : Int32
   end
 
   # 2-component vector of floats
   struct Vector2f
-    x: Float32
-    y: Float32
+    x : Float32
+    y : Float32
   end
 
   # 3-component vector of floats
   struct Vector3f
-    x: Float32
-    y: Float32
-    z: Float32
+    x : Float32
+    y : Float32
+    z : Float32
   end
 
 end

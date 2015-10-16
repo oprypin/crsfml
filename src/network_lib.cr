@@ -7,7 +7,7 @@ lib CSFML
 
   # Encapsulate an IPv4 network address
   struct IpAddress
-    address: LibC::Char[16]
+    address : LibC::Char[16]
   end
 
   # Create an address from a string
@@ -20,7 +20,7 @@ lib CSFML
   # * `address`: IP address or network name
   #
   # *Returns*: Resulting address
-  fun ip_address_from_string = sfIpAddress_fromString(address: LibC::Char*): IpAddress
+  fun ip_address_from_string = sfIpAddress_fromString(address : LibC::Char*): IpAddress
 
   # Create an address from 4 bytes
   #
@@ -37,7 +37,7 @@ lib CSFML
   # * `byte3`: Fourth byte of the address
   #
   # *Returns*: Resulting address
-  fun ip_address_from_bytes = sfIpAddress_fromBytes(byte0: UInt8, byte1: UInt8, byte2: UInt8, byte3: UInt8): IpAddress
+  fun ip_address_from_bytes = sfIpAddress_fromBytes(byte0 : UInt8, byte1 : UInt8, byte2 : UInt8, byte3 : UInt8): IpAddress
 
   # Construct an address from a 32-bits integer
   #
@@ -51,7 +51,7 @@ lib CSFML
   # * `address`: 4 bytes of the address packed into a 32-bits integer
   #
   # *Returns*: Resulting address
-  fun ip_address_from_integer = sfIpAddress_fromInteger(address: UInt32): IpAddress
+  fun ip_address_from_integer = sfIpAddress_fromInteger(address : UInt32): IpAddress
 
   # Get a string representation of an address
   #
@@ -64,7 +64,7 @@ lib CSFML
   # * `address`: Address object
   #
   # *Returns*: String representation of the address
-  fun ip_address_to_string = sfIpAddress_toString(address: IpAddress, string: LibC::Char*)
+  fun ip_address_to_string = sfIpAddress_toString(address : IpAddress, string : LibC::Char*)
 
   # Get an integer representation of the address
   #
@@ -79,7 +79,7 @@ lib CSFML
   # * `address`: Address object
   #
   # *Returns*: 32-bits unsigned integer representation of the address
-  fun ip_address_to_integer = sfIpAddress_toInteger(address: IpAddress): UInt32
+  fun ip_address_to_integer = sfIpAddress_toInteger(address : IpAddress): UInt32
 
   # Get the computer's local address
   #
@@ -111,7 +111,7 @@ lib CSFML
   # * `timeout`: Maximum time to wait
   #
   # *Returns*: Public IP address of the computer
-  fun ip_address_get_public_address = sfIpAddress_getPublicAddress(timeout: Time): IpAddress
+  fun ip_address_get_public_address = sfIpAddress_getPublicAddress(timeout : Time): IpAddress
 
   type FtpDirectoryResponse = Void*
 
@@ -166,7 +166,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `ftp_listing_response`: Ftp listing response to destroy
-  fun ftp_listing_response_destroy = sfFtpListingResponse_destroy(ftp_listing_response: FtpListingResponse)
+  fun ftp_listing_response_destroy = sfFtpListingResponse_destroy(ftp_listing_response : FtpListingResponse)
 
   # Check if a FTP listing response status code means a success
   #
@@ -178,7 +178,7 @@ lib CSFML
   # * `ftp_listing_response`: Ftp listing response
   #
   # *Returns*: True if the status is a success, False if it is a failure
-  fun ftp_listing_response_is_ok = sfFtpListingResponse_isOk(ftp_listing_response: FtpListingResponse): CSFML::Bool
+  fun ftp_listing_response_is_ok = sfFtpListingResponse_isOk(ftp_listing_response : FtpListingResponse): CSFML::Bool
 
   # Get the status code of a FTP listing response
   #
@@ -187,7 +187,7 @@ lib CSFML
   # * `ftp_listing_response`: Ftp listing response
   #
   # *Returns*: Status code
-  fun ftp_listing_response_get_status = sfFtpListingResponse_getStatus(ftp_listing_response: FtpListingResponse): FtpStatus
+  fun ftp_listing_response_get_status = sfFtpListingResponse_getStatus(ftp_listing_response : FtpListingResponse): FtpStatus
 
   # Get the full message contained in a FTP listing response
   #
@@ -196,7 +196,7 @@ lib CSFML
   # * `ftp_listing_response`: Ftp listing response
   #
   # *Returns*: The response message
-  fun ftp_listing_response_get_message = sfFtpListingResponse_getMessage(ftp_listing_response: FtpListingResponse): LibC::Char*
+  fun ftp_listing_response_get_message = sfFtpListingResponse_getMessage(ftp_listing_response : FtpListingResponse): LibC::Char*
 
   # Return the number of directory/file names contained in a FTP listing response
   #
@@ -205,7 +205,7 @@ lib CSFML
   # * `ftp_listing_response`: Ftp listing response
   #
   # *Returns*: Total number of names available
-  fun ftp_listing_response_get_count = sfFtpListingResponse_getCount(ftp_listing_response: FtpListingResponse): LibC::SizeT
+  fun ftp_listing_response_get_count = sfFtpListingResponse_getCount(ftp_listing_response : FtpListingResponse): LibC::SizeT
 
   # Return a directory/file name contained in a FTP listing response
   #
@@ -215,14 +215,14 @@ lib CSFML
   # * `index`: Index of the name to get (in range [0 .. get_count])
   #
   # *Returns*: The requested name
-  fun ftp_listing_response_get_name = sfFtpListingResponse_getName(ftp_listing_response: FtpListingResponse, index: LibC::SizeT): LibC::Char*
+  fun ftp_listing_response_get_name = sfFtpListingResponse_getName(ftp_listing_response : FtpListingResponse, index : LibC::SizeT): LibC::Char*
 
   # Destroy a FTP directory response
   #
   # *Arguments*:
   #
   # * `ftp_directory_response`: Ftp directory response to destroy
-  fun ftp_directory_response_destroy = sfFtpDirectoryResponse_destroy(ftp_directory_response: FtpDirectoryResponse)
+  fun ftp_directory_response_destroy = sfFtpDirectoryResponse_destroy(ftp_directory_response : FtpDirectoryResponse)
 
   # Check if a FTP directory response status code means a success
   #
@@ -234,7 +234,7 @@ lib CSFML
   # * `ftp_directory_response`: Ftp directory response
   #
   # *Returns*: True if the status is a success, False if it is a failure
-  fun ftp_directory_response_is_ok = sfFtpDirectoryResponse_isOk(ftp_directory_response: FtpDirectoryResponse): CSFML::Bool
+  fun ftp_directory_response_is_ok = sfFtpDirectoryResponse_isOk(ftp_directory_response : FtpDirectoryResponse): CSFML::Bool
 
   # Get the status code of a FTP directory response
   #
@@ -243,7 +243,7 @@ lib CSFML
   # * `ftp_directory_response`: Ftp directory response
   #
   # *Returns*: Status code
-  fun ftp_directory_response_get_status = sfFtpDirectoryResponse_getStatus(ftp_directory_response: FtpDirectoryResponse): FtpStatus
+  fun ftp_directory_response_get_status = sfFtpDirectoryResponse_getStatus(ftp_directory_response : FtpDirectoryResponse): FtpStatus
 
   # Get the full message contained in a FTP directory response
   #
@@ -252,7 +252,7 @@ lib CSFML
   # * `ftp_directory_response`: Ftp directory response
   #
   # *Returns*: The response message
-  fun ftp_directory_response_get_message = sfFtpDirectoryResponse_getMessage(ftp_directory_response: FtpDirectoryResponse): LibC::Char*
+  fun ftp_directory_response_get_message = sfFtpDirectoryResponse_getMessage(ftp_directory_response : FtpDirectoryResponse): LibC::Char*
 
   # Get the directory returned in a FTP directory response
   #
@@ -261,14 +261,14 @@ lib CSFML
   # * `ftp_directory_response`: Ftp directory response
   #
   # *Returns*: Directory name
-  fun ftp_directory_response_get_directory = sfFtpDirectoryResponse_getDirectory(ftp_directory_response: FtpDirectoryResponse): LibC::Char*
+  fun ftp_directory_response_get_directory = sfFtpDirectoryResponse_getDirectory(ftp_directory_response : FtpDirectoryResponse): LibC::Char*
 
   # Destroy a FTP response
   #
   # *Arguments*:
   #
   # * `ftp_response`: Ftp response to destroy
-  fun ftp_response_destroy = sfFtpResponse_destroy(ftp_response: FtpResponse)
+  fun ftp_response_destroy = sfFtpResponse_destroy(ftp_response : FtpResponse)
 
   # Check if a FTP response status code means a success
   #
@@ -280,7 +280,7 @@ lib CSFML
   # * `ftp_response`: Ftp response object
   #
   # *Returns*: True if the status is a success, False if it is a failure
-  fun ftp_response_is_ok = sfFtpResponse_isOk(ftp_response: FtpResponse): CSFML::Bool
+  fun ftp_response_is_ok = sfFtpResponse_isOk(ftp_response : FtpResponse): CSFML::Bool
 
   # Get the status code of a FTP response
   #
@@ -289,7 +289,7 @@ lib CSFML
   # * `ftp_response`: Ftp response object
   #
   # *Returns*: Status code
-  fun ftp_response_get_status = sfFtpResponse_getStatus(ftp_response: FtpResponse): FtpStatus
+  fun ftp_response_get_status = sfFtpResponse_getStatus(ftp_response : FtpResponse): FtpStatus
 
   # Get the full message contained in a FTP response
   #
@@ -298,7 +298,7 @@ lib CSFML
   # * `ftp_response`: Ftp response object
   #
   # *Returns*: The response message
-  fun ftp_response_get_message = sfFtpResponse_getMessage(ftp_response: FtpResponse): LibC::Char*
+  fun ftp_response_get_message = sfFtpResponse_getMessage(ftp_response : FtpResponse): LibC::Char*
 
   # Create a new Ftp object
   #
@@ -310,7 +310,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `ftp`: Ftp object to destroy
-  fun ftp_destroy = sfFtp_destroy(ftp: Ftp)
+  fun ftp_destroy = sfFtp_destroy(ftp : Ftp)
 
   # Connect to the specified FTP server
   #
@@ -331,7 +331,7 @@ lib CSFML
   # * `timeout`: Maximum time to wait
   #
   # *Returns*: Server response to the request
-  fun ftp_connect = sfFtp_connect(ftp: Ftp, server: IpAddress, port: UInt16, timeout: Time): FtpResponse
+  fun ftp_connect = sfFtp_connect(ftp : Ftp, server : IpAddress, port : UInt16, timeout : Time): FtpResponse
 
   # Log in using an anonymous account
   #
@@ -343,7 +343,7 @@ lib CSFML
   # * `ftp`: Ftp object
   #
   # *Returns*: Server response to the request
-  fun ftp_login_anonymous = sfFtp_loginAnonymous(ftp: Ftp): FtpResponse
+  fun ftp_login_anonymous = sfFtp_loginAnonymous(ftp : Ftp): FtpResponse
 
   # Log in using a username and a password
   #
@@ -357,7 +357,7 @@ lib CSFML
   # * `password`: Password
   #
   # *Returns*: Server response to the request
-  fun ftp_login = sfFtp_login(ftp: Ftp, user_name: LibC::Char*, password: LibC::Char*): FtpResponse
+  fun ftp_login = sfFtp_login(ftp : Ftp, user_name : LibC::Char*, password : LibC::Char*): FtpResponse
 
   # Close the connection with the server
   #
@@ -366,7 +366,7 @@ lib CSFML
   # * `ftp`: Ftp object
   #
   # *Returns*: Server response to the request
-  fun ftp_disconnect = sfFtp_disconnect(ftp: Ftp): FtpResponse
+  fun ftp_disconnect = sfFtp_disconnect(ftp : Ftp): FtpResponse
 
   # Send a null command to keep the connection alive
   #
@@ -378,7 +378,7 @@ lib CSFML
   # * `ftp`: Ftp object
   #
   # *Returns*: Server response to the request
-  fun ftp_keep_alive = sfFtp_keepAlive(ftp: Ftp): FtpResponse
+  fun ftp_keep_alive = sfFtp_keepAlive(ftp : Ftp): FtpResponse
 
   # Get the current working directory
   #
@@ -390,7 +390,7 @@ lib CSFML
   # * `ftp`: Ftp object
   #
   # *Returns*: Server response to the request
-  fun ftp_get_working_directory = sfFtp_getWorkingDirectory(ftp: Ftp): FtpDirectoryResponse
+  fun ftp_get_working_directory = sfFtp_getWorkingDirectory(ftp : Ftp): FtpDirectoryResponse
 
   # Get the contents of the given directory
   #
@@ -405,7 +405,7 @@ lib CSFML
   # * `directory`: Directory to list
   #
   # *Returns*: Server response to the request
-  fun ftp_get_directory_listing = sfFtp_getDirectoryListing(ftp: Ftp, directory: LibC::Char*): FtpListingResponse
+  fun ftp_get_directory_listing = sfFtp_getDirectoryListing(ftp : Ftp, directory : LibC::Char*): FtpListingResponse
 
   # Change the current working directory
   #
@@ -417,7 +417,7 @@ lib CSFML
   # * `directory`: New working directory
   #
   # *Returns*: Server response to the request
-  fun ftp_change_directory = sfFtp_changeDirectory(ftp: Ftp, directory: LibC::Char*): FtpResponse
+  fun ftp_change_directory = sfFtp_changeDirectory(ftp : Ftp, directory : LibC::Char*): FtpResponse
 
   # Go to the parent directory of the current one
   #
@@ -426,7 +426,7 @@ lib CSFML
   # * `ftp`: Ftp object
   #
   # *Returns*: Server response to the request
-  fun ftp_parent_directory = sfFtp_parentDirectory(ftp: Ftp): FtpResponse
+  fun ftp_parent_directory = sfFtp_parentDirectory(ftp : Ftp): FtpResponse
 
   # Create a new directory
   #
@@ -439,7 +439,7 @@ lib CSFML
   # * `name`: Name of the directory to create
   #
   # *Returns*: Server response to the request
-  fun ftp_create_directory = sfFtp_createDirectory(ftp: Ftp, name: LibC::Char*): FtpResponse
+  fun ftp_create_directory = sfFtp_createDirectory(ftp : Ftp, name : LibC::Char*): FtpResponse
 
   # Remove an existing directory
   #
@@ -454,7 +454,7 @@ lib CSFML
   # * `name`: Name of the directory to remove
   #
   # *Returns*: Server response to the request
-  fun ftp_delete_directory = sfFtp_deleteDirectory(ftp: Ftp, name: LibC::Char*): FtpResponse
+  fun ftp_delete_directory = sfFtp_deleteDirectory(ftp : Ftp, name : LibC::Char*): FtpResponse
 
   # Rename an existing file
   #
@@ -468,7 +468,7 @@ lib CSFML
   # * `new_name`: New name of the file
   #
   # *Returns*: Server response to the request
-  fun ftp_rename_file = sfFtp_renameFile(ftp: Ftp, file: LibC::Char*, new_name: LibC::Char*): FtpResponse
+  fun ftp_rename_file = sfFtp_renameFile(ftp : Ftp, file : LibC::Char*, new_name : LibC::Char*): FtpResponse
 
   # Remove an existing file
   #
@@ -483,7 +483,7 @@ lib CSFML
   # * `name`: File to remove
   #
   # *Returns*: Server response to the request
-  fun ftp_delete_file = sfFtp_deleteFile(ftp: Ftp, name: LibC::Char*): FtpResponse
+  fun ftp_delete_file = sfFtp_deleteFile(ftp : Ftp, name : LibC::Char*): FtpResponse
 
   # Download a file from a FTP server
   #
@@ -500,7 +500,7 @@ lib CSFML
   # * `mode`: Transfer mode
   #
   # *Returns*: Server response to the request
-  fun ftp_download = sfFtp_download(ftp: Ftp, distant_file: LibC::Char*, dest_path: LibC::Char*, mode: FtpTransferMode): FtpResponse
+  fun ftp_download = sfFtp_download(ftp : Ftp, distant_file : LibC::Char*, dest_path : LibC::Char*, mode : FtpTransferMode): FtpResponse
 
   # Upload a file to a FTP server
   #
@@ -517,7 +517,7 @@ lib CSFML
   # * `mode`: Transfer mode
   #
   # *Returns*: Server response to the request
-  fun ftp_upload = sfFtp_upload(ftp: Ftp, local_file: LibC::Char*, dest_path: LibC::Char*, mode: FtpTransferMode): FtpResponse
+  fun ftp_upload = sfFtp_upload(ftp : Ftp, local_file : LibC::Char*, dest_path : LibC::Char*, mode : FtpTransferMode): FtpResponse
 
   # Enumerate the available HTTP methods for a request
   enum HttpMethod
@@ -545,7 +545,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `http_request`: HTTP request to destroy
-  fun http_request_destroy = sfHttpRequest_destroy(http_request: HttpRequest)
+  fun http_request_destroy = sfHttpRequest_destroy(http_request : HttpRequest)
 
   # Set the value of a header field of a HTTP request
   #
@@ -560,7 +560,7 @@ lib CSFML
   # * `http_request`: HTTP request
   # * `field`: Name of the field to set
   # * `value`: Value of the field
-  fun http_request_set_field = sfHttpRequest_setField(http_request: HttpRequest, field: LibC::Char*, value: LibC::Char*)
+  fun http_request_set_field = sfHttpRequest_setField(http_request : HttpRequest, field : LibC::Char*, value : LibC::Char*)
 
   # Set a HTTP request method
   #
@@ -572,7 +572,7 @@ lib CSFML
   #
   # * `http_request`: HTTP request
   # * `method`: Method to use for the request
-  fun http_request_set_method = sfHttpRequest_setMethod(http_request: HttpRequest, method: HttpMethod)
+  fun http_request_set_method = sfHttpRequest_setMethod(http_request : HttpRequest, method : HttpMethod)
 
   # Set a HTTP request URI
   #
@@ -584,7 +584,7 @@ lib CSFML
   #
   # * `http_request`: HTTP request
   # * `uri`: URI to request, relative to the host
-  fun http_request_set_uri = sfHttpRequest_setUri(http_request: HttpRequest, uri: LibC::Char*)
+  fun http_request_set_uri = sfHttpRequest_setUri(http_request : HttpRequest, uri : LibC::Char*)
 
   # Set the HTTP version of a HTTP request
   #
@@ -595,7 +595,7 @@ lib CSFML
   # * `http_request`: HTTP request
   # * `major`: Major HTTP version number
   # * `minor`: Minor HTTP version number
-  fun http_request_set_http_version = sfHttpRequest_setHttpVersion(http_request: HttpRequest, major: Int32, minor: Int32)
+  fun http_request_set_http_version = sfHttpRequest_setHttpVersion(http_request : HttpRequest, major : Int32, minor : Int32)
 
   # Set the body of a HTTP request
   #
@@ -607,14 +607,14 @@ lib CSFML
   #
   # * `http_request`: HTTP request
   # * `body`: Content of the body
-  fun http_request_set_body = sfHttpRequest_setBody(http_request: HttpRequest, body: LibC::Char*)
+  fun http_request_set_body = sfHttpRequest_setBody(http_request : HttpRequest, body : LibC::Char*)
 
   # Destroy a HTTP response
   #
   # *Arguments*:
   #
   # * `http_response`: HTTP response to destroy
-  fun http_response_destroy = sfHttpResponse_destroy(http_response: HttpResponse)
+  fun http_response_destroy = sfHttpResponse_destroy(http_response : HttpResponse)
 
   # Get the value of a field of a HTTP response
   #
@@ -628,7 +628,7 @@ lib CSFML
   # * `field`: Name of the field to get
   #
   # *Returns*: Value of the field, or empty string if not found
-  fun http_response_get_field = sfHttpResponse_getField(http_response: HttpResponse, field: LibC::Char*): LibC::Char*
+  fun http_response_get_field = sfHttpResponse_getField(http_response : HttpResponse, field : LibC::Char*): LibC::Char*
 
   # Get the status code of a HTTP reponse
   #
@@ -642,7 +642,7 @@ lib CSFML
   # * `http_response`: HTTP response
   #
   # *Returns*: Status code of the response
-  fun http_response_get_status = sfHttpResponse_getStatus(http_response: HttpResponse): HttpStatus
+  fun http_response_get_status = sfHttpResponse_getStatus(http_response : HttpResponse): HttpStatus
 
   # Get the major HTTP version number of a HTTP response
   #
@@ -651,7 +651,7 @@ lib CSFML
   # * `http_response`: HTTP response
   #
   # *Returns*: Major HTTP version number
-  fun http_response_get_major_version = sfHttpResponse_getMajorVersion(http_response: HttpResponse): Int32
+  fun http_response_get_major_version = sfHttpResponse_getMajorVersion(http_response : HttpResponse): Int32
 
   # Get the minor HTTP version number of a HTTP response
   #
@@ -660,7 +660,7 @@ lib CSFML
   # * `http_response`: HTTP response
   #
   # *Returns*: Minor HTTP version number
-  fun http_response_get_minor_version = sfHttpResponse_getMinorVersion(http_response: HttpResponse): Int32
+  fun http_response_get_minor_version = sfHttpResponse_getMinorVersion(http_response : HttpResponse): Int32
 
   # Get the body of a HTTP response
   #
@@ -675,7 +675,7 @@ lib CSFML
   # * `http_response`: HTTP response
   #
   # *Returns*: The response body
-  fun http_response_get_body = sfHttpResponse_getBody(http_response: HttpResponse): LibC::Char*
+  fun http_response_get_body = sfHttpResponse_getBody(http_response : HttpResponse): LibC::Char*
 
   # Create a new Http object
   #
@@ -687,7 +687,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `http`: Http object to destroy
-  fun http_destroy = sfHttp_destroy(http: Http)
+  fun http_destroy = sfHttp_destroy(http : Http)
 
   # Set the target host of a HTTP object
   #
@@ -704,7 +704,7 @@ lib CSFML
   # * `http`: Http object
   # * `host`: Web server to connect to
   # * `port`: Port to use for connection
-  fun http_set_host = sfHttp_setHost(http: Http, host: LibC::Char*, port: UInt16)
+  fun http_set_host = sfHttp_setHost(http : Http, host : LibC::Char*, port : UInt16)
 
   # Send a HTTP request and return the server's response.
   #
@@ -724,7 +724,7 @@ lib CSFML
   # * `timeout`: Maximum time to wait
   #
   # *Returns*: Server's response
-  fun http_send_request = sfHttp_sendRequest(http: Http, request: HttpRequest, timeout: Time): HttpResponse
+  fun http_send_request = sfHttp_sendRequest(http : Http, request : HttpRequest, timeout : Time): HttpResponse
 
   # Create a new packet
   #
@@ -738,14 +738,14 @@ lib CSFML
   # * `packet`: Packet to copy
   #
   # *Returns*: A new Packet object which is a copy of `packet`
-  fun packet_copy = sfPacket_copy(packet: Packet): Packet
+  fun packet_copy = sfPacket_copy(packet : Packet): Packet
 
   # Destroy a packet
   #
   # *Arguments*:
   #
   # * `packet`: Packet to destroy
-  fun packet_destroy = sfPacket_destroy(packet: Packet)
+  fun packet_destroy = sfPacket_destroy(packet : Packet)
 
   # Append data to the end of a packet
   #
@@ -754,7 +754,7 @@ lib CSFML
   # * `packet`: Packet object
   # * `data`: Pointer to the sequence of bytes to append
   # * `size_in_bytes`: Number of bytes to append
-  fun packet_append = sfPacket_append(packet: Packet, data: Void*, size_in_bytes: LibC::SizeT)
+  fun packet_append = sfPacket_append(packet : Packet, data : Void*, size_in_bytes : LibC::SizeT)
 
   # Clear a packet
   #
@@ -763,7 +763,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `packet`: Packet object
-  fun packet_clear = sfPacket_clear(packet: Packet)
+  fun packet_clear = sfPacket_clear(packet : Packet)
 
   # Get a pointer to the data contained in a packet
   #
@@ -777,7 +777,7 @@ lib CSFML
   # * `packet`: Packet object
   #
   # *Returns*: Pointer to the data
-  fun packet_get_data = sfPacket_getData(packet: Packet): Void*
+  fun packet_get_data = sfPacket_getData(packet : Packet): Void*
 
   # Get the size of the data contained in a packet
   #
@@ -789,7 +789,7 @@ lib CSFML
   # * `packet`: Packet object
   #
   # *Returns*: Data size, in bytes
-  fun packet_get_data_size = sfPacket_getDataSize(packet: Packet): LibC::SizeT
+  fun packet_get_data_size = sfPacket_getDataSize(packet : Packet): LibC::SizeT
 
   # Tell if the reading position has reached the
   # end of a packet
@@ -802,7 +802,7 @@ lib CSFML
   # * `packet`: Packet object
   #
   # *Returns*: True if all data was read, False otherwise
-  fun packet_end_of_packet = sfPacket_endOfPacket(packet: Packet): CSFML::Bool
+  fun packet_end_of_packet = sfPacket_endOfPacket(packet : Packet): CSFML::Bool
 
   # Test the validity of a packet, for reading
   #
@@ -817,57 +817,57 @@ lib CSFML
   # * `packet`: Packet object
   #
   # *Returns*: True if last data extraction from packet was successful
-  fun packet_can_read = sfPacket_canRead(packet: Packet): CSFML::Bool
+  fun packet_can_read = sfPacket_canRead(packet : Packet): CSFML::Bool
 
   # Functions to extract data from a packet
   #
   # *Arguments*:
   #
   # * `packet`: Packet object
-  fun packet_read_bool = sfPacket_readBool(packet: Packet): CSFML::Bool
+  fun packet_read_bool = sfPacket_readBool(packet : Packet): CSFML::Bool
 
-  fun packet_read_int8 = sfPacket_readInt8(packet: Packet): Int8
+  fun packet_read_int8 = sfPacket_readInt8(packet : Packet): Int8
 
-  fun packet_read_uint8 = sfPacket_readUint8(packet: Packet): UInt8
+  fun packet_read_uint8 = sfPacket_readUint8(packet : Packet): UInt8
 
-  fun packet_read_int16 = sfPacket_readInt16(packet: Packet): Int16
+  fun packet_read_int16 = sfPacket_readInt16(packet : Packet): Int16
 
-  fun packet_read_uint16 = sfPacket_readUint16(packet: Packet): UInt16
+  fun packet_read_uint16 = sfPacket_readUint16(packet : Packet): UInt16
 
-  fun packet_read_int32 = sfPacket_readInt32(packet: Packet): Int32
+  fun packet_read_int32 = sfPacket_readInt32(packet : Packet): Int32
 
-  fun packet_read_uint32 = sfPacket_readUint32(packet: Packet): UInt32
+  fun packet_read_uint32 = sfPacket_readUint32(packet : Packet): UInt32
 
-  fun packet_read_float = sfPacket_readFloat(packet: Packet): Float32
+  fun packet_read_float = sfPacket_readFloat(packet : Packet): Float32
 
-  fun packet_read_double = sfPacket_readDouble(packet: Packet): Float64
+  fun packet_read_double = sfPacket_readDouble(packet : Packet): Float64
 
-  fun packet_read_string = sfPacket_readString(packet: Packet, string: LibC::Char*)
+  fun packet_read_string = sfPacket_readString(packet : Packet, string : LibC::Char*)
 
   # Functions to insert data into a packet
   #
   # *Arguments*:
   #
   # * `packet`: Packet object
-  fun packet_write_bool = sfPacket_writeBool(packet: Packet, p1: CSFML::Bool)
+  fun packet_write_bool = sfPacket_writeBool(packet : Packet, p1 : CSFML::Bool)
 
-  fun packet_write_int8 = sfPacket_writeInt8(packet: Packet, p1: Int8)
+  fun packet_write_int8 = sfPacket_writeInt8(packet : Packet, p1 : Int8)
 
-  fun packet_write_uint8 = sfPacket_writeUint8(packet: Packet, p1: UInt8)
+  fun packet_write_uint8 = sfPacket_writeUint8(packet : Packet, p1 : UInt8)
 
-  fun packet_write_int16 = sfPacket_writeInt16(packet: Packet, p1: Int16)
+  fun packet_write_int16 = sfPacket_writeInt16(packet : Packet, p1 : Int16)
 
-  fun packet_write_uint16 = sfPacket_writeUint16(packet: Packet, p1: UInt16)
+  fun packet_write_uint16 = sfPacket_writeUint16(packet : Packet, p1 : UInt16)
 
-  fun packet_write_int32 = sfPacket_writeInt32(packet: Packet, p1: Int32)
+  fun packet_write_int32 = sfPacket_writeInt32(packet : Packet, p1 : Int32)
 
-  fun packet_write_uint32 = sfPacket_writeUint32(packet: Packet, p1: UInt32)
+  fun packet_write_uint32 = sfPacket_writeUint32(packet : Packet, p1 : UInt32)
 
-  fun packet_write_float = sfPacket_writeFloat(packet: Packet, p1: Float32)
+  fun packet_write_float = sfPacket_writeFloat(packet : Packet, p1 : Float32)
 
-  fun packet_write_double = sfPacket_writeDouble(packet: Packet, p1: Float64)
+  fun packet_write_double = sfPacket_writeDouble(packet : Packet, p1 : Float64)
 
-  fun packet_write_string = sfPacket_writeString(packet: Packet, string: LibC::Char*)
+  fun packet_write_string = sfPacket_writeString(packet : Packet, string : LibC::Char*)
 
   # Create a new selector
   #
@@ -881,14 +881,14 @@ lib CSFML
   # * `selector`: Socket selector to copy
   #
   # *Returns*: A new SocketSelector object which is a copy of `selector`
-  fun socket_selector_copy = sfSocketSelector_copy(selector: SocketSelector): SocketSelector
+  fun socket_selector_copy = sfSocketSelector_copy(selector : SocketSelector): SocketSelector
 
   # Destroy a socket selector
   #
   # *Arguments*:
   #
   # * `selector`: Socket selector to destroy
-  fun socket_selector_destroy = sfSocketSelector_destroy(selector: SocketSelector)
+  fun socket_selector_destroy = sfSocketSelector_destroy(selector : SocketSelector)
 
   # Add a new socket to a socket selector
   #
@@ -900,11 +900,11 @@ lib CSFML
   #
   # * `selector`: Socket selector object
   # * `socket`: Pointer to the socket to add
-  fun socket_selector_add_tcp_listener = sfSocketSelector_addTcpListener(selector: SocketSelector, socket: TcpListener)
+  fun socket_selector_add_tcp_listener = sfSocketSelector_addTcpListener(selector : SocketSelector, socket : TcpListener)
 
-  fun socket_selector_add_tcp_socket = sfSocketSelector_addTcpSocket(selector: SocketSelector, socket: TcpSocket)
+  fun socket_selector_add_tcp_socket = sfSocketSelector_addTcpSocket(selector : SocketSelector, socket : TcpSocket)
 
-  fun socket_selector_add_udp_socket = sfSocketSelector_addUdpSocket(selector: SocketSelector, socket: UdpSocket)
+  fun socket_selector_add_udp_socket = sfSocketSelector_addUdpSocket(selector : SocketSelector, socket : UdpSocket)
 
   # Remove a socket from a socket selector
   #
@@ -915,11 +915,11 @@ lib CSFML
   #
   # * `selector`: Socket selector object
   # * `socket`: POointer to the socket to remove
-  fun socket_selector_remove_tcp_listener = sfSocketSelector_removeTcpListener(selector: SocketSelector, socket: TcpListener)
+  fun socket_selector_remove_tcp_listener = sfSocketSelector_removeTcpListener(selector : SocketSelector, socket : TcpListener)
 
-  fun socket_selector_remove_tcp_socket = sfSocketSelector_removeTcpSocket(selector: SocketSelector, socket: TcpSocket)
+  fun socket_selector_remove_tcp_socket = sfSocketSelector_removeTcpSocket(selector : SocketSelector, socket : TcpSocket)
 
-  fun socket_selector_remove_udp_socket = sfSocketSelector_removeUdpSocket(selector: SocketSelector, socket: UdpSocket)
+  fun socket_selector_remove_udp_socket = sfSocketSelector_removeUdpSocket(selector : SocketSelector, socket : UdpSocket)
 
   # Remove all the sockets stored in a selector
   #
@@ -930,7 +930,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `selector`: Socket selector object
-  fun socket_selector_clear = sfSocketSelector_clear(selector: SocketSelector)
+  fun socket_selector_clear = sfSocketSelector_clear(selector : SocketSelector)
 
   # Wait until one or more sockets are ready to receive
   #
@@ -946,7 +946,7 @@ lib CSFML
   # * `timeout`: Maximum time to wait (use TimeZero for infinity)
   #
   # *Returns*: True if there are sockets ready, False otherwise
-  fun socket_selector_wait = sfSocketSelector_wait(selector: SocketSelector, timeout: Time): CSFML::Bool
+  fun socket_selector_wait = sfSocketSelector_wait(selector : SocketSelector, timeout : Time): CSFML::Bool
 
   # Test a socket to know if it is ready to receive data
   #
@@ -963,11 +963,11 @@ lib CSFML
   # * `socket`: Socket to test
   #
   # *Returns*: True if the socket is ready to read, False otherwise
-  fun socket_selector_is_tcp_listener_ready = sfSocketSelector_isTcpListenerReady(selector: SocketSelector, socket: TcpListener): CSFML::Bool
+  fun socket_selector_is_tcp_listener_ready = sfSocketSelector_isTcpListenerReady(selector : SocketSelector, socket : TcpListener): CSFML::Bool
 
-  fun socket_selector_is_tcp_socket_ready = sfSocketSelector_isTcpSocketReady(selector: SocketSelector, socket: TcpSocket): CSFML::Bool
+  fun socket_selector_is_tcp_socket_ready = sfSocketSelector_isTcpSocketReady(selector : SocketSelector, socket : TcpSocket): CSFML::Bool
 
-  fun socket_selector_is_udp_socket_ready = sfSocketSelector_isUdpSocketReady(selector: SocketSelector, socket: UdpSocket): CSFML::Bool
+  fun socket_selector_is_udp_socket_ready = sfSocketSelector_isUdpSocketReady(selector : SocketSelector, socket : UdpSocket): CSFML::Bool
 
   # Define the status that can be returned by the socket functions
   enum SocketStatus
@@ -984,7 +984,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `listener`: TCP listener to destroy
-  fun tcp_listener_destroy = sfTcpListener_destroy(listener: TcpListener)
+  fun tcp_listener_destroy = sfTcpListener_destroy(listener : TcpListener)
 
   # Set the blocking state of a TCP listener
   #
@@ -1001,7 +1001,7 @@ lib CSFML
   #
   # * `listener`: TCP listener object
   # * `blocking`: True to set the socket as blocking, False for non-blocking
-  fun tcp_listener_set_blocking = sfTcpListener_setBlocking(listener: TcpListener, blocking: CSFML::Bool)
+  fun tcp_listener_set_blocking = sfTcpListener_setBlocking(listener : TcpListener, blocking : CSFML::Bool)
 
   # Tell whether a TCP listener is in blocking or non-blocking mode
   #
@@ -1010,7 +1010,7 @@ lib CSFML
   # * `listener`: TCP listener object
   #
   # *Returns*: True if the socket is blocking, False otherwise
-  fun tcp_listener_is_blocking = sfTcpListener_isBlocking(listener: TcpListener): CSFML::Bool
+  fun tcp_listener_is_blocking = sfTcpListener_isBlocking(listener : TcpListener): CSFML::Bool
 
   # Get the port to which a TCP listener is bound locally
   #
@@ -1022,7 +1022,7 @@ lib CSFML
   # * `listener`: TCP listener object
   #
   # *Returns*: Port to which the TCP listener is bound
-  fun tcp_listener_get_local_port = sfTcpListener_getLocalPort(listener: TcpListener): UInt16
+  fun tcp_listener_get_local_port = sfTcpListener_getLocalPort(listener : TcpListener): UInt16
 
   # Start listening for connections
   #
@@ -1037,7 +1037,7 @@ lib CSFML
   # * `port`: Port to listen for new connections
   #
   # *Returns*: Status code
-  fun tcp_listener_listen = sfTcpListener_listen(listener: TcpListener, port: UInt16): SocketStatus
+  fun tcp_listener_listen = sfTcpListener_listen(listener : TcpListener, port : UInt16): SocketStatus
 
   # Accept a new connection
   #
@@ -1054,7 +1054,7 @@ lib CSFML
   # * `connected`: Socket that will hold the new connection
   #
   # *Returns*: Status code
-  fun tcp_listener_accept = sfTcpListener_accept(listener: TcpListener, connected: TcpSocket*): SocketStatus
+  fun tcp_listener_accept = sfTcpListener_accept(listener : TcpListener, connected : TcpSocket*): SocketStatus
 
   # Create a new TCP socket
   #
@@ -1066,7 +1066,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `socket`: TCP socket to destroy
-  fun tcp_socket_destroy = sfTcpSocket_destroy(socket: TcpSocket)
+  fun tcp_socket_destroy = sfTcpSocket_destroy(socket : TcpSocket)
 
   # Set the blocking state of a TCP listener
   #
@@ -1083,7 +1083,7 @@ lib CSFML
   #
   # * `socket`: TCP socket object
   # * `blocking`: True to set the socket as blocking, False for non-blocking
-  fun tcp_socket_set_blocking = sfTcpSocket_setBlocking(socket: TcpSocket, blocking: CSFML::Bool)
+  fun tcp_socket_set_blocking = sfTcpSocket_setBlocking(socket : TcpSocket, blocking : CSFML::Bool)
 
   # Tell whether a TCP socket is in blocking or non-blocking mode
   #
@@ -1092,7 +1092,7 @@ lib CSFML
   # * `socket`: TCP socket object
   #
   # *Returns*: True if the socket is blocking, False otherwise
-  fun tcp_socket_is_blocking = sfTcpSocket_isBlocking(socket: TcpSocket): CSFML::Bool
+  fun tcp_socket_is_blocking = sfTcpSocket_isBlocking(socket : TcpSocket): CSFML::Bool
 
   # Get the port to which a TCP socket is bound locally
   #
@@ -1103,7 +1103,7 @@ lib CSFML
   # * `socket`: TCP socket object
   #
   # *Returns*: Port to which the socket is bound
-  fun tcp_socket_get_local_port = sfTcpSocket_getLocalPort(socket: TcpSocket): UInt16
+  fun tcp_socket_get_local_port = sfTcpSocket_getLocalPort(socket : TcpSocket): UInt16
 
   # Get the address of the connected peer of a TCP socket
   #
@@ -1115,7 +1115,7 @@ lib CSFML
   # * `socket`: TCP socket object
   #
   # *Returns*: Address of the remote peer
-  fun tcp_socket_get_remote_address = sfTcpSocket_getRemoteAddress(socket: TcpSocket): IpAddress
+  fun tcp_socket_get_remote_address = sfTcpSocket_getRemoteAddress(socket : TcpSocket): IpAddress
 
   # Get the port of the connected peer to which
   # a TCP socket is connected
@@ -1127,7 +1127,7 @@ lib CSFML
   # * `socket`: TCP socket object
   #
   # *Returns*: Remote port to which the socket is connected
-  fun tcp_socket_get_remote_port = sfTcpSocket_getRemotePort(socket: TcpSocket): UInt16
+  fun tcp_socket_get_remote_port = sfTcpSocket_getRemotePort(socket : TcpSocket): UInt16
 
   # Connect a TCP socket to a remote peer
   #
@@ -1144,7 +1144,7 @@ lib CSFML
   # * `timeout`: Maximum time to wait
   #
   # *Returns*: Status code
-  fun tcp_socket_connect = sfTcpSocket_connect(socket: TcpSocket, host: IpAddress, port: UInt16, timeout: Time): SocketStatus
+  fun tcp_socket_connect = sfTcpSocket_connect(socket : TcpSocket, host : IpAddress, port : UInt16, timeout : Time): SocketStatus
 
   # Disconnect a TCP socket from its remote peer
   #
@@ -1154,7 +1154,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `socket`: TCP socket object
-  fun tcp_socket_disconnect = sfTcpSocket_disconnect(socket: TcpSocket)
+  fun tcp_socket_disconnect = sfTcpSocket_disconnect(socket : TcpSocket)
 
   # Send raw data to the remote peer of a TCP socket
   #
@@ -1170,7 +1170,7 @@ lib CSFML
   # * `size`: Number of bytes to send
   #
   # *Returns*: Status code
-  fun tcp_socket_send = sfTcpSocket_send(socket: TcpSocket, data: Void*, size: LibC::SizeT): SocketStatus
+  fun tcp_socket_send = sfTcpSocket_send(socket : TcpSocket, data : Void*, size : LibC::SizeT): SocketStatus
 
   # Send raw data to the remote peer
   #
@@ -1184,7 +1184,7 @@ lib CSFML
   # * `sent`: The number of bytes sent will be written here
   #
   # *Returns*: Status code
-  fun tcp_socket_send_partial = sfTcpSocket_sendPartial(socket: TcpSocket, data: Void*, size: LibC::SizeT, sent: LibC::SizeT*): SocketStatus
+  fun tcp_socket_send_partial = sfTcpSocket_sendPartial(socket : TcpSocket, data : Void*, size : LibC::SizeT, sent : LibC::SizeT*): SocketStatus
 
   # Receive raw data from the remote peer of a TCP socket
   #
@@ -1200,7 +1200,7 @@ lib CSFML
   # * `received`: This variable is filled with the actual number of bytes received
   #
   # *Returns*: Status code
-  fun tcp_socket_receive = sfTcpSocket_receive(socket: TcpSocket, data: Void*, max_size: LibC::SizeT, size_received: LibC::SizeT*): SocketStatus
+  fun tcp_socket_receive = sfTcpSocket_receive(socket : TcpSocket, data : Void*, max_size : LibC::SizeT, size_received : LibC::SizeT*): SocketStatus
 
   # Send a formatted packet of data to the remote peer of a TCP socket
   #
@@ -1216,7 +1216,7 @@ lib CSFML
   # * `packet`: Packet to send
   #
   # *Returns*: Status code
-  fun tcp_socket_send_packet = sfTcpSocket_sendPacket(socket: TcpSocket, packet: Packet): SocketStatus
+  fun tcp_socket_send_packet = sfTcpSocket_sendPacket(socket : TcpSocket, packet : Packet): SocketStatus
 
   # Receive a formatted packet of data from the remote peer
   #
@@ -1230,7 +1230,7 @@ lib CSFML
   # * `packet`: Packet to fill with the received data
   #
   # *Returns*: Status code
-  fun tcp_socket_receive_packet = sfTcpSocket_receivePacket(socket: TcpSocket, packet: Packet): SocketStatus
+  fun tcp_socket_receive_packet = sfTcpSocket_receivePacket(socket : TcpSocket, packet : Packet): SocketStatus
 
   # Create a new UDP socket
   #
@@ -1242,7 +1242,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `socket`: UDP socket to destroy
-  fun udp_socket_destroy = sfUdpSocket_destroy(socket: UdpSocket)
+  fun udp_socket_destroy = sfUdpSocket_destroy(socket : UdpSocket)
 
   # Set the blocking state of a UDP listener
   #
@@ -1259,7 +1259,7 @@ lib CSFML
   #
   # * `socket`: UDP socket object
   # * `blocking`: True to set the socket as blocking, False for non-blocking
-  fun udp_socket_set_blocking = sfUdpSocket_setBlocking(socket: UdpSocket, blocking: CSFML::Bool)
+  fun udp_socket_set_blocking = sfUdpSocket_setBlocking(socket : UdpSocket, blocking : CSFML::Bool)
 
   # Tell whether a UDP socket is in blocking or non-blocking mode
   #
@@ -1268,7 +1268,7 @@ lib CSFML
   # * `socket`: UDP socket object
   #
   # *Returns*: True if the socket is blocking, False otherwise
-  fun udp_socket_is_blocking = sfUdpSocket_isBlocking(socket: UdpSocket): CSFML::Bool
+  fun udp_socket_is_blocking = sfUdpSocket_isBlocking(socket : UdpSocket): CSFML::Bool
 
   # Get the port to which a UDP socket is bound locally
   #
@@ -1280,7 +1280,7 @@ lib CSFML
   # * `socket`: UDP socket object
   #
   # *Returns*: Port to which the socket is bound
-  fun udp_socket_get_local_port = sfUdpSocket_getLocalPort(socket: UdpSocket): UInt16
+  fun udp_socket_get_local_port = sfUdpSocket_getLocalPort(socket : UdpSocket): UInt16
 
   # Bind a UDP socket to a specific port
   #
@@ -1296,7 +1296,7 @@ lib CSFML
   # * `port`: Port to bind the socket to
   #
   # *Returns*: Status code
-  fun udp_socket_bind = sfUdpSocket_bind(socket: UdpSocket, port: UInt16): SocketStatus
+  fun udp_socket_bind = sfUdpSocket_bind(socket : UdpSocket, port : UInt16): SocketStatus
 
   # Unbind a UDP socket from the local port to which it is bound
   #
@@ -1307,7 +1307,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `socket`: UDP socket object
-  fun udp_socket_unbind = sfUdpSocket_unbind(socket: UdpSocket)
+  fun udp_socket_unbind = sfUdpSocket_unbind(socket : UdpSocket)
 
   # Send raw data to a remote peer with a UDP socket
   #
@@ -1324,7 +1324,7 @@ lib CSFML
   # * `remote_port`: Port of the receiver to send the data to
   #
   # *Returns*: Status code
-  fun udp_socket_send = sfUdpSocket_send(socket: UdpSocket, data: Void*, size: LibC::SizeT, address: IpAddress, port: UInt16): SocketStatus
+  fun udp_socket_send = sfUdpSocket_send(socket : UdpSocket, data : Void*, size : LibC::SizeT, address : IpAddress, port : UInt16): SocketStatus
 
   # Receive raw data from a remote peer with a UDP socket
   #
@@ -1345,7 +1345,7 @@ lib CSFML
   # * `remote_port`: Port of the peer that sent the data
   #
   # *Returns*: Status code
-  fun udp_socket_receive = sfUdpSocket_receive(socket: UdpSocket, data: Void*, max_size: LibC::SizeT, size_received: LibC::SizeT*, address: IpAddress*, port: UInt16*): SocketStatus
+  fun udp_socket_receive = sfUdpSocket_receive(socket : UdpSocket, data : Void*, max_size : LibC::SizeT, size_received : LibC::SizeT*, address : IpAddress*, port : UInt16*): SocketStatus
 
   # Send a formatted packet of data to a remote peer with a UDP socket
   #
@@ -1361,7 +1361,7 @@ lib CSFML
   # * `remote_port`: Port of the receiver to send the data to
   #
   # *Returns*: Status code
-  fun udp_socket_send_packet = sfUdpSocket_sendPacket(socket: UdpSocket, packet: Packet, address: IpAddress, port: UInt16): SocketStatus
+  fun udp_socket_send_packet = sfUdpSocket_sendPacket(socket : UdpSocket, packet : Packet, address : IpAddress, port : UInt16): SocketStatus
 
   # Receive a formatted packet of data from a remote peer with a UDP socket
   #
@@ -1375,7 +1375,7 @@ lib CSFML
   # * `remote_port`: Port of the peer that sent the data
   #
   # *Returns*: Status code
-  fun udp_socket_receive_packet = sfUdpSocket_receivePacket(socket: UdpSocket, packet: Packet, address: IpAddress*, port: UInt16*): SocketStatus
+  fun udp_socket_receive_packet = sfUdpSocket_receivePacket(socket : UdpSocket, packet : Packet, address : IpAddress*, port : UInt16*): SocketStatus
 
   # Return the maximum number of bytes that can be
   # sent in a single UDP datagram

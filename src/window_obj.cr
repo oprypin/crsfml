@@ -32,7 +32,7 @@ module SF
     #
     # * `context`: Context object
     # * `active`: True to activate, False to deactivate
-    def active=(active: Bool)
+    def active=(active : Bool)
       active = active ? 1 : 0
       CSFML.context_set_active(@this, active)
     end
@@ -62,7 +62,7 @@ module SF
     # * `settings`: Additional settings for the underlying OpenGL context
     #
     # *Returns*: A new Window object
-    def initialize(mode: VideoMode, title: String, style: WindowStyle, settings)
+    def initialize(mode : VideoMode, title : String, style : WindowStyle, settings)
       title = title.chars; title << '\0'
       if settings.responds_to?(:to_unsafe); psettings = settings.to_unsafe
       elsif settings; csettings = settings; psettings = pointerof(csettings)
@@ -86,7 +86,7 @@ module SF
     # * `settings`: Additional settings for the underlying OpenGL context
     #
     # *Returns*: A new Window object
-    def self.from_handle(handle: WindowHandle, settings)
+    def self.from_handle(handle : WindowHandle, settings)
       if settings.responds_to?(:to_unsafe); psettings = settings.to_unsafe
       elsif settings; csettings = settings; psettings = pointerof(csettings)
       else; psettings = nil; end
@@ -162,7 +162,7 @@ module SF
     # * `event`: Event to be returned
     #
     # *Returns*: True if an event was returned, or False if the event queue was empty
-    def poll_event(event: Event*)
+    def poll_event(event : Event*)
       CSFML.window_poll_event(@this, event) != 0
     end
 
@@ -182,7 +182,7 @@ module SF
     # * `event`: Event to be returned
     #
     # *Returns*: False if any error occured
-    def wait_event(event: Event*)
+    def wait_event(event : Event*)
       CSFML.window_wait_event(@this, event) != 0
     end
 
@@ -243,7 +243,7 @@ module SF
     #
     # * `window`: Window object
     # * `title`: New title
-    def title=(title: String)
+    def title=(title : String)
       title = title.chars; title << '\0'
       CSFML.window_set_unicode_title(@this, title)
     end
@@ -259,7 +259,7 @@ module SF
     # * `width`: Icon's width, in pixels
     # * `height`: Icon's height, in pixels
     # * `pixels`: Pointer to the array of pixels in memory
-    def set_icon(width: Int, height: Int, pixels: UInt8*)
+    def set_icon(width : Int, height : Int, pixels : UInt8*)
       width = width.to_i32
       height = height.to_i32
       CSFML.window_set_icon(@this, width, height, pixels)
@@ -271,7 +271,7 @@ module SF
     #
     # * `window`: Window object
     # * `visible`: True to show the window, False to hide it
-    def visible=(visible: Bool)
+    def visible=(visible : Bool)
       visible = visible ? 1 : 0
       CSFML.window_set_visible(@this, visible)
     end
@@ -282,7 +282,7 @@ module SF
     #
     # * `window`: Window object
     # * `visible`: True to show, False to hide
-    def mouse_cursor_visible=(visible: Bool)
+    def mouse_cursor_visible=(visible : Bool)
       visible = visible ? 1 : 0
       CSFML.window_set_mouse_cursor_visible(@this, visible)
     end
@@ -298,7 +298,7 @@ module SF
     #
     # * `window`: Window object
     # * `enabled`: True to enable v-sync, False to deactivate
-    def vertical_sync_enabled=(enabled: Bool)
+    def vertical_sync_enabled=(enabled : Bool)
       enabled = enabled ? 1 : 0
       CSFML.window_set_vertical_sync_enabled(@this, enabled)
     end
@@ -315,7 +315,7 @@ module SF
     #
     # * `window`: Window object
     # * `enabled`: True to enable, False to disable
-    def key_repeat_enabled=(enabled: Bool)
+    def key_repeat_enabled=(enabled : Bool)
       enabled = enabled ? 1 : 0
       CSFML.window_set_key_repeat_enabled(@this, enabled)
     end
@@ -336,7 +336,7 @@ module SF
     # * `active`: True to activate, False to deactivate
     #
     # *Returns*: True if operation was successful, False otherwise
-    def active=(active: Bool)
+    def active=(active : Bool)
       active = active ? 1 : 0
       CSFML.window_set_active(@this, active) != 0
     end
@@ -389,7 +389,7 @@ module SF
     #
     # * `window`: Window object
     # * `limit`: Framerate limit, in frames per seconds (use 0 to disable limit)
-    def framerate_limit=(limit: Int)
+    def framerate_limit=(limit : Int)
       limit = limit.to_i32
       CSFML.window_set_framerate_limit(@this, limit)
     end
@@ -403,7 +403,7 @@ module SF
     #
     # * `window`: Window object
     # * `threshold`: New threshold, in the range [0, 100]
-    def joystick_threshold=(threshold: Number)
+    def joystick_threshold=(threshold : Number)
       threshold = threshold.to_f32
       CSFML.window_set_joystick_threshold(@this, threshold)
     end
@@ -462,7 +462,7 @@ module SF
     # * `joystick`: Index of the joystick to check
     #
     # *Returns*: True if the joystick is connected, False otherwise
-    def self.is_connected(joystick: Int)
+    def self.is_connected(joystick : Int)
       joystick = joystick.to_i32
       CSFML.joystick_is_connected(joystick) != 0
     end
@@ -476,7 +476,7 @@ module SF
     # * `joystick`: Index of the joystick
     #
     # *Returns*: Number of buttons supported by the joystick
-    def self.get_button_count(joystick: Int)
+    def self.get_button_count(joystick : Int)
       joystick = joystick.to_i32
       CSFML.joystick_get_button_count(joystick)
     end
@@ -491,7 +491,7 @@ module SF
     # * `axis`: Axis to check
     #
     # *Returns*: True if the joystick supports the axis, False otherwise
-    def self.has_axis(joystick: Int, axis: JoystickAxis)
+    def self.has_axis(joystick : Int, axis : JoystickAxis)
       joystick = joystick.to_i32
       CSFML.joystick_has_axis(joystick, axis) != 0
     end
@@ -506,7 +506,7 @@ module SF
     # * `button`: Button to check
     #
     # *Returns*: True if the button is pressed, False otherwise
-    def self.is_button_pressed(joystick: Int, button: Int)
+    def self.is_button_pressed(joystick : Int, button : Int)
       joystick = joystick.to_i32
       button = button.to_i32
       CSFML.joystick_is_button_pressed(joystick, button) != 0
@@ -522,7 +522,7 @@ module SF
     # * `axis`: Axis to check
     #
     # *Returns*: Current position of the axis, in range [-100 .. 100]
-    def self.get_axis_position(joystick: Int, axis: JoystickAxis)
+    def self.get_axis_position(joystick : Int, axis : JoystickAxis)
       joystick = joystick.to_i32
       CSFML.joystick_get_axis_position(joystick, axis)
     end
@@ -537,7 +537,7 @@ module SF
     # * `joystick`: Index of the joystick
     #
     # *Returns*: Structure containing joystick information.
-    def self.get_identification(joystick: Int)
+    def self.get_identification(joystick : Int)
       joystick = joystick.to_i32
       CSFML.joystick_get_identification(joystick)
     end
@@ -772,7 +772,7 @@ module SF
     # * `key`: Key to check
     #
     # *Returns*: True if the key is pressed, False otherwise
-    def self.is_key_pressed(key: KeyCode)
+    def self.is_key_pressed(key : KeyCode)
       CSFML.keyboard_is_key_pressed(key) != 0
     end
 
@@ -804,7 +804,7 @@ module SF
     # * `button`: Button to check
     #
     # *Returns*: True if the button is pressed, False otherwise
-    def self.is_button_pressed(button: MouseButton)
+    def self.is_button_pressed(button : MouseButton)
       CSFML.mouse_is_button_pressed(button) != 0
     end
 
@@ -818,7 +818,7 @@ module SF
     # * `relative_to`: Reference window
     #
     # *Returns*: Position of the mouse cursor, relative to the given window
-    def self.get_position(relative_to: Window)
+    def self.get_position(relative_to : Window)
       SF.vector2(CSFML.mouse_get_position(relative_to))
     end
 
@@ -831,7 +831,7 @@ module SF
     #
     # * `position`: New position of the mouse
     # * `relative_to`: Reference window
-    def self.set_position(position, relative_to: Window)
+    def self.set_position(position, relative_to : Window)
       position = SF.vector2i(position) unless position.is_a? Vector2i
       CSFML.mouse_set_position(position, relative_to)
     end
@@ -870,7 +870,7 @@ module SF
     # * `sensor`: Sensor to check
     #
     # *Returns*: True if the sensor is available, False otherwise
-    def self.is_available(sensor: SensorType)
+    def self.is_available(sensor : SensorType)
       CSFML.sensor_is_available(sensor) != 0
     end
 
@@ -886,7 +886,7 @@ module SF
     #
     # * `sensor`: Sensor to enable
     # * `enabled`: True to enable, False to disable
-    def self.set_enabled(sensor: SensorType, enabled: Bool)
+    def self.set_enabled(sensor : SensorType, enabled : Bool)
       enabled = enabled ? 1 : 0
       CSFML.sensor_set_enabled(sensor, enabled)
     end
@@ -898,7 +898,7 @@ module SF
     # * `sensor`: Sensor to read
     #
     # *Returns*: The current sensor value
-    def self.get_value(sensor: SensorType)
+    def self.get_value(sensor : SensorType)
       CSFML.sensor_get_value(sensor)
     end
 
@@ -1087,7 +1087,7 @@ module SF
     # * `finger`: Finger index
     #
     # *Returns*: True if `finger` is currently touching the screen, False otherwise
-    def self.is_down(finger: Int)
+    def self.is_down(finger : Int)
       finger = finger.to_i32
       CSFML.touch_is_down(finger) != 0
     end
@@ -1103,7 +1103,7 @@ module SF
     # * `relative_to`: Reference window
     #
     # *Returns*: Current position of `finger`, or undefined if it's not down
-    def self.get_position(finger: Int, relative_to: Window)
+    def self.get_position(finger : Int, relative_to : Window)
       finger = finger.to_i32
       SF.vector2(CSFML.touch_get_position(finger, relative_to))
     end
@@ -1149,7 +1149,7 @@ module SF
     # * `count`: Pointer to a variable that will be filled with the number of modes in the array
     #
     # *Returns*: Pointer to an array containing all the supported fullscreen modes
-    def self.get_fullscreen_modes(count: LibC::SizeT*)
+    def self.get_fullscreen_modes(count : LibC::SizeT*)
       cself = self
       CSFML.video_mode_get_fullscreen_modes(count)
     end

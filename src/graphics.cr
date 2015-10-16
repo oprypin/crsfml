@@ -23,7 +23,7 @@ require "./graphics_lib"
 module SF
   extend self
 
-  def color(red: Number, green: Number, blue: Number, alpha=255: Number)
+  def color(red : Number, green : Number, blue : Number, alpha=255 : Number)
     Color.new(r: red.to_u8, g: green.to_u8, b: blue.to_u8, a: alpha.to_u8)
   end
   struct CSFML::Color
@@ -37,24 +37,24 @@ module SF
     Cyan = SF.color(0, 255, 255)
     Transparent = SF.color(0, 0, 0, 0)
 
-    def ==(other: self)
+    def ==(other : self)
       r == other.r && g == other.g && b == other.b && a == other.a
     end
-    def +(other: self)
+    def +(other : self)
       add other
     end
-    def *(other: self)
+    def *(other : self)
       modulate other
     end
-    def -(other: self)
+    def -(other : self)
       subtract other
     end
   end
 
-  def float_rect(left: Number, top: Number, width: Number, height: Number)
+  def float_rect(left : Number, top : Number, width : Number, height : Number)
     FloatRect.new(left: left.to_f32, top: top.to_f32, width: width.to_f32, height: height.to_f32)
   end
-  def int_rect(left: Number, top: Number, width: Number, height: Number)
+  def int_rect(left : Number, top : Number, width : Number, height : Number)
     IntRect.new(left: left.to_i32, top: top.to_i32, width: width.to_i32, height: height.to_i32)
   end
 
@@ -63,7 +63,7 @@ module SF
       x, y = point
       contains(x, y)
     end
-    def intersects(other: FloatRect)
+    def intersects(other : FloatRect)
       intersection = FloatRect.new()
       intersects(other, pointerof(intersection)) ? intersection : nil
     end
@@ -74,7 +74,7 @@ module SF
       x, y = point
       contains(x, y)
     end
-    def intersects(other: IntRect)
+    def intersects(other : IntRect)
       intersection = IntRect.new()
       intersects(other, pointerof(intersection)) ? intersection : nil
     end
@@ -94,7 +94,7 @@ module SF
       x, y = offset
       translate(x, y)
     end
-    def rotate(angle: Number, center)
+    def rotate(angle : Number, center)
       cx, cy = center
       rotate(angle, cx, cy)
     end
@@ -102,13 +102,13 @@ module SF
       x, y = factors
       scale(x, y)
     end
-    def scale(factors, center: Number)
+    def scale(factors, center : Number)
       x, y = factors
       cx, cy = center
       scale(x, y, cx, cy)
     end
 
-    def *(other: self)
+    def *(other : self)
       out = self
       out.combine(other)
       out
@@ -124,7 +124,7 @@ module SF
     end
   end
 
-  def blend_mode(color_source_factor: BlendFactor, color_destination_factor: BlendFactor, color_blend_equation: BlendEquation, alpha_source_factor: BlendFactor, alpha_destination_factor: BlendFactor, alpha_blend_equation: BlendEquation)
+  def blend_mode(color_source_factor : BlendFactor, color_destination_factor : BlendFactor, color_blend_equation : BlendEquation, alpha_source_factor : BlendFactor, alpha_destination_factor : BlendFactor, alpha_blend_equation : BlendEquation)
     BlendMode.new(
       color_src_factor: color_source_factor,
       color_dst_factor: color_destination_factor,
@@ -135,7 +135,7 @@ module SF
     )
   end
 
-  def blend_mode(source_factor: BlendFactor, destination_factor: BlendFactor, blend_equation=CSFML::BlendEquation::Add)
+  def blend_mode(source_factor : BlendFactor, destination_factor : BlendFactor, blend_equation=CSFML::BlendEquation::Add)
     blend_mode(
       source_factor, destination_factor, blend_equation,
       source_factor, destination_factor, blend_equation
@@ -171,16 +171,16 @@ module SF
   end
 
   class CircleShape
-    def initialize(radius: Number, point_count=30: Int)
+    def initialize(radius : Number, point_count=30 : Int)
       initialize()
       self.radius = radius
       self.point_count = point_count
     end
 
-    def texture=(texture: Texture)
+    def texture=(texture : Texture)
       set_texture(texture, false)
     end
-    def draw(target, states: RenderStates)
+    def draw(target, states : RenderStates)
       target.draw_circle_shape(self, states)
     end
   end
@@ -191,16 +191,16 @@ module SF
       self.size = size
     end
 
-    def texture=(texture: Texture)
+    def texture=(texture : Texture)
       set_texture(texture, false)
     end
-    def draw(target, states: RenderStates)
+    def draw(target, states : RenderStates)
       target.draw_rectangle_shape(self, states)
     end
   end
 
   class ConvexShape
-    def initialize(point_count: Int)
+    def initialize(point_count : Int)
       initialize()
       self.point_count = point_count
     end
@@ -212,10 +212,10 @@ module SF
       set_point(index, point)
     end
 
-    def texture=(texture: Texture)
+    def texture=(texture : Texture)
       set_texture(texture, false)
     end
-    def draw(target, states: RenderStates)
+    def draw(target, states : RenderStates)
       target.draw_convex_shape(self, states)
     end
   end
@@ -234,7 +234,7 @@ module SF
     end
 
     abstract def point_count: Int
-    abstract def get_point(index: Int): SF::Vector2
+    abstract def get_point(index : Int): SF::Vector2
   end
 
   class Image
@@ -254,40 +254,40 @@ module SF
       self.from_stream(stream, nil)
     end
 
-    def self.bind(texture: Texture?)
+    def self.bind(texture : Texture?)
       CSFML.texture_bind(texture)
     end
   end
 
   class Sprite
-    def initialize(texture: Texture)
+    def initialize(texture : Texture)
       initialize()
       set_texture(texture, true)
     end
-    def initialize(texture: Texture, rectangle: IntRect)
+    def initialize(texture : Texture, rectangle : IntRect)
       initialize()
       self.texture = texture
       self.texture_rect = rectangle
     end
 
-    def texture=(texture: Texture)
+    def texture=(texture : Texture)
       set_texture(texture, false)
     end
 
-    def draw(target, states: RenderStates)
+    def draw(target, states : RenderStates)
       target.draw_sprite(self, states)
     end
   end
 
   class Text
-    def initialize(string: String, font: Font, character_size=30: Int)
+    def initialize(string : String, font : Font, character_size=30 : Int)
       initialize()
       self.string = string
       self.font = font
       self.character_size = character_size
     end
 
-    def draw(target, states: RenderStates)
+    def draw(target, states : RenderStates)
       target.draw_text(self, states)
     end
   end
@@ -299,21 +299,21 @@ module SF
     Vertex = Type::Vertex
     Fragment = Type::Fragment
 
-    def self.from_file(filename: String, type: Type)
+    def self.from_file(filename : String, type : Type)
       Shader.transfer_ptr(CSFML.shader_create_from_file(
         type == Vertex ? filename.to_unsafe : Pointer(LibC::Char).null,
         type == Fragment ? filename.to_unsafe : Pointer(LibC::Char).null
       ))
     end
 
-    def self.from_memory(shader: String, type: Type)
+    def self.from_memory(shader : String, type : Type)
       Shader.transfer_ptr(CSFML.shader_create_from_memory(
         type == Vertex ? shader.to_unsafe : Pointer(LibC::Char).null,
         type == Fragment ? shader.to_unsafe : Pointer(LibC::Char).null
       ))
     end
 
-    def self.from_stream(stream: InputStream, type: Type)
+    def self.from_stream(stream : InputStream, type : Type)
       Shader.transfer_ptr(CSFML.shader_create_from_stream(
         type == Vertex ? stream.to_unsafe : Pointer(CSFML::InputStream).null,
         type == Fragment ? stream.to_unsafe : Pointer(CSFML::InputStream).null
@@ -325,11 +325,11 @@ module SF
 
     CurrentTexture = CurrentTextureType.new()
 
-    def set_parameter(name: String, current_texture: CurrentTextureType)
+    def set_parameter(name : String, current_texture : CurrentTextureType)
       CSFML.shader_set_current_texture_parameter(@this, name)
     end
 
-    def self.bind(shader: Shader?)
+    def self.bind(shader : Shader?)
       CSFML.shader_bind(shader)
     end
   end
@@ -339,7 +339,7 @@ module SF
   end
 
   class VertexArray
-    def initialize(primitive_type: PrimitiveType, vertex_count=0)
+    def initialize(primitive_type : PrimitiveType, vertex_count=0)
       initialize()
       self.primitive_type = primitive_type
       self.resize(vertex_count)
@@ -352,7 +352,7 @@ module SF
       get_vertex(index)[0] = vertex
     end
 
-    def draw(target, states: RenderStates)
+    def draw(target, states : RenderStates)
       target.draw_vertex_array(self, states)
     end
   end
@@ -373,7 +373,7 @@ module SF
     def draw(drawable, states=CSFML::RenderStates::Default)
       drawable.draw(self, states)
     end
-    def draw(vertices, type: PrimitiveType, states=CSFML::RenderStates::Default)
+    def draw(vertices, type : PrimitiveType, states=CSFML::RenderStates::Default)
       if states
         cstates = states; pstates = pointerof(cstates)
       else
@@ -393,14 +393,14 @@ module SF
   end
 
   class RenderWindow
-    def initialize(mode: VideoMode, title: String, style=CSFML::WindowStyle::Default, settings=SF.context_settings())
+    def initialize(mode : VideoMode, title : String, style=CSFML::WindowStyle::Default, settings=SF.context_settings())
       initialize(mode, title, style, settings)
     end
 
     def draw(drawable, states=CSFML::RenderStates::Default)
       drawable.draw(self, states)
     end
-    def draw(vertices, type: PrimitiveType, states=CSFML::RenderStates::Default)
+    def draw(vertices, type : PrimitiveType, states=CSFML::RenderStates::Default)
       if states
         cstates = states; pstates = pointerof(cstates)
       else

@@ -76,11 +76,11 @@ def test_mouse()
     shape.fill_color = SF.color(255, 128, 0)
     
     buttons = {
-      SF::Mouse::Left => {-0.7, -0.7}
-      SF::Mouse::Right => {0.7, -0.7}
-      SF::Mouse::Middle => {0, -1}
-      SF::Mouse::XButton1 => {-1, 0}
-      SF::Mouse::XButton2 => {1, 0}
+      SF::Mouse::Left => {-0.7, -0.7},
+      SF::Mouse::Right => {0.7, -0.7},
+      SF::Mouse::Middle => {0, -1},
+      SF::Mouse::XButton1 => {-1, 0},
+      SF::Mouse::XButton2 => {1, 0},
     }
     buttons.each do |btn, delta|
       if SF::Mouse.is_button_pressed(btn)
@@ -131,14 +131,14 @@ def test_controller()
     text.color = SF.color(0, 0, 0)
     
     button_pos = [
-      {5 + 0, 1}
-      {5 + 1, 0}
-      {5 - 1, 0}
-      {5 + 0, -1}
-      {-5, -3}, {5, -3}
-      {-2, -0.5}, {2, -0.5}
-      {0, 0}
-      {-2.5, 2}, {2.5, 2}
+      {5 + 0, 1},
+      {5 + 1, 0},
+      {5 - 1, 0},
+      {5 + 0, -1},
+      {-5, -3}, {5, -3},
+      {-2, -0.5}, {2, -0.5},
+      {0, 0},
+      {-2.5, 2}, {2.5, 2},
     ]
     (0...SF::Joystick.get_button_count(js)).each do |btn|
       text.string = (btn+1).to_s
@@ -161,10 +161,10 @@ def test_controller()
     shape.fill_color = SF.color(128, 0, 255)
     
     axis_pos = [
-      {-2.5, 2, :h}, {-2.5, 2, :v}
-      {-5, -4.5, :v}, {5, -4.5, :v}
-      {2.5, 2, :h}, {2.5, 2, :v}
-      {-5, 0, :h}, {-5, 0, :v}
+      {-2.5, 2, :h}, {-2.5, 2, :v},
+      {-5, -4.5, :v}, {5, -4.5, :v},
+      {2.5, 2, :h}, {2.5, 2, :v},
+      {-5, 0, :h}, {-5, 0, :v},
     ]
     axi = 0
     axis_pos.group_by { |a| {a[0], a[1]} } .each do |delta, group|
@@ -207,7 +207,7 @@ class Button < SF::RectangleShape
     @text.position = SF.vector2((width - @text.global_bounds.width) / 2, -height / 20)
   end
   
-  def draw(target, states: SF::RenderStates)
+  def draw(target, states : SF::RenderStates)
     states.transform.combine(transform)
     
     super(target, states)
@@ -220,10 +220,10 @@ h = 50
 x = 200
 y = 25
 actions = {
-  Button.new("Mouse", w, h) => -> { test_mouse }
-  Button.new("Controller", w, h) => -> { test_controller }
-  Button.new("Fullscreen modes", w, h) => -> { display_fullscreen_modes }
-  Button.new("Audio devices", w, h) => -> { display_audio_devices }
+  Button.new("Mouse", w, h) => -> { test_mouse },
+  Button.new("Controller", w, h) => -> { test_controller },
+  Button.new("Fullscreen modes", w, h) => -> { display_fullscreen_modes },
+  Button.new("Audio devices", w, h) => -> { display_audio_devices },
 }
 
 actions.each_key do |btn|

@@ -23,7 +23,7 @@ require "./window_lib"
 module SF
   extend self
 
-  def context_settings(depth=0: Int, stencil=0: Int, antialiasing=0: Int, major=2: Int, minor=0: Int, attributes=CSFML::ContextSettings::Default)
+  def context_settings(depth=0 : Int, stencil=0 : Int, antialiasing=0 : Int, major=2 : Int, minor=0 : Int, attributes=CSFML::ContextSettings::Default)
     ContextSettings.new(
       depth_bits: depth.to_i32, stencil_bits: stencil.to_i32,
       antialiasing_level: antialiasing.to_i32,
@@ -52,7 +52,7 @@ module SF
     VideoMode.new()
   end
 
-  def video_mode(mode_width: Int, mode_height: Int, bits_per_pixel=32)
+  def video_mode(mode_width : Int, mode_height : Int, bits_per_pixel=32)
     VideoMode.new(
       width: mode_width.to_i32, height: mode_height.to_i32,
       bits_per_pixel: bits_per_pixel.to_i32
@@ -67,7 +67,7 @@ module SF
   end
 
   class Window
-    def initialize(mode: VideoMode, title: String, style=CSFML::WindowStyle::Default, settings=SF.context_settings())
+    def initialize(mode : VideoMode, title : String, style=CSFML::WindowStyle::Default, settings=SF.context_settings())
       initialize(mode, title, style, settings)
     end
 

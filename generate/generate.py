@@ -214,7 +214,7 @@ def handle_struct(name, items):
             rt = 'Char'
         elif rt=='UInt32' and n=='attributeFlags':
             rt = 'ContextAttribute'
-        lib('  {}{}: {}'.format(rename_identifier(n), special, rt))
+        lib('  {}{} : {}'.format(rename_identifier(n), special, rt))
 
         if special:
             if name and name not in objs[cmodule]:
@@ -245,7 +245,7 @@ def handle_union(name, items):
     
     for t, n in items:
         t = rename_type(t)
-        lib('  {}: {}'.format(rename_identifier(n), t))
+        lib('  {} : {}'.format(rename_identifier(n), t))
     lib('end')
 
     if d: obj(name+'ALIAS', d)
@@ -364,7 +364,7 @@ def handle_function(main, params, alias=None):
         #if rtype.startswith('ptr ') or rtype=='pointer':
             #public = False
         aparams.append((rname, rrtype))
-    sparams = ', '.join('{}: {}'.format(*p) for p in aparams)
+    sparams = ', '.join('{} : {}'.format(*p) for p in aparams)
 
     d = None
     if alias:
@@ -449,7 +449,7 @@ def handle_function(main, params, alias=None):
             ).format(n).splitlines()
             t = None
         oparams[i] = (n, t)
-    sparams = ', '.join(n.split(', ')[0] + ((': '+t) if t else '') for n, t in oparams)
+    sparams = ', '.join(n.split(', ')[0] + ((' : '+t) if t else '') for n, t in oparams)
     if not getter: sparams = '('+sparams+')'
     for i, (n, t) in enumerate(oparams):
         if n in const and t is None:

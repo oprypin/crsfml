@@ -244,7 +244,7 @@ module SF
   # * `amount`: Number of seconds
   #
   # *Returns*: Time value constructed from the amount of seconds
-  def seconds(amount: Number)
+  def seconds(amount : Number)
     amount = amount.to_f32
     CSFML.seconds(amount)
   end
@@ -256,7 +256,7 @@ module SF
   # * `amount`: Number of milliseconds
   #
   # *Returns*: Time value constructed from the amount of milliseconds
-  def milliseconds(amount: Int32)
+  def milliseconds(amount : Int32)
     CSFML.milliseconds(amount)
   end
 
@@ -267,7 +267,7 @@ module SF
   # * `amount`: Number of microseconds
   #
   # *Returns*: Time value constructed from the amount of microseconds
-  def microseconds(amount: Int)
+  def microseconds(amount : Int)
     amount = amount.to_i64
     CSFML.microseconds(amount)
   end
@@ -280,7 +280,7 @@ module SF
   # *Arguments*:
   #
   # * `duration`: Time to sleep
-  def sleep(duration: Time)
+  def sleep(duration : Time)
     CSFML.sleep(duration)
   end
 

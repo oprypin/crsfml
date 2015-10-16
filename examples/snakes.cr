@@ -65,11 +65,11 @@ class Snake
     end
   end
   
-  def collides?(other: self)
+  def collides?(other : self)
     other.body.any? { |part| @body[0] == part }
   end
   
-  def collides?(food: Food)
+  def collides?(food : Food)
     @body[0] == food.position
   end
   

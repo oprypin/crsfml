@@ -25,7 +25,7 @@ module SF
   extend self
 
   class Ftp
-    def connect(server: IpAddress, port=21: Int)
+    def connect(server : IpAddress, port=21 : Int)
       connect(server, port, Time::Zero)
     end
     def login()
@@ -57,21 +57,21 @@ module SF
   end
 
   class Http
-    def initialize(host: String, port=0)
+    def initialize(host : String, port=0)
       initialize()
       set_host(host, port)
     end
-    def set_host(host: String)
+    def set_host(host : String)
       set_host(host, 0)
     end
 
-    def send_request(request: SF::HttpRequest)
+    def send_request(request : SF::HttpRequest)
       send_request(request, SF.microseconds(0))
     end
   end
 
   class HttpRequest
-    def initialize(uri: String, method=HttpRequest::Get, body="")
+    def initialize(uri : String, method=HttpRequest::Get, body="")
       initialize()
       self.uri = uri
       self.method = method
@@ -89,7 +89,7 @@ module SF
       end
     end
 
-    def write_string(string: String)
+    def write_string(string : String)
       CSFML.packet_write_string(@this, string)
     end
   end
@@ -98,46 +98,46 @@ module SF
     def wait()
       wait(SF::Time::Zero)
     end
-    def add(socket: TcpListener)
+    def add(socket : TcpListener)
       add_tcp_listener(socket)
     end
-    def add(socket: TcpSocket)
+    def add(socket : TcpSocket)
       add_tcp_socket(socket)
     end
-    def add(socket: UdpSocket)
+    def add(socket : UdpSocket)
       add_udp_socket(socket)
     end
-    def remove(socket: TcpListener)
+    def remove(socket : TcpListener)
       remove_tcp_listener(socket)
     end
-    def remove(socket: TcpSocket)
+    def remove(socket : TcpSocket)
       remove_tcp_socket(socket)
     end
-    def remove(socket: UdpSocket)
+    def remove(socket : UdpSocket)
       remove_udp_socket(socket)
     end
-    def ready?(socket: TcpListener)
+    def ready?(socket : TcpListener)
       is_tcp_listener_ready(socket)
     end
-    def ready?(socket: TcpSocket)
+    def ready?(socket : TcpSocket)
       is_tcp_socket_ready(socket)
     end
-    def ready?(socket: UdpSocket)
+    def ready?(socket : UdpSocket)
       is_udp_socket_ready(socket)
     end
   end
 
   class TcpSocket
-    def connect(host: IpAddress, port: Int)
+    def connect(host : IpAddress, port : Int)
       connect(host, port, SF::Time::Zero)
     end
 
-    def send_partial(data: Slice|Array)
+    def send_partial(data : Slice|Array)
       data, size = (data.to_unsafe as Pointer(Void)), LibC::SizeT.new(data.size*sizeof(typeof(data[0])))
       r = CSFML.tcp_socket_send_partial(@this, data, size, out sent)
       {r, sent}
     end
-    def receive(data: Slice|Array)
+    def receive(data : Slice|Array)
       data, max_size = (data.to_unsafe as Pointer(Void)), LibC::SizeT.new(data.size*sizeof(typeof(data[0])))
       r = CSFML.tcp_socket_receive(@this, data, max_size, out size_received)
       {r, size_received}
@@ -156,12 +156,12 @@ module SF
   end
 
   class UdpSocket
-    def receive(data: Slice|Array)
+    def receive(data : Slice|Array)
       data, max_size = (data.to_unsafe as Pointer(Void)), LibC::SizeT.new(data.size*sizeof(typeof(data[0])))
       r = CSFML.udp_socket_receive(@this, data, max_size, out size_received, out address, out port)
       {r, size_received, address, port}
     end
-    def receive_packet(packet: Packet)
+    def receive_packet(packet : Packet)
       CSFML.udp_socket_receive_packet(@this, packet, out address, out port)
       {address, port}
     end

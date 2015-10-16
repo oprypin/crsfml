@@ -14,7 +14,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `volume`: New global volume, in the range [0, 100]
-  fun listener_set_global_volume = sfListener_setGlobalVolume(volume: Float32)
+  fun listener_set_global_volume = sfListener_setGlobalVolume(volume : Float32)
 
   # Get the current value of the global volume
   #
@@ -28,7 +28,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `position`: New position of the listener
-  fun listener_set_position = sfListener_setPosition(position: Vector3f)
+  fun listener_set_position = sfListener_setPosition(position : Vector3f)
 
   # Get the current position of the listener in the scene
   #
@@ -47,7 +47,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `direction`: New listener's direction
-  fun listener_set_direction = sfListener_setDirection(direction: Vector3f)
+  fun listener_set_direction = sfListener_setDirection(direction : Vector3f)
 
   # Get the current forward vector of the listener in the scene
   #
@@ -66,7 +66,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `up_vector`: New listener's up vector
-  fun listener_set_up_vector = sfListener_setUpVector(up_vector: Vector3f)
+  fun listener_set_up_vector = sfListener_setUpVector(up_vector : Vector3f)
 
   # Get the current upward vector of the listener in the scene
   #
@@ -103,7 +103,7 @@ lib CSFML
   # * `filename`: Path of the music file to open
   #
   # *Returns*: A new Music object (NULL if failed)
-  fun music_create_from_file = sfMusic_createFromFile(filename: LibC::Char*): Music
+  fun music_create_from_file = sfMusic_createFromFile(filename : LibC::Char*): Music
 
   # Create a new music and load it from a file in memory
   #
@@ -119,7 +119,7 @@ lib CSFML
   # * `size_in_bytes`: Size of the data to load, in bytes
   #
   # *Returns*: A new Music object (NULL if failed)
-  fun music_create_from_memory = sfMusic_createFromMemory(data: Void*, size_in_bytes: LibC::SizeT): Music
+  fun music_create_from_memory = sfMusic_createFromMemory(data : Void*, size_in_bytes : LibC::SizeT): Music
 
   # Create a new music and load it from a custom stream
   #
@@ -134,14 +134,14 @@ lib CSFML
   # * `stream`: Source stream to read from
   #
   # *Returns*: A new Music object (NULL if failed)
-  fun music_create_from_stream = sfMusic_createFromStream(stream: InputStream*): Music
+  fun music_create_from_stream = sfMusic_createFromStream(stream : InputStream*): Music
 
   # Destroy a music
   #
   # *Arguments*:
   #
   # * `music`: Music to destroy
-  fun music_destroy = sfMusic_destroy(music: Music)
+  fun music_destroy = sfMusic_destroy(music : Music)
 
   # Set whether or not a music should loop after reaching the end
   #
@@ -154,7 +154,7 @@ lib CSFML
   #
   # * `music`: Music object
   # * `loop`: True to play in loop, False to play once
-  fun music_set_loop = sfMusic_setLoop(music: Music, loop: CSFML::Bool)
+  fun music_set_loop = sfMusic_setLoop(music : Music, loop : CSFML::Bool)
 
   # Tell whether or not a music is in loop mode
   #
@@ -163,7 +163,7 @@ lib CSFML
   # * `music`: Music object
   #
   # *Returns*: True if the music is looping, False otherwise
-  fun music_get_loop = sfMusic_getLoop(music: Music): CSFML::Bool
+  fun music_get_loop = sfMusic_getLoop(music : Music): CSFML::Bool
 
   # Get the total duration of a music
   #
@@ -172,7 +172,7 @@ lib CSFML
   # * `music`: Music object
   #
   # *Returns*: Music duration
-  fun music_get_duration = sfMusic_getDuration(music: Music): Time
+  fun music_get_duration = sfMusic_getDuration(music : Music): Time
 
   # Start or resume playing a music
   #
@@ -185,7 +185,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `music`: Music object
-  fun music_play = sfMusic_play(music: Music)
+  fun music_play = sfMusic_play(music : Music)
 
   # Pause a music
   #
@@ -195,7 +195,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `music`: Music object
-  fun music_pause = sfMusic_pause(music: Music)
+  fun music_pause = sfMusic_pause(music : Music)
 
   # Stop playing a music
   #
@@ -206,7 +206,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `music`: Music object
-  fun music_stop = sfMusic_stop(music: Music)
+  fun music_stop = sfMusic_stop(music : Music)
 
   # Return the number of channels of a music
   #
@@ -217,7 +217,7 @@ lib CSFML
   # * `music`: Music object
   #
   # *Returns*: Number of channels
-  fun music_get_channel_count = sfMusic_getChannelCount(music: Music): Int32
+  fun music_get_channel_count = sfMusic_getChannelCount(music : Music): Int32
 
   # Get the sample rate of a music
   #
@@ -229,7 +229,7 @@ lib CSFML
   # * `music`: Music object
   #
   # *Returns*: Sample rate, in number of samples per second
-  fun music_get_sample_rate = sfMusic_getSampleRate(music: Music): Int32
+  fun music_get_sample_rate = sfMusic_getSampleRate(music : Music): Int32
 
   # Get the current status of a music (stopped, paused, playing)
   #
@@ -238,7 +238,7 @@ lib CSFML
   # * `music`: Music object
   #
   # *Returns*: Current status
-  fun music_get_status = sfMusic_getStatus(music: Music): SoundStatus
+  fun music_get_status = sfMusic_getStatus(music : Music): SoundStatus
 
   # Get the current playing position of a music
   #
@@ -247,7 +247,7 @@ lib CSFML
   # * `music`: Music object
   #
   # *Returns*: Current playing position
-  fun music_get_playing_offset = sfMusic_getPlayingOffset(music: Music): Time
+  fun music_get_playing_offset = sfMusic_getPlayingOffset(music : Music): Time
 
   # Set the pitch of a music
   #
@@ -261,7 +261,7 @@ lib CSFML
   #
   # * `music`: Music object
   # * `pitch`: New pitch to apply to the music
-  fun music_set_pitch = sfMusic_setPitch(music: Music, pitch: Float32)
+  fun music_set_pitch = sfMusic_setPitch(music : Music, pitch : Float32)
 
   # Set the volume of a music
   #
@@ -272,7 +272,7 @@ lib CSFML
   #
   # * `music`: Music object
   # * `volume`: Volume of the music
-  fun music_set_volume = sfMusic_setVolume(music: Music, volume: Float32)
+  fun music_set_volume = sfMusic_setVolume(music : Music, volume : Float32)
 
   # Set the 3D position of a music in the audio scene
   #
@@ -284,7 +284,7 @@ lib CSFML
   #
   # * `music`: Music object
   # * `position`: Position of the music in the scene
-  fun music_set_position = sfMusic_setPosition(music: Music, position: Vector3f)
+  fun music_set_position = sfMusic_setPosition(music : Music, position : Vector3f)
 
   # Make a musics's position relative to the listener or absolute
   #
@@ -298,7 +298,7 @@ lib CSFML
   #
   # * `music`: Music object
   # * `relative`: True to set the position relative, False to set it absolute
-  fun music_set_relative_to_listener = sfMusic_setRelativeToListener(music: Music, relative: CSFML::Bool)
+  fun music_set_relative_to_listener = sfMusic_setRelativeToListener(music : Music, relative : CSFML::Bool)
 
   # Set the minimum distance of a music
   #
@@ -313,7 +313,7 @@ lib CSFML
   #
   # * `music`: Music object
   # * `distance`: New minimum distance of the music
-  fun music_set_min_distance = sfMusic_setMinDistance(music: Music, distance: Float32)
+  fun music_set_min_distance = sfMusic_setMinDistance(music : Music, distance : Float32)
 
   # Set the attenuation factor of a music
   #
@@ -330,7 +330,7 @@ lib CSFML
   #
   # * `music`: Music object
   # * `attenuation`: New attenuation factor of the music
-  fun music_set_attenuation = sfMusic_setAttenuation(music: Music, attenuation: Float32)
+  fun music_set_attenuation = sfMusic_setAttenuation(music : Music, attenuation : Float32)
 
   # Change the current playing position of a music
   #
@@ -341,7 +341,7 @@ lib CSFML
   #
   # * `music`: Music object
   # * `time_offset`: New playing position
-  fun music_set_playing_offset = sfMusic_setPlayingOffset(music: Music, time_offset: Time)
+  fun music_set_playing_offset = sfMusic_setPlayingOffset(music : Music, time_offset : Time)
 
   # Get the pitch of a music
   #
@@ -350,7 +350,7 @@ lib CSFML
   # * `music`: Music object
   #
   # *Returns*: Pitch of the music
-  fun music_get_pitch = sfMusic_getPitch(music: Music): Float32
+  fun music_get_pitch = sfMusic_getPitch(music : Music): Float32
 
   # Get the volume of a music
   #
@@ -359,7 +359,7 @@ lib CSFML
   # * `music`: Music object
   #
   # *Returns*: Volume of the music, in the range [0, 100]
-  fun music_get_volume = sfMusic_getVolume(music: Music): Float32
+  fun music_get_volume = sfMusic_getVolume(music : Music): Float32
 
   # Get the 3D position of a music in the audio scene
   #
@@ -368,7 +368,7 @@ lib CSFML
   # * `music`: Music object
   #
   # *Returns*: Position of the music in the world
-  fun music_get_position = sfMusic_getPosition(music: Music): Vector3f
+  fun music_get_position = sfMusic_getPosition(music : Music): Vector3f
 
   # Tell whether a music's position is relative to the
   # listener or is absolute
@@ -378,7 +378,7 @@ lib CSFML
   # * `music`: Music object
   #
   # *Returns*: True if the position is relative, False if it's absolute
-  fun music_is_relative_to_listener = sfMusic_isRelativeToListener(music: Music): CSFML::Bool
+  fun music_is_relative_to_listener = sfMusic_isRelativeToListener(music : Music): CSFML::Bool
 
   # Get the minimum distance of a music
   #
@@ -387,7 +387,7 @@ lib CSFML
   # * `music`: Music object
   #
   # *Returns*: Minimum distance of the music
-  fun music_get_min_distance = sfMusic_getMinDistance(music: Music): Float32
+  fun music_get_min_distance = sfMusic_getMinDistance(music : Music): Float32
 
   # Get the attenuation factor of a music
   #
@@ -396,7 +396,7 @@ lib CSFML
   # * `music`: Music object
   #
   # *Returns*: Attenuation factor of the music
-  fun music_get_attenuation = sfMusic_getAttenuation(music: Music): Float32
+  fun music_get_attenuation = sfMusic_getAttenuation(music : Music): Float32
 
   # Create a new sound
   #
@@ -410,14 +410,14 @@ lib CSFML
   # * `sound`: Sound to copy
   #
   # *Returns*: A new Sound object which is a copy of `sound`
-  fun sound_copy = sfSound_copy(sound: Sound): Sound
+  fun sound_copy = sfSound_copy(sound : Sound): Sound
 
   # Destroy a sound
   #
   # *Arguments*:
   #
   # * `sound`: Sound to destroy
-  fun sound_destroy = sfSound_destroy(sound: Sound)
+  fun sound_destroy = sfSound_destroy(sound : Sound)
 
   # Start or resume playing a sound
   #
@@ -430,7 +430,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `sound`: Sound object
-  fun sound_play = sfSound_play(sound: Sound)
+  fun sound_play = sfSound_play(sound : Sound)
 
   # Pause a sound
   #
@@ -440,7 +440,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `sound`: Sound object
-  fun sound_pause = sfSound_pause(sound: Sound)
+  fun sound_pause = sfSound_pause(sound : Sound)
 
   # Stop playing a sound
   #
@@ -451,7 +451,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `sound`: Sound object
-  fun sound_stop = sfSound_stop(sound: Sound)
+  fun sound_stop = sfSound_stop(sound : Sound)
 
   # Set the source buffer containing the audio data to play
   #
@@ -463,7 +463,7 @@ lib CSFML
   #
   # * `sound`: Sound object
   # * `buffer`: Sound buffer to attach to the sound
-  fun sound_set_buffer = sfSound_setBuffer(sound: Sound, buffer: SoundBuffer)
+  fun sound_set_buffer = sfSound_setBuffer(sound : Sound, buffer : SoundBuffer)
 
   # Get the audio buffer attached to a sound
   #
@@ -472,7 +472,7 @@ lib CSFML
   # * `sound`: Sound object
   #
   # *Returns*: Sound buffer attached to the sound (can be NULL)
-  fun sound_get_buffer = sfSound_getBuffer(sound: Sound): SoundBuffer
+  fun sound_get_buffer = sfSound_getBuffer(sound : Sound): SoundBuffer
 
   # Set whether or not a sound should loop after reaching the end
   #
@@ -485,7 +485,7 @@ lib CSFML
   #
   # * `sound`: Sound object
   # * `loop`: True to play in loop, False to play once
-  fun sound_set_loop = sfSound_setLoop(sound: Sound, loop: CSFML::Bool)
+  fun sound_set_loop = sfSound_setLoop(sound : Sound, loop : CSFML::Bool)
 
   # Tell whether or not a sound is in loop mode
   #
@@ -494,7 +494,7 @@ lib CSFML
   # * `sound`: Sound object
   #
   # *Returns*: True if the sound is looping, False otherwise
-  fun sound_get_loop = sfSound_getLoop(sound: Sound): CSFML::Bool
+  fun sound_get_loop = sfSound_getLoop(sound : Sound): CSFML::Bool
 
   # Get the current status of a sound (stopped, paused, playing)
   #
@@ -503,7 +503,7 @@ lib CSFML
   # * `sound`: Sound object
   #
   # *Returns*: Current status
-  fun sound_get_status = sfSound_getStatus(sound: Sound): SoundStatus
+  fun sound_get_status = sfSound_getStatus(sound : Sound): SoundStatus
 
   # Set the pitch of a sound
   #
@@ -517,7 +517,7 @@ lib CSFML
   #
   # * `sound`: Sound object
   # * `pitch`: New pitch to apply to the sound
-  fun sound_set_pitch = sfSound_setPitch(sound: Sound, pitch: Float32)
+  fun sound_set_pitch = sfSound_setPitch(sound : Sound, pitch : Float32)
 
   # Set the volume of a sound
   #
@@ -528,7 +528,7 @@ lib CSFML
   #
   # * `sound`: Sound object
   # * `volume`: Volume of the sound
-  fun sound_set_volume = sfSound_setVolume(sound: Sound, volume: Float32)
+  fun sound_set_volume = sfSound_setVolume(sound : Sound, volume : Float32)
 
   # Set the 3D position of a sound in the audio scene
   #
@@ -540,7 +540,7 @@ lib CSFML
   #
   # * `sound`: Sound object
   # * `position`: Position of the sound in the scene
-  fun sound_set_position = sfSound_setPosition(sound: Sound, position: Vector3f)
+  fun sound_set_position = sfSound_setPosition(sound : Sound, position : Vector3f)
 
   # Make the sound's position relative to the listener or absolute
   #
@@ -554,7 +554,7 @@ lib CSFML
   #
   # * `sound`: Sound object
   # * `relative`: True to set the position relative, False to set it absolute
-  fun sound_set_relative_to_listener = sfSound_setRelativeToListener(sound: Sound, relative: CSFML::Bool)
+  fun sound_set_relative_to_listener = sfSound_setRelativeToListener(sound : Sound, relative : CSFML::Bool)
 
   # Set the minimum distance of a sound
   #
@@ -569,7 +569,7 @@ lib CSFML
   #
   # * `sound`: Sound object
   # * `distance`: New minimum distance of the sound
-  fun sound_set_min_distance = sfSound_setMinDistance(sound: Sound, distance: Float32)
+  fun sound_set_min_distance = sfSound_setMinDistance(sound : Sound, distance : Float32)
 
   # Set the attenuation factor of a sound
   #
@@ -586,7 +586,7 @@ lib CSFML
   #
   # * `sound`: Sound object
   # * `attenuation`: New attenuation factor of the sound
-  fun sound_set_attenuation = sfSound_setAttenuation(sound: Sound, attenuation: Float32)
+  fun sound_set_attenuation = sfSound_setAttenuation(sound : Sound, attenuation : Float32)
 
   # Change the current playing position of a sound
   #
@@ -597,7 +597,7 @@ lib CSFML
   #
   # * `sound`: Sound object
   # * `time_offset`: New playing position
-  fun sound_set_playing_offset = sfSound_setPlayingOffset(sound: Sound, time_offset: Time)
+  fun sound_set_playing_offset = sfSound_setPlayingOffset(sound : Sound, time_offset : Time)
 
   # Get the pitch of a sound
   #
@@ -606,7 +606,7 @@ lib CSFML
   # * `sound`: Sound object
   #
   # *Returns*: Pitch of the sound
-  fun sound_get_pitch = sfSound_getPitch(sound: Sound): Float32
+  fun sound_get_pitch = sfSound_getPitch(sound : Sound): Float32
 
   # Get the volume of a sound
   #
@@ -615,7 +615,7 @@ lib CSFML
   # * `sound`: Sound object
   #
   # *Returns*: Volume of the sound, in the range [0, 100]
-  fun sound_get_volume = sfSound_getVolume(sound: Sound): Float32
+  fun sound_get_volume = sfSound_getVolume(sound : Sound): Float32
 
   # Get the 3D position of a sound in the audio scene
   #
@@ -624,7 +624,7 @@ lib CSFML
   # * `sound`: Sound object
   #
   # *Returns*: Position of the sound in the world
-  fun sound_get_position = sfSound_getPosition(sound: Sound): Vector3f
+  fun sound_get_position = sfSound_getPosition(sound : Sound): Vector3f
 
   # Tell whether a sound's position is relative to the
   # listener or is absolute
@@ -634,7 +634,7 @@ lib CSFML
   # * `sound`: Sound object
   #
   # *Returns*: True if the position is relative, False if it's absolute
-  fun sound_is_relative_to_listener = sfSound_isRelativeToListener(sound: Sound): CSFML::Bool
+  fun sound_is_relative_to_listener = sfSound_isRelativeToListener(sound : Sound): CSFML::Bool
 
   # Get the minimum distance of a sound
   #
@@ -643,7 +643,7 @@ lib CSFML
   # * `sound`: Sound object
   #
   # *Returns*: Minimum distance of the sound
-  fun sound_get_min_distance = sfSound_getMinDistance(sound: Sound): Float32
+  fun sound_get_min_distance = sfSound_getMinDistance(sound : Sound): Float32
 
   # Get the attenuation factor of a sound
   #
@@ -652,7 +652,7 @@ lib CSFML
   # * `sound`: Sound object
   #
   # *Returns*: Attenuation factor of the sound
-  fun sound_get_attenuation = sfSound_getAttenuation(sound: Sound): Float32
+  fun sound_get_attenuation = sfSound_getAttenuation(sound : Sound): Float32
 
   # Get the current playing position of a sound
   #
@@ -661,7 +661,7 @@ lib CSFML
   # * `sound`: Sound object
   #
   # *Returns*: Current playing position
-  fun sound_get_playing_offset = sfSound_getPlayingOffset(sound: Sound): Time
+  fun sound_get_playing_offset = sfSound_getPlayingOffset(sound : Sound): Time
 
   # Create a new sound buffer and load it from a file
   #
@@ -674,7 +674,7 @@ lib CSFML
   # * `filename`: Path of the sound file to load
   #
   # *Returns*: A new SoundBuffer object (NULL if failed)
-  fun sound_buffer_create_from_file = sfSoundBuffer_createFromFile(filename: LibC::Char*): SoundBuffer
+  fun sound_buffer_create_from_file = sfSoundBuffer_createFromFile(filename : LibC::Char*): SoundBuffer
 
   # Create a new sound buffer and load it from a file in memory
   #
@@ -688,7 +688,7 @@ lib CSFML
   # * `size_in_bytes`: Size of the data to load, in bytes
   #
   # *Returns*: A new SoundBuffer object (NULL if failed)
-  fun sound_buffer_create_from_memory = sfSoundBuffer_createFromMemory(data: Void*, size_in_bytes: LibC::SizeT): SoundBuffer
+  fun sound_buffer_create_from_memory = sfSoundBuffer_createFromMemory(data : Void*, size_in_bytes : LibC::SizeT): SoundBuffer
 
   # Create a new sound buffer and load it from a custom stream
   #
@@ -701,7 +701,7 @@ lib CSFML
   # * `stream`: Source stream to read from
   #
   # *Returns*: A new SoundBuffer object (NULL if failed)
-  fun sound_buffer_create_from_stream = sfSoundBuffer_createFromStream(stream: InputStream*): SoundBuffer
+  fun sound_buffer_create_from_stream = sfSoundBuffer_createFromStream(stream : InputStream*): SoundBuffer
 
   # Create a new sound buffer and load it from an array of samples in memory
   #
@@ -716,7 +716,7 @@ lib CSFML
   # * `sample_rate`: Sample rate (number of samples to play per second)
   #
   # *Returns*: A new SoundBuffer object (NULL if failed)
-  fun sound_buffer_create_from_samples = sfSoundBuffer_createFromSamples(samples: Int16*, sample_count: UInt64, channel_count: Int32, sample_rate: Int32): SoundBuffer
+  fun sound_buffer_create_from_samples = sfSoundBuffer_createFromSamples(samples : Int16*, sample_count : UInt64, channel_count : Int32, sample_rate : Int32): SoundBuffer
 
   # Create a new sound buffer by copying an existing one
   #
@@ -725,14 +725,14 @@ lib CSFML
   # * `sound_buffer`: Sound buffer to copy
   #
   # *Returns*: A new SoundBuffer object which is a copy of `sound_buffer`
-  fun sound_buffer_copy = sfSoundBuffer_copy(sound_buffer: SoundBuffer): SoundBuffer
+  fun sound_buffer_copy = sfSoundBuffer_copy(sound_buffer : SoundBuffer): SoundBuffer
 
   # Destroy a sound buffer
   #
   # *Arguments*:
   #
   # * `sound_buffer`: Sound buffer to destroy
-  fun sound_buffer_destroy = sfSoundBuffer_destroy(sound_buffer: SoundBuffer)
+  fun sound_buffer_destroy = sfSoundBuffer_destroy(sound_buffer : SoundBuffer)
 
   # Save a sound buffer to an audio file
   #
@@ -746,7 +746,7 @@ lib CSFML
   # * `filename`: Path of the sound file to write
   #
   # *Returns*: True if saving succeeded, False if it failed
-  fun sound_buffer_save_to_file = sfSoundBuffer_saveToFile(sound_buffer: SoundBuffer, filename: LibC::Char*): CSFML::Bool
+  fun sound_buffer_save_to_file = sfSoundBuffer_saveToFile(sound_buffer : SoundBuffer, filename : LibC::Char*): CSFML::Bool
 
   # Get the array of audio samples stored in a sound buffer
   #
@@ -759,7 +759,7 @@ lib CSFML
   # * `sound_buffer`: Sound buffer object
   #
   # *Returns*: Read-only pointer to the array of sound samples
-  fun sound_buffer_get_samples = sfSoundBuffer_getSamples(sound_buffer: SoundBuffer): Int16*
+  fun sound_buffer_get_samples = sfSoundBuffer_getSamples(sound_buffer : SoundBuffer): Int16*
 
   # Get the number of samples stored in a sound buffer
   #
@@ -771,7 +771,7 @@ lib CSFML
   # * `sound_buffer`: Sound buffer object
   #
   # *Returns*: Number of samples
-  fun sound_buffer_get_sample_count = sfSoundBuffer_getSampleCount(sound_buffer: SoundBuffer): UInt64
+  fun sound_buffer_get_sample_count = sfSoundBuffer_getSampleCount(sound_buffer : SoundBuffer): UInt64
 
   # Get the sample rate of a sound buffer
   #
@@ -784,7 +784,7 @@ lib CSFML
   # * `sound_buffer`: Sound buffer object
   #
   # *Returns*: Sample rate (number of samples per second)
-  fun sound_buffer_get_sample_rate = sfSoundBuffer_getSampleRate(sound_buffer: SoundBuffer): Int32
+  fun sound_buffer_get_sample_rate = sfSoundBuffer_getSampleRate(sound_buffer : SoundBuffer): Int32
 
   # Get the number of channels used by a sound buffer
   #
@@ -796,7 +796,7 @@ lib CSFML
   # * `sound_buffer`: Sound buffer object
   #
   # *Returns*: Number of channels
-  fun sound_buffer_get_channel_count = sfSoundBuffer_getChannelCount(sound_buffer: SoundBuffer): Int32
+  fun sound_buffer_get_channel_count = sfSoundBuffer_getChannelCount(sound_buffer : SoundBuffer): Int32
 
   # Get the total duration of a sound buffer
   #
@@ -805,7 +805,7 @@ lib CSFML
   # * `sound_buffer`: Sound buffer object
   #
   # *Returns*: Sound duration
-  fun sound_buffer_get_duration = sfSoundBuffer_getDuration(sound_buffer: SoundBuffer): Time
+  fun sound_buffer_get_duration = sfSoundBuffer_getDuration(sound_buffer : SoundBuffer): Time
 
   # Create a new sound buffer recorder
   #
@@ -817,7 +817,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `sound_buffer_recorder`: Sound buffer recorder to destroy
-  fun sound_buffer_recorder_destroy = sfSoundBufferRecorder_destroy(sound_buffer_recorder: SoundBufferRecorder)
+  fun sound_buffer_recorder_destroy = sfSoundBufferRecorder_destroy(sound_buffer_recorder : SoundBufferRecorder)
 
   # Start the capture of a sound recorder recorder
   #
@@ -832,14 +832,14 @@ lib CSFML
   #
   # * `sound_buffer_recorder`: Sound buffer recorder object
   # * `sample_rate`: Desired capture rate, in number of samples per second
-  fun sound_buffer_recorder_start = sfSoundBufferRecorder_start(sound_buffer_recorder: SoundBufferRecorder, sample_rate: Int32)
+  fun sound_buffer_recorder_start = sfSoundBufferRecorder_start(sound_buffer_recorder : SoundBufferRecorder, sample_rate : Int32)
 
   # Stop the capture of a sound recorder
   #
   # *Arguments*:
   #
   # * `sound_buffer_recorder`: Sound buffer recorder object
-  fun sound_buffer_recorder_stop = sfSoundBufferRecorder_stop(sound_buffer_recorder: SoundBufferRecorder)
+  fun sound_buffer_recorder_stop = sfSoundBufferRecorder_stop(sound_buffer_recorder : SoundBufferRecorder)
 
   # Get the sample rate of a sound buffer recorder
   #
@@ -852,7 +852,7 @@ lib CSFML
   # * `sound_buffer_recorder`: Sound buffer recorder object
   #
   # *Returns*: Sample rate, in samples per second
-  fun sound_buffer_recorder_get_sample_rate = sfSoundBufferRecorder_getSampleRate(sound_buffer_recorder: SoundBufferRecorder): Int32
+  fun sound_buffer_recorder_get_sample_rate = sfSoundBufferRecorder_getSampleRate(sound_buffer_recorder : SoundBufferRecorder): Int32
 
   # Get the sound buffer containing the captured audio data
   #
@@ -866,7 +866,7 @@ lib CSFML
   # * `sound_buffer_recorder`: Sound buffer recorder object
   #
   # *Returns*: Read-only access to the sound buffer
-  fun sound_buffer_recorder_get_buffer = sfSoundBufferRecorder_getBuffer(sound_buffer_recorder: SoundBufferRecorder): SoundBuffer
+  fun sound_buffer_recorder_get_buffer = sfSoundBufferRecorder_getBuffer(sound_buffer_recorder : SoundBufferRecorder): SoundBuffer
 
   alias SoundRecorderStartCallback = (Void*) -> CSFML::Bool
   alias SoundRecorderProcessCallback = (Int16*, LibC::SizeT, Void*) -> CSFML::Bool
@@ -881,14 +881,14 @@ lib CSFML
   # * `user_data`: Data to pass to the callback function (can be NULL)
   #
   # *Returns*: A new SoundRecorder object (NULL if failed)
-  fun sound_recorder_create = sfSoundRecorder_create(on_start: SoundRecorderStartCallback, on_process: SoundRecorderProcessCallback, on_stop: SoundRecorderStopCallback, user_data: Void*): SoundRecorder
+  fun sound_recorder_create = sfSoundRecorder_create(on_start : SoundRecorderStartCallback, on_process : SoundRecorderProcessCallback, on_stop : SoundRecorderStopCallback, user_data : Void*): SoundRecorder
 
   # Destroy a sound recorder
   #
   # *Arguments*:
   #
   # * `sound_recorder`: Sound recorder to destroy
-  fun sound_recorder_destroy = sfSoundRecorder_destroy(sound_recorder: SoundRecorder)
+  fun sound_recorder_destroy = sfSoundRecorder_destroy(sound_recorder : SoundRecorder)
 
   # Start the capture of a sound recorder
   #
@@ -905,14 +905,14 @@ lib CSFML
   # * `sample_rate`: Desired capture rate, in number of samples per second
   #
   # *Returns*: True, if start of capture was successful
-  fun sound_recorder_start = sfSoundRecorder_start(sound_recorder: SoundRecorder, sample_rate: Int32): CSFML::Bool
+  fun sound_recorder_start = sfSoundRecorder_start(sound_recorder : SoundRecorder, sample_rate : Int32): CSFML::Bool
 
   # Stop the capture of a sound recorder
   #
   # *Arguments*:
   #
   # * `sound_recorder`: Sound recorder object
-  fun sound_recorder_stop = sfSoundRecorder_stop(sound_recorder: SoundRecorder)
+  fun sound_recorder_stop = sfSoundRecorder_stop(sound_recorder : SoundRecorder)
 
   # Get the sample rate of a sound recorder
   #
@@ -925,7 +925,7 @@ lib CSFML
   # * `sound_recorder`: Sound recorder object
   #
   # *Returns*: Sample rate, in samples per second
-  fun sound_recorder_get_sample_rate = sfSoundRecorder_getSampleRate(sound_recorder: SoundRecorder): Int32
+  fun sound_recorder_get_sample_rate = sfSoundRecorder_getSampleRate(sound_recorder : SoundRecorder): Int32
 
   # Check if the system supports audio capture
   #
@@ -952,7 +952,7 @@ lib CSFML
   #
   # * `sound_recorder`: Sound recorder object
   # * `interval`: Processing interval
-  fun sound_recorder_set_processing_interval = sfSoundRecorder_setProcessingInterval(sound_recorder: SoundRecorder, interval: Time)
+  fun sound_recorder_set_processing_interval = sfSoundRecorder_setProcessingInterval(sound_recorder : SoundRecorder, interval : Time)
 
   # Get a list of the names of all availabe audio capture devices
   #
@@ -965,7 +965,7 @@ lib CSFML
   # * `count`: Pointer to a variable that will be filled with the number of modes in the array
   #
   # *Returns*: An array of strings containing the names
-  fun sound_recorder_get_available_devices = sfSoundRecorder_getAvailableDevices(count: LibC::SizeT*): LibC::Char**
+  fun sound_recorder_get_available_devices = sfSoundRecorder_getAvailableDevices(count : LibC::SizeT*): LibC::Char**
 
   # Get the name of the default audio capture device
   #
@@ -988,7 +988,7 @@ lib CSFML
   # * `The`: name of the audio capture device
   #
   # *Returns*: True, if it was able to set the requested device
-  fun sound_recorder_set_device = sfSoundRecorder_setDevice(sound_recorder: SoundRecorder, name: LibC::Char*): CSFML::Bool
+  fun sound_recorder_set_device = sfSoundRecorder_setDevice(sound_recorder : SoundRecorder, name : LibC::Char*): CSFML::Bool
 
   # Get the name of the current audio capture device
   #
@@ -997,12 +997,12 @@ lib CSFML
   # * `sound_recorder`: Sound recorder object
   #
   # *Returns*: The name of the current audio capture device
-  fun sound_recorder_get_device = sfSoundRecorder_getDevice(sound_recorder: SoundRecorder): LibC::Char*
+  fun sound_recorder_get_device = sfSoundRecorder_getDevice(sound_recorder : SoundRecorder): LibC::Char*
 
   # defines the data to fill by the OnGetData callback
   struct SoundStreamChunk
-    samples: Int16*
-    sample_count: Int32
+    samples : Int16*
+    sample_count : Int32
   end
 
   alias SoundStreamGetDataCallback = (SoundStreamChunk*, Void*) -> CSFML::Bool
@@ -1018,14 +1018,14 @@ lib CSFML
   # * `user_data`: Data to pass to the callback functions
   #
   # *Returns*: A new SoundStream object
-  fun sound_stream_create = sfSoundStream_create(on_get_data: SoundStreamGetDataCallback, on_seek: SoundStreamSeekCallback, channel_count: Int32, sample_rate: Int32, user_data: Void*): SoundStream
+  fun sound_stream_create = sfSoundStream_create(on_get_data : SoundStreamGetDataCallback, on_seek : SoundStreamSeekCallback, channel_count : Int32, sample_rate : Int32, user_data : Void*): SoundStream
 
   # Destroy a sound stream
   #
   # *Arguments*:
   #
   # * `sound_stream`: Sound stream to destroy
-  fun sound_stream_destroy = sfSoundStream_destroy(sound_stream: SoundStream)
+  fun sound_stream_destroy = sfSoundStream_destroy(sound_stream : SoundStream)
 
   # Start or resume playing a sound stream
   #
@@ -1038,7 +1038,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `sound_stream`: Sound stream object
-  fun sound_stream_play = sfSoundStream_play(sound_stream: SoundStream)
+  fun sound_stream_play = sfSoundStream_play(sound_stream : SoundStream)
 
   # Pause a sound stream
   #
@@ -1048,7 +1048,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `sound_stream`: Sound stream object
-  fun sound_stream_pause = sfSoundStream_pause(sound_stream: SoundStream)
+  fun sound_stream_pause = sfSoundStream_pause(sound_stream : SoundStream)
 
   # Stop playing a sound stream
   #
@@ -1059,7 +1059,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `sound_stream`: Sound stream object
-  fun sound_stream_stop = sfSoundStream_stop(sound_stream: SoundStream)
+  fun sound_stream_stop = sfSoundStream_stop(sound_stream : SoundStream)
 
   # Get the current status of a sound stream (stopped, paused, playing)
   #
@@ -1068,7 +1068,7 @@ lib CSFML
   # * `sound_stream`: Sound stream object
   #
   # *Returns*: Current status
-  fun sound_stream_get_status = sfSoundStream_getStatus(sound_stream: SoundStream): SoundStatus
+  fun sound_stream_get_status = sfSoundStream_getStatus(sound_stream : SoundStream): SoundStatus
 
   # Return the number of channels of a sound stream
   #
@@ -1079,7 +1079,7 @@ lib CSFML
   # * `sound_stream`: Sound stream object
   #
   # *Returns*: Number of channels
-  fun sound_stream_get_channel_count = sfSoundStream_getChannelCount(sound_stream: SoundStream): Int32
+  fun sound_stream_get_channel_count = sfSoundStream_getChannelCount(sound_stream : SoundStream): Int32
 
   # Get the sample rate of a sound stream
   #
@@ -1091,7 +1091,7 @@ lib CSFML
   # * `sound_stream`: Sound stream object
   #
   # *Returns*: Sample rate, in number of samples per second
-  fun sound_stream_get_sample_rate = sfSoundStream_getSampleRate(sound_stream: SoundStream): Int32
+  fun sound_stream_get_sample_rate = sfSoundStream_getSampleRate(sound_stream : SoundStream): Int32
 
   # Set the pitch of a sound stream
   #
@@ -1105,7 +1105,7 @@ lib CSFML
   #
   # * `sound_stream`: Sound stream object
   # * `pitch`: New pitch to apply to the stream
-  fun sound_stream_set_pitch = sfSoundStream_setPitch(sound_stream: SoundStream, pitch: Float32)
+  fun sound_stream_set_pitch = sfSoundStream_setPitch(sound_stream : SoundStream, pitch : Float32)
 
   # Set the volume of a sound stream
   #
@@ -1116,7 +1116,7 @@ lib CSFML
   #
   # * `sound_stream`: Sound stream object
   # * `volume`: Volume of the stream
-  fun sound_stream_set_volume = sfSoundStream_setVolume(sound_stream: SoundStream, volume: Float32)
+  fun sound_stream_set_volume = sfSoundStream_setVolume(sound_stream : SoundStream, volume : Float32)
 
   # Set the 3D position of a sound stream in the audio scene
   #
@@ -1128,7 +1128,7 @@ lib CSFML
   #
   # * `sound_stream`: Sound stream object
   # * `position`: Position of the stream in the scene
-  fun sound_stream_set_position = sfSoundStream_setPosition(sound_stream: SoundStream, position: Vector3f)
+  fun sound_stream_set_position = sfSoundStream_setPosition(sound_stream : SoundStream, position : Vector3f)
 
   # Make a sound stream's position relative to the listener or absolute
   #
@@ -1142,7 +1142,7 @@ lib CSFML
   #
   # * `sound_stream`: Sound stream object
   # * `relative`: True to set the position relative, False to set it absolute
-  fun sound_stream_set_relative_to_listener = sfSoundStream_setRelativeToListener(sound_stream: SoundStream, relative: CSFML::Bool)
+  fun sound_stream_set_relative_to_listener = sfSoundStream_setRelativeToListener(sound_stream : SoundStream, relative : CSFML::Bool)
 
   # Set the minimum distance of a sound stream
   #
@@ -1157,7 +1157,7 @@ lib CSFML
   #
   # * `sound_stream`: Sound stream object
   # * `distance`: New minimum distance of the stream
-  fun sound_stream_set_min_distance = sfSoundStream_setMinDistance(sound_stream: SoundStream, distance: Float32)
+  fun sound_stream_set_min_distance = sfSoundStream_setMinDistance(sound_stream : SoundStream, distance : Float32)
 
   # Set the attenuation factor of a sound stream
   #
@@ -1174,7 +1174,7 @@ lib CSFML
   #
   # * `sound_stream`: Sound stream object
   # * `attenuation`: New attenuation factor of the stream
-  fun sound_stream_set_attenuation = sfSoundStream_setAttenuation(sound_stream: SoundStream, attenuation: Float32)
+  fun sound_stream_set_attenuation = sfSoundStream_setAttenuation(sound_stream : SoundStream, attenuation : Float32)
 
   # Change the current playing position of a sound stream
   #
@@ -1185,7 +1185,7 @@ lib CSFML
   #
   # * `sound_stream`: Sound stream object
   # * `time_offset`: New playing position
-  fun sound_stream_set_playing_offset = sfSoundStream_setPlayingOffset(sound_stream: SoundStream, time_offset: Time)
+  fun sound_stream_set_playing_offset = sfSoundStream_setPlayingOffset(sound_stream : SoundStream, time_offset : Time)
 
   # Set whether or not a sound stream should loop after reaching the end
   #
@@ -1198,7 +1198,7 @@ lib CSFML
   #
   # * `sound_stream`: Sound stream object
   # * `loop`: True to play in loop, False to play once
-  fun sound_stream_set_loop = sfSoundStream_setLoop(sound_stream: SoundStream, loop: CSFML::Bool)
+  fun sound_stream_set_loop = sfSoundStream_setLoop(sound_stream : SoundStream, loop : CSFML::Bool)
 
   # Get the pitch of a sound stream
   #
@@ -1207,7 +1207,7 @@ lib CSFML
   # * `sound_stream`: Sound stream object
   #
   # *Returns*: Pitch of the stream
-  fun sound_stream_get_pitch = sfSoundStream_getPitch(sound_stream: SoundStream): Float32
+  fun sound_stream_get_pitch = sfSoundStream_getPitch(sound_stream : SoundStream): Float32
 
   # Get the volume of a sound stream
   #
@@ -1216,7 +1216,7 @@ lib CSFML
   # * `sound_stream`: Sound stream object
   #
   # *Returns*: Volume of the stream, in the range [0, 100]
-  fun sound_stream_get_volume = sfSoundStream_getVolume(sound_stream: SoundStream): Float32
+  fun sound_stream_get_volume = sfSoundStream_getVolume(sound_stream : SoundStream): Float32
 
   # Get the 3D position of a sound stream in the audio scene
   #
@@ -1225,7 +1225,7 @@ lib CSFML
   # * `sound_stream`: Sound stream object
   #
   # *Returns*: Position of the stream in the world
-  fun sound_stream_get_position = sfSoundStream_getPosition(sound_stream: SoundStream): Vector3f
+  fun sound_stream_get_position = sfSoundStream_getPosition(sound_stream : SoundStream): Vector3f
 
   # Tell whether a sound stream's position is relative to the
   # listener or is absolute
@@ -1235,7 +1235,7 @@ lib CSFML
   # * `sound_stream`: Sound stream object
   #
   # *Returns*: True if the position is relative, False if it's absolute
-  fun sound_stream_is_relative_to_listener = sfSoundStream_isRelativeToListener(sound_stream: SoundStream): CSFML::Bool
+  fun sound_stream_is_relative_to_listener = sfSoundStream_isRelativeToListener(sound_stream : SoundStream): CSFML::Bool
 
   # Get the minimum distance of a sound stream
   #
@@ -1244,7 +1244,7 @@ lib CSFML
   # * `sound_stream`: Sound stream object
   #
   # *Returns*: Minimum distance of the stream
-  fun sound_stream_get_min_distance = sfSoundStream_getMinDistance(sound_stream: SoundStream): Float32
+  fun sound_stream_get_min_distance = sfSoundStream_getMinDistance(sound_stream : SoundStream): Float32
 
   # Get the attenuation factor of a sound stream
   #
@@ -1253,7 +1253,7 @@ lib CSFML
   # * `sound_stream`: Sound stream object
   #
   # *Returns*: Attenuation factor of the stream
-  fun sound_stream_get_attenuation = sfSoundStream_getAttenuation(sound_stream: SoundStream): Float32
+  fun sound_stream_get_attenuation = sfSoundStream_getAttenuation(sound_stream : SoundStream): Float32
 
   # Tell whether or not a sound stream is in loop mode
   #
@@ -1262,7 +1262,7 @@ lib CSFML
   # * `sound_stream`: Sound stream object
   #
   # *Returns*: True if the music is looping, False otherwise
-  fun sound_stream_get_loop = sfSoundStream_getLoop(sound_stream: SoundStream): CSFML::Bool
+  fun sound_stream_get_loop = sfSoundStream_getLoop(sound_stream : SoundStream): CSFML::Bool
 
   # Get the current playing position of a sound stream
   #
@@ -1271,6 +1271,6 @@ lib CSFML
   # * `sound_stream`: Sound stream object
   #
   # *Returns*: Current playing position
-  fun sound_stream_get_playing_offset = sfSoundStream_getPlayingOffset(sound_stream: SoundStream): Time
+  fun sound_stream_get_playing_offset = sfSoundStream_getPlayingOffset(sound_stream : SoundStream): Time
 
 end

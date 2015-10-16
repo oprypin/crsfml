@@ -19,20 +19,20 @@ lib CSFML
 
   # Blending mode for drawing
   struct BlendMode
-    color_src_factor: BlendFactor
-    color_dst_factor: BlendFactor
-    color_equation: BlendEquation
-    alpha_src_factor: BlendFactor
-    alpha_dst_factor: BlendFactor
-    alpha_equation: BlendEquation
+    color_src_factor : BlendFactor
+    color_dst_factor : BlendFactor
+    color_equation : BlendEquation
+    alpha_src_factor : BlendFactor
+    alpha_dst_factor : BlendFactor
+    alpha_equation : BlendEquation
   end
 
   # Utility class for manpulating RGBA colors
   struct Color
-    r: UInt8
-    g: UInt8
-    b: UInt8
-    a: UInt8
+    r : UInt8
+    g : UInt8
+    b : UInt8
+    a : UInt8
   end
 
   # Construct a color from its 3 RGB components
@@ -44,7 +44,7 @@ lib CSFML
   # * `blue`: Blue component (0 .. 255)
   #
   # *Returns*: Color constructed from the components
-  fun color_from_rgb = sfColor_fromRGB(red: UInt8, green: UInt8, blue: UInt8): Color
+  fun color_from_rgb = sfColor_fromRGB(red : UInt8, green : UInt8, blue : UInt8): Color
 
   # Construct a color from its 4 RGBA components
   #
@@ -56,7 +56,7 @@ lib CSFML
   # * `alpha`: Alpha component (0 .. 255)
   #
   # *Returns*: Color constructed from the components
-  fun color_from_rgba = sfColor_fromRGBA(red: UInt8, green: UInt8, blue: UInt8, alpha: UInt8): Color
+  fun color_from_rgba = sfColor_fromRGBA(red : UInt8, green : UInt8, blue : UInt8, alpha : UInt8): Color
 
   # Construct the color from 32-bit unsigned integer
   #
@@ -65,12 +65,12 @@ lib CSFML
   # * `color`: Number containing the RGBA components (in that order)
   #
   # *Returns*: Color constructed from the 32-bit unsigned integer
-  fun color_from_integer = sfColor_fromInteger(color: UInt32): Color
+  fun color_from_integer = sfColor_fromInteger(color : UInt32): Color
 
   # Convert a color to a 32-bit unsigned integer
   #
   # *Returns*: Color represented as a 32-bit unsigned integer
-  fun color_to_integer = sfColor_toInteger(color: Color): UInt32
+  fun color_to_integer = sfColor_toInteger(color : Color): UInt32
 
   # Add two colors
   #
@@ -80,7 +80,7 @@ lib CSFML
   # * `color2`: Second color
   #
   # *Returns*: Component-wise saturated addition of the two colors
-  fun color_add = sfColor_add(color1: Color, color2: Color): Color
+  fun color_add = sfColor_add(color1 : Color, color2 : Color): Color
 
   # Subtract two colors
   #
@@ -90,7 +90,7 @@ lib CSFML
   # * `color2`: Second color
   #
   # *Returns*: Component-wise saturated subtraction of the two colors
-  fun color_subtract = sfColor_subtract(color1: Color, color2: Color): Color
+  fun color_subtract = sfColor_subtract(color1 : Color, color2 : Color): Color
 
   # Modulate two colors
   #
@@ -100,20 +100,20 @@ lib CSFML
   # * `color2`: Second color
   #
   # *Returns*: Component-wise multiplication of the two colors
-  fun color_modulate = sfColor_modulate(color1: Color, color2: Color): Color
+  fun color_modulate = sfColor_modulate(color1 : Color, color2 : Color): Color
 
   struct FloatRect
-    left: Float32
-    top: Float32
-    width: Float32
-    height: Float32
+    left : Float32
+    top : Float32
+    width : Float32
+    height : Float32
   end
 
   struct IntRect
-    left: Int32
-    top: Int32
-    width: Int32
-    height: Int32
+    left : Int32
+    top : Int32
+    width : Int32
+    height : Int32
   end
 
   # Check if a point is inside a rectangle's area
@@ -125,9 +125,9 @@ lib CSFML
   # * `y`: Y coordinate of the point to test
   #
   # *Returns*: True if the point is inside
-  fun float_rect_contains = sfFloatRect_contains(rect: FloatRect*, x: Float32, y: Float32): CSFML::Bool
+  fun float_rect_contains = sfFloatRect_contains(rect : FloatRect*, x : Float32, y : Float32): CSFML::Bool
 
-  fun int_rect_contains = sfIntRect_contains(rect: IntRect*, x: Int32, y: Int32): CSFML::Bool
+  fun int_rect_contains = sfIntRect_contains(rect : IntRect*, x : Int32, y : Int32): CSFML::Bool
 
   # Check intersection between two rectangles
   #
@@ -138,9 +138,9 @@ lib CSFML
   # * `intersection`: Rectangle to be filled with overlapping rect (can be NULL)
   #
   # *Returns*: True if rectangles overlap
-  fun float_rect_intersects = sfFloatRect_intersects(rect1: FloatRect*, rect2: FloatRect*, intersection: FloatRect*): CSFML::Bool
+  fun float_rect_intersects = sfFloatRect_intersects(rect1 : FloatRect*, rect2 : FloatRect*, intersection : FloatRect*): CSFML::Bool
 
-  fun int_rect_intersects = sfIntRect_intersects(rect1: IntRect*, rect2: IntRect*, intersection: IntRect*): CSFML::Bool
+  fun int_rect_intersects = sfIntRect_intersects(rect1 : IntRect*, rect2 : IntRect*, intersection : IntRect*): CSFML::Bool
 
   type CircleShape = Void*
 
@@ -174,7 +174,7 @@ lib CSFML
 
   # Encapsulate a 3x3 transform matrix
   struct Transform
-    matrix: Float32[9]
+    matrix : Float32[9]
   end
 
   # Create a new transform from a matrix
@@ -192,7 +192,7 @@ lib CSFML
   # * `a22`: Element (2, 2) of the matrix
   #
   # *Returns*: A new Transform object
-  fun transform_from_matrix = sfTransform_fromMatrix(a00: Float32, a01: Float32, a02: Float32, a10: Float32, a11: Float32, a12: Float32, a20: Float32, a21: Float32, a22: Float32): Transform
+  fun transform_from_matrix = sfTransform_fromMatrix(a00 : Float32, a01 : Float32, a02 : Float32, a10 : Float32, a11 : Float32, a12 : Float32, a20 : Float32, a21 : Float32, a22 : Float32): Transform
 
   # Return the 4x4 matrix of a transform
   #
@@ -205,7 +205,7 @@ lib CSFML
   #
   # * `transform`: Transform object
   # * `matrix`: Pointer to the 16-element array to fill with the matrix
-  fun transform_get_matrix = sfTransform_getMatrix(transform: Transform*, matrix: Float32*)
+  fun transform_get_matrix = sfTransform_getMatrix(transform : Transform*, matrix : Float32*)
 
   # Return the inverse of a transform
   #
@@ -216,7 +216,7 @@ lib CSFML
   #
   # * `transform`: Transform object
   # *Returns*: The inverse matrix
-  fun transform_get_inverse = sfTransform_getInverse(transform: Transform*): Transform
+  fun transform_get_inverse = sfTransform_getInverse(transform : Transform*): Transform
 
   # Apply a transform to a 2D point
   #
@@ -226,7 +226,7 @@ lib CSFML
   # * `point`: Point to transform
   #
   # *Returns*: Transformed point
-  fun transform_transform_point = sfTransform_transformPoint(transform: Transform*, point: Vector2f): Vector2f
+  fun transform_transform_point = sfTransform_transformPoint(transform : Transform*, point : Vector2f): Vector2f
 
   # Apply a transform to a rectangle
   #
@@ -242,7 +242,7 @@ lib CSFML
   # * `rectangle`: Rectangle to transform
   #
   # *Returns*: Transformed rectangle
-  fun transform_transform_rect = sfTransform_transformRect(transform: Transform*, rectangle: FloatRect): FloatRect
+  fun transform_transform_rect = sfTransform_transformRect(transform : Transform*, rectangle : FloatRect): FloatRect
 
   # Combine two transforms
   #
@@ -254,7 +254,7 @@ lib CSFML
   #
   # * `transform`: Transform object
   # * `right`: Transform to combine to `transform`
-  fun transform_combine = sfTransform_combine(transform: Transform*, other: Transform*)
+  fun transform_combine = sfTransform_combine(transform : Transform*, other : Transform*)
 
   # Combine a transform with a translation
   #
@@ -263,7 +263,7 @@ lib CSFML
   # * `transform`: Transform object
   # * `x`: Offset to apply on X axis
   # * `y`: Offset to apply on Y axis
-  fun transform_translate = sfTransform_translate(transform: Transform*, x: Float32, y: Float32)
+  fun transform_translate = sfTransform_translate(transform : Transform*, x : Float32, y : Float32)
 
   # Combine the current transform with a rotation
   #
@@ -271,7 +271,7 @@ lib CSFML
   #
   # * `transform`: Transform object
   # * `angle`: Rotation angle, in degrees
-  fun transform_rotate = sfTransform_rotate(transform: Transform*, angle: Float32)
+  fun transform_rotate = sfTransform_rotate(transform : Transform*, angle : Float32)
 
   # Combine the current transform with a rotation
   #
@@ -286,7 +286,7 @@ lib CSFML
   # * `angle`: Rotation angle, in degrees
   # * `centerX`: X coordinate of the center of rotation
   # * `centerY`: Y coordinate of the center of rotation
-  fun transform_rotate_with_center = sfTransform_rotateWithCenter(transform: Transform*, angle: Float32, center_x: Float32, center_y: Float32)
+  fun transform_rotate_with_center = sfTransform_rotateWithCenter(transform : Transform*, angle : Float32, center_x : Float32, center_y : Float32)
 
   # Combine the current transform with a scaling
   #
@@ -295,7 +295,7 @@ lib CSFML
   # * `transform`: Transform object
   # * `scaleX`: Scaling factor on the X axis
   # * `scaleY`: Scaling factor on the Y axis
-  fun transform_scale = sfTransform_scale(transform: Transform*, scale_x: Float32, scale_y: Float32)
+  fun transform_scale = sfTransform_scale(transform : Transform*, scale_x : Float32, scale_y : Float32)
 
   # Combine the current transform with a scaling
   #
@@ -311,7 +311,7 @@ lib CSFML
   # * `scaleY`: Scaling factor on Y axis
   # * `centerX`: X coordinate of the center of scaling
   # * `centerY`: Y coordinate of the center of scaling
-  fun transform_scale_with_center = sfTransform_scaleWithCenter(transform: Transform*, scale_x: Float32, scale_y: Float32, center_x: Float32, center_y: Float32)
+  fun transform_scale_with_center = sfTransform_scaleWithCenter(transform : Transform*, scale_x : Float32, scale_y : Float32, center_x : Float32, center_y : Float32)
 
   # Create a new circle shape
   #
@@ -325,14 +325,14 @@ lib CSFML
   # * `shape`: Shape to copy
   #
   # *Returns*: Copied object
-  fun circle_shape_copy = sfCircleShape_copy(shape: CircleShape): CircleShape
+  fun circle_shape_copy = sfCircleShape_copy(shape : CircleShape): CircleShape
 
   # Destroy an existing circle Shape
   #
   # *Arguments*:
   #
   # * `Shape`: Shape to delete
-  fun circle_shape_destroy = sfCircleShape_destroy(shape: CircleShape)
+  fun circle_shape_destroy = sfCircleShape_destroy(shape : CircleShape)
 
   # Set the position of a circle shape
   #
@@ -344,7 +344,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `position`: New position
-  fun circle_shape_set_position = sfCircleShape_setPosition(shape: CircleShape, position: Vector2f)
+  fun circle_shape_set_position = sfCircleShape_setPosition(shape : CircleShape, position : Vector2f)
 
   # Set the orientation of a circle shape
   #
@@ -356,7 +356,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `angle`: New rotation, in degrees
-  fun circle_shape_set_rotation = sfCircleShape_setRotation(shape: CircleShape, angle: Float32)
+  fun circle_shape_set_rotation = sfCircleShape_setRotation(shape : CircleShape, angle : Float32)
 
   # Set the scale factors of a circle shape
   #
@@ -368,7 +368,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `scale`: New scale factors
-  fun circle_shape_set_scale = sfCircleShape_setScale(shape: CircleShape, scale: Vector2f)
+  fun circle_shape_set_scale = sfCircleShape_setScale(shape : CircleShape, scale : Vector2f)
 
   # Set the local origin of a circle shape
   #
@@ -383,7 +383,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `origin`: New origin
-  fun circle_shape_set_origin = sfCircleShape_setOrigin(shape: CircleShape, origin: Vector2f)
+  fun circle_shape_set_origin = sfCircleShape_setOrigin(shape : CircleShape, origin : Vector2f)
 
   # Get the position of a circle shape
   #
@@ -392,7 +392,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Current position
-  fun circle_shape_get_position = sfCircleShape_getPosition(shape: CircleShape): Vector2f
+  fun circle_shape_get_position = sfCircleShape_getPosition(shape : CircleShape): Vector2f
 
   # Get the orientation of a circle shape
   #
@@ -403,7 +403,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Current rotation, in degrees
-  fun circle_shape_get_rotation = sfCircleShape_getRotation(shape: CircleShape): Float32
+  fun circle_shape_get_rotation = sfCircleShape_getRotation(shape : CircleShape): Float32
 
   # Get the current scale of a circle shape
   #
@@ -412,7 +412,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Current scale factors
-  fun circle_shape_get_scale = sfCircleShape_getScale(shape: CircleShape): Vector2f
+  fun circle_shape_get_scale = sfCircleShape_getScale(shape : CircleShape): Vector2f
 
   # Get the local origin of a circle shape
   #
@@ -421,7 +421,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Current origin
-  fun circle_shape_get_origin = sfCircleShape_getOrigin(shape: CircleShape): Vector2f
+  fun circle_shape_get_origin = sfCircleShape_getOrigin(shape : CircleShape): Vector2f
 
   # Move a circle shape by a given offset
   #
@@ -432,7 +432,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `offset`: Offset
-  fun circle_shape_move = sfCircleShape_move(shape: CircleShape, offset: Vector2f)
+  fun circle_shape_move = sfCircleShape_move(shape : CircleShape, offset : Vector2f)
 
   # Rotate a circle shape
   #
@@ -443,7 +443,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `angle`: Angle of rotation, in degrees
-  fun circle_shape_rotate = sfCircleShape_rotate(shape: CircleShape, angle: Float32)
+  fun circle_shape_rotate = sfCircleShape_rotate(shape : CircleShape, angle : Float32)
 
   # Scale a circle shape
   #
@@ -454,7 +454,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `factors`: Scale factors
-  fun circle_shape_scale = sfCircleShape_scale(shape: CircleShape, factors: Vector2f)
+  fun circle_shape_scale = sfCircleShape_scale(shape : CircleShape, factors : Vector2f)
 
   # Get the combined transform of a circle shape
   #
@@ -463,7 +463,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Transform combining the position/rotation/scale/origin of the object
-  fun circle_shape_get_transform = sfCircleShape_getTransform(shape: CircleShape): Transform
+  fun circle_shape_get_transform = sfCircleShape_getTransform(shape : CircleShape): Transform
 
   # Get the inverse of the combined transform of a circle shape
   #
@@ -472,7 +472,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Inverse of the combined transformations applied to the object
-  fun circle_shape_get_inverse_transform = sfCircleShape_getInverseTransform(shape: CircleShape): Transform
+  fun circle_shape_get_inverse_transform = sfCircleShape_getInverseTransform(shape : CircleShape): Transform
 
   # Change the source texture of a circle shape
   #
@@ -492,7 +492,7 @@ lib CSFML
   # * `shape`: Shape object
   # * `texture`: New texture
   # * `reset_rect`: Should the texture rect be reset to the size of the new texture?
-  fun circle_shape_set_texture = sfCircleShape_setTexture(shape: CircleShape, texture: Texture, reset_rect: CSFML::Bool)
+  fun circle_shape_set_texture = sfCircleShape_setTexture(shape : CircleShape, texture : Texture, reset_rect : CSFML::Bool)
 
   # Set the sub-rectangle of the texture that a circle shape will display
   #
@@ -504,7 +504,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `rect`: Rectangle defining the region of the texture to display
-  fun circle_shape_set_texture_rect = sfCircleShape_setTextureRect(shape: CircleShape, rect: IntRect)
+  fun circle_shape_set_texture_rect = sfCircleShape_setTextureRect(shape : CircleShape, rect : IntRect)
 
   # Set the fill color of a circle shape
   #
@@ -519,7 +519,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `color`: New color of the shape
-  fun circle_shape_set_fill_color = sfCircleShape_setFillColor(shape: CircleShape, color: Color)
+  fun circle_shape_set_fill_color = sfCircleShape_setFillColor(shape : CircleShape, color : Color)
 
   # Set the outline color of a circle shape
   #
@@ -530,7 +530,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `color`: New outline color of the shape
-  fun circle_shape_set_outline_color = sfCircleShape_setOutlineColor(shape: CircleShape, color: Color)
+  fun circle_shape_set_outline_color = sfCircleShape_setOutlineColor(shape : CircleShape, color : Color)
 
   # Set the thickness of a circle shape's outline
   #
@@ -542,7 +542,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `thickness`: New outline thickness
-  fun circle_shape_set_outline_thickness = sfCircleShape_setOutlineThickness(shape: CircleShape, thickness: Float32)
+  fun circle_shape_set_outline_thickness = sfCircleShape_setOutlineThickness(shape : CircleShape, thickness : Float32)
 
   # Get the source texture of a circle shape
   #
@@ -555,7 +555,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Pointer to the shape's texture
-  fun circle_shape_get_texture = sfCircleShape_getTexture(shape: CircleShape): Texture
+  fun circle_shape_get_texture = sfCircleShape_getTexture(shape : CircleShape): Texture
 
   # Get the sub-rectangle of the texture displayed by a circle shape
   #
@@ -564,7 +564,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Texture rectangle of the shape
-  fun circle_shape_get_texture_rect = sfCircleShape_getTextureRect(shape: CircleShape): IntRect
+  fun circle_shape_get_texture_rect = sfCircleShape_getTextureRect(shape : CircleShape): IntRect
 
   # Get the fill color of a circle shape
   #
@@ -573,7 +573,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Fill color of the shape
-  fun circle_shape_get_fill_color = sfCircleShape_getFillColor(shape: CircleShape): Color
+  fun circle_shape_get_fill_color = sfCircleShape_getFillColor(shape : CircleShape): Color
 
   # Get the outline color of a circle shape
   #
@@ -582,7 +582,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Outline color of the shape
-  fun circle_shape_get_outline_color = sfCircleShape_getOutlineColor(shape: CircleShape): Color
+  fun circle_shape_get_outline_color = sfCircleShape_getOutlineColor(shape : CircleShape): Color
 
   # Get the outline thickness of a circle shape
   #
@@ -591,7 +591,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Outline thickness of the shape
-  fun circle_shape_get_outline_thickness = sfCircleShape_getOutlineThickness(shape: CircleShape): Float32
+  fun circle_shape_get_outline_thickness = sfCircleShape_getOutlineThickness(shape : CircleShape): Float32
 
   # Get the total number of points of a circle shape
   #
@@ -600,7 +600,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Number of points of the shape
-  fun circle_shape_get_point_count = sfCircleShape_getPointCount(shape: CircleShape): LibC::SizeT
+  fun circle_shape_get_point_count = sfCircleShape_getPointCount(shape : CircleShape): LibC::SizeT
 
   # Get a point of a circle shape
   #
@@ -612,7 +612,7 @@ lib CSFML
   # * `index`: Index of the point to get, in range [0 .. get_point_count() - 1]
   #
   # *Returns*: Index-th point of the shape
-  fun circle_shape_get_point = sfCircleShape_getPoint(shape: CircleShape, index: LibC::SizeT): Vector2f
+  fun circle_shape_get_point = sfCircleShape_getPoint(shape : CircleShape, index : LibC::SizeT): Vector2f
 
   # Set the radius of a circle
   #
@@ -620,7 +620,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `radius`: New radius of the circle
-  fun circle_shape_set_radius = sfCircleShape_setRadius(shape: CircleShape, radius: Float32)
+  fun circle_shape_set_radius = sfCircleShape_setRadius(shape : CircleShape, radius : Float32)
 
   # Get the radius of a circle
   #
@@ -629,7 +629,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Radius of the circle
-  fun circle_shape_get_radius = sfCircleShape_getRadius(shape: CircleShape): Float32
+  fun circle_shape_get_radius = sfCircleShape_getRadius(shape : CircleShape): Float32
 
   # Set the number of points of a circle
   #
@@ -637,7 +637,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `count`: New number of points of the circle
-  fun circle_shape_set_point_count = sfCircleShape_setPointCount(shape: CircleShape, count: LibC::SizeT)
+  fun circle_shape_set_point_count = sfCircleShape_setPointCount(shape : CircleShape, count : LibC::SizeT)
 
   # Get the local bounding rectangle of a circle shape
   #
@@ -652,7 +652,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Local bounding rectangle of the entity
-  fun circle_shape_get_local_bounds = sfCircleShape_getLocalBounds(shape: CircleShape): FloatRect
+  fun circle_shape_get_local_bounds = sfCircleShape_getLocalBounds(shape : CircleShape): FloatRect
 
   # Get the global bounding rectangle of a circle shape
   #
@@ -667,7 +667,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Global bounding rectangle of the entity
-  fun circle_shape_get_global_bounds = sfCircleShape_getGlobalBounds(shape: CircleShape): FloatRect
+  fun circle_shape_get_global_bounds = sfCircleShape_getGlobalBounds(shape : CircleShape): FloatRect
 
   # Create a new convex shape
   #
@@ -681,14 +681,14 @@ lib CSFML
   # * `shape`: Shape to copy
   #
   # *Returns*: Copied object
-  fun convex_shape_copy = sfConvexShape_copy(shape: ConvexShape): ConvexShape
+  fun convex_shape_copy = sfConvexShape_copy(shape : ConvexShape): ConvexShape
 
   # Destroy an existing convex Shape
   #
   # *Arguments*:
   #
   # * `Shape`: Shape to delete
-  fun convex_shape_destroy = sfConvexShape_destroy(shape: ConvexShape)
+  fun convex_shape_destroy = sfConvexShape_destroy(shape : ConvexShape)
 
   # Set the position of a convex shape
   #
@@ -700,7 +700,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `position`: New position
-  fun convex_shape_set_position = sfConvexShape_setPosition(shape: ConvexShape, position: Vector2f)
+  fun convex_shape_set_position = sfConvexShape_setPosition(shape : ConvexShape, position : Vector2f)
 
   # Set the orientation of a convex shape
   #
@@ -712,7 +712,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `angle`: New rotation, in degrees
-  fun convex_shape_set_rotation = sfConvexShape_setRotation(shape: ConvexShape, angle: Float32)
+  fun convex_shape_set_rotation = sfConvexShape_setRotation(shape : ConvexShape, angle : Float32)
 
   # Set the scale factors of a convex shape
   #
@@ -724,7 +724,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `scale`: New scale factors
-  fun convex_shape_set_scale = sfConvexShape_setScale(shape: ConvexShape, scale: Vector2f)
+  fun convex_shape_set_scale = sfConvexShape_setScale(shape : ConvexShape, scale : Vector2f)
 
   # Set the local origin of a convex shape
   #
@@ -739,7 +739,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `origin`: New origin
-  fun convex_shape_set_origin = sfConvexShape_setOrigin(shape: ConvexShape, origin: Vector2f)
+  fun convex_shape_set_origin = sfConvexShape_setOrigin(shape : ConvexShape, origin : Vector2f)
 
   # Get the position of a convex shape
   #
@@ -748,7 +748,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Current position
-  fun convex_shape_get_position = sfConvexShape_getPosition(shape: ConvexShape): Vector2f
+  fun convex_shape_get_position = sfConvexShape_getPosition(shape : ConvexShape): Vector2f
 
   # Get the orientation of a convex shape
   #
@@ -759,7 +759,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Current rotation, in degrees
-  fun convex_shape_get_rotation = sfConvexShape_getRotation(shape: ConvexShape): Float32
+  fun convex_shape_get_rotation = sfConvexShape_getRotation(shape : ConvexShape): Float32
 
   # Get the current scale of a convex shape
   #
@@ -768,7 +768,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Current scale factors
-  fun convex_shape_get_scale = sfConvexShape_getScale(shape: ConvexShape): Vector2f
+  fun convex_shape_get_scale = sfConvexShape_getScale(shape : ConvexShape): Vector2f
 
   # Get the local origin of a convex shape
   #
@@ -777,7 +777,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Current origin
-  fun convex_shape_get_origin = sfConvexShape_getOrigin(shape: ConvexShape): Vector2f
+  fun convex_shape_get_origin = sfConvexShape_getOrigin(shape : ConvexShape): Vector2f
 
   # Move a convex shape by a given offset
   #
@@ -788,7 +788,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `offset`: Offset
-  fun convex_shape_move = sfConvexShape_move(shape: ConvexShape, offset: Vector2f)
+  fun convex_shape_move = sfConvexShape_move(shape : ConvexShape, offset : Vector2f)
 
   # Rotate a convex shape
   #
@@ -799,7 +799,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `angle`: Angle of rotation, in degrees
-  fun convex_shape_rotate = sfConvexShape_rotate(shape: ConvexShape, angle: Float32)
+  fun convex_shape_rotate = sfConvexShape_rotate(shape : ConvexShape, angle : Float32)
 
   # Scale a convex shape
   #
@@ -810,7 +810,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `factors`: Scale factors
-  fun convex_shape_scale = sfConvexShape_scale(shape: ConvexShape, factors: Vector2f)
+  fun convex_shape_scale = sfConvexShape_scale(shape : ConvexShape, factors : Vector2f)
 
   # Get the combined transform of a convex shape
   #
@@ -819,7 +819,7 @@ lib CSFML
   # * `shape`: shape object
   #
   # *Returns*: Transform combining the position/rotation/scale/origin of the object
-  fun convex_shape_get_transform = sfConvexShape_getTransform(shape: ConvexShape): Transform
+  fun convex_shape_get_transform = sfConvexShape_getTransform(shape : ConvexShape): Transform
 
   # Get the inverse of the combined transform of a convex shape
   #
@@ -828,7 +828,7 @@ lib CSFML
   # * `shape`: shape object
   #
   # *Returns*: Inverse of the combined transformations applied to the object
-  fun convex_shape_get_inverse_transform = sfConvexShape_getInverseTransform(shape: ConvexShape): Transform
+  fun convex_shape_get_inverse_transform = sfConvexShape_getInverseTransform(shape : ConvexShape): Transform
 
   # Change the source texture of a convex shape
   #
@@ -848,7 +848,7 @@ lib CSFML
   # * `shape`: Shape object
   # * `texture`: New texture
   # * `reset_rect`: Should the texture rect be reset to the size of the new texture?
-  fun convex_shape_set_texture = sfConvexShape_setTexture(shape: ConvexShape, texture: Texture, reset_rect: CSFML::Bool)
+  fun convex_shape_set_texture = sfConvexShape_setTexture(shape : ConvexShape, texture : Texture, reset_rect : CSFML::Bool)
 
   # Set the sub-rectangle of the texture that a convex shape will display
   #
@@ -860,7 +860,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `rect`: Rectangle defining the region of the texture to display
-  fun convex_shape_set_texture_rect = sfConvexShape_setTextureRect(shape: ConvexShape, rect: IntRect)
+  fun convex_shape_set_texture_rect = sfConvexShape_setTextureRect(shape : ConvexShape, rect : IntRect)
 
   # Set the fill color of a convex shape
   #
@@ -875,7 +875,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `color`: New color of the shape
-  fun convex_shape_set_fill_color = sfConvexShape_setFillColor(shape: ConvexShape, color: Color)
+  fun convex_shape_set_fill_color = sfConvexShape_setFillColor(shape : ConvexShape, color : Color)
 
   # Set the outline color of a convex shape
   #
@@ -886,7 +886,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `color`: New outline color of the shape
-  fun convex_shape_set_outline_color = sfConvexShape_setOutlineColor(shape: ConvexShape, color: Color)
+  fun convex_shape_set_outline_color = sfConvexShape_setOutlineColor(shape : ConvexShape, color : Color)
 
   # Set the thickness of a convex shape's outline
   #
@@ -898,7 +898,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `thickness`: New outline thickness
-  fun convex_shape_set_outline_thickness = sfConvexShape_setOutlineThickness(shape: ConvexShape, thickness: Float32)
+  fun convex_shape_set_outline_thickness = sfConvexShape_setOutlineThickness(shape : ConvexShape, thickness : Float32)
 
   # Get the source texture of a convex shape
   #
@@ -911,7 +911,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Pointer to the shape's texture
-  fun convex_shape_get_texture = sfConvexShape_getTexture(shape: ConvexShape): Texture
+  fun convex_shape_get_texture = sfConvexShape_getTexture(shape : ConvexShape): Texture
 
   # Get the sub-rectangle of the texture displayed by a convex shape
   #
@@ -920,7 +920,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Texture rectangle of the shape
-  fun convex_shape_get_texture_rect = sfConvexShape_getTextureRect(shape: ConvexShape): IntRect
+  fun convex_shape_get_texture_rect = sfConvexShape_getTextureRect(shape : ConvexShape): IntRect
 
   # Get the fill color of a convex shape
   #
@@ -929,7 +929,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Fill color of the shape
-  fun convex_shape_get_fill_color = sfConvexShape_getFillColor(shape: ConvexShape): Color
+  fun convex_shape_get_fill_color = sfConvexShape_getFillColor(shape : ConvexShape): Color
 
   # Get the outline color of a convex shape
   #
@@ -938,7 +938,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Outline color of the shape
-  fun convex_shape_get_outline_color = sfConvexShape_getOutlineColor(shape: ConvexShape): Color
+  fun convex_shape_get_outline_color = sfConvexShape_getOutlineColor(shape : ConvexShape): Color
 
   # Get the outline thickness of a convex shape
   #
@@ -947,7 +947,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Outline thickness of the shape
-  fun convex_shape_get_outline_thickness = sfConvexShape_getOutlineThickness(shape: ConvexShape): Float32
+  fun convex_shape_get_outline_thickness = sfConvexShape_getOutlineThickness(shape : ConvexShape): Float32
 
   # Get the total number of points of a convex shape
   #
@@ -956,7 +956,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Number of points of the shape
-  fun convex_shape_get_point_count = sfConvexShape_getPointCount(shape: ConvexShape): LibC::SizeT
+  fun convex_shape_get_point_count = sfConvexShape_getPointCount(shape : ConvexShape): LibC::SizeT
 
   # Get a point of a convex shape
   #
@@ -968,7 +968,7 @@ lib CSFML
   # * `index`: Index of the point to get, in range [0 .. get_point_count() - 1]
   #
   # *Returns*: Index-th point of the shape
-  fun convex_shape_get_point = sfConvexShape_getPoint(shape: ConvexShape, index: LibC::SizeT): Vector2f
+  fun convex_shape_get_point = sfConvexShape_getPoint(shape : ConvexShape, index : LibC::SizeT): Vector2f
 
   # Set the number of points of a convex shap
   #
@@ -978,7 +978,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `count`: New number of points of the shape
-  fun convex_shape_set_point_count = sfConvexShape_setPointCount(shape: ConvexShape, count: LibC::SizeT)
+  fun convex_shape_set_point_count = sfConvexShape_setPointCount(shape : ConvexShape, count : LibC::SizeT)
 
   # Set the position of a point in a convex shape
   #
@@ -993,7 +993,7 @@ lib CSFML
   # * `shape`: Shape object
   # * `index`: Index of the point to change, in range [0 .. GetPointCount() - 1]
   # * `point`: New point
-  fun convex_shape_set_point = sfConvexShape_setPoint(shape: ConvexShape, index: LibC::SizeT, point: Vector2f)
+  fun convex_shape_set_point = sfConvexShape_setPoint(shape : ConvexShape, index : LibC::SizeT, point : Vector2f)
 
   # Get the local bounding rectangle of a convex shape
   #
@@ -1008,7 +1008,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Local bounding rectangle of the entity
-  fun convex_shape_get_local_bounds = sfConvexShape_getLocalBounds(shape: ConvexShape): FloatRect
+  fun convex_shape_get_local_bounds = sfConvexShape_getLocalBounds(shape : ConvexShape): FloatRect
 
   # Get the global bounding rectangle of a convex shape
   #
@@ -1023,17 +1023,17 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Global bounding rectangle of the entity
-  fun convex_shape_get_global_bounds = sfConvexShape_getGlobalBounds(shape: ConvexShape): FloatRect
+  fun convex_shape_get_global_bounds = sfConvexShape_getGlobalBounds(shape : ConvexShape): FloatRect
 
   struct FontInfo
-    family: LibC::Char*
+    family : LibC::Char*
   end
 
   # Glyph describes a glyph (a visual character)
   struct Glyph
-    advance: Float32
-    bounds: FloatRect
-    texture_rect: IntRect
+    advance : Float32
+    bounds : FloatRect
+    texture_rect : IntRect
   end
 
   # Create a new font from a file
@@ -1043,7 +1043,7 @@ lib CSFML
   # * `filename`: Path of the font file to load
   #
   # *Returns*: A new Font object, or NULL if it failed
-  fun font_create_from_file = sfFont_createFromFile(filename: LibC::Char*): Font
+  fun font_create_from_file = sfFont_createFromFile(filename : LibC::Char*): Font
 
   # Create a new image font a file in memory
   #
@@ -1053,7 +1053,7 @@ lib CSFML
   # * `size_in_bytes`: Size of the data to load, in bytes
   #
   # *Returns*: A new Font object, or NULL if it failed
-  fun font_create_from_memory = sfFont_createFromMemory(data: Void*, size_in_bytes: LibC::SizeT): Font
+  fun font_create_from_memory = sfFont_createFromMemory(data : Void*, size_in_bytes : LibC::SizeT): Font
 
   # Create a new image font a custom stream
   #
@@ -1062,7 +1062,7 @@ lib CSFML
   # * `stream`: Source stream to read from
   #
   # *Returns*: A new Font object, or NULL if it failed
-  fun font_create_from_stream = sfFont_createFromStream(stream: InputStream*): Font
+  fun font_create_from_stream = sfFont_createFromStream(stream : InputStream*): Font
 
   # Copy an existing font
   #
@@ -1071,14 +1071,14 @@ lib CSFML
   # * `font`: Font to copy
   #
   # *Returns*: Copied object
-  fun font_copy = sfFont_copy(font: Font): Font
+  fun font_copy = sfFont_copy(font : Font): Font
 
   # Destroy an existing font
   #
   # *Arguments*:
   #
   # * `font`: Font to delete
-  fun font_destroy = sfFont_destroy(font: Font)
+  fun font_destroy = sfFont_destroy(font : Font)
 
   # Get a glyph in a font
   #
@@ -1090,7 +1090,7 @@ lib CSFML
   # * `bold`: Retrieve the bold version or the regular one?
   #
   # *Returns*: The corresponding glyph
-  fun font_get_glyph = sfFont_getGlyph(font: Font, code_point: Char, character_size: Int32, bold: CSFML::Bool): Glyph
+  fun font_get_glyph = sfFont_getGlyph(font : Font, code_point : Char, character_size : Int32, bold : CSFML::Bool): Glyph
 
   # Get the kerning value corresponding to a given pair of characters in a font
   #
@@ -1102,7 +1102,7 @@ lib CSFML
   # * `character_size`: Character size, in pixels
   #
   # *Returns*: Kerning offset, in pixels
-  fun font_get_kerning = sfFont_getKerning(font: Font, first: Char, second: Char, character_size: Int32): Float32
+  fun font_get_kerning = sfFont_getKerning(font : Font, first : Char, second : Char, character_size : Int32): Float32
 
   # Get the line spacing value
   #
@@ -1112,7 +1112,7 @@ lib CSFML
   # * `character_size`: Character size, in pixels
   #
   # *Returns*: Line spacing, in pixels
-  fun font_get_line_spacing = sfFont_getLineSpacing(font: Font, character_size: Int32): Float32
+  fun font_get_line_spacing = sfFont_getLineSpacing(font : Font, character_size : Int32): Float32
 
   # Get the position of the underline
   #
@@ -1125,7 +1125,7 @@ lib CSFML
   # * `character_size`: Reference character size
   #
   # *Returns*: Underline position, in pixels
-  fun font_get_underline_position = sfFont_getUnderlinePosition(font: Font, character_size: Int32): Float32
+  fun font_get_underline_position = sfFont_getUnderlinePosition(font : Font, character_size : Int32): Float32
 
   # Get the thickness of the underline
   #
@@ -1137,7 +1137,7 @@ lib CSFML
   # * `character_size`: Reference character size
   #
   # *Returns*: Underline thickness, in pixels
-  fun font_get_underline_thickness = sfFont_getUnderlineThickness(font: Font, character_size: Int32): Float32
+  fun font_get_underline_thickness = sfFont_getUnderlineThickness(font : Font, character_size : Int32): Float32
 
   # Get the texture containing the glyphs of a given size in a font
   #
@@ -1147,7 +1147,7 @@ lib CSFML
   # * `character_size`: Character size, in pixels
   #
   # *Returns*: Read-only pointer to the texture
-  fun font_get_texture = sfFont_getTexture(font: Font, character_size: Int32): Texture
+  fun font_get_texture = sfFont_getTexture(font : Font, character_size : Int32): Texture
 
   # Get the font information
   #
@@ -1160,7 +1160,7 @@ lib CSFML
   # * `font`: Source font
   #
   # *Returns*: A structure that holds the font information
-  fun font_get_info = sfFont_getInfo(font: Font): FontInfo
+  fun font_get_info = sfFont_getInfo(font : Font): FontInfo
 
   # Create an image
   #
@@ -1172,7 +1172,7 @@ lib CSFML
   # * `height`: Height of the image
   #
   # *Returns*: A new Image object
-  fun image_create = sfImage_create(width: Int32, height: Int32): Image
+  fun image_create = sfImage_create(width : Int32, height : Int32): Image
 
   # Create an image and fill it with a unique color
   #
@@ -1183,7 +1183,7 @@ lib CSFML
   # * `color`: Fill color
   #
   # *Returns*: A new Image object
-  fun image_create_from_color = sfImage_createFromColor(width: Int32, height: Int32, color: Color): Image
+  fun image_create_from_color = sfImage_createFromColor(width : Int32, height : Int32, color : Color): Image
 
   # Create an image from an array of pixels
   #
@@ -1199,7 +1199,7 @@ lib CSFML
   # * `pixels`: Array of pixels to copy to the image
   #
   # *Returns*: A new Image object
-  fun image_create_from_pixels = sfImage_createFromPixels(width: Int32, height: Int32, pixels: UInt8*): Image
+  fun image_create_from_pixels = sfImage_createFromPixels(width : Int32, height : Int32, pixels : UInt8*): Image
 
   # Create an image from a file on disk
   #
@@ -1213,7 +1213,7 @@ lib CSFML
   # * `filename`: Path of the image file to load
   #
   # *Returns*: A new Image object, or NULL if it failed
-  fun image_create_from_file = sfImage_createFromFile(filename: LibC::Char*): Image
+  fun image_create_from_file = sfImage_createFromFile(filename : LibC::Char*): Image
 
   # Create an image from a file in memory
   #
@@ -1228,7 +1228,7 @@ lib CSFML
   # * `size`: Size of the data to load, in bytes
   #
   # *Returns*: A new Image object, or NULL if it failed
-  fun image_create_from_memory = sfImage_createFromMemory(data: Void*, size: LibC::SizeT): Image
+  fun image_create_from_memory = sfImage_createFromMemory(data : Void*, size : LibC::SizeT): Image
 
   # Create an image from a custom stream
   #
@@ -1242,7 +1242,7 @@ lib CSFML
   # * `stream`: Source stream to read from
   #
   # *Returns*: A new Image object, or NULL if it failed
-  fun image_create_from_stream = sfImage_createFromStream(stream: InputStream*): Image
+  fun image_create_from_stream = sfImage_createFromStream(stream : InputStream*): Image
 
   # Copy an existing image
   #
@@ -1251,14 +1251,14 @@ lib CSFML
   # * `image`: Image to copy
   #
   # *Returns*: Copied object
-  fun image_copy = sfImage_copy(image: Image): Image
+  fun image_copy = sfImage_copy(image : Image): Image
 
   # Destroy an existing image
   #
   # *Arguments*:
   #
   # * `image`: Image to delete
-  fun image_destroy = sfImage_destroy(image: Image)
+  fun image_destroy = sfImage_destroy(image : Image)
 
   # Save an image to a file on disk
   #
@@ -1273,7 +1273,7 @@ lib CSFML
   # * `filename`: Path of the file to save
   #
   # *Returns*: True if saving was successful
-  fun image_save_to_file = sfImage_saveToFile(image: Image, filename: LibC::Char*): CSFML::Bool
+  fun image_save_to_file = sfImage_saveToFile(image : Image, filename : LibC::Char*): CSFML::Bool
 
   # Return the size of an image
   #
@@ -1282,7 +1282,7 @@ lib CSFML
   # * `image`: Image object
   #
   # *Returns*: Size in pixels
-  fun image_get_size = sfImage_getSize(image: Image): Vector2i
+  fun image_get_size = sfImage_getSize(image : Image): Vector2i
 
   # Create a transparency mask from a specified color-key
   #
@@ -1295,7 +1295,7 @@ lib CSFML
   # * `image`: Image object
   # * `color`: Color to make transparent
   # * `alpha`: Alpha value to assign to transparent pixels
-  fun image_create_mask_from_color = sfImage_createMaskFromColor(image: Image, color: Color, alpha: UInt8)
+  fun image_create_mask_from_color = sfImage_createMaskFromColor(image : Image, color : Color, alpha : UInt8)
 
   # Copy pixels from an image onto another
   #
@@ -1317,7 +1317,7 @@ lib CSFML
   # * `destY`: Y coordinate of the destination position
   # * `source_rect`: Sub-rectangle of the source image to copy
   # * `apply_alpha`: Should the copy take in account the source transparency?
-  fun image_copy_image = sfImage_copyImage(image: Image, source: Image, dest_x: Int32, dest_y: Int32, source_rect: IntRect, apply_alpha: CSFML::Bool)
+  fun image_copy_image = sfImage_copyImage(image : Image, source : Image, dest_x : Int32, dest_y : Int32, source_rect : IntRect, apply_alpha : CSFML::Bool)
 
   # Change the color of a pixel in an image
   #
@@ -1331,7 +1331,7 @@ lib CSFML
   # * `x`: X coordinate of pixel to change
   # * `y`: Y coordinate of pixel to change
   # * `color`: New color of the pixel
-  fun image_set_pixel = sfImage_setPixel(image: Image, x: Int32, y: Int32, color: Color)
+  fun image_set_pixel = sfImage_setPixel(image : Image, x : Int32, y : Int32, color : Color)
 
   # Get the color of a pixel in an image
   #
@@ -1346,7 +1346,7 @@ lib CSFML
   # * `y`: Y coordinate of pixel to get
   #
   # *Returns*: Color of the pixel at coordinates (x, y)
-  fun image_get_pixel = sfImage_getPixel(image: Image, x: Int32, y: Int32): Color
+  fun image_get_pixel = sfImage_getPixel(image : Image, x : Int32, y : Int32): Color
 
   # Get a read-only pointer to the array of pixels of an image
   #
@@ -1362,21 +1362,21 @@ lib CSFML
   # * `image`: Image object
   #
   # *Returns*: Read-only pointer to the array of pixels
-  fun image_get_pixels_ptr = sfImage_getPixelsPtr(image: Image): UInt8*
+  fun image_get_pixels_ptr = sfImage_getPixelsPtr(image : Image): UInt8*
 
   # Flip an image horizontally (left <-> right)
   #
   # *Arguments*:
   #
   # * `image`: Image object
-  fun image_flip_horizontally = sfImage_flipHorizontally(image: Image)
+  fun image_flip_horizontally = sfImage_flipHorizontally(image : Image)
 
   # Flip an image vertically (top <-> bottom)
   #
   # *Arguments*:
   #
   # * `image`: Image object
-  fun image_flip_vertically = sfImage_flipVertically(image: Image)
+  fun image_flip_vertically = sfImage_flipVertically(image : Image)
 
   # Types of primitives that a sf::VertexArray can render
   #
@@ -1399,14 +1399,14 @@ lib CSFML
   # * `shape`: Shape to copy
   #
   # *Returns*: Copied object
-  fun rectangle_shape_copy = sfRectangleShape_copy(shape: RectangleShape): RectangleShape
+  fun rectangle_shape_copy = sfRectangleShape_copy(shape : RectangleShape): RectangleShape
 
   # Destroy an existing rectangle shape
   #
   # *Arguments*:
   #
   # * `Shape`: Shape to delete
-  fun rectangle_shape_destroy = sfRectangleShape_destroy(shape: RectangleShape)
+  fun rectangle_shape_destroy = sfRectangleShape_destroy(shape : RectangleShape)
 
   # Set the position of a rectangle shape
   #
@@ -1418,7 +1418,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `position`: New position
-  fun rectangle_shape_set_position = sfRectangleShape_setPosition(shape: RectangleShape, position: Vector2f)
+  fun rectangle_shape_set_position = sfRectangleShape_setPosition(shape : RectangleShape, position : Vector2f)
 
   # Set the orientation of a rectangle shape
   #
@@ -1430,7 +1430,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `angle`: New rotation, in degrees
-  fun rectangle_shape_set_rotation = sfRectangleShape_setRotation(shape: RectangleShape, angle: Float32)
+  fun rectangle_shape_set_rotation = sfRectangleShape_setRotation(shape : RectangleShape, angle : Float32)
 
   # Set the scale factors of a rectangle shape
   #
@@ -1442,7 +1442,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `scale`: New scale factors
-  fun rectangle_shape_set_scale = sfRectangleShape_setScale(shape: RectangleShape, scale: Vector2f)
+  fun rectangle_shape_set_scale = sfRectangleShape_setScale(shape : RectangleShape, scale : Vector2f)
 
   # Set the local origin of a rectangle shape
   #
@@ -1457,7 +1457,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `origin`: New origin
-  fun rectangle_shape_set_origin = sfRectangleShape_setOrigin(shape: RectangleShape, origin: Vector2f)
+  fun rectangle_shape_set_origin = sfRectangleShape_setOrigin(shape : RectangleShape, origin : Vector2f)
 
   # Get the position of a rectangle shape
   #
@@ -1466,7 +1466,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Current position
-  fun rectangle_shape_get_position = sfRectangleShape_getPosition(shape: RectangleShape): Vector2f
+  fun rectangle_shape_get_position = sfRectangleShape_getPosition(shape : RectangleShape): Vector2f
 
   # Get the orientation of a rectangle shape
   #
@@ -1477,7 +1477,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Current rotation, in degrees
-  fun rectangle_shape_get_rotation = sfRectangleShape_getRotation(shape: RectangleShape): Float32
+  fun rectangle_shape_get_rotation = sfRectangleShape_getRotation(shape : RectangleShape): Float32
 
   # Get the current scale of a rectangle shape
   #
@@ -1486,7 +1486,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Current scale factors
-  fun rectangle_shape_get_scale = sfRectangleShape_getScale(shape: RectangleShape): Vector2f
+  fun rectangle_shape_get_scale = sfRectangleShape_getScale(shape : RectangleShape): Vector2f
 
   # Get the local origin of a rectangle shape
   #
@@ -1495,7 +1495,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Current origin
-  fun rectangle_shape_get_origin = sfRectangleShape_getOrigin(shape: RectangleShape): Vector2f
+  fun rectangle_shape_get_origin = sfRectangleShape_getOrigin(shape : RectangleShape): Vector2f
 
   # Move a rectangle shape by a given offset
   #
@@ -1506,7 +1506,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `offset`: Offset
-  fun rectangle_shape_move = sfRectangleShape_move(shape: RectangleShape, offset: Vector2f)
+  fun rectangle_shape_move = sfRectangleShape_move(shape : RectangleShape, offset : Vector2f)
 
   # Rotate a rectangle shape
   #
@@ -1517,7 +1517,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `angle`: Angle of rotation, in degrees
-  fun rectangle_shape_rotate = sfRectangleShape_rotate(shape: RectangleShape, angle: Float32)
+  fun rectangle_shape_rotate = sfRectangleShape_rotate(shape : RectangleShape, angle : Float32)
 
   # Scale a rectangle shape
   #
@@ -1528,7 +1528,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `factors`: Scale factors
-  fun rectangle_shape_scale = sfRectangleShape_scale(shape: RectangleShape, factors: Vector2f)
+  fun rectangle_shape_scale = sfRectangleShape_scale(shape : RectangleShape, factors : Vector2f)
 
   # Get the combined transform of a rectangle shape
   #
@@ -1537,7 +1537,7 @@ lib CSFML
   # * `shape`: shape object
   #
   # *Returns*: Transform combining the position/rotation/scale/origin of the object
-  fun rectangle_shape_get_transform = sfRectangleShape_getTransform(shape: RectangleShape): Transform
+  fun rectangle_shape_get_transform = sfRectangleShape_getTransform(shape : RectangleShape): Transform
 
   # Get the inverse of the combined transform of a rectangle shape
   #
@@ -1546,7 +1546,7 @@ lib CSFML
   # * `shape`: shape object
   #
   # *Returns*: Inverse of the combined transformations applied to the object
-  fun rectangle_shape_get_inverse_transform = sfRectangleShape_getInverseTransform(shape: RectangleShape): Transform
+  fun rectangle_shape_get_inverse_transform = sfRectangleShape_getInverseTransform(shape : RectangleShape): Transform
 
   # Change the source texture of a rectangle shape
   #
@@ -1566,7 +1566,7 @@ lib CSFML
   # * `shape`: Shape object
   # * `texture`: New texture
   # * `reset_rect`: Should the texture rect be reset to the size of the new texture?
-  fun rectangle_shape_set_texture = sfRectangleShape_setTexture(shape: RectangleShape, texture: Texture, reset_rect: CSFML::Bool)
+  fun rectangle_shape_set_texture = sfRectangleShape_setTexture(shape : RectangleShape, texture : Texture, reset_rect : CSFML::Bool)
 
   # Set the sub-rectangle of the texture that a rectangle shape will display
   #
@@ -1578,7 +1578,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `rect`: Rectangle defining the region of the texture to display
-  fun rectangle_shape_set_texture_rect = sfRectangleShape_setTextureRect(shape: RectangleShape, rect: IntRect)
+  fun rectangle_shape_set_texture_rect = sfRectangleShape_setTextureRect(shape : RectangleShape, rect : IntRect)
 
   # Set the fill color of a rectangle shape
   #
@@ -1593,7 +1593,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `color`: New color of the shape
-  fun rectangle_shape_set_fill_color = sfRectangleShape_setFillColor(shape: RectangleShape, color: Color)
+  fun rectangle_shape_set_fill_color = sfRectangleShape_setFillColor(shape : RectangleShape, color : Color)
 
   # Set the outline color of a rectangle shape
   #
@@ -1604,7 +1604,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `color`: New outline color of the shape
-  fun rectangle_shape_set_outline_color = sfRectangleShape_setOutlineColor(shape: RectangleShape, color: Color)
+  fun rectangle_shape_set_outline_color = sfRectangleShape_setOutlineColor(shape : RectangleShape, color : Color)
 
   # Set the thickness of a rectangle shape's outline
   #
@@ -1616,7 +1616,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `thickness`: New outline thickness
-  fun rectangle_shape_set_outline_thickness = sfRectangleShape_setOutlineThickness(shape: RectangleShape, thickness: Float32)
+  fun rectangle_shape_set_outline_thickness = sfRectangleShape_setOutlineThickness(shape : RectangleShape, thickness : Float32)
 
   # Get the source texture of a rectangle shape
   #
@@ -1629,7 +1629,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Pointer to the shape's texture
-  fun rectangle_shape_get_texture = sfRectangleShape_getTexture(shape: RectangleShape): Texture
+  fun rectangle_shape_get_texture = sfRectangleShape_getTexture(shape : RectangleShape): Texture
 
   # Get the sub-rectangle of the texture displayed by a rectangle shape
   #
@@ -1638,7 +1638,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Texture rectangle of the shape
-  fun rectangle_shape_get_texture_rect = sfRectangleShape_getTextureRect(shape: RectangleShape): IntRect
+  fun rectangle_shape_get_texture_rect = sfRectangleShape_getTextureRect(shape : RectangleShape): IntRect
 
   # Get the fill color of a rectangle shape
   #
@@ -1647,7 +1647,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Fill color of the shape
-  fun rectangle_shape_get_fill_color = sfRectangleShape_getFillColor(shape: RectangleShape): Color
+  fun rectangle_shape_get_fill_color = sfRectangleShape_getFillColor(shape : RectangleShape): Color
 
   # Get the outline color of a rectangle shape
   #
@@ -1656,7 +1656,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Outline color of the shape
-  fun rectangle_shape_get_outline_color = sfRectangleShape_getOutlineColor(shape: RectangleShape): Color
+  fun rectangle_shape_get_outline_color = sfRectangleShape_getOutlineColor(shape : RectangleShape): Color
 
   # Get the outline thickness of a rectangle shape
   #
@@ -1665,7 +1665,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Outline thickness of the shape
-  fun rectangle_shape_get_outline_thickness = sfRectangleShape_getOutlineThickness(shape: RectangleShape): Float32
+  fun rectangle_shape_get_outline_thickness = sfRectangleShape_getOutlineThickness(shape : RectangleShape): Float32
 
   # Get the total number of points of a rectangle shape
   #
@@ -1674,7 +1674,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Number of points of the shape
-  fun rectangle_shape_get_point_count = sfRectangleShape_getPointCount(shape: RectangleShape): LibC::SizeT
+  fun rectangle_shape_get_point_count = sfRectangleShape_getPointCount(shape : RectangleShape): LibC::SizeT
 
   # Get a point of a rectangle shape
   #
@@ -1686,7 +1686,7 @@ lib CSFML
   # * `index`: Index of the point to get, in range [0 .. get_point_count() - 1]
   #
   # *Returns*: Index-th point of the shape
-  fun rectangle_shape_get_point = sfRectangleShape_getPoint(shape: RectangleShape, index: LibC::SizeT): Vector2f
+  fun rectangle_shape_get_point = sfRectangleShape_getPoint(shape : RectangleShape, index : LibC::SizeT): Vector2f
 
   # Set the size of a rectangle shape
   #
@@ -1694,7 +1694,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `size`: New size of the rectangle
-  fun rectangle_shape_set_size = sfRectangleShape_setSize(shape: RectangleShape, size: Vector2f)
+  fun rectangle_shape_set_size = sfRectangleShape_setSize(shape : RectangleShape, size : Vector2f)
 
   # Get the size of a rectangle shape
   #
@@ -1703,7 +1703,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: height Size of the rectangle
-  fun rectangle_shape_get_size = sfRectangleShape_getSize(shape: RectangleShape): Vector2f
+  fun rectangle_shape_get_size = sfRectangleShape_getSize(shape : RectangleShape): Vector2f
 
   # Get the local bounding rectangle of a rectangle shape
   #
@@ -1718,7 +1718,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Local bounding rectangle of the entity
-  fun rectangle_shape_get_local_bounds = sfRectangleShape_getLocalBounds(shape: RectangleShape): FloatRect
+  fun rectangle_shape_get_local_bounds = sfRectangleShape_getLocalBounds(shape : RectangleShape): FloatRect
 
   # Get the global bounding rectangle of a rectangle shape
   #
@@ -1733,20 +1733,20 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Global bounding rectangle of the entity
-  fun rectangle_shape_get_global_bounds = sfRectangleShape_getGlobalBounds(shape: RectangleShape): FloatRect
+  fun rectangle_shape_get_global_bounds = sfRectangleShape_getGlobalBounds(shape : RectangleShape): FloatRect
 
   # Define the states used for drawing to a RenderTarget
   struct RenderStates
-    blend_mode: BlendMode
-    transform: Transform
-    texture_: Texture
-    shader_: Shader
+    blend_mode : BlendMode
+    transform : Transform
+    texture_ : Texture
+    shader_ : Shader
   end
 
   struct Vertex
-    position_: Vector2f
-    color: Color
-    tex_coords_: Vector2f
+    position_ : Vector2f
+    color : Color
+    tex_coords_ : Vector2f
   end
 
   # Construct a new render texture
@@ -1758,14 +1758,14 @@ lib CSFML
   # * `depth_buffer`: Do you want a depth-buffer attached? (useful only if you're doing 3D OpenGL on the rendertexture)
   #
   # *Returns*: A new RenderTexture object, or NULL if it failed
-  fun render_texture_create = sfRenderTexture_create(width: Int32, height: Int32, depth_buffer: CSFML::Bool): RenderTexture
+  fun render_texture_create = sfRenderTexture_create(width : Int32, height : Int32, depth_buffer : CSFML::Bool): RenderTexture
 
   # Destroy an existing render texture
   #
   # *Arguments*:
   #
   # * `render_texture`: Render texture to destroy
-  fun render_texture_destroy = sfRenderTexture_destroy(render_texture: RenderTexture)
+  fun render_texture_destroy = sfRenderTexture_destroy(render_texture : RenderTexture)
 
   # Get the size of the rendering region of a render texture
   #
@@ -1774,7 +1774,7 @@ lib CSFML
   # * `render_texture`: Render texture object
   #
   # *Returns*: Size in pixels
-  fun render_texture_get_size = sfRenderTexture_getSize(render_texture: RenderTexture): Vector2i
+  fun render_texture_get_size = sfRenderTexture_getSize(render_texture : RenderTexture): Vector2i
 
   # Activate or deactivate a render texture as the current target for rendering
   #
@@ -1784,14 +1784,14 @@ lib CSFML
   # * `active`: True to activate, False to deactivate
   #
   # *Returns*: True if operation was successful, false otherwise
-  fun render_texture_set_active = sfRenderTexture_setActive(render_texture: RenderTexture, active: CSFML::Bool): CSFML::Bool
+  fun render_texture_set_active = sfRenderTexture_setActive(render_texture : RenderTexture, active : CSFML::Bool): CSFML::Bool
 
   # Update the contents of the target texture
   #
   # *Arguments*:
   #
   # * `render_texture`: Render texture object
-  fun render_texture_display = sfRenderTexture_display(render_texture: RenderTexture)
+  fun render_texture_display = sfRenderTexture_display(render_texture : RenderTexture)
 
   # Clear the rendertexture with the given color
   #
@@ -1799,7 +1799,7 @@ lib CSFML
   #
   # * `render_texture`: Render texture object
   # * `color`: Fill color
-  fun render_texture_clear = sfRenderTexture_clear(render_texture: RenderTexture, color: Color)
+  fun render_texture_clear = sfRenderTexture_clear(render_texture : RenderTexture, color : Color)
 
   # Change the current active view of a render texture
   #
@@ -1807,7 +1807,7 @@ lib CSFML
   #
   # * `render_texture`: Render texture object
   # * `view`: Pointer to the new view
-  fun render_texture_set_view = sfRenderTexture_setView(render_texture: RenderTexture, view: View)
+  fun render_texture_set_view = sfRenderTexture_setView(render_texture : RenderTexture, view : View)
 
   # Get the current active view of a render texture
   #
@@ -1816,7 +1816,7 @@ lib CSFML
   # * `render_texture`: Render texture object
   #
   # *Returns*: Current active view
-  fun render_texture_get_view = sfRenderTexture_getView(render_texture: RenderTexture): View
+  fun render_texture_get_view = sfRenderTexture_getView(render_texture : RenderTexture): View
 
   # Get the default view of a render texture
   #
@@ -1825,7 +1825,7 @@ lib CSFML
   # * `render_texture`: Render texture object
   #
   # *Returns*: Default view of the rendertexture
-  fun render_texture_get_default_view = sfRenderTexture_getDefaultView(render_texture: RenderTexture): View
+  fun render_texture_get_default_view = sfRenderTexture_getDefaultView(render_texture : RenderTexture): View
 
   # Get the viewport of a view applied to this target
   #
@@ -1835,7 +1835,7 @@ lib CSFML
   # * `view`: Target view
   #
   # *Returns*: Viewport rectangle, expressed in pixels in the current target
-  fun render_texture_get_viewport = sfRenderTexture_getViewport(render_texture: RenderTexture, view: View): IntRect
+  fun render_texture_get_viewport = sfRenderTexture_getViewport(render_texture : RenderTexture, view : View): IntRect
 
   # Convert a point from texture coordinates to world coordinates
   #
@@ -1861,7 +1861,7 @@ lib CSFML
   # * `view`: The view to use for converting the point
   #
   # *Returns*: The converted point, in "world" units
-  fun render_texture_map_pixel_to_coords = sfRenderTexture_mapPixelToCoords(render_texture: RenderTexture, point: Vector2i, view: View): Vector2f
+  fun render_texture_map_pixel_to_coords = sfRenderTexture_mapPixelToCoords(render_texture : RenderTexture, point : Vector2i, view : View): Vector2f
 
   # Convert a point from world coordinates to texture coordinates
   #
@@ -1886,7 +1886,7 @@ lib CSFML
   # * `view`: The view to use for converting the point
   #
   # *Returns*: The converted point, in target coordinates (pixels)
-  fun render_texture_map_coords_to_pixel = sfRenderTexture_mapCoordsToPixel(render_texture: RenderTexture, point: Vector2f, view: View): Vector2i
+  fun render_texture_map_coords_to_pixel = sfRenderTexture_mapCoordsToPixel(render_texture : RenderTexture, point : Vector2f, view : View): Vector2i
 
   # Draw a drawable object to the render-target
   #
@@ -1895,19 +1895,19 @@ lib CSFML
   # * `render_texture`: Render texture object
   # * `object`: Object to draw
   # * `states`: Render states to use for drawing (NULL to use the default states)
-  fun render_texture_draw_sprite = sfRenderTexture_drawSprite(render_texture: RenderTexture, object: Sprite, states: RenderStates*)
+  fun render_texture_draw_sprite = sfRenderTexture_drawSprite(render_texture : RenderTexture, object : Sprite, states : RenderStates*)
 
-  fun render_texture_draw_text = sfRenderTexture_drawText(render_texture: RenderTexture, object: Text, states: RenderStates*)
+  fun render_texture_draw_text = sfRenderTexture_drawText(render_texture : RenderTexture, object : Text, states : RenderStates*)
 
-  fun render_texture_draw_shape = sfRenderTexture_drawShape(render_texture: RenderTexture, object: Shape, states: RenderStates*)
+  fun render_texture_draw_shape = sfRenderTexture_drawShape(render_texture : RenderTexture, object : Shape, states : RenderStates*)
 
-  fun render_texture_draw_circle_shape = sfRenderTexture_drawCircleShape(render_texture: RenderTexture, object: CircleShape, states: RenderStates*)
+  fun render_texture_draw_circle_shape = sfRenderTexture_drawCircleShape(render_texture : RenderTexture, object : CircleShape, states : RenderStates*)
 
-  fun render_texture_draw_convex_shape = sfRenderTexture_drawConvexShape(render_texture: RenderTexture, object: ConvexShape, states: RenderStates*)
+  fun render_texture_draw_convex_shape = sfRenderTexture_drawConvexShape(render_texture : RenderTexture, object : ConvexShape, states : RenderStates*)
 
-  fun render_texture_draw_rectangle_shape = sfRenderTexture_drawRectangleShape(render_texture: RenderTexture, object: RectangleShape, states: RenderStates*)
+  fun render_texture_draw_rectangle_shape = sfRenderTexture_drawRectangleShape(render_texture : RenderTexture, object : RectangleShape, states : RenderStates*)
 
-  fun render_texture_draw_vertex_array = sfRenderTexture_drawVertexArray(render_texture: RenderTexture, object: VertexArray, states: RenderStates*)
+  fun render_texture_draw_vertex_array = sfRenderTexture_drawVertexArray(render_texture : RenderTexture, object : VertexArray, states : RenderStates*)
 
   # Draw primitives defined by an array of vertices to a render texture
   #
@@ -1918,7 +1918,7 @@ lib CSFML
   # * `vertex_count`: Number of vertices in the array
   # * `type`: Type of primitives to draw
   # * `states`: Render states to use for drawing (NULL to use the default states)
-  fun render_texture_draw_primitives = sfRenderTexture_drawPrimitives(render_texture: RenderTexture, vertices: Vertex*, vertex_count: LibC::SizeT, type: PrimitiveType, states: RenderStates*)
+  fun render_texture_draw_primitives = sfRenderTexture_drawPrimitives(render_texture : RenderTexture, vertices : Vertex*, vertex_count : LibC::SizeT, type : PrimitiveType, states : RenderStates*)
 
   # Save the current OpenGL render states and matrices
   #
@@ -1940,7 +1940,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `render_texture`: Render texture object
-  fun render_texture_push_gl_states = sfRenderTexture_pushGLStates(render_texture: RenderTexture)
+  fun render_texture_push_gl_states = sfRenderTexture_pushGLStates(render_texture : RenderTexture)
 
   # Restore the previously saved OpenGL render states and matrices
   #
@@ -1950,7 +1950,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `render_texture`: Render texture object
-  fun render_texture_pop_gl_states = sfRenderTexture_popGLStates(render_texture: RenderTexture)
+  fun render_texture_pop_gl_states = sfRenderTexture_popGLStates(render_texture : RenderTexture)
 
   # Reset the internal OpenGL states so that the target is ready for drawing
   #
@@ -1963,7 +1963,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `render_texture`: Render texture object
-  fun render_texture_reset_gl_states = sfRenderTexture_resetGLStates(render_texture: RenderTexture)
+  fun render_texture_reset_gl_states = sfRenderTexture_resetGLStates(render_texture : RenderTexture)
 
   # Get the target texture of a render texture
   #
@@ -1972,7 +1972,7 @@ lib CSFML
   # * `render_texture`: Render texture object
   #
   # *Returns*: Pointer to the target texture
-  fun render_texture_get_texture = sfRenderTexture_getTexture(render_texture: RenderTexture): Texture
+  fun render_texture_get_texture = sfRenderTexture_getTexture(render_texture : RenderTexture): Texture
 
   # Enable or disable the smooth filter on a render texture
   #
@@ -1980,7 +1980,7 @@ lib CSFML
   #
   # * `render_texture`: Render texture object
   # * `smooth`: True to enable smoothing, False to disable it
-  fun render_texture_set_smooth = sfRenderTexture_setSmooth(render_texture: RenderTexture, smooth: CSFML::Bool)
+  fun render_texture_set_smooth = sfRenderTexture_setSmooth(render_texture : RenderTexture, smooth : CSFML::Bool)
 
   # Tell whether the smooth filter is enabled or not for a render texture
   #
@@ -1989,7 +1989,7 @@ lib CSFML
   # * `render_texture`: Render texture object
   #
   # *Returns*: True if smoothing is enabled, False if it is disabled
-  fun render_texture_is_smooth = sfRenderTexture_isSmooth(render_texture: RenderTexture): CSFML::Bool
+  fun render_texture_is_smooth = sfRenderTexture_isSmooth(render_texture : RenderTexture): CSFML::Bool
 
   # Enable or disable texture repeating
   #
@@ -1997,7 +1997,7 @@ lib CSFML
   #
   # * `render_texture`: Render texture object
   # * `repeated`: True to enable repeating, False to disable it
-  fun render_texture_set_repeated = sfRenderTexture_setRepeated(render_texture: RenderTexture, repeated: CSFML::Bool)
+  fun render_texture_set_repeated = sfRenderTexture_setRepeated(render_texture : RenderTexture, repeated : CSFML::Bool)
 
   # Tell whether the texture is repeated or not
   #
@@ -2006,7 +2006,7 @@ lib CSFML
   # * `render_texture`: Render texture object
   #
   # *Returns*: True if repeat mode is enabled, False if it is disabled
-  fun render_texture_is_repeated = sfRenderTexture_isRepeated(render_texture: RenderTexture): CSFML::Bool
+  fun render_texture_is_repeated = sfRenderTexture_isRepeated(render_texture : RenderTexture): CSFML::Bool
 
   # Construct a new render window
   #
@@ -2016,7 +2016,7 @@ lib CSFML
   # * `title`: Title of the window
   # * `style`: Window style
   # * `settings`: Creation settings (pass NULL to use default values)
-  fun render_window_create = sfRenderWindow_create(mode: VideoMode, title: LibC::Char*, style: WindowStyle, settings: ContextSettings*): RenderWindow
+  fun render_window_create = sfRenderWindow_create(mode : VideoMode, title : LibC::Char*, style : WindowStyle, settings : ContextSettings*): RenderWindow
 
   # Construct a new render window (with a UTF-32 title)
   #
@@ -2026,7 +2026,7 @@ lib CSFML
   # * `title`: Title of the window (UTF-32)
   # * `style`: Window style
   # * `settings`: Creation settings (pass NULL to use default values)
-  fun render_window_create_unicode = sfRenderWindow_createUnicode(mode: VideoMode, title: Char*, style: WindowStyle, settings: ContextSettings*): RenderWindow
+  fun render_window_create_unicode = sfRenderWindow_createUnicode(mode : VideoMode, title : Char*, style : WindowStyle, settings : ContextSettings*): RenderWindow
 
   # Construct a render window from an existing control
   #
@@ -2034,28 +2034,28 @@ lib CSFML
   #
   # * `handle`: Platform-specific handle of the control
   # * `settings`: Creation settings (pass NULL to use default values)
-  fun render_window_create_from_handle = sfRenderWindow_createFromHandle(handle: WindowHandle, settings: ContextSettings*): RenderWindow
+  fun render_window_create_from_handle = sfRenderWindow_createFromHandle(handle : WindowHandle, settings : ContextSettings*): RenderWindow
 
   # Destroy an existing render window
   #
   # *Arguments*:
   #
   # * `render_window`: Render window to destroy
-  fun render_window_destroy = sfRenderWindow_destroy(render_window: RenderWindow)
+  fun render_window_destroy = sfRenderWindow_destroy(render_window : RenderWindow)
 
   # Close a render window (but doesn't destroy the internal data)
   #
   # *Arguments*:
   #
   # * `render_window`: Render window to close
-  fun render_window_close = sfRenderWindow_close(render_window: RenderWindow)
+  fun render_window_close = sfRenderWindow_close(render_window : RenderWindow)
 
   # Tell whether or not a render window is opened
   #
   # *Arguments*:
   #
   # * `render_window`: Render window object
-  fun render_window_is_open = sfRenderWindow_isOpen(render_window: RenderWindow): CSFML::Bool
+  fun render_window_is_open = sfRenderWindow_isOpen(render_window : RenderWindow): CSFML::Bool
 
   # Get the creation settings of a render window
   #
@@ -2064,7 +2064,7 @@ lib CSFML
   # * `render_window`: Render window object
   #
   # *Returns*: Settings used to create the window
-  fun render_window_get_settings = sfRenderWindow_getSettings(render_window: RenderWindow): ContextSettings
+  fun render_window_get_settings = sfRenderWindow_getSettings(render_window : RenderWindow): ContextSettings
 
   # Get the event on top of event queue of a render window, if any, and pop it
   #
@@ -2074,7 +2074,7 @@ lib CSFML
   # * `event`: Event to fill, if any
   #
   # *Returns*: True if an event was returned, False if event queue was empty
-  fun render_window_poll_event = sfRenderWindow_pollEvent(render_window: RenderWindow, event: Event*): CSFML::Bool
+  fun render_window_poll_event = sfRenderWindow_pollEvent(render_window : RenderWindow, event : Event*): CSFML::Bool
 
   # Wait for an event and return it
   #
@@ -2084,7 +2084,7 @@ lib CSFML
   # * `event`: Event to fill
   #
   # *Returns*: False if an error occured
-  fun render_window_wait_event = sfRenderWindow_waitEvent(render_window: RenderWindow, event: Event*): CSFML::Bool
+  fun render_window_wait_event = sfRenderWindow_waitEvent(render_window : RenderWindow, event : Event*): CSFML::Bool
 
   # Get the position of a render window
   #
@@ -2093,7 +2093,7 @@ lib CSFML
   # * `render_window`: Render window object
   #
   # *Returns*: Position in pixels
-  fun render_window_get_position = sfRenderWindow_getPosition(render_window: RenderWindow): Vector2i
+  fun render_window_get_position = sfRenderWindow_getPosition(render_window : RenderWindow): Vector2i
 
   # Change the position of a render window on screen
   #
@@ -2103,7 +2103,7 @@ lib CSFML
   #
   # * `render_window`: Render window object
   # * `position`: New position, in pixels
-  fun render_window_set_position = sfRenderWindow_setPosition(render_window: RenderWindow, position: Vector2i)
+  fun render_window_set_position = sfRenderWindow_setPosition(render_window : RenderWindow, position : Vector2i)
 
   # Get the size of the rendering region of a render window
   #
@@ -2112,7 +2112,7 @@ lib CSFML
   # * `render_window`: Render window object
   #
   # *Returns*: Size in pixels
-  fun render_window_get_size = sfRenderWindow_getSize(render_window: RenderWindow): Vector2i
+  fun render_window_get_size = sfRenderWindow_getSize(render_window : RenderWindow): Vector2i
 
   # Change the size of the rendering region of a render window
   #
@@ -2120,7 +2120,7 @@ lib CSFML
   #
   # * `render_window`: Render window object
   # * `size`: New size, in pixels
-  fun render_window_set_size = sfRenderWindow_setSize(render_window: RenderWindow, size: Vector2i)
+  fun render_window_set_size = sfRenderWindow_setSize(render_window : RenderWindow, size : Vector2i)
 
   # Change the title of a render window
   #
@@ -2128,7 +2128,7 @@ lib CSFML
   #
   # * `render_window`: Render window object
   # * `title`: New title
-  fun render_window_set_title = sfRenderWindow_setTitle(render_window: RenderWindow, title: LibC::Char*)
+  fun render_window_set_title = sfRenderWindow_setTitle(render_window : RenderWindow, title : LibC::Char*)
 
   # Change the title of a render window (with a UTF-32 string)
   #
@@ -2136,7 +2136,7 @@ lib CSFML
   #
   # * `render_window`: Render window object
   # * `title`: New title
-  fun render_window_set_unicode_title = sfRenderWindow_setUnicodeTitle(render_window: RenderWindow, title: Char*)
+  fun render_window_set_unicode_title = sfRenderWindow_setUnicodeTitle(render_window : RenderWindow, title : Char*)
 
   # Change a render window's icon
   #
@@ -2146,7 +2146,7 @@ lib CSFML
   # * `width`: Icon's width, in pixels
   # * `height`: Icon's height, in pixels
   # * `pixels`: Pointer to the pixels in memory, format must be RGBA 32 bits
-  fun render_window_set_icon = sfRenderWindow_setIcon(render_window: RenderWindow, width: Int32, height: Int32, pixels: UInt8*)
+  fun render_window_set_icon = sfRenderWindow_setIcon(render_window : RenderWindow, width : Int32, height : Int32, pixels : UInt8*)
 
   # Show or hide a render window
   #
@@ -2154,7 +2154,7 @@ lib CSFML
   #
   # * `render_window`: Render window object
   # * `visible`: True to show the window, False to hide it
-  fun render_window_set_visible = sfRenderWindow_setVisible(render_window: RenderWindow, visible: CSFML::Bool)
+  fun render_window_set_visible = sfRenderWindow_setVisible(render_window : RenderWindow, visible : CSFML::Bool)
 
   # Show or hide the mouse cursor on a render window
   #
@@ -2162,7 +2162,7 @@ lib CSFML
   #
   # * `render_window`: Render window object
   # * `show`: True to show, False to hide
-  fun render_window_set_mouse_cursor_visible = sfRenderWindow_setMouseCursorVisible(render_window: RenderWindow, show: CSFML::Bool)
+  fun render_window_set_mouse_cursor_visible = sfRenderWindow_setMouseCursorVisible(render_window : RenderWindow, show : CSFML::Bool)
 
   # Enable / disable vertical synchronization on a render window
   #
@@ -2170,7 +2170,7 @@ lib CSFML
   #
   # * `render_window`: Render window object
   # * `enabled`: True to enable v-sync, False to deactivate
-  fun render_window_set_vertical_sync_enabled = sfRenderWindow_setVerticalSyncEnabled(render_window: RenderWindow, enabled: CSFML::Bool)
+  fun render_window_set_vertical_sync_enabled = sfRenderWindow_setVerticalSyncEnabled(render_window : RenderWindow, enabled : CSFML::Bool)
 
   # Enable or disable automatic key-repeat for keydown events
   #
@@ -2180,7 +2180,7 @@ lib CSFML
   #
   # * `render_window`: Render window object
   # * `enabled`: True to enable, False to disable
-  fun render_window_set_key_repeat_enabled = sfRenderWindow_setKeyRepeatEnabled(render_window: RenderWindow, enabled: CSFML::Bool)
+  fun render_window_set_key_repeat_enabled = sfRenderWindow_setKeyRepeatEnabled(render_window : RenderWindow, enabled : CSFML::Bool)
 
   # Activate or deactivate a render window as the current target for rendering
   #
@@ -2190,7 +2190,7 @@ lib CSFML
   # * `active`: True to activate, False to deactivate
   #
   # *Returns*: True if operation was successful, false otherwise
-  fun render_window_set_active = sfRenderWindow_setActive(render_window: RenderWindow, active: CSFML::Bool): CSFML::Bool
+  fun render_window_set_active = sfRenderWindow_setActive(render_window : RenderWindow, active : CSFML::Bool): CSFML::Bool
 
   # Request the current render window to be made the active
   # foreground window
@@ -2201,7 +2201,7 @@ lib CSFML
   # system, that it would like to be focused. The operating system
   # is free to deny the request.
   # This is not to be confused with Window_setActive().
-  fun render_window_request_focus = sfRenderWindow_requestFocus(render_window: RenderWindow)
+  fun render_window_request_focus = sfRenderWindow_requestFocus(render_window : RenderWindow)
 
   # Check whether the render window has the input focus
   #
@@ -2210,14 +2210,14 @@ lib CSFML
   # events.
   #
   # *Returns*: True if window has focus, false otherwise
-  fun render_window_has_focus = sfRenderWindow_hasFocus(render_window: RenderWindow): CSFML::Bool
+  fun render_window_has_focus = sfRenderWindow_hasFocus(render_window : RenderWindow): CSFML::Bool
 
   # Display a render window on screen
   #
   # *Arguments*:
   #
   # * `render_window`: Render window object
-  fun render_window_display = sfRenderWindow_display(render_window: RenderWindow)
+  fun render_window_display = sfRenderWindow_display(render_window : RenderWindow)
 
   # Limit the framerate to a maximum fixed frequency for a render window
   #
@@ -2225,7 +2225,7 @@ lib CSFML
   #
   # * `render_window`: Render window object
   # * `limit`: Framerate limit, in frames per seconds (use 0 to disable limit)
-  fun render_window_set_framerate_limit = sfRenderWindow_setFramerateLimit(render_window: RenderWindow, limit: Int32)
+  fun render_window_set_framerate_limit = sfRenderWindow_setFramerateLimit(render_window : RenderWindow, limit : Int32)
 
   # Change the joystick threshold, ie. the value below which no move event will be generated
   #
@@ -2233,7 +2233,7 @@ lib CSFML
   #
   # * `render_window`: Render window object
   # * `threshold`: New threshold, in range [0, 100]
-  fun render_window_set_joystick_threshold = sfRenderWindow_setJoystickThreshold(render_window: RenderWindow, threshold: Float32)
+  fun render_window_set_joystick_threshold = sfRenderWindow_setJoystickThreshold(render_window : RenderWindow, threshold : Float32)
 
   # Retrieve the OS-specific handle of a render window
   #
@@ -2242,7 +2242,7 @@ lib CSFML
   # * `render_window`: Render window object
   #
   # *Returns*: Window handle
-  fun render_window_get_system_handle = sfRenderWindow_getSystemHandle(render_window: RenderWindow): WindowHandle
+  fun render_window_get_system_handle = sfRenderWindow_getSystemHandle(render_window : RenderWindow): WindowHandle
 
   # Clear a render window with the given color
   #
@@ -2250,7 +2250,7 @@ lib CSFML
   #
   # * `render_window`: Render window object
   # * `color`: Fill color
-  fun render_window_clear = sfRenderWindow_clear(render_window: RenderWindow, color: Color)
+  fun render_window_clear = sfRenderWindow_clear(render_window : RenderWindow, color : Color)
 
   # Change the current active view of a render window
   #
@@ -2258,7 +2258,7 @@ lib CSFML
   #
   # * `render_window`: Render window object
   # * `view`: Pointer to the new view
-  fun render_window_set_view = sfRenderWindow_setView(render_window: RenderWindow, view: View)
+  fun render_window_set_view = sfRenderWindow_setView(render_window : RenderWindow, view : View)
 
   # Get the current active view of a render window
   #
@@ -2267,7 +2267,7 @@ lib CSFML
   # * `render_window`: Render window object
   #
   # *Returns*: Current active view
-  fun render_window_get_view = sfRenderWindow_getView(render_window: RenderWindow): View
+  fun render_window_get_view = sfRenderWindow_getView(render_window : RenderWindow): View
 
   # Get the default view of a render window
   #
@@ -2276,7 +2276,7 @@ lib CSFML
   # * `render_window`: Render window object
   #
   # *Returns*: Default view of the render window
-  fun render_window_get_default_view = sfRenderWindow_getDefaultView(render_window: RenderWindow): View
+  fun render_window_get_default_view = sfRenderWindow_getDefaultView(render_window : RenderWindow): View
 
   # Get the viewport of a view applied to this target
   #
@@ -2286,7 +2286,7 @@ lib CSFML
   # * `view`: Target view
   #
   # *Returns*: Viewport rectangle, expressed in pixels in the current target
-  fun render_window_get_viewport = sfRenderWindow_getViewport(render_window: RenderWindow, view: View): IntRect
+  fun render_window_get_viewport = sfRenderWindow_getViewport(render_window : RenderWindow, view : View): IntRect
 
   # Convert a point from window coordinates to world coordinates
   #
@@ -2315,7 +2315,7 @@ lib CSFML
   # * `view`: The view to use for converting the point
   #
   # *Returns*: The converted point, in "world" units
-  fun render_window_map_pixel_to_coords = sfRenderWindow_mapPixelToCoords(render_window: RenderWindow, point: Vector2i, view: View): Vector2f
+  fun render_window_map_pixel_to_coords = sfRenderWindow_mapPixelToCoords(render_window : RenderWindow, point : Vector2i, view : View): Vector2f
 
   # Convert a point from world coordinates to window coordinates
   #
@@ -2340,7 +2340,7 @@ lib CSFML
   # * `view`: The view to use for converting the point
   #
   # *Returns*: The converted point, in target coordinates (pixels)
-  fun render_window_map_coords_to_pixel = sfRenderWindow_mapCoordsToPixel(render_window: RenderWindow, point: Vector2f, view: View): Vector2i
+  fun render_window_map_coords_to_pixel = sfRenderWindow_mapCoordsToPixel(render_window : RenderWindow, point : Vector2f, view : View): Vector2i
 
   # Draw a drawable object to the render-target
   #
@@ -2349,19 +2349,19 @@ lib CSFML
   # * `render_window`: render window object
   # * `object`: Object to draw
   # * `states`: Render states to use for drawing (NULL to use the default states)
-  fun render_window_draw_sprite = sfRenderWindow_drawSprite(render_window: RenderWindow, object: Sprite, states: RenderStates*)
+  fun render_window_draw_sprite = sfRenderWindow_drawSprite(render_window : RenderWindow, object : Sprite, states : RenderStates*)
 
-  fun render_window_draw_text = sfRenderWindow_drawText(render_window: RenderWindow, object: Text, states: RenderStates*)
+  fun render_window_draw_text = sfRenderWindow_drawText(render_window : RenderWindow, object : Text, states : RenderStates*)
 
-  fun render_window_draw_shape = sfRenderWindow_drawShape(render_window: RenderWindow, object: Shape, states: RenderStates*)
+  fun render_window_draw_shape = sfRenderWindow_drawShape(render_window : RenderWindow, object : Shape, states : RenderStates*)
 
-  fun render_window_draw_circle_shape = sfRenderWindow_drawCircleShape(render_window: RenderWindow, object: CircleShape, states: RenderStates*)
+  fun render_window_draw_circle_shape = sfRenderWindow_drawCircleShape(render_window : RenderWindow, object : CircleShape, states : RenderStates*)
 
-  fun render_window_draw_convex_shape = sfRenderWindow_drawConvexShape(render_window: RenderWindow, object: ConvexShape, states: RenderStates*)
+  fun render_window_draw_convex_shape = sfRenderWindow_drawConvexShape(render_window : RenderWindow, object : ConvexShape, states : RenderStates*)
 
-  fun render_window_draw_rectangle_shape = sfRenderWindow_drawRectangleShape(render_window: RenderWindow, object: RectangleShape, states: RenderStates*)
+  fun render_window_draw_rectangle_shape = sfRenderWindow_drawRectangleShape(render_window : RenderWindow, object : RectangleShape, states : RenderStates*)
 
-  fun render_window_draw_vertex_array = sfRenderWindow_drawVertexArray(render_window: RenderWindow, object: VertexArray, states: RenderStates*)
+  fun render_window_draw_vertex_array = sfRenderWindow_drawVertexArray(render_window : RenderWindow, object : VertexArray, states : RenderStates*)
 
   # Draw primitives defined by an array of vertices to a render window
   #
@@ -2372,7 +2372,7 @@ lib CSFML
   # * `vertex_count`: Number of vertices in the array
   # * `type`: Type of primitives to draw
   # * `states`: Render states to use for drawing (NULL to use the default states)
-  fun render_window_draw_primitives = sfRenderWindow_drawPrimitives(render_window: RenderWindow, vertices: Vertex*, vertex_count: LibC::SizeT, type: PrimitiveType, states: RenderStates*)
+  fun render_window_draw_primitives = sfRenderWindow_drawPrimitives(render_window : RenderWindow, vertices : Vertex*, vertex_count : LibC::SizeT, type : PrimitiveType, states : RenderStates*)
 
   # Save the current OpenGL render states and matrices
   #
@@ -2394,7 +2394,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `render_window`: render window object
-  fun render_window_push_gl_states = sfRenderWindow_pushGLStates(render_window: RenderWindow)
+  fun render_window_push_gl_states = sfRenderWindow_pushGLStates(render_window : RenderWindow)
 
   # Restore the previously saved OpenGL render states and matrices
   #
@@ -2404,7 +2404,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `render_window`: render window object
-  fun render_window_pop_gl_states = sfRenderWindow_popGLStates(render_window: RenderWindow)
+  fun render_window_pop_gl_states = sfRenderWindow_popGLStates(render_window : RenderWindow)
 
   # Reset the internal OpenGL states so that the target is ready for drawing
   #
@@ -2417,7 +2417,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `render_window`: render window object
-  fun render_window_reset_gl_states = sfRenderWindow_resetGLStates(render_window: RenderWindow)
+  fun render_window_reset_gl_states = sfRenderWindow_resetGLStates(render_window : RenderWindow)
 
   # Copy the current contents of a render window to an image
   #
@@ -2434,7 +2434,7 @@ lib CSFML
   # * `render_window`: Render window object
   #
   # *Returns*: New image containing the captured contents
-  fun render_window_capture = sfRenderWindow_capture(render_window: RenderWindow): Image
+  fun render_window_capture = sfRenderWindow_capture(render_window : RenderWindow): Image
 
   # Get the current position of the mouse relative to a render-window
   #
@@ -2446,7 +2446,7 @@ lib CSFML
   # * `relative_to`: Reference window
   #
   # *Returns*: Position of the mouse cursor, relative to the given render window
-  fun mouse_get_position_render_window = sfMouse_getPositionRenderWindow(relative_to: RenderWindow): Vector2i
+  fun mouse_get_position_render_window = sfMouse_getPositionRenderWindow(relative_to : RenderWindow): Vector2i
 
   # Set the current position of the mouse relative to a render window
   #
@@ -2457,7 +2457,7 @@ lib CSFML
   #
   # * `position`: New position of the mouse
   # * `relative_to`: Reference window
-  fun mouse_set_position_render_window = sfMouse_setPositionRenderWindow(position: Vector2i, relative_to: RenderWindow)
+  fun mouse_set_position_render_window = sfMouse_setPositionRenderWindow(position : Vector2i, relative_to : RenderWindow)
 
   # Get the current position of a touch in window coordinates
   #
@@ -2470,7 +2470,7 @@ lib CSFML
   # * `relative_to`: Reference window
   #
   # *Returns*: Current position of `finger`, or undefined if it's not down
-  fun touch_get_position_render_window = sfTouch_getPositionRenderWindow(finger: Int32, relative_to: RenderWindow): Vector2i
+  fun touch_get_position_render_window = sfTouch_getPositionRenderWindow(finger : Int32, relative_to : RenderWindow): Vector2i
 
   # Load both the vertex and fragment shaders from files
   #
@@ -2488,7 +2488,7 @@ lib CSFML
   # * `fragment_shader_filename`: Path of the fragment shader file to load, or NULL to skip this shader
   #
   # *Returns*: A new Shader object, or NULL if it failed
-  fun shader_create_from_file = sfShader_createFromFile(vertex_shader_filename: LibC::Char*, fragment_shader_filename: LibC::Char*): Shader
+  fun shader_create_from_file = sfShader_createFromFile(vertex_shader_filename : LibC::Char*, fragment_shader_filename : LibC::Char*): Shader
 
   # Load both the vertex and fragment shaders from source codes in memory
   #
@@ -2506,7 +2506,7 @@ lib CSFML
   # * `fragment_shader`: String containing the source code of the fragment shader, or NULL to skip this shader
   #
   # *Returns*: A new Shader object, or NULL if it failed
-  fun shader_create_from_memory = sfShader_createFromMemory(vertex_shader: LibC::Char*, fragment_shader: LibC::Char*): Shader
+  fun shader_create_from_memory = sfShader_createFromMemory(vertex_shader : LibC::Char*, fragment_shader : LibC::Char*): Shader
 
   # Load both the vertex and fragment shaders from custom streams
   #
@@ -2524,14 +2524,14 @@ lib CSFML
   # * `fragment_shader_stream`: Source stream to read the fragment shader from, or NULL to skip this shader
   #
   # *Returns*: A new Shader object, or NULL if it failed
-  fun shader_create_from_stream = sfShader_createFromStream(vertex_shader_stream: InputStream*, fragment_shader_stream: InputStream*): Shader
+  fun shader_create_from_stream = sfShader_createFromStream(vertex_shader_stream : InputStream*, fragment_shader_stream : InputStream*): Shader
 
   # Destroy an existing shader
   #
   # *Arguments*:
   #
   # * `shader`: Shader to delete
-  fun shader_destroy = sfShader_destroy(shader: Shader)
+  fun shader_destroy = sfShader_destroy(shader : Shader)
 
   # Change a float parameter of a shader
   #
@@ -2545,7 +2545,7 @@ lib CSFML
   # * `shader`: Shader object
   # * `name`: Name of the parameter in the shader
   # * `x`: Value to assign
-  fun shader_set_float_parameter = sfShader_setFloatParameter(shader: Shader, name: LibC::Char*, x: Float32)
+  fun shader_set_float_parameter = sfShader_setFloatParameter(shader : Shader, name : LibC::Char*, x : Float32)
 
   # Change a 2-components vector parameter of a shader
   #
@@ -2560,7 +2560,7 @@ lib CSFML
   # * `name`: Name of the parameter in the shader
   # * `x`: First component of the value to assign
   # * `y`: Second component of the value to assign
-  fun shader_set_float2_parameter = sfShader_setFloat2Parameter(shader: Shader, name: LibC::Char*, x: Float32, y: Float32)
+  fun shader_set_float2_parameter = sfShader_setFloat2Parameter(shader : Shader, name : LibC::Char*, x : Float32, y : Float32)
 
   # Change a 3-components vector parameter of a shader
   #
@@ -2576,7 +2576,7 @@ lib CSFML
   # * `x`: First component of the value to assign
   # * `y`: Second component of the value to assign
   # * `z`: Third component of the value to assign
-  fun shader_set_float3_parameter = sfShader_setFloat3Parameter(shader: Shader, name: LibC::Char*, x: Float32, y: Float32, z: Float32)
+  fun shader_set_float3_parameter = sfShader_setFloat3Parameter(shader : Shader, name : LibC::Char*, x : Float32, y : Float32, z : Float32)
 
   # Change a 4-components vector parameter of a shader
   #
@@ -2593,7 +2593,7 @@ lib CSFML
   # * `y`: Second component of the value to assign
   # * `z`: Third component of the value to assign
   # * `w`: Fourth component of the value to assign
-  fun shader_set_float4_parameter = sfShader_setFloat4Parameter(shader: Shader, name: LibC::Char*, x: Float32, y: Float32, z: Float32, w: Float32)
+  fun shader_set_float4_parameter = sfShader_setFloat4Parameter(shader : Shader, name : LibC::Char*, x : Float32, y : Float32, z : Float32, w : Float32)
 
   # Change a 2-components vector parameter of a shader
   #
@@ -2607,7 +2607,7 @@ lib CSFML
   # * `shader`: Shader object
   # * `name`: Name of the parameter in the shader
   # * `vector`: Vector to assign
-  fun shader_set_vector2_parameter = sfShader_setVector2Parameter(shader: Shader, name: LibC::Char*, vector: Vector2f)
+  fun shader_set_vector2_parameter = sfShader_setVector2Parameter(shader : Shader, name : LibC::Char*, vector : Vector2f)
 
   # Change a 3-components vector parameter of a shader
   #
@@ -2621,7 +2621,7 @@ lib CSFML
   # * `shader`: Shader object
   # * `name`: Name of the parameter in the shader
   # * `vector`: Vector to assign
-  fun shader_set_vector3_parameter = sfShader_setVector3Parameter(shader: Shader, name: LibC::Char*, vector: Vector3f)
+  fun shader_set_vector3_parameter = sfShader_setVector3Parameter(shader : Shader, name : LibC::Char*, vector : Vector3f)
 
   # Change a color parameter of a shader
   #
@@ -2641,7 +2641,7 @@ lib CSFML
   # * `shader`: Shader object
   # * `name`: Name of the parameter in the shader
   # * `color`: Color to assign
-  fun shader_set_color_parameter = sfShader_setColorParameter(shader: Shader, name: LibC::Char*, color: Color)
+  fun shader_set_color_parameter = sfShader_setColorParameter(shader : Shader, name : LibC::Char*, color : Color)
 
   # Change a matrix parameter of a shader
   #
@@ -2655,7 +2655,7 @@ lib CSFML
   # * `shader`: Shader object
   # * `name`: Name of the parameter in the shader
   # * `transform`: Transform to assign
-  fun shader_set_transform_parameter = sfShader_setTransformParameter(shader: Shader, name: LibC::Char*, transform: Transform)
+  fun shader_set_transform_parameter = sfShader_setTransformParameter(shader : Shader, name : LibC::Char*, transform : Transform)
 
   # Change a texture parameter of a shader
   #
@@ -2675,7 +2675,7 @@ lib CSFML
   # * `shader`: Shader object
   # * `name`: Name of the texture in the shader
   # * `texture`: Texture to assign
-  fun shader_set_texture_parameter = sfShader_setTextureParameter(shader: Shader, name: LibC::Char*, texture: Texture)
+  fun shader_set_texture_parameter = sfShader_setTextureParameter(shader : Shader, name : LibC::Char*, texture : Texture)
 
   # Change a texture parameter of a shader
   #
@@ -2690,7 +2690,7 @@ lib CSFML
   #
   # * `shader`: Shader object
   # * `name`: Name of the texture in the shader
-  fun shader_set_current_texture_parameter = sfShader_setCurrentTextureParameter(shader: Shader, name: LibC::Char*)
+  fun shader_set_current_texture_parameter = sfShader_setCurrentTextureParameter(shader : Shader, name : LibC::Char*)
 
   # Get the underlying OpenGL handle of the shader.
   #
@@ -2703,7 +2703,7 @@ lib CSFML
   # * `shader`: Shader object
   #
   # *Returns*: OpenGL handle of the shader or 0 if not yet loaded
-  fun shader_get_native_handle = sfShader_getNativeHandle(shader: Shader): Int32
+  fun shader_get_native_handle = sfShader_getNativeHandle(shader : Shader): Int32
 
   # Bind a shader for rendering (activate it)
   #
@@ -2715,7 +2715,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `shader`: Shader to bind, can be null to use no shader
-  fun shader_bind = sfShader_bind(shader: Shader)
+  fun shader_bind = sfShader_bind(shader : Shader)
 
   # Tell whether or not the system supports shaders
   #
@@ -2737,14 +2737,14 @@ lib CSFML
   # * `user_data`: Data to pass to the callback functions
   #
   # *Returns*: A new Shape object
-  fun shape_create = sfShape_create(get_point_count: ShapeGetPointCountCallback, get_point: ShapeGetPointCallback, user_data: Void*): Shape
+  fun shape_create = sfShape_create(get_point_count : ShapeGetPointCountCallback, get_point : ShapeGetPointCallback, user_data : Void*): Shape
 
   # Destroy an existing shape
   #
   # *Arguments*:
   #
   # * `Shape`: Shape to delete
-  fun shape_destroy = sfShape_destroy(shape: Shape)
+  fun shape_destroy = sfShape_destroy(shape : Shape)
 
   # Set the position of a shape
   #
@@ -2756,7 +2756,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `position`: New position
-  fun shape_set_position = sfShape_setPosition(shape: Shape, position: Vector2f)
+  fun shape_set_position = sfShape_setPosition(shape : Shape, position : Vector2f)
 
   # Set the orientation of a shape
   #
@@ -2768,7 +2768,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `angle`: New rotation, in degrees
-  fun shape_set_rotation = sfShape_setRotation(shape: Shape, angle: Float32)
+  fun shape_set_rotation = sfShape_setRotation(shape : Shape, angle : Float32)
 
   # Set the scale factors of a shape
   #
@@ -2780,7 +2780,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `scale`: New scale factors
-  fun shape_set_scale = sfShape_setScale(shape: Shape, scale: Vector2f)
+  fun shape_set_scale = sfShape_setScale(shape : Shape, scale : Vector2f)
 
   # Set the local origin of a shape
   #
@@ -2795,7 +2795,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `origin`: New origin
-  fun shape_set_origin = sfShape_setOrigin(shape: Shape, origin: Vector2f)
+  fun shape_set_origin = sfShape_setOrigin(shape : Shape, origin : Vector2f)
 
   # Get the position of a shape
   #
@@ -2804,7 +2804,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Current position
-  fun shape_get_position = sfShape_getPosition(shape: Shape): Vector2f
+  fun shape_get_position = sfShape_getPosition(shape : Shape): Vector2f
 
   # Get the orientation of a shape
   #
@@ -2815,7 +2815,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Current rotation, in degrees
-  fun shape_get_rotation = sfShape_getRotation(shape: Shape): Float32
+  fun shape_get_rotation = sfShape_getRotation(shape : Shape): Float32
 
   # Get the current scale of a shape
   #
@@ -2824,7 +2824,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Current scale factors
-  fun shape_get_scale = sfShape_getScale(shape: Shape): Vector2f
+  fun shape_get_scale = sfShape_getScale(shape : Shape): Vector2f
 
   # Get the local origin of a shape
   #
@@ -2833,7 +2833,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Current origin
-  fun shape_get_origin = sfShape_getOrigin(shape: Shape): Vector2f
+  fun shape_get_origin = sfShape_getOrigin(shape : Shape): Vector2f
 
   # Move a shape by a given offset
   #
@@ -2844,7 +2844,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `offset`: Offset
-  fun shape_move = sfShape_move(shape: Shape, offset: Vector2f)
+  fun shape_move = sfShape_move(shape : Shape, offset : Vector2f)
 
   # Rotate a shape
   #
@@ -2855,7 +2855,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `angle`: Angle of rotation, in degrees
-  fun shape_rotate = sfShape_rotate(shape: Shape, angle: Float32)
+  fun shape_rotate = sfShape_rotate(shape : Shape, angle : Float32)
 
   # Scale a shape
   #
@@ -2866,7 +2866,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `factors`: Scale factors
-  fun shape_scale = sfShape_scale(shape: Shape, factors: Vector2f)
+  fun shape_scale = sfShape_scale(shape : Shape, factors : Vector2f)
 
   # Get the combined transform of a shape
   #
@@ -2875,7 +2875,7 @@ lib CSFML
   # * `shape`: shape object
   #
   # *Returns*: Transform combining the position/rotation/scale/origin of the object
-  fun shape_get_transform = sfShape_getTransform(shape: Shape): Transform
+  fun shape_get_transform = sfShape_getTransform(shape : Shape): Transform
 
   # Get the inverse of the combined transform of a shape
   #
@@ -2884,7 +2884,7 @@ lib CSFML
   # * `shape`: shape object
   #
   # *Returns*: Inverse of the combined transformations applied to the object
-  fun shape_get_inverse_transform = sfShape_getInverseTransform(shape: Shape): Transform
+  fun shape_get_inverse_transform = sfShape_getInverseTransform(shape : Shape): Transform
 
   # Change the source texture of a shape
   #
@@ -2904,7 +2904,7 @@ lib CSFML
   # * `shape`: Shape object
   # * `texture`: New texture
   # * `reset_rect`: Should the texture rect be reset to the size of the new texture?
-  fun shape_set_texture = sfShape_setTexture(shape: Shape, texture: Texture, reset_rect: CSFML::Bool)
+  fun shape_set_texture = sfShape_setTexture(shape : Shape, texture : Texture, reset_rect : CSFML::Bool)
 
   # Set the sub-rectangle of the texture that a shape will display
   #
@@ -2916,7 +2916,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `rect`: Rectangle defining the region of the texture to display
-  fun shape_set_texture_rect = sfShape_setTextureRect(shape: Shape, rect: IntRect)
+  fun shape_set_texture_rect = sfShape_setTextureRect(shape : Shape, rect : IntRect)
 
   # Set the fill color of a shape
   #
@@ -2931,7 +2931,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `color`: New color of the shape
-  fun shape_set_fill_color = sfShape_setFillColor(shape: Shape, color: Color)
+  fun shape_set_fill_color = sfShape_setFillColor(shape : Shape, color : Color)
 
   # Set the outline color of a shape
   #
@@ -2942,7 +2942,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `color`: New outline color of the shape
-  fun shape_set_outline_color = sfShape_setOutlineColor(shape: Shape, color: Color)
+  fun shape_set_outline_color = sfShape_setOutlineColor(shape : Shape, color : Color)
 
   # Set the thickness of a shape's outline
   #
@@ -2954,7 +2954,7 @@ lib CSFML
   #
   # * `shape`: Shape object
   # * `thickness`: New outline thickness
-  fun shape_set_outline_thickness = sfShape_setOutlineThickness(shape: Shape, thickness: Float32)
+  fun shape_set_outline_thickness = sfShape_setOutlineThickness(shape : Shape, thickness : Float32)
 
   # Get the source texture of a shape
   #
@@ -2967,7 +2967,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Pointer to the shape's texture
-  fun shape_get_texture = sfShape_getTexture(shape: Shape): Texture
+  fun shape_get_texture = sfShape_getTexture(shape : Shape): Texture
 
   # Get the sub-rectangle of the texture displayed by a shape
   #
@@ -2976,7 +2976,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Texture rectangle of the shape
-  fun shape_get_texture_rect = sfShape_getTextureRect(shape: Shape): IntRect
+  fun shape_get_texture_rect = sfShape_getTextureRect(shape : Shape): IntRect
 
   # Get the fill color of a shape
   #
@@ -2985,7 +2985,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Fill color of the shape
-  fun shape_get_fill_color = sfShape_getFillColor(shape: Shape): Color
+  fun shape_get_fill_color = sfShape_getFillColor(shape : Shape): Color
 
   # Get the outline color of a shape
   #
@@ -2994,7 +2994,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Outline color of the shape
-  fun shape_get_outline_color = sfShape_getOutlineColor(shape: Shape): Color
+  fun shape_get_outline_color = sfShape_getOutlineColor(shape : Shape): Color
 
   # Get the outline thickness of a shape
   #
@@ -3003,7 +3003,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Outline thickness of the shape
-  fun shape_get_outline_thickness = sfShape_getOutlineThickness(shape: Shape): Float32
+  fun shape_get_outline_thickness = sfShape_getOutlineThickness(shape : Shape): Float32
 
   # Get the total number of points of a shape
   #
@@ -3012,7 +3012,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Number of points of the shape
-  fun shape_get_point_count = sfShape_getPointCount(shape: Shape): LibC::SizeT
+  fun shape_get_point_count = sfShape_getPointCount(shape : Shape): LibC::SizeT
 
   # Get a point of a shape
   #
@@ -3024,7 +3024,7 @@ lib CSFML
   # * `index`: Index of the point to get, in range [0 .. get_point_count() - 1]
   #
   # *Returns*: Index-th point of the shape
-  fun shape_get_point = sfShape_getPoint(shape: Shape, index: LibC::SizeT): Vector2f
+  fun shape_get_point = sfShape_getPoint(shape : Shape, index : LibC::SizeT): Vector2f
 
   # Get the local bounding rectangle of a shape
   #
@@ -3039,7 +3039,7 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Local bounding rectangle of the entity
-  fun shape_get_local_bounds = sfShape_getLocalBounds(shape: Shape): FloatRect
+  fun shape_get_local_bounds = sfShape_getLocalBounds(shape : Shape): FloatRect
 
   # Get the global bounding rectangle of a shape
   #
@@ -3054,14 +3054,14 @@ lib CSFML
   # * `shape`: Shape object
   #
   # *Returns*: Global bounding rectangle of the entity
-  fun shape_get_global_bounds = sfShape_getGlobalBounds(shape: Shape): FloatRect
+  fun shape_get_global_bounds = sfShape_getGlobalBounds(shape : Shape): FloatRect
 
   # Recompute the internal geometry of a shape
   #
   # This function must be called by specialized shape objects
   # everytime their points change (ie. the result of either
   # the get_point_count or get_point callbacks is different).
-  fun shape_update = sfShape_update(shape: Shape)
+  fun shape_update = sfShape_update(shape : Shape)
 
   # Create a new sprite
   #
@@ -3075,14 +3075,14 @@ lib CSFML
   # * `sprite`: Sprite to copy
   #
   # *Returns*: Copied object
-  fun sprite_copy = sfSprite_copy(sprite: Sprite): Sprite
+  fun sprite_copy = sfSprite_copy(sprite : Sprite): Sprite
 
   # Destroy an existing sprite
   #
   # *Arguments*:
   #
   # * `sprite`: Sprite to delete
-  fun sprite_destroy = sfSprite_destroy(sprite: Sprite)
+  fun sprite_destroy = sfSprite_destroy(sprite : Sprite)
 
   # Set the position of a sprite
   #
@@ -3094,7 +3094,7 @@ lib CSFML
   #
   # * `sprite`: Sprite object
   # * `position`: New position
-  fun sprite_set_position = sfSprite_setPosition(sprite: Sprite, position: Vector2f)
+  fun sprite_set_position = sfSprite_setPosition(sprite : Sprite, position : Vector2f)
 
   # Set the orientation of a sprite
   #
@@ -3106,7 +3106,7 @@ lib CSFML
   #
   # * `sprite`: Sprite object
   # * `angle`: New rotation, in degrees
-  fun sprite_set_rotation = sfSprite_setRotation(sprite: Sprite, angle: Float32)
+  fun sprite_set_rotation = sfSprite_setRotation(sprite : Sprite, angle : Float32)
 
   # Set the scale factors of a sprite
   #
@@ -3118,7 +3118,7 @@ lib CSFML
   #
   # * `sprite`: Sprite object
   # * `scale`: New scale factors
-  fun sprite_set_scale = sfSprite_setScale(sprite: Sprite, scale: Vector2f)
+  fun sprite_set_scale = sfSprite_setScale(sprite : Sprite, scale : Vector2f)
 
   # Set the local origin of a sprite
   #
@@ -3133,7 +3133,7 @@ lib CSFML
   #
   # * `sprite`: Sprite object
   # * `origin`: New origin
-  fun sprite_set_origin = sfSprite_setOrigin(sprite: Sprite, origin: Vector2f)
+  fun sprite_set_origin = sfSprite_setOrigin(sprite : Sprite, origin : Vector2f)
 
   # Get the position of a sprite
   #
@@ -3142,7 +3142,7 @@ lib CSFML
   # * `sprite`: Sprite object
   #
   # *Returns*: Current position
-  fun sprite_get_position = sfSprite_getPosition(sprite: Sprite): Vector2f
+  fun sprite_get_position = sfSprite_getPosition(sprite : Sprite): Vector2f
 
   # Get the orientation of a sprite
   #
@@ -3153,7 +3153,7 @@ lib CSFML
   # * `sprite`: Sprite object
   #
   # *Returns*: Current rotation, in degrees
-  fun sprite_get_rotation = sfSprite_getRotation(sprite: Sprite): Float32
+  fun sprite_get_rotation = sfSprite_getRotation(sprite : Sprite): Float32
 
   # Get the current scale of a sprite
   #
@@ -3162,7 +3162,7 @@ lib CSFML
   # * `sprite`: Sprite object
   #
   # *Returns*: Current scale factors
-  fun sprite_get_scale = sfSprite_getScale(sprite: Sprite): Vector2f
+  fun sprite_get_scale = sfSprite_getScale(sprite : Sprite): Vector2f
 
   # Get the local origin of a sprite
   #
@@ -3171,7 +3171,7 @@ lib CSFML
   # * `sprite`: Sprite object
   #
   # *Returns*: Current origin
-  fun sprite_get_origin = sfSprite_getOrigin(sprite: Sprite): Vector2f
+  fun sprite_get_origin = sfSprite_getOrigin(sprite : Sprite): Vector2f
 
   # Move a sprite by a given offset
   #
@@ -3182,7 +3182,7 @@ lib CSFML
   #
   # * `sprite`: Sprite object
   # * `offset`: Offset
-  fun sprite_move = sfSprite_move(sprite: Sprite, offset: Vector2f)
+  fun sprite_move = sfSprite_move(sprite : Sprite, offset : Vector2f)
 
   # Rotate a sprite
   #
@@ -3193,7 +3193,7 @@ lib CSFML
   #
   # * `sprite`: Sprite object
   # * `angle`: Angle of rotation, in degrees
-  fun sprite_rotate = sfSprite_rotate(sprite: Sprite, angle: Float32)
+  fun sprite_rotate = sfSprite_rotate(sprite : Sprite, angle : Float32)
 
   # Scale a sprite
   #
@@ -3204,7 +3204,7 @@ lib CSFML
   #
   # * `sprite`: Sprite object
   # * `factors`: Scale factors
-  fun sprite_scale = sfSprite_scale(sprite: Sprite, factors: Vector2f)
+  fun sprite_scale = sfSprite_scale(sprite : Sprite, factors : Vector2f)
 
   # Get the combined transform of a sprite
   #
@@ -3213,7 +3213,7 @@ lib CSFML
   # * `sprite`: Sprite object
   #
   # *Returns*: Transform combining the position/rotation/scale/origin of the object
-  fun sprite_get_transform = sfSprite_getTransform(sprite: Sprite): Transform
+  fun sprite_get_transform = sfSprite_getTransform(sprite : Sprite): Transform
 
   # Get the inverse of the combined transform of a sprite
   #
@@ -3222,7 +3222,7 @@ lib CSFML
   # * `sprite`: Sprite object
   #
   # *Returns*: Inverse of the combined transformations applied to the object
-  fun sprite_get_inverse_transform = sfSprite_getInverseTransform(sprite: Sprite): Transform
+  fun sprite_get_inverse_transform = sfSprite_getInverseTransform(sprite : Sprite): Transform
 
   # Change the source texture of a sprite
   #
@@ -3241,7 +3241,7 @@ lib CSFML
   # * `sprite`: Sprite object
   # * `texture`: New texture
   # * `reset_rect`: Should the texture rect be reset to the size of the new texture?
-  fun sprite_set_texture = sfSprite_setTexture(sprite: Sprite, texture: Texture, reset_rect: CSFML::Bool)
+  fun sprite_set_texture = sfSprite_setTexture(sprite : Sprite, texture : Texture, reset_rect : CSFML::Bool)
 
   # Set the sub-rectangle of the texture that a sprite will display
   #
@@ -3253,7 +3253,7 @@ lib CSFML
   #
   # * `sprite`: Sprite object
   # * `rectangle`: Rectangle defining the region of the texture to display
-  fun sprite_set_texture_rect = sfSprite_setTextureRect(sprite: Sprite, rectangle: IntRect)
+  fun sprite_set_texture_rect = sfSprite_setTextureRect(sprite : Sprite, rectangle : IntRect)
 
   # Set the global color of a sprite
   #
@@ -3266,7 +3266,7 @@ lib CSFML
   #
   # * `sprite`: Sprite object
   # * `color`: New color of the sprite
-  fun sprite_set_color = sfSprite_setColor(sprite: Sprite, color: Color)
+  fun sprite_set_color = sfSprite_setColor(sprite : Sprite, color : Color)
 
   # Get the source texture of a sprite
   #
@@ -3279,7 +3279,7 @@ lib CSFML
   # * `sprite`: Sprite object
   #
   # *Returns*: Pointer to the sprite's texture
-  fun sprite_get_texture = sfSprite_getTexture(sprite: Sprite): Texture
+  fun sprite_get_texture = sfSprite_getTexture(sprite : Sprite): Texture
 
   # Get the sub-rectangle of the texture displayed by a sprite
   #
@@ -3288,7 +3288,7 @@ lib CSFML
   # * `sprite`: Sprite object
   #
   # *Returns*: Texture rectangle of the sprite
-  fun sprite_get_texture_rect = sfSprite_getTextureRect(sprite: Sprite): IntRect
+  fun sprite_get_texture_rect = sfSprite_getTextureRect(sprite : Sprite): IntRect
 
   # Get the global color of a sprite
   #
@@ -3297,7 +3297,7 @@ lib CSFML
   # * `sprite`: Sprite object
   #
   # *Returns*: Global color of the sprite
-  fun sprite_get_color = sfSprite_getColor(sprite: Sprite): Color
+  fun sprite_get_color = sfSprite_getColor(sprite : Sprite): Color
 
   # Get the local bounding rectangle of a sprite
   #
@@ -3312,7 +3312,7 @@ lib CSFML
   # * `sprite`: Sprite object
   #
   # *Returns*: Local bounding rectangle of the entity
-  fun sprite_get_local_bounds = sfSprite_getLocalBounds(sprite: Sprite): FloatRect
+  fun sprite_get_local_bounds = sfSprite_getLocalBounds(sprite : Sprite): FloatRect
 
   # Get the global bounding rectangle of a sprite
   #
@@ -3327,7 +3327,7 @@ lib CSFML
   # * `sprite`: Sprite object
   #
   # *Returns*: Global bounding rectangle of the entity
-  fun sprite_get_global_bounds = sfSprite_getGlobalBounds(sprite: Sprite): FloatRect
+  fun sprite_get_global_bounds = sfSprite_getGlobalBounds(sprite : Sprite): FloatRect
 
   @[Flags]
   enum TextStyle: UInt32
@@ -3346,14 +3346,14 @@ lib CSFML
   # * `text`: Text to copy
   #
   # *Returns*: Copied object
-  fun text_copy = sfText_copy(text: Text): Text
+  fun text_copy = sfText_copy(text : Text): Text
 
   # Destroy an existing text
   #
   # *Arguments*:
   #
   # * `text`: Text to delete
-  fun text_destroy = sfText_destroy(text: Text)
+  fun text_destroy = sfText_destroy(text : Text)
 
   # Set the position of a text
   #
@@ -3365,7 +3365,7 @@ lib CSFML
   #
   # * `text`: Text object
   # * `position`: New position
-  fun text_set_position = sfText_setPosition(text: Text, position: Vector2f)
+  fun text_set_position = sfText_setPosition(text : Text, position : Vector2f)
 
   # Set the orientation of a text
   #
@@ -3377,7 +3377,7 @@ lib CSFML
   #
   # * `text`: Text object
   # * `angle`: New rotation, in degrees
-  fun text_set_rotation = sfText_setRotation(text: Text, angle: Float32)
+  fun text_set_rotation = sfText_setRotation(text : Text, angle : Float32)
 
   # Set the scale factors of a text
   #
@@ -3389,7 +3389,7 @@ lib CSFML
   #
   # * `text`: Text object
   # * `scale`: New scale factors
-  fun text_set_scale = sfText_setScale(text: Text, scale: Vector2f)
+  fun text_set_scale = sfText_setScale(text : Text, scale : Vector2f)
 
   # Set the local origin of a text
   #
@@ -3404,7 +3404,7 @@ lib CSFML
   #
   # * `text`: Text object
   # * `origin`: New origin
-  fun text_set_origin = sfText_setOrigin(text: Text, origin: Vector2f)
+  fun text_set_origin = sfText_setOrigin(text : Text, origin : Vector2f)
 
   # Get the position of a text
   #
@@ -3413,7 +3413,7 @@ lib CSFML
   # * `text`: Text object
   #
   # *Returns*: Current position
-  fun text_get_position = sfText_getPosition(text: Text): Vector2f
+  fun text_get_position = sfText_getPosition(text : Text): Vector2f
 
   # Get the orientation of a text
   #
@@ -3424,7 +3424,7 @@ lib CSFML
   # * `text`: Text object
   #
   # *Returns*: Current rotation, in degrees
-  fun text_get_rotation = sfText_getRotation(text: Text): Float32
+  fun text_get_rotation = sfText_getRotation(text : Text): Float32
 
   # Get the current scale of a text
   #
@@ -3433,7 +3433,7 @@ lib CSFML
   # * `text`: Text object
   #
   # *Returns*: Current scale factors
-  fun text_get_scale = sfText_getScale(text: Text): Vector2f
+  fun text_get_scale = sfText_getScale(text : Text): Vector2f
 
   # Get the local origin of a text
   #
@@ -3442,7 +3442,7 @@ lib CSFML
   # * `text`: Text object
   #
   # *Returns*: Current origin
-  fun text_get_origin = sfText_getOrigin(text: Text): Vector2f
+  fun text_get_origin = sfText_getOrigin(text : Text): Vector2f
 
   # Move a text by a given offset
   #
@@ -3453,7 +3453,7 @@ lib CSFML
   #
   # * `text`: Text object
   # * `offset`: Offset
-  fun text_move = sfText_move(text: Text, offset: Vector2f)
+  fun text_move = sfText_move(text : Text, offset : Vector2f)
 
   # Rotate a text
   #
@@ -3464,7 +3464,7 @@ lib CSFML
   #
   # * `text`: Text object
   # * `angle`: Angle of rotation, in degrees
-  fun text_rotate = sfText_rotate(text: Text, angle: Float32)
+  fun text_rotate = sfText_rotate(text : Text, angle : Float32)
 
   # Scale a text
   #
@@ -3475,7 +3475,7 @@ lib CSFML
   #
   # * `text`: Text object
   # * `factors`: Scale factors
-  fun text_scale = sfText_scale(text: Text, factors: Vector2f)
+  fun text_scale = sfText_scale(text : Text, factors : Vector2f)
 
   # Get the combined transform of a text
   #
@@ -3484,7 +3484,7 @@ lib CSFML
   # * `text`: Text object
   #
   # *Returns*: Transform combining the position/rotation/scale/origin of the object
-  fun text_get_transform = sfText_getTransform(text: Text): Transform
+  fun text_get_transform = sfText_getTransform(text : Text): Transform
 
   # Get the inverse of the combined transform of a text
   #
@@ -3493,7 +3493,7 @@ lib CSFML
   # * `text`: Text object
   #
   # *Returns*: Inverse of the combined transformations applied to the object
-  fun text_get_inverse_transform = sfText_getInverseTransform(text: Text): Transform
+  fun text_get_inverse_transform = sfText_getInverseTransform(text : Text): Transform
 
   # Set the string of a text (from an ANSI string)
   #
@@ -3503,7 +3503,7 @@ lib CSFML
   #
   # * `text`: Text object
   # * `string`: New string
-  fun text_set_string = sfText_setString(text: Text, string: LibC::Char*)
+  fun text_set_string = sfText_setString(text : Text, string : LibC::Char*)
 
   # Set the string of a text (from a unicode string)
   #
@@ -3511,7 +3511,7 @@ lib CSFML
   #
   # * `text`: Text object
   # * `string`: New string
-  fun text_set_unicode_string = sfText_setUnicodeString(text: Text, string: Char*)
+  fun text_set_unicode_string = sfText_setUnicodeString(text : Text, string : Char*)
 
   # Set the font of a text
   #
@@ -3526,7 +3526,7 @@ lib CSFML
   #
   # * `text`: Text object
   # * `font`: New font
-  fun text_set_font = sfText_setFont(text: Text, font: Font)
+  fun text_set_font = sfText_setFont(text : Text, font : Font)
 
   # Set the character size of a text
   #
@@ -3536,7 +3536,7 @@ lib CSFML
   #
   # * `text`: Text object
   # * `size`: New character size, in pixels
-  fun text_set_character_size = sfText_setCharacterSize(text: Text, size: Int32)
+  fun text_set_character_size = sfText_setCharacterSize(text : Text, size : Int32)
 
   # Set the style of a text
   #
@@ -3548,7 +3548,7 @@ lib CSFML
   #
   # * `text`: Text object
   # * `style`: New style
-  fun text_set_style = sfText_setStyle(text: Text, style: TextStyle)
+  fun text_set_style = sfText_setStyle(text : Text, style : TextStyle)
 
   # Set the global color of a text
   #
@@ -3558,7 +3558,7 @@ lib CSFML
   #
   # * `text`: Text object
   # * `color`: New color of the text
-  fun text_set_color = sfText_setColor(text: Text, color: Color)
+  fun text_set_color = sfText_setColor(text : Text, color : Color)
 
   # Get the string of a text (returns an ANSI string)
   #
@@ -3567,7 +3567,7 @@ lib CSFML
   # * `text`: Text object
   #
   # *Returns*: String as a locale-dependant ANSI string
-  fun text_get_string = sfText_getString(text: Text): LibC::Char*
+  fun text_get_string = sfText_getString(text : Text): LibC::Char*
 
   # Get the string of a text (returns a unicode string)
   #
@@ -3576,7 +3576,7 @@ lib CSFML
   # * `text`: Text object
   #
   # *Returns*: String as UTF-32
-  fun text_get_unicode_string = sfText_getUnicodeString(text: Text): Char*
+  fun text_get_unicode_string = sfText_getUnicodeString(text : Text): Char*
 
   # Get the font used by a text
   #
@@ -3589,7 +3589,7 @@ lib CSFML
   # * `text`: Text object
   #
   # *Returns*: Pointer to the font
-  fun text_get_font = sfText_getFont(text: Text): Font
+  fun text_get_font = sfText_getFont(text : Text): Font
 
   # Get the size of the characters of a text
   #
@@ -3598,7 +3598,7 @@ lib CSFML
   # * `text`: Text object
   #
   # *Returns*: Size of the characters
-  fun text_get_character_size = sfText_getCharacterSize(text: Text): Int32
+  fun text_get_character_size = sfText_getCharacterSize(text : Text): Int32
 
   # Get the style of a text
   #
@@ -3607,7 +3607,7 @@ lib CSFML
   # * `text`: Text object
   #
   # *Returns*: Current string style (see TextStyle enum)
-  fun text_get_style = sfText_getStyle(text: Text): UInt32
+  fun text_get_style = sfText_getStyle(text : Text): UInt32
 
   # Get the global color of a text
   #
@@ -3616,7 +3616,7 @@ lib CSFML
   # * `text`: Text object
   #
   # *Returns*: Global color of the text
-  fun text_get_color = sfText_getColor(text: Text): Color
+  fun text_get_color = sfText_getColor(text : Text): Color
 
   # Return the position of the `index`-th character in a text
   #
@@ -3633,7 +3633,7 @@ lib CSFML
   # * `index`: Index of the character
   #
   # *Returns*: Position of the character
-  fun text_find_character_pos = sfText_findCharacterPos(text: Text, index: LibC::SizeT): Vector2f
+  fun text_find_character_pos = sfText_findCharacterPos(text : Text, index : LibC::SizeT): Vector2f
 
   # Get the local bounding rectangle of a text
   #
@@ -3648,7 +3648,7 @@ lib CSFML
   # * `text`: Text object
   #
   # *Returns*: Local bounding rectangle of the entity
-  fun text_get_local_bounds = sfText_getLocalBounds(text: Text): FloatRect
+  fun text_get_local_bounds = sfText_getLocalBounds(text : Text): FloatRect
 
   # Get the global bounding rectangle of a text
   #
@@ -3663,7 +3663,7 @@ lib CSFML
   # * `text`: Text object
   #
   # *Returns*: Global bounding rectangle of the entity
-  fun text_get_global_bounds = sfText_getGlobalBounds(text: Text): FloatRect
+  fun text_get_global_bounds = sfText_getGlobalBounds(text : Text): FloatRect
 
   # Create a new texture
   #
@@ -3673,7 +3673,7 @@ lib CSFML
   # * `height`: Texture height
   #
   # *Returns*: A new Texture object, or NULL if it failed
-  fun texture_create = sfTexture_create(width: Int32, height: Int32): Texture
+  fun texture_create = sfTexture_create(width : Int32, height : Int32): Texture
 
   # Create a new texture from a file
   #
@@ -3683,7 +3683,7 @@ lib CSFML
   # * `area`: Area of the source image to load (NULL to load the entire image)
   #
   # *Returns*: A new Texture object, or NULL if it failed
-  fun texture_create_from_file = sfTexture_createFromFile(filename: LibC::Char*, area: IntRect*): Texture
+  fun texture_create_from_file = sfTexture_createFromFile(filename : LibC::Char*, area : IntRect*): Texture
 
   # Create a new texture from a file in memory
   #
@@ -3694,7 +3694,7 @@ lib CSFML
   # * `area`: Area of the source image to load (NULL to load the entire image)
   #
   # *Returns*: A new Texture object, or NULL if it failed
-  fun texture_create_from_memory = sfTexture_createFromMemory(data: Void*, size_in_bytes: LibC::SizeT, area: IntRect*): Texture
+  fun texture_create_from_memory = sfTexture_createFromMemory(data : Void*, size_in_bytes : LibC::SizeT, area : IntRect*): Texture
 
   # Create a new texture from a custom stream
   #
@@ -3704,7 +3704,7 @@ lib CSFML
   # * `area`: Area of the source image to load (NULL to load the entire image)
   #
   # *Returns*: A new Texture object, or NULL if it failed
-  fun texture_create_from_stream = sfTexture_createFromStream(stream: InputStream*, area: IntRect*): Texture
+  fun texture_create_from_stream = sfTexture_createFromStream(stream : InputStream*, area : IntRect*): Texture
 
   # Create a new texture from an image
   #
@@ -3714,7 +3714,7 @@ lib CSFML
   # * `area`: Area of the source image to load (NULL to load the entire image)
   #
   # *Returns*: A new Texture object, or NULL if it failed
-  fun texture_create_from_image = sfTexture_createFromImage(image: Image, area: IntRect*): Texture
+  fun texture_create_from_image = sfTexture_createFromImage(image : Image, area : IntRect*): Texture
 
   # Copy an existing texture
   #
@@ -3723,14 +3723,14 @@ lib CSFML
   # * `texture`: Texture to copy
   #
   # *Returns*: Copied object
-  fun texture_copy = sfTexture_copy(texture: Texture): Texture
+  fun texture_copy = sfTexture_copy(texture : Texture): Texture
 
   # Destroy an existing texture
   #
   # *Arguments*:
   #
   # * `texture`: Texture to delete
-  fun texture_destroy = sfTexture_destroy(texture: Texture)
+  fun texture_destroy = sfTexture_destroy(texture : Texture)
 
   # Return the size of the texture
   #
@@ -3739,7 +3739,7 @@ lib CSFML
   # * `texture`: Texture to read
   #
   # *Returns*: Size in pixels
-  fun texture_get_size = sfTexture_getSize(texture: Texture): Vector2i
+  fun texture_get_size = sfTexture_getSize(texture : Texture): Vector2i
 
   # Copy a texture's pixels to an image
   #
@@ -3748,7 +3748,7 @@ lib CSFML
   # * `texture`: Texture to copy
   #
   # *Returns*: Image containing the texture's pixels
-  fun texture_copy_to_image = sfTexture_copyToImage(texture: Texture): Image
+  fun texture_copy_to_image = sfTexture_copyToImage(texture : Texture): Image
 
   # Update a texture from an array of pixels
   #
@@ -3760,7 +3760,7 @@ lib CSFML
   # * `height`: Height of the pixel region contained in `pixels`
   # * `x`: X offset in the texture where to copy the source pixels
   # * `y`: Y offset in the texture where to copy the source pixels
-  fun texture_update_from_pixels = sfTexture_updateFromPixels(texture: Texture, pixels: UInt8*, width: Int32, height: Int32, x: Int32, y: Int32)
+  fun texture_update_from_pixels = sfTexture_updateFromPixels(texture : Texture, pixels : UInt8*, width : Int32, height : Int32, x : Int32, y : Int32)
 
   # Update a texture from an image
   #
@@ -3770,7 +3770,7 @@ lib CSFML
   # * `image`: Image to copy to the texture
   # * `x`: X offset in the texture where to copy the source pixels
   # * `y`: Y offset in the texture where to copy the source pixels
-  fun texture_update_from_image = sfTexture_updateFromImage(texture: Texture, image: Image, x: Int32, y: Int32)
+  fun texture_update_from_image = sfTexture_updateFromImage(texture : Texture, image : Image, x : Int32, y : Int32)
 
   # Update a texture from the contents of a window
   #
@@ -3780,7 +3780,7 @@ lib CSFML
   # * `window`: Window to copy to the texture
   # * `x`: X offset in the texture where to copy the source pixels
   # * `y`: Y offset in the texture where to copy the source pixels
-  fun texture_update_from_window = sfTexture_updateFromWindow(texture: Texture, window: Window, x: Int32, y: Int32)
+  fun texture_update_from_window = sfTexture_updateFromWindow(texture : Texture, window : Window, x : Int32, y : Int32)
 
   # Update a texture from the contents of a render-window
   #
@@ -3790,7 +3790,7 @@ lib CSFML
   # * `render_window`: Render-window to copy to the texture
   # * `x`: X offset in the texture where to copy the source pixels
   # * `y`: Y offset in the texture where to copy the source pixels
-  fun texture_update_from_render_window = sfTexture_updateFromRenderWindow(texture: Texture, render_window: RenderWindow, x: Int32, y: Int32)
+  fun texture_update_from_render_window = sfTexture_updateFromRenderWindow(texture : Texture, render_window : RenderWindow, x : Int32, y : Int32)
 
   # Enable or disable the smooth filter on a texture
   #
@@ -3798,7 +3798,7 @@ lib CSFML
   #
   # * `texture`: The texture object
   # * `smooth`: True to enable smoothing, False to disable it
-  fun texture_set_smooth = sfTexture_setSmooth(texture: Texture, smooth: CSFML::Bool)
+  fun texture_set_smooth = sfTexture_setSmooth(texture : Texture, smooth : CSFML::Bool)
 
   # Tell whether the smooth filter is enabled or not for a texture
   #
@@ -3807,7 +3807,7 @@ lib CSFML
   # * `texture`: The texture object
   #
   # *Returns*: True if smoothing is enabled, False if it is disabled
-  fun texture_is_smooth = sfTexture_isSmooth(texture: Texture): CSFML::Bool
+  fun texture_is_smooth = sfTexture_isSmooth(texture : Texture): CSFML::Bool
 
   # Enable or disable repeating for a texture
   #
@@ -3829,7 +3829,7 @@ lib CSFML
   #
   # * `texture`: The texture object
   # * `repeated`: True to repeat the texture, false to disable repeating
-  fun texture_set_repeated = sfTexture_setRepeated(texture: Texture, repeated: CSFML::Bool)
+  fun texture_set_repeated = sfTexture_setRepeated(texture : Texture, repeated : CSFML::Bool)
 
   # Tell whether a texture is repeated or not
   #
@@ -3838,7 +3838,7 @@ lib CSFML
   # * `texture`: The texture object
   #
   # *Returns*: True if repeat mode is enabled, False if it is disabled
-  fun texture_is_repeated = sfTexture_isRepeated(texture: Texture): CSFML::Bool
+  fun texture_is_repeated = sfTexture_isRepeated(texture : Texture): CSFML::Bool
 
   # Get the underlying OpenGL handle of the texture.
   #
@@ -3851,7 +3851,7 @@ lib CSFML
   # * `texture`: The texture object
   #
   # *Returns*: OpenGL handle of the texture or 0 if not yet created
-  fun texture_get_native_handle = sfTexture_getNativeHandle(texture: Texture): Int32
+  fun texture_get_native_handle = sfTexture_getNativeHandle(texture : Texture): Int32
 
   # Bind a texture for rendering
   #
@@ -3863,7 +3863,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `texture`: Pointer to the texture to bind, can be null to use no texture
-  fun texture_bind = sfTexture_bind(texture: Texture)
+  fun texture_bind = sfTexture_bind(texture : Texture)
 
   # Get the maximum texture size allowed
   #
@@ -3882,14 +3882,14 @@ lib CSFML
   # * `transformable`: Transformable to copy
   #
   # *Returns*: Copied object
-  fun transformable_copy = sfTransformable_copy(transformable: Transformable): Transformable
+  fun transformable_copy = sfTransformable_copy(transformable : Transformable): Transformable
 
   # Destroy an existing transformable
   #
   # *Arguments*:
   #
   # * `transformable`: Transformable to delete
-  fun transformable_destroy = sfTransformable_destroy(transformable: Transformable)
+  fun transformable_destroy = sfTransformable_destroy(transformable : Transformable)
 
   # Set the position of a transformable
   #
@@ -3901,7 +3901,7 @@ lib CSFML
   #
   # * `transformable`: Transformable object
   # * `position`: New position
-  fun transformable_set_position = sfTransformable_setPosition(transformable: Transformable, position: Vector2f)
+  fun transformable_set_position = sfTransformable_setPosition(transformable : Transformable, position : Vector2f)
 
   # Set the orientation of a transformable
   #
@@ -3913,7 +3913,7 @@ lib CSFML
   #
   # * `transformable`: Transformable object
   # * `angle`: New rotation, in degrees
-  fun transformable_set_rotation = sfTransformable_setRotation(transformable: Transformable, angle: Float32)
+  fun transformable_set_rotation = sfTransformable_setRotation(transformable : Transformable, angle : Float32)
 
   # Set the scale factors of a transformable
   #
@@ -3925,7 +3925,7 @@ lib CSFML
   #
   # * `transformable`: Transformable object
   # * `scale`: New scale factors
-  fun transformable_set_scale = sfTransformable_setScale(transformable: Transformable, scale: Vector2f)
+  fun transformable_set_scale = sfTransformable_setScale(transformable : Transformable, scale : Vector2f)
 
   # Set the local origin of a transformable
   #
@@ -3940,7 +3940,7 @@ lib CSFML
   #
   # * `transformable`: Transformable object
   # * `origin`: New origin
-  fun transformable_set_origin = sfTransformable_setOrigin(transformable: Transformable, origin: Vector2f)
+  fun transformable_set_origin = sfTransformable_setOrigin(transformable : Transformable, origin : Vector2f)
 
   # Get the position of a transformable
   #
@@ -3949,7 +3949,7 @@ lib CSFML
   # * `transformable`: Transformable object
   #
   # *Returns*: Current position
-  fun transformable_get_position = sfTransformable_getPosition(transformable: Transformable): Vector2f
+  fun transformable_get_position = sfTransformable_getPosition(transformable : Transformable): Vector2f
 
   # Get the orientation of a transformable
   #
@@ -3960,7 +3960,7 @@ lib CSFML
   # * `transformable`: Transformable object
   #
   # *Returns*: Current rotation, in degrees
-  fun transformable_get_rotation = sfTransformable_getRotation(transformable: Transformable): Float32
+  fun transformable_get_rotation = sfTransformable_getRotation(transformable : Transformable): Float32
 
   # Get the current scale of a transformable
   #
@@ -3969,7 +3969,7 @@ lib CSFML
   # * `transformable`: Transformable object
   #
   # *Returns*: Current scale factors
-  fun transformable_get_scale = sfTransformable_getScale(transformable: Transformable): Vector2f
+  fun transformable_get_scale = sfTransformable_getScale(transformable : Transformable): Vector2f
 
   # Get the local origin of a transformable
   #
@@ -3978,7 +3978,7 @@ lib CSFML
   # * `transformable`: Transformable object
   #
   # *Returns*: Current origin
-  fun transformable_get_origin = sfTransformable_getOrigin(transformable: Transformable): Vector2f
+  fun transformable_get_origin = sfTransformable_getOrigin(transformable : Transformable): Vector2f
 
   # Move a transformable by a given offset
   #
@@ -3989,7 +3989,7 @@ lib CSFML
   #
   # * `transformable`: Transformable object
   # * `offset`: Offset
-  fun transformable_move = sfTransformable_move(transformable: Transformable, offset: Vector2f)
+  fun transformable_move = sfTransformable_move(transformable : Transformable, offset : Vector2f)
 
   # Rotate a transformable
   #
@@ -4000,7 +4000,7 @@ lib CSFML
   #
   # * `transformable`: Transformable object
   # * `angle`: Angle of rotation, in degrees
-  fun transformable_rotate = sfTransformable_rotate(transformable: Transformable, angle: Float32)
+  fun transformable_rotate = sfTransformable_rotate(transformable : Transformable, angle : Float32)
 
   # Scale a transformable
   #
@@ -4011,7 +4011,7 @@ lib CSFML
   #
   # * `transformable`: Transformable object
   # * `factors`: Scale factors
-  fun transformable_scale = sfTransformable_scale(transformable: Transformable, factors: Vector2f)
+  fun transformable_scale = sfTransformable_scale(transformable : Transformable, factors : Vector2f)
 
   # Get the combined transform of a transformable
   #
@@ -4020,7 +4020,7 @@ lib CSFML
   # * `transformable`: Transformable object
   #
   # *Returns*: Transform combining the position/rotation/scale/origin of the object
-  fun transformable_get_transform = sfTransformable_getTransform(transformable: Transformable): Transform
+  fun transformable_get_transform = sfTransformable_getTransform(transformable : Transformable): Transform
 
   # Get the inverse of the combined transform of a transformable
   #
@@ -4029,7 +4029,7 @@ lib CSFML
   # * `transformable`: Transformable object
   #
   # *Returns*: Inverse of the combined transformations applied to the object
-  fun transformable_get_inverse_transform = sfTransformable_getInverseTransform(transformable: Transformable): Transform
+  fun transformable_get_inverse_transform = sfTransformable_getInverseTransform(transformable : Transformable): Transform
 
   # Create a new vertex array
   #
@@ -4043,14 +4043,14 @@ lib CSFML
   # * `vertex_array`: Vertex array to copy
   #
   # *Returns*: Copied object
-  fun vertex_array_copy = sfVertexArray_copy(vertex_array: VertexArray): VertexArray
+  fun vertex_array_copy = sfVertexArray_copy(vertex_array : VertexArray): VertexArray
 
   # Destroy an existing vertex array
   #
   # *Arguments*:
   #
   # * `vertex_array`: Vertex array to delete
-  fun vertex_array_destroy = sfVertexArray_destroy(vertex_array: VertexArray)
+  fun vertex_array_destroy = sfVertexArray_destroy(vertex_array : VertexArray)
 
   # Return the vertex count of a vertex array
   #
@@ -4059,7 +4059,7 @@ lib CSFML
   # * `vertex_array`: Vertex array object
   #
   # *Returns*: Number of vertices in the array
-  fun vertex_array_get_vertex_count = sfVertexArray_getVertexCount(vertex_array: VertexArray): LibC::SizeT
+  fun vertex_array_get_vertex_count = sfVertexArray_getVertexCount(vertex_array : VertexArray): LibC::SizeT
 
   # Get access to a vertex by its index
   #
@@ -4073,7 +4073,7 @@ lib CSFML
   # * `index`: Index of the vertex to get
   #
   # *Returns*: Pointer to the index-th vertex
-  fun vertex_array_get_vertex = sfVertexArray_getVertex(vertex_array: VertexArray, index: LibC::SizeT): Vertex*
+  fun vertex_array_get_vertex = sfVertexArray_getVertex(vertex_array : VertexArray, index : LibC::SizeT): Vertex*
 
   # Clear a vertex array
   #
@@ -4085,7 +4085,7 @@ lib CSFML
   # *Arguments*:
   #
   # * `vertex_array`: Vertex array object
-  fun vertex_array_clear = sfVertexArray_clear(vertex_array: VertexArray)
+  fun vertex_array_clear = sfVertexArray_clear(vertex_array : VertexArray)
 
   # Resize the vertex array
   #
@@ -4099,7 +4099,7 @@ lib CSFML
   #
   # * `vertex_array`: Vertex array objet
   # * `vertex_count`: New size of the array (number of vertices)
-  fun vertex_array_resize = sfVertexArray_resize(vertex_array: VertexArray, vertex_count: LibC::SizeT)
+  fun vertex_array_resize = sfVertexArray_resize(vertex_array : VertexArray, vertex_count : LibC::SizeT)
 
   # Add a vertex to a vertex array array
   #
@@ -4107,7 +4107,7 @@ lib CSFML
   #
   # * `vertex_array`: Vertex array objet
   # * `vertex`: Vertex to add
-  fun vertex_array_append = sfVertexArray_append(vertex_array: VertexArray, vertex: Vertex)
+  fun vertex_array_append = sfVertexArray_append(vertex_array : VertexArray, vertex : Vertex)
 
   # Set the type of primitives of a vertex array
   #
@@ -4123,7 +4123,7 @@ lib CSFML
   #
   # * `vertex_array`: Vertex array objet
   # * `type`: Type of primitive
-  fun vertex_array_set_primitive_type = sfVertexArray_setPrimitiveType(vertex_array: VertexArray, type: PrimitiveType)
+  fun vertex_array_set_primitive_type = sfVertexArray_setPrimitiveType(vertex_array : VertexArray, type : PrimitiveType)
 
   # Get the type of primitives drawn by a vertex array
   #
@@ -4132,7 +4132,7 @@ lib CSFML
   # * `vertex_array`: Vertex array objet
   #
   # *Returns*: Primitive type
-  fun vertex_array_get_primitive_type = sfVertexArray_getPrimitiveType(vertex_array: VertexArray): PrimitiveType
+  fun vertex_array_get_primitive_type = sfVertexArray_getPrimitiveType(vertex_array : VertexArray): PrimitiveType
 
   # Compute the bounding rectangle of a vertex array
   #
@@ -4144,7 +4144,7 @@ lib CSFML
   # * `vertex_array`: Vertex array objet
   #
   # *Returns*: Bounding rectangle of the vertex array
-  fun vertex_array_get_bounds = sfVertexArray_getBounds(vertex_array: VertexArray): FloatRect
+  fun vertex_array_get_bounds = sfVertexArray_getBounds(vertex_array : VertexArray): FloatRect
 
   # Create a default view
   #
@@ -4160,7 +4160,7 @@ lib CSFML
   # * `rectangle`: Rectangle defining the zone to display
   #
   # *Returns*: A new View object
-  fun view_create_from_rect = sfView_createFromRect(rectangle: FloatRect): View
+  fun view_create_from_rect = sfView_createFromRect(rectangle : FloatRect): View
 
   # Copy an existing view
   #
@@ -4169,14 +4169,14 @@ lib CSFML
   # * `view`: View to copy
   #
   # *Returns*: Copied object
-  fun view_copy = sfView_copy(view: View): View
+  fun view_copy = sfView_copy(view : View): View
 
   # Destroy an existing view
   #
   # *Arguments*:
   #
   # * `view`: View to destroy
-  fun view_destroy = sfView_destroy(view: View)
+  fun view_destroy = sfView_destroy(view : View)
 
   # Set the center of a view
   #
@@ -4184,7 +4184,7 @@ lib CSFML
   #
   # * `view`: View object
   # * `center`: New center
-  fun view_set_center = sfView_setCenter(view: View, center: Vector2f)
+  fun view_set_center = sfView_setCenter(view : View, center : Vector2f)
 
   # Set the size of a view
   #
@@ -4192,7 +4192,7 @@ lib CSFML
   #
   # * `view`: View object
   # * `size`: New size of the view
-  fun view_set_size = sfView_setSize(view: View, size: Vector2f)
+  fun view_set_size = sfView_setSize(view : View, size : Vector2f)
 
   # Set the orientation of a view
   #
@@ -4202,7 +4202,7 @@ lib CSFML
   #
   # * `view`: View object
   # * `angle`: New angle, in degrees
-  fun view_set_rotation = sfView_setRotation(view: View, angle: Float32)
+  fun view_set_rotation = sfView_setRotation(view : View, angle : Float32)
 
   # Set the target viewport of a view
   #
@@ -4217,7 +4217,7 @@ lib CSFML
   #
   # * `view`: View object
   # * `viewport`: New viewport rectangle
-  fun view_set_viewport = sfView_setViewport(view: View, viewport: FloatRect)
+  fun view_set_viewport = sfView_setViewport(view : View, viewport : FloatRect)
 
   # Reset a view to the given rectangle
   #
@@ -4227,7 +4227,7 @@ lib CSFML
   #
   # * `view`: View object
   # * `rectangle`: Rectangle defining the zone to display
-  fun view_reset = sfView_reset(view: View, rectangle: FloatRect)
+  fun view_reset = sfView_reset(view : View, rectangle : FloatRect)
 
   # Get the center of a view
   #
@@ -4236,7 +4236,7 @@ lib CSFML
   # * `view`: View object
   #
   # *Returns*: Center of the view
-  fun view_get_center = sfView_getCenter(view: View): Vector2f
+  fun view_get_center = sfView_getCenter(view : View): Vector2f
 
   # Get the size of a view
   #
@@ -4245,7 +4245,7 @@ lib CSFML
   # * `view`: View object
   #
   # *Returns*: Size of the view
-  fun view_get_size = sfView_getSize(view: View): Vector2f
+  fun view_get_size = sfView_getSize(view : View): Vector2f
 
   # Get the current orientation of a view
   #
@@ -4254,7 +4254,7 @@ lib CSFML
   # * `view`: View object
   #
   # *Returns*: Rotation angle of the view, in degrees
-  fun view_get_rotation = sfView_getRotation(view: View): Float32
+  fun view_get_rotation = sfView_getRotation(view : View): Float32
 
   # Get the target viewport rectangle of a view
   #
@@ -4263,7 +4263,7 @@ lib CSFML
   # * `view`: View object
   #
   # *Returns*: Viewport rectangle, expressed as a factor of the target size
-  fun view_get_viewport = sfView_getViewport(view: View): FloatRect
+  fun view_get_viewport = sfView_getViewport(view : View): FloatRect
 
   # Move a view relatively to its current position
   #
@@ -4271,7 +4271,7 @@ lib CSFML
   #
   # * `view`: View object
   # * `offset`: Offset
-  fun view_move = sfView_move(view: View, offset: Vector2f)
+  fun view_move = sfView_move(view : View, offset : Vector2f)
 
   # Rotate a view relatively to its current orientation
   #
@@ -4279,7 +4279,7 @@ lib CSFML
   #
   # * `view`: View object
   # * `angle`: Angle to rotate, in degrees
-  fun view_rotate = sfView_rotate(view: View, angle: Float32)
+  fun view_rotate = sfView_rotate(view : View, angle : Float32)
 
   # Resize a view rectangle relatively to its current size
   #
@@ -4294,6 +4294,6 @@ lib CSFML
   #
   # * `view`: View object
   # * `factor`: Zoom factor to apply
-  fun view_zoom = sfView_zoom(view: View, factor: Float32)
+  fun view_zoom = sfView_zoom(view : View, factor : Float32)
 
 end

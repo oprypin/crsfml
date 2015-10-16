@@ -66,7 +66,7 @@ module SF
     # * `timeout`: Maximum time to wait
     #
     # *Returns*: Public IP address of the computer
-    def self.get_public_address(timeout: Time)
+    def self.get_public_address(timeout : Time)
       CSFML.ip_address_get_public_address(timeout)
     end
 
@@ -203,7 +203,7 @@ module SF
     # * `index`: Index of the name to get (in range [0 .. get_count])
     #
     # *Returns*: The requested name
-    def get_name(index: Int)
+    def get_name(index : Int)
       index = LibC::SizeT.new(index)
       ptr = CSFML.ftp_listing_response_get_name(@this, index)
       ptr ? String.new(ptr) : ""
@@ -347,7 +347,7 @@ module SF
     # * `timeout`: Maximum time to wait
     #
     # *Returns*: Server response to the request
-    def connect(server: IpAddress, port: Int, timeout: Time)
+    def connect(server : IpAddress, port : Int, timeout : Time)
       port = port.to_u16
       FtpResponse.wrap_ptr(CSFML.ftp_connect(@this, server, port, timeout))
     end
@@ -378,7 +378,7 @@ module SF
     # * `password`: Password
     #
     # *Returns*: Server response to the request
-    def login(user_name: String, password: String)
+    def login(user_name : String, password : String)
       FtpResponse.wrap_ptr(CSFML.ftp_login(@this, user_name, password))
     end
 
@@ -434,7 +434,7 @@ module SF
     # * `directory`: Directory to list
     #
     # *Returns*: Server response to the request
-    def get_directory_listing(directory: String)
+    def get_directory_listing(directory : String)
       FtpListingResponse.wrap_ptr(CSFML.ftp_get_directory_listing(@this, directory))
     end
 
@@ -448,7 +448,7 @@ module SF
     # * `directory`: New working directory
     #
     # *Returns*: Server response to the request
-    def change_directory(directory: String)
+    def change_directory(directory : String)
       FtpResponse.wrap_ptr(CSFML.ftp_change_directory(@this, directory))
     end
 
@@ -474,7 +474,7 @@ module SF
     # * `name`: Name of the directory to create
     #
     # *Returns*: Server response to the request
-    def create_directory(name: String)
+    def create_directory(name : String)
       FtpResponse.transfer_ptr(CSFML.ftp_create_directory(@this, name))
     end
 
@@ -491,7 +491,7 @@ module SF
     # * `name`: Name of the directory to remove
     #
     # *Returns*: Server response to the request
-    def delete_directory(name: String)
+    def delete_directory(name : String)
       FtpResponse.wrap_ptr(CSFML.ftp_delete_directory(@this, name))
     end
 
@@ -507,7 +507,7 @@ module SF
     # * `new_name`: New name of the file
     #
     # *Returns*: Server response to the request
-    def rename_file(file: String, new_name: String)
+    def rename_file(file : String, new_name : String)
       FtpResponse.wrap_ptr(CSFML.ftp_rename_file(@this, file, new_name))
     end
 
@@ -524,7 +524,7 @@ module SF
     # * `name`: File to remove
     #
     # *Returns*: Server response to the request
-    def delete_file(name: String)
+    def delete_file(name : String)
       FtpResponse.wrap_ptr(CSFML.ftp_delete_file(@this, name))
     end
 
@@ -543,7 +543,7 @@ module SF
     # * `mode`: Transfer mode
     #
     # *Returns*: Server response to the request
-    def download(distant_file: String, dest_path: String, mode: FtpTransferMode)
+    def download(distant_file : String, dest_path : String, mode : FtpTransferMode)
       FtpResponse.wrap_ptr(CSFML.ftp_download(@this, distant_file, dest_path, mode))
     end
 
@@ -562,7 +562,7 @@ module SF
     # * `mode`: Transfer mode
     #
     # *Returns*: Server response to the request
-    def upload(local_file: String, dest_path: String, mode: FtpTransferMode)
+    def upload(local_file : String, dest_path : String, mode : FtpTransferMode)
       FtpResponse.wrap_ptr(CSFML.ftp_upload(@this, local_file, dest_path, mode))
     end
 
@@ -606,7 +606,7 @@ module SF
     # * `http_request`: HTTP request
     # * `field`: Name of the field to set
     # * `value`: Value of the field
-    def set_field(field: String, value: String)
+    def set_field(field : String, value : String)
       CSFML.http_request_set_field(@this, field, value)
     end
 
@@ -620,7 +620,7 @@ module SF
     #
     # * `http_request`: HTTP request
     # * `method`: Method to use for the request
-    def method=(method: HttpMethod)
+    def method=(method : HttpMethod)
       CSFML.http_request_set_method(@this, method)
     end
 
@@ -634,7 +634,7 @@ module SF
     #
     # * `http_request`: HTTP request
     # * `uri`: URI to request, relative to the host
-    def uri=(uri: String)
+    def uri=(uri : String)
       CSFML.http_request_set_uri(@this, uri)
     end
 
@@ -647,7 +647,7 @@ module SF
     # * `http_request`: HTTP request
     # * `major`: Major HTTP version number
     # * `minor`: Minor HTTP version number
-    def set_http_version(major: Int, minor: Int)
+    def set_http_version(major : Int, minor : Int)
       major = major.to_i32
       minor = minor.to_i32
       CSFML.http_request_set_http_version(@this, major, minor)
@@ -663,7 +663,7 @@ module SF
     #
     # * `http_request`: HTTP request
     # * `body`: Content of the body
-    def body=(body: String)
+    def body=(body : String)
       CSFML.http_request_set_body(@this, body)
     end
 
@@ -716,7 +716,7 @@ module SF
     # * `field`: Name of the field to get
     #
     # *Returns*: Value of the field, or empty string if not found
-    def get_field(field: String)
+    def get_field(field : String)
       ptr = CSFML.http_response_get_field(@this, field)
       ptr ? String.new(ptr) : ""
     end
@@ -814,7 +814,7 @@ module SF
     # * `http`: Http object
     # * `host`: Web server to connect to
     # * `port`: Port to use for connection
-    def set_host(host: String, port: Int)
+    def set_host(host : String, port : Int)
       port = port.to_u16
       CSFML.http_set_host(@this, host, port)
     end
@@ -837,7 +837,7 @@ module SF
     # * `timeout`: Maximum time to wait
     #
     # *Returns*: Server's response
-    def send_request(request: HttpRequest, timeout: Time)
+    def send_request(request : HttpRequest, timeout : Time)
       HttpResponse.wrap_ptr(CSFML.http_send_request(@this, request, timeout))
     end
 
@@ -881,7 +881,7 @@ module SF
     # * `packet`: Packet object
     # * `data`: Pointer to the sequence of bytes to append
     # * `size_in_bytes`: Number of bytes to append
-    def append(data: Slice|Array)
+    def append(data : Slice|Array)
       data, size_in_bytes = (data.to_unsafe as Pointer(Void)), LibC::SizeT.new(data.size*sizeof(typeof(data[0])))
       CSFML.packet_append(@this, data, size_in_bytes)
     end
@@ -1005,42 +1005,42 @@ module SF
     # *Arguments*:
     #
     # * `packet`: Packet object
-    def write_bool(p1: Bool)
+    def write_bool(p1 : Bool)
       p1 = p1 ? 1 : 0
       CSFML.packet_write_bool(@this, p1)
     end
 
-    def write_int8(p1: Int8)
+    def write_int8(p1 : Int8)
       CSFML.packet_write_int8(@this, p1)
     end
 
-    def write_uint8(p1: UInt8)
+    def write_uint8(p1 : UInt8)
       CSFML.packet_write_uint8(@this, p1)
     end
 
-    def write_int16(p1: Int16)
+    def write_int16(p1 : Int16)
       CSFML.packet_write_int16(@this, p1)
     end
 
-    def write_uint16(p1: Int)
+    def write_uint16(p1 : Int)
       p1 = p1.to_u16
       CSFML.packet_write_uint16(@this, p1)
     end
 
-    def write_int32(p1: Int32)
+    def write_int32(p1 : Int32)
       CSFML.packet_write_int32(@this, p1)
     end
 
-    def write_uint32(p1: UInt32)
+    def write_uint32(p1 : UInt32)
       CSFML.packet_write_uint32(@this, p1)
     end
 
-    def write_float(p1: Number)
+    def write_float(p1 : Number)
       p1 = p1.to_f32
       CSFML.packet_write_float(@this, p1)
     end
 
-    def write_double(p1: Float64)
+    def write_double(p1 : Float64)
       CSFML.packet_write_double(@this, p1)
     end
 
@@ -1087,15 +1087,15 @@ module SF
     #
     # * `selector`: Socket selector object
     # * `socket`: Pointer to the socket to add
-    def add_tcp_listener(socket: TcpListener)
+    def add_tcp_listener(socket : TcpListener)
       CSFML.socket_selector_add_tcp_listener(@this, socket)
     end
 
-    def add_tcp_socket(socket: TcpSocket)
+    def add_tcp_socket(socket : TcpSocket)
       CSFML.socket_selector_add_tcp_socket(@this, socket)
     end
 
-    def add_udp_socket(socket: UdpSocket)
+    def add_udp_socket(socket : UdpSocket)
       CSFML.socket_selector_add_udp_socket(@this, socket)
     end
 
@@ -1108,15 +1108,15 @@ module SF
     #
     # * `selector`: Socket selector object
     # * `socket`: POointer to the socket to remove
-    def remove_tcp_listener(socket: TcpListener)
+    def remove_tcp_listener(socket : TcpListener)
       CSFML.socket_selector_remove_tcp_listener(@this, socket)
     end
 
-    def remove_tcp_socket(socket: TcpSocket)
+    def remove_tcp_socket(socket : TcpSocket)
       CSFML.socket_selector_remove_tcp_socket(@this, socket)
     end
 
-    def remove_udp_socket(socket: UdpSocket)
+    def remove_udp_socket(socket : UdpSocket)
       CSFML.socket_selector_remove_udp_socket(@this, socket)
     end
 
@@ -1147,7 +1147,7 @@ module SF
     # * `timeout`: Maximum time to wait (use TimeZero for infinity)
     #
     # *Returns*: True if there are sockets ready, False otherwise
-    def wait(timeout: Time)
+    def wait(timeout : Time)
       CSFML.socket_selector_wait(@this, timeout) != 0
     end
 
@@ -1166,15 +1166,15 @@ module SF
     # * `socket`: Socket to test
     #
     # *Returns*: True if the socket is ready to read, False otherwise
-    def is_tcp_listener_ready(socket: TcpListener)
+    def is_tcp_listener_ready(socket : TcpListener)
       CSFML.socket_selector_is_tcp_listener_ready(@this, socket) != 0
     end
 
-    def is_tcp_socket_ready(socket: TcpSocket)
+    def is_tcp_socket_ready(socket : TcpSocket)
       CSFML.socket_selector_is_tcp_socket_ready(@this, socket) != 0
     end
 
-    def is_udp_socket_ready(socket: UdpSocket)
+    def is_udp_socket_ready(socket : UdpSocket)
       CSFML.socket_selector_is_udp_socket_ready(@this, socket) != 0
     end
 
@@ -1215,7 +1215,7 @@ module SF
     #
     # * `listener`: TCP listener object
     # * `blocking`: True to set the socket as blocking, False for non-blocking
-    def blocking=(blocking: Bool)
+    def blocking=(blocking : Bool)
       blocking = blocking ? 1 : 0
       CSFML.tcp_listener_set_blocking(@this, blocking)
     end
@@ -1258,7 +1258,7 @@ module SF
     # * `port`: Port to listen for new connections
     #
     # *Returns*: Status code
-    def listen(port: Int)
+    def listen(port : Int)
       port = port.to_u16
       CSFML.tcp_listener_listen(@this, port)
     end
@@ -1278,7 +1278,7 @@ module SF
     # * `connected`: Socket that will hold the new connection
     #
     # *Returns*: Status code
-    def accept(connected: TcpSocket*)
+    def accept(connected : TcpSocket*)
       CSFML.tcp_listener_accept(@this, connected)
     end
 
@@ -1319,7 +1319,7 @@ module SF
     #
     # * `socket`: TCP socket object
     # * `blocking`: True to set the socket as blocking, False for non-blocking
-    def blocking=(blocking: Bool)
+    def blocking=(blocking : Bool)
       blocking = blocking ? 1 : 0
       CSFML.tcp_socket_set_blocking(@this, blocking)
     end
@@ -1391,7 +1391,7 @@ module SF
     # * `timeout`: Maximum time to wait
     #
     # *Returns*: Status code
-    def connect(host: IpAddress, port: Int, timeout: Time)
+    def connect(host : IpAddress, port : Int, timeout : Time)
       port = port.to_u16
       CSFML.tcp_socket_connect(@this, host, port, timeout)
     end
@@ -1422,7 +1422,7 @@ module SF
     # * `size`: Number of bytes to send
     #
     # *Returns*: Status code
-    def send(data: Slice|Array)
+    def send(data : Slice|Array)
       data, size = (data.to_unsafe as Pointer(Void)), LibC::SizeT.new(data.size*sizeof(typeof(data[0])))
       CSFML.tcp_socket_send(@this, data, size)
     end
@@ -1439,7 +1439,7 @@ module SF
     # * `sent`: The number of bytes sent will be written here
     #
     # *Returns*: Status code
-    def send_partial(data: Slice|Array, sent: LibC::SizeT*)
+    def send_partial(data : Slice|Array, sent : LibC::SizeT*)
       data, size = (data.to_unsafe as Pointer(Void)), LibC::SizeT.new(data.size*sizeof(typeof(data[0])))
       CSFML.tcp_socket_send_partial(@this, data, size, sent)
     end
@@ -1458,7 +1458,7 @@ module SF
     # * `received`: This variable is filled with the actual number of bytes received
     #
     # *Returns*: Status code
-    def receive(data: Slice|Array, size_received: LibC::SizeT*)
+    def receive(data : Slice|Array, size_received : LibC::SizeT*)
       data, max_size = (data.to_unsafe as Pointer(Void)), LibC::SizeT.new(data.size*sizeof(typeof(data[0])))
       CSFML.tcp_socket_receive(@this, data, max_size, size_received)
     end
@@ -1477,7 +1477,7 @@ module SF
     # * `packet`: Packet to send
     #
     # *Returns*: Status code
-    def send_packet(packet: Packet)
+    def send_packet(packet : Packet)
       CSFML.tcp_socket_send_packet(@this, packet)
     end
 
@@ -1493,7 +1493,7 @@ module SF
     # * `packet`: Packet to fill with the received data
     #
     # *Returns*: Status code
-    def receive_packet(packet: Packet)
+    def receive_packet(packet : Packet)
       CSFML.tcp_socket_receive_packet(@this, packet)
     end
 
@@ -1534,7 +1534,7 @@ module SF
     #
     # * `socket`: UDP socket object
     # * `blocking`: True to set the socket as blocking, False for non-blocking
-    def blocking=(blocking: Bool)
+    def blocking=(blocking : Bool)
       blocking = blocking ? 1 : 0
       CSFML.udp_socket_set_blocking(@this, blocking)
     end
@@ -1578,7 +1578,7 @@ module SF
     # * `port`: Port to bind the socket to
     #
     # *Returns*: Status code
-    def bind(port: Int)
+    def bind(port : Int)
       port = port.to_u16
       CSFML.udp_socket_bind(@this, port)
     end
@@ -1611,7 +1611,7 @@ module SF
     # * `remote_port`: Port of the receiver to send the data to
     #
     # *Returns*: Status code
-    def send(data: Slice|Array, address: IpAddress, port: Int)
+    def send(data : Slice|Array, address : IpAddress, port : Int)
       data, size = (data.to_unsafe as Pointer(Void)), LibC::SizeT.new(data.size*sizeof(typeof(data[0])))
       port = port.to_u16
       CSFML.udp_socket_send(@this, data, size, address, port)
@@ -1636,7 +1636,7 @@ module SF
     # * `remote_port`: Port of the peer that sent the data
     #
     # *Returns*: Status code
-    def receive(data: Slice|Array, size_received: LibC::SizeT*, address: IpAddress*, port: UInt16*)
+    def receive(data : Slice|Array, size_received : LibC::SizeT*, address : IpAddress*, port : UInt16*)
       data, max_size = (data.to_unsafe as Pointer(Void)), LibC::SizeT.new(data.size*sizeof(typeof(data[0])))
       CSFML.udp_socket_receive(@this, data, max_size, size_received, address, port)
     end
@@ -1655,7 +1655,7 @@ module SF
     # * `remote_port`: Port of the receiver to send the data to
     #
     # *Returns*: Status code
-    def send_packet(packet: Packet, address: IpAddress, port: Int)
+    def send_packet(packet : Packet, address : IpAddress, port : Int)
       port = port.to_u16
       CSFML.udp_socket_send_packet(@this, packet, address, port)
     end
@@ -1672,7 +1672,7 @@ module SF
     # * `remote_port`: Port of the peer that sent the data
     #
     # *Returns*: Status code
-    def receive_packet(packet: Packet, address: IpAddress*, port: UInt16*)
+    def receive_packet(packet : Packet, address : IpAddress*, port : UInt16*)
       CSFML.udp_socket_receive_packet(@this, packet, address, port)
     end
 
@@ -1803,7 +1803,7 @@ module SF
   # * `address`: IP address or network name
   #
   # *Returns*: Resulting address
-  def ip_address(address: String)
+  def ip_address(address : String)
     CSFML.ip_address_from_string(address)
   end
 
@@ -1822,7 +1822,7 @@ module SF
   # * `byte3`: Fourth byte of the address
   #
   # *Returns*: Resulting address
-  def ip_address(byte0: UInt8, byte1: UInt8, byte2: UInt8, byte3: UInt8)
+  def ip_address(byte0 : UInt8, byte1 : UInt8, byte2 : UInt8, byte3 : UInt8)
     CSFML.ip_address_from_bytes(byte0, byte1, byte2, byte3)
   end
 
@@ -1838,7 +1838,7 @@ module SF
   # * `address`: 4 bytes of the address packed into a 32-bits integer
   #
   # *Returns*: Resulting address
-  def ip_address(address: UInt32)
+  def ip_address(address : UInt32)
     CSFML.ip_address_from_integer(address)
   end
 

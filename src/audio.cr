@@ -24,7 +24,7 @@ module SF
   extend self
 
   class Sound
-    def initialize(buffer: SoundBuffer)
+    def initialize(buffer : SoundBuffer)
       initialize()
       self.buffer = buffer
     end
@@ -65,12 +65,12 @@ module SF
 
   class SoundStream
     abstract def on_get_data(): Slice(Int16)
-    abstract def on_seek(position: Time): Void
+    abstract def on_seek(position : Time): Void
 
     # :nodoc:
     alias FuncBox = Box({(CSFML::SoundStreamChunk* -> CSFML::Bool), (Time -> Nil)})
 
-    def initialize(channel_count: Int, sample_rate: Int)
+    def initialize(channel_count : Int, sample_rate : Int)
       @owned = true
       @funcs = FuncBox.box({
         ->(data: CSFML::SoundStreamChunk*) {
@@ -92,7 +92,7 @@ module SF
 
   class SoundRecorder
     abstract def on_start(): Bool
-    abstract def on_process_samples(samples: Slice(Int16)): Bool
+    abstract def on_process_samples(samples : Slice(Int16)): Bool
     abstract def on_stop(): Void
 
     # :nodoc:

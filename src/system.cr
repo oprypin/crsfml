@@ -48,7 +48,7 @@ module SF
   struct Vector2(T)
     property x
     property y
-    def initialize(@x: T, @y: T)
+    def initialize(@x : T, @y : T)
     end
 
     include Vector2M(T)
@@ -78,42 +78,42 @@ module SF
     end
   end
 
-  def vector2(x: Number, y: Number)
+  def vector2(x : Number, y : Number)
     Vector2.new(x, y)
   end
-  def vector2(x: Float32, y: Float64)
+  def vector2(x : Float32, y : Float64)
     Vector2.new(x, y.to_f32)
   end
-  def vector2(x: Float64, y: Float32)
+  def vector2(x : Float64, y : Float32)
     Vector2.new(x.to_f32, y)
   end
-  def vector2(x: Int32, y: Float32)
+  def vector2(x : Int32, y : Float32)
     Vector2.new(x.to_f32, y.to_f32)
   end
-  def vector2(x: Int32, y: Float64)
+  def vector2(x : Int32, y : Float64)
     Vector2.new(x.to_f64, y.to_f64)
   end
-  def vector2(x: Float32, y: Int32)
+  def vector2(x : Float32, y : Int32)
     Vector2.new(x.to_f32, y.to_f32)
   end
-  def vector2(x: Float64, y: Int32)
+  def vector2(x : Float64, y : Int32)
     Vector2.new(x.to_f64, y.to_f64)
   end
   def vector2(v)
     x, y = v
     Vector2.new(x, y)
   end
-  def vector2(v: Vector2f)
+  def vector2(v : Vector2f)
     Vector2.new(v.x, v.y)
   end
-  def vector2(v: Vector2i)
+  def vector2(v : Vector2i)
     Vector2.new(v.x, v.y)
   end
 
   struct CSFML::Vector2f
     include SF::Vector2M(T)
   end
-  def vector2f(x: Number, y: Number)
+  def vector2f(x : Number, y : Number)
     Vector2f.new(x: x.to_f32, y: y.to_f32)
   end
   def vector2f(v)
@@ -124,7 +124,7 @@ module SF
   struct CSFML::Vector2i
     include SF::Vector2M(T)
   end
-  def vector2i(x: Int, y: Int)
+  def vector2i(x : Int, y : Int)
     Vector2i.new(x: x.to_i32, y: y.to_i32)
   end
   def vector2i(v)
@@ -132,7 +132,7 @@ module SF
     vector2i(x, y)
   end
 
-  def vector3f(x: Number, y: Number, z: Number)
+  def vector3f(x : Number, y : Number, z : Number)
     SF::Vector3f.new(x: x.to_f32, y: y.to_f32, z: z.to_f32)
   end
 
@@ -141,32 +141,32 @@ module SF
 
     include Comparable(Time)
 
-    def <=>(other: Time)
+    def <=>(other : Time)
       microseconds <=> other.microseconds
     end
 
     def -
       SF.microseconds(-microseconds)
     end
-    def +(other: Time)
+    def +(other : Time)
       SF.microseconds(microseconds + other.microseconds)
     end
-    def -(other: Time)
+    def -(other : Time)
       SF.microseconds(microseconds - other.microseconds)
     end
-    def *(other: Number)
+    def *(other : Number)
       SF.microseconds((microseconds * other).to_i64)
     end
-    def /(other: Number)
+    def /(other : Number)
       SF.microseconds((microseconds / other).to_i64)
     end
-    def /(other: Time)
+    def /(other : Time)
       microseconds.fdiv other.microseconds # /
     end
   end
 
   class Thread
-    def initialize(function: ->)
+    def initialize(function : ->)
       @owned = true
       @func = Box.box(function)
       @this = CSFML.thread_create(
@@ -186,8 +186,8 @@ module SF
   end
 
   abstract class InputStream
-    abstract def read(buffer: Slice(UInt8)): Int
-    abstract def seek(position: Int): Int
+    abstract def read(buffer : Slice(UInt8)): Int
+    abstract def seek(position : Int): Int
     abstract def tell(): Int
     abstract def size(): Int
 
@@ -248,7 +248,7 @@ module SF
   end
 
   class MemoryInputStream < InputStream
-    def initialize(@data: Slice(UInt8))
+    def initialize(@data : Slice(UInt8))
       super()
       @position = 0
     end

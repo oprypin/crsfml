@@ -77,7 +77,7 @@ module SF
     # * `color2`: Second color
     #
     # *Returns*: Component-wise saturated addition of the two colors
-    def add(color2: Color)
+    def add(color2 : Color)
       CSFML.color_add(self, color2)
     end
 
@@ -89,7 +89,7 @@ module SF
     # * `color2`: Second color
     #
     # *Returns*: Component-wise saturated subtraction of the two colors
-    def subtract(color2: Color)
+    def subtract(color2 : Color)
       CSFML.color_subtract(self, color2)
     end
 
@@ -101,7 +101,7 @@ module SF
     # * `color2`: Second color
     #
     # *Returns*: Component-wise multiplication of the two colors
-    def modulate(color2: Color)
+    def modulate(color2 : Color)
       CSFML.color_modulate(self, color2)
     end
 
@@ -133,7 +133,7 @@ module SF
     # * `y`: Y coordinate of the point to test
     #
     # *Returns*: True if the point is inside
-    def contains(x: Number, y: Number)
+    def contains(x : Number, y : Number)
       x = x.to_f32
       y = y.to_f32
       cself = self
@@ -149,7 +149,7 @@ module SF
     # * `intersection`: Rectangle to be filled with overlapping rect (can be NULL)
     #
     # *Returns*: True if rectangles overlap
-    def intersects(rect2, intersection: FloatRect*)
+    def intersects(rect2, intersection : FloatRect*)
       if rect2.responds_to?(:to_unsafe); prect2 = rect2.to_unsafe
       elsif rect2; crect2 = rect2; prect2 = pointerof(crect2)
       else; prect2 = nil; end
@@ -160,14 +160,14 @@ module SF
   end
 
   struct CSFML::IntRect
-    def contains(x: Int, y: Int)
+    def contains(x : Int, y : Int)
       x = x.to_i32
       y = y.to_i32
       cself = self
       CSFML.int_rect_contains(pointerof(cself), x, y) != 0
     end
 
-    def intersects(rect2, intersection: IntRect*)
+    def intersects(rect2, intersection : IntRect*)
       if rect2.responds_to?(:to_unsafe); prect2 = rect2.to_unsafe
       elsif rect2; crect2 = rect2; prect2 = pointerof(crect2)
       else; prect2 = nil; end
@@ -233,7 +233,7 @@ module SF
     #
     # * `shape`: Shape object
     # * `angle`: New rotation, in degrees
-    def rotation=(angle: Number)
+    def rotation=(angle : Number)
       angle = angle.to_f32
       CSFML.circle_shape_set_rotation(@this, angle)
     end
@@ -340,7 +340,7 @@ module SF
     #
     # * `shape`: Shape object
     # * `angle`: Angle of rotation, in degrees
-    def rotate(angle: Number)
+    def rotate(angle : Number)
       angle = angle.to_f32
       CSFML.circle_shape_rotate(@this, angle)
     end
@@ -399,7 +399,7 @@ module SF
     # * `shape`: Shape object
     # * `texture`: New texture
     # * `reset_rect`: Should the texture rect be reset to the size of the new texture?
-    def set_texture(texture: Texture, reset_rect: Bool)
+    def set_texture(texture : Texture, reset_rect : Bool)
       reset_rect = reset_rect ? 1 : 0
       CSFML.circle_shape_set_texture(@this, texture, reset_rect)
     end
@@ -414,7 +414,7 @@ module SF
     #
     # * `shape`: Shape object
     # * `rect`: Rectangle defining the region of the texture to display
-    def texture_rect=(rect: IntRect)
+    def texture_rect=(rect : IntRect)
       CSFML.circle_shape_set_texture_rect(@this, rect)
     end
 
@@ -431,7 +431,7 @@ module SF
     #
     # * `shape`: Shape object
     # * `color`: New color of the shape
-    def fill_color=(color: Color)
+    def fill_color=(color : Color)
       CSFML.circle_shape_set_fill_color(@this, color)
     end
 
@@ -444,7 +444,7 @@ module SF
     #
     # * `shape`: Shape object
     # * `color`: New outline color of the shape
-    def outline_color=(color: Color)
+    def outline_color=(color : Color)
       CSFML.circle_shape_set_outline_color(@this, color)
     end
 
@@ -458,7 +458,7 @@ module SF
     #
     # * `shape`: Shape object
     # * `thickness`: New outline thickness
-    def outline_thickness=(thickness: Number)
+    def outline_thickness=(thickness : Number)
       thickness = thickness.to_f32
       CSFML.circle_shape_set_outline_thickness(@this, thickness)
     end
@@ -543,7 +543,7 @@ module SF
     # * `index`: Index of the point to get, in range [0 .. get_point_count() - 1]
     #
     # *Returns*: Index-th point of the shape
-    def get_point(index: Int)
+    def get_point(index : Int)
       index = LibC::SizeT.new(index)
       SF.vector2(CSFML.circle_shape_get_point(@this, index))
     end
@@ -554,7 +554,7 @@ module SF
     #
     # * `shape`: Shape object
     # * `radius`: New radius of the circle
-    def radius=(radius: Number)
+    def radius=(radius : Number)
       radius = radius.to_f32
       CSFML.circle_shape_set_radius(@this, radius)
     end
@@ -576,7 +576,7 @@ module SF
     #
     # * `shape`: Shape object
     # * `count`: New number of points of the circle
-    def point_count=(count: Int)
+    def point_count=(count : Int)
       count = LibC::SizeT.new(count)
       CSFML.circle_shape_set_point_count(@this, count)
     end
@@ -673,7 +673,7 @@ module SF
     #
     # * `shape`: Shape object
     # * `angle`: New rotation, in degrees
-    def rotation=(angle: Number)
+    def rotation=(angle : Number)
       angle = angle.to_f32
       CSFML.convex_shape_set_rotation(@this, angle)
     end
@@ -780,7 +780,7 @@ module SF
     #
     # * `shape`: Shape object
     # * `angle`: Angle of rotation, in degrees
-    def rotate(angle: Number)
+    def rotate(angle : Number)
       angle = angle.to_f32
       CSFML.convex_shape_rotate(@this, angle)
     end
@@ -839,7 +839,7 @@ module SF
     # * `shape`: Shape object
     # * `texture`: New texture
     # * `reset_rect`: Should the texture rect be reset to the size of the new texture?
-    def set_texture(texture: Texture, reset_rect: Bool)
+    def set_texture(texture : Texture, reset_rect : Bool)
       reset_rect = reset_rect ? 1 : 0
       CSFML.convex_shape_set_texture(@this, texture, reset_rect)
     end
@@ -854,7 +854,7 @@ module SF
     #
     # * `shape`: Shape object
     # * `rect`: Rectangle defining the region of the texture to display
-    def texture_rect=(rect: IntRect)
+    def texture_rect=(rect : IntRect)
       CSFML.convex_shape_set_texture_rect(@this, rect)
     end
 
@@ -871,7 +871,7 @@ module SF
     #
     # * `shape`: Shape object
     # * `color`: New color of the shape
-    def fill_color=(color: Color)
+    def fill_color=(color : Color)
       CSFML.convex_shape_set_fill_color(@this, color)
     end
 
@@ -884,7 +884,7 @@ module SF
     #
     # * `shape`: Shape object
     # * `color`: New outline color of the shape
-    def outline_color=(color: Color)
+    def outline_color=(color : Color)
       CSFML.convex_shape_set_outline_color(@this, color)
     end
 
@@ -898,7 +898,7 @@ module SF
     #
     # * `shape`: Shape object
     # * `thickness`: New outline thickness
-    def outline_thickness=(thickness: Number)
+    def outline_thickness=(thickness : Number)
       thickness = thickness.to_f32
       CSFML.convex_shape_set_outline_thickness(@this, thickness)
     end
@@ -983,7 +983,7 @@ module SF
     # * `index`: Index of the point to get, in range [0 .. get_point_count() - 1]
     #
     # *Returns*: Index-th point of the shape
-    def get_point(index: Int)
+    def get_point(index : Int)
       index = LibC::SizeT.new(index)
       SF.vector2(CSFML.convex_shape_get_point(@this, index))
     end
@@ -996,7 +996,7 @@ module SF
     #
     # * `shape`: Shape object
     # * `count`: New number of points of the shape
-    def point_count=(count: Int)
+    def point_count=(count : Int)
       count = LibC::SizeT.new(count)
       CSFML.convex_shape_set_point_count(@this, count)
     end
@@ -1014,7 +1014,7 @@ module SF
     # * `shape`: Shape object
     # * `index`: Index of the point to change, in range [0 .. GetPointCount() - 1]
     # * `point`: New point
-    def set_point(index: Int, point)
+    def set_point(index : Int, point)
       index = LibC::SizeT.new(index)
       point = SF.vector2f(point) unless point.is_a? Vector2f
       CSFML.convex_shape_set_point(@this, index, point)
@@ -1066,7 +1066,7 @@ module SF
     # * `filename`: Path of the font file to load
     #
     # *Returns*: A new Font object, or raises `NullResult` if it failed
-    def self.from_file(filename: String)
+    def self.from_file(filename : String)
       Font.transfer_ptr(CSFML.font_create_from_file(filename))
     end
 
@@ -1078,7 +1078,7 @@ module SF
     # * `size_in_bytes`: Size of the data to load, in bytes
     #
     # *Returns*: A new Font object, or raises `NullResult` if it failed
-    def self.from_memory(data: Slice|Array)
+    def self.from_memory(data : Slice|Array)
       data, size_in_bytes = (data.to_unsafe as Pointer(Void)), LibC::SizeT.new(data.size*sizeof(typeof(data[0])))
       Font.transfer_ptr(CSFML.font_create_from_memory(data, size_in_bytes))
     end
@@ -1090,7 +1090,7 @@ module SF
     # * `stream`: Source stream to read from
     #
     # *Returns*: A new Font object, or raises `NullResult` if it failed
-    def self.from_stream(stream: InputStream)
+    def self.from_stream(stream : InputStream)
       Font.transfer_ptr(CSFML.font_create_from_stream(stream))
     end
 
@@ -1124,7 +1124,7 @@ module SF
     # * `bold`: Retrieve the bold version or the regular one?
     #
     # *Returns*: The corresponding glyph
-    def get_glyph(code_point: Char, character_size: Int, bold: Bool)
+    def get_glyph(code_point : Char, character_size : Int, bold : Bool)
       character_size = character_size.to_i32
       bold = bold ? 1 : 0
       CSFML.font_get_glyph(@this, code_point, character_size, bold)
@@ -1140,7 +1140,7 @@ module SF
     # * `character_size`: Character size, in pixels
     #
     # *Returns*: Kerning offset, in pixels
-    def get_kerning(first: Char, second: Char, character_size: Int)
+    def get_kerning(first : Char, second : Char, character_size : Int)
       character_size = character_size.to_i32
       CSFML.font_get_kerning(@this, first, second, character_size)
     end
@@ -1153,7 +1153,7 @@ module SF
     # * `character_size`: Character size, in pixels
     #
     # *Returns*: Line spacing, in pixels
-    def get_line_spacing(character_size: Int)
+    def get_line_spacing(character_size : Int)
       character_size = character_size.to_i32
       CSFML.font_get_line_spacing(@this, character_size)
     end
@@ -1169,7 +1169,7 @@ module SF
     # * `character_size`: Reference character size
     #
     # *Returns*: Underline position, in pixels
-    def get_underline_position(character_size: Int)
+    def get_underline_position(character_size : Int)
       character_size = character_size.to_i32
       CSFML.font_get_underline_position(@this, character_size)
     end
@@ -1184,7 +1184,7 @@ module SF
     # * `character_size`: Reference character size
     #
     # *Returns*: Underline thickness, in pixels
-    def get_underline_thickness(character_size: Int)
+    def get_underline_thickness(character_size : Int)
       character_size = character_size.to_i32
       CSFML.font_get_underline_thickness(@this, character_size)
     end
@@ -1197,7 +1197,7 @@ module SF
     # * `character_size`: Character size, in pixels
     #
     # *Returns*: Read-only pointer to the texture
-    def get_texture(character_size: Int)
+    def get_texture(character_size : Int)
       character_size = character_size.to_i32
       Texture.wrap_ptr(CSFML.font_get_texture(@this, character_size))
     end
@@ -1232,7 +1232,7 @@ module SF
     # * `height`: Height of the image
     #
     # *Returns*: A new Image object
-    def initialize(width: Int, height: Int)
+    def initialize(width : Int, height : Int)
       width = width.to_i32
       height = height.to_i32
       @owned = true
@@ -1248,7 +1248,7 @@ module SF
     # * `color`: Fill color
     #
     # *Returns*: A new Image object
-    def self.from_color(width: Int, height: Int, color: Color)
+    def self.from_color(width : Int, height : Int, color : Color)
       width = width.to_i32
       height = height.to_i32
       Image.transfer_ptr(CSFML.image_create_from_color(width, height, color))
@@ -1268,7 +1268,7 @@ module SF
     # * `pixels`: Array of pixels to copy to the image
     #
     # *Returns*: A new Image object
-    def self.from_pixels(width: Int, height: Int, pixels: UInt8*)
+    def self.from_pixels(width : Int, height : Int, pixels : UInt8*)
       width = width.to_i32
       height = height.to_i32
       Image.transfer_ptr(CSFML.image_create_from_pixels(width, height, pixels))
@@ -1286,7 +1286,7 @@ module SF
     # * `filename`: Path of the image file to load
     #
     # *Returns*: A new Image object, or raises `NullResult` if it failed
-    def self.from_file(filename: String)
+    def self.from_file(filename : String)
       Image.transfer_ptr(CSFML.image_create_from_file(filename))
     end
 
@@ -1303,7 +1303,7 @@ module SF
     # * `size`: Size of the data to load, in bytes
     #
     # *Returns*: A new Image object, or raises `NullResult` if it failed
-    def self.from_memory(data: Slice|Array)
+    def self.from_memory(data : Slice|Array)
       data, size = (data.to_unsafe as Pointer(Void)), LibC::SizeT.new(data.size*sizeof(typeof(data[0])))
       Image.transfer_ptr(CSFML.image_create_from_memory(data, size))
     end
@@ -1320,7 +1320,7 @@ module SF
     # * `stream`: Source stream to read from
     #
     # *Returns*: A new Image object, or raises `NullResult` if it failed
-    def self.from_stream(stream: InputStream)
+    def self.from_stream(stream : InputStream)
       Image.transfer_ptr(CSFML.image_create_from_stream(stream))
     end
 
@@ -1357,7 +1357,7 @@ module SF
     # * `filename`: Path of the file to save
     #
     # *Returns*: True if saving was successful
-    def save_to_file(filename: String)
+    def save_to_file(filename : String)
       CSFML.image_save_to_file(@this, filename) != 0
     end
 
@@ -1383,7 +1383,7 @@ module SF
     # * `image`: Image object
     # * `color`: Color to make transparent
     # * `alpha`: Alpha value to assign to transparent pixels
-    def create_mask(color: Color, alpha: UInt8)
+    def create_mask(color : Color, alpha : UInt8)
       CSFML.image_create_mask_from_color(@this, color, alpha)
     end
 
@@ -1407,7 +1407,7 @@ module SF
     # * `destY`: Y coordinate of the destination position
     # * `source_rect`: Sub-rectangle of the source image to copy
     # * `apply_alpha`: Should the copy take in account the source transparency?
-    def copy_image(source: Image, dest_x: Int, dest_y: Int, source_rect: IntRect, apply_alpha: Bool)
+    def copy_image(source : Image, dest_x : Int, dest_y : Int, source_rect : IntRect, apply_alpha : Bool)
       dest_x = dest_x.to_i32
       dest_y = dest_y.to_i32
       apply_alpha = apply_alpha ? 1 : 0
@@ -1426,7 +1426,7 @@ module SF
     # * `x`: X coordinate of pixel to change
     # * `y`: Y coordinate of pixel to change
     # * `color`: New color of the pixel
-    def set_pixel(x: Int, y: Int, color: Color)
+    def set_pixel(x : Int, y : Int, color : Color)
       x = x.to_i32
       y = y.to_i32
       CSFML.image_set_pixel(@this, x, y, color)
@@ -1445,7 +1445,7 @@ module SF
     # * `y`: Y coordinate of pixel to get
     #
     # *Returns*: Color of the pixel at coordinates (x, y)
-    def get_pixel(x: Int, y: Int)
+    def get_pixel(x : Int, y : Int)
       x = x.to_i32
       y = y.to_i32
       CSFML.image_get_pixel(@this, x, y)
@@ -1508,7 +1508,7 @@ module SF
     # * `fragment_shader_filename`: Path of the fragment shader file to load, or NULL to skip this shader
     #
     # *Returns*: A new Shader object, or raises `NullResult` if it failed
-    def self.from_file(vertex_shader_filename: String, fragment_shader_filename: String)
+    def self.from_file(vertex_shader_filename : String, fragment_shader_filename : String)
       Shader.transfer_ptr(CSFML.shader_create_from_file(vertex_shader_filename, fragment_shader_filename))
     end
 
@@ -1528,7 +1528,7 @@ module SF
     # * `fragment_shader`: String containing the source code of the fragment shader, or NULL to skip this shader
     #
     # *Returns*: A new Shader object, or raises `NullResult` if it failed
-    def self.from_memory(vertex_shader: String, fragment_shader: String)
+    def self.from_memory(vertex_shader : String, fragment_shader : String)
       Shader.transfer_ptr(CSFML.shader_create_from_memory(vertex_shader, fragment_shader))
     end
 
@@ -1548,7 +1548,7 @@ module SF
     # * `fragment_shader_stream`: Source stream to read the fragment shader from, or NULL to skip this shader
     #
     # *Returns*: A new Shader object, or raises `NullResult` if it failed
-    def self.from_stream(vertex_shader_stream: InputStream, fragment_shader_stream: InputStream)
+    def self.from_stream(vertex_shader_stream : InputStream, fragment_shader_stream : InputStream)
       Shader.transfer_ptr(CSFML.shader_create_from_stream(vertex_shader_stream, fragment_shader_stream))
     end
 
@@ -1573,7 +1573,7 @@ module SF
     # * `shader`: Shader object
     # * `name`: Name of the parameter in the shader
     # * `x`: Value to assign
-    def set_parameter(name: String, x: Number)
+    def set_parameter(name : String, x : Number)
       x = x.to_f32
       CSFML.shader_set_float_parameter(@this, name, x)
     end
@@ -1591,7 +1591,7 @@ module SF
     # * `name`: Name of the parameter in the shader
     # * `x`: First component of the value to assign
     # * `y`: Second component of the value to assign
-    def set_parameter(name: String, x: Number, y: Number)
+    def set_parameter(name : String, x : Number, y : Number)
       x = x.to_f32
       y = y.to_f32
       CSFML.shader_set_float2_parameter(@this, name, x, y)
@@ -1611,7 +1611,7 @@ module SF
     # * `x`: First component of the value to assign
     # * `y`: Second component of the value to assign
     # * `z`: Third component of the value to assign
-    def set_parameter(name: String, x: Number, y: Number, z: Number)
+    def set_parameter(name : String, x : Number, y : Number, z : Number)
       x = x.to_f32
       y = y.to_f32
       z = z.to_f32
@@ -1633,7 +1633,7 @@ module SF
     # * `y`: Second component of the value to assign
     # * `z`: Third component of the value to assign
     # * `w`: Fourth component of the value to assign
-    def set_parameter(name: String, x: Number, y: Number, z: Number, w: Number)
+    def set_parameter(name : String, x : Number, y : Number, z : Number, w : Number)
       x = x.to_f32
       y = y.to_f32
       z = z.to_f32
@@ -1653,7 +1653,7 @@ module SF
     # * `shader`: Shader object
     # * `name`: Name of the parameter in the shader
     # * `vector`: Vector to assign
-    def set_parameter(name: String, vector)
+    def set_parameter(name : String, vector)
       vector = SF.vector2f(vector) unless vector.is_a? Vector2f
       CSFML.shader_set_vector2_parameter(@this, name, vector)
     end
@@ -1670,7 +1670,7 @@ module SF
     # * `shader`: Shader object
     # * `name`: Name of the parameter in the shader
     # * `vector`: Vector to assign
-    def set_parameter(name: String, vector: Vector3f)
+    def set_parameter(name : String, vector : Vector3f)
       CSFML.shader_set_vector3_parameter(@this, name, vector)
     end
 
@@ -1692,7 +1692,7 @@ module SF
     # * `shader`: Shader object
     # * `name`: Name of the parameter in the shader
     # * `color`: Color to assign
-    def set_parameter(name: String, color: Color)
+    def set_parameter(name : String, color : Color)
       CSFML.shader_set_color_parameter(@this, name, color)
     end
 
@@ -1708,7 +1708,7 @@ module SF
     # * `shader`: Shader object
     # * `name`: Name of the parameter in the shader
     # * `transform`: Transform to assign
-    def set_parameter(name: String, transform: Transform)
+    def set_parameter(name : String, transform : Transform)
       CSFML.shader_set_transform_parameter(@this, name, transform)
     end
 
@@ -1730,7 +1730,7 @@ module SF
     # * `shader`: Shader object
     # * `name`: Name of the texture in the shader
     # * `texture`: Texture to assign
-    def set_parameter(name: String, texture: Texture)
+    def set_parameter(name : String, texture : Texture)
       CSFML.shader_set_texture_parameter(@this, name, texture)
     end
 
@@ -1747,7 +1747,7 @@ module SF
     #
     # * `shader`: Shader object
     # * `name`: Name of the texture in the shader
-    def current_texture_parameter=(name: String)
+    def current_texture_parameter=(name : String)
       CSFML.shader_set_current_texture_parameter(@this, name)
     end
 
@@ -1854,7 +1854,7 @@ module SF
     #
     # * `shape`: Shape object
     # * `angle`: New rotation, in degrees
-    def rotation=(angle: Number)
+    def rotation=(angle : Number)
       angle = angle.to_f32
       CSFML.rectangle_shape_set_rotation(@this, angle)
     end
@@ -1961,7 +1961,7 @@ module SF
     #
     # * `shape`: Shape object
     # * `angle`: Angle of rotation, in degrees
-    def rotate(angle: Number)
+    def rotate(angle : Number)
       angle = angle.to_f32
       CSFML.rectangle_shape_rotate(@this, angle)
     end
@@ -2020,7 +2020,7 @@ module SF
     # * `shape`: Shape object
     # * `texture`: New texture
     # * `reset_rect`: Should the texture rect be reset to the size of the new texture?
-    def set_texture(texture: Texture, reset_rect: Bool)
+    def set_texture(texture : Texture, reset_rect : Bool)
       reset_rect = reset_rect ? 1 : 0
       CSFML.rectangle_shape_set_texture(@this, texture, reset_rect)
     end
@@ -2035,7 +2035,7 @@ module SF
     #
     # * `shape`: Shape object
     # * `rect`: Rectangle defining the region of the texture to display
-    def texture_rect=(rect: IntRect)
+    def texture_rect=(rect : IntRect)
       CSFML.rectangle_shape_set_texture_rect(@this, rect)
     end
 
@@ -2052,7 +2052,7 @@ module SF
     #
     # * `shape`: Shape object
     # * `color`: New color of the shape
-    def fill_color=(color: Color)
+    def fill_color=(color : Color)
       CSFML.rectangle_shape_set_fill_color(@this, color)
     end
 
@@ -2065,7 +2065,7 @@ module SF
     #
     # * `shape`: Shape object
     # * `color`: New outline color of the shape
-    def outline_color=(color: Color)
+    def outline_color=(color : Color)
       CSFML.rectangle_shape_set_outline_color(@this, color)
     end
 
@@ -2079,7 +2079,7 @@ module SF
     #
     # * `shape`: Shape object
     # * `thickness`: New outline thickness
-    def outline_thickness=(thickness: Number)
+    def outline_thickness=(thickness : Number)
       thickness = thickness.to_f32
       CSFML.rectangle_shape_set_outline_thickness(@this, thickness)
     end
@@ -2164,7 +2164,7 @@ module SF
     # * `index`: Index of the point to get, in range [0 .. get_point_count() - 1]
     #
     # *Returns*: Index-th point of the shape
-    def get_point(index: Int)
+    def get_point(index : Int)
       index = LibC::SizeT.new(index)
       SF.vector2(CSFML.rectangle_shape_get_point(@this, index))
     end
@@ -2239,7 +2239,7 @@ module SF
     # * `depth_buffer`: Do you want a depth-buffer attached? (useful only if you're doing 3D OpenGL on the rendertexture)
     #
     # *Returns*: A new RenderTexture object, or raises `NullResult` if it failed
-    def initialize(width: Int, height: Int, depth_buffer: Bool)
+    def initialize(width : Int, height : Int, depth_buffer : Bool)
       width = width.to_i32
       height = height.to_i32
       depth_buffer = depth_buffer ? 1 : 0
@@ -2275,7 +2275,7 @@ module SF
     # * `active`: True to activate, False to deactivate
     #
     # *Returns*: True if operation was successful, false otherwise
-    def active=(active: Bool)
+    def active=(active : Bool)
       active = active ? 1 : 0
       CSFML.render_texture_set_active(@this, active) != 0
     end
@@ -2295,7 +2295,7 @@ module SF
     #
     # * `render_texture`: Render texture object
     # * `color`: Fill color
-    def clear(color: Color)
+    def clear(color : Color)
       CSFML.render_texture_clear(@this, color)
     end
 
@@ -2305,7 +2305,7 @@ module SF
     #
     # * `render_texture`: Render texture object
     # * `view`: Pointer to the new view
-    def view=(view: View)
+    def view=(view : View)
       CSFML.render_texture_set_view(@this, view)
     end
 
@@ -2339,7 +2339,7 @@ module SF
     # * `view`: Target view
     #
     # *Returns*: Viewport rectangle, expressed in pixels in the current target
-    def get_viewport(view: View)
+    def get_viewport(view : View)
       CSFML.render_texture_get_viewport(@this, view)
     end
 
@@ -2367,7 +2367,7 @@ module SF
     # * `view`: The view to use for converting the point
     #
     # *Returns*: The converted point, in "world" units
-    def map_pixel_to_coords(point, view: View)
+    def map_pixel_to_coords(point, view : View)
       point = SF.vector2i(point) unless point.is_a? Vector2i
       SF.vector2(CSFML.render_texture_map_pixel_to_coords(@this, point, view))
     end
@@ -2395,7 +2395,7 @@ module SF
     # * `view`: The view to use for converting the point
     #
     # *Returns*: The converted point, in target coordinates (pixels)
-    def map_coords_to_pixel(point, view: View)
+    def map_coords_to_pixel(point, view : View)
       point = SF.vector2f(point) unless point.is_a? Vector2f
       SF.vector2(CSFML.render_texture_map_coords_to_pixel(@this, point, view))
     end
@@ -2407,49 +2407,49 @@ module SF
     # * `render_texture`: Render texture object
     # * `object`: Object to draw
     # * `states`: Render states to use for drawing (NULL to use the default states)
-    def draw_sprite(object: Sprite, states)
+    def draw_sprite(object : Sprite, states)
       if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
       elsif states; cstates = states; pstates = pointerof(cstates)
       else; pstates = nil; end
       CSFML.render_texture_draw_sprite(@this, object, pstates)
     end
 
-    def draw_text(object: Text, states)
+    def draw_text(object : Text, states)
       if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
       elsif states; cstates = states; pstates = pointerof(cstates)
       else; pstates = nil; end
       CSFML.render_texture_draw_text(@this, object, pstates)
     end
 
-    def draw_shape(object: Shape, states)
+    def draw_shape(object : Shape, states)
       if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
       elsif states; cstates = states; pstates = pointerof(cstates)
       else; pstates = nil; end
       CSFML.render_texture_draw_shape(@this, object, pstates)
     end
 
-    def draw_circle_shape(object: CircleShape, states)
+    def draw_circle_shape(object : CircleShape, states)
       if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
       elsif states; cstates = states; pstates = pointerof(cstates)
       else; pstates = nil; end
       CSFML.render_texture_draw_circle_shape(@this, object, pstates)
     end
 
-    def draw_convex_shape(object: ConvexShape, states)
+    def draw_convex_shape(object : ConvexShape, states)
       if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
       elsif states; cstates = states; pstates = pointerof(cstates)
       else; pstates = nil; end
       CSFML.render_texture_draw_convex_shape(@this, object, pstates)
     end
 
-    def draw_rectangle_shape(object: RectangleShape, states)
+    def draw_rectangle_shape(object : RectangleShape, states)
       if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
       elsif states; cstates = states; pstates = pointerof(cstates)
       else; pstates = nil; end
       CSFML.render_texture_draw_rectangle_shape(@this, object, pstates)
     end
 
-    def draw_vertex_array(object: VertexArray, states)
+    def draw_vertex_array(object : VertexArray, states)
       if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
       elsif states; cstates = states; pstates = pointerof(cstates)
       else; pstates = nil; end
@@ -2465,7 +2465,7 @@ module SF
     # * `vertex_count`: Number of vertices in the array
     # * `type`: Type of primitives to draw
     # * `states`: Render states to use for drawing (NULL to use the default states)
-    def draw_primitives(vertices: Slice(Vertex)|Array(Vertex), type: PrimitiveType, states)
+    def draw_primitives(vertices : Slice(Vertex)|Array(Vertex), type : PrimitiveType, states)
       vertices, vertex_count = vertices.to_unsafe, LibC::SizeT.new(vertices.size*sizeof(typeof(vertices[0])))
       if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
       elsif states; cstates = states; pstates = pointerof(cstates)
@@ -2541,7 +2541,7 @@ module SF
     #
     # * `render_texture`: Render texture object
     # * `smooth`: True to enable smoothing, False to disable it
-    def smooth=(smooth: Bool)
+    def smooth=(smooth : Bool)
       smooth = smooth ? 1 : 0
       CSFML.render_texture_set_smooth(@this, smooth)
     end
@@ -2563,7 +2563,7 @@ module SF
     #
     # * `render_texture`: Render texture object
     # * `repeated`: True to enable repeating, False to disable it
-    def repeated=(repeated: Bool)
+    def repeated=(repeated : Bool)
       repeated = repeated ? 1 : 0
       CSFML.render_texture_set_repeated(@this, repeated)
     end
@@ -2592,7 +2592,7 @@ module SF
     # * `title`: Title of the window (UTF-32)
     # * `style`: Window style
     # * `settings`: Creation settings (pass NULL to use default values)
-    def initialize(mode: VideoMode, title: String, style: WindowStyle, settings)
+    def initialize(mode : VideoMode, title : String, style : WindowStyle, settings)
       title = title.chars; title << '\0'
       if settings.responds_to?(:to_unsafe); psettings = settings.to_unsafe
       elsif settings; csettings = settings; psettings = pointerof(csettings)
@@ -2607,7 +2607,7 @@ module SF
     #
     # * `handle`: Platform-specific handle of the control
     # * `settings`: Creation settings (pass NULL to use default values)
-    def self.from_handle(handle: WindowHandle, settings)
+    def self.from_handle(handle : WindowHandle, settings)
       if settings.responds_to?(:to_unsafe); psettings = settings.to_unsafe
       elsif settings; csettings = settings; psettings = pointerof(csettings)
       else; psettings = nil; end
@@ -2660,7 +2660,7 @@ module SF
     # * `event`: Event to fill, if any
     #
     # *Returns*: True if an event was returned, False if event queue was empty
-    def poll_event(event: Event*)
+    def poll_event(event : Event*)
       CSFML.render_window_poll_event(@this, event) != 0
     end
 
@@ -2672,7 +2672,7 @@ module SF
     # * `event`: Event to fill
     #
     # *Returns*: False if an error occured
-    def wait_event(event: Event*)
+    def wait_event(event : Event*)
       CSFML.render_window_wait_event(@this, event) != 0
     end
 
@@ -2728,7 +2728,7 @@ module SF
     #
     # * `render_window`: Render window object
     # * `title`: New title
-    def title=(title: String)
+    def title=(title : String)
       title = title.chars; title << '\0'
       CSFML.render_window_set_unicode_title(@this, title)
     end
@@ -2741,7 +2741,7 @@ module SF
     # * `width`: Icon's width, in pixels
     # * `height`: Icon's height, in pixels
     # * `pixels`: Pointer to the pixels in memory, format must be RGBA 32 bits
-    def set_icon(width: Int, height: Int, pixels: UInt8*)
+    def set_icon(width : Int, height : Int, pixels : UInt8*)
       width = width.to_i32
       height = height.to_i32
       CSFML.render_window_set_icon(@this, width, height, pixels)
@@ -2753,7 +2753,7 @@ module SF
     #
     # * `render_window`: Render window object
     # * `visible`: True to show the window, False to hide it
-    def visible=(visible: Bool)
+    def visible=(visible : Bool)
       visible = visible ? 1 : 0
       CSFML.render_window_set_visible(@this, visible)
     end
@@ -2764,7 +2764,7 @@ module SF
     #
     # * `render_window`: Render window object
     # * `show`: True to show, False to hide
-    def mouse_cursor_visible=(show: Bool)
+    def mouse_cursor_visible=(show : Bool)
       show = show ? 1 : 0
       CSFML.render_window_set_mouse_cursor_visible(@this, show)
     end
@@ -2775,7 +2775,7 @@ module SF
     #
     # * `render_window`: Render window object
     # * `enabled`: True to enable v-sync, False to deactivate
-    def vertical_sync_enabled=(enabled: Bool)
+    def vertical_sync_enabled=(enabled : Bool)
       enabled = enabled ? 1 : 0
       CSFML.render_window_set_vertical_sync_enabled(@this, enabled)
     end
@@ -2788,7 +2788,7 @@ module SF
     #
     # * `render_window`: Render window object
     # * `enabled`: True to enable, False to disable
-    def key_repeat_enabled=(enabled: Bool)
+    def key_repeat_enabled=(enabled : Bool)
       enabled = enabled ? 1 : 0
       CSFML.render_window_set_key_repeat_enabled(@this, enabled)
     end
@@ -2801,7 +2801,7 @@ module SF
     # * `active`: True to activate, False to deactivate
     #
     # *Returns*: True if operation was successful, false otherwise
-    def active=(active: Bool)
+    def active=(active : Bool)
       active = active ? 1 : 0
       CSFML.render_window_set_active(@this, active) != 0
     end
@@ -2845,7 +2845,7 @@ module SF
     #
     # * `render_window`: Render window object
     # * `limit`: Framerate limit, in frames per seconds (use 0 to disable limit)
-    def framerate_limit=(limit: Int)
+    def framerate_limit=(limit : Int)
       limit = limit.to_i32
       CSFML.render_window_set_framerate_limit(@this, limit)
     end
@@ -2856,7 +2856,7 @@ module SF
     #
     # * `render_window`: Render window object
     # * `threshold`: New threshold, in range [0, 100]
-    def joystick_threshold=(threshold: Number)
+    def joystick_threshold=(threshold : Number)
       threshold = threshold.to_f32
       CSFML.render_window_set_joystick_threshold(@this, threshold)
     end
@@ -2878,7 +2878,7 @@ module SF
     #
     # * `render_window`: Render window object
     # * `color`: Fill color
-    def clear(color: Color)
+    def clear(color : Color)
       CSFML.render_window_clear(@this, color)
     end
 
@@ -2888,7 +2888,7 @@ module SF
     #
     # * `render_window`: Render window object
     # * `view`: Pointer to the new view
-    def view=(view: View)
+    def view=(view : View)
       CSFML.render_window_set_view(@this, view)
     end
 
@@ -2922,7 +2922,7 @@ module SF
     # * `view`: Target view
     #
     # *Returns*: Viewport rectangle, expressed in pixels in the current target
-    def get_viewport(view: View)
+    def get_viewport(view : View)
       CSFML.render_window_get_viewport(@this, view)
     end
 
@@ -2953,7 +2953,7 @@ module SF
     # * `view`: The view to use for converting the point
     #
     # *Returns*: The converted point, in "world" units
-    def map_pixel_to_coords(point, view: View)
+    def map_pixel_to_coords(point, view : View)
       point = SF.vector2i(point) unless point.is_a? Vector2i
       SF.vector2(CSFML.render_window_map_pixel_to_coords(@this, point, view))
     end
@@ -2981,7 +2981,7 @@ module SF
     # * `view`: The view to use for converting the point
     #
     # *Returns*: The converted point, in target coordinates (pixels)
-    def map_coords_to_pixel(point, view: View)
+    def map_coords_to_pixel(point, view : View)
       point = SF.vector2f(point) unless point.is_a? Vector2f
       SF.vector2(CSFML.render_window_map_coords_to_pixel(@this, point, view))
     end
@@ -2993,49 +2993,49 @@ module SF
     # * `render_window`: render window object
     # * `object`: Object to draw
     # * `states`: Render states to use for drawing (NULL to use the default states)
-    def draw_sprite(object: Sprite, states)
+    def draw_sprite(object : Sprite, states)
       if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
       elsif states; cstates = states; pstates = pointerof(cstates)
       else; pstates = nil; end
       CSFML.render_window_draw_sprite(@this, object, pstates)
     end
 
-    def draw_text(object: Text, states)
+    def draw_text(object : Text, states)
       if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
       elsif states; cstates = states; pstates = pointerof(cstates)
       else; pstates = nil; end
       CSFML.render_window_draw_text(@this, object, pstates)
     end
 
-    def draw_shape(object: Shape, states)
+    def draw_shape(object : Shape, states)
       if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
       elsif states; cstates = states; pstates = pointerof(cstates)
       else; pstates = nil; end
       CSFML.render_window_draw_shape(@this, object, pstates)
     end
 
-    def draw_circle_shape(object: CircleShape, states)
+    def draw_circle_shape(object : CircleShape, states)
       if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
       elsif states; cstates = states; pstates = pointerof(cstates)
       else; pstates = nil; end
       CSFML.render_window_draw_circle_shape(@this, object, pstates)
     end
 
-    def draw_convex_shape(object: ConvexShape, states)
+    def draw_convex_shape(object : ConvexShape, states)
       if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
       elsif states; cstates = states; pstates = pointerof(cstates)
       else; pstates = nil; end
       CSFML.render_window_draw_convex_shape(@this, object, pstates)
     end
 
-    def draw_rectangle_shape(object: RectangleShape, states)
+    def draw_rectangle_shape(object : RectangleShape, states)
       if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
       elsif states; cstates = states; pstates = pointerof(cstates)
       else; pstates = nil; end
       CSFML.render_window_draw_rectangle_shape(@this, object, pstates)
     end
 
-    def draw_vertex_array(object: VertexArray, states)
+    def draw_vertex_array(object : VertexArray, states)
       if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
       elsif states; cstates = states; pstates = pointerof(cstates)
       else; pstates = nil; end
@@ -3051,7 +3051,7 @@ module SF
     # * `vertex_count`: Number of vertices in the array
     # * `type`: Type of primitives to draw
     # * `states`: Render states to use for drawing (NULL to use the default states)
-    def draw_primitives(vertices: Slice(Vertex)|Array(Vertex), type: PrimitiveType, states)
+    def draw_primitives(vertices : Slice(Vertex)|Array(Vertex), type : PrimitiveType, states)
       vertices, vertex_count = vertices.to_unsafe, LibC::SizeT.new(vertices.size*sizeof(typeof(vertices[0])))
       if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
       elsif states; cstates = states; pstates = pointerof(cstates)
@@ -3187,7 +3187,7 @@ module SF
     #
     # * `sprite`: Sprite object
     # * `angle`: New rotation, in degrees
-    def rotation=(angle: Number)
+    def rotation=(angle : Number)
       angle = angle.to_f32
       CSFML.sprite_set_rotation(@this, angle)
     end
@@ -3294,7 +3294,7 @@ module SF
     #
     # * `sprite`: Sprite object
     # * `angle`: Angle of rotation, in degrees
-    def rotate(angle: Number)
+    def rotate(angle : Number)
       angle = angle.to_f32
       CSFML.sprite_rotate(@this, angle)
     end
@@ -3352,7 +3352,7 @@ module SF
     # * `sprite`: Sprite object
     # * `texture`: New texture
     # * `reset_rect`: Should the texture rect be reset to the size of the new texture?
-    def set_texture(texture: Texture, reset_rect: Bool)
+    def set_texture(texture : Texture, reset_rect : Bool)
       reset_rect = reset_rect ? 1 : 0
       CSFML.sprite_set_texture(@this, texture, reset_rect)
     end
@@ -3367,7 +3367,7 @@ module SF
     #
     # * `sprite`: Sprite object
     # * `rectangle`: Rectangle defining the region of the texture to display
-    def texture_rect=(rectangle: IntRect)
+    def texture_rect=(rectangle : IntRect)
       CSFML.sprite_set_texture_rect(@this, rectangle)
     end
 
@@ -3382,7 +3382,7 @@ module SF
     #
     # * `sprite`: Sprite object
     # * `color`: New color of the sprite
-    def color=(color: Color)
+    def color=(color : Color)
       CSFML.sprite_set_color(@this, color)
     end
 
@@ -3520,7 +3520,7 @@ module SF
     #
     # * `text`: Text object
     # * `angle`: New rotation, in degrees
-    def rotation=(angle: Number)
+    def rotation=(angle : Number)
       angle = angle.to_f32
       CSFML.text_set_rotation(@this, angle)
     end
@@ -3627,7 +3627,7 @@ module SF
     #
     # * `text`: Text object
     # * `angle`: Angle of rotation, in degrees
-    def rotate(angle: Number)
+    def rotate(angle : Number)
       angle = angle.to_f32
       CSFML.text_rotate(@this, angle)
     end
@@ -3674,7 +3674,7 @@ module SF
     #
     # * `text`: Text object
     # * `string`: New string
-    def string=(string: String)
+    def string=(string : String)
       string = string.chars; string << '\0'
       CSFML.text_set_unicode_string(@this, string)
     end
@@ -3692,7 +3692,7 @@ module SF
     #
     # * `text`: Text object
     # * `font`: New font
-    def font=(font: Font)
+    def font=(font : Font)
       CSFML.text_set_font(@this, font)
     end
 
@@ -3704,7 +3704,7 @@ module SF
     #
     # * `text`: Text object
     # * `size`: New character size, in pixels
-    def character_size=(size: Int)
+    def character_size=(size : Int)
       size = size.to_i32
       CSFML.text_set_character_size(@this, size)
     end
@@ -3719,7 +3719,7 @@ module SF
     #
     # * `text`: Text object
     # * `style`: New style
-    def style=(style: TextStyle)
+    def style=(style : TextStyle)
       CSFML.text_set_style(@this, style)
     end
 
@@ -3731,7 +3731,7 @@ module SF
     #
     # * `text`: Text object
     # * `color`: New color of the text
-    def color=(color: Color)
+    def color=(color : Color)
       CSFML.text_set_color(@this, color)
     end
 
@@ -3814,7 +3814,7 @@ module SF
     # * `index`: Index of the character
     #
     # *Returns*: Position of the character
-    def find_character_pos(index: Int)
+    def find_character_pos(index : Int)
       index = LibC::SizeT.new(index)
       SF.vector2(CSFML.text_find_character_pos(@this, index))
     end
@@ -3866,7 +3866,7 @@ module SF
     # * `height`: Texture height
     #
     # *Returns*: A new Texture object, or raises `NullResult` if it failed
-    def initialize(width: Int, height: Int)
+    def initialize(width : Int, height : Int)
       width = width.to_i32
       height = height.to_i32
       @owned = true
@@ -3881,7 +3881,7 @@ module SF
     # * `area`: Area of the source image to load (NULL to load the entire image)
     #
     # *Returns*: A new Texture object, or raises `NullResult` if it failed
-    def self.from_file(filename: String, area)
+    def self.from_file(filename : String, area)
       if area.responds_to?(:to_unsafe); parea = area.to_unsafe
       elsif area; carea = area; parea = pointerof(carea)
       else; parea = nil; end
@@ -3897,7 +3897,7 @@ module SF
     # * `area`: Area of the source image to load (NULL to load the entire image)
     #
     # *Returns*: A new Texture object, or raises `NullResult` if it failed
-    def self.from_memory(data: Slice|Array, area)
+    def self.from_memory(data : Slice|Array, area)
       data, size_in_bytes = (data.to_unsafe as Pointer(Void)), LibC::SizeT.new(data.size*sizeof(typeof(data[0])))
       if area.responds_to?(:to_unsafe); parea = area.to_unsafe
       elsif area; carea = area; parea = pointerof(carea)
@@ -3913,7 +3913,7 @@ module SF
     # * `area`: Area of the source image to load (NULL to load the entire image)
     #
     # *Returns*: A new Texture object, or raises `NullResult` if it failed
-    def self.from_stream(stream: InputStream, area)
+    def self.from_stream(stream : InputStream, area)
       if area.responds_to?(:to_unsafe); parea = area.to_unsafe
       elsif area; carea = area; parea = pointerof(carea)
       else; parea = nil; end
@@ -3928,7 +3928,7 @@ module SF
     # * `area`: Area of the source image to load (NULL to load the entire image)
     #
     # *Returns*: A new Texture object, or raises `NullResult` if it failed
-    def self.from_image(image: Image, area)
+    def self.from_image(image : Image, area)
       if area.responds_to?(:to_unsafe); parea = area.to_unsafe
       elsif area; carea = area; parea = pointerof(carea)
       else; parea = nil; end
@@ -3987,7 +3987,7 @@ module SF
     # * `height`: Height of the pixel region contained in `pixels`
     # * `x`: X offset in the texture where to copy the source pixels
     # * `y`: Y offset in the texture where to copy the source pixels
-    def update(pixels: UInt8*, width: Int, height: Int, x: Int, y: Int)
+    def update(pixels : UInt8*, width : Int, height : Int, x : Int, y : Int)
       width = width.to_i32
       height = height.to_i32
       x = x.to_i32
@@ -4003,7 +4003,7 @@ module SF
     # * `image`: Image to copy to the texture
     # * `x`: X offset in the texture where to copy the source pixels
     # * `y`: Y offset in the texture where to copy the source pixels
-    def update(image: Image, x: Int, y: Int)
+    def update(image : Image, x : Int, y : Int)
       x = x.to_i32
       y = y.to_i32
       CSFML.texture_update_from_image(@this, image, x, y)
@@ -4017,7 +4017,7 @@ module SF
     # * `window`: Window to copy to the texture
     # * `x`: X offset in the texture where to copy the source pixels
     # * `y`: Y offset in the texture where to copy the source pixels
-    def update(window: Window, x: Int, y: Int)
+    def update(window : Window, x : Int, y : Int)
       x = x.to_i32
       y = y.to_i32
       CSFML.texture_update_from_window(@this, window, x, y)
@@ -4031,7 +4031,7 @@ module SF
     # * `render_window`: Render-window to copy to the texture
     # * `x`: X offset in the texture where to copy the source pixels
     # * `y`: Y offset in the texture where to copy the source pixels
-    def update(render_window: RenderWindow, x: Int, y: Int)
+    def update(render_window : RenderWindow, x : Int, y : Int)
       x = x.to_i32
       y = y.to_i32
       CSFML.texture_update_from_render_window(@this, render_window, x, y)
@@ -4043,7 +4043,7 @@ module SF
     #
     # * `texture`: The texture object
     # * `smooth`: True to enable smoothing, False to disable it
-    def smooth=(smooth: Bool)
+    def smooth=(smooth : Bool)
       smooth = smooth ? 1 : 0
       CSFML.texture_set_smooth(@this, smooth)
     end
@@ -4079,7 +4079,7 @@ module SF
     #
     # * `texture`: The texture object
     # * `repeated`: True to repeat the texture, false to disable repeating
-    def repeated=(repeated: Bool)
+    def repeated=(repeated : Bool)
       repeated = repeated ? 1 : 0
       CSFML.texture_set_repeated(@this, repeated)
     end
@@ -4194,7 +4194,7 @@ module SF
     #
     # * `transformable`: Transformable object
     # * `angle`: New rotation, in degrees
-    def rotation=(angle: Number)
+    def rotation=(angle : Number)
       angle = angle.to_f32
       CSFML.transformable_set_rotation(@this, angle)
     end
@@ -4301,7 +4301,7 @@ module SF
     #
     # * `transformable`: Transformable object
     # * `angle`: Angle of rotation, in degrees
-    def rotate(angle: Number)
+    def rotate(angle : Number)
       angle = angle.to_f32
       CSFML.transformable_rotate(@this, angle)
     end
@@ -4398,7 +4398,7 @@ module SF
     # * `index`: Index of the vertex to get
     #
     # *Returns*: Pointer to the index-th vertex
-    def get_vertex(index: Int)
+    def get_vertex(index : Int)
       index = LibC::SizeT.new(index)
       CSFML.vertex_array_get_vertex(@this, index)
     end
@@ -4429,7 +4429,7 @@ module SF
     #
     # * `vertex_array`: Vertex array objet
     # * `vertex_count`: New size of the array (number of vertices)
-    def resize(vertex_count: Int)
+    def resize(vertex_count : Int)
       vertex_count = LibC::SizeT.new(vertex_count)
       CSFML.vertex_array_resize(@this, vertex_count)
     end
@@ -4440,7 +4440,7 @@ module SF
     #
     # * `vertex_array`: Vertex array objet
     # * `vertex`: Vertex to add
-    def append(vertex: Vertex)
+    def append(vertex : Vertex)
       CSFML.vertex_array_append(@this, vertex)
     end
 
@@ -4458,7 +4458,7 @@ module SF
     #
     # * `vertex_array`: Vertex array objet
     # * `type`: Type of primitive
-    def primitive_type=(type: PrimitiveType)
+    def primitive_type=(type : PrimitiveType)
       CSFML.vertex_array_set_primitive_type(@this, type)
     end
 
@@ -4509,7 +4509,7 @@ module SF
     # * `rectangle`: Rectangle defining the zone to display
     #
     # *Returns*: A new View object
-    def self.from_rect(rectangle: FloatRect)
+    def self.from_rect(rectangle : FloatRect)
       View.transfer_ptr(CSFML.view_create_from_rect(rectangle))
     end
 
@@ -4563,7 +4563,7 @@ module SF
     #
     # * `view`: View object
     # * `angle`: New angle, in degrees
-    def rotation=(angle: Number)
+    def rotation=(angle : Number)
       angle = angle.to_f32
       CSFML.view_set_rotation(@this, angle)
     end
@@ -4581,7 +4581,7 @@ module SF
     #
     # * `view`: View object
     # * `viewport`: New viewport rectangle
-    def viewport=(viewport: FloatRect)
+    def viewport=(viewport : FloatRect)
       CSFML.view_set_viewport(@this, viewport)
     end
 
@@ -4593,7 +4593,7 @@ module SF
     #
     # * `view`: View object
     # * `rectangle`: Rectangle defining the zone to display
-    def reset(rectangle: FloatRect)
+    def reset(rectangle : FloatRect)
       CSFML.view_reset(@this, rectangle)
     end
 
@@ -4658,7 +4658,7 @@ module SF
     #
     # * `view`: View object
     # * `angle`: Angle to rotate, in degrees
-    def rotate(angle: Number)
+    def rotate(angle : Number)
       angle = angle.to_f32
       CSFML.view_rotate(@this, angle)
     end
@@ -4676,7 +4676,7 @@ module SF
     #
     # * `view`: View object
     # * `factor`: Zoom factor to apply
-    def zoom(factor: Number)
+    def zoom(factor : Number)
       factor = factor.to_f32
       CSFML.view_zoom(@this, factor)
     end
@@ -4702,7 +4702,7 @@ module SF
     #
     # * `transform`: Transform object
     # * `matrix`: Pointer to the 16-element array to fill with the matrix
-    def get_matrix(matrix: Float32*)
+    def get_matrix(matrix : Float32*)
       cself = self
       CSFML.transform_get_matrix(pointerof(cself), matrix)
     end
@@ -4749,7 +4749,7 @@ module SF
     # * `rectangle`: Rectangle to transform
     #
     # *Returns*: Transformed rectangle
-    def transform_rect(rectangle: FloatRect)
+    def transform_rect(rectangle : FloatRect)
       cself = self
       CSFML.transform_transform_rect(pointerof(cself), rectangle)
     end
@@ -4781,7 +4781,7 @@ module SF
     # * `transform`: Transform object
     # * `x`: Offset to apply on X axis
     # * `y`: Offset to apply on Y axis
-    def translate(x: Number, y: Number)
+    def translate(x : Number, y : Number)
       x = x.to_f32
       y = y.to_f32
       cself = self
@@ -4796,7 +4796,7 @@ module SF
     #
     # * `transform`: Transform object
     # * `angle`: Rotation angle, in degrees
-    def rotate(angle: Number)
+    def rotate(angle : Number)
       angle = angle.to_f32
       cself = self
       CSFML.transform_rotate(pointerof(cself), angle)
@@ -4817,7 +4817,7 @@ module SF
     # * `angle`: Rotation angle, in degrees
     # * `centerX`: X coordinate of the center of rotation
     # * `centerY`: Y coordinate of the center of rotation
-    def rotate(angle: Number, center_x: Number, center_y: Number)
+    def rotate(angle : Number, center_x : Number, center_y : Number)
       angle = angle.to_f32
       center_x = center_x.to_f32
       center_y = center_y.to_f32
@@ -4834,7 +4834,7 @@ module SF
     # * `transform`: Transform object
     # * `scaleX`: Scaling factor on the X axis
     # * `scaleY`: Scaling factor on the Y axis
-    def scale(scale_x: Number, scale_y: Number)
+    def scale(scale_x : Number, scale_y : Number)
       scale_x = scale_x.to_f32
       scale_y = scale_y.to_f32
       cself = self
@@ -4857,7 +4857,7 @@ module SF
     # * `scaleY`: Scaling factor on Y axis
     # * `centerX`: X coordinate of the center of scaling
     # * `centerY`: Y coordinate of the center of scaling
-    def scale(scale_x: Number, scale_y: Number, center_x: Number, center_y: Number)
+    def scale(scale_x : Number, scale_y : Number, center_x : Number, center_y : Number)
       scale_x = scale_x.to_f32
       scale_y = scale_y.to_f32
       center_x = center_x.to_f32
@@ -4957,7 +4957,7 @@ module SF
     # * `relative_to`: Reference window
     #
     # *Returns*: Position of the mouse cursor, relative to the given render window
-    def self.get_position(relative_to: RenderWindow)
+    def self.get_position(relative_to : RenderWindow)
       SF.vector2(CSFML.mouse_get_position_render_window(relative_to))
     end
 
@@ -4970,7 +4970,7 @@ module SF
     #
     # * `position`: New position of the mouse
     # * `relative_to`: Reference window
-    def self.set_position(position, relative_to: RenderWindow)
+    def self.set_position(position, relative_to : RenderWindow)
       position = SF.vector2i(position) unless position.is_a? Vector2i
       CSFML.mouse_set_position_render_window(position, relative_to)
     end
@@ -4989,7 +4989,7 @@ module SF
     # * `relative_to`: Reference window
     #
     # *Returns*: Current position of `finger`, or undefined if it's not down
-    def self.get_position(finger: Int, relative_to: RenderWindow)
+    def self.get_position(finger : Int, relative_to : RenderWindow)
       finger = finger.to_i32
       SF.vector2(CSFML.touch_get_position_render_window(finger, relative_to))
     end
@@ -5012,7 +5012,7 @@ module SF
   # * `blue`: Blue component (0 .. 255)
   #
   # *Returns*: Color constructed from the components
-  def color(red: UInt8, green: UInt8, blue: UInt8)
+  def color(red : UInt8, green : UInt8, blue : UInt8)
     CSFML.color_from_rgb(red, green, blue)
   end
 
@@ -5026,7 +5026,7 @@ module SF
   # * `alpha`: Alpha component (0 .. 255)
   #
   # *Returns*: Color constructed from the components
-  def color(red: UInt8, green: UInt8, blue: UInt8, alpha: UInt8)
+  def color(red : UInt8, green : UInt8, blue : UInt8, alpha : UInt8)
     CSFML.color_from_rgba(red, green, blue, alpha)
   end
 
@@ -5037,7 +5037,7 @@ module SF
   # * `color`: Number containing the RGBA components (in that order)
   #
   # *Returns*: Color constructed from the 32-bit unsigned integer
-  def color(color: UInt32)
+  def color(color : UInt32)
     CSFML.color_from_integer(color)
   end
 
@@ -5056,7 +5056,7 @@ module SF
   # * `a22`: Element (2, 2) of the matrix
   #
   # *Returns*: A new Transform object
-  def transform(a00: Number, a01: Number, a02: Number, a10: Number, a11: Number, a12: Number, a20: Number, a21: Number, a22: Number)
+  def transform(a00 : Number, a01 : Number, a02 : Number, a10 : Number, a11 : Number, a12 : Number, a20 : Number, a21 : Number, a22 : Number)
     a00 = a00.to_f32
     a01 = a01.to_f32
     a02 = a02.to_f32

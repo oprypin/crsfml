@@ -14,13 +14,13 @@ module SF
     # *Arguments*:
     #
     # * `volume`: New global volume, in the range [0, 100]
-    def self.global_volume=(volume: Number)
+    def self.global_volume=(volume : Number)
       volume = volume.to_f32
       CSFML.listener_set_global_volume(volume)
     end
 
     # Deprecated alias to `global_volume=`
-    def self.set_global_volume(number: Volume)
+    def self.set_global_volume(number : Volume)
       CSFML.listener_set_global_volume(number)
     end
 
@@ -43,12 +43,12 @@ module SF
     # *Arguments*:
     #
     # * `position`: New position of the listener
-    def self.position=(position: Vector3f)
+    def self.position=(position : Vector3f)
       CSFML.listener_set_position(position)
     end
 
     # Deprecated alias to `position=`
-    def self.set_position(vector3f: Position)
+    def self.set_position(vector3f : Position)
       CSFML.listener_set_position(vector3f)
     end
 
@@ -76,12 +76,12 @@ module SF
     # *Arguments*:
     #
     # * `direction`: New listener's direction
-    def self.direction=(direction: Vector3f)
+    def self.direction=(direction : Vector3f)
       CSFML.listener_set_direction(direction)
     end
 
     # Deprecated alias to `direction=`
-    def self.set_direction(vector3f: Direction)
+    def self.set_direction(vector3f : Direction)
       CSFML.listener_set_direction(vector3f)
     end
 
@@ -109,12 +109,12 @@ module SF
     # *Arguments*:
     #
     # * `up_vector`: New listener's up vector
-    def self.up_vector=(up_vector: Vector3f)
+    def self.up_vector=(up_vector : Vector3f)
       CSFML.listener_set_up_vector(up_vector)
     end
 
     # Deprecated alias to `up_vector=`
-    def self.set_up_vector(vector3f: Up_vector)
+    def self.set_up_vector(vector3f : Up_vector)
       CSFML.listener_set_up_vector(vector3f)
     end
 
@@ -161,7 +161,7 @@ module SF
     # * `filename`: Path of the music file to open
     #
     # *Returns*: A new Music object (raises `NullResult` if failed)
-    def self.from_file(filename: String)
+    def self.from_file(filename : String)
       Music.transfer_ptr(CSFML.music_create_from_file(filename))
     end
 
@@ -179,7 +179,7 @@ module SF
     # * `size_in_bytes`: Size of the data to load, in bytes
     #
     # *Returns*: A new Music object (raises `NullResult` if failed)
-    def self.from_memory(data: Slice|Array)
+    def self.from_memory(data : Slice|Array)
       data, size_in_bytes = (data.to_unsafe as Pointer(Void)), LibC::SizeT.new(data.size*sizeof(typeof(data[0])))
       Music.transfer_ptr(CSFML.music_create_from_memory(data, size_in_bytes))
     end
@@ -197,7 +197,7 @@ module SF
     # * `stream`: Source stream to read from
     #
     # *Returns*: A new Music object (raises `NullResult` if failed)
-    def self.from_stream(stream: InputStream)
+    def self.from_stream(stream : InputStream)
       Music.transfer_ptr(CSFML.music_create_from_stream(stream))
     end
 
@@ -221,7 +221,7 @@ module SF
     #
     # * `music`: Music object
     # * `loop`: True to play in loop, False to play once
-    def loop=(loop: Bool)
+    def loop=(loop : Bool)
       loop = loop ? 1 : 0
       CSFML.music_set_loop(@this, loop)
     end
@@ -349,7 +349,7 @@ module SF
     #
     # * `music`: Music object
     # * `pitch`: New pitch to apply to the music
-    def pitch=(pitch: Number)
+    def pitch=(pitch : Number)
       pitch = pitch.to_f32
       CSFML.music_set_pitch(@this, pitch)
     end
@@ -363,7 +363,7 @@ module SF
     #
     # * `music`: Music object
     # * `volume`: Volume of the music
-    def volume=(volume: Number)
+    def volume=(volume : Number)
       volume = volume.to_f32
       CSFML.music_set_volume(@this, volume)
     end
@@ -378,7 +378,7 @@ module SF
     #
     # * `music`: Music object
     # * `position`: Position of the music in the scene
-    def position=(position: Vector3f)
+    def position=(position : Vector3f)
       CSFML.music_set_position(@this, position)
     end
 
@@ -394,7 +394,7 @@ module SF
     #
     # * `music`: Music object
     # * `relative`: True to set the position relative, False to set it absolute
-    def relative_to_listener=(relative: Bool)
+    def relative_to_listener=(relative : Bool)
       relative = relative ? 1 : 0
       CSFML.music_set_relative_to_listener(@this, relative)
     end
@@ -412,7 +412,7 @@ module SF
     #
     # * `music`: Music object
     # * `distance`: New minimum distance of the music
-    def min_distance=(distance: Number)
+    def min_distance=(distance : Number)
       distance = distance.to_f32
       CSFML.music_set_min_distance(@this, distance)
     end
@@ -432,7 +432,7 @@ module SF
     #
     # * `music`: Music object
     # * `attenuation`: New attenuation factor of the music
-    def attenuation=(attenuation: Number)
+    def attenuation=(attenuation : Number)
       attenuation = attenuation.to_f32
       CSFML.music_set_attenuation(@this, attenuation)
     end
@@ -446,7 +446,7 @@ module SF
     #
     # * `music`: Music object
     # * `time_offset`: New playing position
-    def playing_offset=(time_offset: Time)
+    def playing_offset=(time_offset : Time)
       CSFML.music_set_playing_offset(@this, time_offset)
     end
 
@@ -600,7 +600,7 @@ module SF
     #
     # * `sound`: Sound object
     # * `buffer`: Sound buffer to attach to the sound
-    def buffer=(buffer: SoundBuffer)
+    def buffer=(buffer : SoundBuffer)
       CSFML.sound_set_buffer(@this, buffer)
     end
 
@@ -626,7 +626,7 @@ module SF
     #
     # * `sound`: Sound object
     # * `loop`: True to play in loop, False to play once
-    def loop=(loop: Bool)
+    def loop=(loop : Bool)
       loop = loop ? 1 : 0
       CSFML.sound_set_loop(@this, loop)
     end
@@ -665,7 +665,7 @@ module SF
     #
     # * `sound`: Sound object
     # * `pitch`: New pitch to apply to the sound
-    def pitch=(pitch: Number)
+    def pitch=(pitch : Number)
       pitch = pitch.to_f32
       CSFML.sound_set_pitch(@this, pitch)
     end
@@ -679,7 +679,7 @@ module SF
     #
     # * `sound`: Sound object
     # * `volume`: Volume of the sound
-    def volume=(volume: Number)
+    def volume=(volume : Number)
       volume = volume.to_f32
       CSFML.sound_set_volume(@this, volume)
     end
@@ -694,7 +694,7 @@ module SF
     #
     # * `sound`: Sound object
     # * `position`: Position of the sound in the scene
-    def position=(position: Vector3f)
+    def position=(position : Vector3f)
       CSFML.sound_set_position(@this, position)
     end
 
@@ -710,7 +710,7 @@ module SF
     #
     # * `sound`: Sound object
     # * `relative`: True to set the position relative, False to set it absolute
-    def relative_to_listener=(relative: Bool)
+    def relative_to_listener=(relative : Bool)
       relative = relative ? 1 : 0
       CSFML.sound_set_relative_to_listener(@this, relative)
     end
@@ -728,7 +728,7 @@ module SF
     #
     # * `sound`: Sound object
     # * `distance`: New minimum distance of the sound
-    def min_distance=(distance: Number)
+    def min_distance=(distance : Number)
       distance = distance.to_f32
       CSFML.sound_set_min_distance(@this, distance)
     end
@@ -748,7 +748,7 @@ module SF
     #
     # * `sound`: Sound object
     # * `attenuation`: New attenuation factor of the sound
-    def attenuation=(attenuation: Number)
+    def attenuation=(attenuation : Number)
       attenuation = attenuation.to_f32
       CSFML.sound_set_attenuation(@this, attenuation)
     end
@@ -762,7 +762,7 @@ module SF
     #
     # * `sound`: Sound object
     # * `time_offset`: New playing position
-    def playing_offset=(time_offset: Time)
+    def playing_offset=(time_offset : Time)
       CSFML.sound_set_playing_offset(@this, time_offset)
     end
 
@@ -860,7 +860,7 @@ module SF
     # * `filename`: Path of the sound file to load
     #
     # *Returns*: A new SoundBuffer object (raises `NullResult` if failed)
-    def self.from_file(filename: String)
+    def self.from_file(filename : String)
       SoundBuffer.transfer_ptr(CSFML.sound_buffer_create_from_file(filename))
     end
 
@@ -876,7 +876,7 @@ module SF
     # * `size_in_bytes`: Size of the data to load, in bytes
     #
     # *Returns*: A new SoundBuffer object (raises `NullResult` if failed)
-    def self.from_memory(data: Slice|Array)
+    def self.from_memory(data : Slice|Array)
       data, size_in_bytes = (data.to_unsafe as Pointer(Void)), LibC::SizeT.new(data.size*sizeof(typeof(data[0])))
       SoundBuffer.transfer_ptr(CSFML.sound_buffer_create_from_memory(data, size_in_bytes))
     end
@@ -892,7 +892,7 @@ module SF
     # * `stream`: Source stream to read from
     #
     # *Returns*: A new SoundBuffer object (raises `NullResult` if failed)
-    def self.from_stream(stream: InputStream)
+    def self.from_stream(stream : InputStream)
       SoundBuffer.transfer_ptr(CSFML.sound_buffer_create_from_stream(stream))
     end
 
@@ -909,7 +909,7 @@ module SF
     # * `sample_rate`: Sample rate (number of samples to play per second)
     #
     # *Returns*: A new SoundBuffer object (raises `NullResult` if failed)
-    def self.from_samples(samples: Slice(Int16)|Array(Int16), channel_count: Int, sample_rate: Int)
+    def self.from_samples(samples : Slice(Int16)|Array(Int16), channel_count : Int, sample_rate : Int)
       samples, sample_count = samples.to_unsafe, LibC::SizeT.new(samples.size*sizeof(typeof(samples[0])))
       channel_count = channel_count.to_i32
       sample_rate = sample_rate.to_i32
@@ -948,7 +948,7 @@ module SF
     # * `filename`: Path of the sound file to write
     #
     # *Returns*: True if saving succeeded, False if it failed
-    def save_to_file(filename: String)
+    def save_to_file(filename : String)
       CSFML.sound_buffer_save_to_file(@this, filename) != 0
     end
 
@@ -1056,7 +1056,7 @@ module SF
     #
     # * `sound_buffer_recorder`: Sound buffer recorder object
     # * `sample_rate`: Desired capture rate, in number of samples per second
-    def start(sample_rate: Int)
+    def start(sample_rate : Int)
       sample_rate = sample_rate.to_i32
       CSFML.sound_buffer_recorder_start(@this, sample_rate)
     end
@@ -1116,7 +1116,7 @@ module SF
     # * `user_data`: Data to pass to the callback function (can be NULL)
     #
     # *Returns*: A new SoundRecorder object (raises `NullResult` if failed)
-    def initialize(on_start: SoundRecorderStartCallback, on_process: SoundRecorderProcessCallback, on_stop: SoundRecorderStopCallback, user_data: Void*)
+    def initialize(on_start : SoundRecorderStartCallback, on_process : SoundRecorderProcessCallback, on_stop : SoundRecorderStopCallback, user_data : Void*)
       @owned = true
       @this = CSFML.sound_recorder_create(on_start, on_process, on_stop, user_data)
     end
@@ -1145,7 +1145,7 @@ module SF
     # * `sample_rate`: Desired capture rate, in number of samples per second
     #
     # *Returns*: True, if start of capture was successful
-    def start(sample_rate: Int)
+    def start(sample_rate : Int)
       sample_rate = sample_rate.to_i32
       CSFML.sound_recorder_start(@this, sample_rate) != 0
     end
@@ -1206,7 +1206,7 @@ module SF
     #
     # * `sound_recorder`: Sound recorder object
     # * `interval`: Processing interval
-    def processing_interval=(interval: Time)
+    def processing_interval=(interval : Time)
       CSFML.sound_recorder_set_processing_interval(@this, interval)
     end
 
@@ -1221,7 +1221,7 @@ module SF
     # * `count`: Pointer to a variable that will be filled with the number of modes in the array
     #
     # *Returns*: An array of strings containing the names
-    def self.get_available_devices(count: LibC::SizeT*)
+    def self.get_available_devices(count : LibC::SizeT*)
       CSFML.sound_recorder_get_available_devices(count)
     end
 
@@ -1255,7 +1255,7 @@ module SF
     # * `The`: name of the audio capture device
     #
     # *Returns*: True, if it was able to set the requested device
-    def device=(name: String)
+    def device=(name : String)
       CSFML.sound_recorder_set_device(@this, name) != 0
     end
 
@@ -1287,7 +1287,7 @@ module SF
     # * `user_data`: Data to pass to the callback functions
     #
     # *Returns*: A new SoundStream object
-    def initialize(on_get_data: SoundStreamGetDataCallback, on_seek: SoundStreamSeekCallback, channel_count: Int, sample_rate: Int, user_data: Void*)
+    def initialize(on_get_data : SoundStreamGetDataCallback, on_seek : SoundStreamSeekCallback, channel_count : Int, sample_rate : Int, user_data : Void*)
       channel_count = channel_count.to_i32
       sample_rate = sample_rate.to_i32
       @owned = true
@@ -1393,7 +1393,7 @@ module SF
     #
     # * `sound_stream`: Sound stream object
     # * `pitch`: New pitch to apply to the stream
-    def pitch=(pitch: Number)
+    def pitch=(pitch : Number)
       pitch = pitch.to_f32
       CSFML.sound_stream_set_pitch(@this, pitch)
     end
@@ -1407,7 +1407,7 @@ module SF
     #
     # * `sound_stream`: Sound stream object
     # * `volume`: Volume of the stream
-    def volume=(volume: Number)
+    def volume=(volume : Number)
       volume = volume.to_f32
       CSFML.sound_stream_set_volume(@this, volume)
     end
@@ -1422,7 +1422,7 @@ module SF
     #
     # * `sound_stream`: Sound stream object
     # * `position`: Position of the stream in the scene
-    def position=(position: Vector3f)
+    def position=(position : Vector3f)
       CSFML.sound_stream_set_position(@this, position)
     end
 
@@ -1438,7 +1438,7 @@ module SF
     #
     # * `sound_stream`: Sound stream object
     # * `relative`: True to set the position relative, False to set it absolute
-    def relative_to_listener=(relative: Bool)
+    def relative_to_listener=(relative : Bool)
       relative = relative ? 1 : 0
       CSFML.sound_stream_set_relative_to_listener(@this, relative)
     end
@@ -1456,7 +1456,7 @@ module SF
     #
     # * `sound_stream`: Sound stream object
     # * `distance`: New minimum distance of the stream
-    def min_distance=(distance: Number)
+    def min_distance=(distance : Number)
       distance = distance.to_f32
       CSFML.sound_stream_set_min_distance(@this, distance)
     end
@@ -1476,7 +1476,7 @@ module SF
     #
     # * `sound_stream`: Sound stream object
     # * `attenuation`: New attenuation factor of the stream
-    def attenuation=(attenuation: Number)
+    def attenuation=(attenuation : Number)
       attenuation = attenuation.to_f32
       CSFML.sound_stream_set_attenuation(@this, attenuation)
     end
@@ -1490,7 +1490,7 @@ module SF
     #
     # * `sound_stream`: Sound stream object
     # * `time_offset`: New playing position
-    def playing_offset=(time_offset: Time)
+    def playing_offset=(time_offset : Time)
       CSFML.sound_stream_set_playing_offset(@this, time_offset)
     end
 
@@ -1505,7 +1505,7 @@ module SF
     #
     # * `sound_stream`: Sound stream object
     # * `loop`: True to play in loop, False to play once
-    def loop=(loop: Bool)
+    def loop=(loop : Bool)
       loop = loop ? 1 : 0
       CSFML.sound_stream_set_loop(@this, loop)
     end
