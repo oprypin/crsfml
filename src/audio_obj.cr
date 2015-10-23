@@ -601,7 +601,6 @@ module SF
     # * `sound`: Sound object
     # * `buffer`: Sound buffer to attach to the sound
     def buffer=(buffer : SoundBuffer)
-      buffer = buffer.to_unsafe
       CSFML.sound_set_buffer(@this, buffer)
     end
 

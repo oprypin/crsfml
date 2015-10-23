@@ -448,8 +448,6 @@ def handle_function(main, params, alias=None):
                 'end'
             ).format(n).splitlines()
             t = None
-        elif t in classes:
-            conv.append('{0} = {0}.to_unsafe'.format(n))
         oparams[i] = (n, t)
     sparams = ', '.join(n.split(', ')[0] + ((' : '+t) if t else '') for n, t in oparams)
     if not getter: sparams = '('+sparams+')'
