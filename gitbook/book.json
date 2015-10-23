@@ -1,6 +1,6 @@
 {
 
-"output": "../tutorials",
+"output": "tutorials",
 
 "gitbook": ">=2.0.0",
 
