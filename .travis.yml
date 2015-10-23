@@ -1,0 +1,12 @@
+language: node_js
+script:
+  - ./build.sh
+after_success:
+  - test "$TRAVIS_PULL_REQUEST" != true && ./deploy.sh "https://$GH_TOKEN@github.com/BlaXpirit/crsfml"
+env:
+  global:
+    - secure: "D8DMtCuFg3E5APlDk4p0GC/KF8137e+7WKOZb2U6PgymP94recEUDWkM2YPaaJvSLFxVwSrHzHPV4gzLGxDby9K8kq+DpZ9CdU9OO3r3+fcNz5Cb+jhFZMMziDVs8SjKvEgl7Cxm0E3VKfCRC+9qNameo3M7GXaIciXHfFXguUM="
+cache:
+  directories:
+    - node_modules
+    - $HOME/.gitbook
