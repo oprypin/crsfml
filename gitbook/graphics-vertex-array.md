@@ -318,7 +318,7 @@ class ParticleSystem
       # if the particle is dead, remove it
       p.lifetime <= SF::Time::Zero
     end
-    while @particles.length < @count
+    while @particles.size < @count
       @particles << new_particle
     end
   end

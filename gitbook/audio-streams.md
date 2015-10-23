@@ -89,7 +89,7 @@ class MyStream < SF::SoundStream
     samples_to_stream = 50000
 
     # get the number of slices to stream
-    finish = Math.min(@current_sample + samples_to_stream, @samples.length)
+    finish = Math.min(@current_sample + samples_to_stream, @samples.size)
     count = finish - @current_sample
     
     # the next audio samples to be played

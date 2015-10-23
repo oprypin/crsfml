@@ -21,7 +21,7 @@ abstract class InputStream
 end
 ```
 
-**read** must extract *buffer.length* bytes of data from the stream, and copy them to the supplied *buffer* slice. It returns the number of bytes read, or -1 on error.
+**read** must extract *buffer.size* bytes of data from the stream, and copy them to the supplied *buffer* slice. It returns the number of bytes read, or -1 on error.
 
 **seek** must change the current reading position in the stream. Its *position* argument is the absolute byte offset to jump to (so it is relative to the beginning of the data, not to the current position). It returns the new position, or -1 on error.
 
