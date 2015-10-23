@@ -819,6 +819,7 @@ module SF
     #
     # *Returns*: Position of the mouse cursor, relative to the given window
     def self.get_position(relative_to : Window)
+      relative_to = relative_to.to_unsafe
       SF.vector2(CSFML.mouse_get_position(relative_to))
     end
 
@@ -833,6 +834,7 @@ module SF
     # * `relative_to`: Reference window
     def self.set_position(position, relative_to : Window)
       position = SF.vector2i(position) unless position.is_a? Vector2i
+      relative_to = relative_to.to_unsafe
       CSFML.mouse_set_position(position, relative_to)
     end
 
@@ -1105,6 +1107,7 @@ module SF
     # *Returns*: Current position of `finger`, or undefined if it's not down
     def self.get_position(finger : Int, relative_to : Window)
       finger = finger.to_i32
+      relative_to = relative_to.to_unsafe
       SF.vector2(CSFML.touch_get_position(finger, relative_to))
     end
 

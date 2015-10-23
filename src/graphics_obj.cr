@@ -400,6 +400,7 @@ module SF
     # * `texture`: New texture
     # * `reset_rect`: Should the texture rect be reset to the size of the new texture?
     def set_texture(texture : Texture, reset_rect : Bool)
+      texture = texture.to_unsafe
       reset_rect = reset_rect ? 1 : 0
       CSFML.circle_shape_set_texture(@this, texture, reset_rect)
     end
@@ -840,6 +841,7 @@ module SF
     # * `texture`: New texture
     # * `reset_rect`: Should the texture rect be reset to the size of the new texture?
     def set_texture(texture : Texture, reset_rect : Bool)
+      texture = texture.to_unsafe
       reset_rect = reset_rect ? 1 : 0
       CSFML.convex_shape_set_texture(@this, texture, reset_rect)
     end
@@ -1408,6 +1410,7 @@ module SF
     # * `source_rect`: Sub-rectangle of the source image to copy
     # * `apply_alpha`: Should the copy take in account the source transparency?
     def copy_image(source : Image, dest_x : Int, dest_y : Int, source_rect : IntRect, apply_alpha : Bool)
+      source = source.to_unsafe
       dest_x = dest_x.to_i32
       dest_y = dest_y.to_i32
       apply_alpha = apply_alpha ? 1 : 0
@@ -1731,6 +1734,7 @@ module SF
     # * `name`: Name of the texture in the shader
     # * `texture`: Texture to assign
     def set_parameter(name : String, texture : Texture)
+      texture = texture.to_unsafe
       CSFML.shader_set_texture_parameter(@this, name, texture)
     end
 
@@ -2021,6 +2025,7 @@ module SF
     # * `texture`: New texture
     # * `reset_rect`: Should the texture rect be reset to the size of the new texture?
     def set_texture(texture : Texture, reset_rect : Bool)
+      texture = texture.to_unsafe
       reset_rect = reset_rect ? 1 : 0
       CSFML.rectangle_shape_set_texture(@this, texture, reset_rect)
     end
@@ -2306,6 +2311,7 @@ module SF
     # * `render_texture`: Render texture object
     # * `view`: Pointer to the new view
     def view=(view : View)
+      view = view.to_unsafe
       CSFML.render_texture_set_view(@this, view)
     end
 
@@ -2340,6 +2346,7 @@ module SF
     #
     # *Returns*: Viewport rectangle, expressed in pixels in the current target
     def get_viewport(view : View)
+      view = view.to_unsafe
       CSFML.render_texture_get_viewport(@this, view)
     end
 
@@ -2369,6 +2376,7 @@ module SF
     # *Returns*: The converted point, in "world" units
     def map_pixel_to_coords(point, view : View)
       point = SF.vector2i(point) unless point.is_a? Vector2i
+      view = view.to_unsafe
       SF.vector2(CSFML.render_texture_map_pixel_to_coords(@this, point, view))
     end
 
@@ -2397,6 +2405,7 @@ module SF
     # *Returns*: The converted point, in target coordinates (pixels)
     def map_coords_to_pixel(point, view : View)
       point = SF.vector2f(point) unless point.is_a? Vector2f
+      view = view.to_unsafe
       SF.vector2(CSFML.render_texture_map_coords_to_pixel(@this, point, view))
     end
 
@@ -2408,6 +2417,7 @@ module SF
     # * `object`: Object to draw
     # * `states`: Render states to use for drawing (NULL to use the default states)
     def draw_sprite(object : Sprite, states)
+      object = object.to_unsafe
       if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
       elsif states; cstates = states; pstates = pointerof(cstates)
       else; pstates = nil; end
@@ -2415,6 +2425,7 @@ module SF
     end
 
     def draw_text(object : Text, states)
+      object = object.to_unsafe
       if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
       elsif states; cstates = states; pstates = pointerof(cstates)
       else; pstates = nil; end
@@ -2422,6 +2433,7 @@ module SF
     end
 
     def draw_shape(object : Shape, states)
+      object = object.to_unsafe
       if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
       elsif states; cstates = states; pstates = pointerof(cstates)
       else; pstates = nil; end
@@ -2429,6 +2441,7 @@ module SF
     end
 
     def draw_circle_shape(object : CircleShape, states)
+      object = object.to_unsafe
       if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
       elsif states; cstates = states; pstates = pointerof(cstates)
       else; pstates = nil; end
@@ -2436,6 +2449,7 @@ module SF
     end
 
     def draw_convex_shape(object : ConvexShape, states)
+      object = object.to_unsafe
       if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
       elsif states; cstates = states; pstates = pointerof(cstates)
       else; pstates = nil; end
@@ -2443,6 +2457,7 @@ module SF
     end
 
     def draw_rectangle_shape(object : RectangleShape, states)
+      object = object.to_unsafe
       if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
       elsif states; cstates = states; pstates = pointerof(cstates)
       else; pstates = nil; end
@@ -2450,6 +2465,7 @@ module SF
     end
 
     def draw_vertex_array(object : VertexArray, states)
+      object = object.to_unsafe
       if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
       elsif states; cstates = states; pstates = pointerof(cstates)
       else; pstates = nil; end
@@ -2889,6 +2905,7 @@ module SF
     # * `render_window`: Render window object
     # * `view`: Pointer to the new view
     def view=(view : View)
+      view = view.to_unsafe
       CSFML.render_window_set_view(@this, view)
     end
 
@@ -2923,6 +2940,7 @@ module SF
     #
     # *Returns*: Viewport rectangle, expressed in pixels in the current target
     def get_viewport(view : View)
+      view = view.to_unsafe
       CSFML.render_window_get_viewport(@this, view)
     end
 
@@ -2955,6 +2973,7 @@ module SF
     # *Returns*: The converted point, in "world" units
     def map_pixel_to_coords(point, view : View)
       point = SF.vector2i(point) unless point.is_a? Vector2i
+      view = view.to_unsafe
       SF.vector2(CSFML.render_window_map_pixel_to_coords(@this, point, view))
     end
 
@@ -2983,6 +3002,7 @@ module SF
     # *Returns*: The converted point, in target coordinates (pixels)
     def map_coords_to_pixel(point, view : View)
       point = SF.vector2f(point) unless point.is_a? Vector2f
+      view = view.to_unsafe
       SF.vector2(CSFML.render_window_map_coords_to_pixel(@this, point, view))
     end
 
@@ -2994,6 +3014,7 @@ module SF
     # * `object`: Object to draw
     # * `states`: Render states to use for drawing (NULL to use the default states)
     def draw_sprite(object : Sprite, states)
+      object = object.to_unsafe
       if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
       elsif states; cstates = states; pstates = pointerof(cstates)
       else; pstates = nil; end
@@ -3001,6 +3022,7 @@ module SF
     end
 
     def draw_text(object : Text, states)
+      object = object.to_unsafe
       if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
       elsif states; cstates = states; pstates = pointerof(cstates)
       else; pstates = nil; end
@@ -3008,6 +3030,7 @@ module SF
     end
 
     def draw_shape(object : Shape, states)
+      object = object.to_unsafe
       if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
       elsif states; cstates = states; pstates = pointerof(cstates)
       else; pstates = nil; end
@@ -3015,6 +3038,7 @@ module SF
     end
 
     def draw_circle_shape(object : CircleShape, states)
+      object = object.to_unsafe
       if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
       elsif states; cstates = states; pstates = pointerof(cstates)
       else; pstates = nil; end
@@ -3022,6 +3046,7 @@ module SF
     end
 
     def draw_convex_shape(object : ConvexShape, states)
+      object = object.to_unsafe
       if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
       elsif states; cstates = states; pstates = pointerof(cstates)
       else; pstates = nil; end
@@ -3029,6 +3054,7 @@ module SF
     end
 
     def draw_rectangle_shape(object : RectangleShape, states)
+      object = object.to_unsafe
       if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
       elsif states; cstates = states; pstates = pointerof(cstates)
       else; pstates = nil; end
@@ -3036,6 +3062,7 @@ module SF
     end
 
     def draw_vertex_array(object : VertexArray, states)
+      object = object.to_unsafe
       if states.responds_to?(:to_unsafe); pstates = states.to_unsafe
       elsif states; cstates = states; pstates = pointerof(cstates)
       else; pstates = nil; end
@@ -3353,6 +3380,7 @@ module SF
     # * `texture`: New texture
     # * `reset_rect`: Should the texture rect be reset to the size of the new texture?
     def set_texture(texture : Texture, reset_rect : Bool)
+      texture = texture.to_unsafe
       reset_rect = reset_rect ? 1 : 0
       CSFML.sprite_set_texture(@this, texture, reset_rect)
     end
@@ -3693,6 +3721,7 @@ module SF
     # * `text`: Text object
     # * `font`: New font
     def font=(font : Font)
+      font = font.to_unsafe
       CSFML.text_set_font(@this, font)
     end
 
@@ -3929,6 +3958,7 @@ module SF
     #
     # *Returns*: A new Texture object, or raises `NullResult` if it failed
     def self.from_image(image : Image, area)
+      image = image.to_unsafe
       if area.responds_to?(:to_unsafe); parea = area.to_unsafe
       elsif area; carea = area; parea = pointerof(carea)
       else; parea = nil; end
@@ -4004,6 +4034,7 @@ module SF
     # * `x`: X offset in the texture where to copy the source pixels
     # * `y`: Y offset in the texture where to copy the source pixels
     def update(image : Image, x : Int, y : Int)
+      image = image.to_unsafe
       x = x.to_i32
       y = y.to_i32
       CSFML.texture_update_from_image(@this, image, x, y)
@@ -4018,6 +4049,7 @@ module SF
     # * `x`: X offset in the texture where to copy the source pixels
     # * `y`: Y offset in the texture where to copy the source pixels
     def update(window : Window, x : Int, y : Int)
+      window = window.to_unsafe
       x = x.to_i32
       y = y.to_i32
       CSFML.texture_update_from_window(@this, window, x, y)
@@ -4032,6 +4064,7 @@ module SF
     # * `x`: X offset in the texture where to copy the source pixels
     # * `y`: Y offset in the texture where to copy the source pixels
     def update(render_window : RenderWindow, x : Int, y : Int)
+      render_window = render_window.to_unsafe
       x = x.to_i32
       y = y.to_i32
       CSFML.texture_update_from_render_window(@this, render_window, x, y)
@@ -4958,6 +4991,7 @@ module SF
     #
     # *Returns*: Position of the mouse cursor, relative to the given render window
     def self.get_position(relative_to : RenderWindow)
+      relative_to = relative_to.to_unsafe
       SF.vector2(CSFML.mouse_get_position_render_window(relative_to))
     end
 
@@ -4972,6 +5006,7 @@ module SF
     # * `relative_to`: Reference window
     def self.set_position(position, relative_to : RenderWindow)
       position = SF.vector2i(position) unless position.is_a? Vector2i
+      relative_to = relative_to.to_unsafe
       CSFML.mouse_set_position_render_window(position, relative_to)
     end
 
@@ -4991,6 +5026,7 @@ module SF
     # *Returns*: Current position of `finger`, or undefined if it's not down
     def self.get_position(finger : Int, relative_to : RenderWindow)
       finger = finger.to_i32
+      relative_to = relative_to.to_unsafe
       SF.vector2(CSFML.touch_get_position_render_window(finger, relative_to))
     end
 

@@ -838,6 +838,7 @@ module SF
     #
     # *Returns*: Server's response
     def send_request(request : HttpRequest, timeout : Time)
+      request = request.to_unsafe
       HttpResponse.wrap_ptr(CSFML.http_send_request(@this, request, timeout))
     end
 
@@ -1088,14 +1089,17 @@ module SF
     # * `selector`: Socket selector object
     # * `socket`: Pointer to the socket to add
     def add_tcp_listener(socket : TcpListener)
+      socket = socket.to_unsafe
       CSFML.socket_selector_add_tcp_listener(@this, socket)
     end
 
     def add_tcp_socket(socket : TcpSocket)
+      socket = socket.to_unsafe
       CSFML.socket_selector_add_tcp_socket(@this, socket)
     end
 
     def add_udp_socket(socket : UdpSocket)
+      socket = socket.to_unsafe
       CSFML.socket_selector_add_udp_socket(@this, socket)
     end
 
@@ -1109,14 +1113,17 @@ module SF
     # * `selector`: Socket selector object
     # * `socket`: POointer to the socket to remove
     def remove_tcp_listener(socket : TcpListener)
+      socket = socket.to_unsafe
       CSFML.socket_selector_remove_tcp_listener(@this, socket)
     end
 
     def remove_tcp_socket(socket : TcpSocket)
+      socket = socket.to_unsafe
       CSFML.socket_selector_remove_tcp_socket(@this, socket)
     end
 
     def remove_udp_socket(socket : UdpSocket)
+      socket = socket.to_unsafe
       CSFML.socket_selector_remove_udp_socket(@this, socket)
     end
 
@@ -1167,14 +1174,17 @@ module SF
     #
     # *Returns*: True if the socket is ready to read, False otherwise
     def is_tcp_listener_ready(socket : TcpListener)
+      socket = socket.to_unsafe
       CSFML.socket_selector_is_tcp_listener_ready(@this, socket) != 0
     end
 
     def is_tcp_socket_ready(socket : TcpSocket)
+      socket = socket.to_unsafe
       CSFML.socket_selector_is_tcp_socket_ready(@this, socket) != 0
     end
 
     def is_udp_socket_ready(socket : UdpSocket)
+      socket = socket.to_unsafe
       CSFML.socket_selector_is_udp_socket_ready(@this, socket) != 0
     end
 
@@ -1478,6 +1488,7 @@ module SF
     #
     # *Returns*: Status code
     def send_packet(packet : Packet)
+      packet = packet.to_unsafe
       CSFML.tcp_socket_send_packet(@this, packet)
     end
 
@@ -1494,6 +1505,7 @@ module SF
     #
     # *Returns*: Status code
     def receive_packet(packet : Packet)
+      packet = packet.to_unsafe
       CSFML.tcp_socket_receive_packet(@this, packet)
     end
 
@@ -1656,6 +1668,7 @@ module SF
     #
     # *Returns*: Status code
     def send_packet(packet : Packet, address : IpAddress, port : Int)
+      packet = packet.to_unsafe
       port = port.to_u16
       CSFML.udp_socket_send_packet(@this, packet, address, port)
     end
@@ -1673,6 +1686,7 @@ module SF
     #
     # *Returns*: Status code
     def receive_packet(packet : Packet, address : IpAddress*, port : UInt16*)
+      packet = packet.to_unsafe
       CSFML.udp_socket_receive_packet(@this, packet, address, port)
     end
 
