@@ -30,7 +30,7 @@ module SF
   module Wrapper(T)
     # Every wrapper class has these methods
     macro included
-      @this :: T
+      @this : T
 
       private def initialize(@this : T, @owned : Bool)
       end
