@@ -25,7 +25,7 @@ module SF
   extend self
 
   class Ftp
-    def connect(server : IpAddress, port=21 : Int)
+    def connect(server : IpAddress, port : Int = 21)
       connect(server, port, Time::Zero)
     end
     def login()

@@ -23,7 +23,7 @@ require "./graphics_lib"
 module SF
   extend self
 
-  def color(red : Number, green : Number, blue : Number, alpha=255 : Number)
+  def color(red : Number, green : Number, blue : Number, alpha : Number = 255)
     Color.new(r: red.to_u8, g: green.to_u8, b: blue.to_u8, a: alpha.to_u8)
   end
   struct CSFML::Color
@@ -171,7 +171,7 @@ module SF
   end
 
   class CircleShape
-    def initialize(radius : Number, point_count=30 : Int)
+    def initialize(radius : Number, point_count : Int = 30)
       initialize()
       self.radius = radius
       self.point_count = point_count
@@ -280,7 +280,7 @@ module SF
   end
 
   class Text
-    def initialize(string : String, font : Font, character_size=30 : Int)
+    def initialize(string : String, font : Font, character_size : Int = 30)
       initialize()
       self.string = string
       self.font = font

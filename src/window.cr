@@ -23,7 +23,7 @@ require "./window_lib"
 module SF
   extend self
 
-  def context_settings(depth=0 : Int, stencil=0 : Int, antialiasing=0 : Int, major=2 : Int, minor=0 : Int, attributes=CSFML::ContextSettings::Default)
+  def context_settings(depth : Int = 0, stencil : Int = 0, antialiasing : Int = 0, major : Int = 2, minor : Int = 0, attributes=CSFML::ContextSettings::Default)
     ContextSettings.new(
       depth_bits: depth.to_i32, stencil_bits: stencil.to_i32,
       antialiasing_level: antialiasing.to_i32,
