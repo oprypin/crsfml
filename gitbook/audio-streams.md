@@ -14,7 +14,7 @@ Since we're talking about *streaming*, we'll deal with audio data that cannot be
 
 In order to define your own audio stream, you need to inherit from the [SoundStream]({{book.api}}/SoundStream.html) abstract base class. There are two methods to override in your derived class: `on_get_data` and `on_seek`.
 
-```ruby
+```crystal
 class MyAudioStream < SF::SoundStream
   def on_get_data()
   end
@@ -26,7 +26,7 @@ end
 
 `on_get_data` is called by the base class whenever it runs out of audio samples and needs more of them. You must provide new audio samples by filling the `data` argument:
 
-```ruby
+```crystal
 class MyAudioStream < SF::SoundStream
   def get_data()
     samples_array.to_slice
@@ -42,7 +42,7 @@ The `on_seek` method is called when the `playing_offset=` public method is calle
 
 Now your class is almost ready to work. The only thing that [SoundStream]({{book.api}}/SoundStream.html) needs to know now is the channel count and sample rate of your stream, so that it can be played as expected.
 
-```ruby
+```crystal
 # where this is done totally depends on how your stream class is designed
 MyAudioStream.new(channel_count: ..., sample_rate: ...)
 ```
@@ -63,7 +63,7 @@ Now that you have defined your own audio stream class, let's see how to use it. 
 
 Here is a very simple example of a custom audio stream class which plays the data of a sound buffer. Such a class might seem totally useless, but the point here is to focus on how the data is streamed by the class, regardless of where it comes from.
 
-```ruby
+```crystal
 require "crsfml/system"
 require "crsfml/audio"
 

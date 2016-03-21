@@ -12,7 +12,10 @@
     "examples2": "https://github.com/BlaXpirit/crsfml-examples/tree/master"
 },
 
-"plugins": ["ungrey", "toggle-chapters"],
+"plugins": [
+    "-sharing", "-highlight",
+    "pygments", "ungrey", "toggle-chapters"
+],
 
 "links": {
     "sidebar": {

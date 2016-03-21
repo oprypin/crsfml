@@ -1,10 +1,18 @@
 #!/bin/bash
 
 set -o errexit
+set -o verbose
 
-npm install gitbook-cli
+export PATH="$PWD/node_modules/.bin:$PWD/pygments:${PATH:+:$PATH}"
 
-PATH="node_modules/.bin${PATH:+:$PATH}"
+if ! [ -d pygments ]; then
+    curl https://bitbucket.org/BlaXpirit/pygments/get/crystal.tar.gz | tar xz
+    mv *pygments* pygments
+fi
+
+if ! command -v gitbook; then
+    npm install gitbook-cli
+fi
 
 gitbook install gitbook
 gitbook build gitbook

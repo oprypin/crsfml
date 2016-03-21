@@ -14,7 +14,7 @@ For basic interaction between your program and an HTTP server, it should be enou
 
 To communicate with an HTTP server you must use the [Http]({{book.api}}/Http.html) class.
 
-```ruby
+```crystal
 http = SF::Http.new
 http.set_host("http://www.some-server.org/")
 
@@ -26,7 +26,7 @@ Note that setting the host doesn't trigger any connection. A temporary connectio
 
 The only other method in [Http]({{book.api}}/Http.html), sends requests. This is basically all that the class does.
 
-```ruby
+```crystal
 request = SF::HttpRequest.new
 # fill the request...
 response = http.send_request(request)
@@ -42,7 +42,7 @@ An HTTP request, represented by the [HttpRequest]({{book.api}}/HttpRequest.html)
 * The header: a set of fields with key and value
 * The body of the page (used only with the POST method)
 
-```ruby
+```crystal
 request = SF::HttpRequest.new
 request.method = SF::HttpRequest::Post
 request.uri = "/page.html"
@@ -65,7 +65,7 @@ If the [Http]({{book.api}}/Http.html) class could successfully connect to the ho
 * The header: a set of fields with key and value
 * The body of the response
 
-```ruby
+```crystal
 response = http.send_request(request)
 puts "status: #{response.status}"
 puts "HTTP version: #{response.major_version}.{response.minor_version}
@@ -79,7 +79,7 @@ The status code can be used to check whether the request was successfully proces
 
 Here is a short example that demonstrates how to perform a simple task: Sending a score to an online database.
 
-```ruby
+```crystal
 def send_score(score, name)
   # prepare the request
   request = SF::HttpRequest.new("/send-score.html", SF::HttpRequest::Post)

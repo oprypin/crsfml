@@ -16,7 +16,7 @@ The class provided by CrSFML is [Ftp]({{book.api}}/Ftp.html) (surprising, isn't 
 
 Every method of the [Ftp]({{book.api}}/Ftp.html) class wraps an FTP command, and returns a standard FTP response. An FTP response contains a status code (similar to HTTP status codes but not identical), and a message that informs the user of what happened. FTP responses are encapsulated in the [Ftp::Response]({{book.api}}/Ftp::Response.html) class.
 
-```ruby
+```crystal
 ftp = SF::Ftp.new
 
 ...
@@ -29,7 +29,7 @@ puts "Response message: #{response.message}"
 
 The status code can be used to check whether the command was successful or failed: Codes lower than 400 represent success, all others represent errors. You can use the `ok?` method as a shortcut to test a status code for success.
 
-```ruby
+```crystal
 response = ftp.login("username", "password")
 if response.ok?
   # success!
@@ -40,7 +40,7 @@ end
 
 If you don't care about the details of the response, you can check for success with even less code:
 
-```ruby
+```crystal
 if ftp.login("username", "password").ok?
   # success!
 else
@@ -56,7 +56,7 @@ Now that you understand how the class works, let's have a look at what it can do
 
 The first thing to do is connect to an FTP server.
 
-```ruby
+```crystal
 ftp = SF::Ftp.new
 ip_address = SF.ip_address("ftp.myserver.org")
 ftp.connect(ip_address)
@@ -66,7 +66,7 @@ The server address can be any valid [IpAddress]({{book.api}}/IpAddress.html): A 
 
 The standard port for FTP is 21. If, for some reason, your server uses a different port, you can specify it as an additional argument:
 
-```ruby
+```crystal
 ftp = SF::Ftp.new
 ip_address = SF.ip_address("ftp.myserver.org")
 ftp.connect(ip_address, 45000)
@@ -74,7 +74,7 @@ ftp.connect(ip_address, 45000)
 
 You can also pass a third parameter, which is a time out value. This prevents you from having to wait forever (or at least a very long time) if the server doesn't respond.
 
-```ruby
+```crystal
 ftp = SF::Ftp.new
 ip_address = SF.ip_address("ftp.myserver.org")
 ftp.connect(ip_address, 21, SF.seconds(5))
@@ -82,7 +82,7 @@ ftp.connect(ip_address, 21, SF.seconds(5))
 
 Once you're connected to the server, the next step is to authenticate yourself:
 
-```ruby
+```crystal
 # authenticate with name and password
 ftp.login("username", "password")
 
@@ -96,7 +96,7 @@ Here is a short description of all the commands available in the [Ftp]({{book.ap
 
 Getting the current working directory:
 
-```ruby
+```crystal
 response = ftp.working_directory
 
 if response.ok?
@@ -108,7 +108,7 @@ end
 
 Getting the list of directories and files contained in the current directory:
 
-```ruby
+```crystal
 response = ftp.get_directory_listing
 
 if response.ok?
@@ -126,43 +126,43 @@ response = ftp.get_directory_listing("subfolder")
 
 Changing the current directory:
 
-```ruby
+```crystal
 ftp.change_directory("path/to/new_directory") # the given path is relative to the current directory
 ```
 
 Going to the parent directory of the current one:
 
-```ruby
+```crystal
 ftp.parent_directory
 ```
 
 Creating a new directory (as a child of the current one):
 
-```ruby
+```crystal
 ftp.create_directory("name_of_new_directory")
 ```
 
 Deleting an existing directory:
 
-```ruby
+```crystal
 ftp.delete_directory("name_of_directory_to_delete")
 ```
 
 Renaming an existing file:
 
-```ruby
+```crystal
 ftp.rename_file("old_name.txt", "new_name.txt")
 ```
 
 Deleting an existing file:
 
-```ruby
+```crystal
 ftp.delete_file("file_name.txt")
 ```
 
 Downloading (receiving from the server) a file:
 
-```ruby
+```crystal
 ftp.download("remote_file_name.txt", "local/destination/path", SF::Ftp::Ascii)
 ```
 
@@ -170,13 +170,13 @@ The last argument is the transfer mode. It can be either Ascii (for text files),
 
 Uploading (sending to the server) a file:
 
-```ruby
+```crystal
 ftp.upload("local_file_name.pdf", "remote/destination/path", SF::Ftp::Binary)
 ```
 
 FTP servers usually close connections that are inactive for a while. If you want to avoid being disconnected, you can send a no-op command periodically:
 
-```ruby
+```crystal
 ftp.keep_alive
 ```
 
@@ -184,6 +184,6 @@ ftp.keep_alive
 
 You can close the connection with the server at any moment with the `disconnect` method.
 
-```ruby
+```crystal
 ftp.disconnect
 ```

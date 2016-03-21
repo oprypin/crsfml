@@ -12,7 +12,7 @@ To summarize, views are what you need if you want to scroll, rotate or zoom your
 
 The class which encapsulates views in SFML is [View]({{book.api}}/View.html). It can be constructed directly with a definition of the area to view:
 
-```ruby
+```crystal
 # create a view with the rectangular area of the 2D world to show
 view1 = SF::View.from_rect(SF.float_rect(200, 200, 300, 200))
 
@@ -26,7 +26,7 @@ These two definitions are equivalent: Both views will show the same area of the 
 
 If you don't want to define the view upon construction or want to modify it later, you can use the equivalent setters:
 
-```ruby
+```crystal
 view1.reset(SF.float_rect(200, 200, 300, 200))
 
 view2.center = SF.vector2(350, 300)
@@ -39,7 +39,7 @@ Once your view is defined, you can transform it to make it show a translated/rot
 
 Unlike drawable entities, such as sprites or shapes whose positions are defined by their top-left corner (and can be changed to any other point), views are always manipulated by their center -- this is simply more convenient. That's why the method to change the position of a view is named `center=`, and not `position=`.
 
-```ruby
+```crystal
 # move the view at point (200, 200)
 view.center = SF.vector2(200, 200)
 
@@ -53,7 +53,7 @@ view.move(SF.vector2(100, 100))
 
 To rotate a view, use the `rotation=` method.
 
-```ruby
+```crystal
 # rotate the view at 20 degrees
 view.rotation = 20
 
@@ -67,7 +67,7 @@ view.rotate(5)
 
 Zooming in (or out) a view is done through to resizing it, so the method to use is `size=`.
 
-```ruby
+```crystal
 # resize the view to show a 1200x800 area (we see a bigger area, so this is a zoom out)
 view.size = SF.vector2(1200, 800)
 
@@ -85,7 +85,7 @@ This default behavior is suitable for most situations, but it might need to be c
 
 To set the viewport of a view, you can use the `viewport=` method.
 
-```ruby
+```crystal
 # define a centered viewport, with half the size of the window
 view.viewport = SF.float_rect(0.25, 0.25, 0.5, 0.5)
 ```
@@ -96,7 +96,7 @@ You might have noticed something very important: The viewport is not defined in 
 
 Using a viewport, it is straightforward to split the screen for multiplayer games:
 
-```ruby
+```crystal
 # player 1 (left side of the screen)
 player1_view.viewport = SF.float_rect(0, 0, 0.5, 1)
 
@@ -108,7 +108,7 @@ player2_view.viewport = SF.float_rect(0.5, 0, 0.5, 1)
 
 ... or a mini-map:
 
-```ruby
+```crystal
 # the game view (full window)
 game_view.viewport = SF.float_rect(0, 0, 1, 1)
 
@@ -122,7 +122,7 @@ minimap_view.viewport = SF.float_rect(0.75, 0, 0.25, 0.25)
 
 To draw something using a view, you must draw it after calling the `view=` method of the target to which you are drawing ([RenderWindow]({{book.api}}/RenderWindow.html) or [RenderTexture]({{book.api}}/RenderTexture.html)).
 
-```ruby
+```crystal
 # let's define a view
 view = SF::View.from_rect(SF.float_rect(0, 0, 1000, 600))
 
@@ -140,7 +140,7 @@ current_view = window.view
 
 The view remains active until you set another one. This means that there is always a view which defines what appears in the target, and where it is drawn. If you don't explicitly set any view, the render-target uses its own default view, which matches its size 1:1. You can get the default view of a render-target with the `default_view` method. This can be useful if you want to define your own view based on it, or restore it to draw fixed entities (like a GUI) on top of your scene.
 
-```ruby
+```crystal
 # create a view half the size of the default view
 view = window.default_view
 view.zoom(0.5)
@@ -159,7 +159,7 @@ Since the default view never changes after the window is created, the viewed con
 
 If, instead of this default behavior, you'd like to show more/less stuff depending on the new size of the window, all you have to do is update the size of the view with the size of the window.
 
-```ruby
+```crystal
 # the event loop
 while event = window.poll_event
   ...
@@ -177,7 +177,7 @@ end
 
 When you use a custom view, or when you resize the window without using the code above, pixels displayed on the target no longer match units in the 2D world. For example, clicking on pixel (10, 50) may hit the point (26.5, -84) of your world. You end up having to use a conversion method to map your pixel coordinates to world coordinates: `map_pixel_to_coords`.
 
-```ruby
+```crystal
 # get the current mouse position in the window
 pixel_pos = SF::Mouse.get_position(window)
 

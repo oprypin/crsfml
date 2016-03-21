@@ -20,7 +20,7 @@ In CrSFML, shaders are represented by the [Shader]({{book.api}}/Shader.html) cla
 
 Even though shaders have become commonplace, there are still old graphics cards that might not support them. The first thing you should do in your program is check if shaders are available on the system:
 
-```ruby
+```crystal
 unless SF::Shader.available?
   # shaders are not available...
 end
@@ -30,7 +30,7 @@ Any attempt to use the [Shader]({{book.api}}/Shader.html) class will fail if `SF
 
 The most common way of loading a shader is from a file on disk, which is done with the `from_file` class method.
 
-```ruby
+```crystal
 # load only the vertex shader
 shader = SF::Shader.from_file("vertex_shader.vert", SF::Shader::Vertex)
 
@@ -47,7 +47,7 @@ The `from_file` class method can sometimes fail with no obvious reason. First, c
 
 Shaders can also be loaded directly from strings, with the `from_memory` class method. This can be useful if you want to embed the shader source directly into your program.
 
-```ruby
+```crystal
 vertex_shader = "
     void main()
     {
@@ -80,7 +80,7 @@ If loading fails, don't forget to check the standard error output (the console) 
 
 Using a shader is simple, just pass it as an additional argument to the `draw` method.
 
-```ruby
+```crystal
 window.draw(whatever, SF.render_states(shader: shader))
 ```
 
@@ -99,7 +99,7 @@ void main()
 
 Uniforms can be set by the Crystal program, using the various overloads of the `set_parameter` method in the [Shader]({{book.api}}/Shader.html) class.
 
-```ruby
+```crystal
 shader.set_parameter("my_var", 5.0)
 ```
 
@@ -173,7 +173,7 @@ If you're using OpenGL rather than the graphics entities of SFML, you can still 
 
 To activate a [Shader]({{book.api}}/Shader.html) for drawing (the equivalent of `glUseProgram`), you have to call the `bind` class method:
 
-```ruby
+```crystal
 shader = SF::Shader.new
 ...
 

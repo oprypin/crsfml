@@ -16,7 +16,7 @@ To use OpenGL, you'll need to find a library that implements Crystal bindings to
 
 Since SFML is based on OpenGL, its windows are ready for OpenGL calls without any extra effort.
 
-```ruby
+```crystal
 @[Link("GL")] # Use @[Link(framework: "OpenGL")] on Mac OSX
 lib GL
  fun enable = glEnable(cap: Int32)
@@ -37,7 +37,7 @@ In case you think it is *too* automatic, [Window]({{book.api}}/Window.html)'s co
 * `antialiasing_level` is the multisampling level
 * `major_version` and `minor_version` comprise the requested version of OpenGL
 
-```ruby
+```crystal
 settings = SF.context_settings(
   depth_bits: 24,
   stencil_bits: 8,
@@ -52,7 +52,7 @@ window = SF::RenderWindow.new(SF.video_mode(800, 600), "OpenGL", settings: setti
 If any of these settings is not supported by the graphics card, SFML tries to find the closest valid match. For example, if 4x anti-aliasing is too high, it tries 2x and then falls back to 0.  
 In any case, you can check what settings SFML actually used with the `settings` method:
 
-```ruby
+```crystal
 settings = window.settings
 
 puts "depth bits: #{settings.depth_bits}"
@@ -67,7 +67,7 @@ OpenGL versions above 3.0 are supported by SFML (as long as your graphics driver
 
 Here is what a complete OpenGL program would look like with CrSFML:
 
-```ruby
+```crystal
 # create bindings
 @[Link("GL")]
 lib GL
@@ -122,7 +122,7 @@ Managing multiple OpenGL windows is not more complicated than managing one, ther
 
 OpenGL calls are made on the active context (thus the active window). Therefore if you want to draw to two different windows within the same program, you have to select which window is active before drawing something. This can be done with the `active=` method:
 
-```ruby
+```crystal
 # activate the first window
 window1.active = true
 
@@ -155,7 +155,7 @@ The only way to avoid conflicts between SFML and your own OpenGL states, is to s
 
 The easiest solution is to let CrSFML do it for you, with the `push_gl_states`/`pop_gl_states` methods:
 
-```ruby
+```crystal
 glDraw...
 
 window.push_gl_states
@@ -170,7 +170,7 @@ glDraw...
 Since it has no knowledge about your OpenGL code, SFML can't optimize these steps and as a result it saves/restores all available OpenGL states and matrices. This may be acceptable for small projects, but it might also be too slow for bigger programs that require maximum performance. In this case, you can handle saving and restoring the OpenGL states yourself, with `glPushAttrib`/`glPopAttrib`, `glPushMatrix`/`glPopMatrix`, etc.  
 If you do this, you'll still need to restore SFML's own states before drawing. This is done with the `reset_gl_states` method.
 
-```ruby
+```crystal
 glDraw...
 
 glPush...

@@ -18,7 +18,7 @@ Please make sure you know what you're doing before choosing SFML threads.
 
 Enough talk, let's see some code. The class that makes it possible to create threads in CrSFML is [Thread]({{book.api}}/Thread.html), and here is what it looks like in action:
 
-```ruby
+```crystal
 require "crsfml/system"
 
 def func
@@ -76,7 +76,7 @@ The entry point of the thread, ie. the function that will be run when the thread
 
 Once you've created a [Thread]({{book.api}}/Thread.html) instance, you must start it with the `launch` method.
 
-```ruby
+```crystal
 thread = SF::Thread(->func)
 thread.launch()
 ```
@@ -87,7 +87,7 @@ thread.launch()
 
 A thread automatically stops when its entry point function returns. If you want to wait for a thread to finish from another thread, you can call its `wait` method.
 
-```ruby
+```crystal
 thread = SF::Thread(->func)
 
 # start the thread
@@ -120,7 +120,7 @@ Several programming tools exist to help you protect shared data and make your co
 
 The most basic (and used) primitive is the mutex. Mutex stands for "MUTual EXclusion": it ensures that only a single thread is able to run the code that it guards. Let's see how they can bring some order to the example above:
 
-```ruby
+```crystal
 $mutex = SF::Mutex.new
 
 def func
@@ -184,7 +184,7 @@ To make sure that mutexes are always unlocked in an environment where exceptions
 
 [Lock]({{book.api}}/Lock.html) can be useful in a function that has multiple `return` statements.
 
-```ruby
+```crystal
 require "crsfml"
 
 $mutex = SF::Mutex.new()
@@ -215,7 +215,7 @@ func()
 One thing that is often overlooked by programmers is that a thread cannot live without its corresponding [Thread]({{book.api}}/Thread.html) instance.  
 The following code is often seen:
 
-```ruby
+```crystal
 def func
   SF.sleep(SF.seconds(10))
 end

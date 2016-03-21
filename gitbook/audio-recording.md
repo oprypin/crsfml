@@ -8,7 +8,7 @@ The most common use for captured audio data is for it to be saved to a sound buf
 
 This can be achieved with the very simple interface of the [SoundBufferRecorder]({{book.api}}/SoundBufferRecorder.html) class:
 
-```ruby
+```crystal
 # first check if an input audio device is available on the system
 unless SF::SoundBufferRecorder.available?
   # error: audio capture is not available on this system
@@ -38,20 +38,20 @@ With the recorded data, you can then:
 
 * Save it to a file
 
-```ruby
+```crystal
 buffer.save_to_file("my_record.ogg")
 ```
 
 * Play it directly
 
-```ruby
+```crystal
 sound = SF::Sound.new(buffer)
 sound.play
 ```
 
 * Access the raw audio data and analyze it, transform it, etc.
 
-```ruby
+```crystal
 samples = buffer.samples
 count = buffer.sample_count
 do_something(samples, count)
@@ -75,7 +75,7 @@ There are also two additional virtual functions that you can optionally override
 
 Here is the skeleton of a complete derived class:
 
-```ruby
+```crystal
 class MyRecorder < SF::SoundRecorder
   def on_start # optional
     # initialize whatever has to be done before the capture starts
@@ -102,7 +102,7 @@ end
 
 The `available?`/`start`/`stop` functions are defined in the [SoundRecorder]({{book.api}}/SoundRecorder.html) base, and thus inherited in every derived classes. This means that you can use any recorder class exactly the same way as the [SoundBufferRecorder]({{book.api}}/SoundBufferRecorder.html) class above.
 
-```ruby
+```crystal
 unless MyRecorder.available?
   # error...
 end

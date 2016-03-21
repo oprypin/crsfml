@@ -60,7 +60,7 @@ Then running `crystal deps` downloads and puts CrSFML in the mentioned subfolder
 
 Make a file with the following contents and run it using Crystal. It should display a closable, resizable black window.
 
-```ruby
+```crystal
 require "crsfml/window"
 
 window = SF::Window.new(SF.video_mode(800, 600), "CrSFML works!")

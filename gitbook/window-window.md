@@ -10,7 +10,7 @@ This tutorial only explains how to open and manage a window. Drawing stuff is be
 
 Windows in CrSFML are defined by the [Window]({{book.api}}/Window.html) class. A window can be created and opened directly upon construction:
 
-```ruby
+```crystal
 require "crsfml"
 
 window = SF::RenderWindow.new(SF.video_mode(800, 600), "My window")
@@ -60,7 +60,7 @@ If you try to execute the code above with nothing in place of the "...", you wil
 
 Let's add some code to make this program a bit more interesting:
 
-```ruby
+```crystal
 require "crsfml"
 
 window = SF::RenderWindow.new(SF.video_mode(800, 600), "My window")
@@ -99,7 +99,7 @@ Don't expect to see anything interesting in this window: you may see a uniform c
 
 Of course, CrSFML allows you to play with your windows a bit. Basic window operations such as changing the size, position, title or icon are supported, but unlike dedicated GUI libraries, SFML doesn't provide advanced features. SFML windows are only meant to provide an environment for OpenGL or SFML drawing.
 
-```ruby
+```crystal
 # change the position of the window (relatively to the desktop)
 window.position = SF.vector2(10, 50)
 
@@ -121,14 +121,14 @@ You can refer to the API documentation for a complete list of [Window]({{book.ap
 
 In case you really need advanced features for your window, you can create one (or even a full GUI) with another library, and embed SFML into it. To do so, you can use the other constructor of [Window]({{book.api}}/Window.html) which takes the OS-specific handle of an existing window. In this case, SFML will create a drawing context inside the given window and catch all its events without interfering with the parent window management.
 
-```ruby
+```crystal
 handle = ... # specific to what you're doing and the library you're using
 SF::Window.from_handle(handle)
 ```
 
 If you just want an additional, very specific feature, you can also do it the other way round: create an SFML window and get its OS-specific handle to implement things that SFML itself doesn't support.
 
-```ruby
+```crystal
 window = SF::RenderWindow.new(SF.video_mode(800, 600), "SFML window")
 handle = window.system_handle
 
@@ -142,7 +142,7 @@ Integrating SFML with other libraries requires some work and won't be described 
 Sometimes, when your application runs fast, you may notice visual artifacts such as tearing. The reason is that your application's refresh rate is not synchronized with the vertical frequency of the monitor, and as a result, the bottom of the previous frame is mixed with the top of the next one.  
 The solution to this problem is to activate *vertical synchronization*. It is automatically handled by the graphics card, and can easily be switched on and off with the `vertical_sync_enabled=` method:
 
-```ruby
+```crystal
 window.vertical_sync_enabled = true # call it once, after creating the window
 ```
 
@@ -152,7 +152,7 @@ Sometimes `vertical_sync_enabled=` will have no effect: this is most likely beca
 
 In other situations, you may also want your application to run at a given framerate, instead of the monitor's frequency. This can be done by calling `framerate_limit=`:
 
-```ruby
+```crystal
 window.framerate_limit = 60 # call it once, after creating the window
 ```
 

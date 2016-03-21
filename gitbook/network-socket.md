@@ -29,7 +29,7 @@ As you can guess, this part is specific to TCP sockets. There are two sides to a
 
 On client side, things are simple: the user just needs to have a [TcpSocket]({{book.api}}/TcpSocket.html) and call its `connect` method to start the connection attempt.
 
-```ruby
+```crystal
 require "crsfml/network"
 
 socket = SF::TcpSocket.new
@@ -54,7 +54,7 @@ On the server side, a few more things have to be done. Multiple sockets are requ
 
 To listen for connections, you must use the special [TcpListener]({{book.api}}/TcpListener.html) class. Its only role is to wait for incoming connection attempts on a given port, it can't send or receive data.
 
-```ruby
+```crystal
 listener = SF::TcpListener.new
 
 # bind the listener to a port
@@ -80,7 +80,7 @@ After a successful call to `connect` (on client side) and `accept` (on server si
 
 UDP sockets need not be connected, however you need to bind them to a specific port if you want to be able to receive data on that port. A UDP socket cannot receive on multiple ports simultaneously.
 
-```ruby
+```crystal
 socket = SF::UdpSocket.new
 
 # bind the socket to a port
@@ -99,7 +99,7 @@ Sending and receiving data is done in the same way for both types of sockets. Th
 
 To send data, you must call the `send` method with a pointer to the data that you want to send, and the number of bytes to send.
 
-```ruby
+```crystal
 data = Array(UInt8).new(100, 0u8)
 
 # TCP socket:
@@ -123,7 +123,7 @@ There's another thing to keep in mind with UDP: Since data is sent in datagrams 
 
 To receive data, you must call the `receive` method:
 
-```ruby
+```crystal
 data = Array(UInt8).new(100, 0u8)
 
 # TCP socket:
@@ -154,7 +154,7 @@ Blocking on a single socket can quickly become annoying, because you will most l
 
 A selector can monitor all types of sockets: [TcpSocket]({{book.api}}/TcpSocket.html), [UdpSocket]({{book.api}}/UdpSocket.html), and [TcpListener]({{book.api}}/TcpListener.html). To add a socket to a selector, use its `add` method:
 
-```ruby
+```crystal
 socket = SF::TcpSocket.new
 
 selector = SF::SocketSelector.new
@@ -165,7 +165,7 @@ A selector is not a socket container. It only references (points to) the sockets
 
 Once you have filled the selector with all the sockets that you want to monitor, you must call its `wait` method to wait until any one of them has received something (or has triggered an error). You can also pass an optional time out value, so that the method will fail if nothing has been received after a certain period of time -- this avoids staying stuck forever if nothing happens.
 
-```ruby
+```crystal
 if selector.wait SF.seconds(10)
   # received something
 else
@@ -177,7 +177,7 @@ If the `wait` method returns `true`, it means that one or more socket(s) have re
 
 Since the selector is not a socket container, it cannot return the sockets that are ready to receive. Instead, you must test each candidate socket with the `ready?` method:
 
-```ruby
+```crystal
 if selector.wait SF.seconds(10)
   # for each socket... <-- pseudo-code because I don't know how you store your sockets :)
     if selector.ready?(socket)
@@ -192,7 +192,7 @@ You can have a look at the API documentation of the [SocketSelector]({{book.api}
 
 As a bonus, the time out capability of `Selector#wait` allows you to implement a receive-with-timeout method, which is not directly available in the socket classes, very easily:
 
-```ruby
+```crystal
 def receive_with_timeout(socket : SF::TcpSocket, packet : SF::Packet, timeout : SF::Time)
   selector = SF::SocketSelector.new
   selector.add socket
@@ -208,7 +208,7 @@ end
 
 All sockets are blocking by default, but you can change this behaviour at any time with the `setBlocking` method.
 
-```ruby
+```crystal
 tcp_socket = SF::TcpSocket.new
 tcp_socket.blocking = false
 

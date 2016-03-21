@@ -12,7 +12,7 @@ All CrSFML classes (sprites, text, shapes) use the same interface for transforma
 
 The position is the... position of the entity in the 2D world. I don't think it needs more explanation :).
 
-```ruby
+```crystal
 # 'entity' can be a SF::Sprite, a SF::Text, a SF::Shape or any other transformable class
 
 # set the absolute position of the entity
@@ -33,7 +33,7 @@ By default, entities are positioned relative to their top-left corner. We'll see
 
 The rotation is the orientation of the entity in the 2D world. It is defined in *degrees*, in clockwise order (because the Y axis is pointing down in SFML).
 
-```ruby
+```crystal
 # 'entity' can be a SF::Sprite, a SF::Text, a SF::Shape or any other transformable class
 
 # set the absolute rotation of the entity
@@ -56,7 +56,7 @@ As with the position, the rotation is performed around the top-left corner by de
 
 The scale factor allows the entity to be resized. The default scale is 1. Setting it to a value less than 1 makes the entity smaller, greater than 1 makes it bigger. Negative scale values are also allowed, so that you can mirror the entity.
 
-```ruby
+```crystal
 # 'entity' can be a SF::Sprite, a SF::Text, a SF::Shape or any other transformable class
 
 # set the absolute scale of the entity
@@ -77,7 +77,7 @@ The origin is the center point of the three other transformations. The entity's 
 
 To keep things simple, there's only a single origin for all three transformation components. This means that you can't position an entity relative to its top-left corner while rotating it around its center for example. If you need to do such things, have a look at the next chapters.
 
-```ruby
+```crystal
 # 'entity' can be a SF::Sprite, a SF::Text, a SF::Shape or any other transformable class
 
 # set the origin of the entity
@@ -93,7 +93,7 @@ Note that changing the origin also changes where the entity is drawn on screen, 
 
 [TransformableM]({{book.api}}/TransformableM.html) is not only made for CrSFML classes, it can also be included in your own classes (or be a member, using [Transformable]({{book.api}}/Transformable.html)).
 
-```ruby
+```crystal
 class MyGraphicalEntity
   include SF::TransformableM
 
@@ -121,7 +121,7 @@ There are many ways to construct a [Transform]({{book.api}}/Transform.html):
 
 Here are a few examples:
 
-```ruby
+```crystal
 # the identity transform (does nothing)
 t1 = SF::Transform::Identity
 
@@ -138,7 +138,7 @@ t4 = t1 * t2 * t3
 
 You can apply several predefined transformations to the same transform as well. They will all be combined sequentially:
 
-```ruby
+```crystal
 t = SF.transform
 t.translate(10, 100)
 t.rotate(90)
@@ -148,7 +148,7 @@ t.scale(0.5, 0.75)
 
 Back to the point: How can a custom transform be applied to a graphical entity? Simple: Pass it to the draw method.
 
-```ruby
+```crystal
 states = SF::RenderStates.new
 states.transform = transform
 window.draw(entity, states)
@@ -166,7 +166,7 @@ SFML entities can give you their bounding box. The bounding box is the minimal r
 
 The bounding box is very useful when implementing collision detection: Checks against a point or another axis-aligned rectangle can be done very quickly, and its area is close enough to that of the real entity to provide a good approximation.
 
-```ruby
+```crystal
 # get the bounding box of the entity
 bounding_box = entity.global_bounds
 
@@ -193,7 +193,7 @@ There's another method that returns the bounding box of the entity in its *local
 
 With the custom transforms seen previously, it becomes easy to implement a hierarchy of objects in which children are transformed relative to their parent. All you have to do is pass the combined transform from parent to children when you draw them, all the way until you reach the final drawable entities (sprites, text, shapes, vertex arrays or your own drawables).
 
-```ruby
+```crystal
 # the abstract base class
 class Node
   # ... methods to transform the node

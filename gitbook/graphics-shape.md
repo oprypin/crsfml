@@ -14,7 +14,7 @@ These properties are common to all the CrSFML graphical classes, so they are exp
 
 One of the basic properties of a shape is its color. You can change with the `fill_color=` method.
 
-```ruby
+```crystal
 shape = SF::CircleShape.new(50)
 
 # set the shape color to green
@@ -27,7 +27,7 @@ shape.fill_color = SF.color(100, 250, 50)
 
 Shapes can have an outline. You can set the thickness and color of the outline with the `outline_thickness=` and `outline_color=` methods.
 
-```ruby
+```crystal
 shape = SF::CircleShape.new(50)
 shape.fill_color = SF.color(150, 50, 250)
 
@@ -46,7 +46,7 @@ To disable the outline, set its thickness to 0. If you only want the outline, yo
 
 Shapes can also be textured, just like sprites. To specify a part of the texture to be mapped to the shape, you must use the `texture_rect=` method. It takes the texture rectangle to map to the bounding rectangle of the shape. This method doesn't offer maximum flexibility, but it is much easier to use than individually setting the texture coordinates of each point of the shape.
 
-```ruby
+```crystal
 shape = SF::CircleShape.new(50)
 
 # map a 100x100 textured rectangle to the shape
@@ -65,7 +65,7 @@ To disable texturing, call `set_texture(nil, false)`.
 
 Drawing a shape is as simple as drawing any other SFML entity:
 
-```ruby
+```crystal
 window.draw(shape)
 ```
 
@@ -77,7 +77,7 @@ Relevant example: **[tetrominos]({{book.examples2}}/tetrominos)**
 
 To draw rectangles, you can use the [RectangleShape]({{book.api}}/RectangleShape.html) class. It has a single attribute: The size of the rectangle.
 
-```ruby
+```crystal
 # define a 120x50 rectangle
 rectangle = SF::RectangleShape.new(SF.vector2(120, 50))
 
@@ -93,7 +93,7 @@ Relevant example: **[snakes]({{book.examples}}/snakes.cr)**
 
 Circles are represented by the [CircleShape]({{book.api}}/CircleShape.html) class. It has two attributes: The radius and the number of sides. The number of sides is an optional attribute, it allows you to adjust the "quality" of the circle: Circles have to be approximated by polygons with many sides (the graphics card is unable to draw a perfect circle directly), and this attribute defines how many sides your circle approximation will have. If you draw small circles, you'll probably only need a few sides. If you draw big circles, or zoom on regular circles, you'll most likely need more sides.
 
-```ruby
+```crystal
 # define a circle with radius = 200
 circle = SF::CircleShape.new(200)
 
@@ -110,7 +110,7 @@ circle.point_count = 100
 
 There's no dedicated class for regular polygons, in fact you can represent a regular polygon with any number of sides using the [CircleShape]({{book.api}}/CircleShape.html) class: Since circles are approximated by polygons with many sides, you just have to play with the number of sides to get the desired polygons. A [CircleShape]({{book.api}}/CircleShape.html) with 3 points is a triangle, with 4 points it's a square, etc.
 
-```ruby
+```crystal
 # define a triangle
 triangle = SF::CircleShape.new(80, 3)
 
@@ -131,7 +131,7 @@ The [ConvexShape]({{book.api}}/ConvexShape.html) class is the ultimate shape cla
 
 To construct a convex shape, you must first set the number of points it should have and then define the points.
 
-```ruby
+```crystal
 # create an empty shape
 convex = SF::ConvexShape.new
 
@@ -158,7 +158,7 @@ There's no shape class for lines. The reason is simple: If your line has a thick
 
 Line with thickness:
 
-```ruby
+```crystal
 line = SF::RectangleShape.new(SF.vector2(150, 5))
 line.rotate(45)
 ```
@@ -167,7 +167,7 @@ line.rotate(45)
 
 Line without thickness:
 
-```ruby
+```crystal
 line = [
   SF.vertex(SF.vector2(10, 10)),
   SF.vertex(SF.vector2(150, 150))
@@ -193,7 +193,7 @@ You must also call the `update()` method whenever any point in your shape change
 
 Here is a complete example of a custom shape class: `EllipseShape`.
 
-```ruby
+```crystal
 class EllipseShape < SF::Shape
   def initialize(@radius = SF.vector2(0, 0))
     super()
@@ -230,7 +230,7 @@ Relevant example: **[snakes]({{book.examples}}/snakes.cr)**
 
 There's no option to anti-alias a single shape. To get anti-aliased shapes (i.e. shapes with smoothed edges), you have to enable anti-aliasing globally when you create the window, with the corresponding attribute of the structure.
 
-```ruby
+```crystal
 window = SF::RenderWindow.new(
   SF.video_mode(800, 600),
   "SFML shapes",

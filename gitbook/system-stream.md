@@ -12,7 +12,7 @@ In this tutorial you'll learn how to write and use your own derived input stream
 
 The [InputStream]({{book.api}}/InputStream.html) class declares four virtual methods:
 
-```ruby
+```crystal
 abstract class InputStream
   abstract def read(buffer: Slice(UInt8)): Int
   abstract def seek(position: Int): Int
@@ -39,18 +39,18 @@ To create your own working stream, you must implement every one of these four me
 
 Using a custom stream class is straight-forward: instantiate it, and pass it to the `from_stream` class method of the object that you want to load.
 
-```ruby
+```crystal
 stream = SF::FileInputStream.open("image.png")
 texture = SF::Texture.from_stream(stream)
 ```
 
-```ruby
+```crystal
 file = File.open("music.ogg", "rb")
 stream = SF::FileInputStream.new(file)
 music = SF::Music.from_stream(stream)
 ```
 
-```ruby
+```crystal
 string = File.read("image.png")
 stream = SF::MemoryInputStream.new(string.to_slice)
 texture = SF::Texture.from_stream(stream)

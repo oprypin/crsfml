@@ -10,7 +10,7 @@ Unlike many other libraries where time is a number of milliseconds, or a decimal
 
 A [Time]({{book.api}}/Time.html) value can be constructed from different source units: seconds, milliseconds and microseconds. There is a (non-member) function to turn each of them into a [Time]({{book.api}}/Time.html):
 
-```ruby
+```crystal
 t1 = SF.microseconds(10000)
 t2 = SF.milliseconds(10)
 t3 = SF.seconds(0.0)
@@ -20,7 +20,7 @@ Note that these three times are all equal.
 
 Similarly, a [Time]({{book.api}}/Time.html) can be converted back to either seconds, milliseconds or microseconds:
 
-```ruby
+```crystal
 time = ...
 
 microseconds = time.as_microseconds
@@ -32,7 +32,7 @@ seconds = time.as_seconds
 
 [Time]({{book.api}}/Time.html) is just an amount of time, so it supports arithmetic operations such as addition, subtraction, comparison, etc. Times can also be negative.
 
-```ruby
+```crystal
 t1 = ...
 t2 = t1 * 2
 t3 = t1 + t2
@@ -50,7 +50,7 @@ Now that we've seen how to manipulate time values with CrSFML, let's see how to 
 
 CrSFML has a very simple class for measuring time: [Clock]({{book.api}}/Clock.html). It only has two methods: `elapsed_time`, to retrieve the time elapsed since the clock started, and `restart`, to restart the clock.
 
-```ruby
+```crystal
 clock = SF::Clock.new # Starts the clock
 
 sleep(2)
@@ -68,7 +68,7 @@ puts elapsed_2.as_seconds
 Note that `restart` also returns the elapsed time, so that you can avoid the slight gap that would exist if you had to call `elapsed_time` explicitly before `restart`.  
 Here is an example that uses the time elapsed at each iteration of the game loop to update the game logic:
 
-```ruby
+```crystal
 clock = SF::Clock.new
 
 while window.open?

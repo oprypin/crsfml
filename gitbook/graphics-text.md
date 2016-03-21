@@ -8,7 +8,7 @@ Before drawing any text, you need to have an available font, just like any other
 
 The most common way of loading a font is from a file on disk, which is done with the `from_file` class method.
 
-```ruby
+```crystal
 font = SF::Font.from_file("DejaVuSans.ttf")
 ```
 
@@ -26,7 +26,7 @@ That's all you need to do. Once your font is loaded, you can start drawing text.
 
 To draw text, you will be using the [Text]({{book.api}}/Text.html) class. It's very simple to use:
 
-```ruby
+```crystal
 text = SF::Text.new
 
 # select the font
@@ -60,7 +60,7 @@ If [Text]({{book.api}}/Text.html) is too limited, or if you want to do something
 
 You can retrieve the texture which contains all the pre-rendered glyphs of a certain size:
 
-```ruby
+```crystal
 texture = font.get_texture(character_size)
 ```
 
@@ -68,7 +68,7 @@ It is important to note that glyphs are added to the texture when they are reque
 
 To do something meaningful with the font texture, you must get the texture coordinates of glyphs that are contained in it:
 
-```ruby
+```crystal
 glyph = font.get_glyph(character, character_size, bold)
 ```
 
@@ -82,7 +82,7 @@ The [Glyph]({{book.api}}/Glyph.html) structure contains three members:
 
 You can also get some of the font's other metrics, such as the kerning between two characters or the line spacing (always for a certain character size):
 
-```ruby
+```crystal
 line_spacing = font.get_line_spacing(character_size)
 
 kerning = font.get_kerning(character_1, character_2, character_size)

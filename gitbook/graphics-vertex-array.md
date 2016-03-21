@@ -18,7 +18,7 @@ Now you understand why we always talk about vertex arrays, and not vertices alon
 
 Let's have a look at the [Vertex]({{book.api}}/Vertex.html) class now. It's simply a container which contains three public members and no functions besides its constructors. These constructors allow you to construct vertices from the set of attributes you care about -- you don't always need to color or texture your entity.
 
-```ruby
+```crystal
 # create a new vertex
 vertex = SF.vertex
 
@@ -34,13 +34,13 @@ vertex.tex_coords = SF.vector2f(100, 100)
 
 ... or, using the correct constructor:
 
-```ruby
+```crystal
 vertext = SF.vertex(SF.vector2(10, 50), SF::Color::Red, SF.vector2(100, 100))
 ```
 
 Now, let's define a primitive. Remember, a primitive consists of several vertices, therefore we need a vertex array. CrSFML provides a simple wrapper for this: [VertexArray]({{book.api}}/VertexArray.html). It provides the semantics of an array, and also stores the type of primitive its vertices define.
 
-```ruby
+```crystal
 # create an array of 3 vertices that define a triangle primitive
 triangle = SF::VertexArray.new(SF::Triangles, 3)
 
@@ -54,7 +54,7 @@ triangle[2] = SF.vertex(SF.vector2f(100, 100), SF::Color::Green)
 
 Your triangle is ready and you can now draw it. Drawing a vertex array can be done similar to drawing any other CrSFML entity, by using the `draw` function:
 
-```ruby
+```crystal
 window.draw(triangle)
 ```
 
@@ -64,7 +64,7 @@ You can see that the vertices' color is interpolated to fill the primitive. This
 
 Note that you don't have to use the [VertexArray]({{book.api}}/VertexArray.html) class. It's just defined for convenience, it's nothing more than an array along with a `SF::PrimitiveType`. If you need more flexibility, or a normal (or static) array, you can use your own storage. You must then use the overload of the `draw` function which takes an array of vertices and the primitive type.
 
-```ruby
+```crystal
 vertices = [
   SF.vertex(...),
   SF.vertex(...)
@@ -93,7 +93,7 @@ Primitive type | Description | Example
 
 Like other SFML entities, vertex arrays can also be textured. To do so, you'll need to manipulate the `tex_coords` attribute of the vertices. This attribute defines which pixel of the texture is mapped to the vertex.
 
-```ruby
+```crystal
 # create a quad
 quad = SF::VertexArray.new(SF::Quads, 4)
 
@@ -109,7 +109,7 @@ Texture coordinates are defined in *pixels* (just like the `texture_rect` of spr
 
 Vertex arrays are low-level entities, they only deal with geometry and do not store additional attributes like a texture. To draw a vertex array with a texture, you must pass it directly to the `draw` method, through a [RenderStates]({{book.api}}/RenderStates.html) object:
 
-```ruby
+```crystal
 vertices = ... # SF::VertexArray
 texture = ... # SF::Texture
 
@@ -125,7 +125,7 @@ window.draw(vertices, states)
 
 Transforming is similar to texturing. The transform is not stored in the vertex array, you must pass it to the `draw` method.
 
-```ruby
+```crystal
 vertices = ... # SF::VertexArray
 transform = ... # SF::Transform
 
@@ -143,7 +143,7 @@ To know more about transformations and the [Transform]({{book.api}}/Transform.ht
 
 Now that you know how to define your own textured/colored/transformed entity, wouldn't it be nice to wrap it in a CrSFML-style class? Writing a `draw` method allows you to draw instances of your class the same way as CrSFML classes:
 
-```ruby
+```crystal
 class MyEntity
   def draw(target, states)
   end
@@ -157,7 +157,7 @@ Including the [TransformableM]({{book.api}}/TransformableM.html) module automati
 
 Using these two features and a vertex array (in this example we'll also add a texture), here is what a typical CrSFML-like graphical class would look like:
 
-```ruby
+```crystal
 class MyEntity
   include SF::TransformableM
 
@@ -180,7 +180,7 @@ end
 
 You can then use this class as if it were a built-in CrSFML class:
 
-```ruby
+```crystal
 entity = MyEntity.new
 
 # you can transform it
@@ -197,7 +197,7 @@ Relevant example: **[minesweeper]({{book.examples2}}/minesweeper)**
 
 With what we've seen above, let's create a class that encapsulates a tile map. The whole map will be contained in a single vertex array, therefore it will be super fast to draw. Note that we can apply this strategy only if the whole tile set can fit into a single texture. Otherwise, we would have to use at least one vertex array per texture.
 
-```ruby
+```crystal
 class TileMap
   include SF::TransformableM
 
@@ -246,7 +246,7 @@ end
 
 And now, the application that uses it:
 
-```ruby
+```crystal
 # create the window
 window = SF::RenderWindow.new(SF.video_mode(512, 256), "Tilemap")
 
@@ -289,7 +289,7 @@ end
 
 This second example implements another common entity: The particle system. This one is very simple, with no texture and as few parameters as possible. It demonstrates the use of the `SF::Points` primitive type with a dynamic vertex array which changes every frame.
 
-```ruby
+```crystal
 class Particle
   def initialize(@velocity, @lifetime, @position)
     @total_lifetime = @lifetime
@@ -357,7 +357,7 @@ end
 
 And a little demo that uses it:
 
-```ruby
+```crystal
 # create the window
 window = SF::RenderWindow.new(SF.video_mode(800, 600), "Particles")
 

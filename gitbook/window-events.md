@@ -12,7 +12,7 @@ Before dealing with events, it is important to understand what the [Event]({{boo
 
 To be clear, here is what a typical event loop looks like:
 
-```ruby
+```crystal
 # while there are pending events...
 while event = window.poll_event
   # check the type of the event...
@@ -42,7 +42,7 @@ Typical code will just call `window.close` in reaction to this event, to actuall
 
 There's no member associated with this event in the [Event]({{book.api}}/Event.html) union.
 
-```ruby
+```crystal
 if event.type == SF::Event::Closed
   window.close
 end
@@ -58,7 +58,7 @@ You can use this event to adjust the rendering settings: the viewport if you use
 
 The member associated with this event is `event.size`, it contains the new size of the window.
 
-```ruby
+```crystal
 if event.type == SF::Event::Resized
   puts "new width: #{event.size.width}"
   puts "new height: #{event.size.height}"
@@ -73,7 +73,7 @@ This event can be used e.g. if you want to pause your game when the window is in
 
 There's no member associated with these events in the [Event]({{book.api}}/Event.html) union.
 
-```ruby
+```crystal
 if event.type == SF::Event::LostFocus
   my_game.pause
 end
@@ -93,7 +93,7 @@ This event is typically used to catch user input in a text field.
 
 The member associated with this event is `event.text`, it contains the Unicode value of the entered character (`Char`).
 
-```ruby
+```crystal
 if event.type == SF::Event::TextEntered
   if event.text.unicode.ord < 128
     puts "ASCII character typed: #{event.text.unicode}"
@@ -120,7 +120,7 @@ The other (easier) solution to produce smooth movement is to use real-time keybo
 
 The member associated with these events is `event.key`, it contains the code of the pressed/released key, as well as the current state of the modifier keys (alt, control, shift, system).
 
-```ruby
+```crystal
 if event.type == SF::Event::KeyPressed
   if event.key.code == SF::Keyboard::Escape
     puts "the escape key was pressed"
@@ -146,7 +146,7 @@ The `SF::Event::MouseWheelScrolled` event is triggered when a mouse wheel moves 
 
 The member associated with this event is `event.mouse_wheel_scroll`, it contains the number of ticks the wheel has moved, what the orientation of the wheel is and the current position of the mouse cursor.
 
-```ruby
+```crystal
 if event.type == SF::Event::MouseWheelScrolled
   if event.mouse_wheel_scroll.wheel == SF::Mouse::VerticalWheel
     puts "wheel type: vertical"
@@ -172,7 +172,7 @@ SFML supports 5 mouse buttons: left, right, middle (wheel), extra #1 and extra #
 
 The member associated with these events is `event.mouse_button`, it contains the code of the pressed/released button, as well as the current position of the mouse cursor.
 
-```ruby
+```crystal
 if event.type == SF::Event::MouseButtonPressed
   if event.mouse_button.button == SF::Mouse::Right
     puts "the right button was pressed"
@@ -190,7 +190,7 @@ This event is triggered even if the window isn't focused. However, it is trigger
 
 The member associated with this event is `event.mouse_move`, it contains the current position of the mouse cursor relative to the window.
 
-```ruby
+```crystal
 if event.type == SF::Event::MouseMoved
   puts "new mouse x: #{event.mouse_move.x}"
   puts "new mouse y: #{event.mouse_move.y}"
@@ -203,7 +203,7 @@ The `SF::Event::MouseEntered` and `SF::Event::MouseLeft` events are triggered wh
 
 There's no member associated with these events in the [Event]({{book.api}}/Event.html) union.
 
-```ruby
+```crystal
 if event.type == SF::Event::MouseEntered
   puts "the mouse cursor has entered the window"
 end
@@ -221,7 +221,7 @@ SFML supports up to 8 joysticks and 32 buttons.
 
 The member associated with these events is `event.joystick_button`, it contains the identifier of the joystick and the index of the pressed/released button.
 
-```ruby
+```crystal
 if event.type == SF::Event::JoystickButtonPressed
   puts "joystick button pressed!"
   puts "joystick id: #{event.joystick_button.joystick_id}"
@@ -239,7 +239,7 @@ SFML supports 8 joystick axes: X, Y, Z, R, U, V, POV X and POV Y. How they map t
 
 The member associated with this event is `event.joystick_move`, it contains the identifier of the joystick, the name of the axis, and its current position (in the range [-100, 100]).
 
-```ruby
+```crystal
 if event.type == SF::Event::JoystickMoved
   if event.joystick_move.axis == SF::Joystick::X
     puts "X axis moved!"
@@ -255,7 +255,7 @@ The `SF::Event::JoystickConnected` and `SF::Event::JoystickDisconnected` events 
 
 The member associated with this event is `event.joystick_connect`, it contains the identifier of the connected/disconnected joystick.
 
-```ruby
+```crystal
 if event.type == SF::Event::JoystickConnected
   puts "joystick connected: #{event.joystick_connect.joystick_id}"
 end

@@ -14,7 +14,7 @@ On top of that, [RenderWindow]({{book.api}}/RenderWindow.html) adds high-level m
 
 Here is what a typical main loop looks like with a render window:
 
-```ruby
+```crystal
 require "crsfml"
 
 # create the window
@@ -65,7 +65,7 @@ Although they share some common properties, each of these entities come with the
 
 SFML also provides a way to draw to a texture instead of directly to a window. To do so, use a [RenderTexture]({{book.api}}/RenderTexture.html) instead of a [RenderWindow]({{book.api}}/RenderWindow.html). It has the same methods for drawing, inherited from their common base: [RenderTarget]({{book.api}}/RenderTarget.html).
 
-```ruby
+```crystal
 # create a 500x500 render-texture
 render_texture = SF::RenderTexture.new(500, 500)
 
@@ -86,7 +86,7 @@ The `texture` method returns a read-only texture, which means that you can only 
 
 [RenderTexture]({{book.api}}/RenderTexture.html) also has the same methods as [RenderWindow]({{book.api}}/RenderWindow.html) for handling views and OpenGL (see the corresponding tutorials for more details). If you use OpenGL to draw to the render-texture, you can request creation of a depth buffer by using the third optional argument of the constructor.
 
-```ruby
+```crystal
 SF::RenderTexture.new(500, 500, true) # enable depth buffer
 ```
 
@@ -94,7 +94,7 @@ SF::RenderTexture.new(500, 500, true) # enable depth buffer
 
 CrSFML supports multi-threaded drawing, and you don't even have to do anything to make it work. The only thing to remember is to deactivate a window before using it in another thread. That's because a window (more precisely its OpenGL context) cannot be active in more than one thread at the same time.
 
-```ruby
+```crystal
 def render_thread(window)
   # the rendering loop
   while window.open?

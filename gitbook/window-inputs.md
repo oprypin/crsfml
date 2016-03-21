@@ -12,7 +12,7 @@ The class that provides access to the keyboard state is [Keyboard]({{book.api}}/
 
 This class method directly reads the keyboard state, ignoring the focus state of your window. This means that `is_key_pressed` may return true even if your window is inactive.
 
-```ruby
+```crystal
 if SF::Keyboard.is_key_pressed(SF::Keyboard::Left)
   # left key is pressed: move our character
   character.move(1, 0)
@@ -29,7 +29,7 @@ The class that provides access to the mouse state is [Mouse]({{book.api}}/Mouse.
 
 You can check if buttons are pressed:
 
-```ruby
+```crystal
 if SF::Mouse.is_button_pressed(SF::Mouse::Left)
   # left mouse button is pressed: shoot
   gun.fire
@@ -40,7 +40,7 @@ Mouse button codes are defined in the `SF::Mouse::Button` enum. SFML supports up
 
 You can also get and set the current position of the mouse, either relative to the desktop or to a window:
 
-```ruby
+```crystal
 # get the global mouse position (relative to the desktop)
 global_position = SF::Mouse.position
 
@@ -50,7 +50,7 @@ local_position = SF::Mouse.get_position(window) # window is a SF::Window
 
 
 
-```ruby
+```crystal
 # set the mouse position globally (relative to the desktop)
 SF::Mouse.position = SF.vector2(10, 50)
 
@@ -68,7 +68,7 @@ Joysticks are identified by their index (0 to 7, since SFML supports up to 8 joy
 
 You can check whether a joystick is connected or not:
 
-```ruby
+```crystal
 if SF::Joystick.is_connected(0)
   # joystick number 0 is connected
   ...
@@ -77,7 +77,7 @@ end
 
 You can also get the capabilities of a connected joystick:
 
-```ruby
+```crystal
 # check how many buttons joystick number 0 has
 button_count = SF::Joystick.get_button_count(0)
 
@@ -89,7 +89,7 @@ Joystick axes are defined in the `SF::Joystick::Axis` enum. Since buttons have n
 
 Finally, you can query the state of a joystick's axes and buttons as well:
 
-```ruby
+```crystal
 # is button 1 of joystick number 0 pressed?
 if SF::Joystick.is_button_pressed(0, 1)
   # yes: shoot!

@@ -16,7 +16,7 @@ In fact, the [Sound]({{book.api}}/Sound.html)/[Sound]({{book.api}}/SoundBuffer.h
 
 You can load a sound buffer from a file on disk with its `from_file` class method:
 
-```ruby
+```crystal
 SF::SoundBuffer.from_file("sound.wav")
 ```
 
@@ -26,7 +26,7 @@ SFML supports the audio file formats WAV, OGG/Vorbis and FLAC. Due to licensing 
 
 You can also load a sound buffer directly from an array of samples, in the case they originate from another source:
 
-```ruby
+```crystal
 buffer.from_samples(samples, samples.size, 2, 44100)
 ```
 
@@ -34,7 +34,7 @@ Since `from_samples` loads a raw array of samples rather than an audio file, it 
 
 Now that the audio data is loaded, we can play it with a [Sound]({{book.api}}/Sound.html) instance.
 
-```ruby
+```crystal
 # load something into the sound buffer...
 buffer = ...
 
@@ -50,7 +50,7 @@ Sounds (and music) are played in a separate thread. This means that you are free
 
 Unlike [Sound]({{book.api}}/Sound.html), [Music]({{book.api}}/Music.html) doesn't pre-load the audio data, instead it streams the data directly from the source. The initialization of music is thus more direct:
 
-```ruby
+```crystal
 music = SF::Music.from_file("music.ogg")
 
 music.play
@@ -72,7 +72,7 @@ To control playback, the following methods are available:
 
 Example:
 
-```ruby
+```crystal
 # start playback
 sound.play
 
@@ -95,19 +95,19 @@ Sound and music playback is also controlled by a few attributes which can be cha
 
 The *pitch* is a factor that changes the perceived frequency of the sound: greater than 1 plays the sound at a higher pitch, less than 1 plays the sound at a lower pitch, and 1 leaves it unchanged. Changing the pitch has a side effect: it impacts the playing speed.
 
-```ruby
+```crystal
 sound.pitch = 1.2
 ```
 
 The *volume* is... the volume. The value ranges from 0 (mute) to 100 (full volume). The default value is 100, which means that you can't make a sound louder than its initial volume.
 
-```ruby
+```crystal
 sound.volume = 50
 ```
 
 The *loop* attribute controls whether the sound/music automatically loops or not. If it loops, it will restart playing from the beginning when it's finished, again and again until you explicitly call `stop`. If not set to loop, it will stop automatically when it's finished.
 
-```ruby
+```crystal
 sound.loop = true
 ```
 
@@ -123,7 +123,7 @@ One source of error is when you try to create a huge number of sounds. SFML inte
 
 Remember that a music needs its source as long as it is played. A music file on your disk probably won't be deleted or moved while your application plays it, however things get more complicated when you play a music from a file in memory, or from a custom input stream:
 
-```ruby
+```crystal
 # we start with a music file in memory (imagine that we extracted it from a zip archive)
 file_data = ...
 

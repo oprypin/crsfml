@@ -17,7 +17,7 @@ The two problems (endianness and message boundaries) are solved by using a speci
 
 Packets have a programming interface similar to standard streams: you can insert data with the &lt;&lt; operator, and extract data with the &gt;&gt; operator.
 
-```ruby
+```crystal
 # on sending side
 x = 10u16
 s = "hello"
@@ -29,7 +29,7 @@ packet.write_string(s)
 packet.write_double(d)
 ```
 
-```ruby
+```crystal
 # on receiving side
 x = packet.read_uint16()
 s = packet.read_string()
@@ -38,7 +38,7 @@ d = packet.read_double()
 
 Unlike writing, reading from a packet can fail if you try to extract more bytes than the packet contains. If a reading operation fails, the packet error flag is set. To check the error flag of a packet, use the `can_read` method:
 
-```ruby
+```crystal
 x = packet.read_int32()
 unless packet.can_read
   # error
@@ -47,13 +47,13 @@ end
 
 Sending and receiving packets is as easy as sending/receiving an array of bytes: sockets have `send_packet` and `receive_packet` methods that directly accept a [Packet]({{book.api}}/Packet.html).
 
-```ruby
+```crystal
 # with a TCP socket
 tcp_socket.send_packet(packet)
 packet = tcp_socket.receive_packet()
 ```
 
-```ruby
+```crystal
 # with a UDP socket
 udp_socket.send_packet(packet, recipient_address, recipient_port)
 packet, sender_address, sender_port = udp_socket.receive_packet()
