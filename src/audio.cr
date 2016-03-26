@@ -36,7 +36,7 @@ module SF
     end
   end
 
-  class SoundRecorder
+  abstract class SoundRecorder
     def self.available_devices
       ptr = CSFML.sound_recorder_get_available_devices(out count)
       ptr.to_slice(count.to_i).map { |p| p ? String.new(p) : "" }
@@ -63,7 +63,7 @@ module SF
     end
   end
 
-  class SoundStream
+  abstract class SoundStream
     abstract def on_get_data(): Slice(Int16)
     abstract def on_seek(position : Time): Void
 
@@ -90,7 +90,7 @@ module SF
     end
   end
 
-  class SoundRecorder
+  abstract class SoundRecorder
     abstract def on_start(): Bool
     abstract def on_process_samples(samples : Slice(Int16)): Bool
     abstract def on_stop(): Void
