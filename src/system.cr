@@ -166,6 +166,8 @@ module SF
   end
 
   class Thread
+    @func = Pointer(Void).null
+
     def initialize(function : ->)
       @owned = true
       @func = Box.box(function)
@@ -193,6 +195,8 @@ module SF
 
     # :nodoc:
     alias FuncBox = Box({((Void*, Int64) -> Int64), ((Int64) -> Int64), (-> Int64), (-> Int64)})
+
+    @funcs = Pointer(Void).null
 
     def initialize
       @funcs = FuncBox.box({

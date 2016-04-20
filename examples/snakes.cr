@@ -24,7 +24,7 @@ struct Food
   property position
   property color
   
-  def initialize(@position, @color)
+  def initialize(@position : SF::Vector2(Int32), @color : SF::Color)
   end
   
   def draw(target, states)
@@ -36,9 +36,11 @@ struct Food
 end
 
 class Snake
-  getter body
+  @direction : SF::Vector2(Int32)
+
+  getter body : Array(SF::Vector2(Int32))
   
-  def initialize(@field, start, @color)
+  def initialize(@field : Field, start, @color : SF::Color)
     @direction = Up
     @body = [] of SF::Vector2(Int32)
     (0...3).each do |i|
@@ -122,9 +124,9 @@ class Snake
 end
 
 class Field
-  getter size
+  getter size : SF::Vector2(Int32)
   
-  def initialize(@size)
+  def initialize(@size : SF::Vector2(Int32))
     @snakes = [] of Snake
     @foods = [] of Food
   end

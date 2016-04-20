@@ -42,7 +42,7 @@ module SF
 
       # Put the pointer into the wrapper object.
       # The pointer will **not** be freed on GC.
-      def self.wrap_ptr(ptr : T)
+      def self.wrap_ptr(ptr : T) : self
         new(ptr, false)
       end
 
@@ -50,7 +50,7 @@ module SF
       # The pointer will **not** be freed on GC.
       #
       # Returns nil instead of `null` pointer.
-      def self.wrap_ptr?(ptr : T)
+      def self.wrap_ptr?(ptr : T) : self?
         ptr ? new(ptr, false) : nil
       end
 
@@ -58,7 +58,7 @@ module SF
       # The pointer will be freed on GC.
       #
       # Raises `NullResult` if the passed pointer is `null`.
-      def self.transfer_ptr(ptr : T)
+      def self.transfer_ptr(ptr : T) : self
         raise NullResult.new unless ptr
         new(ptr, true)
       end

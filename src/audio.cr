@@ -70,6 +70,8 @@ module SF
     # :nodoc:
     alias FuncBox = Box({(CSFML::SoundStreamChunk* -> CSFML::Bool), (Time -> Nil)})
 
+    @funcs = Pointer(Void).null
+
     def initialize(channel_count : Int, sample_rate : Int)
       @owned = true
       @funcs = FuncBox.box({
@@ -97,6 +99,8 @@ module SF
 
     # :nodoc:
     alias FuncBox = Box({(-> CSFML::Bool), ((Int16*, LibC::SizeT) -> CSFML::Bool), (-> Nil)})
+
+    @funcs = Pointer(Void).null
 
     def initialize()
       @owned = true

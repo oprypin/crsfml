@@ -3,6 +3,7 @@ require "crsfml/window"
 require "crsfml/graphics"
 require "crsfml/audio"
 
+$font : SF::Font
 $font = SF::Font.from_file("resources/font/Ubuntu-R.ttf")
 
 $window = SF::RenderWindow.new(

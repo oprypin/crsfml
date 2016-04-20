@@ -1,6 +1,7 @@
 require "crsfml"
 
 
+$font : SF::Font
 $font = SF::Font.from_file("resources/font/Ubuntu-R.ttf")
 
 class Logo
