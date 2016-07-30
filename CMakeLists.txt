@@ -34,6 +34,10 @@ if(NOT PROJECT_SOURCE_DIR STREQUAL PROJECT_BINARY_DIR)
             COPYONLY
         )
     endforeach()
+    file(
+        COPY "${CMAKE_CURRENT_SOURCE_DIR}/examples/libs"
+        DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/examples"
+    )
 endif()
 
 

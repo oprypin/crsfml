@@ -27,3 +27,5 @@
 /examples/_*.cr
 !/examples/resources/
 !/examples/resources/**
+!/examples/libs/
+!/examples/libs/*
