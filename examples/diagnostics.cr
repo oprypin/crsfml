@@ -151,7 +151,7 @@ def test_controller()
       end
       shape.position = SF.vector2(400, 300) + SF.vector2(delta) * {30, 30}
       text.position = shape.position
-      shape.fill_color = SF::Joystick.button_pressed?(js, btn) ? SF.color(255, 128, 0): SF.color(0, 128, 0)
+      shape.fill_color = SF::Joystick.button_pressed?(js, btn) ? SF.color(255, 128, 0) : SF.color(0, 128, 0)
 
       $window.draw shape
       $window.draw text if SF::Joystick.button_pressed?(js, btn)

@@ -9,11 +9,11 @@ bird_texture = SF::Texture.from_file("resources/bird.png")
 sz = bird_texture.size
 
 bird = SF::Sprite.new(bird_texture)
-bird.origin = SF.vector2(sz.x / 2.0f32, sz.y / 2.0f32)
-bird.scale = SF.vector2(2.5f32, 2.5f32)
-bird.position = SF.vector2(250f32, 300f32)
+bird.origin = SF.vector2(sz.x / 2.0, sz.y / 2.0)
+bird.scale = SF.vector2(2.5, 2.5)
+bird.position = SF.vector2(250, 300)
 
-speed = 0.0f32
+speed = 0.0
 
 while window.open?
   while event = window.poll_event()
@@ -24,14 +24,14 @@ while window.open?
       if event.code.escape?
         window.close()
       else
-        speed = -9.0f32
+        speed = -9.0
       end
     end
   end
 
-  speed += 0.3f32
-  bird.move SF.vector2(0.0f32, speed)
-  bird.rotation = speed*8.0f32 < 90.0f32 ? speed*8.0f32 : 90.0f32
+  speed += 0.3
+  bird.move SF.vector2(0.0, speed)
+  bird.rotation = speed*8.0 < 90.0 ? speed*8.0 : 90.0
 
   window.clear SF::Color.new(112, 197, 206)
   window.draw bird
