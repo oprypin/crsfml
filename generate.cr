@@ -859,6 +859,10 @@ class CFunction < CItem
     return if operator_name.try &.=~ %r([+\-*/%]?=|[a-zA-Z:]+|>>)
     return if operator? && type.try &.const?
     return if @docs[0]? == "\\brief Copy constructor"
+    if parameters.any? { |param| param.type.full_name =~ /^[A-Z]$/ }
+      # sf::Thread::Thread(F function, A argument)
+      return unless parameters.map(&.name) == ["function", "argument"]
+    end
 
     cr_params = [] of String
     cr_args = [] of String
@@ -956,7 +960,6 @@ class CFunction < CItem
           (cr_arg == "size" || cr_arg == "size_in_bytes")
         )
           cr_params.pop
-
           prev_param = parameters[param_i-1]
           typ = prev_param.type.full_name(Context::Crystal)
           if typ == "Void"
@@ -967,6 +970,18 @@ class CFunction < CItem
             cr_arg = "#{cr_args[-1]}.size"
           end
           cr_param = "#{prev_param.name(Context::Crystal)} : #{typ}"
+        elsif {type.full_name(Context::CPPSource), param.name} == {"A", "argument"}
+          prev_param = parameters[param_i-1]
+          c_params[-1] = "void (*#{prev_param.name(Context::CHeader)})(void*)"
+          cl_params[-1] = "#{prev_param.name(Context::CrystalLib)} : (Void*)->"
+          c_type = "void*"
+          cl_type = "Void*"
+          cpp_args[-1] = prev_param.name(Context::CHeader)
+          conversions << "@#{prev_param.name(Context::Crystal)} = Box.box(#{prev_param.name(Context::Crystal)})"
+          cr_params.pop
+          cr_param = "#{prev_param.name(Context::Crystal)} : ->"
+          cr_args[-1] = "->(#{param.name(Context::Crystal)}) { Box(->).unbox(#{param.name(Context::Crystal)}).call }"
+          cr_arg = "@#{prev_param.name(Context::Crystal)}"
         elsif type.is_a? CClass
           if return_params.includes?(param) || param.type.pointer > 0
             c_type = "void"; cl_type = "Void"
@@ -1480,7 +1495,7 @@ class CModule < CNamespace
         inherited = ($~[6]?.try &.split(',').map &.split.last) || [] of String
         cls = CClass.new(class_name, inherited, **common_info)
         unless class_name.includes?('<') || prev_line.includes?("template <")
-          (parent || self) << cls unless class_name.starts_with?("Thread")
+          (parent || self) << cls
           register_type cls
         end
         upcoming_namespace = cls
