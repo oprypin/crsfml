@@ -15,8 +15,8 @@ include_directories(${SFML_INCLUDE_DIR})
 
 
 configure_file(
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/crsfml.cr.in"
-    "${CMAKE_CURRENT_BINARY_DIR}/src/crsfml.cr"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/common.cr.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/src/common.cr"
 )
 
 if(NOT PROJECT_SOURCE_DIR STREQUAL PROJECT_BINARY_DIR)
