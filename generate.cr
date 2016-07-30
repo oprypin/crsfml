@@ -258,11 +258,6 @@ class CClass < CNamespace
   end
   def this_ptr : String
     if struct?
-#       each do |item|
-#         if item.is_a? CVariable
-#           return "@#{item.name(Context::Crystal)}"
-#         end
-#       end
       "_sf_ptr_self"
     else
       "to_unsafe"
@@ -473,15 +468,6 @@ class CClass < CNamespace
 
       inherited_modules.each do |mod|
         o<< "include #{mod}"
-#         o<< "# :nodoc:"
-#         o<< "macro _#{mod.downcase}"
-#         o<< "#{this}"
-#         o<< "end"
-#         if mod == "Drawable"
-#           o<< "def draw(target : RenderTarget, states : RenderStates)"
-#           o<< "target._draw(self, states)"
-#           o<< "end"
-#         end
       end
 
       if module? && any? { |item| item.is_a?(CFunction) && item.constructor? && item.visibility.public? } && any? { |item| item.is_a?(CVariable) }
@@ -507,16 +493,6 @@ class CClass < CNamespace
       end
     end
 
-#     inherited_modules.each do |mod|
-#       $all_types[mod].as(CClass).each do |item|
-#         if item.is_a?(CFunction)
-#           unless item.destructor? || item.constructor? || item.abstract?
-#             item.render(context, o, parent: self)
-#           end
-#         end
-#       end
-#     end
-#
     if has_module?("Drawable")
       %w[RenderTexture RenderWindow RenderTarget].each do |target|
         func = CFunction.new("draw", type: nil,
@@ -1041,13 +1017,9 @@ class CFunction < CItem
         default = default.gsub("(", ".new(")
         default = " = #{default}"
       end
-#       if cr_type == "Event*"
-#         return_event = true
-#       else
       unless return_params.includes?(param)
         cr_params << (cr_param || "#{param.name(Context::Crystal)} : #{cr_type}#{default}")
       end
-#      end
 
       unless return_params.includes?(param) && param.name == "result"
         cpp_args << cpp_arg
@@ -1128,7 +1100,6 @@ class CFunction < CItem
           return
         elsif typ.type.as(CClass).class?
           o<< "return #{reference_var}.not_nil! if #{reference_var}"
-          #return_params[0].name = "#{reference_var} = #{return_params[0].name}"
           conversions << "#{reference_var} = #{return_params[0].name}"
         end
       elsif reference_setter?
@@ -1150,7 +1121,6 @@ class CFunction < CItem
             o<< "{% end %} #}"
           end
         elsif cls.struct?
-          # o<< "_sf_init_members"
           cls.items.each do |item|
             if item.is_a?(CVariable)
               arr = "[#{item.type.array}]" if item.type.array != 1
@@ -1214,10 +1184,6 @@ class CFunction < CItem
       prefix = context.c_header? ? "#{LIB_NAME.upcase}_API" : "void"
       o<< "#{prefix} #{name(Context::CHeader, parent: parent)}(#{c_params.join(", ")})#{finish}"
       if context.cpp_source?
-        #o<< "printf(\"%s {\\n\", \"#{name(Context::CHeader)}\");"
-        #if !static? && cls
-          #o<< "printf(\"%p \", self);"
-        #end
         cpp_call = if name(context).starts_with?("get_")
           "#{cpp_obj}#{name(context)[4..-1]}"
         elsif name(context).starts_with?("set_")
@@ -1261,7 +1227,6 @@ class CFunction < CItem
           end
         end
         o<< "#{cpp_asgn}#{cpp_call};"
-        #o<< "printf(\"}\\n\");"
       end
     elsif context.crystal_lib?
       o<< "fun #{name(Context::CrystalLib, parent: parent)}(#{cl_params.join(", ")})"
@@ -1568,11 +1533,9 @@ class CModule < CNamespace
 
       when /\{$/
         stack.push upcoming_namespace
-        #puts "  "*(stack.size-1) + prev_line + " { " + (upcoming_namespace.try &.full_name).to_s
         upcoming_namespace = nil
       when /^\}/
         stack.pop
-        #puts "  "*stack.size + "} "
       end
 
       prev_line = line
@@ -1680,34 +1643,24 @@ modules.each do |mod|
 end
 
 Output.write("sizes.cpp") do |o|
-  #o<< "#include <fstream>"
   o<< "#include <iostream>"
   modules.each do |mod|
     o<< "#include <SFML/#{mod.name}.hpp>"
   end
   o<< "using namespace sf;"
   o<< "int main() {"
-  #o<< "std::ofstream f;"
-  #o<< "f.open(\"sizes.cr\", std::ofstream::out);"
   o<< "std::cout << \"lib #{LIB_NAME}\\n\""
 
   $all_types.each_value do |type|
-    if type.is_a? CClass
-      #puts "#{type.full_name} #{type.visibility} #{type.module?}"
-    end
     if type.is_a?(CClass) && type.visibility.public?
       if (inh = type.inherited_class)
         minus = " - sizeof(#{inh.full_name})"
       end
-      #if type.abstract? && type.class?
-        #plus = " + sizeof(void*)"
-      #end
       o<< "<< \"  alias #{type.full_name(Context::CHeader)}_Buffer = UInt8[\" << sizeof(#{type.full_name})#{minus} << \"]\\n\""
     end
   end
 
   o<< "<< \"end\\n\";"
-  #o<< "f.close();"
   o<< "return 0;"
   o<< "}"
 end
