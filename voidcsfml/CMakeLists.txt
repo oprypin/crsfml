@@ -4,12 +4,6 @@ cmake_minimum_required(VERSION 2.8.11)
 # project name
 project(VoidCSFML)
 
-# setup version numbers
-set(VERSION_MAJOR 2)
-set(VERSION_MINOR 3)
-set(VERSION_PATCH 0)
-
-
 add_custom_target(VoidCSFML ALL)
 
 
@@ -157,7 +151,7 @@ macro(voidcsfml_add_library module)
     if(SFML_OS_WINDOWS)
         # include the major version number in Windows shared library names (but not import library names)
         set_target_properties(${target} PROPERTIES DEBUG_POSTFIX -d)
-        set_target_properties(${target} PROPERTIES SUFFIX "-${VERSION_MAJOR}${CMAKE_SHARED_LIBRARY_SUFFIX}")
+        set_target_properties(${target} PROPERTIES SUFFIX "-${SFML_VERSION_MAJOR}${CMAKE_SHARED_LIBRARY_SUFFIX}")
     else()
         set_target_properties(${target} PROPERTIES DEBUG_POSTFIX -d)
     endif()
@@ -169,8 +163,8 @@ macro(voidcsfml_add_library module)
     endif()
 
     # set the version and soversion of the target (for compatible systems -- mostly Linuxes)
-    set_target_properties(${target} PROPERTIES SOVERSION ${VERSION_MAJOR}.${VERSION_MINOR})
-    set_target_properties(${target} PROPERTIES VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
+    set_target_properties(${target} PROPERTIES SOVERSION ${SFML_VERSION_MAJOR}.${SFML_VERSION_MINOR})
+    set_target_properties(${target} PROPERTIES VERSION ${SFML_VERSION_MAJOR}.${SFML_VERSION_MINOR})
 
     # set the target's folder (for IDEs that support it, e.g. Visual Studio)
     set_target_properties(${target} PROPERTIES FOLDER "voidcsfml")

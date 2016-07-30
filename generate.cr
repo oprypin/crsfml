@@ -1344,6 +1344,7 @@ class CModule < CNamespace
       dependencies.each do |dep|
         o<< "#include <#{LIB_NAME.downcase}/#{dep.downcase}.h>"
       end
+      o<< "#{LIB_NAME.upcase}_API sfml_#{name.downcase}_version(int*, int*, int*);"
     when .cpp_source?
       o<< "#include <#{LIB_NAME.downcase}/#{name.downcase}.h>"
       o<< "#include <SFML/#{name}.hpp>"
@@ -1374,10 +1375,24 @@ class CModule < CNamespace
 
     each &.render(context, o)
 
-    if context.cr?
+    case context
+    when .crystal?
+      o<< "#{LIB_NAME}.sfml_#{name.downcase}_version(out major, out minor, out patch)"
+      o<< %q(if SFML_VERSION != (ver = "#{major}.#{minor}.#{patch}"))
+      o<< %q(raise "This version of CrSFML was built for SFML #{SFML_VERSION}, found SFML #{ver}")
+      o<< %q(end)
       o<< "end"
-    elsif context.c_header?
+    when .crystal_lib?
+      o<< "fun sfml_#{name.downcase}_version(LibC::Int*, LibC::Int*, LibC::Int*)"
+      o<< "end"
+    when .c_header?
       o<< "#endif"
+    when .cpp_source?
+      o<< "void sfml_#{name.downcase}_version(int* major, int* minor, int* patch) {"
+      o<< "*major = SFML_VERSION_MAJOR;"
+      o<< "*minor = SFML_VERSION_MINOR;"
+      o<< "*patch = SFML_VERSION_PATCH;"
+      o<< "}"
     end
   end
 

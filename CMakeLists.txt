@@ -14,6 +14,11 @@ find_package(SFML 2 COMPONENTS system window graphics audio network REQUIRED)
 include_directories(${SFML_INCLUDE_DIR})
 
 
+configure_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/crsfml.cr.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/src/crsfml.cr"
+)
+
 if(NOT PROJECT_SOURCE_DIR STREQUAL PROJECT_BINARY_DIR)
     # Out-of-source build
 

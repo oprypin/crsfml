@@ -5,6 +5,7 @@
 !*.md
 !LICENSE
 !CMakeLists.txt
+!*.in
 
 !/generate.cr
 
