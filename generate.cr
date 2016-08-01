@@ -1179,7 +1179,15 @@ class CFunction < CItem
         o<< "as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))"
       end
 
-      o<< "#{LIB_NAME}.#{name(Context::CrystalLib, parent: parent)}(#{cr_args.join(", ")})"
+      if parent.as?(CClass).try &.struct? && @name.try &.starts_with?("set_") && cr_args.size == 2
+        if reference_setter?
+          o<< "@#{setter_name.not_nil![0...-1]} = #{reference_var}.to_unsafe"
+        else
+          o<< "@#{setter_name.not_nil![0...-1]} = #{cr_args[-1]}"
+        end
+      else
+        o<< "#{LIB_NAME}.#{name(Context::CrystalLib, parent: parent)}(#{cr_args.join(", ")})"
+      end
       if return_params[-1]?.try &.type.type.full_name == "Event"
         o<< "if result"
         o<< "{% begin %}"
@@ -1322,19 +1330,33 @@ class CVariable < CItem
   def render(context : Context, out o : Output, var_only = false)
     (parent = self.parent)
     return unless parent.is_a?(CClass)
+    var_name = name(Context::Crystal)
     if parent.struct?
       if context.crystal?
         arr = "[#{type.array}]" if type.array != 1
-        o<< "@#{name(context)} : #{type.full_name(context)}#{"*"*type.pointer}#{arr}"
+        o<< "@#{var_name} : #{type.full_name(context)}#{"*"*type.pointer}#{arr}"
       end
     end
     return if var_only
     return unless visibility.public?
-    CFunction.new("get_#{@name}",
-      type: type,
-      parameters: [] of CParameter,
-      visibility: visibility, parent: parent, docs: docs
-    ).render(context, o)
+    if parent.struct?
+      if context.crystal?
+        render_docs(o)
+        o<< "def #{var_name} : #{type.full_name(context)}#{"?" if type.pointer > 0}"
+        name = var_name
+        if type.pointer > 0
+          name = "_#{parent.as(CClass).full_name(Context::CrystalLib).not_nil!.downcase}_#{var_name}"
+        end
+        o<< "@#{name}"
+        o<< "end"
+      end
+    else
+      CFunction.new("get_#{@name}",
+        type: type,
+        parameters: [] of CParameter,
+        visibility: visibility, parent: parent, docs: docs
+      ).render(context, o)
+    end
     CFunction.new("set_#{@name}",
       type: nil,
       parameters: [CParameter.new(@name.not_nil!, type)],
