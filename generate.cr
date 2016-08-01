@@ -88,6 +88,9 @@ end
 STRUCTS.each do |name|
   register_type CClass.new(name)
 end
+cls = CClass.new("Texture")
+cls.struct = false
+register_type cls
 
 
 def find_type(name : String, parent : CNamespace?) : CTypeBase
@@ -576,7 +579,7 @@ class CClass < CNamespace
     }
   end
   def class? : Bool
-    !struct? && !module?
+    @struct == false || !struct? && !module?
   end
 
   def abstract? : Bool
