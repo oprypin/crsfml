@@ -22,7 +22,10 @@ require "digest/sha1"
 
 LIB_NAME = "VoidCSFML"
 
-SFML_PATH = (ARGV[0]? || "/usr/include") + "/SFML"
+INCLUDE_DIR = ARGV[0]? || "/usr/include"
+SFML_PATH = File.join(INCLUDE_DIR,
+  File.basename(INCLUDE_DIR) == "SFML.framework" ? "Headers" : "SFML"
+)
 
 MODULE_CLASSES = %w[NonCopyable GlResource Drawable RenderTarget AlResource]
 STRUCTS = %w[IntRect FloatRect Vector2i Vector2u Vector2f Vector3f Time Transform IpAddress]
