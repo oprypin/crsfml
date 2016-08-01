@@ -1203,6 +1203,8 @@ class CFunction < CItem
           "#{cpp_obj}#{name(context)[4..-1]}"
         elsif name(context).starts_with?("set_")
           "#{cpp_obj}#{name(context)[4..-1]} = #{cpp_args.join(", ")}"
+        elsif destructor? && parent.as?(CClass).try &.abstract?
+          "#{cpp_obj}~_#{name(context)[1..-1]}(#{cpp_args.join(", ")})"
         else
           "#{cpp_obj}#{name(context)}(#{cpp_args.join(", ")})"
         end
