@@ -1396,7 +1396,7 @@ class CModule < CNamespace
     when .crystal?
       o<< "#{LIB_NAME}.sfml_#{name.downcase}_version(out major, out minor, out patch)"
       o<< %q(if SFML_VERSION != (ver = "#{major}.#{minor}.#{patch}"))
-      o<< %q(raise "This version of CrSFML was built for SFML #{SFML_VERSION}, found SFML #{ver}")
+      o<< %q(STDERR.puts "Warning: CrSFML was built for SFML #{SFML_VERSION}, found SFML #{ver}")
       o<< %q(end)
       o<< "end"
     when .crystal_lib?
