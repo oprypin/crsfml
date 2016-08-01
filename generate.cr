@@ -1337,7 +1337,7 @@ class CVariable < CItem
     if parent.struct?
       if context.crystal?
         arr = "[#{type.array}]" if type.array != 1
-        o<< "@#{var_name} : #{type.full_name(context)}#{"*"*type.pointer}#{arr}"
+        o<< "@#{var_name} : #{type.type.is_a?(CNativeType) ? type.full_name(Context::CrystalLib) : type.full_name(context)}#{"*"*type.pointer}#{arr}"
       end
     end
     return if var_only
