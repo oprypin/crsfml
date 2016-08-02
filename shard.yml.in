@@ -1,5 +1,5 @@
 name: crsfml
-version: 2.3.10
+version: @VERSION_MAJOR@.@VERSION_MINOR@.@VERSION_PATCH@
 
 authors:
   - Oleh Prypin <oleh@pryp.in>

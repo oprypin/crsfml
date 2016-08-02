@@ -14,28 +14,23 @@ find_package(SFML 2 COMPONENTS system window graphics audio network REQUIRED)
 include_directories(${SFML_INCLUDE_DIR})
 
 
-configure_file(
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/common.cr.in"
-    "${CMAKE_CURRENT_BINARY_DIR}/src/common.cr"
-)
+# Copy relevant files from source directory to build directory
 
-if(NOT PROJECT_SOURCE_DIR STREQUAL PROJECT_BINARY_DIR)
+if(NOT CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_CURRENT_BINARY_DIR)
     # Out-of-source build
-
-    # Copy relevant files from source directory to build directory
     file(
         GLOB_RECURSE source_files
-        RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
-        "src/*.cr" "shard.yml"
+        RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
+        "src/*.cr"
         "voidcsfml/include/*.h" "voidcsfml/src/*.cpp"
         "examples/*.cr" "examples/resources/*"
-        "*/CMakeLists.txt"
-        "*/*.md" "*/LICENSE"
     )
-    foreach(path ${source_files})
+    foreach(path ${source_files}
+        LICENSE README.md
+        voidcsfml/LICENSE voidcsfml/README.md voidcsfml/CMakeLists.txt
+    )
         configure_file(
-            "${CMAKE_CURRENT_SOURCE_DIR}/${path}"
-            "${CMAKE_CURRENT_BINARY_DIR}/${path}"
+            "${path}" "${path}"
             COPYONLY
         )
     endforeach()
@@ -44,6 +39,20 @@ if(NOT PROJECT_SOURCE_DIR STREQUAL PROJECT_BINARY_DIR)
         DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/examples"
     )
 endif()
+
+file(
+    GLOB_RECURSE source_files_in
+    RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
+    "*.in"
+)
+foreach(path_in ${source_files_in})
+    string(REGEX REPLACE "\\.in$" "" path "${path_in}")
+    configure_file(
+        "${path_in}" "${path}"
+        @ONLY
+    )
+endforeach()
+
 
 
 # Prepare lists of files to be generated
