@@ -3,6 +3,10 @@ require "./sizes"
 module SF
   VERSION = "@VERSION_MAJOR@.@VERSION_MINOR@.@VERSION_PATCH@"
   SFML_VERSION = "@SFML_VERSION_MAJOR@.@SFML_VERSION_MINOR@.@SFML_VERSION_PATCH@"
+
+  # Raised in shorthand class methods if initialization or resource loading fails
+  class InitError < Exception
+  end
 end
 
 # :nodoc:

@@ -1289,13 +1289,17 @@ class CFunction < CItem
       if name(Context::Crystal) =~ /^([a-z]+_(from_.+)|create)$/
         full = $~[1]
         short = $~[2]? || "new"
-        cls_name = cls.not_nil!.name(context)
-        o<< "# Shorthand for `x = #{cls_name}.new; x.#{full}(...); x`"
+        cls_name = cls.not_nil!.name(context).not_nil!
+        o<< "# Shorthand for `#{cls_name.underscore} = #{cls_name}.new; #{cls_name.underscore}.#{full}(...); #{cls_name.underscore}`"
+        if self.type.try &.type.full_name == "bool"
+          o<< "#"
+          o<< "# Raises `InitError` on failure"
+        end
         o<< "def self.#{short}(*args, **kwargs) : self"
         o<< "obj = new"
         if self.type.try &.type.full_name == "bool"
           o<< "if !obj.#{full}(*args, **kwargs)"
-          o<< "raise \"#{cls_name}.#{full} failed\""
+          o<< "raise InitError.new(\"#{cls_name}.#{full} failed\")"
           o<< "end"
         else
           o<< "obj.#{full}(*args, **kwargs)"
