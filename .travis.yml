@@ -1,0 +1,22 @@
+language: crystal
+before_install:
+  - sudo apt-get install -qy build-essential cmake git libx11-dev freeglut3-dev libxcb-image0-dev libudev-dev libjpeg8-dev libopenal-dev libsndfile1-dev libfreetype6-dev
+  - |
+    git clone https://github.com/SFML/SFML
+    cd SFML
+    git checkout "$(git describe --tags "$(git rev-list --tags --max-count=1)")"
+    cmake . && make
+    sudo make install
+    cd ..
+before_script:
+  - mkdir build && cd build
+script:
+  - cmake -DCMAKE_MODULE_PATH="/usr/local/share/SFML/cmake/Modules" .. && make
+  - crystal doc
+after_success:
+  - test "$TRAVIS_BRANCH" = dev && test "$TRAVIS_PULL_REQUEST" = false && ../deploy.sh "https://$GH_TOKEN@github.com/$TRAVIS_REPO_SLUG"
+env:
+  global:
+    - secure: "D8DMtCuFg3E5APlDk4p0GC/KF8137e+7WKOZb2U6PgymP94recEUDWkM2YPaaJvSLFxVwSrHzHPV4gzLGxDby9K8kq+DpZ9CdU9OO3r3+fcNz5Cb+jhFZMMziDVs8SjKvEgl7Cxm0E3VKfCRC+9qNameo3M7GXaIciXHfFXguUM="
+sudo: required
+dist: trusty

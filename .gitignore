@@ -9,6 +9,7 @@
 
 !/generate.cr
 !/logo.png
+!/deploy.sh
 
 !/voidcsfml/
 !/voidcsfml/include/
