@@ -8,6 +8,7 @@
 !*.in
 
 !/generate.cr
+!/logo.png
 
 !/voidcsfml/
 !/voidcsfml/include/

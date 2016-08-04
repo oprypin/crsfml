@@ -28,6 +28,7 @@ if(NOT CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_CURRENT_BINARY_DIR)
     foreach(path ${source_files}
         LICENSE README.md
         voidcsfml/LICENSE voidcsfml/README.md voidcsfml/CMakeLists.txt
+        examples/README.md
     )
         configure_file(
             "${path}" "${path}"
