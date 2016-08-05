@@ -783,7 +783,7 @@ class CFunction < CItem
     name
   end
 
-  private def getter_name : String?
+  def getter_name : String?
     name = @name.not_nil!.underscore
     case name
     when .starts_with? "get_"
@@ -795,7 +795,7 @@ class CFunction < CItem
     end
   end
 
-  private def setter_name : String?
+  def setter_name : String?
     return nil unless parameters.size == 1
     name = @name.not_nil!.underscore
     if name.starts_with? "set_"
@@ -1148,6 +1148,16 @@ class CFunction < CItem
             o<< "{% if !flag?(:release) %}"
             o<< "raise \"Unexpected memory layout\" if as(Void*) + 4 != to_unsafe"
             o<< "{% end %} #}"
+          end
+          cls.each do |func|
+            next unless func.is_a?(CFunction) && !func.visibility.private?
+            if func.reference_setter?
+              parameters.each do |param|
+                if func.name(Context::CPPSource).downcase == "set" + param.name(Context::CPPSource).downcase
+                  o<< "#{func.reference_var} = #{param.name(Context::Crystal)}"
+                end
+              end
+            end
           end
         elsif cls.struct?
           cls.items.each do |item|
