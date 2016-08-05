@@ -68,8 +68,9 @@ module SF
       x == ox && y == oy
     end
 
-    def to_unsafe
-      _sf_ptr_self
+    # :nodoc:
+    def to_unsafe()
+      pointerof(@x).as(Void*)
     end
   end
   # Shorthand for `Vector2.new`

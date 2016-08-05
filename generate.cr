@@ -250,8 +250,7 @@ class CClass < CNamespace
 
   def this : String
     if struct?
-      raise "Impossible"
-      #"_sf_ptr_self" #(pointerof(@#{cls.find(&.is_a? CVariable).not_nil!.name(Context::Crystal)}) as #{cls.full_name(Context::Crystal)}*)
+      "@#{find(&.is_a? CVariable).not_nil!.name(Context::Crystal)}"
     elsif module?
       "_#{full_name(Context::CrystalLib).downcase}"
     else
@@ -260,13 +259,6 @@ class CClass < CNamespace
         inh = inh.inherited_class.not_nil!
       end
       "@_#{inh.full_name(Context::CrystalLib).downcase}"
-    end
-  end
-  def this_ptr : String
-    if struct?
-      "_sf_ptr_self"
-    else
-      "to_unsafe"
     end
   end
 
@@ -489,12 +481,9 @@ class CClass < CNamespace
         o<< "end"
       end
       unless module?
+        o<< "# :nodoc:"
         o<< "def to_unsafe()"
-        if struct?
-          o<< this_ptr
-        else
-          o<< "#{this}.to_unsafe.as(Void*)"
-        end
+        o<< "pointerof(#{this}).as(Void*)"
         o<< "end"
       end
     end
@@ -879,7 +868,7 @@ class CFunction < CItem
     if !static? && cls
       c_params << "void* self"
       cl_params << "self : Void*"
-      cr_args << cls.this_ptr
+      cr_args << "to_unsafe"
     end
     if cls
       if destructor? && cls.module?
@@ -1087,7 +1076,7 @@ class CFunction < CItem
       if operator? && !cls
         if (cls = parameters[0].type.type.as? CClass)
           cr_params.delete_at 0
-          cr_args[0] = cls.this_ptr
+          cr_args[0] = "to_unsafe"
         end
       end
 

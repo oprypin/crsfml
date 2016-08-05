@@ -31,8 +31,9 @@ module SF
       Rect.new(x1, y1, x2-x1, y2-y1) if x1 < x2 && y1 < y2
     end
 
-    def to_unsafe
-      _sf_ptr_self
+    # :nodoc:
+    def to_unsafe()
+      pointerof(@left).as(Void*)
     end
   end
 
