@@ -53,11 +53,11 @@ Audio streams are always played in a separate thread, therefore it is important 
 
 `on_seek` is called directly by the `playing_offset=` function, so it is always executed in the caller thread. However, the `on_get_data` function will be called repeatedly as long as the stream is being played, in a separate thread created by SFML. If your stream uses data that may be accessed *concurrently* in both the caller thread and in the playing thread, you have to protect it (with a mutex for example) in order to avoid concurrent access, which may cause undefined behavior -- corrupt data being played, crashes, etc.
 
-If you're not familiar enough with threading, you can refer to the [corresponding tutorial](system-thread.md "Threading tutorial") for more information.
+If you're not familiar enough with threading, you can refer to the [corresponding tutorial](../system/thread.md "Threading tutorial") for more information.
 
 ## Using your audio stream
 
-Now that you have defined your own audio stream class, let's see how to use it. In fact, things are very similar to what's shown in the [tutorial about SF::Music](audio-sounds.md "Playing sounds and musics"). You can control playback with the `play`, `pause`, `stop` and `playing_offset=` methods. You can also play with the sound's properties, such as the volume or the pitch. You can refer to the API documentation or to the other audio tutorials for more details.
+Now that you have defined your own audio stream class, let's see how to use it. In fact, things are very similar to what's shown in the [tutorial about SF::Music](sounds.md "Playing sounds and musics"). You can control playback with the `play`, `pause`, `stop` and `playing_offset=` methods. You can also play with the sound's properties, such as the volume or the pitch. You can refer to the API documentation or to the other audio tutorials for more details.
 
 ## A simple example
 

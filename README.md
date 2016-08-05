@@ -4,4 +4,4 @@
 
 This is a work in progress.
 
-[Contribute](https://github.com/BlaXpirit/crsfml/tree/tutorials/gitbook) to these tutorials on GitHub.
+[Contribute](https://github.com/BlaXpirit/crsfml/tree/tutorials) to these tutorials on GitHub.

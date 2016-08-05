@@ -52,7 +52,7 @@ This constructor accepts a third optional argument: a style, which allows you to
     </tr>
 </table>
 
-There's also a fourth optional argument, which defines OpenGL specific options which are explained in the [dedicated OpenGL tutorial](window-opengl.md "OpenGL tutorial").
+There's also a fourth optional argument, which defines OpenGL specific options which are explained in the [dedicated OpenGL tutorial](opengl.md "OpenGL tutorial").
 
 ## Bringing the window to life
 
@@ -91,7 +91,7 @@ After the window has been closed, the main loop exits and the program terminates
 
 At this point, you probably noticed that we haven't talked about *drawing something* to the window yet. As stated in the introduction, this is not the job of the sfml-window module, and you'll have to jump to the sfml-graphics tutorials if you want to draw things such as sprites, text or shapes.
 
-To draw stuff, you can also use OpenGL directly and totally ignore the sfml-graphics module. [Window]({{book.api}}/Window.html) internally creates an OpenGL context and is ready to accept your OpenGL calls. You can learn more about that in the [corresponding tutorial](window-opengl.md "OpenGL tutorial").
+To draw stuff, you can also use OpenGL directly and totally ignore the sfml-graphics module. [Window]({{book.api}}/Window.html) internally creates an OpenGL context and is ready to accept your OpenGL calls. You can learn more about that in the [corresponding tutorial](opengl.md "OpenGL tutorial").
 
 Don't expect to see anything interesting in this window: you may see a uniform color (black or white), or the last contents of the previous application that used OpenGL, or... something else.
 

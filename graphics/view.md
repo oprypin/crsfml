@@ -22,7 +22,7 @@ view2 = SF::View.new(SF.vector2(350, 300), SF.vector2(300, 200))
 
 These two definitions are equivalent: Both views will show the same area of the 2D world, a 300x200 rectangle *centered* on the point (350, 300).
 
-![](images/graphics-view-initial.png)
+![](images/view-initial.png)
 
 If you don't want to define the view upon construction or want to modify it later, you can use the equivalent setters:
 
@@ -47,7 +47,7 @@ view.center = SF.vector2(200, 200)
 view.move(SF.vector2(100, 100))
 ```
 
-![](images/graphics-view-translated.png)
+![](images/view-translated.png)
 
 ### Rotating the view
 
@@ -61,7 +61,7 @@ view.rotation = 20
 view.rotate(5)
 ```
 
-![](images/graphics-view-rotated.png)
+![](images/view-rotated.png)
 
 ### Zooming (scaling) the view
 
@@ -75,7 +75,7 @@ view.size = SF.vector2(1200, 800)
 view.zoom(0.5)
 ```
 
-![](images/graphics-view-scaled.png)
+![](images/view-scaled.png)
 
 ## Defining how the view is viewed
 
@@ -90,7 +90,7 @@ To set the viewport of a view, you can use the `viewport=` method.
 view.viewport = SF.float_rect(0.25, 0.25, 0.5, 0.5)
 ```
 
-![](images/graphics-view-viewport.png)
+![](images/view-viewport.png)
 
 You might have noticed something very important: The viewport is not defined in pixels, but instead as a ratio of the window size. This is more convenient: It allows you to not have to track resize events in order to update the size of the viewport every time the size of the window changes. It is also more intuitive: You would probably define your viewport as a fraction of the entire window area anyway, not as a fixed-size rectangle.
 
@@ -104,7 +104,7 @@ player1_view.viewport = SF.float_rect(0, 0, 0.5, 1)
 player2_view.viewport = SF.float_rect(0.5, 0, 0.5, 1)
 ```
 
-![](images/graphics-view-split-screen.png)
+![](images/view-split-screen.png)
 
 ... or a mini-map:
 
@@ -116,7 +116,7 @@ game_view.viewport = SF.float_rect(0, 0, 1, 1)
 minimap_view.viewport = SF.float_rect(0.75, 0, 0.25, 0.25)
 ```
 
-![](images/graphics-view-minimap.png)
+![](images/view-minimap.png)
 
 ## Using a view
 

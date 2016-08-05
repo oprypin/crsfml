@@ -56,10 +56,10 @@ SFML provides four kinds of drawable entities: three of them are ready to be use
 
 Although they share some common properties, each of these entities come with their own nuances and are therefore explained in dedicated tutorials:
 
-* [Sprite tutorial](graphics-sprite.md "Learn how to create and draw sprites")
-* [Text tutorial](graphics-text.md "Learn how to create and draw text")
-* [Shape tutorial](graphics-shape.md "Learn how to create and draw shapes")
-* [Vertex array tutorial](graphics-vertex-array.md "Learn how to create and draw vertex arrays")
+* [Sprite tutorial](sprite.md "Learn how to create and draw sprites")
+* [Text tutorial](text.md "Learn how to create and draw text")
+* [Shape tutorial](shape.md "Learn how to create and draw shapes")
+* [Vertex array tutorial](vertex-array.md "Learn how to create and draw vertex arrays")
 
 ## Off-screen drawing
 
@@ -123,4 +123,4 @@ end
 
 As you can see, you don't even need to bother with the activation of the window in the rendering thread, CrSFML does it automatically for you whenever it needs to be done.
 
-Remember to always create the window and handle its events in the main thread for maximum portability. This is explained in the [window tutorial](window-window.md "Window tutorial").
+Remember to always create the window and handle its events in the main thread for maximum portability. This is explained in the [window tutorial](../window/window.md "Window tutorial").

@@ -9,7 +9,7 @@ git clone "$1" -b gh-pages gh-pages/
 cd gh-pages
 
 rm -rf tutorials
-mv ../gitbook/_book tutorials
+mv ../_book tutorials
 
 git config user.name 'Robot'
 git config user.email '<>'

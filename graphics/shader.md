@@ -72,7 +72,7 @@ shader = SF::Shader.from_memory(fragment_shader, SF::Shader::Fragment)
 shader = SF::Shader.from_memory(vertex_shader, fragment_shader)
 ```
 
-And finally, like all other SFML resources, shaders can also be loaded from a [custom input stream](system-stream.md "Input streams tutorial") with the `from_stream` class method.
+And finally, like all other SFML resources, shaders can also be loaded from a [custom input stream](../system/stream.md "Input streams tutorial") with the `from_stream` class method.
 
 If loading fails, don't forget to check the standard error output (the console) to see a detailed report from the GLSL compiler.
 

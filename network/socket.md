@@ -95,7 +95,7 @@ UDP sockets that send data don't need to do anything before sending.
 
 ## Sending and receiving data
 
-Sending and receiving data is done in the same way for both types of sockets. The only difference is that UDP has two extra arguments: the address and port of the sender/recipient. There are two different methods for each operation: the low-level one, that sends/receives a raw array of bytes, and the higher-level one, which uses the [Packet]({{book.api}}/Packet.html) class. See the [tutorial on packets](network-packet.md "Tutorial on packets") for more details about this class. In this tutorial, we'll only explain the low-level methods.
+Sending and receiving data is done in the same way for both types of sockets. The only difference is that UDP has two extra arguments: the address and port of the sender/recipient. There are two different methods for each operation: the low-level one, that sends/receives a raw array of bytes, and the higher-level one, which uses the [Packet]({{book.api}}/Packet.html) class. See the [tutorial on packets](packet.md "Tutorial on packets") for more details about this class. In this tutorial, we'll only explain the low-level methods.
 
 To send data, you must call the `send` method with a pointer to the data that you want to send, and the number of bytes to send.
 
@@ -115,7 +115,7 @@ unless socket.send(data, recipient, port) == SF::Socket::Done
 end
 ```
 
-The `send` methods take a data slice, so you can pass the address of anything. However, it is generally a bad idea to send something other than an array of bytes because native types with a size larger than 1 byte are not guaranteed to be the same on every machine: Types such as int or long may have a different size, and/or a different endianness. Therefore, such types cannot be exchanged reliably across different systems. This problem is explained (and solved) in the [tutorial on packets](network-packet.md "Tutorial on packets").
+The `send` methods take a data slice, so you can pass the address of anything. However, it is generally a bad idea to send something other than an array of bytes because native types with a size larger than 1 byte are not guaranteed to be the same on every machine: Types such as int or long may have a different size, and/or a different endianness. Therefore, such types cannot be exchanged reliably across different systems. This problem is explained (and solved) in the [tutorial on packets](packet.md "Tutorial on packets").
 
 With UDP you can broadcast a message to an entire sub-network in a single call: to do so you can use the special address `SF::IpAddress::Broadcast`.
 
@@ -146,7 +146,7 @@ It is important to keep in mind that if the socket is in blocking mode, `receive
 The first two arguments specify the buffer to which the received bytes are to be copied, along with its maximum size. The third argument is a variable that will contain the actual number of bytes received after the method returns.  
 With UDP sockets, the last two arguments will contain the address and port of the sender after the method returns. They can be used later if you want to send a response.
 
-These methods are low-level, and you should use them only if you have a very good reason to do so. A more robust and flexible approach involves using [packets](network-packet.md "Tutorial on packets").
+These methods are low-level, and you should use them only if you have a very good reason to do so. A more robust and flexible approach involves using [packets](packet.md "Tutorial on packets").
 
 ## Blocking on a group of sockets
 

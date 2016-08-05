@@ -20,7 +20,7 @@ You can load a sound buffer from a file on disk with its `from_file` class metho
 SF::SoundBuffer.from_file("sound.wav")
 ```
 
-As with everything else, you can also load an audio file from memory (`from_memory`) or from a [custom input stream](system-stream.md "Input streams tutorial") (`from_stream`).
+As with everything else, you can also load an audio file from memory (`from_memory`) or from a [custom input stream](../system/stream.md "Input streams tutorial") (`from_stream`).
 
 SFML supports the audio file formats WAV, OGG/Vorbis and FLAC. Due to licensing issues MP3 is **not** supported.
 
@@ -111,7 +111,7 @@ The *loop* attribute controls whether the sound/music automatically loops or not
 sound.loop = true
 ```
 
-More attributes are available, but they are related to spatialization and are explained in the [corresponding tutorial](audio-spatialization.md "Spatialization tutorial").
+More attributes are available, but they are related to spatialization and are explained in the [corresponding tutorial](spatialization.md "Spatialization tutorial").
 
 ## Common mistakes
 

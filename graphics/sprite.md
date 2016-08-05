@@ -10,7 +10,7 @@ A texture is an image. But we call it "texture" because it has a very specific r
 
 A sprite is nothing more than a textured rectangle.
 
-![](images/graphics-sprites-definition.png)
+![](images/sprites-definition.png)
 
 Ok, that was short but if you really don't understand what sprites and textures are, then you'll find a much better description on Wikipedia.
 
@@ -26,7 +26,7 @@ texture = SF::Texture.from_file("image.png")
 
 The `from_file` class method can sometimes fail with no obvious reason. First, check the error message that SFML prints to the standard output (check the console). If the message is unable to open file, make sure that the *working directory* (which is the directory that any file path will be interpreted relative to) is what you think it is.
 
-You can also load an image file from memory (`from_memory`), from a [custom input stream](system-stream.md "Input streams tutorial") (`from_stream`), or from an image that has already been loaded (`from_image`). The latter loads the texture from an [Image]({{book.api}}/Image.html), which is a utility class that helps store and manipulate image data (modify pixels, create transparency channel, etc.). The pixels of an [Image]({{book.api}}/Image.html) stay in system memory, which ensures that operations on them will be as fast as possible, in contrast to the pixels of a texture which reside in video memory and are therefore slow to retrieve or update but very fast to draw.
+You can also load an image file from memory (`from_memory`), from a [custom input stream](../system/stream.md "Input streams tutorial") (`from_stream`), or from an image that has already been loaded (`from_image`). The latter loads the texture from an [Image]({{book.api}}/Image.html), which is a utility class that helps store and manipulate image data (modify pixels, create transparency channel, etc.). The pixels of an [Image]({{book.api}}/Image.html) stay in system memory, which ensures that operations on them will be as fast as possible, in contrast to the pixels of a texture which reside in video memory and are therefore slow to retrieve or update but very fast to draw.
 
 SFML supports most common image file formats. The full list is available in the API documentation.
 
@@ -71,7 +71,7 @@ The first property allows one to smooth the texture. Smoothing a texture makes p
 texture.smooth = true
 ```
 
-![](images/graphics-sprites-smooth.png)
+![](images/sprites-smooth.png)
 
 Since smoothing samples from adjacent pixels in the texture as well, it can lead to the unwanted side effect of factoring in pixels outside the selected texture area. This can happen when your sprite is located at non-integer coordinates.
 
@@ -81,7 +81,7 @@ The second property allows a texture to be repeatedly tiled within a single spri
 texture.repeated = true
 ```
 
-![](images/graphics-sprites-repeated.png)
+![](images/sprites-repeated.png)
 
 This only works if your sprite is configured to show a rectangle which is larger than the texture, otherwise this property has no effect.
 
@@ -115,7 +115,7 @@ sprite.color = SF.color(255, 255, 255, 128) # half transparent
 
 These sprites all use the same texture, but have a different color:
 
-![](images/graphics-sprites-color.png)
+![](images/sprites-color.png)
 
 Sprites can also be transformed: They have a position, an orientation and a scale.
 
@@ -139,13 +139,13 @@ By default, the origin for these three transformations is the top-left corner of
 sprite.origin = SF.vector2(25, 25)
 ```
 
-Since transformation methods are common to all CrSFML entities, they are explained in a separate tutorial: [Transforming entities](graphics-transform.md "'Transforming entities' tutorial").
+Since transformation methods are common to all CrSFML entities, they are explained in a separate tutorial: [Transforming entities](transform.md "'Transforming entities' tutorial").
 
 ## The importance of using as few textures as possible
 
 Using as few textures as possible is a good strategy, and the reason is simple: Changing the current texture is an expensive operation for the graphics card. Drawing many sprites that use the same texture will yield the best performance.
 
-Additionally, using a single texture allows you to group static geometry into a single entity (you can only use one texture per `draw` call), which will be much faster to draw than a set of many entities. Batching static geometry involves other classes and is therefore beyond the scope of this tutorial, for further details see the [vertex array](graphics-vertex-array.md "Vertex array tutorial") tutorial.
+Additionally, using a single texture allows you to group static geometry into a single entity (you can only use one texture per `draw` call), which will be much faster to draw than a set of many entities. Batching static geometry involves other classes and is therefore beyond the scope of this tutorial, for further details see the [vertex array](vertex-array.md "Vertex array tutorial") tutorial.
 
 Try to keep this in mind when you create your animation sheets or your tilesets: Use as little textures as possible.
 

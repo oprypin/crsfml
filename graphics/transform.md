@@ -25,7 +25,7 @@ entity.move(SF.vector2(5, 5))
 position = entity.position # = (15, 55)
 ```
 
-![A translated entity](images/graphics-transform-position.png)
+![A translated entity](images/transform-position.png)
 
 By default, entities are positioned relative to their top-left corner. We'll see how to change that with the 'origin' property later.
 
@@ -46,7 +46,7 @@ entity.rotate(10)
 rotation = entity.rotation # = 55
 ```
 
-![A rotated entity](images/graphics-transform-rotation.png)
+![A rotated entity](images/transform-rotation.png)
 
 Note that SFML always returns an angle in range [0, 360) when you call `rotation`.
 
@@ -69,7 +69,7 @@ entity.scale(SF.vector2(0.5, 0.5))
 scale = entity.scale # = (2, 0.8)
 ```
 
-![A scaled entity](images/graphics-transform-scale.png)
+![A scaled entity](images/transform-scale.png)
 
 ### Origin
 
@@ -162,7 +162,7 @@ After transforming entities and drawing them, you might want to perform some com
 
 SFML entities can give you their bounding box. The bounding box is the minimal rectangle that contains all points belonging to the entity, with sides aligned to the X and Y axes.
 
-![Bounding box of entities](images/graphics-transform-bounds.png)
+![Bounding box of entities](images/transform-bounds.png)
 
 The bounding box is very useful when implementing collision detection: Checks against a point or another axis-aligned rectangle can be done very quickly, and its area is close enough to that of the real entity to provide a good approximation.
 

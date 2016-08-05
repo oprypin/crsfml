@@ -9,4 +9,4 @@ if ! command -v gitbook; then
 fi
 
 gitbook install gitbook
-gitbook build gitbook
+gitbook build .

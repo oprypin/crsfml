@@ -148,6 +148,6 @@ Since recording is done in a separate thread, it is important to know what exact
 
 If your recorder uses data that may be accessed *concurrently* in both the caller thread and in the recording thread, you have to protect it (with a mutex for example) in order to avoid concurrent access, which may cause undefined behavior -- corrupt data being recorded, crashes, etc.
 
-If you're not familiar enough with threading, you can refer to the [corresponding tutorial](system-thread.md "Threading tutorial") for more information.
+If you're not familiar enough with threading, you can refer to the [corresponding tutorial](../system/thread.md "Threading tutorial") for more information.
 
 -->
