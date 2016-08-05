@@ -1032,7 +1032,7 @@ class CFunction < CItem
       end
 
       if default = param.default
-        default = default.gsub("(", ".new(")
+        default = default.gsub("(", ".new(").gsub(/\bVector2.\b/, "Vector2")
         default = " = #{default}"
       end
       unless return_params.includes?(param)
