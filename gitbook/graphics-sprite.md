@@ -151,7 +151,7 @@ Try to keep this in mind when you create your animation sheets or your tilesets:
 
 ## Using SF::Texture with OpenGL code
 
-If you're using OpenGL rather than the graphics entities of CrSFML, you can still use [Texture]({{book.api}}/Texture.html) as a wrapper around an OpenGL texture object and use it along with the rest if your OpenGL code.
+If you're using OpenGL rather than the graphics entities of CrSFML, you can still use [Texture]({{book.api}}/Texture.html) as a wrapper around an OpenGL texture object and use it along with the rest of your OpenGL code.
 
 To bind a [Texture]({{book.api}}/Texture.html) for drawing (basically `glBindTexture`), you call the `bind` class method:
 

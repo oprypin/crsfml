@@ -59,6 +59,33 @@ do_something(samples, count)
 
 If you want to use the captured audio data after the recorder is destroyed or restarted, don't forget to make a *copy* of the buffer.
 
+## Selecting the input device
+
+If you have multiple sound input devices connected to your computer (for example a microphone, a sound interface (external soundcard) or a webcam microphone) you can specify the device that is used for recording. A sound input device is identified by its name. An `Array(String)` containing the names of all connected devices is available through the class method `SoundBufferRecorder.available_devices`. You can then select a device from the list for recording, by passing the chosen device name to the `device=` method. It is even possible to change the device on the fly (i.e. while recording).
+
+The name of the currently used device can be obtained by calling `device`. If you don't choose a device yourself, the default device will be used. Its name can be obtained through the `default_device` class method.
+
+Here is a small example of how to set the input device:
+
+```crystal
+# get the available sound input device names
+available_devices = SF::SoundRecorder.available_devices
+
+# choose a device
+input_device = available_devices[0]
+
+# create the recorder
+recorder = SF::SoundBufferRecorder.new
+
+# set the device
+unless recorder.device = input_device
+    # error: device selection failed
+    ...
+end
+
+# use recorder as usual
+```
+
 <!--
 
 ## Custom recording

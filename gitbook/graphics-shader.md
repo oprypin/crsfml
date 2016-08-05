@@ -121,7 +121,7 @@ You won't learn how to write GLSL shaders here, but it is essential that you kno
 
 ### Vertex shader
 
-SFML has a fixed vertex format which is described by the [Vertex]({{book.api}}/Vertex.html) structure. A SFML vertex contains a 2D position, a color, and 2D texture coordinates. This is the exact input that you will get in the vertex shader, stored in the built-in `gl_Vertex`, `gl_MultiTexCoord0` and `gl_Color` variables (you don't need to declare them).
+SFML has a fixed vertex format which is described by the [Vertex]({{book.api}}/Vertex.html) structure. A SFML vertex contains a 2D position, a color, and 2D texture coordinates. This is the exact input that you will get in the vertex shader, stored in the built-in `gl_Vertex`, `gl_Color` and `gl_MultiTexCoord0` variables (you don't need to declare them).
 
 ```glsl
 void main()
