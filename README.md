@@ -64,7 +64,7 @@ This section defines two sets of step-by-step instructions to install *CrSFML* b
         - Easier installation.
     - Disadvantages:
         - Tied to a particular version of SFML.
-        - Although sizes of SFML objects seem to always be of equal or smaller sizes than on Linux 64-bit (where the sources are generated), this is not completely guaranteed. So, in case of a mismatch, data may be written outside of the memory region allocated for an object.
+        - Although sizes of SFML objects seem to always be of equal or smaller sizes than on Linux 64-bit with latest GCC (where the sources are generated), this is not completely guaranteed. So, in case of a mismatch, data may be written outside of the memory region allocated for an object.
 
 ### Install SFML
 

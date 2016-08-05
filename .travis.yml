@@ -13,10 +13,5 @@ before_script:
 script:
   - cmake -DCMAKE_MODULE_PATH="/usr/local/share/SFML/cmake/Modules" .. && make
   - crystal doc
-after_success:
-  - test "$TRAVIS_BRANCH" = dev && test "$TRAVIS_PULL_REQUEST" = false && ../deploy.sh "https://$GH_TOKEN@github.com/$TRAVIS_REPO_SLUG"
-env:
-  global:
-    - secure: "D8DMtCuFg3E5APlDk4p0GC/KF8137e+7WKOZb2U6PgymP94recEUDWkM2YPaaJvSLFxVwSrHzHPV4gzLGxDby9K8kq+DpZ9CdU9OO3r3+fcNz5Cb+jhFZMMziDVs8SjKvEgl7Cxm0E3VKfCRC+9qNameo3M7GXaIciXHfFXguUM="
 sudo: required
 dist: trusty

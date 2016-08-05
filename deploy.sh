@@ -35,9 +35,8 @@ pushd build
     cp --parents -- src/**/*.cr voidcsfml/include/**/*.h voidcsfml/src/**/*.cpp shard.yml voidcsfml/CMakeLists.txt ../deploy/
 popd
 
-# Get current git commit's hash and author
+# Get current git commit's hash
 rev="$(git rev-parse HEAD)"
-author="$(git show --format="%aN <%aE>" HEAD)"
 
 pushd deploy
     if [ -n "$git_uri" ]; then
@@ -48,9 +47,10 @@ pushd deploy
         new_tag="$(git diff -- shard.yml | grep -P --only-matching "(?<=\+version: )[0-9\.]+$")" || true
 
         git add -A
-        if GIT_COMMITTER_NAME='Generator' GIT_COMMITTER_EMAIL='' \
-          git commit -m "Generate source ($rev)" --author "$author"; then
-            [ -n "$new_tag" ] && git tag "v$new_tag"
+        if git commit -m "Generate sources ($rev)"; then
+            if [ -n "$new_tag" ]; then
+                git tag "v$new_tag"
+            fi
             git push --tags origin "$sources_branch" >/dev/null 2>&1
         fi
 
@@ -85,8 +85,10 @@ pushd deploy
 EOF
 
     if [ -n "$git_uri" ]; then
-        # Replace commit name with $sources_branch in links
-        find doc -type f -exec sed -i -r -e "s,blob/$rev,blob/$sources_branch,g" {} \;
+        if [ -n "$new_tag" ]; then
+            # Replace commit name with tag name in links
+            find doc -type f -exec sed -i -r -e "s,blob/$rev,blob/$new_tag,g" {} \;
+        fi
 
         git checkout "$docs_branch"
 
