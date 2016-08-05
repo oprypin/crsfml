@@ -737,7 +737,7 @@ end
 class CFunction < CItem
   def initialize(name : String, @type : CType?, @parameters : Array(CParameter),
                  @static : Bool = false, @abstract : Bool = false, @const : Bool = false, *args, **kwargs)
-    super(name, *args, **kwargs)
+    super(name.gsub(/\b \B/, ""), *args, **kwargs)
   end
 
   getter type : CType?
@@ -761,9 +761,11 @@ class CFunction < CItem
     if context.lib?
       if operator?
         name = "operator_" + {
+          "==" => "eq", "!=" => "ne",
           "<" => "lt", ">" => "gt",
+          "<=" => "le", ">=" => "ge",
           "+" => "add", "-" => "sub", "*" => "mul", "/" => "div", "%" => "mod",
-          "[]" => "index",
+          "[]" => "index", "[]=" => "indexset",
           "<<" => "shl", ">>" => "shr"
         }[name]
       else
@@ -862,8 +864,7 @@ class CFunction < CItem
 
     return if visibility.private?
     return unless visibility.public? || (cls && (cls.abstract? || %w[SoundStream SoundRecorder].includes?(cls.inherited_class.try &.full_name)) && cls.class?)
-    return if operator_name.try &.=~ %r([+\-*/%]?=|[a-zA-Z:]+|>>)
-    return if operator? && type.try &.const?
+    return if operator_name.try &.=~ %r(^([+\-*/%]?=|[a-zA-Z:]+|>>)$)
     return if @docs[0]? == "\\brief Copy constructor"
     if parameters.any? { |param| param.type.full_name =~ /^[A-Z]$/ }
       # sf::Thread::Thread(F function, A argument)
@@ -913,6 +914,13 @@ class CFunction < CItem
         extra_return_params << CParameter.new("result_size", make_type("std::size_t*", nil))
       end
     end
+
+    if operator_name == "[]" && !self.type.try &.const?
+      @name = "operator []="
+      @parameters << CParameter.new("value", self.type.not_nil!)
+      @type = nil
+    end
+
     parameters.each do |param|
       if ((param.type.reference? || param.type.pointer > 0) && !param.type.const? && !getter_name &&
           (!param.name.ends_with?('s') || param.name.ends_with?("ss")) && param.name != "stream")
@@ -1217,6 +1225,8 @@ class CFunction < CItem
           "#{cpp_obj}#{name(context)[4..-1]}"
         elsif name(context).starts_with?("set_")
           "#{cpp_obj}#{name(context)[4..-1]} = #{cpp_args.join(", ")}"
+        elsif operator_name == "[]="
+          "#{cpp_obj}operator[](#{cpp_args[0]}) = #{cpp_args[1]}"
         elsif destructor? && parent.as?(CClass).try &.abstract?
           "#{cpp_obj}~_#{name(context)[1..-1]}(#{cpp_args.join(", ")})"
         else
