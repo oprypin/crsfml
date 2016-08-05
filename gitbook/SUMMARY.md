@@ -1,8 +1,5 @@
 # Tutorials for CrSFML
 
-* [Installing CrSFML](crsfml-install.md)
-* [Differences between SFML and CrSFML](crsfml-differences.md)
-
 ### System module
 
 * [Handling time](system-time.md)
