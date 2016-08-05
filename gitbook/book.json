@@ -1,8 +1,6 @@
 {
 
-"output": "tutorials",
-
-"gitbook": ">=2.0.0",
+"gitbook": ">= 3.0.0",
 
 "title": "CrSFML Tutorials",
 
@@ -13,19 +11,12 @@
 },
 
 "plugins": [
-    "-sharing", "-highlight",
-    "pygments", "ungrey", "toggle-chapters"
+    "-sharing"
 ],
 
 "links": {
     "sidebar": {
         "CrSFML": "http://github.com/BlaXpirit/crsfml"
-    },
-
-    "sharing": {
-        "google": false,
-        "facebook": false,
-        "twitter": false
     }
 }
 
