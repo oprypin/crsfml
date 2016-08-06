@@ -712,7 +712,9 @@ class CEnum < CNamespace
       members.each &.render(context, o)
       if @name
         o<< "end"
-        o<< "_sf_enum #{full_name(context)}"
+        unless full_name == "Style"
+          o<< "_sf_enum #{full_name(context)}"
+        end
       end
     end
   end
