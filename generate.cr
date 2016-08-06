@@ -970,8 +970,8 @@ class CFunction < CItem
         return
       else
         if %w[std::size_t Int64].includes?(type.full_name(Context::CPPSource)) && (
-          (cr_arg.ends_with?("_count") && cr_args[-1].starts_with?(cr_arg[0...4])) ||
-          (cr_arg == "size" || cr_arg == "size_in_bytes")
+          (param.name(Context::Crystal).ends_with?("_count") && cr_args[-1].starts_with?(cr_arg[0...4])) ||
+          (param.name(Context::Crystal) == "size" || param.name(Context::Crystal) == "size_in_bytes")
         )
           cr_params.pop
           prev_param = parameters[param_i-1]
@@ -1015,7 +1015,8 @@ class CFunction < CItem
           c_type = "int"; cl_type = "LibC::Int"
           cpp_arg = "(#{type.full_name})#{cpp_arg}"
         else
-          if (typ = type.full_name(Context::Crystal)) != type.full_name(Context::CPPSource)
+          typ = type.full_name(Context::Crystal)
+          unless param.type.pointer > 0 || param.type.reference?
             if typ.includes? "Float"
               cr_type = "Number"
               cr_arg = "#{type.full_name(Context::CrystalLib)}.new(#{cr_arg})"
