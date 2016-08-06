@@ -347,7 +347,7 @@ class CClass < CNamespace
         end
         if context.crystal?
           o<< "#{LIB_NAME}.#{callback_name} = ->(#{cl_params.join(", ")}) {"
-          o<< "#{"output = " if func.type}(self - 4).as(Union(#{full_name(context)})).#{func.name(context)}(#{cr_args.join(", ")})"
+          o<< "#{"output = " if func.type}(self - sizeof(LibC::Int)).as(Union(#{full_name(context)})).#{func.name(context)}(#{cr_args.join(", ")})"
           if func.parameters.any? { |param| param.type.full_name(Context::CPPSource) == "SoundStream::Chunk" }
             o<< "data.value, data_size.value = output.to_unsafe, LibC::SizeT.new(output.size) if output"
           end
@@ -1149,9 +1149,7 @@ class CFunction < CItem
             o<< "@_#{c.full_name(Context::CrystalLib).downcase} = uninitialized #{LIB_NAME}::#{c.full_name(Context::CrystalLib)}_Buffer"
           end
           if cls.abstract?
-            o<< "{% if !flag?(:release) %}"
-            o<< "raise \"Unexpected memory layout\" if as(Void*) + 4 != to_unsafe"
-            o<< "{% end %} #}"
+            o<< "raise \"Unexpected memory layout\" if as(Void*) + sizeof(LibC::Int) != to_unsafe"
           end
           cls.each do |func|
             next unless func.is_a?(CFunction) && !func.visibility.private?
