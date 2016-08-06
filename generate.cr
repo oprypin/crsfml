@@ -296,11 +296,10 @@ class CClass < CNamespace
         (func.parameters + [return_param].compact).each do |param|
           cpp_params << "#{param.type.full_name} #{param.name(Context::CPPSource)}" unless param == return_param
           if param.type.type.is_a?(CClass)
-            if param.type.type.full_name == "SoundStream::Chunk"
-              c_params << "int16_t*" << "size_t"
-              cl_params << "#{param.name(Context::CrystalLib)} : Int16*" << "#{param.name(Context::CrystalLib)}_size : LibC::SizeT"
-              cpp_args << "(int16_t*)#{param.name(Context::CPPSource)}.samples" << "#{param.name(Context::CPPSource)}.sampleCount"
-              cr_args << "Slice(Int16).new(#{param.name(Context::CrystalLib)}" << "#{param.name(Context::CrystalLib)}_size)" unless param == return_param
+            if param.type.type.full_name == "SoundStream::Chunk" && param.type.reference?
+              c_params << "int16_t**" << "size_t*"
+              cl_params << "#{param.name(Context::CrystalLib)} : Int16**" << "#{param.name(Context::CrystalLib)}_size : LibC::SizeT*"
+              cpp_args << "(int16_t**)&#{param.name(Context::CPPSource)}.samples" << "&#{param.name(Context::CPPSource)}.sampleCount"
             else
               c_params << "void*"
               cl_params << "#{param.name(Context::CrystalLib)} : Void*"
@@ -349,6 +348,9 @@ class CClass < CNamespace
         if context.crystal?
           o<< "#{LIB_NAME}.#{callback_name} = ->(#{cl_params.join(", ")}) {"
           o<< "#{"output = " if func.type}(self - 4).as(Union(#{full_name(context)})).#{func.name(context)}(#{cr_args.join(", ")})"
+          if func.parameters.any? { |param| param.type.full_name(Context::CPPSource) == "SoundStream::Chunk" }
+            o<< "data.value, data_size.value = output.to_unsafe, LibC::SizeT.new(output.size) if output"
+          end
           if (typ = func.type)
             if typ.type.full_name(Context::Crystal) == "Bool"
               o<< "result.value = !!output"
@@ -950,7 +952,10 @@ class CFunction < CItem
         cl_type = c_type = cr_arg = nil
         cpp_arg = "Shader::CurrentTexture"
       when "SoundStream::Chunk"
-        cr_type = "Slice(Int16)"
+        if param.type.reference?
+          return_params << param
+          next
+        end
       when .includes? ")(" # function pointer
         return
       when "GlFunctionPointer"
@@ -1088,7 +1093,11 @@ class CFunction < CItem
         else
           suffix = "*"*param.type.pointer
         end
-        "#{param.type.full_name(Context::Crystal)}#{suffix}"
+        name = param.type.full_name(Context::Crystal)
+        if name == "SoundStream::Chunk"
+          name = "Slice(Int16)"
+        end
+        "#{name}#{suffix}"
       }
       if return_params.size == 2 && return_params[0].type.full_name == "bool"
         ret_types = [ret_types[1] + "?"]
