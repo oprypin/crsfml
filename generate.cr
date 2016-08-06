@@ -1160,8 +1160,10 @@ class CFunction < CItem
         elsif cls.struct?
           cls.items.each do |item|
             if item.is_a?(CVariable)
-              arr = "[#{item.type.array}]" if item.type.array != 1
-              o<< "@#{item.name(context)} = uninitialized #{item.type.full_name(context)}#{"*"*item.type.pointer}#{arr}"
+              typ = item.type.full_name(context)
+              typ = "Void*" if item.type.pointer > 0
+              typ += "[#{item.type.array}]" if item.type.array != 1
+              o<< "@#{item.name(context)} = uninitialized #{typ}"
             end
           end
         end
@@ -1199,11 +1201,7 @@ class CFunction < CItem
       end
 
       if parent.as?(CClass).try &.struct? && @name.try &.starts_with?("set_") && cr_args.size == 2
-        if reference_setter?
-          o<< "@#{setter_name.not_nil![0...-1]} = #{reference_var}.to_unsafe"
-        else
-          o<< "@#{setter_name.not_nil![0...-1]} = #{cr_args[-1]}"
-        end
+        o<< "@#{setter_name.not_nil![0...-1]} = #{cr_args[-1]}#{".to_unsafe" if reference_setter?}"
       else
         o<< "#{LIB_NAME}.#{name(Context::CrystalLib, parent: parent)}(#{cr_args.join(", ")})"
       end
@@ -1358,8 +1356,10 @@ class CVariable < CItem
     var_name = name(Context::Crystal)
     if parent.struct?
       if context.crystal?
-        arr = "[#{type.array}]" if type.array != 1
-        o<< "@#{var_name} : #{type.type.is_a?(CNativeType) ? type.full_name(Context::CrystalLib) : type.full_name(context)}#{"*"*type.pointer}#{arr}"
+        typ = type.type.is_a?(CNativeType) ? type.full_name(Context::CrystalLib) : type.full_name(context)
+        typ = "Void*" if type.pointer > 0
+        typ += "[#{type.array}]" if type.array != 1
+        o<< "@#{var_name} : #{typ}"
       end
     end
     return if var_only
