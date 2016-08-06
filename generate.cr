@@ -897,6 +897,13 @@ class CFunction < CItem
         cpp_obj = "((#{name}*)self)->"
       end
     end
+
+    if operator_name == "[]" && !self.type.try &.const?
+      @name = "operator []="
+      @parameters << CParameter.new("value", CType.new(self.type.not_nil!.type))
+      @type = nil
+    end
+
     return_params = [] of CParameter
     extra_return_params = [] of CParameter
     if (type = self.type)
@@ -912,12 +919,6 @@ class CFunction < CItem
       if type.full_name(Context::CPPSource).starts_with?("std::vector<")
         extra_return_params << CParameter.new("result_size", make_type("std::size_t*", nil))
       end
-    end
-
-    if operator_name == "[]" && !self.type.try &.const?
-      @name = "operator []="
-      @parameters << CParameter.new("value", self.type.not_nil!)
-      @type = nil
     end
 
     parameters.each do |param|
