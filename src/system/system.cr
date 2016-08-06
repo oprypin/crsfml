@@ -82,7 +82,6 @@ module SF
   alias Vector2u = Vector2i
   alias Vector2f = Vector2(Float32)
 
-
   struct Vector3(T)
     include Enumerable(T)
 
@@ -119,6 +118,17 @@ module SF
 
   struct Time
     Zero = Time.new
+  end
+
+  class Mutex
+    def synchronize
+      lock
+      begin
+        yield
+      ensure
+        unlock
+      end
+    end
   end
 end
 

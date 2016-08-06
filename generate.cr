@@ -265,7 +265,7 @@ class CClass < CNamespace
   def render(context : Context, out o : Output)
     return unless @visibility.public?
     return if !@name
-    return if @name.not_nil! =~ /<|^String$|^ThreadLocal|SoundFile|^Chunk$/
+    return if @name.not_nil! =~ /<|^String$|^ThreadLocal|SoundFile|^Lock$|^Chunk$/
 
     if abstract? && class?
       if context.cpp_source?
