@@ -1307,9 +1307,9 @@ class CFunction < CItem
       end
       o<< "end"
 
-      if name(Context::Crystal) =~ /^([a-z]+_(from_.+)|create)$/
+      if name(Context::Crystal) =~ /^([a-z]+_(from_.+)|create|(open))$/
         full = $~[1]
-        short = $~[2]? || "new"
+        short = $~[2]? || $~[3]? || "new"
         cls_name = cls.not_nil!.name(context).not_nil!
         o<< "# Shorthand for `#{cls_name.underscore} = #{cls_name}.new; #{cls_name.underscore}.#{full}(...); #{cls_name.underscore}`"
         if self.type.try &.type.full_name == "bool"

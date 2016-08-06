@@ -20,8 +20,7 @@ end
 
 class MySoundStream < SF::SoundStream
   def initialize(@samples : Array(Int16), @mutex : SF::Mutex, *args)
-    super()
-    initialize_(*args)
+    super(*args)
     @result = [] of Int16
   end
   def on_get_data()
