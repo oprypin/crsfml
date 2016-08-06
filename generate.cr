@@ -488,6 +488,12 @@ class CClass < CNamespace
         o<< "pointerof(#{this}).as(Void*)"
         o<< "end"
       end
+      if class?
+        o<< "# :nodoc:"
+        o<< "def inspect(io)"
+        o<< "to_s(io)"
+        o<< "end"
+      end
     end
 
     if has_module?("Drawable")
