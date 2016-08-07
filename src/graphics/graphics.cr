@@ -38,15 +38,17 @@ module SF
   end
 
   alias FloatRect = Rect(Float32)
+  alias IntRect = Rect(Int32)
 
   # Shorthand for `FloatRect.new`
+  #
+  # Converts arguments to `Float32`
   def float_rect(left : Number, top : Number, width : Number, height : Number)
     FloatRect.new(left.to_f32, top.to_f32, width.to_f32, height.to_f32)
   end
-
-  alias IntRect = Rect(Int32)
-
   # Shorthand for `IntRect.new`
+  #
+  # Converts arguments to `Int32`
   def int_rect(left : Int, top : Int, width : Int, height : Int)
     IntRect.new(left.to_i32, top.to_i32, width.to_i32, height.to_i32)
   end

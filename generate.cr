@@ -357,7 +357,7 @@ class CClass < CNamespace
             elsif typ.type.is_a?(CNativeType)
               o<< "result.value = #{typ.type.full_name(Context::Crystal)}.new(output)"
             elsif typ.type.full_name == "Vector2f"
-              o<< "result.as(Vector2f*).value = Vector2.new(output[0].to_f32, output[1].to_f32)"
+              o<< "result.as(Vector2f*).value = Vector2f.new(output[0].to_f32, output[1].to_f32)"
             else
               o<< "result.value = output"
             end
@@ -1003,7 +1003,7 @@ class CFunction < CItem
           else
             if type.full_name(Context::CPPSource) =~ /^Vector2([fiu])$/
               cr_type = "Vector2|Tuple"
-              conversions << "#{cr_arg} = Vector2.new(#{cr_arg}[0].to_#{$~[1]}32, #{cr_arg}[1].to_#{$~[1]}32)" if context.crystal?
+              conversions << "#{cr_arg} = Vector2#{$~[1]}.new(#{cr_arg}[0].to_#{$~[1]}32, #{cr_arg}[1].to_#{$~[1]}32)" if context.crystal?
             end
             c_type = "void*"; cl_type = "Void*"
           end
