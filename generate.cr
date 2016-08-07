@@ -920,7 +920,7 @@ class CFunction < CItem
     end
 
     parameters.each do |param|
-      if ((param.type.reference? || param.type.pointer > 0) && !param.type.const? && !getter_name &&
+      if ((param.type.reference? || param.type.pointer > 0) && !param.type.const? && !getter_name && !(param.type.type.as?(CClass).try &.class?) &&
           (!param.name.ends_with?('s') || param.name.ends_with?("ss")) && param.name(Context::Crystal) !~ /stream$|^packet$/)
         if param.type.full_name != "void*" && docs.none? &.=~ /#{param.name}.+\bfill\b/
           return_params << param
@@ -1195,7 +1195,7 @@ class CFunction < CItem
               o<< "#{param.name(context)} = uninitialized #{LIB_NAME}::Event_Buffer"
             else
               unless const_reference_getter?
-                o<< "#{param.name(context)} = #{type}.allocate"
+                o<< "#{param.name(context)} = #{type}." + (parameters.includes?(param) ? "new" : "allocate")
               end
             end
           end
