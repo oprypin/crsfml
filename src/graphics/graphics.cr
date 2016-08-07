@@ -12,16 +12,16 @@ module SF
       @width, @height = size
     end
 
-    def contains(x : Number, y : Number) : Bool
+    def contains?(x : Number, y : Number) : Bool
       horz = {left, left + width}
       vert = {top, top + height}
       (horz.min <= x < horz.max) && (vert.min <= y < vert.max)
     end
-    def contains(point) : Bool
+    def contains?(point) : Bool
       contains(*point)
     end
 
-    def intersects(other : Rect) : Rect?
+    def intersects?(other : Rect) : Rect?
       horz1, horz2 = {left, left+width}, {other.left, other.left+width}
       vert1, vert2 = {top, top+height}, {other.top, other.top+height}
       x1 = {horz1.min, horz2.min}.max

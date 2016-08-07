@@ -240,7 +240,7 @@ while $window.open?
       $window.close()
     when SF::Event::MouseButtonPressed
       actions.each_key do |btn|
-        if btn.global_bounds.contains(event.x.to_f, event.y.to_f)
+        if btn.global_bounds.contains?(event.x.to_f, event.y.to_f)
           actions[btn].call
           break
         end
