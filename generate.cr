@@ -1209,7 +1209,7 @@ class CFunction < CItem
       end
 
       if parent.as?(CClass).try &.struct? && @name.try &.starts_with?("set_") && cr_args.size == 2
-        o<< "@#{setter_name.not_nil![0...-1]} = #{cr_args[-1]}#{".to_unsafe" if reference_setter?}"
+        o<< "@#{setter_name.not_nil![0...-1]} = #{cr_args[-1]}#{" ? #{cr_args[-1]}.to_unsafe : Pointer(Void).null" if reference_setter?}"
       else
         o<< "#{LIB_NAME}.#{name(Context::CrystalLib, parent: parent)}(#{cr_args.join(", ")})"
       end
