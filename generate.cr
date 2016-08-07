@@ -751,9 +751,6 @@ class CFunction < CItem
     if context.crystal?
       name = getter_name || setter_name || name
     end
-    if context.cr? && %w[initialize].includes? name
-      name = "#{name}_"
-    end
     unless context.cpp_source?
       name = operator_name || constructor_name || destructor_name || name
     end
@@ -1143,7 +1140,7 @@ class CFunction < CItem
         o<< "#{reference_var} = #{parameters[0].name(Context::Crystal)}"
       end
 
-      if constructor? && (cls = parent.as? CClass)
+      if (constructor? || name(Context::Crystal) == "initialize") && (cls = parent.as? CClass)
         if cls.class?
           inh = [cls]
           while (c = inh[-1].inherited_class)
@@ -1164,6 +1161,9 @@ class CFunction < CItem
                 end
               end
             end
+          end
+          if !constructor?
+            o<< "#{LIB_NAME}.#{cls.full_name(Context::CrystalLib).downcase}_initialize(to_unsafe)"
           end
         elsif cls.struct?
           cls.items.each do |item|
@@ -1319,14 +1319,16 @@ class CFunction < CItem
           o<< "#"
           o<< "# Raises `InitError` on failure"
         end
-        o<< "def self.#{short}(*args, **kwargs) : self"
+        o<< "def self.#{short}(#{cr_params.join(", ")}) : self"
+        args = cr_params.map &.split(" : ")[0]
+        call = "obj.#{full}(#{args.join(", ")})"
         o<< "obj = new"
         if self.type.try &.type.full_name == "bool"
-          o<< "if !obj.#{full}(*args, **kwargs)"
+          o<< "if !#{call}"
           o<< "raise InitError.new(\"#{cls_name}.#{full} failed\")"
           o<< "end"
         else
-          o<< "obj.#{full}(*args, **kwargs)"
+          o<< call
         end
         o<< "obj"
         o<< "end"
