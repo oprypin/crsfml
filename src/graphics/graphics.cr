@@ -107,12 +107,12 @@ module SF
 
   class RenderWindow
     def draw(drawable : Drawable, states : RenderStates = RenderStates::Default)
-      drawable.draw(self as RenderWindow, states)
+      drawable.draw(self.as(RenderWindow), states)
     end
   end
   class RenderTexture
     def draw(drawable : Drawable, states : RenderStates = RenderStates::Default)
-      drawable.draw(self as RenderTexture, states)
+      drawable.draw(self.as(RenderTexture), states)
     end
   end
 

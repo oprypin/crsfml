@@ -1565,11 +1565,11 @@ class CModule < CNamespace
         visibilities[cls] = ($~[1] == "struct" ? Visibility::Public : Visibility::Private)
 
       when "private:"
-        visibilities[parent as CClass] = Visibility::Private
+        visibilities[parent.as CClass] = Visibility::Private
       when "protected:"
-        visibilities[parent as CClass] = Visibility::Protected
+        visibilities[parent.as CClass] = Visibility::Protected
       when "public:"
-        visibilities[parent as CClass] = Visibility::Public
+        visibilities[parent.as CClass] = Visibility::Public
 
       when /^enum( (\w+))?$/
         name = $~[2]?
