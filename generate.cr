@@ -750,6 +750,7 @@ class CFunction < CItem
     name = name.underscore unless context.cpp_source?
     if context.crystal?
       name = getter_name || setter_name || name
+      name = "to_s" if name == "to_string"
     end
     unless context.cpp_source?
       name = operator_name || constructor_name || destructor_name || name
