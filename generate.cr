@@ -1015,13 +1015,12 @@ class CFunction < CItem
           c_type = "int"; cl_type = "LibC::Int"
           cpp_arg = "(#{type.full_name})#{cpp_arg}"
         else
-          typ = type.full_name(Context::Crystal)
           unless param.type.pointer > 0 || param.type.reference?
-            if typ.includes? "Float"
+            if cr_type.includes? "Float"
               cr_type = "Number"
               cr_arg = "#{type.full_name(Context::CrystalLib)}.new(#{cr_arg})"
-            elsif typ.includes?("Int") || typ == "LibC::SizeT"# TODO && !typ.ends_with?("Int8")
-              if typ == "UInt32" && cr_arg == "style"
+            elsif cr_type.includes?("Int") || cr_type == "LibC::SizeT"# TODO && !cr_type.ends_with?("Int8")
+              if cr_type == "UInt32" && cr_arg == "style"
                 cls_name = cls.not_nil!.full_name
                 cr_type = cls_name.includes?("Window") ? "Style" : "#{cls_name}::Style"
               else
@@ -1029,6 +1028,8 @@ class CFunction < CItem
                 cr_arg = "#{type.full_name(Context::CrystalLib)}.new(#{cr_arg})"
               end
             end
+          else
+            cr_type += "*"*param.type.pointer
           end
           cpp_arg = "(#{param.type.full_name.sub('&', '*')})#{cpp_arg}"
           if return_params.includes? param
@@ -1178,9 +1179,9 @@ class CFunction < CItem
 
         (parameters - return_params).each do |param|
           name = param.name(Context::Crystal)
-          if param.type.type.as?(CClass).try &.class? && cls.any? { |item|
+          if param.type.type.is_a?(CClass) && (param.type.type.as(CClass).class? && cls.any? { |item|
             (item.is_a?(CFunction) && item.reference_var == name)
-          } || param.type.pointer > 0
+          } || param.type.pointer > 0)
             o<< "@_#{parent.not_nil!.full_name(Context::CrystalLib).not_nil!.downcase}_#{name} = #{name}"
           end
         end
