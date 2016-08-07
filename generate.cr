@@ -748,12 +748,16 @@ class CFunction < CItem
   def name(context : Context, parent : CNamespace? = @parent) : String
     name = @name.not_nil!
     name = name.underscore unless context.cpp_source?
-    if context.crystal?
-      name = getter_name || setter_name || name
-      name = "to_s" if name == "to_string"
-    end
     unless context.cpp_source?
       name = operator_name || constructor_name || destructor_name || name
+    end
+    if context.crystal?
+      name = getter_name || setter_name || name
+      name = {
+        "to_string" => "to_s",
+        ">>" => "read",
+        "<<" => "write"
+      }.fetch(name, name)
     end
     if context.lib?
       if operator?
@@ -861,7 +865,7 @@ class CFunction < CItem
 
     return if visibility.private?
     return unless visibility.public? || (cls && (cls.abstract? || %w[SoundStream SoundRecorder].includes?(cls.inherited_class.try &.full_name)) && cls.class?)
-    return if operator_name.try &.=~ %r(^([+\-*/%]?=|[a-zA-Z:]+|>>)$)
+    return if operator_name.try &.=~ %r(^([+\-*/%]?=|[a-zA-Z:]+)$)
     return if @docs[0]? == "\\brief Copy constructor"
     if parameters.any? { |param| param.type.full_name =~ /^[A-Z]$/ }
       # sf::Thread::Thread(F function, A argument)
@@ -900,6 +904,12 @@ class CFunction < CItem
       @name = "operator []="
       @parameters << CParameter.new("value", CType.new(self.type.not_nil!.type))
       @type = nil
+    end
+    if %w[<< >>].includes? operator_name
+      @type = nil
+      if parameters.any? { |param| %w[char String].includes? param.type.full_name(Context::CPPSource) }
+        return
+      end
     end
 
     return_params = [] of CParameter
@@ -1016,11 +1026,11 @@ class CFunction < CItem
           c_type = "int"; cl_type = "LibC::Int"
           cpp_arg = "(#{type.full_name})#{cpp_arg}"
         else
-          unless param.type.pointer > 0 || param.type.reference?
+          unless param.type.pointer > 0 || param.type.reference? || operator_name == "<<"
             if cr_type.includes? "Float"
               cr_type = "Number"
               cr_arg = "#{type.full_name(Context::CrystalLib)}.new(#{cr_arg})"
-            elsif cr_type.includes?("Int") || cr_type == "LibC::SizeT"# TODO && !cr_type.ends_with?("Int8")
+            elsif cr_type.includes?("Int") || cr_type == "LibC::SizeT"
               if cr_type == "UInt32" && cr_arg == "style"
                 cls_name = cls.not_nil!.full_name
                 cr_type = cls_name.includes?("Window") ? "Style" : "#{cls_name}::Style"
@@ -1120,6 +1130,9 @@ class CFunction < CItem
       abstr = "abstract " if abstract? #if cls.try &.module? && !static?
       unless cls && cls.abstract? && cls.class? || visibility.public?
         ret = nil
+      end
+      if operator_name == ">>"
+        cr_params << "type : #{return_params[0].type.full_name(Context::Crystal)}.class"
       end
       o<< "#{abstr}def #{"self." if static?}#{func_name}(#{cr_params.join(", ")})#{ret}"
 
@@ -1248,8 +1261,8 @@ class CFunction < CItem
         else
           "#{cpp_obj}#{name(context)}(#{cpp_args.join(", ")})"
         end
-        if !return_params.empty? && self.type
-          type = self.type.not_nil!
+        if !return_params.empty?
+          type = self.type || return_params[0].type
           if type.full_name(context) == "String"
             o<< "static String str;"
             o<< "str = #{cpp_call};"
@@ -1258,8 +1271,13 @@ class CFunction < CItem
             type = CType.new(CNativeType.new("uint32_t"), pointer: 1, const: true)
           elsif type.full_name(context) == "std::string"
             o<< "static std::string str;"
-            o<< "str = #{cpp_call};"
-            cpp_asgn = "*result = "
+            if self.type
+              o<< "str = #{cpp_call};"
+            else
+              cpp_call = cpp_call.sub(/\b#{return_params[0].name(Context::CrystalLib)}\b/, "str")
+              o<< "#{cpp_call};"
+            end
+            cpp_asgn = "*#{return_params[0].name(Context::CrystalLib)} = "
             cpp_call = "const_cast<char*>(str.c_str())"
             type = CType.new(CNativeType.new("char"), pointer: 1, const: true)
           elsif type.full_name(context) =~ /\bstd::vector<std::string>/
@@ -1289,6 +1307,9 @@ class CFunction < CItem
       o<< "fun #{name(Context::CrystalLib, parent: parent)}(#{cl_params.join(", ")})"
     end
     if context.crystal?
+      if operator_name == "<<"
+        o<< "self"
+      end
       unless return_params.empty?
         o<< "return " + return_params.map { |param|
           name = param.name(context)
