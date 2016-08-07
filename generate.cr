@@ -920,7 +920,7 @@ class CFunction < CItem
 
     parameters.each do |param|
       if ((param.type.reference? || param.type.pointer > 0) && !param.type.const? && !getter_name &&
-          (!param.name.ends_with?('s') || param.name.ends_with?("ss")) && param.name != "stream")
+          (!param.name.ends_with?('s') || param.name.ends_with?("ss")) && param.name(Context::Crystal) !~ /stream$|^packet$/)
         if param.type.full_name != "void*" && docs.none? &.=~ /#{param.name}.+\bfill\b/
           return_params << param
         end
