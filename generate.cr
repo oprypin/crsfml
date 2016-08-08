@@ -88,9 +88,11 @@ end
 STRUCTS.each do |name|
   register_type CClass.new(name)
 end
-cls = CClass.new("Texture")
-cls.struct = false
-register_type cls
+%w[Texture Packet].each do |cls|
+  cls = CClass.new(cls)
+  cls.struct = false
+  register_type cls
+end
 
 
 def find_type(name : String, parent : CNamespace?) : CTypeBase
