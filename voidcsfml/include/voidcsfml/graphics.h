@@ -94,7 +94,7 @@ VOIDCSFML_API vertex_initialize_Y3J(void* self, void* copy);
 VOIDCSFML_API vertexarray_initialize(void* self);
 VOIDCSFML_API vertexarray_initialize_u9wvgv(void* self, int type, size_t vertex_count);
 VOIDCSFML_API vertexarray_getvertexcount(void* self, size_t* result);
-VOIDCSFML_API vertexarray_operator_indexset_vgvpCR(void* self, size_t index, void* value, void* result);
+VOIDCSFML_API vertexarray_operator_indexset_vgvRos(void* self, size_t index, void* value);
 VOIDCSFML_API vertexarray_operator_index_vgv(void* self, size_t index, void* result);
 VOIDCSFML_API vertexarray_clear(void* self);
 VOIDCSFML_API vertexarray_resize_vgv(void* self, size_t vertex_count);

@@ -271,7 +271,7 @@ void vertexarray_initialize_u9wvgv(void* self, int type, size_t vertex_count) {
 void vertexarray_getvertexcount(void* self, size_t* result) {
     *(std::size_t*)result = ((VertexArray*)self)->getVertexCount();
 }
-void vertexarray_operator_indexset_vgvpCR(void* self, size_t index, void* value) {
+void vertexarray_operator_indexset_vgvRos(void* self, size_t index, void* value) {
     ((VertexArray*)self)->operator[]((std::size_t)index) = *(Vertex*)value;
 }
 void vertexarray_operator_index_vgv(void* self, size_t index, void* result) {

@@ -42,8 +42,6 @@ VOIDCSFML_API fileinputstream_read_xALG4x(void* self, void* data, int64_t size, 
 VOIDCSFML_API fileinputstream_seek_G4x(void* self, int64_t position, int64_t* result);
 VOIDCSFML_API fileinputstream_tell(void* self, int64_t* result);
 VOIDCSFML_API fileinputstream_getsize(void* self, int64_t* result);
-VOIDCSFML_API lock_initialize_D4m(void* self, void* mutex);
-VOIDCSFML_API lock_finalize(void* self);
 VOIDCSFML_API memoryinputstream_initialize(void* self);
 VOIDCSFML_API memoryinputstream_open_5h8vgv(void* self, void* data, size_t size_in_bytes);
 VOIDCSFML_API memoryinputstream_read_xALG4x(void* self, void* data, int64_t size, int64_t* result);

@@ -297,47 +297,82 @@ void packet_getdatasize(void* self, size_t* result) {
 void packet_endofpacket(void* self, unsigned char* result) {
     *(bool*)result = ((Packet*)self)->endOfPacket();
 }
-void packet_operator_shl_GZq(void* self, unsigned char data, void* result) {
-    *(Packet*)result = ((Packet*)self)->operator<<((bool)data);
+void packet_operator_bool(void* self, unsigned char* result) {
+    *(bool*)result = (bool)((Packet*)self);
 }
-void packet_operator_shl_k6g(void* self, int8_t data, void* result) {
-    *(Packet*)result = ((Packet*)self)->operator<<((Int8)data);
+void packet_operator_shr_gRY(void* self, unsigned char* data) {
+    ((Packet*)self)->operator>>(*(bool*)data);
 }
-void packet_operator_shl_9yU(void* self, uint8_t data, void* result) {
-    *(Packet*)result = ((Packet*)self)->operator<<((Uint8)data);
+void packet_operator_shr_y9(void* self, int8_t* data) {
+    ((Packet*)self)->operator>>(*(Int8*)data);
 }
-void packet_operator_shl_yAA(void* self, int16_t data, void* result) {
-    *(Packet*)result = ((Packet*)self)->operator<<((Int16)data);
+void packet_operator_shr_8hc(void* self, uint8_t* data) {
+    ((Packet*)self)->operator>>(*(Uint8*)data);
 }
-void packet_operator_shl_BtU(void* self, uint16_t data, void* result) {
-    *(Packet*)result = ((Packet*)self)->operator<<((Uint16)data);
+void packet_operator_shr_4k3(void* self, int16_t* data) {
+    ((Packet*)self)->operator>>(*(Int16*)data);
 }
-void packet_operator_shl_qe2(void* self, int32_t data, void* result) {
-    *(Packet*)result = ((Packet*)self)->operator<<((Int32)data);
+void packet_operator_shr_Xag(void* self, uint16_t* data) {
+    ((Packet*)self)->operator>>(*(Uint16*)data);
 }
-void packet_operator_shl_saL(void* self, uint32_t data, void* result) {
-    *(Packet*)result = ((Packet*)self)->operator<<((Uint32)data);
+void packet_operator_shr_NiZ(void* self, int32_t* data) {
+    ((Packet*)self)->operator>>(*(Int32*)data);
 }
-void packet_operator_shl_G4x(void* self, int64_t data, void* result) {
-    *(Packet*)result = ((Packet*)self)->operator<<((Int64)data);
+void packet_operator_shr_qTz(void* self, uint32_t* data) {
+    ((Packet*)self)->operator>>(*(Uint32*)data);
 }
-void packet_operator_shl_Jvt(void* self, uint64_t data, void* result) {
-    *(Packet*)result = ((Packet*)self)->operator<<((Uint64)data);
+void packet_operator_shr_BuW(void* self, int64_t* data) {
+    ((Packet*)self)->operator>>(*(Int64*)data);
 }
-void packet_operator_shl_Bw9(void* self, float data, void* result) {
-    *(Packet*)result = ((Packet*)self)->operator<<((float)data);
+void packet_operator_shr_7H7(void* self, uint64_t* data) {
+    ((Packet*)self)->operator>>(*(Uint64*)data);
 }
-void packet_operator_shl_mYt(void* self, double data, void* result) {
-    *(Packet*)result = ((Packet*)self)->operator<<((double)data);
+void packet_operator_shr_ATF(void* self, float* data) {
+    ((Packet*)self)->operator>>(*(float*)data);
 }
-void packet_operator_shl_Yy6(void* self, char* data, void* result) {
-    *(Packet*)result = ((Packet*)self)->operator<<((char const*)data);
+void packet_operator_shr_nIp(void* self, double* data) {
+    ((Packet*)self)->operator>>(*(double*)data);
 }
-void packet_operator_shl_zkC(void* self, size_t data_size, char* data, void* result) {
-    *(Packet*)result = ((Packet*)self)->operator<<(std::string(data, data_size));
+void packet_operator_shr_GHF(void* self, char** data) {
+    static std::string str;
+    ((Packet*)self)->operator>>(str);
+    *data = const_cast<char*>(str.c_str());
 }
-void packet_operator_shl_bQs(void* self, size_t data_size, uint32_t* data, void* result) {
-    *(Packet*)result = ((Packet*)self)->operator<<(String::fromUtf32(data, data+data_size));
+void packet_operator_shl_GZq(void* self, unsigned char data) {
+    ((Packet*)self)->operator<<((bool)data);
+}
+void packet_operator_shl_k6g(void* self, int8_t data) {
+    ((Packet*)self)->operator<<((Int8)data);
+}
+void packet_operator_shl_9yU(void* self, uint8_t data) {
+    ((Packet*)self)->operator<<((Uint8)data);
+}
+void packet_operator_shl_yAA(void* self, int16_t data) {
+    ((Packet*)self)->operator<<((Int16)data);
+}
+void packet_operator_shl_BtU(void* self, uint16_t data) {
+    ((Packet*)self)->operator<<((Uint16)data);
+}
+void packet_operator_shl_qe2(void* self, int32_t data) {
+    ((Packet*)self)->operator<<((Int32)data);
+}
+void packet_operator_shl_saL(void* self, uint32_t data) {
+    ((Packet*)self)->operator<<((Uint32)data);
+}
+void packet_operator_shl_G4x(void* self, int64_t data) {
+    ((Packet*)self)->operator<<((Int64)data);
+}
+void packet_operator_shl_Jvt(void* self, uint64_t data) {
+    ((Packet*)self)->operator<<((Uint64)data);
+}
+void packet_operator_shl_Bw9(void* self, float data) {
+    ((Packet*)self)->operator<<((float)data);
+}
+void packet_operator_shl_mYt(void* self, double data) {
+    ((Packet*)self)->operator<<((double)data);
+}
+void packet_operator_shl_zkC(void* self, size_t data_size, char* data) {
+    ((Packet*)self)->operator<<(std::string(data, data_size));
 }
 void packet_initialize_54U(void* self, void* copy) {
     new(self) Packet(*(Packet*)copy);

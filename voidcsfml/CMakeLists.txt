@@ -212,6 +212,9 @@ macro(voidcsfml_add_library module)
 endmacro()
 
 
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated-declarations")
+
+
 # add the VoidCSFML sources path
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 

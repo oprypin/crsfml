@@ -202,9 +202,9 @@ module SF
     # * *right* - Right operand (a number)
     #
     # *Returns:* *left* multiplied by *right*
-    def *(right : Int64) : Time
+    def *(right : Int) : Time
       result = Time.allocate
-      VoidCSFML.operator_mul_f4TG4x(to_unsafe, right, result)
+      VoidCSFML.operator_mul_f4TG4x(to_unsafe, Int64.new(right), result)
       return result
     end
     #
@@ -226,9 +226,9 @@ module SF
     # * *right* - Right operand (a number)
     #
     # *Returns:* *left* divided by *right*
-    def /(right : Int64) : Time
+    def /(right : Int) : Time
       result = Time.allocate
-      VoidCSFML.operator_div_f4TG4x(to_unsafe, right, result)
+      VoidCSFML.operator_div_f4TG4x(to_unsafe, Int64.new(right), result)
       return result
     end
     #
@@ -289,9 +289,9 @@ module SF
   # *Returns:* Time value constructed from the amount of milliseconds
   #
   # *See also:* seconds, microseconds
-  def milliseconds(amount : Int32) : Time
+  def milliseconds(amount : Int) : Time
     result = Time.allocate
-    VoidCSFML.milliseconds_qe2(amount, result)
+    VoidCSFML.milliseconds_qe2(Int32.new(amount), result)
     return result
   end
   #
@@ -302,9 +302,9 @@ module SF
   # *Returns:* Time value constructed from the amount of microseconds
   #
   # *See also:* seconds, milliseconds
-  def microseconds(amount : Int64) : Time
+  def microseconds(amount : Int) : Time
     result = Time.allocate
-    VoidCSFML.microseconds_G4x(amount, result)
+    VoidCSFML.microseconds_G4x(Int64.new(amount), result)
     return result
   end
   # Utility class that measures the elapsed time
@@ -370,6 +370,10 @@ module SF
       pointerof(@_clock).as(Void*)
     end
     # :nodoc:
+    def inspect(io)
+      to_s(io)
+    end
+    # :nodoc:
     def initialize(copy : Clock)
       @_clock = uninitialized VoidCSFML::Clock_Buffer
       as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
@@ -380,19 +384,19 @@ module SF
     end
   end
   VoidCSFML.inputstream_read_callback = ->(self : Void*, data : Void*, size : Int64, result : Int64*) {
-    output = (self - 4).as(Union(InputStream)).read(Slice(UInt8).new(data.as(UInt8*), size))
+    output = (self - sizeof(LibC::Int)).as(Union(InputStream)).read(Slice(UInt8).new(data.as(UInt8*), size))
     result.value = Int64.new(output)
   }
   VoidCSFML.inputstream_seek_callback = ->(self : Void*, position : Int64, result : Int64*) {
-    output = (self - 4).as(Union(InputStream)).seek(position)
+    output = (self - sizeof(LibC::Int)).as(Union(InputStream)).seek(position)
     result.value = Int64.new(output)
   }
   VoidCSFML.inputstream_tell_callback = ->(self : Void*, result : Int64*) {
-    output = (self - 4).as(Union(InputStream)).tell()
+    output = (self - sizeof(LibC::Int)).as(Union(InputStream)).tell()
     result.value = Int64.new(output)
   }
   VoidCSFML.inputstream_getsize_callback = ->(self : Void*, result : Int64*) {
-    output = (self - 4).as(Union(InputStream)).size()
+    output = (self - sizeof(LibC::Int)).as(Union(InputStream)).size()
     result.value = Int64.new(output)
   }
   # Abstract class for custom file input streams
@@ -452,9 +456,7 @@ module SF
     @_inputstream : VoidCSFML::InputStream_Buffer = VoidCSFML::InputStream_Buffer.new(0u8)
     def initialize()
       @_inputstream = uninitialized VoidCSFML::InputStream_Buffer
-      {% if !flag?(:release) %}
-      raise "Unexpected memory layout" if as(Void*) + 4 != to_unsafe
-      {% end %} #}
+      raise "Unexpected memory layout" if as(Void*) + sizeof(LibC::Int) != to_unsafe
       VoidCSFML.inputstream_initialize(to_unsafe)
     end
     # Virtual destructor
@@ -474,7 +476,7 @@ module SF
     # * *position* - The position to seek to, from the beginning
     #
     # *Returns:* The position actually sought to, or -1 on error
-    abstract def seek(position : Int64) : Int64
+    abstract def seek(position : Int) : Int64
     # Get the current reading position in the stream
     #
     # *Returns:* The current position, or -1 on error.
@@ -488,11 +490,13 @@ module SF
       pointerof(@_inputstream).as(Void*)
     end
     # :nodoc:
+    def inspect(io)
+      to_s(io)
+    end
+    # :nodoc:
     def initialize(copy : InputStream)
       @_inputstream = uninitialized VoidCSFML::InputStream_Buffer
-      {% if !flag?(:release) %}
-      raise "Unexpected memory layout" if as(Void*) + 4 != to_unsafe
-      {% end %} #}
+      raise "Unexpected memory layout" if as(Void*) + sizeof(LibC::Int) != to_unsafe
       as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
       VoidCSFML.inputstream_initialize_mua(to_unsafe, copy)
     end
@@ -584,6 +588,16 @@ module SF
       VoidCSFML.fileinputstream_open_zkC(to_unsafe, filename.bytesize, filename, out result)
       return result
     end
+    # Shorthand for `file_input_stream = FileInputStream.new; file_input_stream.open(...); file_input_stream`
+    #
+    # Raises `InitError` on failure
+    def self.open(filename : String) : self
+      obj = new
+      if !obj.open(filename)
+        raise InitError.new("FileInputStream.open failed")
+      end
+      obj
+    end
     # Read data from the stream
     #
     # After reading, the stream's reading position must be
@@ -602,8 +616,8 @@ module SF
     # * *position* - The position to seek to, from the beginning
     #
     # *Returns:* The position actually sought to, or -1 on error
-    def seek(position : Int64) : Int64
-      VoidCSFML.fileinputstream_seek_G4x(to_unsafe, position, out result)
+    def seek(position : Int) : Int64
+      VoidCSFML.fileinputstream_seek_G4x(to_unsafe, Int64.new(position), out result)
       return result
     end
     # Get the current reading position in the stream
@@ -625,88 +639,9 @@ module SF
     def to_unsafe()
       pointerof(@_inputstream).as(Void*)
     end
-  end
-  # Automatic wrapper for locking and unlocking mutexes
-  #
-  #
-  #
-  # `SF::Lock` is a RAII wrapper for `SF::Mutex`. By unlocking
-  # it in its destructor, it ensures that the mutex will
-  # always be released when the current scope (most likely
-  # a function) ends.
-  # This is even more important when an exception or an early
-  # return statement can interrupt the execution flow of the
-  # function.
-  #
-  # For maximum robustness, `SF::Lock` should always be used
-  # to lock/unlock a mutex.
-  #
-  # Usage example:
-  # ```c++
-  # sf::Mutex mutex;
-  #
-  # void function()
-  # {
-  #     sf::Lock lock(mutex); // mutex is now locked
-  #
-  #     functionThatMayThrowAnException(); // mutex is unlocked if this function throws
-  #
-  #     if (someCondition)
-  #         return; // mutex is unlocked
-  #
-  # } // mutex is unlocked
-  # ```
-  #
-  # Because the mutex is not explicitly unlocked in the code,
-  # it may remain locked longer than needed. If the region
-  # of the code that needs to be protected by the mutex is
-  # not the entire function, a good practice is to create a
-  # smaller, inner scope so that the lock is limited to this
-  # part of the code.
-  #
-  # ```c++
-  # sf::Mutex mutex;
-  #
-  # void function()
-  # {
-  #     {
-  #       sf::Lock lock(mutex);
-  #       codeThatRequiresProtection();
-  #
-  #     } // mutex is unlocked here
-  #
-  #     codeThatDoesntCareAboutTheMutex();
-  # }
-  # ```
-  #
-  # Having a mutex locked longer than required is a bad practice
-  # which can lead to bad performances. Don't forget that when
-  # a mutex is locked, other threads may be waiting doing nothing
-  # until it is released.
-  #
-  # *See also:* `SF::Mutex`
-  class Lock
-    @_lock : VoidCSFML::Lock_Buffer = VoidCSFML::Lock_Buffer.new(0u8)
-    # Construct the lock with a target mutex
-    #
-    # The mutex passed to `SF::Lock` is automatically locked.
-    #
-    # * *mutex* - Mutex to lock
-    def initialize() : Mutex
-      @_lock = uninitialized VoidCSFML::Lock_Buffer
-      VoidCSFML.lock_initialize_D4m(to_unsafe, mutex)
-      return mutex
-    end
-    # Destructor
-    #
-    # The destructor of `SF::Lock` automatically unlocks its mutex.
-    def finalize()
-      VoidCSFML.lock_finalize(to_unsafe)
-    end
-    include NonCopyable
     # :nodoc:
-    def to_unsafe()
-      pointerof(@_lock).as(Void*)
+    def inspect(io)
+      to_s(io)
     end
   end
   # Implementation of input stream based on a memory chunk
@@ -753,6 +688,12 @@ module SF
     def open(data : Slice)
       VoidCSFML.memoryinputstream_open_5h8vgv(to_unsafe, data, data.bytesize)
     end
+    # Shorthand for `memory_input_stream = MemoryInputStream.new; memory_input_stream.open(...); memory_input_stream`
+    def self.open(data : Slice) : self
+      obj = new
+      obj.open(data)
+      obj
+    end
     # Read data from the stream
     #
     # After reading, the stream's reading position must be
@@ -771,8 +712,8 @@ module SF
     # * *position* - The position to seek to, from the beginning
     #
     # *Returns:* The position actually sought to, or -1 on error
-    def seek(position : Int64) : Int64
-      VoidCSFML.memoryinputstream_seek_G4x(to_unsafe, position, out result)
+    def seek(position : Int) : Int64
+      VoidCSFML.memoryinputstream_seek_G4x(to_unsafe, Int64.new(position), out result)
       return result
     end
     # Get the current reading position in the stream
@@ -792,6 +733,10 @@ module SF
     # :nodoc:
     def to_unsafe()
       pointerof(@_inputstream).as(Void*)
+    end
+    # :nodoc:
+    def inspect(io)
+      to_s(io)
     end
     # :nodoc:
     def initialize(copy : MemoryInputStream)
@@ -886,6 +831,10 @@ module SF
     # :nodoc:
     def to_unsafe()
       pointerof(@_mutex).as(Void*)
+    end
+    # :nodoc:
+    def inspect(io)
+      to_s(io)
     end
   end
   #
@@ -1050,6 +999,10 @@ module SF
     # :nodoc:
     def to_unsafe()
       pointerof(@_thread).as(Void*)
+    end
+    # :nodoc:
+    def inspect(io)
+      to_s(io)
     end
   end
   VoidCSFML.sfml_system_version(out major, out minor, out patch)

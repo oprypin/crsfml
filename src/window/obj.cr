@@ -247,6 +247,10 @@ module SF
     def to_unsafe()
       pointerof(@_context).as(Void*)
     end
+    # :nodoc:
+    def inspect(io)
+      to_s(io)
+    end
   end
   # Give access to the real-time state of the joysticks
   #
@@ -362,6 +366,10 @@ module SF
       # :nodoc:
       def to_unsafe()
         pointerof(@_joystick_identification).as(Void*)
+      end
+      # :nodoc:
+      def inspect(io)
+        to_s(io)
       end
       # :nodoc:
       def initialize(copy : Joystick::Identification)
@@ -823,7 +831,7 @@ module SF
     #
     # * *position* - New position of the mouse
     def self.position=(position : Vector2|Tuple)
-      position = Vector2.new(position[0].to_i32, position[1].to_i32)
+      position = Vector2i.new(position[0].to_i32, position[1].to_i32)
       VoidCSFML.mouse_setposition_ufV(position)
     end
     # Set the current position of the mouse in window coordinates
@@ -834,7 +842,7 @@ module SF
     # * *position* - New position of the mouse
     # * *relative_to* - Reference window
     def self.set_position(position : Vector2|Tuple, relative_to : Window)
-      position = Vector2.new(position[0].to_i32, position[1].to_i32)
+      position = Vector2i.new(position[0].to_i32, position[1].to_i32)
       VoidCSFML.mouse_setposition_ufVJRh(position, relative_to)
     end
   end
@@ -1211,7 +1219,7 @@ module SF
     end
     # Mouse wheel events parameters (MouseWheelMoved)
     #
-    # \deprecated This event is deprecated and potentially inaccurate.
+    # *Deprecated:* This event is deprecated and potentially inaccurate.
     #             Use MouseWheelScrollEvent instead.
     abstract struct MouseWheelEvent < Event
       def initialize()
@@ -1943,7 +1951,6 @@ module SF
     # Default window style
     Default = Titlebar | Resize | Close
   end
-  _sf_enum Style
   # Window that serves as a target for OpenGL rendering
   #
   #
@@ -2069,9 +2076,9 @@ module SF
       VoidCSFML.window_create_wg0bQssaLFw4(to_unsafe, mode, title.size, title.chars, style, settings)
     end
     # Shorthand for `window = Window.new; window.create(...); window`
-    def self.new(*args, **kwargs) : self
+    def self.new(mode : VideoMode, title : String, style : Style = Style::Default, settings : ContextSettings = ContextSettings.new()) : self
       obj = new
-      obj.create(*args, **kwargs)
+      obj.create(mode, title, style, settings)
       obj
     end
     # Create (or recreate) the window from an existing control
@@ -2091,9 +2098,9 @@ module SF
       VoidCSFML.window_create_rLQFw4(to_unsafe, handle, settings)
     end
     # Shorthand for `window = Window.new; window.create(...); window`
-    def self.new(*args, **kwargs) : self
+    def self.new(handle : WindowHandle, settings : ContextSettings = ContextSettings.new()) : self
       obj = new
-      obj.create(*args, **kwargs)
+      obj.create(handle, settings)
       obj
     end
     # Close the window and destroy all the attached resources
@@ -2220,7 +2227,7 @@ module SF
     #
     # *See also:* getPosition
     def position=(position : Vector2|Tuple)
-      position = Vector2.new(position[0].to_i32, position[1].to_i32)
+      position = Vector2i.new(position[0].to_i32, position[1].to_i32)
       VoidCSFML.window_setposition_ufV(to_unsafe, position)
     end
     # Get the size of the rendering region of the window
@@ -2242,7 +2249,7 @@ module SF
     #
     # *See also:* getSize
     def size=(size : Vector2|Tuple)
-      size = Vector2.new(size[0].to_u32, size[1].to_u32)
+      size = Vector2u.new(size[0].to_u32, size[1].to_u32)
       VoidCSFML.window_setsize_DXO(to_unsafe, size)
     end
     # Change the title of the window
@@ -2267,8 +2274,8 @@ module SF
     #               source alive after calling this function.
     #
     # *See also:* setTitle
-    def set_icon(width : Int, height : Int, pixels : Int)
-      VoidCSFML.window_seticon_emSemS843(to_unsafe, LibC::UInt.new(width), LibC::UInt.new(height), UInt8.new(pixels))
+    def set_icon(width : Int, height : Int, pixels : UInt8*)
+      VoidCSFML.window_seticon_emSemS843(to_unsafe, LibC::UInt.new(width), LibC::UInt.new(height), pixels)
     end
     # Show or hide the window
     #
@@ -2408,6 +2415,10 @@ module SF
     # :nodoc:
     def to_unsafe()
       pointerof(@_window).as(Void*)
+    end
+    # :nodoc:
+    def inspect(io)
+      to_s(io)
     end
   end
   VoidCSFML.sfml_window_version(out major, out minor, out patch)

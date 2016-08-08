@@ -94,13 +94,13 @@ def test_mouse()
     shape.point_count = 3
     shape.fill_color = SF.color(128, 0, 255)
     shape.position = m - {0, 4}
-    shape[0] = SF.vector2(-8, 0)
-    shape[1] = SF.vector2(8, 0)
-    shape[2] = SF.vector2(0, -wheel_delta.y*5)
+    shape[0] = SF.vector2f(-8, 0)
+    shape[1] = SF.vector2f(8, 0)
+    shape[2] = SF.vector2f(0, -wheel_delta.y*5)
     $window.draw shape
-    shape[0] = SF.vector2(0, -8)
-    shape[1] = SF.vector2(0, 8)
-    shape[2] = SF.vector2(-wheel_delta.x*5, 0)
+    shape[0] = SF.vector2f(0, -8)
+    shape[1] = SF.vector2f(0, 8)
+    shape[2] = SF.vector2f(-wheel_delta.x*5, 0)
     $window.draw shape
 
     $window.display()
@@ -149,7 +149,7 @@ def test_controller()
       rescue
         delta = {0, button_pos.size - btn - 1}
       end
-      shape.position = SF.vector2(400, 300) + SF.vector2(delta) * {30, 30}
+      shape.position = SF.vector2(400, 300) + SF.vector2(*delta) * 30
       text.position = shape.position
       shape.fill_color = SF::Joystick.button_pressed?(js, btn) ? SF.color(255, 128, 0) : SF.color(0, 128, 0)
 
@@ -182,7 +182,7 @@ def test_controller()
         any = true
       end
       next unless any
-      shape.position = SF.vector2(400, 300) + SF.vector2(delta) * {30, 30} + {dx*0.3, dy*0.3}
+      shape.position = SF.vector2(400, 300) + SF.vector2(*delta) * 30 + SF.vector2(dx, dy) * 0.3
 
       $window.draw shape
     end
@@ -206,7 +206,7 @@ class Button < SF::RectangleShape
     super(SF.vector2(width, height))
     @text = SF::Text.new(message, $font, (height*0.8).to_i)
     self.fill_color = color
-    @text.position = SF.vector2((width - @text.global_bounds.width) / 2, -height / 20)
+    @text.position = SF.vector2(((width - @text.global_bounds.width) / 2).to_i, -height / 20)
   end
 
   def draw(target, states : SF::RenderStates)
@@ -233,6 +233,10 @@ actions.each_key do |btn|
   y += h + h/2
 end
 
+version_text = SF::Text.new("SFML v#{SF::SFML_VERSION}\nCrSFML v#{SF::VERSION}", $font, 20)
+version_text.origin = {0, version_text.local_bounds.height}
+version_text.position = {5, $window.size.y - 15}
+
 while $window.open?
   while event = $window.poll_event()
     case event
@@ -240,7 +244,7 @@ while $window.open?
       $window.close()
     when SF::Event::MouseButtonPressed
       actions.each_key do |btn|
-        if btn.global_bounds.contains(event.x.to_f, event.y.to_f)
+        if btn.global_bounds.contains?(event.x.to_f, event.y.to_f)
           actions[btn].call
           break
         end
@@ -252,5 +256,6 @@ while $window.open?
   actions.each_key do |btn|
     $window.draw(btn)
   end
+  $window.draw(version_text)
   $window.display()
 end

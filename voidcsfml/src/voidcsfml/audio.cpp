@@ -81,14 +81,14 @@ public:
     using SoundStream::initialize;
     virtual bool onGetData(SoundStream::Chunk& data) {
         bool result;
-        soundstream_ongetdata_callback((void*)this, (int16_t*)data.samples, data.sampleCount, (unsigned char*)&result);
+        soundstream_ongetdata_callback((void*)this, (int16_t**)&data.samples, &data.sampleCount, (unsigned char*)&result);
         return result;
     }
     virtual void onSeek(Time timeOffset) {
         soundstream_onseek_callback((void*)this, &timeOffset);
     }
 };
-void (*soundstream_ongetdata_callback)(void*, int16_t*, size_t, unsigned char*) = 0;
+void (*soundstream_ongetdata_callback)(void*, int16_t**, size_t*, unsigned char*) = 0;
 void (*soundstream_onseek_callback)(void*, void*) = 0;
 void soundstream_finalize(void* self) {
     ((_SoundStream*)self)->~_SoundStream();
@@ -352,7 +352,7 @@ void soundbuffer_loadfromstream_PO0(void* self, void* stream, unsigned char* res
     *(bool*)result = ((SoundBuffer*)self)->loadFromStream(*(InputStream*)stream);
 }
 void soundbuffer_loadfromsamples_xzLJvtemSemS(void* self, int16_t* samples, uint64_t sample_count, unsigned int channel_count, unsigned int sample_rate, unsigned char* result) {
-    *(bool*)result = ((SoundBuffer*)self)->loadFromSamples((Int16 const*)samples, (Uint64)sample_count, (unsigned int)channel_count, (unsigned int)sample_rate);
+    *(bool*)result = ((SoundBuffer*)self)->loadFromSamples((Int16 const*)samples, sample_count, (unsigned int)channel_count, (unsigned int)sample_rate);
 }
 void soundbuffer_savetofile_zkC(void* self, size_t filename_size, char* filename, unsigned char* result) {
     *(bool*)result = ((SoundBuffer*)self)->saveToFile(std::string(filename, filename_size));

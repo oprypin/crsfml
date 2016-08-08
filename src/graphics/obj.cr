@@ -343,7 +343,7 @@ module SF
     # *Returns:* Transformed point
     def transform_point(point : Vector2|Tuple) : Vector2f
       result = Vector2f.allocate
-      point = Vector2.new(point[0].to_f32, point[1].to_f32)
+      point = Vector2f.new(point[0].to_f32, point[1].to_f32)
       VoidCSFML.transform_transformpoint_UU2(to_unsafe, point, result)
       return result
     end
@@ -413,7 +413,7 @@ module SF
     # *See also:* rotate, scale
     def translate(offset : Vector2|Tuple) : Transform
       result = Transform.allocate
-      offset = Vector2.new(offset[0].to_f32, offset[1].to_f32)
+      offset = Vector2f.new(offset[0].to_f32, offset[1].to_f32)
       VoidCSFML.transform_translate_UU2(to_unsafe, offset, result)
       return result
     end
@@ -484,7 +484,7 @@ module SF
     # *See also:* translate, scale
     def rotate(angle : Number, center : Vector2|Tuple) : Transform
       result = Transform.allocate
-      center = Vector2.new(center[0].to_f32, center[1].to_f32)
+      center = Vector2f.new(center[0].to_f32, center[1].to_f32)
       VoidCSFML.transform_rotate_Bw9UU2(to_unsafe, LibC::Float.new(angle), center, result)
       return result
     end
@@ -551,7 +551,7 @@ module SF
     # *See also:* translate, rotate
     def scale(factors : Vector2|Tuple) : Transform
       result = Transform.allocate
-      factors = Vector2.new(factors[0].to_f32, factors[1].to_f32)
+      factors = Vector2f.new(factors[0].to_f32, factors[1].to_f32)
       VoidCSFML.transform_scale_UU2(to_unsafe, factors, result)
       return result
     end
@@ -577,8 +577,8 @@ module SF
     # *See also:* translate, rotate
     def scale(factors : Vector2|Tuple, center : Vector2|Tuple) : Transform
       result = Transform.allocate
-      factors = Vector2.new(factors[0].to_f32, factors[1].to_f32)
-      center = Vector2.new(center[0].to_f32, center[1].to_f32)
+      factors = Vector2f.new(factors[0].to_f32, factors[1].to_f32)
+      center = Vector2f.new(center[0].to_f32, center[1].to_f32)
       VoidCSFML.transform_scale_UU2UU2(to_unsafe, factors, center, result)
       return result
     end
@@ -608,7 +608,7 @@ module SF
     # *Returns:* New transformed point
     def *(right : Vector2|Tuple) : Vector2f
       result = Vector2f.allocate
-      right = Vector2.new(right[0].to_f32, right[1].to_f32)
+      right = Vector2f.new(right[0].to_f32, right[1].to_f32)
       VoidCSFML.operator_mul_FPeUU2(to_unsafe, right, result)
       return result
     end
@@ -675,8 +675,8 @@ module SF
   struct RenderStates
     @blend_mode : BlendMode
     @transform : Transform
-    @texture : Texture*
-    @shader : Shader*
+    @texture : Void*
+    @shader : Void*
     # Default constructor
     #
     # Constructing a default set of render states is equivalent
@@ -689,8 +689,8 @@ module SF
     def initialize()
       @blend_mode = uninitialized BlendMode
       @transform = uninitialized Transform
-      @texture = uninitialized Texture*
-      @shader = uninitialized Shader*
+      @texture = uninitialized Void*
+      @shader = uninitialized Void*
       VoidCSFML.renderstates_initialize(to_unsafe)
     end
     # Construct a default set of render states with a custom blend mode
@@ -699,8 +699,8 @@ module SF
     def initialize(blend_mode : BlendMode)
       @blend_mode = uninitialized BlendMode
       @transform = uninitialized Transform
-      @texture = uninitialized Texture*
-      @shader = uninitialized Shader*
+      @texture = uninitialized Void*
+      @shader = uninitialized Void*
       VoidCSFML.renderstates_initialize_PG5(to_unsafe, blend_mode)
     end
     # Construct a default set of render states with a custom transform
@@ -709,8 +709,8 @@ module SF
     def initialize(transform : Transform)
       @blend_mode = uninitialized BlendMode
       @transform = uninitialized Transform
-      @texture = uninitialized Texture*
-      @shader = uninitialized Shader*
+      @texture = uninitialized Void*
+      @shader = uninitialized Void*
       VoidCSFML.renderstates_initialize_FPe(to_unsafe, transform)
     end
     # Construct a default set of render states with a custom texture
@@ -719,8 +719,8 @@ module SF
     def initialize(texture : Texture?)
       @blend_mode = uninitialized BlendMode
       @transform = uninitialized Transform
-      @texture = uninitialized Texture*
-      @shader = uninitialized Shader*
+      @texture = uninitialized Void*
+      @shader = uninitialized Void*
       @_renderstates_texture = texture
       VoidCSFML.renderstates_initialize_MXd(to_unsafe, texture)
     end
@@ -730,8 +730,8 @@ module SF
     def initialize(shader : Shader)
       @blend_mode = uninitialized BlendMode
       @transform = uninitialized Transform
-      @texture = uninitialized Texture*
-      @shader = uninitialized Shader*
+      @texture = uninitialized Void*
+      @shader = uninitialized Void*
       @_renderstates_shader = shader
       VoidCSFML.renderstates_initialize_8P6(to_unsafe, shader)
     end
@@ -744,8 +744,8 @@ module SF
     def initialize(blend_mode : BlendMode, transform : Transform, texture : Texture?, shader : Shader)
       @blend_mode = uninitialized BlendMode
       @transform = uninitialized Transform
-      @texture = uninitialized Texture*
-      @shader = uninitialized Shader*
+      @texture = uninitialized Void*
+      @shader = uninitialized Void*
       @_renderstates_texture = texture
       @_renderstates_shader = shader
       VoidCSFML.renderstates_initialize_PG5FPeMXd8P6(to_unsafe, blend_mode, transform, texture, shader)
@@ -766,24 +766,24 @@ module SF
     def transform=(transform : Transform)
       @transform = transform
     end
-    @texture : Texture*
+    @texture : Void*
     # Texture
     def texture : Texture?
       @_renderstates_texture
     end
     def texture=(texture : Texture?)
       @_renderstates_texture = texture
-      @texture = @_renderstates_texture.to_unsafe
+      @texture = texture ? texture.to_unsafe : Pointer(Void).null
     end
     @_renderstates_texture : Texture? = nil
-    @shader : Shader*
+    @shader : Void*
     # Shader
     def shader : Shader?
       @_renderstates_shader
     end
     def shader=(shader : Shader)
       @_renderstates_shader = shader
-      @shader = @_renderstates_shader.to_unsafe
+      @shader = shader ? shader.to_unsafe : Pointer(Void).null
     end
     @_renderstates_shader : Shader? = nil
     # :nodoc:
@@ -794,8 +794,8 @@ module SF
     def initialize(copy : RenderStates)
       @blend_mode = uninitialized BlendMode
       @transform = uninitialized Transform
-      @texture = uninitialized Texture*
-      @shader = uninitialized Shader*
+      @texture = uninitialized Void*
+      @shader = uninitialized Void*
       as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
       VoidCSFML.renderstates_initialize_mi4(to_unsafe, copy)
     end
@@ -980,7 +980,7 @@ module SF
     #
     # *See also:* move, getPosition
     def position=(position : Vector2|Tuple)
-      position = Vector2.new(position[0].to_f32, position[1].to_f32)
+      position = Vector2f.new(position[0].to_f32, position[1].to_f32)
       VoidCSFML.transformable_setposition_UU2(to_unsafe, position)
     end
     # set the orientation of the object
@@ -1018,7 +1018,7 @@ module SF
     #
     # *See also:* scale, getScale
     def scale=(factors : Vector2|Tuple)
-      factors = Vector2.new(factors[0].to_f32, factors[1].to_f32)
+      factors = Vector2f.new(factors[0].to_f32, factors[1].to_f32)
       VoidCSFML.transformable_setscale_UU2(to_unsafe, factors)
     end
     # set the local origin of the object
@@ -1050,7 +1050,7 @@ module SF
     #
     # *See also:* getOrigin
     def origin=(origin : Vector2|Tuple)
-      origin = Vector2.new(origin[0].to_f32, origin[1].to_f32)
+      origin = Vector2f.new(origin[0].to_f32, origin[1].to_f32)
       VoidCSFML.transformable_setorigin_UU2(to_unsafe, origin)
     end
     # get the position of the object
@@ -1124,7 +1124,7 @@ module SF
     #
     # *See also:* setPosition
     def move(offset : Vector2|Tuple)
-      offset = Vector2.new(offset[0].to_f32, offset[1].to_f32)
+      offset = Vector2f.new(offset[0].to_f32, offset[1].to_f32)
       VoidCSFML.transformable_move_UU2(to_unsafe, offset)
     end
     # Rotate the object
@@ -1171,7 +1171,7 @@ module SF
     #
     # *See also:* setScale
     def scale(factor : Vector2|Tuple)
-      factor = Vector2.new(factor[0].to_f32, factor[1].to_f32)
+      factor = Vector2f.new(factor[0].to_f32, factor[1].to_f32)
       VoidCSFML.transformable_scale_UU2(to_unsafe, factor)
     end
     # get the combined transform of the object
@@ -1197,6 +1197,10 @@ module SF
     # :nodoc:
     def to_unsafe()
       pointerof(@_transformable).as(Void*)
+    end
+    # :nodoc:
+    def inspect(io)
+      to_s(io)
     end
     # :nodoc:
     def initialize(copy : Transformable)
@@ -1476,7 +1480,7 @@ module SF
       @position = uninitialized Vector2f
       @color = uninitialized Color
       @tex_coords = uninitialized Vector2f
-      position = Vector2.new(position[0].to_f32, position[1].to_f32)
+      position = Vector2f.new(position[0].to_f32, position[1].to_f32)
       VoidCSFML.vertex_initialize_UU2(to_unsafe, position)
     end
     # Construct the vertex from its position and color
@@ -1489,7 +1493,7 @@ module SF
       @position = uninitialized Vector2f
       @color = uninitialized Color
       @tex_coords = uninitialized Vector2f
-      position = Vector2.new(position[0].to_f32, position[1].to_f32)
+      position = Vector2f.new(position[0].to_f32, position[1].to_f32)
       VoidCSFML.vertex_initialize_UU2QVe(to_unsafe, position, color)
     end
     # Construct the vertex from its position and texture coordinates
@@ -1502,8 +1506,8 @@ module SF
       @position = uninitialized Vector2f
       @color = uninitialized Color
       @tex_coords = uninitialized Vector2f
-      position = Vector2.new(position[0].to_f32, position[1].to_f32)
-      tex_coords = Vector2.new(tex_coords[0].to_f32, tex_coords[1].to_f32)
+      position = Vector2f.new(position[0].to_f32, position[1].to_f32)
+      tex_coords = Vector2f.new(tex_coords[0].to_f32, tex_coords[1].to_f32)
       VoidCSFML.vertex_initialize_UU2UU2(to_unsafe, position, tex_coords)
     end
     # Construct the vertex from its position, color and texture coordinates
@@ -1515,8 +1519,8 @@ module SF
       @position = uninitialized Vector2f
       @color = uninitialized Color
       @tex_coords = uninitialized Vector2f
-      position = Vector2.new(position[0].to_f32, position[1].to_f32)
-      tex_coords = Vector2.new(tex_coords[0].to_f32, tex_coords[1].to_f32)
+      position = Vector2f.new(position[0].to_f32, position[1].to_f32)
+      tex_coords = Vector2f.new(tex_coords[0].to_f32, tex_coords[1].to_f32)
       VoidCSFML.vertex_initialize_UU2QVeUU2(to_unsafe, position, color, tex_coords)
     end
     @position : Vector2f
@@ -1525,7 +1529,7 @@ module SF
       @position
     end
     def position=(position : Vector2|Tuple)
-      position = Vector2.new(position[0].to_f32, position[1].to_f32)
+      position = Vector2f.new(position[0].to_f32, position[1].to_f32)
       @position = position
     end
     @color : Color
@@ -1542,7 +1546,7 @@ module SF
       @tex_coords
     end
     def tex_coords=(tex_coords : Vector2|Tuple)
-      tex_coords = Vector2.new(tex_coords[0].to_f32, tex_coords[1].to_f32)
+      tex_coords = Vector2f.new(tex_coords[0].to_f32, tex_coords[1].to_f32)
       @tex_coords = tex_coords
     end
     # :nodoc:
@@ -1641,10 +1645,8 @@ module SF
     # *Returns:* Reference to the index-th vertex
     #
     # *See also:* getVertexCount
-    def []=(index : Int) : Vertex
-      value = Vertex.allocate
-      VoidCSFML.vertexarray_operator_indexset_vgvpCR(to_unsafe, LibC::SizeT.new(index), value)
-      return value
+    def []=(index : Int, value : Vertex)
+      VoidCSFML.vertexarray_operator_indexset_vgvRos(to_unsafe, LibC::SizeT.new(index), value)
     end
     # Get a read-only access to a vertex by its index
     #
@@ -1727,6 +1729,10 @@ module SF
       pointerof(@_vertexarray).as(Void*)
     end
     # :nodoc:
+    def inspect(io)
+      to_s(io)
+    end
+    # :nodoc:
     def draw(target : RenderTexture, states : RenderStates)
       VoidCSFML.vertexarray_draw_kb9RoT(to_unsafe, target, states)
     end
@@ -1749,12 +1755,12 @@ module SF
     end
   end
   VoidCSFML.shape_getpointcount_callback = ->(self : Void*, result : LibC::SizeT*) {
-    output = (self - 4).as(Union(Shape)).point_count()
+    output = (self - sizeof(LibC::Int)).as(Union(Shape)).point_count()
     result.value = LibC::SizeT.new(output)
   }
   VoidCSFML.shape_getpoint_callback = ->(self : Void*, index : LibC::SizeT, result : Void*) {
-    output = (self - 4).as(Union(Shape)).get_point(index)
-    result.as(Vector2f*).value = Vector2.new(output[0].to_f32, output[1].to_f32)
+    output = (self - sizeof(LibC::Int)).as(Union(Shape)).get_point(index)
+    result.as(Vector2f*).value = Vector2f.new(output[0].to_f32, output[1].to_f32)
   }
   # Base class for textured shapes with outline
   #
@@ -1972,9 +1978,7 @@ module SF
     def initialize()
       @_transformable = uninitialized VoidCSFML::Transformable_Buffer
       @_shape = uninitialized VoidCSFML::Shape_Buffer
-      {% if !flag?(:release) %}
-      raise "Unexpected memory layout" if as(Void*) + 4 != to_unsafe
-      {% end %} #}
+      raise "Unexpected memory layout" if as(Void*) + sizeof(LibC::Int) != to_unsafe
       VoidCSFML.shape_initialize(to_unsafe)
     end
     # Recompute the internal geometry of the shape
@@ -1995,7 +1999,7 @@ module SF
     end
     # :nodoc:
     def position=(position : Vector2|Tuple)
-      position = Vector2.new(position[0].to_f32, position[1].to_f32)
+      position = Vector2f.new(position[0].to_f32, position[1].to_f32)
       VoidCSFML.shape_setposition_UU2(to_unsafe, position)
     end
     # :nodoc:
@@ -2008,7 +2012,7 @@ module SF
     end
     # :nodoc:
     def scale=(factors : Vector2|Tuple)
-      factors = Vector2.new(factors[0].to_f32, factors[1].to_f32)
+      factors = Vector2f.new(factors[0].to_f32, factors[1].to_f32)
       VoidCSFML.shape_setscale_UU2(to_unsafe, factors)
     end
     # :nodoc:
@@ -2017,7 +2021,7 @@ module SF
     end
     # :nodoc:
     def origin=(origin : Vector2|Tuple)
-      origin = Vector2.new(origin[0].to_f32, origin[1].to_f32)
+      origin = Vector2f.new(origin[0].to_f32, origin[1].to_f32)
       VoidCSFML.shape_setorigin_UU2(to_unsafe, origin)
     end
     # :nodoc:
@@ -2049,7 +2053,7 @@ module SF
     end
     # :nodoc:
     def move(offset : Vector2|Tuple)
-      offset = Vector2.new(offset[0].to_f32, offset[1].to_f32)
+      offset = Vector2f.new(offset[0].to_f32, offset[1].to_f32)
       VoidCSFML.shape_move_UU2(to_unsafe, offset)
     end
     # :nodoc:
@@ -2062,7 +2066,7 @@ module SF
     end
     # :nodoc:
     def scale(factor : Vector2|Tuple)
-      factor = Vector2.new(factor[0].to_f32, factor[1].to_f32)
+      factor = Vector2f.new(factor[0].to_f32, factor[1].to_f32)
       VoidCSFML.shape_scale_UU2(to_unsafe, factor)
     end
     # :nodoc:
@@ -2083,6 +2087,10 @@ module SF
       pointerof(@_transformable).as(Void*)
     end
     # :nodoc:
+    def inspect(io)
+      to_s(io)
+    end
+    # :nodoc:
     def draw(target : RenderTexture, states : RenderStates)
       VoidCSFML.shape_draw_kb9RoT(to_unsafe, target, states)
     end
@@ -2098,9 +2106,7 @@ module SF
     def initialize(copy : Shape)
       @_transformable = uninitialized VoidCSFML::Transformable_Buffer
       @_shape = uninitialized VoidCSFML::Shape_Buffer
-      {% if !flag?(:release) %}
-      raise "Unexpected memory layout" if as(Void*) + 4 != to_unsafe
-      {% end %} #}
+      raise "Unexpected memory layout" if as(Void*) + sizeof(LibC::Int) != to_unsafe
       as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
       VoidCSFML.shape_initialize_r5K(to_unsafe, copy)
     end
@@ -2265,7 +2271,7 @@ module SF
     end
     # :nodoc:
     def position=(position : Vector2|Tuple)
-      position = Vector2.new(position[0].to_f32, position[1].to_f32)
+      position = Vector2f.new(position[0].to_f32, position[1].to_f32)
       VoidCSFML.circleshape_setposition_UU2(to_unsafe, position)
     end
     # :nodoc:
@@ -2278,7 +2284,7 @@ module SF
     end
     # :nodoc:
     def scale=(factors : Vector2|Tuple)
-      factors = Vector2.new(factors[0].to_f32, factors[1].to_f32)
+      factors = Vector2f.new(factors[0].to_f32, factors[1].to_f32)
       VoidCSFML.circleshape_setscale_UU2(to_unsafe, factors)
     end
     # :nodoc:
@@ -2287,7 +2293,7 @@ module SF
     end
     # :nodoc:
     def origin=(origin : Vector2|Tuple)
-      origin = Vector2.new(origin[0].to_f32, origin[1].to_f32)
+      origin = Vector2f.new(origin[0].to_f32, origin[1].to_f32)
       VoidCSFML.circleshape_setorigin_UU2(to_unsafe, origin)
     end
     # :nodoc:
@@ -2319,7 +2325,7 @@ module SF
     end
     # :nodoc:
     def move(offset : Vector2|Tuple)
-      offset = Vector2.new(offset[0].to_f32, offset[1].to_f32)
+      offset = Vector2f.new(offset[0].to_f32, offset[1].to_f32)
       VoidCSFML.circleshape_move_UU2(to_unsafe, offset)
     end
     # :nodoc:
@@ -2332,7 +2338,7 @@ module SF
     end
     # :nodoc:
     def scale(factor : Vector2|Tuple)
-      factor = Vector2.new(factor[0].to_f32, factor[1].to_f32)
+      factor = Vector2f.new(factor[0].to_f32, factor[1].to_f32)
       VoidCSFML.circleshape_scale_UU2(to_unsafe, factor)
     end
     # :nodoc:
@@ -2350,6 +2356,10 @@ module SF
     # :nodoc:
     def to_unsafe()
       pointerof(@_transformable).as(Void*)
+    end
+    # :nodoc:
+    def inspect(io)
+      to_s(io)
     end
     # :nodoc:
     def draw(target : RenderTexture, states : RenderStates)
@@ -2446,7 +2456,7 @@ module SF
     #
     # *See also:* getPoint
     def set_point(index : Int, point : Vector2|Tuple)
-      point = Vector2.new(point[0].to_f32, point[1].to_f32)
+      point = Vector2f.new(point[0].to_f32, point[1].to_f32)
       VoidCSFML.convexshape_setpoint_vgvUU2(to_unsafe, LibC::SizeT.new(index), point)
     end
     # Get the position of a point
@@ -2533,7 +2543,7 @@ module SF
     end
     # :nodoc:
     def position=(position : Vector2|Tuple)
-      position = Vector2.new(position[0].to_f32, position[1].to_f32)
+      position = Vector2f.new(position[0].to_f32, position[1].to_f32)
       VoidCSFML.convexshape_setposition_UU2(to_unsafe, position)
     end
     # :nodoc:
@@ -2546,7 +2556,7 @@ module SF
     end
     # :nodoc:
     def scale=(factors : Vector2|Tuple)
-      factors = Vector2.new(factors[0].to_f32, factors[1].to_f32)
+      factors = Vector2f.new(factors[0].to_f32, factors[1].to_f32)
       VoidCSFML.convexshape_setscale_UU2(to_unsafe, factors)
     end
     # :nodoc:
@@ -2555,7 +2565,7 @@ module SF
     end
     # :nodoc:
     def origin=(origin : Vector2|Tuple)
-      origin = Vector2.new(origin[0].to_f32, origin[1].to_f32)
+      origin = Vector2f.new(origin[0].to_f32, origin[1].to_f32)
       VoidCSFML.convexshape_setorigin_UU2(to_unsafe, origin)
     end
     # :nodoc:
@@ -2587,7 +2597,7 @@ module SF
     end
     # :nodoc:
     def move(offset : Vector2|Tuple)
-      offset = Vector2.new(offset[0].to_f32, offset[1].to_f32)
+      offset = Vector2f.new(offset[0].to_f32, offset[1].to_f32)
       VoidCSFML.convexshape_move_UU2(to_unsafe, offset)
     end
     # :nodoc:
@@ -2600,7 +2610,7 @@ module SF
     end
     # :nodoc:
     def scale(factor : Vector2|Tuple)
-      factor = Vector2.new(factor[0].to_f32, factor[1].to_f32)
+      factor = Vector2f.new(factor[0].to_f32, factor[1].to_f32)
       VoidCSFML.convexshape_scale_UU2(to_unsafe, factor)
     end
     # :nodoc:
@@ -2618,6 +2628,10 @@ module SF
     # :nodoc:
     def to_unsafe()
       pointerof(@_transformable).as(Void*)
+    end
+    # :nodoc:
+    def inspect(io)
+      to_s(io)
     end
     # :nodoc:
     def draw(target : RenderTexture, states : RenderStates)
@@ -2777,9 +2791,9 @@ module SF
       VoidCSFML.image_create_emSemSQVe(to_unsafe, LibC::UInt.new(width), LibC::UInt.new(height), color)
     end
     # Shorthand for `image = Image.new; image.create(...); image`
-    def self.new(*args, **kwargs) : self
+    def self.new(width : Int, height : Int, color : Color = Color.new(0, 0, 0)) : self
       obj = new
-      obj.create(*args, **kwargs)
+      obj.create(width, height, color)
       obj
     end
     # Create the image from an array of pixels
@@ -2792,13 +2806,13 @@ module SF
     # * *width* -  Width of the image
     # * *height* - Height of the image
     # * *pixels* - Array of pixels to copy to the image
-    def create(width : Int, height : Int, pixels : Int)
-      VoidCSFML.image_create_emSemS843(to_unsafe, LibC::UInt.new(width), LibC::UInt.new(height), UInt8.new(pixels))
+    def create(width : Int, height : Int, pixels : UInt8*)
+      VoidCSFML.image_create_emSemS843(to_unsafe, LibC::UInt.new(width), LibC::UInt.new(height), pixels)
     end
     # Shorthand for `image = Image.new; image.create(...); image`
-    def self.new(*args, **kwargs) : self
+    def self.new(width : Int, height : Int, pixels : UInt8*) : self
       obj = new
-      obj.create(*args, **kwargs)
+      obj.create(width, height, pixels)
       obj
     end
     # Load the image from a file on disk
@@ -2820,9 +2834,9 @@ module SF
     # Shorthand for `image = Image.new; image.load_from_file(...); image`
     #
     # Raises `InitError` on failure
-    def self.from_file(*args, **kwargs) : self
+    def self.from_file(filename : String) : self
       obj = new
-      if !obj.load_from_file(*args, **kwargs)
+      if !obj.load_from_file(filename)
         raise InitError.new("Image.load_from_file failed")
       end
       obj
@@ -2847,9 +2861,9 @@ module SF
     # Shorthand for `image = Image.new; image.load_from_memory(...); image`
     #
     # Raises `InitError` on failure
-    def self.from_memory(*args, **kwargs) : self
+    def self.from_memory(data : Slice) : self
       obj = new
-      if !obj.load_from_memory(*args, **kwargs)
+      if !obj.load_from_memory(data)
         raise InitError.new("Image.load_from_memory failed")
       end
       obj
@@ -2873,9 +2887,9 @@ module SF
     # Shorthand for `image = Image.new; image.load_from_stream(...); image`
     #
     # Raises `InitError` on failure
-    def self.from_stream(*args, **kwargs) : self
+    def self.from_stream(stream : InputStream) : self
       obj = new
-      if !obj.load_from_stream(*args, **kwargs)
+      if !obj.load_from_stream(stream)
         raise InitError.new("Image.load_from_stream failed")
       end
       obj
@@ -2991,6 +3005,10 @@ module SF
     # :nodoc:
     def to_unsafe()
       pointerof(@_image).as(Void*)
+    end
+    # :nodoc:
+    def inspect(io)
+      to_s(io)
     end
     # :nodoc:
     def initialize(copy : Image)
@@ -3134,9 +3152,9 @@ module SF
     # Shorthand for `texture = Texture.new; texture.create(...); texture`
     #
     # Raises `InitError` on failure
-    def self.new(*args, **kwargs) : self
+    def self.new(width : Int, height : Int) : self
       obj = new
-      if !obj.create(*args, **kwargs)
+      if !obj.create(width, height)
         raise InitError.new("Texture.create failed")
       end
       obj
@@ -3174,9 +3192,9 @@ module SF
     # Shorthand for `texture = Texture.new; texture.load_from_file(...); texture`
     #
     # Raises `InitError` on failure
-    def self.from_file(*args, **kwargs) : self
+    def self.from_file(filename : String, area : IntRect = IntRect.new()) : self
       obj = new
-      if !obj.load_from_file(*args, **kwargs)
+      if !obj.load_from_file(filename, area)
         raise InitError.new("Texture.load_from_file failed")
       end
       obj
@@ -3215,9 +3233,9 @@ module SF
     # Shorthand for `texture = Texture.new; texture.load_from_memory(...); texture`
     #
     # Raises `InitError` on failure
-    def self.from_memory(*args, **kwargs) : self
+    def self.from_memory(data : Slice, area : IntRect = IntRect.new()) : self
       obj = new
-      if !obj.load_from_memory(*args, **kwargs)
+      if !obj.load_from_memory(data, area)
         raise InitError.new("Texture.load_from_memory failed")
       end
       obj
@@ -3255,9 +3273,9 @@ module SF
     # Shorthand for `texture = Texture.new; texture.load_from_stream(...); texture`
     #
     # Raises `InitError` on failure
-    def self.from_stream(*args, **kwargs) : self
+    def self.from_stream(stream : InputStream, area : IntRect = IntRect.new()) : self
       obj = new
-      if !obj.load_from_stream(*args, **kwargs)
+      if !obj.load_from_stream(stream, area)
         raise InitError.new("Texture.load_from_stream failed")
       end
       obj
@@ -3288,9 +3306,9 @@ module SF
     # Shorthand for `texture = Texture.new; texture.load_from_image(...); texture`
     #
     # Raises `InitError` on failure
-    def self.from_image(*args, **kwargs) : self
+    def self.from_image(image : Image, area : IntRect = IntRect.new()) : self
       obj = new
-      if !obj.load_from_image(*args, **kwargs)
+      if !obj.load_from_image(image, area)
         raise InitError.new("Texture.load_from_image failed")
       end
       obj
@@ -3331,8 +3349,8 @@ module SF
     # texture was not previously created.
     #
     # * *pixels* - Array of pixels to copy to the texture
-    def update(pixels : Int)
-      VoidCSFML.texture_update_843(to_unsafe, UInt8.new(pixels))
+    def update(pixels : UInt8*)
+      VoidCSFML.texture_update_843(to_unsafe, pixels)
     end
     # Update a part of the texture from an array of pixels
     #
@@ -3351,8 +3369,8 @@ module SF
     # * *height* - Height of the pixel region contained in *pixels*
     # * *x* -      X offset in the texture where to copy the source pixels
     # * *y* -      Y offset in the texture where to copy the source pixels
-    def update(pixels : Int, width : Int, height : Int, x : Int, y : Int)
-      VoidCSFML.texture_update_843emSemSemSemS(to_unsafe, UInt8.new(pixels), LibC::UInt.new(width), LibC::UInt.new(height), LibC::UInt.new(x), LibC::UInt.new(y))
+    def update(pixels : UInt8*, width : Int, height : Int, x : Int, y : Int)
+      VoidCSFML.texture_update_843emSemSemSemS(to_unsafe, pixels, LibC::UInt.new(width), LibC::UInt.new(height), LibC::UInt.new(x), LibC::UInt.new(y))
     end
     # Update the texture from an image
     #
@@ -3536,6 +3554,10 @@ module SF
       pointerof(@_texture).as(Void*)
     end
     # :nodoc:
+    def inspect(io)
+      to_s(io)
+    end
+    # :nodoc:
     def initialize(copy : Texture)
       @_texture = uninitialized VoidCSFML::Texture_Buffer
       as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
@@ -3637,6 +3659,10 @@ module SF
         pointerof(@_font_info).as(Void*)
       end
       # :nodoc:
+      def inspect(io)
+        to_s(io)
+      end
+      # :nodoc:
       def initialize(copy : Font::Info)
         @_font_info = uninitialized VoidCSFML::Font_Info_Buffer
         as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
@@ -3683,9 +3709,9 @@ module SF
     # Shorthand for `font = Font.new; font.load_from_file(...); font`
     #
     # Raises `InitError` on failure
-    def self.from_file(*args, **kwargs) : self
+    def self.from_file(filename : String) : self
       obj = new
-      if !obj.load_from_file(*args, **kwargs)
+      if !obj.load_from_file(filename)
         raise InitError.new("Font.load_from_file failed")
       end
       obj
@@ -3713,9 +3739,9 @@ module SF
     # Shorthand for `font = Font.new; font.load_from_memory(...); font`
     #
     # Raises `InitError` on failure
-    def self.from_memory(*args, **kwargs) : self
+    def self.from_memory(data : Slice) : self
       obj = new
-      if !obj.load_from_memory(*args, **kwargs)
+      if !obj.load_from_memory(data)
         raise InitError.new("Font.load_from_memory failed")
       end
       obj
@@ -3744,9 +3770,9 @@ module SF
     # Shorthand for `font = Font.new; font.load_from_stream(...); font`
     #
     # Raises `InitError` on failure
-    def self.from_stream(*args, **kwargs) : self
+    def self.from_stream(stream : InputStream) : self
       obj = new
-      if !obj.load_from_stream(*args, **kwargs)
+      if !obj.load_from_stream(stream)
         raise InitError.new("Font.load_from_stream failed")
       end
       obj
@@ -3849,6 +3875,10 @@ module SF
       pointerof(@_font).as(Void*)
     end
     # :nodoc:
+    def inspect(io)
+      to_s(io)
+    end
+    # :nodoc:
     def initialize(copy : Font)
       @_font = uninitialized VoidCSFML::Font_Buffer
       as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
@@ -3897,7 +3927,7 @@ module SF
       @_transformable = uninitialized VoidCSFML::Transformable_Buffer
       @_shape = uninitialized VoidCSFML::Shape_Buffer
       @_rectangleshape = uninitialized VoidCSFML::RectangleShape_Buffer
-      size = Vector2.new(size[0].to_f32, size[1].to_f32)
+      size = Vector2f.new(size[0].to_f32, size[1].to_f32)
       VoidCSFML.rectangleshape_initialize_UU2(to_unsafe, size)
     end
     # Set the size of the rectangle
@@ -3906,7 +3936,7 @@ module SF
     #
     # *See also:* getSize
     def size=(size : Vector2|Tuple)
-      size = Vector2.new(size[0].to_f32, size[1].to_f32)
+      size = Vector2f.new(size[0].to_f32, size[1].to_f32)
       VoidCSFML.rectangleshape_setsize_UU2(to_unsafe, size)
     end
     # Get the size of the rectangle
@@ -4009,7 +4039,7 @@ module SF
     end
     # :nodoc:
     def position=(position : Vector2|Tuple)
-      position = Vector2.new(position[0].to_f32, position[1].to_f32)
+      position = Vector2f.new(position[0].to_f32, position[1].to_f32)
       VoidCSFML.rectangleshape_setposition_UU2(to_unsafe, position)
     end
     # :nodoc:
@@ -4022,7 +4052,7 @@ module SF
     end
     # :nodoc:
     def scale=(factors : Vector2|Tuple)
-      factors = Vector2.new(factors[0].to_f32, factors[1].to_f32)
+      factors = Vector2f.new(factors[0].to_f32, factors[1].to_f32)
       VoidCSFML.rectangleshape_setscale_UU2(to_unsafe, factors)
     end
     # :nodoc:
@@ -4031,7 +4061,7 @@ module SF
     end
     # :nodoc:
     def origin=(origin : Vector2|Tuple)
-      origin = Vector2.new(origin[0].to_f32, origin[1].to_f32)
+      origin = Vector2f.new(origin[0].to_f32, origin[1].to_f32)
       VoidCSFML.rectangleshape_setorigin_UU2(to_unsafe, origin)
     end
     # :nodoc:
@@ -4063,7 +4093,7 @@ module SF
     end
     # :nodoc:
     def move(offset : Vector2|Tuple)
-      offset = Vector2.new(offset[0].to_f32, offset[1].to_f32)
+      offset = Vector2f.new(offset[0].to_f32, offset[1].to_f32)
       VoidCSFML.rectangleshape_move_UU2(to_unsafe, offset)
     end
     # :nodoc:
@@ -4076,7 +4106,7 @@ module SF
     end
     # :nodoc:
     def scale(factor : Vector2|Tuple)
-      factor = Vector2.new(factor[0].to_f32, factor[1].to_f32)
+      factor = Vector2f.new(factor[0].to_f32, factor[1].to_f32)
       VoidCSFML.rectangleshape_scale_UU2(to_unsafe, factor)
     end
     # :nodoc:
@@ -4094,6 +4124,10 @@ module SF
     # :nodoc:
     def to_unsafe()
       pointerof(@_transformable).as(Void*)
+    end
+    # :nodoc:
+    def inspect(io)
+      to_s(io)
     end
     # :nodoc:
     def draw(target : RenderTexture, states : RenderStates)
@@ -4195,8 +4229,8 @@ module SF
     # * *size* -   Size of zone to display
     def initialize(center : Vector2|Tuple, size : Vector2|Tuple)
       @_view = uninitialized VoidCSFML::View_Buffer
-      center = Vector2.new(center[0].to_f32, center[1].to_f32)
-      size = Vector2.new(size[0].to_f32, size[1].to_f32)
+      center = Vector2f.new(center[0].to_f32, center[1].to_f32)
+      size = Vector2f.new(size[0].to_f32, size[1].to_f32)
       VoidCSFML.view_initialize_UU2UU2(to_unsafe, center, size)
     end
     # Set the center of the view
@@ -4214,7 +4248,7 @@ module SF
     #
     # *See also:* setSize, getCenter
     def center=(center : Vector2|Tuple)
-      center = Vector2.new(center[0].to_f32, center[1].to_f32)
+      center = Vector2f.new(center[0].to_f32, center[1].to_f32)
       VoidCSFML.view_setcenter_UU2(to_unsafe, center)
     end
     # Set the size of the view
@@ -4232,7 +4266,7 @@ module SF
     #
     # *See also:* setCenter, getCenter
     def size=(size : Vector2|Tuple)
-      size = Vector2.new(size[0].to_f32, size[1].to_f32)
+      size = Vector2f.new(size[0].to_f32, size[1].to_f32)
       VoidCSFML.view_setsize_UU2(to_unsafe, size)
     end
     # Set the orientation of the view
@@ -4324,7 +4358,7 @@ module SF
     #
     # *See also:* setCenter, rotate, zoom
     def move(offset : Vector2|Tuple)
-      offset = Vector2.new(offset[0].to_f32, offset[1].to_f32)
+      offset = Vector2f.new(offset[0].to_f32, offset[1].to_f32)
       VoidCSFML.view_move_UU2(to_unsafe, offset)
     end
     # Rotate the view relatively to its current orientation
@@ -4377,6 +4411,10 @@ module SF
     # :nodoc:
     def to_unsafe()
       pointerof(@_view).as(Void*)
+    end
+    # :nodoc:
+    def inspect(io)
+      to_s(io)
     end
     # :nodoc:
     def initialize(copy : View)
@@ -4495,7 +4533,7 @@ module SF
     # *See also:* mapCoordsToPixel
     def map_pixel_to_coords(point : Vector2|Tuple) : Vector2f
       result = Vector2f.allocate
-      point = Vector2.new(point[0].to_i32, point[1].to_i32)
+      point = Vector2i.new(point[0].to_i32, point[1].to_i32)
       VoidCSFML.rendertarget_mappixeltocoords_ufV(to_unsafe, point, result)
       return result
     end
@@ -4527,7 +4565,7 @@ module SF
     # *See also:* mapCoordsToPixel
     def map_pixel_to_coords(point : Vector2|Tuple, view : View) : Vector2f
       result = Vector2f.allocate
-      point = Vector2.new(point[0].to_i32, point[1].to_i32)
+      point = Vector2i.new(point[0].to_i32, point[1].to_i32)
       VoidCSFML.rendertarget_mappixeltocoords_ufVDDi(to_unsafe, point, view, result)
       return result
     end
@@ -4548,7 +4586,7 @@ module SF
     # *See also:* mapPixelToCoords
     def map_coords_to_pixel(point : Vector2|Tuple) : Vector2i
       result = Vector2i.allocate
-      point = Vector2.new(point[0].to_f32, point[1].to_f32)
+      point = Vector2f.new(point[0].to_f32, point[1].to_f32)
       VoidCSFML.rendertarget_mapcoordstopixel_UU2(to_unsafe, point, result)
       return result
     end
@@ -4576,7 +4614,7 @@ module SF
     # *See also:* mapPixelToCoords
     def map_coords_to_pixel(point : Vector2|Tuple, view : View) : Vector2i
       result = Vector2i.allocate
-      point = Vector2.new(point[0].to_f32, point[1].to_f32)
+      point = Vector2f.new(point[0].to_f32, point[1].to_f32)
       VoidCSFML.rendertarget_mapcoordstopixel_UU2DDi(to_unsafe, point, view, result)
       return result
     end
@@ -4757,9 +4795,9 @@ module SF
     # Shorthand for `render_texture = RenderTexture.new; render_texture.create(...); render_texture`
     #
     # Raises `InitError` on failure
-    def self.new(*args, **kwargs) : self
+    def self.new(width : Int, height : Int, depth_buffer : Bool = false) : self
       obj = new
-      if !obj.create(*args, **kwargs)
+      if !obj.create(width, height, depth_buffer)
         raise InitError.new("RenderTexture.create failed")
       end
       obj
@@ -4884,28 +4922,28 @@ module SF
     # :nodoc:
     def map_pixel_to_coords(point : Vector2|Tuple) : Vector2f
       result = Vector2f.allocate
-      point = Vector2.new(point[0].to_i32, point[1].to_i32)
+      point = Vector2i.new(point[0].to_i32, point[1].to_i32)
       VoidCSFML.rendertexture_mappixeltocoords_ufV(to_unsafe, point, result)
       return result
     end
     # :nodoc:
     def map_pixel_to_coords(point : Vector2|Tuple, view : View) : Vector2f
       result = Vector2f.allocate
-      point = Vector2.new(point[0].to_i32, point[1].to_i32)
+      point = Vector2i.new(point[0].to_i32, point[1].to_i32)
       VoidCSFML.rendertexture_mappixeltocoords_ufVDDi(to_unsafe, point, view, result)
       return result
     end
     # :nodoc:
     def map_coords_to_pixel(point : Vector2|Tuple) : Vector2i
       result = Vector2i.allocate
-      point = Vector2.new(point[0].to_f32, point[1].to_f32)
+      point = Vector2f.new(point[0].to_f32, point[1].to_f32)
       VoidCSFML.rendertexture_mapcoordstopixel_UU2(to_unsafe, point, result)
       return result
     end
     # :nodoc:
     def map_coords_to_pixel(point : Vector2|Tuple, view : View) : Vector2i
       result = Vector2i.allocate
-      point = Vector2.new(point[0].to_f32, point[1].to_f32)
+      point = Vector2f.new(point[0].to_f32, point[1].to_f32)
       VoidCSFML.rendertexture_mapcoordstopixel_UU2DDi(to_unsafe, point, view, result)
       return result
     end
@@ -4929,6 +4967,10 @@ module SF
     # :nodoc:
     def to_unsafe()
       pointerof(@_rendertexture).as(Void*)
+    end
+    # :nodoc:
+    def inspect(io)
+      to_s(io)
     end
   end
   #:nodoc:
@@ -5124,9 +5166,9 @@ module SF
       VoidCSFML.renderwindow_create_wg0bQssaLFw4(to_unsafe, mode, title.size, title.chars, style, settings)
     end
     # Shorthand for `render_window = RenderWindow.new; render_window.create(...); render_window`
-    def self.new(*args, **kwargs) : self
+    def self.new(mode : VideoMode, title : String, style : Style = Style::Default, settings : ContextSettings = ContextSettings.new()) : self
       obj = new
-      obj.create(*args, **kwargs)
+      obj.create(mode, title, style, settings)
       obj
     end
     # :nodoc:
@@ -5134,9 +5176,9 @@ module SF
       VoidCSFML.renderwindow_create_rLQFw4(to_unsafe, handle, settings)
     end
     # Shorthand for `render_window = RenderWindow.new; render_window.create(...); render_window`
-    def self.new(*args, **kwargs) : self
+    def self.new(handle : WindowHandle, settings : ContextSettings = ContextSettings.new()) : self
       obj = new
-      obj.create(*args, **kwargs)
+      obj.create(handle, settings)
       obj
     end
     # :nodoc:
@@ -5192,12 +5234,12 @@ module SF
     end
     # :nodoc:
     def position=(position : Vector2|Tuple)
-      position = Vector2.new(position[0].to_i32, position[1].to_i32)
+      position = Vector2i.new(position[0].to_i32, position[1].to_i32)
       VoidCSFML.renderwindow_setposition_ufV(to_unsafe, position)
     end
     # :nodoc:
     def size=(size : Vector2|Tuple)
-      size = Vector2.new(size[0].to_u32, size[1].to_u32)
+      size = Vector2u.new(size[0].to_u32, size[1].to_u32)
       VoidCSFML.renderwindow_setsize_DXO(to_unsafe, size)
     end
     # :nodoc:
@@ -5205,8 +5247,8 @@ module SF
       VoidCSFML.renderwindow_settitle_bQs(to_unsafe, title.size, title.chars)
     end
     # :nodoc:
-    def set_icon(width : Int, height : Int, pixels : Int)
-      VoidCSFML.renderwindow_seticon_emSemS843(to_unsafe, LibC::UInt.new(width), LibC::UInt.new(height), UInt8.new(pixels))
+    def set_icon(width : Int, height : Int, pixels : UInt8*)
+      VoidCSFML.renderwindow_seticon_emSemS843(to_unsafe, LibC::UInt.new(width), LibC::UInt.new(height), pixels)
     end
     # :nodoc:
     def visible=(visible : Bool)
@@ -5284,28 +5326,28 @@ module SF
     # :nodoc:
     def map_pixel_to_coords(point : Vector2|Tuple) : Vector2f
       result = Vector2f.allocate
-      point = Vector2.new(point[0].to_i32, point[1].to_i32)
+      point = Vector2i.new(point[0].to_i32, point[1].to_i32)
       VoidCSFML.renderwindow_mappixeltocoords_ufV(to_unsafe, point, result)
       return result
     end
     # :nodoc:
     def map_pixel_to_coords(point : Vector2|Tuple, view : View) : Vector2f
       result = Vector2f.allocate
-      point = Vector2.new(point[0].to_i32, point[1].to_i32)
+      point = Vector2i.new(point[0].to_i32, point[1].to_i32)
       VoidCSFML.renderwindow_mappixeltocoords_ufVDDi(to_unsafe, point, view, result)
       return result
     end
     # :nodoc:
     def map_coords_to_pixel(point : Vector2|Tuple) : Vector2i
       result = Vector2i.allocate
-      point = Vector2.new(point[0].to_f32, point[1].to_f32)
+      point = Vector2f.new(point[0].to_f32, point[1].to_f32)
       VoidCSFML.renderwindow_mapcoordstopixel_UU2(to_unsafe, point, result)
       return result
     end
     # :nodoc:
     def map_coords_to_pixel(point : Vector2|Tuple, view : View) : Vector2i
       result = Vector2i.allocate
-      point = Vector2.new(point[0].to_f32, point[1].to_f32)
+      point = Vector2f.new(point[0].to_f32, point[1].to_f32)
       VoidCSFML.renderwindow_mapcoordstopixel_UU2DDi(to_unsafe, point, view, result)
       return result
     end
@@ -5329,6 +5371,10 @@ module SF
     # :nodoc:
     def to_unsafe()
       pointerof(@_window).as(Void*)
+    end
+    # :nodoc:
+    def inspect(io)
+      to_s(io)
     end
   end
   # Shader class (vertex and fragment)
@@ -5477,9 +5523,9 @@ module SF
     # Shorthand for `shader = Shader.new; shader.load_from_file(...); shader`
     #
     # Raises `InitError` on failure
-    def self.from_file(*args, **kwargs) : self
+    def self.from_file(filename : String, type : Shader::Type) : self
       obj = new
-      if !obj.load_from_file(*args, **kwargs)
+      if !obj.load_from_file(filename, type)
         raise InitError.new("Shader.load_from_file failed")
       end
       obj
@@ -5507,9 +5553,9 @@ module SF
     # Shorthand for `shader = Shader.new; shader.load_from_file(...); shader`
     #
     # Raises `InitError` on failure
-    def self.from_file(*args, **kwargs) : self
+    def self.from_file(vertex_shader_filename : String, fragment_shader_filename : String) : self
       obj = new
-      if !obj.load_from_file(*args, **kwargs)
+      if !obj.load_from_file(vertex_shader_filename, fragment_shader_filename)
         raise InitError.new("Shader.load_from_file failed")
       end
       obj
@@ -5536,9 +5582,9 @@ module SF
     # Shorthand for `shader = Shader.new; shader.load_from_memory(...); shader`
     #
     # Raises `InitError` on failure
-    def self.from_memory(*args, **kwargs) : self
+    def self.from_memory(shader : String, type : Shader::Type) : self
       obj = new
-      if !obj.load_from_memory(*args, **kwargs)
+      if !obj.load_from_memory(shader, type)
         raise InitError.new("Shader.load_from_memory failed")
       end
       obj
@@ -5566,9 +5612,9 @@ module SF
     # Shorthand for `shader = Shader.new; shader.load_from_memory(...); shader`
     #
     # Raises `InitError` on failure
-    def self.from_memory(*args, **kwargs) : self
+    def self.from_memory(vertex_shader : String, fragment_shader : String) : self
       obj = new
-      if !obj.load_from_memory(*args, **kwargs)
+      if !obj.load_from_memory(vertex_shader, fragment_shader)
         raise InitError.new("Shader.load_from_memory failed")
       end
       obj
@@ -5595,9 +5641,9 @@ module SF
     # Shorthand for `shader = Shader.new; shader.load_from_stream(...); shader`
     #
     # Raises `InitError` on failure
-    def self.from_stream(*args, **kwargs) : self
+    def self.from_stream(stream : InputStream, type : Shader::Type) : self
       obj = new
-      if !obj.load_from_stream(*args, **kwargs)
+      if !obj.load_from_stream(stream, type)
         raise InitError.new("Shader.load_from_stream failed")
       end
       obj
@@ -5618,18 +5664,16 @@ module SF
     # *Returns:* True if loading succeeded, false if it failed
     #
     # *See also:* loadFromFile, loadFromMemory
-    def load_from_stream() : {Bool, InputStream, InputStream}
-      vertex_shader_stream = InputStream.allocate
-      fragment_shader_stream = InputStream.allocate
+    def load_from_stream(vertex_shader_stream : InputStream, fragment_shader_stream : InputStream) : Bool
       VoidCSFML.shader_loadfromstream_PO0PO0(to_unsafe, vertex_shader_stream, fragment_shader_stream, out result)
-      return result, vertex_shader_stream, fragment_shader_stream
+      return result
     end
     # Shorthand for `shader = Shader.new; shader.load_from_stream(...); shader`
     #
     # Raises `InitError` on failure
-    def self.from_stream(*args, **kwargs) : self
+    def self.from_stream(vertex_shader_stream : InputStream, fragment_shader_stream : InputStream) : self
       obj = new
-      if !obj.load_from_stream(*args, **kwargs)
+      if !obj.load_from_stream(vertex_shader_stream, fragment_shader_stream)
         raise InitError.new("Shader.load_from_stream failed")
       end
       obj
@@ -5733,7 +5777,7 @@ module SF
     # * *name* -   Name of the parameter in the shader
     # * *vector* - Vector to assign
     def set_parameter(name : String, vector : Vector2|Tuple)
-      vector = Vector2.new(vector[0].to_f32, vector[1].to_f32)
+      vector = Vector2f.new(vector[0].to_f32, vector[1].to_f32)
       VoidCSFML.shader_setparameter_zkCUU2(to_unsafe, name.bytesize, name, vector)
     end
     # Change a 3-components vector parameter of the shader
@@ -5903,6 +5947,10 @@ module SF
     # :nodoc:
     def to_unsafe()
       pointerof(@_shader).as(Void*)
+    end
+    # :nodoc:
+    def inspect(io)
+      to_s(io)
     end
   end
   # Drawable representation of a texture, with its
@@ -6104,7 +6152,7 @@ module SF
     end
     # :nodoc:
     def position=(position : Vector2|Tuple)
-      position = Vector2.new(position[0].to_f32, position[1].to_f32)
+      position = Vector2f.new(position[0].to_f32, position[1].to_f32)
       VoidCSFML.sprite_setposition_UU2(to_unsafe, position)
     end
     # :nodoc:
@@ -6117,7 +6165,7 @@ module SF
     end
     # :nodoc:
     def scale=(factors : Vector2|Tuple)
-      factors = Vector2.new(factors[0].to_f32, factors[1].to_f32)
+      factors = Vector2f.new(factors[0].to_f32, factors[1].to_f32)
       VoidCSFML.sprite_setscale_UU2(to_unsafe, factors)
     end
     # :nodoc:
@@ -6126,7 +6174,7 @@ module SF
     end
     # :nodoc:
     def origin=(origin : Vector2|Tuple)
-      origin = Vector2.new(origin[0].to_f32, origin[1].to_f32)
+      origin = Vector2f.new(origin[0].to_f32, origin[1].to_f32)
       VoidCSFML.sprite_setorigin_UU2(to_unsafe, origin)
     end
     # :nodoc:
@@ -6158,7 +6206,7 @@ module SF
     end
     # :nodoc:
     def move(offset : Vector2|Tuple)
-      offset = Vector2.new(offset[0].to_f32, offset[1].to_f32)
+      offset = Vector2f.new(offset[0].to_f32, offset[1].to_f32)
       VoidCSFML.sprite_move_UU2(to_unsafe, offset)
     end
     # :nodoc:
@@ -6171,7 +6219,7 @@ module SF
     end
     # :nodoc:
     def scale(factor : Vector2|Tuple)
-      factor = Vector2.new(factor[0].to_f32, factor[1].to_f32)
+      factor = Vector2f.new(factor[0].to_f32, factor[1].to_f32)
       VoidCSFML.sprite_scale_UU2(to_unsafe, factor)
     end
     # :nodoc:
@@ -6190,6 +6238,10 @@ module SF
     # :nodoc:
     def to_unsafe()
       pointerof(@_transformable).as(Void*)
+    end
+    # :nodoc:
+    def inspect(io)
+      to_s(io)
     end
     # :nodoc:
     def draw(target : RenderTexture, states : RenderStates)
@@ -6496,7 +6548,7 @@ module SF
     end
     # :nodoc:
     def position=(position : Vector2|Tuple)
-      position = Vector2.new(position[0].to_f32, position[1].to_f32)
+      position = Vector2f.new(position[0].to_f32, position[1].to_f32)
       VoidCSFML.text_setposition_UU2(to_unsafe, position)
     end
     # :nodoc:
@@ -6509,7 +6561,7 @@ module SF
     end
     # :nodoc:
     def scale=(factors : Vector2|Tuple)
-      factors = Vector2.new(factors[0].to_f32, factors[1].to_f32)
+      factors = Vector2f.new(factors[0].to_f32, factors[1].to_f32)
       VoidCSFML.text_setscale_UU2(to_unsafe, factors)
     end
     # :nodoc:
@@ -6518,7 +6570,7 @@ module SF
     end
     # :nodoc:
     def origin=(origin : Vector2|Tuple)
-      origin = Vector2.new(origin[0].to_f32, origin[1].to_f32)
+      origin = Vector2f.new(origin[0].to_f32, origin[1].to_f32)
       VoidCSFML.text_setorigin_UU2(to_unsafe, origin)
     end
     # :nodoc:
@@ -6550,7 +6602,7 @@ module SF
     end
     # :nodoc:
     def move(offset : Vector2|Tuple)
-      offset = Vector2.new(offset[0].to_f32, offset[1].to_f32)
+      offset = Vector2f.new(offset[0].to_f32, offset[1].to_f32)
       VoidCSFML.text_move_UU2(to_unsafe, offset)
     end
     # :nodoc:
@@ -6563,7 +6615,7 @@ module SF
     end
     # :nodoc:
     def scale(factor : Vector2|Tuple)
-      factor = Vector2.new(factor[0].to_f32, factor[1].to_f32)
+      factor = Vector2f.new(factor[0].to_f32, factor[1].to_f32)
       VoidCSFML.text_scale_UU2(to_unsafe, factor)
     end
     # :nodoc:
@@ -6582,6 +6634,10 @@ module SF
     # :nodoc:
     def to_unsafe()
       pointerof(@_transformable).as(Void*)
+    end
+    # :nodoc:
+    def inspect(io)
+      to_s(io)
     end
     # :nodoc:
     def draw(target : RenderTexture, states : RenderStates)

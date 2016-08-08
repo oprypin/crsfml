@@ -27,7 +27,7 @@ lib VoidCSFML
   fun soundsource_isrelativetolistener(self : Void*, result : Bool*)
   fun soundsource_getmindistance(self : Void*, result : LibC::Float*)
   fun soundsource_getattenuation(self : Void*, result : LibC::Float*)
-  $soundstream_ongetdata_callback : Void*, Int16*, LibC::SizeT, Bool* ->
+  $soundstream_ongetdata_callback : Void*, Int16**, LibC::SizeT*, Bool* ->
   $soundstream_onseek_callback : Void*, Void* ->
   fun soundstream_finalize(self : Void*)
   fun soundstream_play(self : Void*)

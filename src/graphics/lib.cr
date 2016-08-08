@@ -93,7 +93,7 @@ lib VoidCSFML
   fun vertexarray_initialize(self : Void*)
   fun vertexarray_initialize_u9wvgv(self : Void*, type : LibC::Int, vertex_count : LibC::SizeT)
   fun vertexarray_getvertexcount(self : Void*, result : LibC::SizeT*)
-  fun vertexarray_operator_indexset_vgvpCR(self : Void*, index : LibC::SizeT, value : Void*)
+  fun vertexarray_operator_indexset_vgvRos(self : Void*, index : LibC::SizeT, value : Void*)
   fun vertexarray_operator_index_vgv(self : Void*, index : LibC::SizeT, result : Void*)
   fun vertexarray_clear(self : Void*)
   fun vertexarray_resize_vgv(self : Void*, vertex_count : LibC::SizeT)

@@ -96,6 +96,10 @@ module SF
     def to_unsafe()
       pointerof(@_socket).as(Void*)
     end
+    # :nodoc:
+    def inspect(io)
+      to_s(io)
+    end
   end
   # Specialized socket using the TCP protocol
   #
@@ -305,10 +309,9 @@ module SF
     # *Returns:* Status code
     #
     # *See also:* receive
-    def send() : {Socket::Status, Packet}
-      packet = Packet.allocate
+    def send(packet : Packet) : Socket::Status
       VoidCSFML.tcpsocket_send_jyF(to_unsafe, packet, out result)
-      return Socket::Status.new(result), packet
+      return Socket::Status.new(result)
     end
     # Receive a formatted packet of data from the remote peer
     #
@@ -321,7 +324,7 @@ module SF
     # *Returns:* Status code
     #
     # *See also:* send
-    def receive(packet : Packet*) : Socket::Status
+    def receive(packet : Packet) : Socket::Status
       VoidCSFML.tcpsocket_receive_jyF(to_unsafe, packet, out result)
       return Socket::Status.new(result)
     end
@@ -337,6 +340,10 @@ module SF
     # :nodoc:
     def to_unsafe()
       pointerof(@_socket).as(Void*)
+    end
+    # :nodoc:
+    def inspect(io)
+      to_s(io)
     end
   end
   # A FTP client
@@ -560,6 +567,10 @@ module SF
         pointerof(@_ftp_response).as(Void*)
       end
       # :nodoc:
+      def inspect(io)
+        to_s(io)
+      end
+      # :nodoc:
       def initialize(copy : Ftp::Response)
         @_ftp_response = uninitialized VoidCSFML::Ftp_Response_Buffer
         as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
@@ -605,6 +616,10 @@ module SF
       # :nodoc:
       def to_unsafe()
         pointerof(@_ftp_response).as(Void*)
+      end
+      # :nodoc:
+      def inspect(io)
+        to_s(io)
       end
       # :nodoc:
       def initialize(copy : Ftp::DirectoryResponse)
@@ -655,6 +670,10 @@ module SF
       # :nodoc:
       def to_unsafe()
         pointerof(@_ftp_response).as(Void*)
+      end
+      # :nodoc:
+      def inspect(io)
+        to_s(io)
       end
       # :nodoc:
       def initialize(copy : Ftp::ListingResponse)
@@ -929,6 +948,10 @@ module SF
     def to_unsafe()
       pointerof(@_ftp).as(Void*)
     end
+    # :nodoc:
+    def inspect(io)
+      to_s(io)
+    end
   end
   # Encapsulate an IPv4 network address
   #
@@ -983,10 +1006,9 @@ module SF
     # implicit conversions from literal strings to IpAddress work.
     #
     # * *address* - IP address or network name
-    def initialize(address : Int)
+    def initialize(address : UInt8*)
       @m_address = uninitialized UInt32
-      @_ipaddress_address = address
-      VoidCSFML.ipaddress_initialize_Yy6(to_unsafe, LibC::Char.new(address))
+      VoidCSFML.ipaddress_initialize_Yy6(to_unsafe, address)
     end
     # Construct the address from 4 bytes
     #
@@ -1025,7 +1047,7 @@ module SF
     # *Returns:* String representation of the address
     #
     # *See also:* toInteger
-    def to_string() : String
+    def to_s() : String
       VoidCSFML.ipaddress_tostring(to_unsafe, out result)
       return String.new(result)
     end
@@ -1304,6 +1326,10 @@ module SF
         pointerof(@_http_request).as(Void*)
       end
       # :nodoc:
+      def inspect(io)
+        to_s(io)
+      end
+      # :nodoc:
       def initialize(copy : Http::Request)
         @_http_request = uninitialized VoidCSFML::Http_Request_Buffer
         as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
@@ -1434,6 +1460,10 @@ module SF
         pointerof(@_http_response).as(Void*)
       end
       # :nodoc:
+      def inspect(io)
+        to_s(io)
+      end
+      # :nodoc:
       def initialize(copy : Http::Response)
         @_http_response = uninitialized VoidCSFML::Http_Response_Buffer
         as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
@@ -1502,6 +1532,10 @@ module SF
     # :nodoc:
     def to_unsafe()
       pointerof(@_http).as(Void*)
+    end
+    # :nodoc:
+    def inspect(io)
+      to_s(io)
     end
   end
   # Utility class to build blocks of data to transfer
@@ -1690,80 +1724,150 @@ module SF
       VoidCSFML.packet_endofpacket(to_unsafe, out result)
       return result
     end
+    # Test the validity of the packet, for reading
+    #
+    # This operator allows to test the packet as a boolean
+    # variable, to check if a reading operation was successful.
+    #
+    # A packet will be in an invalid state if it has no more
+    # data to read.
+    #
+    # This behavior is the same as standard C++ streams.
+    #
+    # Usage example:
+    # ```c++
+    # float x;
+    # packet >> x;
+    # if (packet)
+    # {
+    #    // ok, x was extracted successfully
+    # }
+    #
+    # // -- or --
+    #
+    # float x;
+    # if (packet >> x)
+    # {
+    #    // ok, x was extracted successfully
+    # }
+    # ```
+    #
+    # Don't focus on the return type, it's equivalent to bool but
+    # it disallows unwanted implicit conversions to integer or
+    # pointer types.
+    #
+    # *Returns:* True if last data extraction from packet was successful
+    #
+    # *See also:* endOfPacket
+    def valid?() : Bool
+      VoidCSFML.packet_operator_bool(to_unsafe, out result)
+      return result
+    end
+    # Overloads of operator &gt;&gt; to read data from the packet
+    def read(type : Bool.class) : Bool
+      VoidCSFML.packet_operator_shr_gRY(to_unsafe, out data)
+      return data
+    end
+    def read(type : Int8.class) : Int8
+      VoidCSFML.packet_operator_shr_y9(to_unsafe, out data)
+      return data
+    end
+    def read(type : UInt8.class) : UInt8
+      VoidCSFML.packet_operator_shr_8hc(to_unsafe, out data)
+      return data
+    end
+    def read(type : Int16.class) : Int16
+      VoidCSFML.packet_operator_shr_4k3(to_unsafe, out data)
+      return data
+    end
+    def read(type : UInt16.class) : UInt16
+      VoidCSFML.packet_operator_shr_Xag(to_unsafe, out data)
+      return data
+    end
+    def read(type : Int32.class) : Int32
+      VoidCSFML.packet_operator_shr_NiZ(to_unsafe, out data)
+      return data
+    end
+    def read(type : UInt32.class) : UInt32
+      VoidCSFML.packet_operator_shr_qTz(to_unsafe, out data)
+      return data
+    end
+    def read(type : Int64.class) : Int64
+      VoidCSFML.packet_operator_shr_BuW(to_unsafe, out data)
+      return data
+    end
+    def read(type : UInt64.class) : UInt64
+      VoidCSFML.packet_operator_shr_7H7(to_unsafe, out data)
+      return data
+    end
+    def read(type : Float32.class) : Float32
+      VoidCSFML.packet_operator_shr_ATF(to_unsafe, out data)
+      return data
+    end
+    def read(type : Float64.class) : Float64
+      VoidCSFML.packet_operator_shr_nIp(to_unsafe, out data)
+      return data
+    end
+    def read(type : String.class) : String
+      VoidCSFML.packet_operator_shr_GHF(to_unsafe, out data)
+      return String.new(data)
+    end
     # Overloads of operator &lt;&lt; to write data into the packet
-    def <<(data : Bool) : Packet
-      result = Packet.allocate
-      VoidCSFML.packet_operator_shl_GZq(to_unsafe, data, result)
-      return result
+    def write(data : Bool)
+      VoidCSFML.packet_operator_shl_GZq(to_unsafe, data)
+      self
     end
-    def <<(data : Int8) : Packet
-      result = Packet.allocate
-      VoidCSFML.packet_operator_shl_k6g(to_unsafe, data, result)
-      return result
+    def write(data : Int8)
+      VoidCSFML.packet_operator_shl_k6g(to_unsafe, data)
+      self
     end
-    def <<(data : Int) : Packet
-      result = Packet.allocate
-      VoidCSFML.packet_operator_shl_9yU(to_unsafe, UInt8.new(data), result)
-      return result
+    def write(data : UInt8)
+      VoidCSFML.packet_operator_shl_9yU(to_unsafe, data)
+      self
     end
-    def <<(data : Int16) : Packet
-      result = Packet.allocate
-      VoidCSFML.packet_operator_shl_yAA(to_unsafe, data, result)
-      return result
+    def write(data : Int16)
+      VoidCSFML.packet_operator_shl_yAA(to_unsafe, data)
+      self
     end
-    def <<(data : Int) : Packet
-      result = Packet.allocate
-      VoidCSFML.packet_operator_shl_BtU(to_unsafe, UInt16.new(data), result)
-      return result
+    def write(data : UInt16)
+      VoidCSFML.packet_operator_shl_BtU(to_unsafe, data)
+      self
     end
-    def <<(data : Int32) : Packet
-      result = Packet.allocate
-      VoidCSFML.packet_operator_shl_qe2(to_unsafe, data, result)
-      return result
+    def write(data : Int32)
+      VoidCSFML.packet_operator_shl_qe2(to_unsafe, data)
+      self
     end
-    def <<(data : Int) : Packet
-      result = Packet.allocate
-      VoidCSFML.packet_operator_shl_saL(to_unsafe, UInt32.new(data), result)
-      return result
+    def write(data : UInt32)
+      VoidCSFML.packet_operator_shl_saL(to_unsafe, data)
+      self
     end
-    def <<(data : Int64) : Packet
-      result = Packet.allocate
-      VoidCSFML.packet_operator_shl_G4x(to_unsafe, data, result)
-      return result
+    def write(data : Int64)
+      VoidCSFML.packet_operator_shl_G4x(to_unsafe, data)
+      self
     end
-    def <<(data : Int) : Packet
-      result = Packet.allocate
-      VoidCSFML.packet_operator_shl_Jvt(to_unsafe, UInt64.new(data), result)
-      return result
+    def write(data : UInt64)
+      VoidCSFML.packet_operator_shl_Jvt(to_unsafe, data)
+      self
     end
-    def <<(data : Number) : Packet
-      result = Packet.allocate
-      VoidCSFML.packet_operator_shl_Bw9(to_unsafe, LibC::Float.new(data), result)
-      return result
+    def write(data : Float32)
+      VoidCSFML.packet_operator_shl_Bw9(to_unsafe, data)
+      self
     end
-    def <<(data : Number) : Packet
-      result = Packet.allocate
-      VoidCSFML.packet_operator_shl_mYt(to_unsafe, LibC::Double.new(data), result)
-      return result
+    def write(data : Float64)
+      VoidCSFML.packet_operator_shl_mYt(to_unsafe, data)
+      self
     end
-    def <<(data : Int) : Packet
-      result = Packet.allocate
-      VoidCSFML.packet_operator_shl_Yy6(to_unsafe, LibC::Char.new(data), result)
-      return result
-    end
-    def <<(data : String) : Packet
-      result = Packet.allocate
-      VoidCSFML.packet_operator_shl_zkC(to_unsafe, data.bytesize, data, result)
-      return result
-    end
-    def <<(data : String) : Packet
-      result = Packet.allocate
-      VoidCSFML.packet_operator_shl_bQs(to_unsafe, data.size, data.chars, result)
-      return result
+    def write(data : String)
+      VoidCSFML.packet_operator_shl_zkC(to_unsafe, data.bytesize, data)
+      self
     end
     # :nodoc:
     def to_unsafe()
       pointerof(@_packet).as(Void*)
+    end
+    # :nodoc:
+    def inspect(io)
+      to_s(io)
     end
     # :nodoc:
     def initialize(copy : Packet)
@@ -1888,10 +1992,8 @@ module SF
     # * *socket* - Reference to the socket to add
     #
     # *See also:* remove, clear
-    def add() : Socket
-      socket = Socket.allocate
+    def add(socket : Socket)
       VoidCSFML.socketselector_add_JTp(to_unsafe, socket)
-      return socket
     end
     # Remove a socket from the selector
     #
@@ -1901,10 +2003,8 @@ module SF
     # * *socket* - Reference to the socket to remove
     #
     # *See also:* add, clear
-    def remove() : Socket
-      socket = Socket.allocate
+    def remove(socket : Socket)
       VoidCSFML.socketselector_remove_JTp(to_unsafe, socket)
-      return socket
     end
     # Remove all the sockets stored in the selector
     #
@@ -1954,6 +2054,10 @@ module SF
     # :nodoc:
     def to_unsafe()
       pointerof(@_socketselector).as(Void*)
+    end
+    # :nodoc:
+    def inspect(io)
+      to_s(io)
     end
     # :nodoc:
     def initialize(copy : SocketSelector)
@@ -2064,10 +2168,9 @@ module SF
     # *Returns:* Status code
     #
     # *See also:* listen
-    def accept() : {Socket::Status, TcpSocket}
-      socket = TcpSocket.allocate
+    def accept(socket : TcpSocket) : Socket::Status
       VoidCSFML.tcplistener_accept_WsF(to_unsafe, socket, out result)
-      return Socket::Status.new(result), socket
+      return Socket::Status.new(result)
     end
     # :nodoc:
     def blocking=(blocking : Bool)
@@ -2081,6 +2184,10 @@ module SF
     # :nodoc:
     def to_unsafe()
       pointerof(@_socket).as(Void*)
+    end
+    # :nodoc:
+    def inspect(io)
+      to_s(io)
     end
   end
   # Specialized socket using the UDP protocol
@@ -2254,7 +2361,7 @@ module SF
     #
     # *See also:* send
     def receive(data : Slice) : {Socket::Status, LibC::SizeT, IpAddress, UInt16}
-      remote_address = IpAddress.allocate
+      remote_address = IpAddress.new
       VoidCSFML.udpsocket_receive_xALvgvi499ylYII(to_unsafe, data, data.bytesize, out received, remote_address, out remote_port, out result)
       return Socket::Status.new(result), received, remote_address, remote_port
     end
@@ -2271,10 +2378,9 @@ module SF
     # *Returns:* Status code
     #
     # *See also:* receive
-    def send(remote_address : IpAddress, remote_port : Int) : {Socket::Status, Packet}
-      packet = Packet.allocate
+    def send(packet : Packet, remote_address : IpAddress, remote_port : Int) : Socket::Status
       VoidCSFML.udpsocket_send_jyFBfEbxi(to_unsafe, packet, remote_address, LibC::UShort.new(remote_port), out result)
-      return Socket::Status.new(result), packet
+      return Socket::Status.new(result)
     end
     # Receive a formatted packet of data from a remote peer
     #
@@ -2289,7 +2395,7 @@ module SF
     #
     # *See also:* send
     def receive(packet : Packet) : {Socket::Status, IpAddress, UInt16}
-      remote_address = IpAddress.allocate
+      remote_address = IpAddress.new
       VoidCSFML.udpsocket_receive_jyF9ylYII(to_unsafe, packet, remote_address, out remote_port, out result)
       return Socket::Status.new(result), remote_address, remote_port
     end
@@ -2305,6 +2411,10 @@ module SF
     # :nodoc:
     def to_unsafe()
       pointerof(@_socket).as(Void*)
+    end
+    # :nodoc:
+    def inspect(io)
+      to_s(io)
     end
   end
   VoidCSFML.sfml_network_version(out major, out minor, out patch)

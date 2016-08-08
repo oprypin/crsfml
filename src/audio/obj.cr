@@ -367,13 +367,18 @@ module SF
     def to_unsafe()
       pointerof(@_soundsource).as(Void*)
     end
+    # :nodoc:
+    def inspect(io)
+      to_s(io)
+    end
   end
-  VoidCSFML.soundstream_ongetdata_callback = ->(self : Void*, data : Int16*, data_size : LibC::SizeT, result : Bool*) {
-    output = (self - 4).as(Union(SoundStream)).on_get_data(Slice(Int16).new(data, data_size))
+  VoidCSFML.soundstream_ongetdata_callback = ->(self : Void*, data : Int16**, data_size : LibC::SizeT*, result : Bool*) {
+    output = (self - sizeof(LibC::Int)).as(Union(SoundStream)).on_get_data()
+    data.value, data_size.value = output.to_unsafe, LibC::SizeT.new(output.size) if output
     result.value = !!output
   }
   VoidCSFML.soundstream_onseek_callback = ->(self : Void*, time_offset : Void*) {
-    (self - 4).as(Union(SoundStream)).on_seek(time_offset.as(Time*).value)
+    (self - sizeof(LibC::Int)).as(Union(SoundStream)).on_seek(time_offset.as(Time*).value)
   }
   # Abstract base class for streamed audio sources
   #
@@ -565,9 +570,7 @@ module SF
     def initialize()
       @_soundsource = uninitialized VoidCSFML::SoundSource_Buffer
       @_soundstream = uninitialized VoidCSFML::SoundStream_Buffer
-      {% if !flag?(:release) %}
-      raise "Unexpected memory layout" if as(Void*) + 4 != to_unsafe
-      {% end %} #}
+      raise "Unexpected memory layout" if as(Void*) + sizeof(LibC::Int) != to_unsafe
       VoidCSFML.soundstream_initialize(to_unsafe)
     end
     # Define the audio stream parameters
@@ -581,7 +584,11 @@ module SF
     #
     # * *channel_count* - Number of channels of the stream
     # * *sample_rate* -   Sample rate, in samples per second
-    def initialize_(channel_count : Int, sample_rate : Int)
+    def initialize(channel_count : Int, sample_rate : Int)
+      @_soundsource = uninitialized VoidCSFML::SoundSource_Buffer
+      @_soundstream = uninitialized VoidCSFML::SoundStream_Buffer
+      raise "Unexpected memory layout" if as(Void*) + sizeof(LibC::Int) != to_unsafe
+      VoidCSFML.soundstream_initialize(to_unsafe)
       VoidCSFML.soundstream_initialize_emSemS(to_unsafe, LibC::UInt.new(channel_count), LibC::UInt.new(sample_rate))
     end
     # Request a new chunk of audio samples from the stream source
@@ -598,7 +605,7 @@ module SF
     # * *data* - Chunk of data to fill
     #
     # *Returns:* True to continue playback, false to stop
-    abstract def on_get_data(data : Slice(Int16)) : Bool
+    abstract def on_get_data() : Slice(Int16)?
     # Change the current playing position in the stream source
     #
     # This function must be overridden by derived classes to
@@ -668,6 +675,10 @@ module SF
     # :nodoc:
     def to_unsafe()
       pointerof(@_soundsource).as(Void*)
+    end
+    # :nodoc:
+    def inspect(io)
+      to_s(io)
     end
   end
   # Streamed music played from an audio file
@@ -751,9 +762,9 @@ module SF
     # Shorthand for `music = Music.new; music.open_from_file(...); music`
     #
     # Raises `InitError` on failure
-    def self.from_file(*args, **kwargs) : self
+    def self.from_file(filename : String) : self
       obj = new
-      if !obj.open_from_file(*args, **kwargs)
+      if !obj.open_from_file(filename)
         raise InitError.new("Music.open_from_file failed")
       end
       obj
@@ -783,9 +794,9 @@ module SF
     # Shorthand for `music = Music.new; music.open_from_memory(...); music`
     #
     # Raises `InitError` on failure
-    def self.from_memory(*args, **kwargs) : self
+    def self.from_memory(data : Slice) : self
       obj = new
-      if !obj.open_from_memory(*args, **kwargs)
+      if !obj.open_from_memory(data)
         raise InitError.new("Music.open_from_memory failed")
       end
       obj
@@ -813,9 +824,9 @@ module SF
     # Shorthand for `music = Music.new; music.open_from_stream(...); music`
     #
     # Raises `InitError` on failure
-    def self.from_stream(*args, **kwargs) : self
+    def self.from_stream(stream : InputStream) : self
       obj = new
-      if !obj.open_from_stream(*args, **kwargs)
+      if !obj.open_from_stream(stream)
         raise InitError.new("Music.open_from_stream failed")
       end
       obj
@@ -836,7 +847,7 @@ module SF
     # * *data* - Chunk of data to fill
     #
     # *Returns:* True to continue playback, false to stop
-    def on_get_data(data : Slice(Int16))
+    def on_get_data()
     end
     # Change the current playing position in the stream source
     #
@@ -890,7 +901,7 @@ module SF
       return result
     end
     # :nodoc:
-    def initialize_(channel_count : Int, sample_rate : Int)
+    def initialize(channel_count : Int, sample_rate : Int)
     end
     # :nodoc:
     def pitch=(pitch : Number)
@@ -954,6 +965,10 @@ module SF
     # :nodoc:
     def to_unsafe()
       pointerof(@_soundsource).as(Void*)
+    end
+    # :nodoc:
+    def inspect(io)
+      to_s(io)
     end
   end
   # Regular sound that can be played in the audio environment
@@ -1185,6 +1200,10 @@ module SF
     def to_unsafe()
       pointerof(@_soundsource).as(Void*)
     end
+    # :nodoc:
+    def inspect(io)
+      to_s(io)
+    end
   end
   # Storage for audio samples defining a sound
   #
@@ -1278,9 +1297,9 @@ module SF
     # Shorthand for `sound_buffer = SoundBuffer.new; sound_buffer.load_from_file(...); sound_buffer`
     #
     # Raises `InitError` on failure
-    def self.from_file(*args, **kwargs) : self
+    def self.from_file(filename : String) : self
       obj = new
-      if !obj.load_from_file(*args, **kwargs)
+      if !obj.load_from_file(filename)
         raise InitError.new("SoundBuffer.load_from_file failed")
       end
       obj
@@ -1303,9 +1322,9 @@ module SF
     # Shorthand for `sound_buffer = SoundBuffer.new; sound_buffer.load_from_memory(...); sound_buffer`
     #
     # Raises `InitError` on failure
-    def self.from_memory(*args, **kwargs) : self
+    def self.from_memory(data : Slice) : self
       obj = new
-      if !obj.load_from_memory(*args, **kwargs)
+      if !obj.load_from_memory(data)
         raise InitError.new("SoundBuffer.load_from_memory failed")
       end
       obj
@@ -1327,9 +1346,9 @@ module SF
     # Shorthand for `sound_buffer = SoundBuffer.new; sound_buffer.load_from_stream(...); sound_buffer`
     #
     # Raises `InitError` on failure
-    def self.from_stream(*args, **kwargs) : self
+    def self.from_stream(stream : InputStream) : self
       obj = new
-      if !obj.load_from_stream(*args, **kwargs)
+      if !obj.load_from_stream(stream)
         raise InitError.new("SoundBuffer.load_from_stream failed")
       end
       obj
@@ -1347,16 +1366,16 @@ module SF
     # *Returns:* True if loading succeeded, false if it failed
     #
     # *See also:* loadFromFile, loadFromMemory, saveToFile
-    def load_from_samples(samples : Int16, sample_count : Int, channel_count : Int, sample_rate : Int) : Bool
-      VoidCSFML.soundbuffer_loadfromsamples_xzLJvtemSemS(to_unsafe, samples, UInt64.new(sample_count), LibC::UInt.new(channel_count), LibC::UInt.new(sample_rate), out result)
+    def load_from_samples(samples : Array(Int16) | Slice(Int16), channel_count : Int, sample_rate : Int) : Bool
+      VoidCSFML.soundbuffer_loadfromsamples_xzLJvtemSemS(to_unsafe, samples, samples.size, LibC::UInt.new(channel_count), LibC::UInt.new(sample_rate), out result)
       return result
     end
     # Shorthand for `sound_buffer = SoundBuffer.new; sound_buffer.load_from_samples(...); sound_buffer`
     #
     # Raises `InitError` on failure
-    def self.from_samples(*args, **kwargs) : self
+    def self.from_samples(samples : Array(Int16) | Slice(Int16), channel_count : Int, sample_rate : Int) : self
       obj = new
-      if !obj.load_from_samples(*args, **kwargs)
+      if !obj.load_from_samples(samples, channel_count, sample_rate)
         raise InitError.new("SoundBuffer.load_from_samples failed")
       end
       obj
@@ -1440,17 +1459,21 @@ module SF
     def to_unsafe()
       pointerof(@_soundbuffer).as(Void*)
     end
+    # :nodoc:
+    def inspect(io)
+      to_s(io)
+    end
   end
   VoidCSFML.soundrecorder_onstart_callback = ->(self : Void*, result : Bool*) {
-    output = (self - 4).as(Union(SoundRecorder)).on_start()
+    output = (self - sizeof(LibC::Int)).as(Union(SoundRecorder)).on_start()
     result.value = !!output
   }
   VoidCSFML.soundrecorder_onprocesssamples_callback = ->(self : Void*, samples : Int16*, sample_count : LibC::SizeT, result : Bool*) {
-    output = (self - 4).as(Union(SoundRecorder)).on_process_samples(Slice(Int16).new(samples, sample_count))
+    output = (self - sizeof(LibC::Int)).as(Union(SoundRecorder)).on_process_samples(Slice(Int16).new(samples, sample_count))
     result.value = !!output
   }
   VoidCSFML.soundrecorder_onstop_callback = ->(self : Void*) {
-    (self - 4).as(Union(SoundRecorder)).on_stop()
+    (self - sizeof(LibC::Int)).as(Union(SoundRecorder)).on_stop()
   }
   # Abstract base class for capturing sound data
   #
@@ -1648,9 +1671,7 @@ module SF
     # This constructor is only meant to be called by derived classes.
     def initialize()
       @_soundrecorder = uninitialized VoidCSFML::SoundRecorder_Buffer
-      {% if !flag?(:release) %}
-      raise "Unexpected memory layout" if as(Void*) + 4 != to_unsafe
-      {% end %} #}
+      raise "Unexpected memory layout" if as(Void*) + sizeof(LibC::Int) != to_unsafe
       VoidCSFML.soundrecorder_initialize(to_unsafe)
     end
     # Set the processing interval
@@ -1706,6 +1727,10 @@ module SF
     # :nodoc:
     def to_unsafe()
       pointerof(@_soundrecorder).as(Void*)
+    end
+    # :nodoc:
+    def inspect(io)
+      to_s(io)
     end
   end
   # Specialized SoundRecorder which stores the captured
@@ -1824,6 +1849,10 @@ module SF
     # :nodoc:
     def to_unsafe()
       pointerof(@_soundrecorder).as(Void*)
+    end
+    # :nodoc:
+    def inspect(io)
+      to_s(io)
     end
   end
   #:nodoc:

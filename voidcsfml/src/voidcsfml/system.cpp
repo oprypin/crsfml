@@ -136,12 +136,6 @@ void fileinputstream_tell(void* self, int64_t* result) {
 void fileinputstream_getsize(void* self, int64_t* result) {
     *(Int64*)result = ((FileInputStream*)self)->getSize();
 }
-void lock_initialize_D4m(void* self, void* mutex) {
-    new(self) Lock(*(Mutex*)mutex);
-}
-void lock_finalize(void* self) {
-    ((Lock*)self)->~Lock();
-}
 void memoryinputstream_initialize(void* self) {
     new(self) MemoryInputStream();
 }

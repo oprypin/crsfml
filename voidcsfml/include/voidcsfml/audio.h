@@ -28,7 +28,7 @@ VOIDCSFML_API soundsource_getposition(void* self, void* result);
 VOIDCSFML_API soundsource_isrelativetolistener(void* self, unsigned char* result);
 VOIDCSFML_API soundsource_getmindistance(void* self, float* result);
 VOIDCSFML_API soundsource_getattenuation(void* self, float* result);
-VOIDCSFML_API (*soundstream_ongetdata_callback)(void*, int16_t*, size_t, unsigned char*);
+VOIDCSFML_API (*soundstream_ongetdata_callback)(void*, int16_t**, size_t*, unsigned char*);
 VOIDCSFML_API (*soundstream_onseek_callback)(void*, void*);
 VOIDCSFML_API soundstream_finalize(void* self);
 VOIDCSFML_API soundstream_play(void* self);

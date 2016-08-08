@@ -12,16 +12,16 @@ module SF
       @width, @height = size
     end
 
-    def contains(x : Number, y : Number) : Bool
+    def contains?(x : Number, y : Number) : Bool
       horz = {left, left + width}
       vert = {top, top + height}
       (horz.min <= x < horz.max) && (vert.min <= y < vert.max)
     end
-    def contains(point) : Bool
+    def contains?(point) : Bool
       contains(*point)
     end
 
-    def intersects(other : Rect) : Rect?
+    def intersects?(other : Rect) : Rect?
       horz1, horz2 = {left, left+width}, {other.left, other.left+width}
       vert1, vert2 = {top, top+height}, {other.top, other.top+height}
       x1 = {horz1.min, horz2.min}.max
@@ -33,20 +33,22 @@ module SF
 
     # :nodoc:
     def to_unsafe()
-      @left.as(Void*)
+      pointerof(@left).as(Void*)
     end
   end
 
   alias FloatRect = Rect(Float32)
+  alias IntRect = Rect(Int32)
 
   # Shorthand for `FloatRect.new`
+  #
+  # Converts arguments to `Float32`
   def float_rect(left : Number, top : Number, width : Number, height : Number)
     FloatRect.new(left.to_f32, top.to_f32, width.to_f32, height.to_f32)
   end
-
-  alias IntRect = Rect(Int32)
-
   # Shorthand for `IntRect.new`
+  #
+  # Converts arguments to `Int32`
   def int_rect(left : Int, top : Int, width : Int, height : Int)
     IntRect.new(left.to_i32, top.to_i32, width.to_i32, height.to_i32)
   end
@@ -107,12 +109,12 @@ module SF
 
   class RenderWindow
     def draw(drawable : Drawable, states : RenderStates = RenderStates::Default)
-      drawable.draw(self as RenderWindow, states)
+      drawable.draw(self.as(RenderWindow), states)
     end
   end
   class RenderTexture
     def draw(drawable : Drawable, states : RenderStates = RenderStates::Default)
-      drawable.draw(self as RenderTexture, states)
+      drawable.draw(self.as(RenderTexture), states)
     end
   end
 

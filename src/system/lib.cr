@@ -41,8 +41,6 @@ lib VoidCSFML
   fun fileinputstream_seek_G4x(self : Void*, position : Int64, result : Int64*)
   fun fileinputstream_tell(self : Void*, result : Int64*)
   fun fileinputstream_getsize(self : Void*, result : Int64*)
-  fun lock_initialize_D4m(self : Void*, mutex : Void*)
-  fun lock_finalize(self : Void*)
   fun memoryinputstream_initialize(self : Void*)
   fun memoryinputstream_open_5h8vgv(self : Void*, data : UInt8*, size_in_bytes : LibC::SizeT)
   fun memoryinputstream_read_xALG4x(self : Void*, data : UInt8*, size : Int64, result : Int64*)
