@@ -8,5 +8,5 @@ if ! command -v gitbook; then
     npm install gitbook-cli
 fi
 
-gitbook install gitbook
+gitbook install .
 gitbook build .
