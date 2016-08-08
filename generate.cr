@@ -759,7 +759,8 @@ class CFunction < CItem
       name = {
         "to_string" => "to_s",
         ">>" => "read",
-        "<<" => "write"
+        "<<" => "write",
+        "BoolType" => "valid?",
       }.fetch(name, name)
     end
     if context.lib?
@@ -770,7 +771,8 @@ class CFunction < CItem
           "<=" => "le", ">=" => "ge",
           "+" => "add", "-" => "sub", "*" => "mul", "/" => "div", "%" => "mod",
           "[]" => "index", "[]=" => "indexset",
-          "<<" => "shl", ">>" => "shr"
+          "<<" => "shl", ">>" => "shr",
+          "BoolType" => "bool",
         }[name]
       else
         name = name.gsub "_", ""
@@ -868,7 +870,11 @@ class CFunction < CItem
 
     return if visibility.private?
     return unless visibility.public? || (cls && (cls.abstract? || %w[SoundStream SoundRecorder].includes?(cls.inherited_class.try &.full_name)) && cls.class?)
-    return if operator_name.try &.=~ %r(^([+\-*/%]?=|[a-zA-Z:]+)$)
+    if (operator_name || "").downcase.starts_with?("bool")
+      @type = make_type("bool", nil)
+    else
+      return if (operator_name.try &.=~ %r(^([+\-*/%]?=|[a-zA-Z:]+)$))
+    end
     return if @docs[0]? == "\\brief Copy constructor"
     if parameters.any? { |param| param.type.full_name =~ /^[A-Z]$/ }
       # sf::Thread::Thread(F function, A argument)
@@ -1260,6 +1266,8 @@ class CFunction < CItem
           "#{cpp_obj}#{name(context)[4..-1]} = #{cpp_args.join(", ")}"
         elsif operator_name == "[]="
           "#{cpp_obj}operator[](#{cpp_args[0]}) = #{cpp_args[1]}"
+        elsif (operator_name || "").downcase.starts_with? "bool"
+          "(bool)#{cpp_obj.not_nil![0...-2]}"
         elsif destructor? && parent.as?(CClass).try &.abstract?
           "#{cpp_obj}~_#{name(context)[1..-1]}(#{cpp_args.join(", ")})"
         else
