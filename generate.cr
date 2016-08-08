@@ -208,6 +208,7 @@ abstract class CItem
         line = line.sub /\\em\b *([^ ]+)/ { "*#{$~[1]}*" }
         line = line.sub /^\\return\b */, "*Returns:* "
         line = line.sub /^\\warning\b */, "*Warning:* "
+        line = line.sub /^\\deprecated\b */, "*Deprecated:* "
         line = line.sub /^\\see\b *(.+)/ { "*See also:* #{$~[1]}" }
         line = line.gsub /\bsf(::[^ \.;,()]+)/ { "`SF#{$~[1]}`" }
         line = line.gsub /<\/?b>/, "**"
@@ -871,6 +872,7 @@ class CFunction < CItem
       # sf::Thread::Thread(F function, A argument)
       return unless parameters.map(&.name) == ["function", "argument"]
     end
+    return if @name.try &.starts_with? "setUniform"
 
     cr_params = [] of String
     cr_args = [] of String
@@ -1534,7 +1536,7 @@ class CModule < CNamespace
         next
       end
 
-      line = line.sub %r( ?\bSFML_\w+_API ), " "
+      line = line.sub %r( ?\bSFML_(\w+_API|DEPRECATED) ), " "
       unless line.starts_with? "///"
         line = line.sub %r( +// .+), ""
       end
