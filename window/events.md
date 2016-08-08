@@ -6,9 +6,50 @@ This tutorial is a detailed list of window events. It describes them, and shows 
 
 ## The SF::Event type
 
-Before dealing with events, it is important to understand what the [Event]({{book.api}}/Event.html) type is, and how to correctly use it. [Event]({{book.api}}/Event.html) is a *union*, which means that only one of its members is valid at a time (all the members of a union share the same memory space). The valid member is the one that matches the event type, for example `event.key` for a `KeyPressed` event. Trying to read any other member will result in an undefined behavior (most likely: random or invalid values). It is important to never try to use an event member that doesn't match its type.
+Before dealing with events, it is important to understand what the [Event]({{book.api}}/Event.html) type is, and how to correctly use it. [Event]({{book.api}}/Event.html) (unlike in SFML, where it is a *union*) is just an abstract struct, and all the events are its subclasses. Many events have some data associated with them, so it is important to let the compiler know which exactly type of event is being inspected (using `is_a?`, `as`, `case`/`when`), otherwise none of the members will be accessible.
 
-[Event]({{book.api}}/Event.html) instances are filled by the `poll_event` (or `wait_event`) method of the [Window]({{book.api}}/Window.html) class. Only these two methods can produce valid events, any attempt to use an [Event]({{book.api}}/Event.html) which was not returned by successful call to `poll_event` (or `wait_event`) will result in the same undefined behavior that was mentioned above.
+Here is the hierarchy: level 1 is the `Event` abstract struct itself, level 2 are abstract structs that add some members, and level 3 are concrete event types. The point of this is that that some events, while different (level 3), have exactly the same kind of information associated with them (level 2).
+
+```
+Event
+├────╴Closed
+├─╴SizeEvent: height, width
+│  └─╴Resized
+├────╴LostFocus
+├────╴GainedFocus
+├─╴TextEvent: unicode
+│  └─╴TextEntered
+├─╴KeyEvent: code, alt, control, shift, system
+│  ├─╴KeyPressed
+│  └─╴KeyReleased
+├─╴MouseWheelEvent: delta, x, y
+│  └─╴MouseWheelMoved
+├─╴MouseWheelScrollEvent: wheel, delta, x, y
+│  └─╴MouseWheelScrolled
+├─╴MouseButtonEvent: button, x, y
+│  ├─╴MouseButtonPressed
+│  └─╴MouseButtonReleased
+├─╴MouseMoveEvent: x, y
+│  └─╴MouseMoved
+├────╴MouseEntered
+├────╴MouseLeft
+├─╴JoystickButtonEvent: joystick_id, button
+│  ├─╴JoystickButtonPressed
+│  └─╴JoystickButtonReleased
+├─╴JoystickMoveEvent: joystick_id, axis, position
+│  └─╴JoystickMoved
+├─╴JoystickConnectEvent: joystick_id
+│  ├─╴JoystickConnected
+│  └─╴JoystickDisconnected
+├─╴TouchEvent: finger, x, y
+│  ├─╴TouchBegan
+│  ├─╴TouchMoved
+│  └─╴TouchEnded
+└─╴SensorEvent: type, x, y, z
+   └─╴SensorChanged
+```
+
+[Event]({{book.api}}/Event.html) instances are filled by the `poll_event` (or `wait_event`) method of the [Window]({{book.api}}/Window.html) class. Only these two methods can produce valid events.
 
 To be clear, here is what a typical event loop looks like:
 
@@ -16,7 +57,7 @@ To be clear, here is what a typical event loop looks like:
 # while there are pending events...
 while event = window.poll_event
   # check the type of the event...
-  case event.type
+  case event
     # window closed
     when SF::Event::Closed
       window.close
@@ -27,8 +68,6 @@ while event = window.poll_event
   end
 end
 ```
-
-Read the above paragraph once again and make sure that you fully understand it, the [Event]({{book.api}}/Event.html) union is the cause of many problems for inexperienced programmers.
 
 Alright, now we can see what events SFML supports, what they mean and how to use them properly.
 
@@ -43,7 +82,7 @@ Typical code will just call `window.close` in reaction to this event, to actuall
 There's no member associated with this event in the [Event]({{book.api}}/Event.html) union.
 
 ```crystal
-if event.type == SF::Event::Closed
+if event.is_a? SF::Event::Closed
   window.close
 end
 ```
@@ -56,12 +95,12 @@ The `SF::Event::Resized` event is triggered when the window is resized, either t
 
 You can use this event to adjust the rendering settings: the viewport if you use OpenGL directly, or the current view if you use sfml-graphics.
 
-The member associated with this event is `event.size`, it contains the new size of the window.
+The data associated with this event is the new size of the window.
 
 ```crystal
-if event.type == SF::Event::Resized
-  puts "new width: #{event.size.width}"
-  puts "new height: #{event.size.height}"
+if event.is_a? SF::Event::Resized
+  puts "new width: #{event.width}"
+  puts "new height: #{event.height}"
 end
 ```
 
@@ -74,11 +113,11 @@ This event can be used e.g. if you want to pause your game when the window is in
 There's no member associated with these events in the [Event]({{book.api}}/Event.html) union.
 
 ```crystal
-if event.type == SF::Event::LostFocus
+if event.is_a? SF::Event::LostFocus
   my_game.pause
 end
 
-if event.type == SF::Event::GainedFocus
+if event.is_a? SF::Event::GainedFocus
   my_game.resume
 end
 ```
@@ -91,12 +130,12 @@ The `SF::Event::TextEntered` event is triggered when a character is typed. This 
 
 This event is typically used to catch user input in a text field.
 
-The member associated with this event is `event.text`, it contains the Unicode value of the entered character (`Char`).
+The data associated with this event is the Unicode codepoint of the entered character (use `.chr` to convert it to a `Char`).
 
 ```crystal
-if event.type == SF::Event::TextEntered
-  if event.text.unicode.ord < 128
-    puts "ASCII character typed: #{event.text.unicode}"
+if event.is_a? SF::Event::TextEntered
+  if event.unicode < 128
+    puts "ASCII character typed: #{event.unicode.chr}"
   end
 end
 ```
@@ -111,23 +150,23 @@ Relevant example: **[snakes]({{book.examples}}/snakes.cr)**
 
 The `SF::Event::KeyPressed` and `SF::Event::KeyReleased` events are triggered when a keyboard key is pressed/released.
 
-If a key is held, multiple `KeyPressed` events will be generated, at the default operating system delay (ie. the same delay that applies when you hold a letter in a text editor). To disable repeated `KeyPressed` events, you can set `window.key_repeat_enabled = false`. On the flip side, it is obvious that `KeyReleased` events can never be repeated.
+If a key is held, multiple `KeyPressed` events will be generated, at the default operating system delay (i. e. the same delay that applies when you hold a letter in a text editor). To disable repeated `KeyPressed` events, you can set `window.key_repeat_enabled = false`. On the flip side, it is obvious that `KeyReleased` events can never be repeated.
 
 This event is the one to use if you want to trigger an action exactly once when a key is pressed or released, like making a character jump with space, or exiting something with escape.
 
 Sometimes, people try to react to `KeyPressed` events directly to implement smooth movement. Doing so will *not* produce the expected effect, because when you hold a key you only get a few events (remember, the repeat delay). To achieve smooth movement with events, you must use a boolean that you set on `KeyPressed` and clear on `KeyReleased`; you can then move (independently of events) as long as the boolean is set.  
 The other (easier) solution to produce smooth movement is to use real-time keyboard input with [Keyboard]({{book.api}}/Keyboard.html) (see the [dedicated tutorial](inputs.md "Real-time inputs tutorial")).
 
-The member associated with these events is `event.key`, it contains the code of the pressed/released key, as well as the current state of the modifier keys (alt, control, shift, system).
+The data associated with these events is the code of the pressed/released key, as well as the current state of the modifier keys (alt, control, shift, system).
 
 ```crystal
-if event.type == SF::Event::KeyPressed
-  if event.key.code == SF::Keyboard::Escape
+if event.is_a? SF::Event::KeyPressed
+  if event.code == SF::Keyboard::Escape
     puts "the escape key was pressed"
-    puts "control: #{event.key.control}"
-    puts "alt: #{event.key.alt}"
-    puts "shift: #{event.key.shift}"
-    puts "system: #{event.key.system}"
+    puts "control: #{event.control}"
+    puts "alt: #{event.alt}"
+    puts "shift: #{event.shift}"
+    puts "system: #{event.system}"
   end
 end
 ```
@@ -144,21 +183,21 @@ Relevant example: **[diagnostics]({{book.examples}}/diagnostics.cr)**
 
 The `SF::Event::MouseWheelScrolled` event is triggered when a mouse wheel moves up or down, but also laterally if the mouse supports it.
 
-The member associated with this event is `event.mouse_wheel_scroll`, it contains the number of ticks the wheel has moved, what the orientation of the wheel is and the current position of the mouse cursor.
+The data associated with this event contains the number of ticks the wheel has moved, what the orientation of the wheel is and the current position of the mouse cursor.
 
 ```crystal
-if event.type == SF::Event::MouseWheelScrolled
-  if event.mouse_wheel_scroll.wheel == SF::Mouse::VerticalWheel
+if event.is_a? SF::Event::MouseWheelScrolled
+  if event.wheel == SF::Mouse::VerticalWheel
     puts "wheel type: vertical"
-  elsif event.mouse_wheel_scroll.wheel == SF::Mouse::HorizontalWheel
+  elsif event.wheel == SF::Mouse::HorizontalWheel
     puts "wheel type: horizontal"
   else
     puts "wheel type: unknown"
   end
 
-  puts "wheel movement: #{event.mouse_wheel_scroll.delta}"
-  puts "mouse x: #{event.mouse_wheel_scroll.x}"
-  puts "mouse y: #{event.mouse_wheel_scroll.y}"
+  puts "wheel movement: #{event.delta}"
+  puts "mouse x: #{event.x}"
+  puts "mouse y: #{event.y}"
 end
 ```
 
@@ -170,14 +209,14 @@ The `SF::Event::MouseButtonPressed` and `SF::Event::MouseButtonReleased` events 
 
 SFML supports 5 mouse buttons: left, right, middle (wheel), extra #1 and extra #2 (side buttons).
 
-The member associated with these events is `event.mouse_button`, it contains the code of the pressed/released button, as well as the current position of the mouse cursor.
+The data associated with these events contains the code of the pressed/released button, as well as the current position of the mouse cursor.
 
 ```crystal
-if event.type == SF::Event::MouseButtonPressed
-  if event.mouse_button.button == SF::Mouse::Right
+if event.is_a? SF::Event::MouseButtonPressed
+  if event.button.right?
     puts "the right button was pressed"
-    puts "mouse x: #{event.mouse_button.x}"
-    puts "mouse y: #{event.mouse_button.y}"
+    puts "mouse x: #{event.x}"
+    puts "mouse y: #{event.y}"
   end
 end
 ```
@@ -188,12 +227,12 @@ The `SF::Event::MouseMoved` event is triggered when the mouse moves within the w
 
 This event is triggered even if the window isn't focused. However, it is triggered only when the mouse moves within the inner area of the window, not when it moves over the title bar or borders.
 
-The member associated with this event is `event.mouse_move`, it contains the current position of the mouse cursor relative to the window.
+The data associated with this event contains the current position of the mouse cursor relative to the window.
 
 ```crystal
-if event.type == SF::Event::MouseMoved
-  puts "new mouse x: #{event.mouse_move.x}"
-  puts "new mouse y: #{event.mouse_move.y}"
+if event.is_a? SF::Event::MouseMoved
+  puts "new mouse x: #{event.x}"
+  puts "new mouse y: #{event.y}"
 end
 ```
 
@@ -201,14 +240,13 @@ end
 
 The `SF::Event::MouseEntered` and `SF::Event::MouseLeft` events are triggered when the mouse cursor enters/leaves the window.
 
-There's no member associated with these events in the [Event]({{book.api}}/Event.html) union.
+There is no data associated with these events.
 
 ```crystal
-if event.type == SF::Event::MouseEntered
+case event
+when SF::Event::MouseEntered
   puts "the mouse cursor has entered the window"
-end
-
-if event.type == SF::Event::MouseLeft
+when SF::Event::MouseLeft
   puts "the mouse cursor has left the window"
 end
 ```
@@ -219,13 +257,13 @@ The `SF::Event::JoystickButtonPressed` and `SF::Event::JoystickButtonReleased` e
 
 SFML supports up to 8 joysticks and 32 buttons.
 
-The member associated with these events is `event.joystick_button`, it contains the identifier of the joystick and the index of the pressed/released button.
+The data associated with these events contains the identifier of the joystick and the index of the pressed/released button.
 
 ```crystal
-if event.type == SF::Event::JoystickButtonPressed
+if event.is_a? SF::Event::JoystickButtonPressed
   puts "joystick button pressed!"
-  puts "joystick id: #{event.joystick_button.joystick_id}"
-  puts "button: #{event.joystick_button.button}"
+  puts "joystick id: #{event.joystick_id}"
+  puts "button: #{event.button}"
 end
 ```
 
@@ -237,14 +275,14 @@ Joystick axes are typically very sensitive, that's why SFML uses a detection thr
 
 SFML supports 8 joystick axes: X, Y, Z, R, U, V, POV X and POV Y. How they map to your joystick depends on its driver.
 
-The member associated with this event is `event.joystick_move`, it contains the identifier of the joystick, the name of the axis, and its current position (in the range [-100, 100]).
+The member associated with this event contains the identifier of the joystick, the name of the axis, and its current position (in the range [-100, 100]).
 
 ```crystal
-if event.type == SF::Event::JoystickMoved
-  if event.joystick_move.axis == SF::Joystick::X
+if event.is_a? SF::Event::JoystickMoved
+  if event.axis == SF::Joystick::X
     puts "X axis moved!"
-    puts "joystick id: #{event.joystick_move.joystick_id}"
-    puts "new position: #{event.joystick_move.position}"
+    puts "joystick id: #{event.joystick_id}"
+    puts "new position: #{event.position}"
   end
 end
 ```
@@ -253,15 +291,14 @@ end
 
 The `SF::Event::JoystickConnected` and `SF::Event::JoystickDisconnected` events are triggered when a joystick is connected/disconnected.
 
-The member associated with this event is `event.joystick_connect`, it contains the identifier of the connected/disconnected joystick.
+The data associated with this event is the identifier of the connected/disconnected joystick.
 
 ```crystal
-if event.type == SF::Event::JoystickConnected
-  puts "joystick connected: #{event.joystick_connect.joystick_id}"
-end
-
-if event.type == SF::Event::JoystickDisconnected
-  puts "joystick disconnected: #{event.joystick_connect.joystick_id}"
+case event
+when SF::Event::JoystickConnected
+  puts "joystick connected: #{event.joystick_id}"
+when SF::Event::JoystickDisconnected
+  puts "joystick disconnected: #{event.joystick_id}"
 end
 ```
 

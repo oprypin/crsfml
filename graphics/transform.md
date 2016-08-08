@@ -4,9 +4,9 @@ Relevant example: **[transformable]({{book.examples}}/transformable.cr)**
 
 ## Transforming CrSFML entities
 
-All CrSFML classes (sprites, text, shapes) use the same interface for transformations: [TransformableM]({{book.api}}/TransformableM.html). This module provides a simple API to move, rotate and scale your entities. It doesn't provide maximum flexibility, but instead defines an interface which is easy to understand and to use, and which covers 99% of all use cases -- for the remaining 1%, see the last chapters.
+All CrSFML classes (sprites, text, shapes) use the same interface for transformations: [Transformable]({{book.api}}/Transformable.html). This base class provides a simple API to move, rotate and scale your entities. It doesn't provide maximum flexibility, but instead defines an interface which is easy to understand and to use, and which covers 99% of all use cases -- for the remaining 1%, see the last chapters.
 
-[TransformableM]({{book.api}}/TransformableM.html) (and all classes that include it) defines four properties: **position**, **rotation**, **scale** and **origin**. They all have their respective getters and setters. These transformation components are all independent of one another: If you want to change the orientation of the entity, you just have to set its rotation property, you don't have to care about the current position and scale.
+[Transformable]({{book.api}}/Transformable.html) (and all its derived classes) defines four properties: **position**, **rotation**, **scale** and **origin**. They all have their respective getters and setters. These transformation components are all independent of one another: If you want to change the orientation of the entity, you just have to set its rotation property, you don't have to care about the current position and scale.
 
 ### Position
 
@@ -91,12 +91,10 @@ Note that changing the origin also changes where the entity is drawn on screen, 
 
 ## Transforming your own classes
 
-[TransformableM]({{book.api}}/TransformableM.html) is not only made for CrSFML classes, it can also be included in your own classes (or be a member, using [Transformable]({{book.api}}/Transformable.html)).
+[Transformable]({{book.api}}/Transformable.html) is not only made for CrSFML classes, it can also be a base (or a member) of your own classes.
 
 ```crystal
-class MyGraphicalEntity
-  include SF::TransformableM
-
+class MyGraphicalEntity < SF::Transformable
   # ...
 end
 
@@ -107,7 +105,7 @@ entity.scale = SF.vector2(0.5, 0.2)
 
 To retrieve the final transform of the entity (commonly needed when drawing it), call the `transform` method. This method returns a [Transform]({{book.api}}/Transform.html) object. See below for an explanation about it, and how to use it to transform an SFML entity.
 
-If you don't need/want the complete set of methods provided by the [TransformableM]({{book.api}}/TransformableM.html) interface, don't hesitate to simply use it as a member instead and provide your own methods on top of it. It is not abstract, so it is possible to instantiate it ([Transformable]({{book.api}}/Transformable.html)) instead of only being able to use it as a module.
+If you don't need/want the complete set of methods provided by the [Transformable]({{book.api}}/Transformable.html) interface, don't hesitate to simply use it as a member instead and provide your own methods on top of it. It is not abstract, so it is possible to instantiate it instead of only being able to use it as a base class.
 
 ## Custom transforms
 
@@ -126,11 +124,11 @@ Here are a few examples:
 t1 = SF::Transform::Identity
 
 # a rotation transform
-t2 = SF.transform
+t2 = SF::Transform.new
 t2.rotate(45)
 
 # a custom matrix
-t3 = SF.transform(2, 0, 20, 0, 1, 50, 0, 0, 1)
+t3 = SF::Transform.new(2, 0, 20, 0, 1, 50, 0, 0, 1)
 
 # a combined transform
 t4 = t1 * t2 * t3
@@ -139,7 +137,7 @@ t4 = t1 * t2 * t3
 You can apply several predefined transformations to the same transform as well. They will all be combined sequentially:
 
 ```crystal
-t = SF.transform
+t = SF::Transform.new
 t.translate(10, 100)
 t.rotate(90)
 t.translate(-10, 50)
@@ -173,14 +171,14 @@ bounding_box = entity.global_bounds
 # check collision with a point
 point = ...
 
-if bounding_box.contains(point)
+if bounding_box.contains? point
   # collision!
 end
 
 # check collision with another box (like the bounding box of another entity)
 other_box = ...
 
-if bounding_box.intersects(other_box)
+if bounding_box.intersects? other_box
   # collision!
 end
 ```

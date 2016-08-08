@@ -14,7 +14,7 @@ If you want to know more about the FTP protocol, the [Wikipedia article](http://
 
 The class provided by CrSFML is [Ftp]({{book.api}}/Ftp.html) (surprising, isn't it?). It's a client, which means that it can connect to an FTP server, send commands to it and upload or download files.
 
-Every method of the [Ftp]({{book.api}}/Ftp.html) class wraps an FTP command, and returns a standard FTP response. An FTP response contains a status code (similar to HTTP status codes but not identical), and a message that informs the user of what happened. FTP responses are encapsulated in the [Ftp::Response]({{book.api}}/Ftp::Response.html) class.
+Every method of the [Ftp]({{book.api}}/Ftp.html) class wraps an FTP command, and returns a standard FTP response. An FTP response contains a status code (similar to HTTP status codes but not identical), and a message that informs the user of what happened. FTP responses are encapsulated in the [Ftp::Response]({{book.api}}/Ftp/Response.html) class.
 
 ```crystal
 ftp = SF::Ftp.new
@@ -58,7 +58,7 @@ The first thing to do is connect to an FTP server.
 
 ```crystal
 ftp = SF::Ftp.new
-ip_address = SF.ip_address("ftp.myserver.org")
+ip_address = SF::IPAddress.new("ftp.myserver.org")
 ftp.connect(ip_address)
 ```
 
@@ -68,7 +68,7 @@ The standard port for FTP is 21. If, for some reason, your server uses a differe
 
 ```crystal
 ftp = SF::Ftp.new
-ip_address = SF.ip_address("ftp.myserver.org")
+ip_address = SF::IPAddress.new("ftp.myserver.org")
 ftp.connect(ip_address, 45000)
 ```
 
@@ -76,7 +76,7 @@ You can also pass a third parameter, which is a time out value. This prevents yo
 
 ```crystal
 ftp = SF::Ftp.new
-ip_address = SF.ip_address("ftp.myserver.org")
+ip_address = SF::IPAddress.new("ftp.myserver.org")
 ftp.connect(ip_address, 21, SF.seconds(5))
 ```
 
@@ -104,7 +104,7 @@ if response.ok?
 end
 ```
 
-[Ftp::DirectoryResponse]({{book.api}}/Ftp::DirectoryResponse.html) is a specialized [Ftp::Response]({{book.api}}/Ftp::Response.html) that also contains the requested directory.
+[Ftp::DirectoryResponse]({{book.api}}/Ftp/DirectoryResponse.html) is a specialized [Ftp::Response]({{book.api}}/Ftp/Response.html) that also contains the requested directory.
 
 Getting the list of directories and files contained in the current directory:
 
@@ -122,7 +122,7 @@ end
 response = ftp.get_directory_listing("subfolder")
 ```
 
-[Ftp::ListingResponse]({{book.api}}/Ftp::ListingResponse.html) is a specialized [Ftp::Response]({{book.api}}/Ftp::Response.html) that also contains the requested directory/file names.
+[Ftp::ListingResponse]({{book.api}}/Ftp/ListingResponse.html) is a specialized [Ftp::Response]({{book.api}}/Ftp/Response.html) that also contains the requested directory/file names.
 
 Changing the current directory:
 

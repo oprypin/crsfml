@@ -23,7 +23,7 @@ lib GL
  TEXTURE_2D = 3553
 end
 
-window = SF::RenderWindow.new(SF.video_mode(800, 600), "OpenGL")
+window = SF::RenderWindow.new(SF::VideoMode.new(800, 600), "OpenGL")
 
 # it works out of the box
 GL.enable(GL::TEXTURE_2D)
@@ -38,15 +38,15 @@ In case you think it is *too* automatic, [Window]({{book.api}}/Window.html)'s co
 * `major_version` and `minor_version` comprise the requested version of OpenGL
 
 ```crystal
-settings = SF.context_settings(
-  depth_bits: 24,
-  stencil_bits: 8,
-  antialiasing_level: 4,
-  major_version: 3,
-  minor_version: 0
+settings = SF::ContextSettings.new(
+  depth: 24, stencil: 8, antialiasing: 4,
+  major: 3, minor: 0
 )
 
-window = SF::RenderWindow.new(SF.video_mode(800, 600), "OpenGL", settings: settings)
+window = SF::RenderWindow.new(
+    SF::VideoMode.new(800, 600),
+    "OpenGL", settings: settings
+)
 ```
 
 If any of these settings is not supported by the graphics card, SFML tries to find the closest valid match. For example, if 4x anti-aliasing is too high, it tries 2x and then falls back to 0.  
@@ -84,8 +84,8 @@ end
 GL.enable(GL::TEXTURE_2D)
 
 # create the window
-settings = SF.context_settings(32)
-window = SF::RenderWindow.new(SF.video_mode(800, 600), "OpenGL", settings: settings)
+settings = SF::ContextSettings.new(32)
+window = SF::RenderWindow.new(SF::VideoMode.new(800, 600), "OpenGL", settings: settings)
 window.vertical_sync_enabled = true
 
 # load resources, initialize the OpenGL states, ...
@@ -95,12 +95,12 @@ running = true
 while running
   # handle events
   while event = window.poll_event
-    if event.type == SF::Event::Closed
+    if event.is_a? SF::Event::Closed
       # end the program
       running = false
-    elsif event.type == SF::Event::Resized
+    elsif event.is_a? SF::Event::Resized
       # adjust the viewport when the window is resized
-      GL.viewport(0, 0, event.size.width, event.size.height)
+      GL.viewport(0, 0, event.width, event.height)
     end
   end
 

@@ -14,10 +14,10 @@ The [InputStream]({{book.api}}/InputStream.html) class declares four virtual met
 
 ```crystal
 abstract class InputStream
-  abstract def read(buffer: Slice(UInt8)): Int
-  abstract def seek(position: Int): Int
-  abstract def tell(): Int
-  abstract def size(): Int
+  abstract def read(data : Slice) : Int64
+  abstract def seek(position : Int) : Int64
+  abstract def tell() : Int64
+  abstract def size() : Int64
 end
 ```
 
@@ -45,14 +45,13 @@ texture = SF::Texture.from_stream(stream)
 ```
 
 ```crystal
-file = File.open("music.ogg", "rb")
-stream = SF::FileInputStream.new(file)
+stream = SF::FileInputStream.open("music.ogg")
 music = SF::Music.from_stream(stream)
 ```
 
 ```crystal
 string = File.read("image.png")
-stream = SF::MemoryInputStream.new(string.to_slice)
+stream = SF::MemoryInputStream.open(string.to_slice)
 texture = SF::Texture.from_stream(stream)
 ```
 

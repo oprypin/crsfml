@@ -166,8 +166,8 @@ Line without thickness:
 
 ```crystal
 line = [
-  SF.vertex(SF.vector2(10, 10)),
-  SF.vertex(SF.vector2(150, 150))
+  SF::Vertex.new(SF.vector2(10, 10)),
+  SF::Vertex.new(SF.vector2(150, 150))
 ]
 
 window.draw(line, SF::Lines)
@@ -192,29 +192,27 @@ Here is a complete example of a custom shape class: `EllipseShape`.
 
 ```crystal
 class EllipseShape < SF::Shape
-  def initialize(@radius = SF.vector2(0, 0))
+  def initialize(@radius : SF::Vector2f)
     super()
+    update()
   end
 
   def radius
     @radius
   end
-  def radius=(radius)
+  def radius=(radius : SF::Vector2f)
     @radius = radius
     update
   end
 
   def point_count
-    30  # fixed, but could be an attribute of the class if needed
+    40  # fixed, but could be an attribute of the class if needed
   end
   def get_point(index)
-    pi = Math::PI
+    angle = index * 2*Math::PI / point_count
 
-    angle = index * 2 * pi / point_count - pi / 2
-    x = Math.cos(angle) * @radius.x
-    y = Math.sin(angle) * @radius.y
-
-    SF.vector2(@radius.x + x, @radius.y + y)
+    # origin is {0, 0}, center is @radius
+    @radius + @radius * {Math.cos(angle), Math.sin(angle)}
   end
 end
 ```
@@ -229,9 +227,9 @@ There's no option to anti-alias a single shape. To get anti-aliased shapes (i.e.
 
 ```crystal
 window = SF::RenderWindow.new(
-  SF.video_mode(800, 600),
+  SF::VideoMode.new(800, 600),
   "SFML shapes",
-  settings: SF.context_settings(depth_bits: 24, antialiasing: 8)
+  settings: SF::ContextSettings.new(depth: 24, antialiasing: 8)
 )
 ```
 

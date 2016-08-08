@@ -13,7 +13,7 @@ Windows in CrSFML are defined by the [Window]({{book.api}}/Window.html) class. A
 ```crystal
 require "crsfml"
 
-window = SF::RenderWindow.new(SF.video_mode(800, 600), "My window")
+window = SF::RenderWindow.new(SF::VideoMode.new(800, 600), "My window")
 
 ...
 ```
@@ -63,14 +63,14 @@ Let's add some code to make this program a bit more interesting:
 ```crystal
 require "crsfml"
 
-window = SF::RenderWindow.new(SF.video_mode(800, 600), "My window")
+window = SF::RenderWindow.new(SF::VideoMode.new(800, 600), "My window")
 
 # run the program as long as the window is open
 while window.open?
   # check all the window's events that were triggered since the last iteration of the loop
   while event = window.poll_event
     # "close requested" event: we close the window
-    if event.type == SF::Event::Closed
+    if event.is_a? SF::Event::Closed
       window.close
     end
   end
@@ -129,7 +129,7 @@ SF::Window.from_handle(handle)
 If you just want an additional, very specific feature, you can also do it the other way round: create an SFML window and get its OS-specific handle to implement things that SFML itself doesn't support.
 
 ```crystal
-window = SF::RenderWindow.new(SF.video_mode(800, 600), "SFML window")
+window = SF::RenderWindow.new(SF::VideoMode.new(800, 600), "SFML window")
 handle = window.system_handle
 
 # you can now use the handle with OS specific functions

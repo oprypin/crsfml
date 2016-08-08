@@ -14,7 +14,7 @@ The class which encapsulates views in SFML is [View]({{book.api}}/View.html). It
 
 ```crystal
 # create a view with the rectangular area of the 2D world to show
-view1 = SF::View.from_rect(SF.float_rect(200, 200, 300, 200))
+view1 = SF::View.new(SF.float_rect(200, 200, 300, 200))
 
 # create a view with its center and size
 view2 = SF::View.new(SF.vector2(350, 300), SF.vector2(300, 200))
@@ -124,7 +124,7 @@ To draw something using a view, you must draw it after calling the `view=` metho
 
 ```crystal
 # let's define a view
-view = SF::View.from_rect(SF.float_rect(0, 0, 1000, 600))
+view = SF::View.new(SF.float_rect(0, 0, 1000, 600))
 
 # activate it
 window.view = view
@@ -165,10 +165,10 @@ while event = window.poll_event
   ...
 
   # catch the resize events
-  if event.type == SF::Event::Resized
+  if event.is_a? SF::Event::Resized
     # update the view to the new size of the window
-    visible_area = SF.float_rect(0, 0, event.size.width, event.size.height)
-    window.view = SF::View.from_rect(visible_area)
+    visible_area = SF.float_rect(0, 0, event.width, event.height)
+    window.view = SF::View.new(visible_area)
   end
 end
 ```

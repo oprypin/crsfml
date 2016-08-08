@@ -15,86 +15,80 @@ You may of course face other problems with network programming, but these are th
 
 The two problems (endianness and message boundaries) are solved by using a specific class to pack your data: [Packet]({{book.api}}/Packet.html). As a bonus, it provides a much nicer interface than plain old byte arrays.
 
-Packets have a programming interface similar to standard streams: you can insert data with the &lt;&lt; operator, and extract data with the &gt;&gt; operator.
-
 ```crystal
 # on sending side
-x = 10u16
+x = 10_u16
 s = "hello"
-d = 0.6
+d = 0.6_f64
 
 packet = SF::Packet.new()
-packet.write_uint16(x)
-packet.write_string(s)
-packet.write_double(d)
+packet.write(x)
+packet.write(s)
+packet.write(d)
 ```
 
 ```crystal
 # on receiving side
-x = packet.read_uint16()
-s = packet.read_string()
-d = packet.read_double()
+x = packet.read(UInt16)
+s = packet.read(String)
+d = packet.read(Float64)
+pp x, s, d
 ```
 
-Unlike writing, reading from a packet can fail if you try to extract more bytes than the packet contains. If a reading operation fails, the packet error flag is set. To check the error flag of a packet, use the `can_read` method:
+Unlike writing, reading from a packet can fail if you try to extract more bytes than the packet contains. If a reading operation fails, the packet error flag is set. To check the error flag of a packet, use the `valid?` method:
 
 ```crystal
-x = packet.read_int32()
-unless packet.can_read
+x = packet.read(Int32)
+unless packet.valid?
   # error
 end
 ```
 
-Sending and receiving packets is as easy as sending/receiving an array of bytes: sockets have `send_packet` and `receive_packet` methods that directly accept a [Packet]({{book.api}}/Packet.html).
+Sending and receiving packets is as easy as sending/receiving an array of bytes: sockets have `send` and `receive` methods that directly accept a [Packet]({{book.api}}/Packet.html).
 
 ```crystal
 # with a TCP socket
-tcp_socket.send_packet(packet)
-packet = tcp_socket.receive_packet()
+status = tcp_socket.send(packet)
+
+packet = SF::Packet.new
+status = tcp_socket.receive(packet)
 ```
 
 ```crystal
 # with a UDP socket
-udp_socket.send_packet(packet, recipient_address, recipient_port)
-packet, sender_address, sender_port = udp_socket.receive_packet()
+status = udp_socket.send(packet, recipient_address, recipient_port)
+
+packet = SF::Packet.new
+status, sender_address, sender_port = udp_socket.receive(packet)
 ```
 
 Packets solve the "message boundaries" problem, which means that when you send a packet on a TCP socket, you receive the exact same packet on the other end, it cannot contain less bytes, or bytes from the next packet that you send. However, it has a slight drawback: To preserve message boundaries, [Packet]({{book.api}}/Packet.html) has to send some extra bytes along with your data, which implies that you can only receive them with a [Packet]({{book.api}}/Packet.html) if you want them to be properly decoded. Simply put, you can't send an SFML packet to a non-SFML packet recipient, it has to use an SFML packet for receiving too. Note that this applies to TCP only, UDP is fine since the protocol itself preserves message boundaries.
 
-<!--
-
 ## Extending packets to handle user types
 
-Packets have overloads of their operators for all the primitive types and the most common standard types, but what about your own classes? As with standard streams, you can make a type "compatible" with [Packet]({{book.api}}/Packet.html) by providing an overload of the &lt;&lt; and &gt;&gt; operators.
+Packets have overloads of their methods for the most common primitive types and the most common standard types, but what about your own classes? It is easy to subclass or reopen [Packet]({{book.api}}/Packet.html) and add your own overloads.
 
-```
-struct Character
-{
-    SF::Uint8 age;
-    std::string name;
-    float weight;
-};
+```crystal
+record Character, age : UInt8, name : String, weight : Float32
 
-SF::Packet& operator <<(SF::Packet& packet, const Character& character)
-{
-    return packet << character.age << character.name << character.weight;
-}
+class SF::Packet
+  def write(c : Character)
+    write c.age
+    write c.name
+    write c.weight
+  end
 
-SF::Packet& operator >>(SF::Packet& packet, Character& character)
-{
-    return packet >> character.age >> character.name >> character.weight;
-}
+  def read(type : Character.class) : Character
+    Character.new(read(UInt8), read(String), read(Float32))
+  end
+end
 ```
 
-Both operators return a reference to the packet: This allows chaining insertion and extraction of data.
+Now that these methods are defined, you can insert/extract a `Character` instance to/from a packet like any other primitive type:
 
-Now that these operators are defined, you can insert/extract a `Character` instance to/from a packet like any other primitive type:
+```crystal
+bob = Character.new(65_u8, "Bob", 12.34_f32)
 
+packet.write(bob)
+packet.read(Character)
 ```
-Character bob;
-
-packet << bob;
-packet >> bob;
-```
-
--->

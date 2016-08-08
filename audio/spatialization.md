@@ -22,7 +22,7 @@ The class which defines the listener's properties is [Listener]({{book.api}}/Lis
 First, you can set the listener's position in the scene:
 
 ```crystal
-SF::Listener.position = SF.vector3(10.0, 0.0, 5.0)
+SF::Listener.position = SF.vector3f(10.0, 0.0, 5.0)
 ```
 
 If you have a 2D world you can just use the same Y value everywhere, usually 0.
@@ -30,7 +30,7 @@ If you have a 2D world you can just use the same Y value everywhere, usually 0.
 In addition to its position, you can define the listener's orientation:
 
 ```crystal
-SF::Listener.direction = SF.vector3(1.0, 0.0, 0.0)
+SF::Listener.direction = SF.vector3f(1.0, 0.0, 0.0)
 ```
 
 Here, the listener is oriented along the +X axis. This means that, for example, a sound emitted at (15, 0, 5) will be heard from the right speaker.
@@ -38,7 +38,7 @@ Here, the listener is oriented along the +X axis. This means that, for example, 
 The "up" vector of the listener is set to (0, 1, 0) by default, in other words, the top of the listener's head is pointing towards +Y. You can change the "up" vector if you want. It is rarely necessary though.
 
 ```crystal
-SF::Listener.up_vector = SF.vector3(1.0, 1.0, 0.0)
+SF::Listener.up_vector = SF.vector3f(1.0, 1.0, 0.0)
 ```
 
 This corresponds to the listener tilting their head towards the right (+X).
@@ -60,7 +60,7 @@ Every audio source provided by SFML (sounds, music, streams) defines the same pr
 The main property is the position of the audio source.
 
 ```crystal
-sound.position = SF.vector3(2.0, 0.0, -5.0)
+sound.position = SF.vector3f(2.0, 0.0, -5.0)
 ```
 
 This position is absolute by default, but it can be relative to the listener if needed.

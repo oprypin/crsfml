@@ -168,9 +168,9 @@ Mutexes are not the only primitive that you can use to protect your shared varia
 
 Don't worry: mutexes are already thread-safe, there's no need to protect them. But what if there is a failure in the code and the mutex never gets a chance to be unlocked? It remains locked forever. All threads that try to lock it in the future will block forever, and in some cases, your whole application could freeze. Pretty bad result.
 
-To make sure that mutexes are always unlocked in an environment where exceptions can be thrown, CrSFML provides a class to wrap them: [Lock]({{book.api}}/Lock.html). It locks a mutex in `initialize`, and unlocks it in `finalize`. Simple and efficient.
+To make sure that mutexes are always unlocked in an environment where exceptions can be thrown, CrSFML provides a special method that receives a block: `synchronize`. The mutex is locked before the block and is unlocked after the block (even if an exception is raised).
 
-[Lock]({{book.api}}/Lock.html) can be useful in a function that has multiple `return` statements.
+A similar effect can be achieved manually, for example, here is a function with multiple `return` statements:
 
 ```crystal
 require "crsfml"
@@ -178,7 +178,7 @@ require "crsfml"
 $mutex = SF::Mutex.new()
 
 def func
-  lock = SF::Lock.new($mutex) # $mutex.lock()
+  $mutex.lock
 
   begin
     image1 = SF::Image.from_file("...")
@@ -193,7 +193,9 @@ def func
   end
 
   true
-end # $mutex.unlock()
+ensure
+  $mutex.unlock()
+end
 
 func()
 ```

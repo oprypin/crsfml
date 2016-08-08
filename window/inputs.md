@@ -8,12 +8,12 @@ This tutorial explains how to access global input devices: keyboard, mouse and j
 
 ## Keyboard
 
-The class that provides access to the keyboard state is [Keyboard]({{book.api}}/Keyboard.html). It only contains one class method, `is_key_pressed`, which checks the current state of a key (pressed or released). It is a class method, so you don't need to instantiate [Keyboard]({{book.api}}/Keyboard.html) to use it.
+The class that provides access to the keyboard state is [Keyboard]({{book.api}}/Keyboard.html). It only contains one class method, `key_pressed?`, which checks the current state of a key (pressed or released). It is a class method, so you don't need to instantiate [Keyboard]({{book.api}}/Keyboard.html) to use it.
 
-This class method directly reads the keyboard state, ignoring the focus state of your window. This means that `is_key_pressed` may return true even if your window is inactive.
+This class method directly reads the keyboard state, ignoring the focus state of your window. This means that `key_pressed?` may return true even if your window is inactive.
 
 ```crystal
-if SF::Keyboard.is_key_pressed(SF::Keyboard::Left)
+if SF::Keyboard.key_pressed?(SF::Keyboard::Left)
   # left key is pressed: move our character
   character.move(1, 0)
 end
@@ -30,7 +30,7 @@ The class that provides access to the mouse state is [Mouse]({{book.api}}/Mouse.
 You can check if buttons are pressed:
 
 ```crystal
-if SF::Mouse.is_button_pressed(SF::Mouse::Left)
+if SF::Mouse.button_pressed?(SF::Mouse::Left)
   # left mouse button is pressed: shoot
   gun.fire
 end
@@ -69,7 +69,7 @@ Joysticks are identified by their index (0 to 7, since SFML supports up to 8 joy
 You can check whether a joystick is connected or not:
 
 ```crystal
-if SF::Joystick.is_connected(0)
+if SF::Joystick.connected?(0)
   # joystick number 0 is connected
   ...
 end
@@ -82,7 +82,7 @@ You can also get the capabilities of a connected joystick:
 button_count = SF::Joystick.get_button_count(0)
 
 # check if joystick number 0 has a Z axis
-has_z = SF::Joystick.has_axis(0, SF::Joystick::Z)
+has_z = SF::Joystick.axis?(0, SF::Joystick::Z)
 ```
 
 Joystick axes are defined in the `SF::Joystick::Axis` enum. Since buttons have no special meaning, they are simply numbered from 0 to 31.
@@ -91,7 +91,7 @@ Finally, you can query the state of a joystick's axes and buttons as well:
 
 ```crystal
 # is button 1 of joystick number 0 pressed?
-if SF::Joystick.is_button_pressed(0, 1)
+if SF::Joystick.button_pressed?(0, 1)
   # yes: shoot!
   gun.fire
 end

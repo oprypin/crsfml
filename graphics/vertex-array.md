@@ -20,7 +20,7 @@ Let's have a look at the [Vertex]({{book.api}}/Vertex.html) class now. It's simp
 
 ```crystal
 # create a new vertex
-vertex = SF.vertex
+vertex = SF::Vertex.new
 
 # set its position
 vertex.position = SF.vector2(10, 50)
@@ -35,7 +35,7 @@ vertex.tex_coords = SF.vector2f(100, 100)
 ... or, using the correct constructor:
 
 ```crystal
-vertext = SF.vertex(SF.vector2(10, 50), SF::Color::Red, SF.vector2(100, 100))
+vertex = SF::Vertex.new({10, 50}, SF::Color::Red, {100, 100})
 ```
 
 Now, let's define a primitive. Remember, a primitive consists of several vertices, therefore we need a vertex array. CrSFML provides a simple wrapper for this: [VertexArray]({{book.api}}/VertexArray.html). It provides the semantics of an array, and also stores the type of primitive its vertices define.
@@ -45,9 +45,9 @@ Now, let's define a primitive. Remember, a primitive consists of several vertice
 triangle = SF::VertexArray.new(SF::Triangles, 3)
 
 # define the positions and colors of the triangle's points
-triangle[0] = SF.vertex(SF.vector2f(10, 10), SF::Color::Red)
-triangle[1] = SF.vertex(SF.vector2f(100, 10), SF::Color::Blue)
-triangle[2] = SF.vertex(SF.vector2f(100, 100), SF::Color::Green)
+triangle[0] = SF::Vertex.new(SF.vector2(10, 10), SF::Color::Red)
+triangle[1] = SF::Vertex.new(SF.vector2(100, 10), SF::Color::Blue)
+triangle[2] = SF::Vertex.new(SF.vector2(100, 100), SF::Color::Green)
 
 # no texture coordinates here, we'll see that later
 ```
@@ -66,8 +66,8 @@ Note that you don't have to use the [VertexArray]({{book.api}}/VertexArray.html)
 
 ```crystal
 vertices = [
-  SF.vertex(...),
-  SF.vertex(...)
+  SF::Vertex.new(...),
+  SF::Vertex.new(...)
 ]
 
 window.draw(vertices, SF::Lines)
@@ -99,10 +99,10 @@ quad = SF::VertexArray.new(SF::Quads, 4)
 
 # define it as a rectangle, located at (10, 10) and with size 100x100
 # define its texture area to be a 25x50 rectangle starting at (0, 0)
-quad.append SF.vertex({ 10,  10}, tex_coords: { 0,  0})
-quad.append SF.vertex({110,  10}, tex_coords: {25,  0})
-quad.append SF.vertex({110, 110}, tex_coords: {25, 50})
-quad.append SF.vertex({ 10, 110}, tex_coords: { 0, 50})
+quad.append SF::Vertex.new({ 10,  10}, tex_coords: { 0,  0})
+quad.append SF::Vertex.new({110,  10}, tex_coords: {25,  0})
+quad.append SF::Vertex.new({110, 110}, tex_coords: {25, 50})
+quad.append SF::Vertex.new({ 10, 110}, tex_coords: { 0, 50})
 ```
 
 Texture coordinates are defined in *pixels* (just like the `texture_rect` of sprites and shapes). They are *not* normalized (between 0 and 1), as people who are used to OpenGL programming might expect.
@@ -141,11 +141,15 @@ To know more about transformations and the [Transform]({{book.api}}/Transform.ht
 
 ## Creating an SFML-like entity
 
-Now that you know how to define your own textured/colored/transformed entity, wouldn't it be nice to wrap it in a CrSFML-style class? Writing a `draw` method allows you to draw instances of your class the same way as CrSFML classes:
+Now that you know how to define your own textured/colored/transformed entity, wouldn't it be nice to wrap it in an SFML-style class? Fortunately, SFML makes this easy for you by providing the [Drawable]({{book.api}}/Drawable.html) module and [Transformable]({{book.api}}/Transformable.html) base class. These two classes are the base of the built-in SFML entities Sprite, Text and Shape.
+
+[Drawable]({{book.api}}/Drawable.html) is an interface: it declares a single abstract method. Including sf::Drawable allows you to draw instances of your class the same way as SFML classes:
 
 ```crystal
 class MyEntity
-  def draw(target, states)
+  include SF::Drawable
+
+  def draw(target : SF::RenderTarget, states : SF::RenderStates)
   end
 end
 
@@ -153,13 +157,13 @@ entity = MyEntity.new
 window.draw(entity) # internally calls entity.draw
 ```
 
-Including the [TransformableM]({{book.api}}/TransformableM.html) module automatically adds the same transformation methods to your class as other CrSFML classes (`position=`, `rotation=`, `move`, `scale`, ...). You can learn more about this in the tutorial on [transforming entities](graphics-transform.md "Transforming entities tutorial").
+Subclassing the [Transformable]({{book.api}}/Transformable.html) class automatically adds the same transformation methods to your class as other CrSFML classes (`position=`, `rotation=`, `move`, `scale`, ...). You can learn more about this in the tutorial on [transforming entities](graphics-transform.md "Transforming entities tutorial").
 
 Using these two features and a vertex array (in this example we'll also add a texture), here is what a typical CrSFML-like graphical class would look like:
 
 ```crystal
-class MyEntity
-  include SF::TransformableM
+class MyEntity < SF::Transformable
+  include SF::Drawable
 
   # add methods to play with the entity's geometry / colors / texturing...
 
@@ -200,35 +204,40 @@ With what we've seen above, let's create a class that encapsulates a tile map. T
 <img alt="The tileset" src="images/vertex-array-tileset.png" width="512" height="128" style="image-rendering: -moz-crisp-edges; image-rendering: pixelated">
 
 ```crystal
-class TileMap
-  include SF::TransformableM
+class TileMap < SF::Transformable
+  include SF::Drawable
 
-  def load(tileset, tile_size, tiles, width, height)
+  def initialize(tileset, tile_size, tiles, width, height)
+    super()
+
     # load the tileset texture
     @tileset = SF::Texture.from_file(tileset)
 
-    # resize the vertex array to fit the level size
     @vertices = SF::VertexArray.new(SF::Quads)
 
+    tiles_per_row = @tileset.size.x / tile_size.x
+
     # populate the vertex array, with one quad per tile
-    (0...width).each do |i|
-      (0...height).each do |j|
+    (0...height).each do |y|
+      (0...width).each do |x|
         # get the current tile number
-        tile_number = tiles[i + j * width]
+        tile_index = tiles[width*y + x]
 
         # find its position in the tileset texture
-        tu = tile_number % (@tileset.size.x / tile_size.x)
-        tv = tile_number / (@tileset.size.x / tile_size.x)
+        tile_pos = SF.vector2(
+          tile_index % tiles_per_row,
+          tile_index / tiles_per_row
+        )
+
+        destination = SF.vector2(x, y)
 
         # define its 4 corners and texture coordinates
-        @vertices.append SF.vertex({i * tile_size.x, j * tile_size.y},
-          tex_coords={tu * tile_size.x, tv * tile_size.y})
-        @vertices.append SF.vertex({(i + 1) * tile_size.x, j * tile_size.y},
-          tex_coords={(tu + 1) * tile_size.x, tv * tile_size.y})
-        @vertices.append SF.vertex({(i + 1) * tile_size.x, (j + 1) * tile_size.y},
-          tex_coords={(tu + 1) * tile_size.x, (tv + 1) * tile_size.y)})
-        @vertices.append SF.vertex({i * tile_size.x, (j + 1) * tile_size.y},
-          tex_coords={tu * tile_size.x, (tv + 1) * tile_size.y})
+        { {0, 0}, {1, 0}, {1, 1}, {0, 1} }.each do |delta|
+          @vertices.append SF::Vertex.new(
+            (destination + delta) * tile_size,
+            tex_coords: (tile_pos + delta) * tile_size
+          )
+        end
       end
     end
   end
@@ -250,7 +259,7 @@ And now, the application that uses it:
 
 ```crystal
 # create the window
-window = SF::RenderWindow.new(SF.video_mode(512, 256), "Tilemap")
+window = SF::RenderWindow.new(SF::VideoMode.new(512, 256), "Tilemap")
 
 # define the level with an array of tile indices
 level = [
@@ -265,15 +274,13 @@ level = [
 ]
 
 # create the tilemap from the level definition
-map = TileMap.new
-map.load("tileset.png", SF.vector2(32, 32), level, 16, 8)
+map = TileMap.new("tileset.png", SF.vector2(32, 32), level, 16, 8)
 
 # run the main loop
 while window.open?
-
   # handle events
   while event = window.poll_event
-    if event.type == SF::Event::Closed
+    if event.is_a? SF::Event::Closed
       window.close
     end
   end
@@ -292,35 +299,46 @@ end
 This second example implements another common entity: The particle system. This one is very simple, with no texture and as few parameters as possible. It demonstrates the use of the `SF::Points` primitive type with a dynamic vertex array which changes every frame.
 
 ```crystal
-class Particle
+struct Particle
   def initialize(@velocity, @lifetime, @position)
     @total_lifetime = @lifetime
   end
-  property velocity, lifetime, position
-  getter total_lifetime
+  property velocity : SF::Vector2f
+  property lifetime : SF::Time
+  property position : SF::Vector2f
+  getter total_lifetime : SF::Time
 end
 
-class ParticleSystem
-  include SF::TransformableM
+class ParticleSystem < SF::Transformable
+  include SF::Drawable
 
-  def initialize(@count)
+  def initialize(@count : Int32)
+    super()
+
     @particles = [] of Particle
-    @emitter = SF.vector2(0, 0)
+    @emitter = SF::Vector2f.new(0.0f32, 0.0f32)
+    @random = Random.new
   end
 
   property emitter
 
   def update(elapsed)
-    @particles.reject! do |p|
+    @particles.map! do |p|
       # update the position of the particle
       p.position += p.velocity * elapsed.as_seconds
 
       # update the particle lifetime
       p.lifetime -= elapsed
+
       # if the particle is dead, remove it
-      p.lifetime <= SF::Time::Zero
+      if p.lifetime <= SF::Time::Zero
+        new_particle
+      else
+        p
+      end
     end
-    while @particles.size < @count
+
+    if @particles.size < @count
       @particles << new_particle
     end
   end
@@ -331,14 +349,11 @@ class ParticleSystem
       ratio = p.lifetime / p.total_lifetime
       color = SF.color(255, 255, 255, (ratio * 255).to_u8)
 
-      SF.vertex(p.position, color)
+      SF::Vertex.new(p.position, color)
     end
 
-    #apply the transform
+    # apply the transform
     states.transform *= transform()
-
-    # our particles don't use a texture
-    states.texture = nil
 
     # draw the vertex array
     target.draw(vertices, SF::Points, states)
@@ -346,11 +361,10 @@ class ParticleSystem
 
   private def new_particle
     # give a random velocity and lifetime to the particle
-    angle = rand(360) * Math::PI / 180.0
-    speed = rand(50) + 50.0
-    velocity = SF.vector2(Math.cos(angle) * speed, Math.sin(angle) * speed)
-    lifetime = SF.milliseconds(rand(2000) + 1000)
-    position = @emitter
+    angle = @random.rand(Math::PI * 2)
+    speed = @random.rand(50.0..100.0)
+    velocity = SF.vector2f(Math.cos(angle) * speed, Math.sin(angle) * speed)
+    lifetime = SF.seconds(@random.rand(1.0..3.0))
 
     Particle.new(velocity, lifetime, @emitter)
   end
@@ -361,7 +375,7 @@ And a little demo that uses it:
 
 ```crystal
 # create the window
-window = SF::RenderWindow.new(SF.video_mode(800, 600), "Particles")
+window = SF::RenderWindow.new(SF::VideoMode.new(800, 600), "Particles")
 
 # create the particle system
 particles = ParticleSystem.new(1000)
@@ -374,7 +388,7 @@ while window.open?
 
   # handle events
   while event = window.poll_event
-    if event.type == SF::Event::Closed
+    if event.is_a? SF::Event::Closed
       window.close
     end
   end

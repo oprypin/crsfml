@@ -16,15 +16,15 @@ In order to define your own audio stream, you need to inherit from the [SoundStr
 
 ```crystal
 class MyAudioStream < SF::SoundStream
-  def on_get_data()
+  def on_get_data() : Slice(Int16)?
   end
 
-  def on_seek(time_offset)
+  def on_seek(time_offset : Time)
   end
 end
 ```
 
-`on_get_data` is called by the base class whenever it runs out of audio samples and needs more of them. You must provide new audio samples by filling the `data` argument:
+`on_get_data` is called by the base class whenever it runs out of audio samples and needs more of them. You must provide new audio samples by returning a slice with data:
 
 ```crystal
 class MyAudioStream < SF::SoundStream
@@ -34,7 +34,7 @@ class MyAudioStream < SF::SoundStream
 end
 ```
 
-You must return a non-empty slice when everything is all right, or an empty one if playback must be stopped, either because an error has occurred or because there's simply no more audio data to play.
+You must return a non-empty slice when everything is all right, or `nil` if playback must be stopped, either because an error has occurred or because there's simply no more audio data to play.
 
 SFML makes an internal copy of the audio samples as soon as `on_get_data` returns, so you don't have to keep the original data alive if you don't want to.
 
@@ -69,11 +69,11 @@ require "crsfml/audio"
 
 # custom audio stream that plays a loaded buffer
 class MyStream < SF::SoundStream
-  @current_sample = 0
+  @samples : Slice(Int16)
 
-  def initialize(buffer)
-    # extract the audio samples from the sound buffer to our own container
-    @samples = buffer.to_slice
+  def initialize(@buffer : SF::SoundBuffer)
+    # get a slice that points to the buffer with samples
+    @samples = buffer.samples.to_slice(buffer.sample_count)
 
     # reset the current playing position
     @current_sample = 0
@@ -86,21 +86,28 @@ class MyStream < SF::SoundStream
     # number of samples to stream every time the function is called;
     # in a more robust implementation, it should be a fixed
     # amount of time rather than an arbitrary number of samples
-    samples_to_stream = 50000
+    to_stream = {50000, @samples.size - @current_sample}.min
+    # if the end is close, set the number to play the remaining samples
 
-    # get the number of slices to stream
-    finish = Math.min(@current_sample + samples_to_stream, @samples.size)
-    count = finish - @current_sample
-    
+    # if nothing left to play
+    return nil unless to_stream > 0
+
     # the next audio samples to be played
-    result = (@samples.to_unsafe + @current_sample).to_slice(count)
-    @current_sample += count
-    
+    result = (@samples.to_unsafe + @current_sample).to_slice(to_stream)
+
+    # advance the position
+    @current_sample += to_stream
+
     result
   end
 
-  private def on_seek(time_offset)
-    @current_sample = (time_offset.as_seconds * sample_rate * channel_count).to_i
+  def on_seek(time_offset)
+    # compute the corresponding sample index according to the
+    # sample rate and channel count
+    @current_sample = (
+      time_offset.as_seconds *
+      sample_rate * channel_count
+    ).to_i
   end
 end
 

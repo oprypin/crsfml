@@ -81,7 +81,7 @@ If loading fails, don't forget to check the standard error output (the console) 
 Using a shader is simple, just pass it as an additional argument to the `draw` method.
 
 ```crystal
-window.draw(whatever, SF.render_states(shader: shader))
+window.draw(whatever, SF::RenderStates.new(shader: shader))
 ```
 
 ## Passing variables to a shader

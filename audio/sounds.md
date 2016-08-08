@@ -128,7 +128,7 @@ Remember that a music needs its source as long as it is played. A music file on 
 file_data = ...
 
 # we play it
-music = SF::Music.from_memory(file_data, file_data.size)
+music = SF::Music.from_memory(file_data)
 music.play
 
 # "ok, it seems that we don't need the source file any longer"

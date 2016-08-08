@@ -33,7 +33,7 @@ On client side, things are simple: the user just needs to have a [TcpSocket]({{b
 require "crsfml/network"
 
 socket = SF::TcpSocket.new
-status = socket.connect(SF.ip_address("192.168.0.5"), 53000)
+status = socket.connect(SF::IpAddress.new("192.168.0.5"), 53000)
 unless status == SF::Socket::Done
   # error
 end
@@ -100,7 +100,7 @@ Sending and receiving data is done in the same way for both types of sockets. Th
 To send data, you must call the `send` method with a pointer to the data that you want to send, and the number of bytes to send.
 
 ```crystal
-data = Array(UInt8).new(100, 0u8)
+data = Slice.new(77) { rand(256).to_u8 }
 
 # TCP socket:
 unless socket.send(data) == SF::Socket::Done
@@ -108,7 +108,7 @@ unless socket.send(data) == SF::Socket::Done
 end
 
 # UDP socket:
-recipient = SF.ip_address("192.168.0.5")
+recipient = SF::IPAddress.new("192.168.0.5")
 port = 54000
 unless socket.send(data, recipient, port) == SF::Socket::Done
   # error
@@ -124,7 +124,7 @@ There's another thing to keep in mind with UDP: Since data is sent in datagrams 
 To receive data, you must call the `receive` method:
 
 ```crystal
-data = Array(UInt8).new(100, 0u8)
+data = Slice(UInt8).new(100)
 
 # TCP socket:
 status, received = socket.receive(data)
@@ -223,4 +223,4 @@ Once a socket is set as non-blocking, all of its methods always return immediate
 
 Non-blocking sockets are the easiest solution if you already have a main loop that runs at a constant rate. You can simply check if something happened on your sockets in every iteration, without having to block program execution.
 
-When using `SF::TcpSocket` in non-blocking mode, calls to `send` are not guaranteed to actually send all the data you pass to it, whether it be as a `SF::Packet` or as raw data. Starting from SFML 2.3, when sending raw data over a non-blocking `SF::TcpSocket`, always make sure to use the `send_partial` method which returns the number of bytes actually sent after the method returns. Regardless of whether you send `SF::Packet`s or raw data, if only a part of the data was sent in the call, the return status will be `SF::Socket::Partial` to indicate a partial send. *If `SF::Socket::Partial` is returned, you must make sure to handle the partial send properly or else data corruption will occur.* When sending raw data, you must reattempt sending the raw data at the byte offset where the previous `send` call stopped. When sending `SF::Packet`s, the byte offset is saved within the `SF::Packet` itself. In this case, you must make sure to keep attempting to send *the exact same unmodified `SF::Packet` object* over and over until a status other than `SF::Socket::Partial` is returned. Constructing a new `SF::Packet` object and filling it with the same data will not work, it must be the same object that was previously sent.
+When using `SF::TcpSocket` in non-blocking mode, calls to `send` are not guaranteed to actually send all the data you pass to it, whether it be as a `SF::Packet` or as raw data. Make sure to check one of the return values for how much data was actually sent. Regardless of whether you send `SF::Packet`s or raw data, if only a part of the data was sent in the call, the return status will be `SF::Socket::Partial` to indicate a partial send. *If `SF::Socket::Partial` is returned, you must make sure to handle the partial send properly or else data corruption will occur.* When sending raw data, you must reattempt sending the raw data at the byte offset where the previous `send` call stopped. When sending `SF::Packet`s, the byte offset is saved within the `SF::Packet` itself. In this case, you must make sure to keep attempting to send *the exact same unmodified `SF::Packet` object* over and over until a status other than `SF::Socket::Partial` is returned. Constructing a new `SF::Packet` object and filling it with the same data will not work, it must be the same object that was previously sent.

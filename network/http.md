@@ -27,14 +27,14 @@ Note that setting the host doesn't trigger any connection. A temporary connectio
 The only other method in [Http]({{book.api}}/Http.html), sends requests. This is basically all that the class does.
 
 ```crystal
-request = SF::HttpRequest.new
+request = SF::Http::Request.new
 # fill the request...
 response = http.send_request(request)
 ```
 
 ## Requests
 
-An HTTP request, represented by the [HttpRequest]({{book.api}}/HttpRequest.html) class, contains the following information:
+An HTTP request, represented by the [Http::Request]({{book.api}}/Http/Request.html) class, contains the following information:
 
 * The method: POST (send content), GET (retrieve a resource), HEAD (retrieve a resource header, without its body)
 * The URI: the address of the resource (page, image, ...) to get/post, relative to the root directory
@@ -43,9 +43,9 @@ An HTTP request, represented by the [HttpRequest]({{book.api}}/HttpRequest.html)
 * The body of the page (used only with the POST method)
 
 ```crystal
-request = SF::HttpRequest.new
-request.method = SF::HttpRequest::Post
-request.uri = "/page.html"
+request = SF::Http::Request.new
+request.method = SF::Http::Request::Post
+request.uri = "/index.html"
 request.set_http_version(1, 1) # HTTP 1.1
 request.set_field("From", "me")
 request.set_field("Content-Type", "application/x-www-form-urlencoded")
@@ -58,7 +58,7 @@ SFML automatically fills mandatory header fields, such as "Host", "Content-Lengt
 
 ## Responses
 
-If the [Http]({{book.api}}/Http.html) class could successfully connect to the host and send the request, a response is sent back and returned to the user, encapsulated in an instance of the [HttpResponse]({{book.api}}/HttpResponse.html) class. Responses contain the following members:
+If the [Http]({{book.api}}/Http.html) class could successfully connect to the host and send the request, a response is sent back and returned to the user, encapsulated in an instance of the [Http::Response]({{book.api}}/Http/Response.html) class. Responses contain the following members:
 
 * A status code which precisely indicates how the server processed the request (OK, redirected, not found, etc.)
 * The HTTP version of the server
@@ -67,10 +67,10 @@ If the [Http]({{book.api}}/Http.html) class could successfully connect to the ho
 
 ```crystal
 response = http.send_request(request)
-puts "status: #{response.status}"
-puts "HTTP version: #{response.major_version}.{response.minor_version}
-puts "Content-Type header:" + response.get_field("Content-Type")
-puts "body: " + response.body
+puts "Status: #{response.status}"
+puts "HTTP version: #{response.major_http_version}.#{response.minor_http_version}"
+puts "Content-Type header: " + response.get_field("Content-Type")
+puts "Body:\n" + response.body
 ```
 
 The status code can be used to check whether the request was successfully processed or not: codes 2xx represent success, codes 3xx represent a redirection, codes 4xx represent client errors, codes 5xx represent server errors, and codes 10xx represent SFML specific errors which are *not* part of the HTTP standard.
@@ -82,7 +82,7 @@ Here is a short example that demonstrates how to perform a simple task: Sending 
 ```crystal
 def send_score(score, name)
   # prepare the request
-  request = SF::HttpRequest.new("/send-score.html", SF::HttpRequest::Post)
+  request = SF::Http::Request.new("/send-score.html", SF::Http::Request::Post)
 
   # encode the parameters in the request body
   request.body = "name=" + name + "&score=" + score

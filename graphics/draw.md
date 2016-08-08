@@ -18,14 +18,14 @@ Here is what a typical main loop looks like with a render window:
 require "crsfml"
 
 # create the window
-window = SF::RenderWindow.new(SF.video_mode(800, 600), "My window")
+window = SF::RenderWindow.new(SF::VideoMode.new(800, 600), "My window")
 
 # run the program as long as the window is open
 while window.open?
   # check all the window's events that were triggered since the last iteration of the loop
   while event = window.poll_event
     # "close requested" event: we close the window
-    if event.type == SF::Event::Closed
+    if event.is_a? SF::Event::Closed
       window.close
     end
   end
@@ -106,7 +106,7 @@ def render_thread(window)
 end
 
 # create the window (remember: it's safer to create it in the main thread due to OS limitations)
-window = SF::RenderWindow.new(SF.video_mode(800, 600), "OpenGL")
+window = SF::RenderWindow.new(SF::VideoMode.new(800, 600), "OpenGL")
 
 # deactivate its OpenGL context
 window.active = false
