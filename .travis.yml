@@ -1,10 +1,12 @@
 language: crystal
+env:
+- SFML=2.3.2
+- SFML=2.4.0
 before_install:
   - sudo apt-get install -qy build-essential cmake git libx11-dev freeglut3-dev libxcb-image0-dev libudev-dev libjpeg8-dev libopenal-dev libsndfile1-dev libfreetype6-dev
   - |
-    git clone https://github.com/SFML/SFML
-    cd SFML
-    git checkout "$(git describe --tags "$(git rev-list --tags --max-count=1)")"
+    curl -L "https://github.com/SFML/SFML/archive/$SFML.tar.gz" | tar -xz
+    cd SFML*
     cmake . && make
     sudo make install
     cd ..
