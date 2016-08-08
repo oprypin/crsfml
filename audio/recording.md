@@ -10,7 +10,7 @@ This can be achieved with the very simple interface of the [SoundBufferRecorder]
 
 ```crystal
 # first check if an input audio device is available on the system
-unless SF::SoundBufferRecorder.available?
+if !SF::SoundBufferRecorder.available?
   # error: audio capture is not available on this system
   ...
 end

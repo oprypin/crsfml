@@ -19,7 +19,7 @@ Since SFML is based on OpenGL, its windows are ready for OpenGL calls without an
 ```crystal
 @[Link("GL")] # Use @[Link(framework: "OpenGL")] on Mac OSX
 lib GL
- fun enable = glEnable(cap: Int32)
+ fun enable = glEnable(cap : Int32)
  TEXTURE_2D = 3553
 end
 
@@ -57,8 +57,8 @@ settings = window.settings
 
 puts "depth bits: #{settings.depth_bits}"
 puts "stencil bits: #{settings.stencil_bits}"
-puts "antialiasing level #{settings.antialiasing_level}"
-puts "version #{settings.major_version}.#{settings.minor_version}"
+puts "antialiasing level: #{settings.antialiasing_level}"
+puts "version: #{settings.major_version}.#{settings.minor_version}"
 ```
 
 OpenGL versions above 3.0 are supported by SFML (as long as your graphics driver can handle them). Support for selecting the profile of 3.2+ contexts and whether the context debug flag is set was added in SFML 2.3. The forward compatibility flag is not supported. By default, SFML creates 3.2+ contexts using the compatibility profile because the graphics module makes use of legacy OpenGL functionality. If you intend on using the graphics module, make sure to create your context without the core profile setting or the graphics module will not function correctly. On OS X, SFML supports creating OpenGL 3.2+ contexts using the core profile only. If you want to use the graphics module on OS X, you are limited to using a legacy context which implies OpenGL version 2.1.
@@ -68,12 +68,14 @@ OpenGL versions above 3.0 are supported by SFML (as long as your graphics driver
 Here is what a complete OpenGL program would look like with CrSFML:
 
 ```crystal
+require "crsfml"
+
 # create bindings
 @[Link("GL")]
 lib GL
-  fun enable = glEnable(cap: Int32)
-  fun viewport = glViewport(x: Int32, y: Int32, width: Int32, height: Int32)
-  fun clear = glClear(mask: Int32)
+  fun enable = glEnable(cap : Int32)
+  fun viewport = glViewport(x : Int32, y : Int32, width : Int32, height : Int32)
+  fun clear = glClear(mask : Int32)
   TEXTURE_2D = 3553
   COLOR_BUFFER_BIT = 16384
   DEPTH_BUFFER_BIT = 256

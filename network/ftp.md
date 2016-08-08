@@ -177,7 +177,7 @@ ftp.upload("local_file_name.pdf", "remote/destination/path", SF::Ftp::Binary)
 FTP servers usually close connections that are inactive for a while. If you want to avoid being disconnected, you can send a no-op command periodically:
 
 ```crystal
-ftp.keep_alive
+ftp.keep_alive()
 ```
 
 ## Disconnecting from the FTP server
@@ -185,5 +185,5 @@ ftp.keep_alive
 You can close the connection with the server at any moment with the `disconnect` method.
 
 ```crystal
-ftp.disconnect
+ftp.disconnect()
 ```

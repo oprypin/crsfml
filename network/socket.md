@@ -179,7 +179,7 @@ Since the selector is not a socket container, it cannot return the sockets that 
 
 ```crystal
 if selector.wait SF.seconds(10)
-  # for each socket... <-- pseudo-code because I don't know how you store your sockets :)
+  my_sockets.each do |socket|
     if selector.ready?(socket)
       # this socket is ready, you can receive (or accept if it's a listener)
       socket.receive(...)
@@ -190,7 +190,7 @@ end
 
 You can have a look at the API documentation of the [SocketSelector]({{book.api}}/SocketSelector.html) class for a working example of how to use a selector to handle connections and messages from multiple clients.
 
-As a bonus, the time out capability of `Selector#wait` allows you to implement a receive-with-timeout method, which is not directly available in the socket classes, very easily:
+As a bonus, the timeout capability of `Selector#wait` allows you to implement a receive-with-timeout method, which is not directly available in the socket classes, very easily:
 
 ```crystal
 def receive_with_timeout(socket : SF::TcpSocket, packet : SF::Packet, timeout : SF::Time)

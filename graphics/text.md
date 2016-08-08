@@ -16,7 +16,7 @@ Note that SFML won't load your system fonts automatically, i.e. `SF::Font.from_f
 
 The `from_file` class method can sometimes fail with no obvious reason. First, check the error message that SFML prints to the standard output (check the console). If the message is unable to open file, make sure that the *working directory* (which is the directory that any file path will be interpreted relative to) is what you think it is: When you run the application from your desktop environment, the working directory is the executable folder. However, when you launch your program from your IDE (Visual Studio, Code::Blocks, ...) the working directory might sometimes be set to the *project* directory instead. This can usually be changed quite easily in the project settings.
 
-You can also load a font file from memory (`loadFromMemory`), or from a [custom input stream](../system/stream.md "Input streams tutorial") (`loadFromStream`).
+You can also load a font file from memory (`from_memory`), or from a [custom input stream](../system/stream.md "Input streams tutorial") (`from_stream`).
 
 SFML supports most common font formats. The full list is available in the API documentation.
 

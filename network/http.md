@@ -16,10 +16,10 @@ To communicate with an HTTP server you must use the [Http]({{book.api}}/Http.htm
 
 ```crystal
 http = SF::Http.new
-http.set_host("http://www.some-server.org/")
+http.set_host("http://example.org/")
 
 # or
-http = SF::Http.new("http://www.some-server.org/")
+http = SF::Http.new("http://example.org/")
 ```
 
 Note that setting the host doesn't trigger any connection. A temporary connection is created for each request.
@@ -92,7 +92,7 @@ def send_score(score, name)
   response = http.send_request(request)
 
   # check the status
-  if (response.status == SF::HttpResponse::Ok)
+  if response.status.ok?
     # check the contents of the response
     puts response.body
   else
@@ -116,4 +116,3 @@ if (write_to_database($name, $score)) { // this is not a PHP tutorial :)
     echo 'failed to write name and score to database...';
 }
 ```
-

@@ -21,7 +21,7 @@ In CrSFML, shaders are represented by the [Shader]({{book.api}}/Shader.html) cla
 Even though shaders have become commonplace, there are still old graphics cards that might not support them. The first thing you should do in your program is check if shaders are available on the system:
 
 ```crystal
-unless SF::Shader.available?
+if !SF::Shader.available?
   # shaders are not available...
 end
 ```
@@ -101,14 +101,16 @@ Uniforms can be set by the Crystal program, using the various overloads of the `
 
 ```crystal
 shader.set_parameter("my_var", 5.0)
+# shorthand:
+shader.my_var 5.0
 ```
 
 `set_parameter`'s overloads support all the types provided by CrSFML:
 
-* `float` (GLSL type `float`)
-* 2 `float`s, `SF::Vector2f` (GLSL type `vec2`)
-* 3 `float`s, `SF::Vector3f` (GLSL type `vec3`)
-* 4 `float`s (GLSL type `vec4`)
+* `Float` (GLSL type `float`)
+* 2 `Float`s or `SF::Vector2f` (GLSL type `vec2`)
+* 3 `Float`s or `SF::Vector3f` (GLSL type `vec3`)
+* 4 `Float`s (GLSL type `vec4`)
 * `SF::Color` (GLSL type `vec4`)
 * `SF::Transform` (GLSL type `mat4`)
 * `SF::Texture` (GLSL type `sampler2D`)
@@ -160,7 +162,7 @@ void main()
 The current texture is not automatic, you need to treat it like you do the other input variables, and explicitly set it from your C++ program. Since each entity can have a different texture, and worse, there might be no way for you to get it and pass it to the shader, SFML provides a special overload of the `set_parameter` method that does this job for you.
 
 ```
-shader.set_parameter("texture", SF::Shader::CurrentTexture)
+shader.set_parameter "texture", SF::Shader::CurrentTexture
 ```
 
 This special parameter automatically sets the texture of the entity being drawn to the shader variable with the given name. Every time you draw a new entity, SFML will update the shader texture variable accordingly.
@@ -178,11 +180,11 @@ shader = SF::Shader.new
 ...
 
 # bind the shader
-SF::Shader::bind(shader)
+SF::Shader.bind(shader)
 
 # draw your OpenGL entity here...
 
 # bind no shader
-SF::Shader::bind(nil)
+SF::Shader.bind(nil)
 ```
 

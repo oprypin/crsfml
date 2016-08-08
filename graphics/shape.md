@@ -50,15 +50,14 @@ Shapes can also be textured, just like sprites. To specify a part of the texture
 shape = SF::CircleShape.new(50)
 
 # map a 100x100 textured rectangle to the shape
-reset_rect = false # reset texture rect?
-shape.set_texture(texture, reset_rect) # texture is a SF::Texture
+shape.set_texture(texture, reset_rect: false) # texture is a SF::Texture
 shape.texture_rect = SF.int_rect(10, 10, 100, 100)
 ```
 
 ![A textured shape](images/shape-texture.png)
 
 Note that the outline is not textured.  
-It is important to know that the texture is modulated (multiplied) with the shape's fill color. If its fill color is SF::Color::White, the texture will appear unmodified.  
+It is important to know that the texture is modulated (multiplied) with the shape's fill color. If its fill color is `SF::Color::White`, the texture will appear unmodified.
 To disable texturing, call `set_texture(nil, false)`.
 
 ## Drawing a shape
@@ -72,8 +71,6 @@ window.draw(shape)
 ## Built-in shape types
 
 ### Rectangles
-
-Relevant example: **[tetrominos]({{book.examples2}}/tetrominos)**
 
 To draw rectangles, you can use the [RectangleShape]({{book.api}}/RectangleShape.html) class. It has a single attribute: The size of the rectangle.
 

@@ -13,7 +13,7 @@ A [Time]({{book.api}}/Time.html) value can be constructed from different source 
 ```crystal
 t1 = SF.microseconds(10000)
 t2 = SF.milliseconds(10)
-t3 = SF.seconds(0.0)
+t3 = SF.seconds(0.01)
 ```
 
 Note that these three times are all equal.
@@ -56,13 +56,13 @@ clock = SF::Clock.new # Starts the clock
 sleep(2)
 
 elapsed_1 = clock.elapsed_time
-puts elapsed_1.as_seconds
+p elapsed_1.as_seconds
 clock.restart
 
 sleep(3)
 
 elapsed_2 = clock.elapsed_time
-puts elapsed_2.as_seconds
+p elapsed_2.as_seconds
 ```
 
 Note that `restart` also returns the elapsed time, so that you can avoid the slight gap that would exist if you had to call `elapsed_time` explicitly before `restart`.  

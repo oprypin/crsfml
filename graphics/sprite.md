@@ -147,7 +147,7 @@ Using as few textures as possible is a good strategy, and the reason is simple: 
 
 Additionally, using a single texture allows you to group static geometry into a single entity (you can only use one texture per `draw` call), which will be much faster to draw than a set of many entities. Batching static geometry involves other classes and is therefore beyond the scope of this tutorial, for further details see the [vertex array](vertex-array.md "Vertex array tutorial") tutorial.
 
-Try to keep this in mind when you create your animation sheets or your tilesets: Use as little textures as possible.
+Try to keep this in mind when you create your animation sheets or your tilesets: Use as few textures as possible.
 
 ## Using SF::Texture with OpenGL code
 
@@ -159,11 +159,11 @@ To bind a [Texture]({{book.api}}/Texture.html) for drawing (basically `glBindTex
 texture = ...
 
 # bind the texture
-SF::Texture.bind(texture)
+SF::Texture.bind texture
 
 # draw your textured OpenGL entity here...
 
 # bind no texture
-SF::Texture.bind(nil)
+SF::Texture.bind nil
 ```
 

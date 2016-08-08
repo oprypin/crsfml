@@ -12,7 +12,7 @@ SFML provides two classes for playing audio: [Sound]({{book.api}}/Sound.html) an
 
 As mentioned above, the sound data is not stored directly in [Sound]({{book.api}}/Sound.html) but in a separate class named [SoundBuffer]({{book.api}}/SoundBuffer.html). This class encapsulates the audio data, which is basically an array of 16-bit signed integers (called "audio samples"). A sample is the amplitude of the sound signal at a given point in time, and an array of samples therefore represents a full sound.
 
-In fact, the [Sound]({{book.api}}/Sound.html)/[Sound]({{book.api}}/SoundBuffer.html) classes work the same way as [Sprite]({{book.api}}/Sprite.html)/[Texture]({{book.api}}/Texture.html) from the graphics module. So if you understand how sprites and textures work together, you can apply the same concept to sounds and sound buffers.
+In fact, the [Sound]({{book.api}}/Sound.html)/[SoundBuffer]({{book.api}}/SoundBuffer.html) classes work the same way as [Sprite]({{book.api}}/Sprite.html)/[Texture]({{book.api}}/Texture.html) from the graphics module. So if you understand how sprites and textures work together, you can apply the same concept to sounds and sound buffers.
 
 You can load a sound buffer from a file on disk with its `from_file` class method:
 

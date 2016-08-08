@@ -81,7 +81,7 @@ The above code will open a window, and terminate when the user closes it. Let's 
 
 First, we added a loop that ensures that the application will be refreshed/updated until the window is closed. Most (if not all) CrSFML programs will have this kind of loop, sometimes called the *main loop* or *game loop*.
 
-Then, the first thing that we want to do inside our game loop is check for any events that occurred. Note that we use a `while` loop so that all pending events are processed in case there were several. The `poll_event` method returns true if an event was pending, or false if there was none.
+Then, the first thing that we want to do inside our game loop is check for any events that occurred. Note that we use a `while` loop so that all pending events are processed in case there were several. The `poll_event` method returns an event if there was one pending, or `nil` otherwise.
 
 Whenever we get an event, we must check its type (window closed? key pressed? mouse moved? joystick connected? ...), and react accordingly if we are interested in it. In this case, we only care about the `Event::Closed` event, which is triggered when the user wants to close the window. At this point, the window is still open and we have to close it explicitly with the `close` method. This enables you to do something before the window is closed, such as saving the current state of the application, or displaying a message.
 

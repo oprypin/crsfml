@@ -4,7 +4,7 @@
 
 SFML has several resource classes: images, fonts, sounds, etc. In most programs, these resources will be loaded from files, with the help of their `from_file` class method. In a few other situations, resources will be packed directly into the executable or in a big data file, and loaded from memory with `from_memory`. These methods cover *almost* all the possible use cases -- but not all.
 
-Sometimes you want to load files from unusual places, such as a compressed/encrypted archive, or a remote network location for example. For these special situations, SFML provides a third loading method: `from_stream`. This method reads data using an abstract [InputStream]({{book.api}}/InputStream.html) interface, which allows you to provide your own implementation of a stream class that works with SFML.
+Sometimes you want to load files from unusual places, such as a compressed/encrypted archive, or a remote network location for example. For these special situations, CrSFML provides a third loading method: `from_stream`. This method reads data using an abstract [InputStream]({{book.api}}/InputStream.html) interface, which allows you to provide your own implementation of a stream class that works with SFML.
 
 In this tutorial you'll learn how to write and use your own derived input stream.
 

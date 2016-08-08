@@ -113,7 +113,8 @@ stream.play
 
 # let it play until it is finished
 while stream.status == SF::SoundSource::Playing
-  SF.sleep(SF.seconds(0.1))
+  SF.sleep(SF.seconds(1))
+  # jump back every so often
+  stream.playing_offset -= SF.seconds(0.7)
 end
 ```
-

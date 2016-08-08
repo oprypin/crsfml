@@ -227,4 +227,3 @@ class SpriteNode < Node
   end
 end
 ```
-

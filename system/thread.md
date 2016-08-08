@@ -10,7 +10,7 @@ So, in short, threads are a way to do multiple things at the same time. This can
 
 ## SFML threads or alternatives?
 
-Multithreaded code is inherently unsafe. Crystal itself has a `Thread` class, but it is classified as internal, because better ways to do concurrency are being developed. Crystal's standard library is not intended to be used with raw threads. **Garbage collection in additional thread causes crashes.** Exceptions don't work either.
+Multithreaded code is inherently unsafe. Crystal itself has a `Thread` class, but it is classified as internal, because better ways to do concurrency are being developed. Crystal's standard library is not intended to be used with raw threads. **Garbage collection in additional threads causes crashes.** Exceptions don't work either.
 
 Please make sure you know what you're doing before choosing SFML threads.
 
@@ -24,9 +24,9 @@ require "crsfml/system"
 def func
   # this function is started when thread.launch() is called
 
-  10.times do
+  7.times do
     puts "I'm thread number one"
-    SF.sleep(SF.seconds(0.3))
+    SF.sleep SF.seconds(0.3)
   end
 end
 
@@ -37,11 +37,11 @@ thread = SF::Thread.new(->func)
 thread.launch()
 
 # the main thread continues to run...
-SF.sleep(SF.seconds(0.15))
+SF.sleep SF.seconds(0.15)
 
-10.times do
+7.times do
   puts "I'm the main thread"
-  SF.sleep(SF.seconds(0.3))
+  SF.sleep SF.seconds(0.3)
 end
 ```
 
@@ -62,22 +62,16 @@ I'm thread number one
 I'm the main thread
 I'm thread number one
 I'm the main thread
-I'm thread number one
-I'm the main thread
-I'm thread number one
-I'm the main thread
-I'm thread number one
-I'm the main thread
 ```
 
-The entry point of the thread, ie. the function that will be run when the thread is started, must be passed to the constructor of [Thread]({{book.api}}/Thread.html). [Thread]({{book.api}}/Thread.html) can accept any kind of [procs](http://crystal-lang.org/docs/syntax_and_semantics/literals/proc.html).
+The entry point of the thread, ie. the function that will be run when the thread is started, must be passed to the constructor of [Thread]({{book.api}}/Thread.html). [Thread]({{book.api}}/Thread.html) can accept any kind of [procs](http://crystal-lang.org/docs/syntax_and_semantics/literals/proc.html) without parameters.
 
 ## Starting threads
 
 Once you've created a [Thread]({{book.api}}/Thread.html) instance, you must start it with the `launch` method.
 
 ```crystal
-thread = SF::Thread(->func)
+thread = SF::Thread.new(->func)
 thread.launch()
 ```
 
@@ -126,7 +120,7 @@ $mutex = SF::Mutex.new
 def func
   $mutex.lock
 
-  10.times do
+  7.times do
     puts "I'm thread number one"
   end
 
@@ -138,7 +132,7 @@ thread.launch
 
 $mutex.lock
 
-10.times do
+7.times do
   puts "I'm the main thread"
 end
 
@@ -159,12 +153,6 @@ I'm the main thread
 I'm the main thread
 I'm the main thread
 I'm the main thread
-I'm the main thread
-I'm the main thread
-I'm the main thread
-I'm thread number one
-I'm thread number one
-I'm thread number one
 I'm thread number one
 I'm thread number one
 I'm thread number one
