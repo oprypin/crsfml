@@ -233,6 +233,10 @@ actions.each_key do |btn|
   y += h + h/2
 end
 
+version_text = SF::Text.new("SFML v#{SF::SFML_VERSION}\nCrSFML v#{SF::VERSION}", $font, 20)
+version_text.origin = {0, version_text.local_bounds.height}
+version_text.position = {5, $window.size.y - 15}
+
 while $window.open?
   while event = $window.poll_event()
     case event
@@ -252,5 +256,6 @@ while $window.open?
   actions.each_key do |btn|
     $window.draw(btn)
   end
+  $window.draw(version_text)
   $window.display()
 end
