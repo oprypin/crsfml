@@ -532,21 +532,19 @@ class CClass < CNamespace
     if context.crystal?
       o<< "end"
 
-      if class? && !abstract?
-        each do |func|
-          next unless func.is_a? CFunction
-          next unless (typ = func.const_reference_getter?)
-          o<< "#:nodoc:"
-          o<< "class #{typ.full_name(context)}::Reference < #{typ.full_name(context)}"
-          o<< "def initialize(@this : Void*, @parent : #{name(context)})"
-          o<< "end"
-          o<< "def finalize()"
-          o<< "end"
-          o<< "def to_unsafe()"
-          o<< "@this"
-          o<< "end"
-          o<< "end"
-        end
+      each do |func|
+        next unless func.is_a? CFunction
+        next unless (typ = func.const_reference_getter?)
+        o<< "# :nodoc:"
+        o<< "class #{typ.full_name(context)}::Reference < #{typ.full_name(context)}"
+        o<< "def initialize(@this : Void*, @parent : #{name(context)})"
+        o<< "end"
+        o<< "def finalize()"
+        o<< "end"
+        o<< "def to_unsafe()"
+        o<< "@this"
+        o<< "end"
+        o<< "end"
       end
     end
   end
@@ -1369,7 +1367,7 @@ class CFunction < CItem
         o<< "end"
       end
 
-      if reference_var
+      if reference_var && !parent.as?(CClass).try &.module?
         o<< "#{reference_var} : #{(reference_getter? || reference_setter?).not_nil!.full_name(Context::Crystal)}? = nil"
       end
 
