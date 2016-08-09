@@ -5,17 +5,19 @@
 Documentation
 -------------
 
-#### [Introduction](#introduction)
-#### [Installation](#installation)
-#### [Tutorials][]
-#### [API Documentation][]
-#### [Examples](examples) / [Demos][]
+- **[Installation](#installation)**
+
+- **[Tutorials][]**
+
+- **[API Documentation][]**
+
+- **[Examples](examples)** / **[Demos][]**
 
 
 Introduction
 ------------
 
-**Note to existing users**: *CrSFML* has been recently rewritten from scratch. See the [release notes][releases] for information.
+**Note to existing users**: *CrSFML* has been recently rewritten from scratch. *CrSFML* releases since 2.4 have an entirely different installation procedure, and multiple important API changes.
 
 *CrSFML* is a library that allows SFML to be used with the Crystal programming language. [SFML][] is a library written in C++, so *CrSFML* also needs to ship C bindings to SFML, called *VoidCSFML*.
 
@@ -25,7 +27,7 @@ To quote the official site of SFML,
 
 Indeed, SFML is most often used to make video games. It provides features such as hardware-accelerated 2D graphics, handling keyboard, mouse and gamepad input, vector and matrix manipulation, managing windows (can also be used as a base for OpenGL drawing), working with multiple image formats, audio playback and recording, basic networking... Check out some [demos][] of *CrSFML* to see what it can do.
 
-*CrSFML* consists almost entirely of automatically generated code, based on SFML's header files. The *dev* git branch contains the [generator program](generate.cr) and the small manually written source files. The generated source code can be viewed at the [sources][] branch.
+*CrSFML* consists almost entirely of automatically generated code, based on SFML's header files. The *master* git branch contains the [generator program](generate.cr) and the small manually written source files. The generated source code can be viewed at the [sources][] branch.
 
 ### Differences between SFML and CrSFML
 
@@ -49,12 +51,14 @@ The API of *CrSFML* (a library for Crystal) attempts to be similar to SFML (a C+
 Installation
 ------------
 
+Note that using [Shards][] is not enough to install *CrSFML*.
+
 This section defines two sets of step-by-step instructions to install *CrSFML* but these are not the only ways to do it; they can even be mixed (see [VoidCSFML installation instructions](voidcsfml/README.md#installation) for an alternative look)
 
 - [Approach 1](#approach-1): Generate latest *CrSFML* and *VoidCSFML* source code "from scratch"; build and use them from a local directory
     - Advantages:
         - The bindings can be fine-tuned to your system.
-        - Should support any SFML 2.3.x, maybe even other versions.
+        - Supports multiple recent [SFML versions](#install-sfml).
         - This is the right setup if you wish to contribute to *CrSFML*.
     - Disadvantages:
         - Need to always provide full path to *VoidCSFML* libraries when running a program using *CrSFML*.
@@ -63,16 +67,20 @@ This section defines two sets of step-by-step instructions to install *CrSFML* b
     - Advantages:
         - Easier installation.
     - Disadvantages:
-        - Tied to a particular version of SFML.
+        - Tied to a particular version of SFML (only SFML 2.4 right now).
         - Although sizes of SFML objects seem to always be of equal or smaller sizes than on Linux 64-bit with latest GCC (where the sources are generated), this is not completely guaranteed. So, in case of a mismatch, data may be written outside of the memory region allocated for an object.
 
 ### Install SFML
 
 The first step is to install the [SFML][] library itself. There are detailed [official instructions][sfml-install] on how to install it manually, however, on many systems there are easier ways.
 
+SFML versions 2.4.x and 2.3.x are supported by *CrSFML*.
+
 #### Linux
 
-Linux-based systems known to provide SFML 2.3.2 through their package manager: Ubuntu 16.04, Arch Linux, Fedora. Note that if you're installing an older version of SFML, it is not guaranteed to work (in fact, installation with [Approach 2](#approach-2) is almost guaranteed **not** to work).
+Many Linux-based systems provide SFML through their package manager. Make sure to install the *-dev* packages if there is such a separation in your Linux distribution of choice.
+
+Note that most often the packages provided by Linux distributions are outdated. If you're installing an older version of SFML (not recommended), make sure that it's still [supported by *CrSFML*](#install-sfml). For installation with [Approach 2](#approach-2) getting the latest version is even more important.
 
 For information on building SFML from source, check out [this article][sfml-install-linux] (but no need to install CSFML). It is as simple as downloading the source code and running:
 
@@ -101,7 +109,7 @@ Prerequisites: [Git][], [CMake][], [Crystal][], a C++ compiler
 #### Download latest generator source code
 
 ```bash
-git clone -b dev https://github.com/blaxpirit/crsfml
+git clone https://github.com/blaxpirit/crsfml
 cd crsfml
 ```
 
@@ -152,7 +160,7 @@ Prerequisites: [CMake][], [Crystal][], a C++ compiler
 
 #### Download a release of CrSFML
 
-Find the release of *CrSFML* that corresponds to your installed version of *SFML* (latest is strongly recommended) at the [releases][] page.
+Find the release of *CrSFML* that corresponds to your installed version of *SFML* (latest is strongly recommended) at the [releases][] page. Note that only releases starting at 2.4 are applicable, and only SFML versions since 2.4 are supported in this approach. The older releases are legacy CSFML-based releases.
 
 Download and extract it, and remember the version of the release (let's say v1.2.3) for later.
 

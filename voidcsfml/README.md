@@ -8,7 +8,7 @@ Information
 
 *VoidCSFML* is a library that allows [SFML][] (a library written in C++) to be used with pure C. It is not meant to be human-friendly or be used directly in C code (though it's possible). *VoidCSFML* is just an intermediate step between SFML and a higher-level binding (in this case, to [Crystal][] programming language) which is used because it's much easier to interface with a C library than a C++ one.
 
-You can browse the [latest generated source code](https://github.com/BlaXpirit/crsfml/tree/sources/voidcsfml) of *VoidCSFML*, but it comes almost entirely from a [generator program](https://github.com/BlaXpirit/crsfml/blob/dev/generate.cr), so contributions are accepted only in the *dev* branch.
+You can browse the [latest generated source code](https://github.com/BlaXpirit/crsfml/tree/sources/voidcsfml) of *VoidCSFML*, but it comes almost entirely from a [generator program](https://github.com/BlaXpirit/crsfml/blob/master/generate.cr), so contributions are accepted only in the *master* branch.
 
 Installation
 ------------
@@ -28,7 +28,7 @@ For building, [CMake][] and a C++ compiler are required (to the best of the auth
 
 Generating the sources is an **optional** step. If you are sure you have a matching version of SFML to the [pre-generated sources](https://github.com/BlaXpirit/crsfml/tree/sources/voidcsfml) (usually latest), you can use these. In fact, you may already be looking at the generated sources, just check whether the *voidcsfml/src* folder is populated. For development it's usually best to [build whole CrSFML](#building-crsfml). But, for completeness' sake, here's how to generate the sources manually:
 
-Go to *CrSFML*'s root folder and run [generate.cr](https://github.com/BlaXpirit/crsfml/blob/dev/generate.cr):
+Go to *CrSFML*'s root folder and run [generate.cr](https://github.com/BlaXpirit/crsfml/blob/master/generate.cr):
 
 ```bash
 crystal run generate.cr -- /usr/include
@@ -81,14 +81,22 @@ export LD_LIBRARY_PATH="$LIBRARY_PATH"
 
 ### CMake options
 
-If *SFML* is installed in an unusual location, some additional work needs to be done when compiling *VoidCSFML*. At the very least, it needs to find the file *SFML/cmake/Modules/FindSFML.cmake*. So specify the full path to the folder that contains it. For example, on Mac, if SFML is installed through [Homebrew][], CMake must be run like this:
+If *SFML* is installed in an unusual location, some additional work needs to be done when compiling *VoidCSFML*. At the very least, it needs to find the file *SFML/cmake/Modules/FindSFML.cmake*. So specify the full path to the folder that contains it.
+
+On Linux, if SFML is installed to */usr/local* (which is the default when installing from source), run CMake like this:
+
+```bash
+cmake -DCMAKE_MODULE_PATH=/usr/local/share/SFML/cmake/Modules . && make
+```
+
+On Mac, if SFML is installed through [Homebrew][], CMake must be run like this:
 
 ```bash
 sfml=/usr/local/Cellar/sfml/2.*
 cmake -DCMAKE_MODULE_PATH="$sfml/share/SFML/cmake/Modules" . && make
 ```
 
-But most often, when SFML is built in a local folder, even more options are needed:
+When SFML is built in a local folder, even more options are needed:
 
 ```bash
 sfml=/full/path/to/SFML
