@@ -788,11 +788,20 @@ void texture_setsmooth_GZq(void* self, unsigned char smooth) {
 void texture_issmooth(void* self, unsigned char* result) {
     *(bool*)result = ((Texture*)self)->isSmooth();
 }
+void texture_setsrgb_GZq(void* self, unsigned char s_rgb) {
+    ((Texture*)self)->setSrgb((bool)s_rgb);
+}
+void texture_issrgb(void* self, unsigned char* result) {
+    *(bool*)result = ((Texture*)self)->isSrgb();
+}
 void texture_setrepeated_GZq(void* self, unsigned char repeated) {
     ((Texture*)self)->setRepeated((bool)repeated);
 }
 void texture_isrepeated(void* self, unsigned char* result) {
     *(bool*)result = ((Texture*)self)->isRepeated();
+}
+void texture_generatemipmap(void* self, unsigned char* result) {
+    *(bool*)result = ((Texture*)self)->generateMipmap();
 }
 void texture_getnativehandle(void* self, unsigned int* result) {
     *(unsigned int*)result = ((Texture*)self)->getNativeHandle();
@@ -838,8 +847,8 @@ void font_loadfromstream_PO0(void* self, void* stream, unsigned char* result) {
 void font_getinfo(void* self, void** result) {
     *(Font::Info**)result = const_cast<Font::Info*>(&((Font*)self)->getInfo());
 }
-void font_getglyph_saLemSGZq(void* self, uint32_t code_point, unsigned int character_size, unsigned char bold, void* result) {
-    *(Glyph*)result = ((Font*)self)->getGlyph((Uint32)code_point, (unsigned int)character_size, (bool)bold);
+void font_getglyph_saLemSGZqBw9(void* self, uint32_t code_point, unsigned int character_size, unsigned char bold, float outline_thickness, void* result) {
+    *(Glyph*)result = ((Font*)self)->getGlyph((Uint32)code_point, (unsigned int)character_size, (bool)bold, (float)outline_thickness);
 }
 void font_getkerning_saLsaLemS(void* self, uint32_t first, uint32_t second, unsigned int character_size, float* result) {
     *(float*)result = ((Font*)self)->getKerning((Uint32)first, (Uint32)second, (unsigned int)character_size);
@@ -1099,6 +1108,9 @@ void rendertexture_setrepeated_GZq(void* self, unsigned char repeated) {
 void rendertexture_isrepeated(void* self, unsigned char* result) {
     *(bool*)result = ((RenderTexture*)self)->isRepeated();
 }
+void rendertexture_generatemipmap(void* self, unsigned char* result) {
+    *(bool*)result = ((RenderTexture*)self)->generateMipmap();
+}
 void rendertexture_setactive_GZq(void* self, unsigned char active, unsigned char* result) {
     *(bool*)result = ((RenderTexture*)self)->setActive((bool)active);
 }
@@ -1213,6 +1225,9 @@ void renderwindow_setverticalsyncenabled_GZq(void* self, unsigned char enabled) 
 void renderwindow_setmousecursorvisible_GZq(void* self, unsigned char visible) {
     ((RenderWindow*)self)->setMouseCursorVisible((bool)visible);
 }
+void renderwindow_setmousecursorgrabbed_GZq(void* self, unsigned char grabbed) {
+    ((RenderWindow*)self)->setMouseCursorGrabbed((bool)grabbed);
+}
 void renderwindow_setkeyrepeatenabled_GZq(void* self, unsigned char enabled) {
     ((RenderWindow*)self)->setKeyRepeatEnabled((bool)enabled);
 }
@@ -1288,17 +1303,26 @@ void shader_loadfromfile_zkCqL0(void* self, size_t filename_size, char* filename
 void shader_loadfromfile_zkCzkC(void* self, size_t vertex_shader_filename_size, char* vertex_shader_filename, size_t fragment_shader_filename_size, char* fragment_shader_filename, unsigned char* result) {
     *(bool*)result = ((Shader*)self)->loadFromFile(std::string(vertex_shader_filename, vertex_shader_filename_size), std::string(fragment_shader_filename, fragment_shader_filename_size));
 }
+void shader_loadfromfile_zkCzkCzkC(void* self, size_t vertex_shader_filename_size, char* vertex_shader_filename, size_t geometry_shader_filename_size, char* geometry_shader_filename, size_t fragment_shader_filename_size, char* fragment_shader_filename, unsigned char* result) {
+    *(bool*)result = ((Shader*)self)->loadFromFile(std::string(vertex_shader_filename, vertex_shader_filename_size), std::string(geometry_shader_filename, geometry_shader_filename_size), std::string(fragment_shader_filename, fragment_shader_filename_size));
+}
 void shader_loadfrommemory_zkCqL0(void* self, size_t shader_size, char* shader, int type, unsigned char* result) {
     *(bool*)result = ((Shader*)self)->loadFromMemory(std::string(shader, shader_size), (Shader::Type)type);
 }
 void shader_loadfrommemory_zkCzkC(void* self, size_t vertex_shader_size, char* vertex_shader, size_t fragment_shader_size, char* fragment_shader, unsigned char* result) {
     *(bool*)result = ((Shader*)self)->loadFromMemory(std::string(vertex_shader, vertex_shader_size), std::string(fragment_shader, fragment_shader_size));
 }
+void shader_loadfrommemory_zkCzkCzkC(void* self, size_t vertex_shader_size, char* vertex_shader, size_t geometry_shader_size, char* geometry_shader, size_t fragment_shader_size, char* fragment_shader, unsigned char* result) {
+    *(bool*)result = ((Shader*)self)->loadFromMemory(std::string(vertex_shader, vertex_shader_size), std::string(geometry_shader, geometry_shader_size), std::string(fragment_shader, fragment_shader_size));
+}
 void shader_loadfromstream_PO0qL0(void* self, void* stream, int type, unsigned char* result) {
     *(bool*)result = ((Shader*)self)->loadFromStream(*(InputStream*)stream, (Shader::Type)type);
 }
 void shader_loadfromstream_PO0PO0(void* self, void* vertex_shader_stream, void* fragment_shader_stream, unsigned char* result) {
     *(bool*)result = ((Shader*)self)->loadFromStream(*(InputStream*)vertex_shader_stream, *(InputStream*)fragment_shader_stream);
+}
+void shader_loadfromstream_PO0PO0PO0(void* self, void* vertex_shader_stream, void* geometry_shader_stream, void* fragment_shader_stream, unsigned char* result) {
+    *(bool*)result = ((Shader*)self)->loadFromStream(*(InputStream*)vertex_shader_stream, *(InputStream*)geometry_shader_stream, *(InputStream*)fragment_shader_stream);
 }
 void shader_setparameter_zkCBw9(void* self, size_t name_size, char* name, float x) {
     ((Shader*)self)->setParameter(std::string(name, name_size), (float)x);
@@ -1338,6 +1362,9 @@ void shader_bind_8P6(void* shader) {
 }
 void shader_isavailable(unsigned char* result) {
     *(bool*)result = Shader::isAvailable();
+}
+void shader_isgeometryavailable(unsigned char* result) {
+    *(bool*)result = Shader::isGeometryAvailable();
 }
 void sprite_initialize(void* self) {
     new(self) Sprite();
@@ -1459,6 +1486,15 @@ void text_setstyle_saL(void* self, uint32_t style) {
 void text_setcolor_QVe(void* self, void* color) {
     ((Text*)self)->setColor(*(Color*)color);
 }
+void text_setfillcolor_QVe(void* self, void* color) {
+    ((Text*)self)->setFillColor(*(Color*)color);
+}
+void text_setoutlinecolor_QVe(void* self, void* color) {
+    ((Text*)self)->setOutlineColor(*(Color*)color);
+}
+void text_setoutlinethickness_Bw9(void* self, float thickness) {
+    ((Text*)self)->setOutlineThickness((float)thickness);
+}
 void text_getstring(void* self, uint32_t** result) {
     static String str;
     str = ((Text*)self)->getString();
@@ -1475,6 +1511,15 @@ void text_getstyle(void* self, uint32_t* result) {
 }
 void text_getcolor(void* self, void* result) {
     *(Color*)result = ((Text*)self)->getColor();
+}
+void text_getfillcolor(void* self, void* result) {
+    *(Color*)result = ((Text*)self)->getFillColor();
+}
+void text_getoutlinecolor(void* self, void* result) {
+    *(Color*)result = ((Text*)self)->getOutlineColor();
+}
+void text_getoutlinethickness(void* self, float* result) {
+    *(float*)result = ((Text*)self)->getOutlineThickness();
 }
 void text_findcharacterpos_vgv(void* self, size_t index, void* result) {
     *(Vector2f*)result = ((Text*)self)->findCharacterPos((std::size_t)index);

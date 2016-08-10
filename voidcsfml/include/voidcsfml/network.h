@@ -131,14 +131,14 @@ VOIDCSFML_API socketselector_isready_JTp(void* self, void* socket, unsigned char
 VOIDCSFML_API socketselector_initialize_fWq(void* self, void* copy);
 VOIDCSFML_API tcplistener_initialize(void* self);
 VOIDCSFML_API tcplistener_getlocalport(void* self, unsigned short* result);
-VOIDCSFML_API tcplistener_listen_bxi(void* self, unsigned short port, int* result);
+VOIDCSFML_API tcplistener_listen_bxiBfE(void* self, unsigned short port, void* address, int* result);
 VOIDCSFML_API tcplistener_close(void* self);
 VOIDCSFML_API tcplistener_accept_WsF(void* self, void* socket, int* result);
 VOIDCSFML_API tcplistener_setblocking_GZq(void* self, unsigned char blocking);
 VOIDCSFML_API tcplistener_isblocking(void* self, unsigned char* result);
 VOIDCSFML_API udpsocket_initialize(void* self);
 VOIDCSFML_API udpsocket_getlocalport(void* self, unsigned short* result);
-VOIDCSFML_API udpsocket_bind_bxi(void* self, unsigned short port, int* result);
+VOIDCSFML_API udpsocket_bind_bxiBfE(void* self, unsigned short port, void* address, int* result);
 VOIDCSFML_API udpsocket_unbind(void* self);
 VOIDCSFML_API udpsocket_send_5h8vgvBfEbxi(void* self, void* data, size_t size, void* remote_address, unsigned short remote_port, int* result);
 VOIDCSFML_API udpsocket_receive_xALvgvi499ylYII(void* self, void* data, size_t size, size_t* received, void* remote_address, unsigned short* remote_port, int* result);

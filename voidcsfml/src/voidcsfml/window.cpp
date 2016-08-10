@@ -1,8 +1,8 @@
 #include <voidcsfml/window.h>
 #include <SFML/Window.hpp>
 using namespace sf;
-void contextsettings_initialize_emSemSemSemSemSemS(void* self, unsigned int depth, unsigned int stencil, unsigned int antialiasing, unsigned int major, unsigned int minor, unsigned int attributes) {
-    new(self) ContextSettings((unsigned int)depth, (unsigned int)stencil, (unsigned int)antialiasing, (unsigned int)major, (unsigned int)minor, (unsigned int)attributes);
+void contextsettings_initialize_emSemSemSemSemSemSGZq(void* self, unsigned int depth, unsigned int stencil, unsigned int antialiasing, unsigned int major, unsigned int minor, unsigned int attributes, unsigned char s_rgb) {
+    new(self) ContextSettings((unsigned int)depth, (unsigned int)stencil, (unsigned int)antialiasing, (unsigned int)major, (unsigned int)minor, (unsigned int)attributes, (bool)s_rgb);
 }
 void contextsettings_setdepthbits_emS(void* self, unsigned int depth_bits) {
     ((ContextSettings*)self)->depthBits = (unsigned int)depth_bits;
@@ -22,6 +22,9 @@ void contextsettings_setminorversion_emS(void* self, unsigned int minor_version)
 void contextsettings_setattributeflags_saL(void* self, uint32_t attribute_flags) {
     ((ContextSettings*)self)->attributeFlags = (Uint32)attribute_flags;
 }
+void contextsettings_setsrgbcapable_GZq(void* self, unsigned char s_rgb_capable) {
+    ((ContextSettings*)self)->sRgbCapable = (bool)s_rgb_capable;
+}
 void contextsettings_initialize_Fw4(void* self, void* copy) {
     new(self) ContextSettings(*(ContextSettings*)copy);
 }
@@ -33,6 +36,15 @@ void context_finalize(void* self) {
 }
 void context_setactive_GZq(void* self, unsigned char active, unsigned char* result) {
     *(bool*)result = ((Context*)self)->setActive((bool)active);
+}
+void context_getsettings(void* self, void* result) {
+    *(ContextSettings*)result = ((Context*)self)->getSettings();
+}
+void context_isextensionavailable_Yy6(char* name, unsigned char* result) {
+    *(bool*)result = Context::isExtensionAvailable((char const*)name);
+}
+void context_getactivecontext(void** result) {
+    *(Context**)result = const_cast<Context*>(Context::getActiveContext());
 }
 void context_initialize_Fw4emSemS(void* self, void* settings, unsigned int width, unsigned int height) {
     new(self) Context(*(ContextSettings*)settings, (unsigned int)width, (unsigned int)height);
@@ -401,6 +413,9 @@ void window_setverticalsyncenabled_GZq(void* self, unsigned char enabled) {
 }
 void window_setmousecursorvisible_GZq(void* self, unsigned char visible) {
     ((Window*)self)->setMouseCursorVisible((bool)visible);
+}
+void window_setmousecursorgrabbed_GZq(void* self, unsigned char grabbed) {
+    ((Window*)self)->setMouseCursorGrabbed((bool)grabbed);
 }
 void window_setkeyrepeatenabled_GZq(void* self, unsigned char enabled) {
     ((Window*)self)->setKeyRepeatEnabled((bool)enabled);

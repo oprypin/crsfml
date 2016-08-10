@@ -35,7 +35,7 @@ module SF
   #
   # *See also:* `SF::TcpListener`, `SF::TcpSocket`, `SF::UdpSocket`
   class Socket
-    @_socket : VoidCSFML::Socket_Buffer = VoidCSFML::Socket_Buffer.new(0u8)
+    @_socket : VoidCSFML::Socket_Buffer
     # Status codes that may be returned by socket functions
     enum Status
       # The socket has sent / received the data
@@ -91,6 +91,15 @@ module SF
       Udp
     end
     _sf_enum Socket::Type
+    # Default constructor
+    #
+    # This constructor can only be accessed by derived classes.
+    #
+    # * *type* - Type of the socket (TCP or UDP)
+    protected def initialize(type : Socket::Type)
+      @_socket = uninitialized VoidCSFML::Socket_Buffer
+      VoidCSFML.socket_initialize_Wi8(to_unsafe, type)
+    end
     include NonCopyable
     # :nodoc:
     def to_unsafe()
@@ -177,7 +186,7 @@ module SF
   #
   # *See also:* `SF::Socket`, `SF::UdpSocket`, `SF::Packet`
   class TcpSocket < Socket
-    @_tcpsocket : VoidCSFML::TcpSocket_Buffer = VoidCSFML::TcpSocket_Buffer.new(0u8)
+    @_tcpsocket : VoidCSFML::TcpSocket_Buffer
     # Default constructor
     def initialize()
       @_socket = uninitialized VoidCSFML::Socket_Buffer
@@ -419,7 +428,7 @@ module SF
   # ftp.disconnect();
   # ```
   class Ftp
-    @_ftp : VoidCSFML::Ftp_Buffer = VoidCSFML::Ftp_Buffer.new(0u8)
+    @_ftp : VoidCSFML::Ftp_Buffer
     def initialize()
       @_ftp = uninitialized VoidCSFML::Ftp_Buffer
       VoidCSFML.ftp_initialize(to_unsafe)
@@ -436,7 +445,7 @@ module SF
     _sf_enum Ftp::TransferMode
     # Define a FTP response
     class Response
-      @_ftp_response : VoidCSFML::Ftp_Response_Buffer = VoidCSFML::Ftp_Response_Buffer.new(0u8)
+      @_ftp_response : VoidCSFML::Ftp_Response_Buffer
       # Status codes possibly returned by a FTP response
       enum Status
         # Restart marker reply
@@ -582,7 +591,7 @@ module SF
     end
     # Specialization of FTP response returning a directory
     class DirectoryResponse < Response
-      @_ftp_directoryresponse : VoidCSFML::Ftp_DirectoryResponse_Buffer = VoidCSFML::Ftp_DirectoryResponse_Buffer.new(0u8)
+      @_ftp_directoryresponse : VoidCSFML::Ftp_DirectoryResponse_Buffer
       # Default constructor
       #
       # * *response* - Source response
@@ -635,7 +644,7 @@ module SF
     # Specialization of FTP response returning a
     #        filename listing
     class ListingResponse < Response
-      @_ftp_listingresponse : VoidCSFML::Ftp_ListingResponse_Buffer = VoidCSFML::Ftp_ListingResponse_Buffer.new(0u8)
+      @_ftp_listingresponse : VoidCSFML::Ftp_ListingResponse_Buffer
       # Default constructor
       #
       # * *response* -  Source response
@@ -980,11 +989,13 @@ module SF
   # nor other types of network addresses.
   struct IpAddress
     @m_address : UInt32
+    @m_valid : Bool
     # Default constructor
     #
     # This constructor creates an empty (invalid) address
     def initialize()
       @m_address = uninitialized UInt32
+      @m_valid = uninitialized Bool
       VoidCSFML.ipaddress_initialize(to_unsafe)
     end
     # Construct the address from a string
@@ -995,6 +1006,7 @@ module SF
     # * *address* - IP address or network name
     def initialize(address : String)
       @m_address = uninitialized UInt32
+      @m_valid = uninitialized Bool
       VoidCSFML.ipaddress_initialize_zkC(to_unsafe, address.bytesize, address)
     end
     # Construct the address from a string
@@ -1008,6 +1020,7 @@ module SF
     # * *address* - IP address or network name
     def initialize(address : UInt8*)
       @m_address = uninitialized UInt32
+      @m_valid = uninitialized Bool
       VoidCSFML.ipaddress_initialize_Yy6(to_unsafe, address)
     end
     # Construct the address from 4 bytes
@@ -1022,6 +1035,7 @@ module SF
     # * *byte3* - Fourth byte of the address
     def initialize(byte0 : Int, byte1 : Int, byte2 : Int, byte3 : Int)
       @m_address = uninitialized UInt32
+      @m_valid = uninitialized Bool
       VoidCSFML.ipaddress_initialize_9yU9yU9yU9yU(to_unsafe, UInt8.new(byte0), UInt8.new(byte1), UInt8.new(byte2), UInt8.new(byte3))
     end
     # Construct the address from a 32-bits integer
@@ -1029,13 +1043,14 @@ module SF
     # This constructor uses the internal representation of
     # the address directly. It should be used for optimization
     # purposes, and only if you got that representation from
-    # IpAddress::ToInteger().
+    # IpAddress::toInteger().
     #
     # * *address* - 4 bytes of the address packed into a 32-bits integer
     #
     # *See also:* toInteger
     def initialize(address : Int)
       @m_address = uninitialized UInt32
+      @m_valid = uninitialized Bool
       VoidCSFML.ipaddress_initialize_saL(to_unsafe, UInt32.new(address))
     end
     # Get a string representation of the address
@@ -1107,6 +1122,7 @@ module SF
       return result
     end
     @m_address : UInt32
+    @m_valid : Bool
     # Overload of == operator to compare two IP addresses
     #
     # * *left* -  Left operand (a IP address)
@@ -1174,6 +1190,7 @@ module SF
     # :nodoc:
     def initialize(copy : IpAddress)
       @m_address = uninitialized UInt32
+      @m_valid = uninitialized Bool
       as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
       VoidCSFML.ipaddress_initialize_BfE(to_unsafe, copy)
     end
@@ -1239,10 +1256,10 @@ module SF
   # }
   # ```
   class Http
-    @_http : VoidCSFML::Http_Buffer = VoidCSFML::Http_Buffer.new(0u8)
+    @_http : VoidCSFML::Http_Buffer
     # Define a HTTP request
     class Request
-      @_http_request : VoidCSFML::Http_Request_Buffer = VoidCSFML::Http_Request_Buffer.new(0u8)
+      @_http_request : VoidCSFML::Http_Request_Buffer
       # Enumerate the available HTTP methods for a request
       enum Method
         # Request in get mode, standard method to retrieve a page
@@ -1341,7 +1358,7 @@ module SF
     end
     # Define a HTTP response
     class Response
-      @_http_response : VoidCSFML::Http_Response_Buffer = VoidCSFML::Http_Response_Buffer.new(0u8)
+      @_http_response : VoidCSFML::Http_Response_Buffer
       # Enumerate all the valid status codes for a response
       enum Status
         # Most common code returned when operation was successful
@@ -1656,7 +1673,7 @@ module SF
   #
   # *See also:* `SF::TcpSocket`, `SF::UdpSocket`
   class Packet
-    @_packet : VoidCSFML::Packet_Buffer = VoidCSFML::Packet_Buffer.new(0u8)
+    @_packet : VoidCSFML::Packet_Buffer
     # Default constructor
     #
     # Creates an empty packet.
@@ -1972,7 +1989,7 @@ module SF
   #
   # *See also:* `SF::Socket`
   class SocketSelector
-    @_socketselector : VoidCSFML::SocketSelector_Buffer = VoidCSFML::SocketSelector_Buffer.new(0u8)
+    @_socketselector : VoidCSFML::SocketSelector_Buffer
     # Default constructor
     def initialize()
       @_socketselector = uninitialized VoidCSFML::SocketSelector_Buffer
@@ -2114,7 +2131,7 @@ module SF
   #
   # *See also:* `SF::TcpSocket`, `SF::Socket`
   class TcpListener < Socket
-    @_tcplistener : VoidCSFML::TcpListener_Buffer = VoidCSFML::TcpListener_Buffer.new(0u8)
+    @_tcplistener : VoidCSFML::TcpListener_Buffer
     # Default constructor
     def initialize()
       @_socket = uninitialized VoidCSFML::Socket_Buffer
@@ -2140,13 +2157,14 @@ module SF
     # If the socket was previously listening to another port,
     # it will be stopped first and bound to the new port.
     #
-    # * *port* - Port to listen for new connections
+    # * *port* -    Port to listen for new connections
+    # * *address* - Address of the interface to listen on
     #
     # *Returns:* Status code
     #
     # *See also:* accept, close
-    def listen(port : Int) : Socket::Status
-      VoidCSFML.tcplistener_listen_bxi(to_unsafe, LibC::UShort.new(port), out result)
+    def listen(port : Int, address : IpAddress = IpAddress::Any) : Socket::Status
+      VoidCSFML.tcplistener_listen_bxiBfE(to_unsafe, LibC::UShort.new(port), address, out result)
       return Socket::Status.new(result)
     end
     # Stop listening and close the socket
@@ -2276,7 +2294,7 @@ module SF
   #
   # *See also:* `SF::Socket`, `SF::TcpSocket`, `SF::Packet`
   class UdpSocket < Socket
-    @_udpsocket : VoidCSFML::UdpSocket_Buffer = VoidCSFML::UdpSocket_Buffer.new(0u8)
+    @_udpsocket : VoidCSFML::UdpSocket_Buffer
     # The maximum number of bytes that can be sent in a single UDP datagram
     MaxDatagramSize = 65507
     # Default constructor
@@ -2305,13 +2323,14 @@ module SF
     # system to automatically pick an available port, and then
     # call getLocalPort to retrieve the chosen port.
     #
-    # * *port* - Port to bind the socket to
+    # * *port* -    Port to bind the socket to
+    # * *address* - Address of the interface to bind to
     #
     # *Returns:* Status code
     #
     # *See also:* unbind, getLocalPort
-    def bind(port : Int) : Socket::Status
-      VoidCSFML.udpsocket_bind_bxi(to_unsafe, LibC::UShort.new(port), out result)
+    def bind(port : Int, address : IpAddress = IpAddress::Any) : Socket::Status
+      VoidCSFML.udpsocket_bind_bxiBfE(to_unsafe, LibC::UShort.new(port), address, out result)
       return Socket::Status.new(result)
     end
     # Unbind the socket from the local port to which it is bound

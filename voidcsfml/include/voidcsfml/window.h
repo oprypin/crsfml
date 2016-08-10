@@ -3,17 +3,21 @@
 #include <voidcsfml/system.h>
 #include <voidcsfml/config.h>
 VOIDCSFML_API sfml_window_version(int*, int*, int*);
-VOIDCSFML_API contextsettings_initialize_emSemSemSemSemSemS(void* self, unsigned int depth, unsigned int stencil, unsigned int antialiasing, unsigned int major, unsigned int minor, unsigned int attributes);
+VOIDCSFML_API contextsettings_initialize_emSemSemSemSemSemSGZq(void* self, unsigned int depth, unsigned int stencil, unsigned int antialiasing, unsigned int major, unsigned int minor, unsigned int attributes, unsigned char s_rgb);
 VOIDCSFML_API contextsettings_setdepthbits_emS(void* self, unsigned int depth_bits);
 VOIDCSFML_API contextsettings_setstencilbits_emS(void* self, unsigned int stencil_bits);
 VOIDCSFML_API contextsettings_setantialiasinglevel_emS(void* self, unsigned int antialiasing_level);
 VOIDCSFML_API contextsettings_setmajorversion_emS(void* self, unsigned int major_version);
 VOIDCSFML_API contextsettings_setminorversion_emS(void* self, unsigned int minor_version);
 VOIDCSFML_API contextsettings_setattributeflags_saL(void* self, uint32_t attribute_flags);
+VOIDCSFML_API contextsettings_setsrgbcapable_GZq(void* self, unsigned char s_rgb_capable);
 VOIDCSFML_API contextsettings_initialize_Fw4(void* self, void* copy);
 VOIDCSFML_API context_initialize(void* self);
 VOIDCSFML_API context_finalize(void* self);
 VOIDCSFML_API context_setactive_GZq(void* self, unsigned char active, unsigned char* result);
+VOIDCSFML_API context_getsettings(void* self, void* result);
+VOIDCSFML_API context_isextensionavailable_Yy6(char* name, unsigned char* result);
+VOIDCSFML_API context_getactivecontext(void** result);
 VOIDCSFML_API context_initialize_Fw4emSemS(void* self, void* settings, unsigned int width, unsigned int height);
 VOIDCSFML_API joystick_identification_initialize(void* self);
 VOIDCSFML_API joystick_identification_getname(void* self, uint32_t** result);
@@ -135,6 +139,7 @@ VOIDCSFML_API window_seticon_emSemS843(void* self, unsigned int width, unsigned 
 VOIDCSFML_API window_setvisible_GZq(void* self, unsigned char visible);
 VOIDCSFML_API window_setverticalsyncenabled_GZq(void* self, unsigned char enabled);
 VOIDCSFML_API window_setmousecursorvisible_GZq(void* self, unsigned char visible);
+VOIDCSFML_API window_setmousecursorgrabbed_GZq(void* self, unsigned char grabbed);
 VOIDCSFML_API window_setkeyrepeatenabled_GZq(void* self, unsigned char enabled);
 VOIDCSFML_API window_setframeratelimit_emS(void* self, unsigned int limit);
 VOIDCSFML_API window_setjoystickthreshold_Bw9(void* self, float threshold);

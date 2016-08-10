@@ -194,7 +194,7 @@ module SF
   #
   # *See also:* `SF::Sound`, `SF::SoundStream`
   class SoundSource
-    @_soundsource : VoidCSFML::SoundSource_Buffer = VoidCSFML::SoundSource_Buffer.new(0u8)
+    @_soundsource : VoidCSFML::SoundSource_Buffer
     # Enumeration of the sound source states
     enum Status
       # Sound is not playing
@@ -362,6 +362,13 @@ module SF
       VoidCSFML.soundsource_getattenuation(to_unsafe, out result)
       return result
     end
+    # Default constructor
+    #
+    # This constructor is meant to be called by derived classes only.
+    protected def initialize()
+      @_soundsource = uninitialized VoidCSFML::SoundSource_Buffer
+      VoidCSFML.soundsource_initialize(to_unsafe)
+    end
     include AlResource
     # :nodoc:
     def to_unsafe()
@@ -457,7 +464,7 @@ module SF
   #
   # *See also:* `SF::Music`
   abstract class SoundStream < SoundSource
-    @_soundstream : VoidCSFML::SoundStream_Buffer = VoidCSFML::SoundStream_Buffer.new(0u8)
+    @_soundstream : VoidCSFML::SoundStream_Buffer
     # Destructor
     def finalize()
       VoidCSFML.soundstream_finalize(to_unsafe)
@@ -567,7 +574,7 @@ module SF
     # Default constructor
     #
     # This constructor is only meant to be called by derived classes.
-    def initialize()
+    protected def initialize()
       @_soundsource = uninitialized VoidCSFML::SoundSource_Buffer
       @_soundstream = uninitialized VoidCSFML::SoundStream_Buffer
       raise "Unexpected memory layout" if as(Void*) + sizeof(LibC::Int) != to_unsafe
@@ -727,7 +734,7 @@ module SF
   #
   # *See also:* `SF::Sound`, `SF::SoundStream`
   class Music < SoundStream
-    @_music : VoidCSFML::Music_Buffer = VoidCSFML::Music_Buffer.new(0u8)
+    @_music : VoidCSFML::Music_Buffer
     # Default constructor
     def initialize()
       @_soundsource = uninitialized VoidCSFML::SoundSource_Buffer
@@ -902,6 +909,11 @@ module SF
     end
     # :nodoc:
     def initialize(channel_count : Int, sample_rate : Int)
+      @_soundsource = uninitialized VoidCSFML::SoundSource_Buffer
+      @_soundstream = uninitialized VoidCSFML::SoundStream_Buffer
+      @_music = uninitialized VoidCSFML::Music_Buffer
+      VoidCSFML.music_initialize(to_unsafe)
+      VoidCSFML.music_initialize_emSemS(to_unsafe, LibC::UInt.new(channel_count), LibC::UInt.new(sample_rate))
     end
     # :nodoc:
     def pitch=(pitch : Number)
@@ -1006,7 +1018,7 @@ module SF
   #
   # *See also:* `SF::SoundBuffer`, `SF::Music`
   class Sound < SoundSource
-    @_sound : VoidCSFML::Sound_Buffer = VoidCSFML::Sound_Buffer.new(0u8)
+    @_sound : VoidCSFML::Sound_Buffer
     # Default constructor
     def initialize()
       @_soundsource = uninitialized VoidCSFML::SoundSource_Buffer
@@ -1270,7 +1282,7 @@ module SF
   #
   # *See also:* `SF::Sound`, `SF::SoundBufferRecorder`
   class SoundBuffer
-    @_soundbuffer : VoidCSFML::SoundBuffer_Buffer = VoidCSFML::SoundBuffer_Buffer.new(0u8)
+    @_soundbuffer : VoidCSFML::SoundBuffer_Buffer
     # Default constructor
     def initialize()
       @_soundbuffer = uninitialized VoidCSFML::SoundBuffer_Buffer
@@ -1513,6 +1525,12 @@ module SF
   # by calling setDevice() with the appropriate device. Otherwise
   # the default capturing device will be used.
   #
+  # By default the recording is in 16-bit mono. Using the
+  # setChannelCount method you can change the number of channels
+  # used by the audio capture device to record. Note that you
+  # have to decide whether you want to record in mono or stereo
+  # before starting the recording.
+  #
   # It is important to note that the audio capture happens in a
   # separate thread, so that it doesn't block the rest of the
   # program. In particular, the onProcessSamples virtual function
@@ -1520,11 +1538,20 @@ module SF
   # from this separate thread. It is important to keep this in
   # mind, because you may have to take care of synchronization
   # issues if you share data between threads.
+  # Another thing to bear in mind is that you must call stop()
+  # in the destructor of your derived class, so that the recording
+  # thread finishes before your object is destroyed.
   #
   # Usage example:
   # ```c++
   # class CustomRecorder : public sf::SoundRecorder
   # {
+  #     ~CustomRecorder()
+  #     {
+  #         // Make sure to stop the recording thread
+  #         stop();
+  #     }
+  #
   #     virtual bool onStart() // optional
   #     {
   #         // Initialize whatever has to be done before the capture starts
@@ -1565,7 +1592,7 @@ module SF
   #
   # *See also:* `SF::SoundBufferRecorder`
   abstract class SoundRecorder
-    @_soundrecorder : VoidCSFML::SoundRecorder_Buffer = VoidCSFML::SoundRecorder_Buffer.new(0u8)
+    @_soundrecorder : VoidCSFML::SoundRecorder_Buffer
     # destructor
     def finalize()
       VoidCSFML.soundrecorder_finalize(to_unsafe)
@@ -1654,6 +1681,31 @@ module SF
       VoidCSFML.soundrecorder_getdevice(to_unsafe, out result)
       return String.new(result)
     end
+    # Set the channel count of the audio capture device
+    #
+    # This method allows you to specify the number of channels
+    # used for recording. Currently only 16-bit mono and
+    # 16-bit stereo are supported.
+    #
+    # * *channel_count* - Number of channels. Currently only
+    #                     mono (1) and stereo (2) are supported.
+    #
+    # *See also:* getChannelCount
+    def channel_count=(channel_count : Int)
+      VoidCSFML.soundrecorder_setchannelcount_emS(to_unsafe, LibC::UInt.new(channel_count))
+    end
+    # Get the number of channels used by this recorder
+    #
+    # Currently only mono and stereo are supported, so the
+    # value is either 1 (for mono) or 2 (for stereo).
+    #
+    # *Returns:* Number of channels
+    #
+    # *See also:* setChannelCount
+    def channel_count() : UInt32
+      VoidCSFML.soundrecorder_getchannelcount(to_unsafe, out result)
+      return result
+    end
     # Check if the system supports audio capture
     #
     # This function should always be called before using
@@ -1669,7 +1721,7 @@ module SF
     # Default constructor
     #
     # This constructor is only meant to be called by derived classes.
-    def initialize()
+    protected def initialize()
       @_soundrecorder = uninitialized VoidCSFML::SoundRecorder_Buffer
       raise "Unexpected memory layout" if as(Void*) + sizeof(LibC::Int) != to_unsafe
       VoidCSFML.soundrecorder_initialize(to_unsafe)
@@ -1770,11 +1822,15 @@ module SF
   #
   # *See also:* `SF::SoundRecorder`
   class SoundBufferRecorder < SoundRecorder
-    @_soundbufferrecorder : VoidCSFML::SoundBufferRecorder_Buffer = VoidCSFML::SoundBufferRecorder_Buffer.new(0u8)
+    @_soundbufferrecorder : VoidCSFML::SoundBufferRecorder_Buffer
     def initialize()
       @_soundrecorder = uninitialized VoidCSFML::SoundRecorder_Buffer
       @_soundbufferrecorder = uninitialized VoidCSFML::SoundBufferRecorder_Buffer
       VoidCSFML.soundbufferrecorder_initialize(to_unsafe)
+    end
+    # destructor
+    def finalize()
+      VoidCSFML.soundbufferrecorder_finalize(to_unsafe)
     end
     # Get the sound buffer containing the captured audio data
     #
@@ -1839,6 +1895,15 @@ module SF
       return String.new(result)
     end
     # :nodoc:
+    def channel_count=(channel_count : Int)
+      VoidCSFML.soundbufferrecorder_setchannelcount_emS(to_unsafe, LibC::UInt.new(channel_count))
+    end
+    # :nodoc:
+    def channel_count() : UInt32
+      VoidCSFML.soundbufferrecorder_getchannelcount(to_unsafe, out result)
+      return result
+    end
+    # :nodoc:
     def self.available?() : Bool
       VoidCSFML.soundbufferrecorder_isavailable(out result)
       return result
@@ -1855,9 +1920,10 @@ module SF
       to_s(io)
     end
   end
-  #:nodoc:
+  # :nodoc:
   class SoundBuffer::Reference < SoundBuffer
     def initialize(@this : Void*, @parent : SoundBufferRecorder)
+      @_soundbuffer = uninitialized VoidCSFML::SoundBuffer_Buffer
     end
     def finalize()
     end

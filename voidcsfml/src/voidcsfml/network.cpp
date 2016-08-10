@@ -407,8 +407,8 @@ void tcplistener_initialize(void* self) {
 void tcplistener_getlocalport(void* self, unsigned short* result) {
     *(unsigned short*)result = ((TcpListener*)self)->getLocalPort();
 }
-void tcplistener_listen_bxi(void* self, unsigned short port, int* result) {
-    *(Socket::Status*)result = ((TcpListener*)self)->listen((unsigned short)port);
+void tcplistener_listen_bxiBfE(void* self, unsigned short port, void* address, int* result) {
+    *(Socket::Status*)result = ((TcpListener*)self)->listen((unsigned short)port, *(IpAddress*)address);
 }
 void tcplistener_close(void* self) {
     ((TcpListener*)self)->close();
@@ -428,8 +428,8 @@ void udpsocket_initialize(void* self) {
 void udpsocket_getlocalport(void* self, unsigned short* result) {
     *(unsigned short*)result = ((UdpSocket*)self)->getLocalPort();
 }
-void udpsocket_bind_bxi(void* self, unsigned short port, int* result) {
-    *(Socket::Status*)result = ((UdpSocket*)self)->bind((unsigned short)port);
+void udpsocket_bind_bxiBfE(void* self, unsigned short port, void* address, int* result) {
+    *(Socket::Status*)result = ((UdpSocket*)self)->bind((unsigned short)port, *(IpAddress*)address);
 }
 void udpsocket_unbind(void* self) {
     ((UdpSocket*)self)->unbind();

@@ -426,6 +426,12 @@ void soundrecorder_getdevice(void* self, char** result) {
     str = ((_SoundRecorder*)self)->getDevice();
     *result = const_cast<char*>(str.c_str());
 }
+void soundrecorder_setchannelcount_emS(void* self, unsigned int channel_count) {
+    ((_SoundRecorder*)self)->setChannelCount((unsigned int)channel_count);
+}
+void soundrecorder_getchannelcount(void* self, unsigned int* result) {
+    *(unsigned int*)result = ((_SoundRecorder*)self)->getChannelCount();
+}
 void soundrecorder_isavailable(unsigned char* result) {
     *(bool*)result = _SoundRecorder::isAvailable();
 }
@@ -443,6 +449,9 @@ void soundrecorder_onstop(void* self) {
 }
 void soundbufferrecorder_initialize(void* self) {
     new(self) SoundBufferRecorder();
+}
+void soundbufferrecorder_finalize(void* self) {
+    ((SoundBufferRecorder*)self)->~SoundBufferRecorder();
 }
 void soundbufferrecorder_getbuffer(void* self, void** result) {
     *(SoundBuffer**)result = const_cast<SoundBuffer*>(&((SoundBufferRecorder*)self)->getBuffer());
@@ -477,6 +486,12 @@ void soundbufferrecorder_getdevice(void* self, char** result) {
     static std::string str;
     str = ((SoundBufferRecorder*)self)->getDevice();
     *result = const_cast<char*>(str.c_str());
+}
+void soundbufferrecorder_setchannelcount_emS(void* self, unsigned int channel_count) {
+    ((SoundBufferRecorder*)self)->setChannelCount((unsigned int)channel_count);
+}
+void soundbufferrecorder_getchannelcount(void* self, unsigned int* result) {
+    *(unsigned int*)result = ((SoundBufferRecorder*)self)->getChannelCount();
 }
 void soundbufferrecorder_isavailable(unsigned char* result) {
     *(bool*)result = SoundBufferRecorder::isAvailable();

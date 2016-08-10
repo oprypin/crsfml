@@ -334,7 +334,7 @@ module SF
   #
   # *See also:* `SF::Time`
   class Clock
-    @_clock : VoidCSFML::Clock_Buffer = VoidCSFML::Clock_Buffer.new(0u8)
+    @_clock : VoidCSFML::Clock_Buffer
     # Default constructor
     #
     # The clock starts automatically after being constructed.
@@ -453,7 +453,7 @@ module SF
   # // etc.
   # ```
   abstract class InputStream
-    @_inputstream : VoidCSFML::InputStream_Buffer = VoidCSFML::InputStream_Buffer.new(0u8)
+    @_inputstream : VoidCSFML::InputStream_Buffer
     def initialize()
       @_inputstream = uninitialized VoidCSFML::InputStream_Buffer
       raise "Unexpected memory layout" if as(Void*) + sizeof(LibC::Int) != to_unsafe
@@ -555,20 +555,20 @@ module SF
   #
   # SFML resource classes can usually be loaded directly from
   # a filename, so this class shouldn't be useful to you unless
-  # you create your own algorithms that operate on a InputStream.
+  # you create your own algorithms that operate on an InputStream.
   #
   # Usage example:
   # ```c++
   # void process(InputStream& stream);
   #
-  # FileStream stream;
+  # FileInputStream stream;
   # if (stream.open("some_file.dat"))
   #    process(stream);
   # ```
   #
-  # InputStream, MemoryStream
+  # InputStream, MemoryInputStream
   class FileInputStream < InputStream
-    @_fileinputstream : VoidCSFML::FileInputStream_Buffer = VoidCSFML::FileInputStream_Buffer.new(0u8)
+    @_fileinputstream : VoidCSFML::FileInputStream_Buffer
     # Default constructor
     def initialize()
       @_inputstream = uninitialized VoidCSFML::InputStream_Buffer
@@ -661,20 +661,20 @@ module SF
   #
   # SFML resource classes can usually be loaded directly from
   # memory, so this class shouldn't be useful to you unless
-  # you create your own algorithms that operate on a InputStream.
+  # you create your own algorithms that operate on an InputStream.
   #
   # Usage example:
   # ```c++
   # void process(InputStream& stream);
   #
-  # MemoryStream stream;
+  # MemoryInputStream stream;
   # stream.open(thePtr, theSize);
   # process(stream);
   # ```
   #
-  # InputStream, FileStream
+  # InputStream, FileInputStream
   class MemoryInputStream < InputStream
-    @_memoryinputstream : VoidCSFML::MemoryInputStream_Buffer = VoidCSFML::MemoryInputStream_Buffer.new(0u8)
+    @_memoryinputstream : VoidCSFML::MemoryInputStream_Buffer
     # Default constructor
     def initialize()
       @_inputstream = uninitialized VoidCSFML::InputStream_Buffer
@@ -801,7 +801,7 @@ module SF
   #
   # *See also:* `SF::Lock`
   class Mutex
-    @_mutex : VoidCSFML::Mutex_Buffer = VoidCSFML::Mutex_Buffer.new(0u8)
+    @_mutex : VoidCSFML::Mutex_Buffer
     # Default constructor
     def initialize()
       @_mutex = uninitialized VoidCSFML::Mutex_Buffer
@@ -929,7 +929,7 @@ module SF
   #
   # *See also:* `SF::Mutex`
   class Thread
-    @_thread : VoidCSFML::Thread_Buffer = VoidCSFML::Thread_Buffer.new(0u8)
+    @_thread : VoidCSFML::Thread_Buffer
     # Construct the thread from a functor with an argument
     #
     # This constructor works for function objects, as well

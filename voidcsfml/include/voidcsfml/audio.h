@@ -135,12 +135,15 @@ VOIDCSFML_API soundrecorder_getavailabledevices(char*** result, size_t* result_s
 VOIDCSFML_API soundrecorder_getdefaultdevice(char** result);
 VOIDCSFML_API soundrecorder_setdevice_zkC(void* self, size_t name_size, char* name, unsigned char* result);
 VOIDCSFML_API soundrecorder_getdevice(void* self, char** result);
+VOIDCSFML_API soundrecorder_setchannelcount_emS(void* self, unsigned int channel_count);
+VOIDCSFML_API soundrecorder_getchannelcount(void* self, unsigned int* result);
 VOIDCSFML_API soundrecorder_isavailable(unsigned char* result);
 VOIDCSFML_API soundrecorder_initialize(void* self);
 VOIDCSFML_API soundrecorder_setprocessinginterval_f4T(void* self, void* interval);
 VOIDCSFML_API soundrecorder_onstart(void* self, unsigned char* result);
 VOIDCSFML_API soundrecorder_onstop(void* self);
 VOIDCSFML_API soundbufferrecorder_initialize(void* self);
+VOIDCSFML_API soundbufferrecorder_finalize(void* self);
 VOIDCSFML_API soundbufferrecorder_getbuffer(void* self, void** result);
 VOIDCSFML_API soundbufferrecorder_start_emS(void* self, unsigned int sample_rate, unsigned char* result);
 VOIDCSFML_API soundbufferrecorder_stop(void* self);
@@ -149,5 +152,7 @@ VOIDCSFML_API soundbufferrecorder_getavailabledevices(char*** result, size_t* re
 VOIDCSFML_API soundbufferrecorder_getdefaultdevice(char** result);
 VOIDCSFML_API soundbufferrecorder_setdevice_zkC(void* self, size_t name_size, char* name, unsigned char* result);
 VOIDCSFML_API soundbufferrecorder_getdevice(void* self, char** result);
+VOIDCSFML_API soundbufferrecorder_setchannelcount_emS(void* self, unsigned int channel_count);
+VOIDCSFML_API soundbufferrecorder_getchannelcount(void* self, unsigned int* result);
 VOIDCSFML_API soundbufferrecorder_isavailable(unsigned char* result);
 #endif

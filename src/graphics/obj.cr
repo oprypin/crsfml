@@ -48,7 +48,7 @@ module SF
   # ```c++
   # sf::BlendMode alphaBlending          = sf::BlendAlpha;
   # sf::BlendMode additiveBlending       = sf::BlendAdd;
-  # sf::BlendMode multiplicativeBlending = sf::BlendMultipy;
+  # sf::BlendMode multiplicativeBlending = sf::BlendMultiply;
   # sf::BlendMode noBlending             = sf::BlendNone;
   # ```
   #
@@ -100,6 +100,8 @@ module SF
       Add
       # Pixel = Src * SrcFactor - Dst * DstFactor
       Subtract
+      # Pixel = Dst * DstFactor - Src * SrcFactor
+      ReverseSubtract
     end
     _sf_enum BlendMode::Equation
     # Default constructor
@@ -947,7 +949,7 @@ module SF
   #
   # *See also:* `SF::Transform`
   class Transformable
-    @_transformable : VoidCSFML::Transformable_Buffer = VoidCSFML::Transformable_Buffer.new(0u8)
+    @_transformable : VoidCSFML::Transformable_Buffer
     # Default constructor
     def initialize()
       @_transformable = uninitialized VoidCSFML::Transformable_Buffer
@@ -1577,15 +1579,21 @@ module SF
     # List of individual lines
     Lines
     # List of connected lines, a point uses the previous point to form a line
-    LinesStrip
+    LineStrip
     # List of individual triangles
     Triangles
     # List of connected triangles, a point uses the two previous points to form a triangle
-    TrianglesStrip
+    TriangleStrip
     # List of connected triangles, a point uses the common center and the previous point to form a triangle
-    TrianglesFan
+    TriangleFan
     # List of individual quads (deprecated, don't work with OpenGL ES)
     Quads
+    # *Deprecated:* Use LineStrip instead
+    LinesStrip = LineStrip
+    # *Deprecated:* Use TriangleStrip instead
+    TrianglesStrip = TriangleStrip
+    # *Deprecated:* Use TriangleFan instead
+    TrianglesFan = TriangleFan
   end
   _sf_enum PrimitiveType
   # Define a set of one or more 2D primitives
@@ -1600,7 +1608,7 @@ module SF
   #
   # Example:
   # ```c++
-  # sf::VertexArray lines(sf::LinesStrip, 4);
+  # sf::VertexArray lines(sf::LineStrip, 4);
   # lines[0].position = sf::Vector2f(10, 0);
   # lines[1].position = sf::Vector2f(20, 0);
   # lines[2].position = sf::Vector2f(30, 5);
@@ -1611,7 +1619,7 @@ module SF
   #
   # *See also:* `SF::Vertex`
   class VertexArray
-    @_vertexarray : VoidCSFML::VertexArray_Buffer = VoidCSFML::VertexArray_Buffer.new(0u8)
+    @_vertexarray : VoidCSFML::VertexArray_Buffer
     # Default constructor
     #
     # Creates an empty vertex array.
@@ -1792,7 +1800,7 @@ module SF
   #
   # *See also:* `SF::RectangleShape`, `SF::CircleShape`, `SF::ConvexShape`, `SF::Transformable`
   abstract class Shape < Transformable
-    @_shape : VoidCSFML::Shape_Buffer = VoidCSFML::Shape_Buffer.new(0u8)
+    @_shape : VoidCSFML::Shape_Buffer
     # Virtual destructor
     def finalize()
       VoidCSFML.shape_finalize(to_unsafe)
@@ -1975,7 +1983,7 @@ module SF
       return result
     end
     # Default constructor
-    def initialize()
+    protected def initialize()
       @_transformable = uninitialized VoidCSFML::Transformable_Buffer
       @_shape = uninitialized VoidCSFML::Shape_Buffer
       raise "Unexpected memory layout" if as(Void*) + sizeof(LibC::Int) != to_unsafe
@@ -2144,7 +2152,7 @@ module SF
   #
   # *See also:* `SF::Shape`, `SF::RectangleShape`, `SF::ConvexShape`
   class CircleShape < Shape
-    @_circleshape : VoidCSFML::CircleShape_Buffer = VoidCSFML::CircleShape_Buffer.new(0u8)
+    @_circleshape : VoidCSFML::CircleShape_Buffer
     # Default constructor
     #
     # * *radius* -     Radius of the circle
@@ -2414,7 +2422,7 @@ module SF
   #
   # *See also:* `SF::Shape`, `SF::RectangleShape`, `SF::CircleShape`
   class ConvexShape < Shape
-    @_convexshape : VoidCSFML::ConvexShape_Buffer = VoidCSFML::ConvexShape_Buffer.new(0u8)
+    @_convexshape : VoidCSFML::ConvexShape_Buffer
     # Default constructor
     #
     # * *point_count* - Number of points of the polygon
@@ -2770,7 +2778,7 @@ module SF
   #
   # *See also:* `SF::Texture`
   class Image
-    @_image : VoidCSFML::Image_Buffer = VoidCSFML::Image_Buffer.new(0u8)
+    @_image : VoidCSFML::Image_Buffer
     # Default constructor
     #
     # Creates an empty image.
@@ -3117,7 +3125,7 @@ module SF
   #
   # *See also:* `SF::Sprite`, `SF::Image`, `SF::RenderTexture`
   class Texture
-    @_texture : VoidCSFML::Texture_Buffer = VoidCSFML::Texture_Buffer.new(0u8)
+    @_texture : VoidCSFML::Texture_Buffer
     # Types of texture coordinates that can be used for rendering
     enum CoordinateType
       # Texture coordinates in range [0 .. 1]
@@ -3461,6 +3469,38 @@ module SF
       VoidCSFML.texture_issmooth(to_unsafe, out result)
       return result
     end
+    # Enable or disable conversion from sRGB
+    #
+    # When providing texture data from an image file or memory, it can
+    # either be stored in a linear color space or an sRGB color space.
+    # Most digital images account for gamma correction already, so they
+    # would need to be "uncorrected" back to linear color space before
+    # being processed by the hardware. The hardware can automatically
+    # convert it from the sRGB color space to a linear color space when
+    # it gets sampled. When the rendered image gets output to the final
+    # framebuffer, it gets converted back to sRGB.
+    #
+    # After enabling or disabling sRGB conversion, make sure to reload
+    # the texture data in order for the setting to take effect.
+    #
+    # This option is only useful in conjunction with an sRGB capable
+    # framebuffer. This can be requested during window creation.
+    #
+    # * *s_rgb* - True to enable sRGB conversion, false to disable it
+    #
+    # *See also:* isSrgb
+    def srgb=(s_rgb : Bool)
+      VoidCSFML.texture_setsrgb_GZq(to_unsafe, s_rgb)
+    end
+    # Tell whether the texture source is converted from sRGB or not
+    #
+    # *Returns:* True if the texture source is converted from sRGB, false if not
+    #
+    # *See also:* setSrgb
+    def srgb?() : Bool
+      VoidCSFML.texture_issrgb(to_unsafe, out result)
+      return result
+    end
     # Enable or disable repeating
     #
     # Repeating is involved when using texture coordinates
@@ -3490,6 +3530,30 @@ module SF
     # *See also:* setRepeated
     def repeated?() : Bool
       VoidCSFML.texture_isrepeated(to_unsafe, out result)
+      return result
+    end
+    # Generate a mipmap using the current texture data
+    #
+    # Mipmaps are pre-computed chains of optimized textures. Each
+    # level of texture in a mipmap is generated by halving each of
+    # the previous level's dimensions. This is done until the final
+    # level has the size of 1x1. The textures generated in this process may
+    # make use of more advanced filters which might improve the visual quality
+    # of textures when they are applied to objects much smaller than they are.
+    # This is known as minification. Because fewer texels (texture elements)
+    # have to be sampled from when heavily minified, usage of mipmaps
+    # can also improve rendering performance in certain scenarios.
+    #
+    # Mipmap generation relies on the necessary OpenGL extension being
+    # available. If it is unavailable or generation fails due to another
+    # reason, this function will return false. Mipmap data is only valid from
+    # the time it is generated until the next time the base level image is
+    # modified, at which point this function will have to be called again to
+    # regenerate it.
+    #
+    # *Returns:* True if mipmap generation was successful, false if unsuccessful
+    def generate_mipmap() : Bool
+      VoidCSFML.texture_generatemipmap(to_unsafe, out result)
       return result
     end
     # Get the underlying OpenGL handle of the texture.
@@ -3539,9 +3603,6 @@ module SF
     # This maximum size is defined by the graphics driver.
     # You can expect a value of 512 pixels for low-end graphics
     # card, and up to 8192 pixels or more for newer hardware.
-    #
-    # Note: The first call to this function, whether by your
-    # code or SFML will result in a context switch.
     #
     # *Returns:* Maximum size allowed for textures, in pixels
     def self.maximum_size() : UInt32
@@ -3638,10 +3699,10 @@ module SF
   #
   # *See also:* `SF::Text`
   class Font
-    @_font : VoidCSFML::Font_Buffer = VoidCSFML::Font_Buffer.new(0u8)
+    @_font : VoidCSFML::Font_Buffer
     # Holds various information about a font
     class Info
-      @_font_info : VoidCSFML::Font_Info_Buffer = VoidCSFML::Font_Info_Buffer.new(0u8)
+      @_font_info : VoidCSFML::Font_Info_Buffer
       def initialize()
         @_font_info = uninitialized VoidCSFML::Font_Info_Buffer
         VoidCSFML.font_info_initialize(to_unsafe)
@@ -3790,14 +3851,18 @@ module SF
     # might be available. If the glyph is not available at the
     # requested size, an empty glyph is returned.
     #
-    # * *code_point* -     Unicode code point of the character to get
-    # * *character_size* - Reference character size
-    # * *bold* -          Retrieve the bold version or the regular one?
+    # Be aware that using a negative value for the outline
+    # thickness will cause distorted rendering.
+    #
+    # * *code_point* -        Unicode code point of the character to get
+    # * *character_size* -    Reference character size
+    # * *bold* -             Retrieve the bold version or the regular one?
+    # * *outline_thickness* - Thickness of outline (when != 0 the glyph will not be filled)
     #
     # *Returns:* The glyph corresponding to *code_point* and *character_size*
-    def get_glyph(code_point : Int, character_size : Int, bold : Bool) : Glyph
+    def get_glyph(code_point : Int, character_size : Int, bold : Bool, outline_thickness : Number = 0) : Glyph
       result = Glyph.allocate
-      VoidCSFML.font_getglyph_saLemSGZq(to_unsafe, UInt32.new(code_point), LibC::UInt.new(character_size), bold, result)
+      VoidCSFML.font_getglyph_saLemSGZqBw9(to_unsafe, UInt32.new(code_point), LibC::UInt.new(character_size), bold, LibC::Float.new(outline_thickness), result)
       return result
     end
     # Get the kerning offset of two glyphs
@@ -3888,9 +3953,10 @@ module SF
       return typeof(self).new(self)
     end
   end
-  #:nodoc:
+  # :nodoc:
   class Font::Info::Reference < Font::Info
     def initialize(@this : Void*, @parent : Font)
+      @_font_info = uninitialized VoidCSFML::Font_Info_Buffer
     end
     def finalize()
     end
@@ -3919,7 +3985,7 @@ module SF
   #
   # *See also:* `SF::Shape`, `SF::CircleShape`, `SF::ConvexShape`
   class RectangleShape < Shape
-    @_rectangleshape : VoidCSFML::RectangleShape_Buffer = VoidCSFML::RectangleShape_Buffer.new(0u8)
+    @_rectangleshape : VoidCSFML::RectangleShape_Buffer
     # Default constructor
     #
     # * *size* - Size of the rectangle
@@ -4170,11 +4236,11 @@ module SF
   # The viewport allows to map the scene to a custom part
   # of the render target, and can be used for split-screen
   # or for displaying a minimap, for example. If the source
-  # rectangle has not the same size as the viewport, its
+  # rectangle doesn't have the same size as the viewport, its
   # contents will be stretched to fit in.
   #
   # To apply a view, you have to assign it to the render target.
-  # Then, every objects drawn in this render target will be
+  # Then, objects drawn in this render target will be
   # affected by the view until you use another view.
   #
   # Usage example:
@@ -4208,7 +4274,7 @@ module SF
   #
   # *See also:* `SF::RenderWindow`, `SF::RenderTexture`
   class View
-    @_view : VoidCSFML::View_Buffer = VoidCSFML::View_Buffer.new(0u8)
+    @_view : VoidCSFML::View_Buffer
     # Default constructor
     #
     # This constructor creates a default view of (0, 0, 1000, 1000)
@@ -4479,7 +4545,6 @@ module SF
       @_rendertarget_view = view
       VoidCSFML.rendertarget_setview_DDi(to_unsafe, view)
     end
-    @_rendertarget_view : View? = nil
     # Get the view currently in use in the render target
     #
     # *Returns:* The view object that is currently used
@@ -4695,6 +4760,28 @@ module SF
     end
     include NonCopyable
   end
+  # :nodoc:
+  class View::Reference < View
+    def initialize(@this : Void*, @parent : RenderTarget)
+      @_view = uninitialized VoidCSFML::View_Buffer
+    end
+    def finalize()
+    end
+    def to_unsafe()
+      @this
+    end
+  end
+  # :nodoc:
+  class View::Reference < View
+    def initialize(@this : Void*, @parent : RenderTarget)
+      @_view = uninitialized VoidCSFML::View_Buffer
+    end
+    def finalize()
+    end
+    def to_unsafe()
+      @this
+    end
+  end
   # Target for off-screen 2D rendering into a texture
   #
   #
@@ -4758,7 +4845,7 @@ module SF
   #
   # *See also:* `SF::RenderTarget`, `SF::RenderWindow`, `SF::View`, `SF::Texture`
   class RenderTexture
-    @_rendertexture : VoidCSFML::RenderTexture_Buffer = VoidCSFML::RenderTexture_Buffer.new(0u8)
+    @_rendertexture : VoidCSFML::RenderTexture_Buffer
     # Default constructor
     #
     # Constructs an empty, invalid render-texture. You must
@@ -4842,7 +4929,22 @@ module SF
       VoidCSFML.rendertexture_isrepeated(to_unsafe, out result)
       return result
     end
-    # Activate of deactivate the render-texture for rendering
+    # Generate a mipmap using the current texture data
+    #
+    # This function is similar to Texture::generateMipmap and operates
+    # on the texture used as the target for drawing.
+    # Be aware that any draw operation may modify the base level image data.
+    # For this reason, calling this function only makes sense after all
+    # drawing is completed and display has been called. Not calling display
+    # after subsequent drawing will lead to undefined behavior if a mipmap
+    # had been previously generated.
+    #
+    # *Returns:* True if mipmap generation was successful, false if unsuccessful
+    def generate_mipmap() : Bool
+      VoidCSFML.rendertexture_generatemipmap(to_unsafe, out result)
+      return result
+    end
+    # Activate or deactivate the render-texture for rendering
     #
     # This function makes the render-texture's context current for
     # future OpenGL rendering operations (so you shouldn't care
@@ -4973,9 +5075,10 @@ module SF
       to_s(io)
     end
   end
-  #:nodoc:
+  # :nodoc:
   class Texture::Reference < Texture
     def initialize(@this : Void*, @parent : RenderTexture)
+      @_texture = uninitialized VoidCSFML::Texture_Buffer
     end
     def finalize()
     end
@@ -5079,7 +5182,7 @@ module SF
   #
   # *See also:* `SF::Window`, `SF::RenderTarget`, `SF::RenderTexture`, `SF::View`
   class RenderWindow < Window
-    @_renderwindow : VoidCSFML::RenderWindow_Buffer = VoidCSFML::RenderWindow_Buffer.new(0u8)
+    @_renderwindow : VoidCSFML::RenderWindow_Buffer
     # Default constructor
     #
     # This constructor doesn't actually create the window,
@@ -5146,6 +5249,17 @@ module SF
       return result
     end
     # Copy the current contents of the window to an image
+    #
+    # *Deprecated:*
+    # Use a `SF::Texture` and its `SF::Texture::update`(const Window&)
+    # function and copy its contents into an `SF::Image` instead.
+    # ```c++
+    # sf::Vector2u windowSize = window.getSize();
+    # sf::Texture texture;
+    # texture.create(windowSize.x, windowSize.y);
+    # texture.update(window);
+    # sf::Image screenshot = texture.copyToImage();
+    # ```
     #
     # This is a slow operation, whose main purpose is to make
     # screenshots of the application. If you want to update an
@@ -5263,6 +5377,10 @@ module SF
       VoidCSFML.renderwindow_setmousecursorvisible_GZq(to_unsafe, visible)
     end
     # :nodoc:
+    def mouse_cursor_grabbed=(grabbed : Bool)
+      VoidCSFML.renderwindow_setmousecursorgrabbed_GZq(to_unsafe, grabbed)
+    end
+    # :nodoc:
     def key_repeat_enabled=(enabled : Bool)
       VoidCSFML.renderwindow_setkeyrepeatenabled_GZq(to_unsafe, enabled)
     end
@@ -5377,7 +5495,12 @@ module SF
       to_s(io)
     end
   end
-  # Shader class (vertex and fragment)
+  # Shader class (vertex, geometry and fragment)
+  #
+  # RAII object to save and restore the program
+  #        binding while uniforms are being set
+  #
+  # Implementation is private in the .cpp file.
   #
   #
   #
@@ -5385,45 +5508,64 @@ module SF
   # executed directly by the graphics card and allowing
   # to apply real-time operations to the rendered entities.
   #
-  # There are two kinds of shaders:
-  # * Vertex shaders, that process vertices
+  # There are three kinds of shaders:
+  # * %Vertex shaders, that process vertices
+  # * Geometry shaders, that process primitives
   # * Fragment (pixel) shaders, that process pixels
   #
   # A `SF::Shader` can be composed of either a vertex shader
-  # alone, a fragment shader alone, or both combined
-  # (see the variants of the load functions).
+  # alone, a geometry shader alone, a fragment shader alone,
+  # or any combination of them. (see the variants of the
+  # load functions).
   #
   # Shaders are written in GLSL, which is a C-like
   # language dedicated to OpenGL shaders. You'll probably
   # need to learn its basics before writing your own shaders
   # for SFML.
   #
-  # Like any C/C++ program, a shader has its own variables
-  # that you can set from your C++ application. `SF::Shader`
-  # handles 5 different types of variables:
-  # * floats
+  # Like any C/C++ program, a GLSL shader has its own variables
+  # called *uniforms* that you can set from your C++ application.
+  # `SF::Shader` handles different types of uniforms:
+  # * scalars: \p float, \p int, \p bool
   # * vectors (2, 3 or 4 components)
-  # * colors
-  # * textures
-  # * transforms (matrices)
+  # * matrices (3x3 or 4x4)
+  # * samplers (textures)
   #
-  # The value of the variables can be changed at any time
-  # with the various overloads of the setParameter function:
+  # Some SFML-specific types can be converted:
+  # * `SF::Color` as a 4D vector (\p vec4)
+  # * `SF::Transform` as matrices (\p mat3 or \p mat4)
+  #
+  # Every uniform variable in a shader can be set through one of the
+  # setUniform() or setUniformArray() overloads. For example, if you
+  # have a shader with the following uniforms:
   # ```c++
-  # shader.setParameter("offset", 2.f);
-  # shader.setParameter("point", 0.5f, 0.8f, 0.3f);
-  # shader.setParameter("color", sf::Color(128, 50, 255));
-  # shader.setParameter("matrix", transform); // transform is a sf::Transform
-  # shader.setParameter("overlay", texture); // texture is a sf::Texture
-  # shader.setParameter("texture", sf::Shader::CurrentTexture);
+  # uniform float offset;
+  # uniform vec3 point;
+  # uniform vec4 color;
+  # uniform mat4 matrix;
+  # uniform sampler2D overlay;
+  # uniform sampler2D current;
+  # ```
+  # You can set their values from C++ code as follows, using the types
+  # defined in the `SF::Glsl` namespace:
+  # ```c++
+  # shader.setUniform("offset", 2.f);
+  # shader.setUniform("point", sf::Vector3f(0.5f, 0.8f, 0.3f));
+  # shader.setUniform("color", sf::Glsl::Vec4(color));          // color is a sf::Color
+  # shader.setUniform("matrix", sf::Glsl::Mat4(transform));     // transform is a sf::Transform
+  # shader.setUniform("overlay", texture);                      // texture is a sf::Texture
+  # shader.setUniform("current", sf::Shader::CurrentTexture);
   # ```
   #
+  # The old setParameter() overloads are deprecated and will be removed in a
+  # future version. You should use their setUniform() equivalents instead.
+  #
   # The special Shader::CurrentTexture argument maps the
-  # given texture variable to the current texture of the
+  # given \p sampler2D uniform to the current texture of the
   # object being drawn (which cannot be known in advance).
   #
   # To apply a shader to a drawable, you must pass it as an
-  # additional parameter to the Draw function:
+  # additional parameter to the \ref Window::draw() draw() function:
   # ```c++
   # window.draw(sprite, &shader);
   # ```
@@ -5470,24 +5612,28 @@ module SF
   # ... render OpenGL geometry ...
   # sf::Shader::bind(NULL);
   # ```
+  #
+  # *See also:* `SF::Glsl`
   class Shader
-    @_shader : VoidCSFML::Shader_Buffer = VoidCSFML::Shader_Buffer.new(0u8)
+    @_shader : VoidCSFML::Shader_Buffer
     # Types of shaders
     enum Type
-      # Vertex shader
+      # %Vertex shader
       Vertex
+      # Geometry shader
+      Geometry
       # Fragment (pixel) shader
       Fragment
     end
     _sf_enum Shader::Type
-    # Special type that can be passed to setParameter,
+    # Special type that can be passed to setUniform(),
     #        and that represents the texture of the object being drawn
     #
-    # *See also:* setParameter(const std::string&, CurrentTextureType)
+    # *See also:* setUniform(const std::string&, CurrentTextureType)
     #
     # Represents the texture of the object being drawn
     #
-    # *See also:* setParameter(const std::string&, CurrentTextureType)
+    # *See also:* setUniform(const std::string&, CurrentTextureType)
     #
     # Default constructor
     #
@@ -5500,9 +5646,9 @@ module SF
     def finalize()
       VoidCSFML.shader_finalize(to_unsafe)
     end
-    # Load either the vertex or fragment shader from a file
+    # Load the vertex, geometry or fragment shader from a file
     #
-    # This function loads a single shader, either vertex or
+    # This function loads a single shader, vertex, geometry or
     # fragment, identified by the second argument.
     # The source must be a text file containing a valid
     # shader in GLSL language. GLSL is a C-like language
@@ -5510,8 +5656,8 @@ module SF
     # read a good documentation for it before writing your
     # own shaders.
     #
-    # * *filename* - Path of the vertex or fragment shader file to load
-    # * *type* -     Type of shader (vertex or fragment)
+    # * *filename* - Path of the vertex, geometry or fragment shader file to load
+    # * *type* -     Type of shader (vertex, geometry or fragment)
     #
     # *Returns:* True if loading succeeded, false if it failed
     #
@@ -5560,17 +5706,48 @@ module SF
       end
       obj
     end
-    # Load either the vertex or fragment shader from a source code in memory
+    # Load the vertex, geometry and fragment shaders from files
     #
-    # This function loads a single shader, either vertex or
-    # fragment, identified by the second argument.
+    # This function loads the vertex, geometry and fragment
+    # shaders. If one of them fails to load, the shader is left
+    # empty (the valid shader is unloaded).
+    # The sources must be text files containing valid shaders
+    # in GLSL language. GLSL is a C-like language dedicated to
+    # OpenGL shaders; you'll probably need to read a good documentation
+    # for it before writing your own shaders.
+    #
+    # * *vertex_shader_filename* -   Path of the vertex shader file to load
+    # * *geometry_shader_filename* - Path of the geometry shader file to load
+    # * *fragment_shader_filename* - Path of the fragment shader file to load
+    #
+    # *Returns:* True if loading succeeded, false if it failed
+    #
+    # *See also:* loadFromMemory, loadFromStream
+    def load_from_file(vertex_shader_filename : String, geometry_shader_filename : String, fragment_shader_filename : String) : Bool
+      VoidCSFML.shader_loadfromfile_zkCzkCzkC(to_unsafe, vertex_shader_filename.bytesize, vertex_shader_filename, geometry_shader_filename.bytesize, geometry_shader_filename, fragment_shader_filename.bytesize, fragment_shader_filename, out result)
+      return result
+    end
+    # Shorthand for `shader = Shader.new; shader.load_from_file(...); shader`
+    #
+    # Raises `InitError` on failure
+    def self.from_file(vertex_shader_filename : String, geometry_shader_filename : String, fragment_shader_filename : String) : self
+      obj = new
+      if !obj.load_from_file(vertex_shader_filename, geometry_shader_filename, fragment_shader_filename)
+        raise InitError.new("Shader.load_from_file failed")
+      end
+      obj
+    end
+    # Load the vertex, geometry or fragment shader from a source code in memory
+    #
+    # This function loads a single shader, vertex, geometry
+    # or fragment, identified by the second argument.
     # The source code must be a valid shader in GLSL language.
     # GLSL is a C-like language dedicated to OpenGL shaders;
     # you'll probably need to read a good documentation for
     # it before writing your own shaders.
     #
     # * *shader* - String containing the source code of the shader
-    # * *type* -   Type of shader (vertex or fragment)
+    # * *type* -   Type of shader (vertex, geometry or fragment)
     #
     # *Returns:* True if loading succeeded, false if it failed
     #
@@ -5619,17 +5796,48 @@ module SF
       end
       obj
     end
-    # Load either the vertex or fragment shader from a custom stream
+    # Load the vertex, geometry and fragment shaders from source codes in memory
     #
-    # This function loads a single shader, either vertex or
-    # fragment, identified by the second argument.
+    # This function loads the vertex, geometry and fragment
+    # shaders. If one of them fails to load, the shader is left
+    # empty (the valid shader is unloaded).
+    # The sources must be valid shaders in GLSL language. GLSL is
+    # a C-like language dedicated to OpenGL shaders; you'll
+    # probably need to read a good documentation for it before
+    # writing your own shaders.
+    #
+    # * *vertex_shader* -   String containing the source code of the vertex shader
+    # * *geometry_shader* - String containing the source code of the geometry shader
+    # * *fragment_shader* - String containing the source code of the fragment shader
+    #
+    # *Returns:* True if loading succeeded, false if it failed
+    #
+    # *See also:* loadFromFile, loadFromStream
+    def load_from_memory(vertex_shader : String, geometry_shader : String, fragment_shader : String) : Bool
+      VoidCSFML.shader_loadfrommemory_zkCzkCzkC(to_unsafe, vertex_shader.bytesize, vertex_shader, geometry_shader.bytesize, geometry_shader, fragment_shader.bytesize, fragment_shader, out result)
+      return result
+    end
+    # Shorthand for `shader = Shader.new; shader.load_from_memory(...); shader`
+    #
+    # Raises `InitError` on failure
+    def self.from_memory(vertex_shader : String, geometry_shader : String, fragment_shader : String) : self
+      obj = new
+      if !obj.load_from_memory(vertex_shader, geometry_shader, fragment_shader)
+        raise InitError.new("Shader.load_from_memory failed")
+      end
+      obj
+    end
+    # Load the vertex, geometry or fragment shader from a custom stream
+    #
+    # This function loads a single shader, vertex, geometry
+    # or fragment, identified by the second argument.
     # The source code must be a valid shader in GLSL language.
     # GLSL is a C-like language dedicated to OpenGL shaders;
     # you'll probably need to read a good documentation for it
     # before writing your own shaders.
     #
     # * *stream* - Source stream to read from
-    # * *type* -   Type of shader (vertex or fragment)
+    # * *type* -   Type of shader (vertex, geometry or fragment)
     #
     # *Returns:* True if loading succeeded, false if it failed
     #
@@ -5678,221 +5886,95 @@ module SF
       end
       obj
     end
+    # Load the vertex, geometry and fragment shaders from custom streams
+    #
+    # This function loads the vertex, geometry and fragment
+    # shaders. If one of them fails to load, the shader is left
+    # empty (the valid shader is unloaded).
+    # The source codes must be valid shaders in GLSL language.
+    # GLSL is a C-like language dedicated to OpenGL shaders;
+    # you'll probably need to read a good documentation for
+    # it before writing your own shaders.
+    #
+    # * *vertex_shader_stream* -   Source stream to read the vertex shader from
+    # * *geometry_shader_stream* - Source stream to read the geometry shader from
+    # * *fragment_shader_stream* - Source stream to read the fragment shader from
+    #
+    # *Returns:* True if loading succeeded, false if it failed
+    #
+    # *See also:* loadFromFile, loadFromMemory
+    def load_from_stream(vertex_shader_stream : InputStream, geometry_shader_stream : InputStream, fragment_shader_stream : InputStream) : Bool
+      VoidCSFML.shader_loadfromstream_PO0PO0PO0(to_unsafe, vertex_shader_stream, geometry_shader_stream, fragment_shader_stream, out result)
+      return result
+    end
+    # Shorthand for `shader = Shader.new; shader.load_from_stream(...); shader`
+    #
+    # Raises `InitError` on failure
+    def self.from_stream(vertex_shader_stream : InputStream, geometry_shader_stream : InputStream, fragment_shader_stream : InputStream) : self
+      obj = new
+      if !obj.load_from_stream(vertex_shader_stream, geometry_shader_stream, fragment_shader_stream)
+        raise InitError.new("Shader.load_from_stream failed")
+      end
+      obj
+    end
     # Change a float parameter of the shader
     #
-    # *name* is the name of the variable to change in the shader.
-    # The corresponding parameter in the shader must be a float
-    # (float GLSL type).
-    #
-    # Example:
-    # ```c++
-    # uniform float myparam; // this is the variable in the shader
-    # ```
-    # ```c++
-    # shader.setParameter("myparam", 5.2f);
-    # ```
-    #
-    # * *name* - Name of the parameter in the shader
-    # * *x* -    Value to assign
+    # *Deprecated:* Use setUniform(const std::string&, float) instead.
     def set_parameter(name : String, x : Number)
       VoidCSFML.shader_setparameter_zkCBw9(to_unsafe, name.bytesize, name, LibC::Float.new(x))
     end
     # Change a 2-components vector parameter of the shader
     #
-    # *name* is the name of the variable to change in the shader.
-    # The corresponding parameter in the shader must be a 2x1 vector
-    # (vec2 GLSL type).
-    #
-    # Example:
-    # ```c++
-    # uniform vec2 myparam; // this is the variable in the shader
-    # ```
-    # ```c++
-    # shader.setParameter("myparam", 5.2f, 6.0f);
-    # ```
-    #
-    # * *name* - Name of the parameter in the shader
-    # * *x* -    First component of the value to assign
-    # * *y* -    Second component of the value to assign
+    # *Deprecated:* Use setUniform(const std::string&, const Glsl::Vec2&) instead.
     def set_parameter(name : String, x : Number, y : Number)
       VoidCSFML.shader_setparameter_zkCBw9Bw9(to_unsafe, name.bytesize, name, LibC::Float.new(x), LibC::Float.new(y))
     end
     # Change a 3-components vector parameter of the shader
     #
-    # *name* is the name of the variable to change in the shader.
-    # The corresponding parameter in the shader must be a 3x1 vector
-    # (vec3 GLSL type).
-    #
-    # Example:
-    # ```c++
-    # uniform vec3 myparam; // this is the variable in the shader
-    # ```
-    # ```c++
-    # shader.setParameter("myparam", 5.2f, 6.0f, -8.1f);
-    # ```
-    #
-    # * *name* - Name of the parameter in the shader
-    # * *x* -    First component of the value to assign
-    # * *y* -    Second component of the value to assign
-    # * *z* -    Third component of the value to assign
+    # *Deprecated:* Use setUniform(const std::string&, const Glsl::Vec3&) instead.
     def set_parameter(name : String, x : Number, y : Number, z : Number)
       VoidCSFML.shader_setparameter_zkCBw9Bw9Bw9(to_unsafe, name.bytesize, name, LibC::Float.new(x), LibC::Float.new(y), LibC::Float.new(z))
     end
     # Change a 4-components vector parameter of the shader
     #
-    # *name* is the name of the variable to change in the shader.
-    # The corresponding parameter in the shader must be a 4x1 vector
-    # (vec4 GLSL type).
-    #
-    # Example:
-    # ```c++
-    # uniform vec4 myparam; // this is the variable in the shader
-    # ```
-    # ```c++
-    # shader.setParameter("myparam", 5.2f, 6.0f, -8.1f, 0.4f);
-    # ```
-    #
-    # * *name* - Name of the parameter in the shader
-    # * *x* -    First component of the value to assign
-    # * *y* -    Second component of the value to assign
-    # * *z* -    Third component of the value to assign
-    # * *w* -    Fourth component of the value to assign
+    # *Deprecated:* Use setUniform(const std::string&, const Glsl::Vec4&) instead.
     def set_parameter(name : String, x : Number, y : Number, z : Number, w : Number)
       VoidCSFML.shader_setparameter_zkCBw9Bw9Bw9Bw9(to_unsafe, name.bytesize, name, LibC::Float.new(x), LibC::Float.new(y), LibC::Float.new(z), LibC::Float.new(w))
     end
     # Change a 2-components vector parameter of the shader
     #
-    # *name* is the name of the variable to change in the shader.
-    # The corresponding parameter in the shader must be a 2x1 vector
-    # (vec2 GLSL type).
-    #
-    # Example:
-    # ```c++
-    # uniform vec2 myparam; // this is the variable in the shader
-    # ```
-    # ```c++
-    # shader.setParameter("myparam", sf::Vector2f(5.2f, 6.0f));
-    # ```
-    #
-    # * *name* -   Name of the parameter in the shader
-    # * *vector* - Vector to assign
+    # *Deprecated:* Use setUniform(const std::string&, const Glsl::Vec2&) instead.
     def set_parameter(name : String, vector : Vector2|Tuple)
       vector = Vector2f.new(vector[0].to_f32, vector[1].to_f32)
       VoidCSFML.shader_setparameter_zkCUU2(to_unsafe, name.bytesize, name, vector)
     end
     # Change a 3-components vector parameter of the shader
     #
-    # *name* is the name of the variable to change in the shader.
-    # The corresponding parameter in the shader must be a 3x1 vector
-    # (vec3 GLSL type).
-    #
-    # Example:
-    # ```c++
-    # uniform vec3 myparam; // this is the variable in the shader
-    # ```
-    # ```c++
-    # shader.setParameter("myparam", sf::Vector3f(5.2f, 6.0f, -8.1f));
-    # ```
-    #
-    # * *name* -   Name of the parameter in the shader
-    # * *vector* - Vector to assign
+    # *Deprecated:* Use setUniform(const std::string&, const Glsl::Vec3&) instead.
     def set_parameter(name : String, vector : Vector3f)
       VoidCSFML.shader_setparameter_zkCNzM(to_unsafe, name.bytesize, name, vector)
     end
     # Change a color parameter of the shader
     #
-    # *name* is the name of the variable to change in the shader.
-    # The corresponding parameter in the shader must be a 4x1 vector
-    # (vec4 GLSL type).
-    #
-    # It is important to note that the components of the color are
-    # normalized before being passed to the shader. Therefore,
-    # they are converted from range [0 .. 255] to range [0 .. 1].
-    # For example, a `SF::Color`(255, 125, 0, 255) will be transformed
-    # to a vec4(1.0, 0.5, 0.0, 1.0) in the shader.
-    #
-    # Example:
-    # ```c++
-    # uniform vec4 color; // this is the variable in the shader
-    # ```
-    # ```c++
-    # shader.setParameter("color", sf::Color(255, 128, 0, 255));
-    # ```
-    #
-    # * *name* -  Name of the parameter in the shader
-    # * *color* - Color to assign
+    # *Deprecated:* Use setUniform(const std::string&, const Glsl::Vec4&) instead.
     def set_parameter(name : String, color : Color)
       VoidCSFML.shader_setparameter_zkCQVe(to_unsafe, name.bytesize, name, color)
     end
     # Change a matrix parameter of the shader
     #
-    # *name* is the name of the variable to change in the shader.
-    # The corresponding parameter in the shader must be a 4x4 matrix
-    # (mat4 GLSL type).
-    #
-    # Example:
-    # ```c++
-    # uniform mat4 matrix; // this is the variable in the shader
-    # ```
-    # ```c++
-    # sf::Transform transform;
-    # transform.translate(5, 10);
-    # shader.setParameter("matrix", transform);
-    # ```
-    #
-    # * *name* -      Name of the parameter in the shader
-    # * *transform* - Transform to assign
+    # *Deprecated:* Use setUniform(const std::string&, const Glsl::Mat4&) instead.
     def set_parameter(name : String, transform : Transform)
       VoidCSFML.shader_setparameter_zkCFPe(to_unsafe, name.bytesize, name, transform)
     end
     # Change a texture parameter of the shader
     #
-    # *name* is the name of the variable to change in the shader.
-    # The corresponding parameter in the shader must be a 2D texture
-    # (sampler2D GLSL type).
-    #
-    # Example:
-    # ```c++
-    # uniform sampler2D the_texture; // this is the variable in the shader
-    # ```
-    # ```c++
-    # sf::Texture texture;
-    # ...
-    # shader.setParameter("the_texture", texture);
-    # ```
-    # It is important to note that *texture* must remain alive as long
-    # as the shader uses it, no copy is made internally.
-    #
-    # To use the texture of the object being draw, which cannot be
-    # known in advance, you can pass the special value
-    # `SF::Shader::CurrentTexture:`
-    # ```c++
-    # shader.setParameter("the_texture", sf::Shader::CurrentTexture).
-    # ```
-    #
-    # * *name* -    Name of the texture in the shader
-    # * *texture* - Texture to assign
+    # *Deprecated:* Use setUniform(const std::string&, const Texture&) instead.
     def set_parameter(name : String, texture : Texture)
       VoidCSFML.shader_setparameter_zkCDJb(to_unsafe, name.bytesize, name, texture)
     end
     # Change a texture parameter of the shader
     #
-    # This overload maps a shader texture variable to the
-    # texture of the object being drawn, which cannot be
-    # known in advance. The second argument must be
-    # `SF::Shader::CurrentTexture`.
-    # The corresponding parameter in the shader must be a 2D texture
-    # (sampler2D GLSL type).
-    #
-    # Example:
-    # ```c++
-    # uniform sampler2D current; // this is the variable in the shader
-    # ```
-    # ```c++
-    # shader.setParameter("current", sf::Shader::CurrentTexture);
-    # ```
-    #
-    # * *name* - Name of the texture in the shader
+    # *Deprecated:* Use setUniform(const std::string&, CurrentTextureType) instead.
     def set_parameter(name : String, p1 : CurrentTextureType)
       VoidCSFML.shader_setparameter_zkCLcV(to_unsafe, name.bytesize, name)
     end
@@ -5934,12 +6016,27 @@ module SF
     # the shader features. If it returns false, then
     # any attempt to use `SF::Shader` will fail.
     #
-    # Note: The first call to this function, whether by your
-    # code or SFML will result in a context switch.
-    #
     # *Returns:* True if shaders are supported, false otherwise
     def self.available?() : Bool
       VoidCSFML.shader_isavailable(out result)
+      return result
+    end
+    # Tell whether or not the system supports geometry shaders
+    #
+    # This function should always be called before using
+    # the geometry shader features. If it returns false, then
+    # any attempt to use `SF::Shader` geometry shader features will fail.
+    #
+    # This function can only return true if isAvailable() would also
+    # return true, since shaders in general have to be supported in
+    # order for geometry shaders to be supported as well.
+    #
+    # Note: The first call to this function, whether by your
+    # code or SFML will result in a context switch.
+    #
+    # *Returns:* True if geometry shaders are supported, false otherwise
+    def self.geometry_available?() : Bool
+      VoidCSFML.shader_isgeometryavailable(out result)
       return result
     end
     include GlResource
@@ -6004,7 +6101,7 @@ module SF
   #
   # *See also:* `SF::Texture`, `SF::Transformable`
   class Sprite < Transformable
-    @_sprite : VoidCSFML::Sprite_Buffer = VoidCSFML::Sprite_Buffer.new(0u8)
+    @_sprite : VoidCSFML::Sprite_Buffer
     # Default constructor
     #
     # Creates an empty sprite with no source texture.
@@ -6318,7 +6415,7 @@ module SF
   #
   # *See also:* `SF::Font`, `SF::Transformable`
   class Text < Transformable
-    @_text : VoidCSFML::Text_Buffer = VoidCSFML::Text_Buffer.new(0u8)
+    @_text : VoidCSFML::Text_Buffer
     # Enumeration of the string drawing styles
     @[Flags]
     enum Style
@@ -6425,15 +6522,56 @@ module SF
     def style=(style : Text::Style)
       VoidCSFML.text_setstyle_saL(to_unsafe, style)
     end
-    # Set the global color of the text
+    # Set the fill color of the text
     #
-    # By default, the text's color is opaque white.
+    # By default, the text's fill color is opaque white.
+    # Setting the fill color to a transparent color with an outline
+    # will cause the outline to be displayed in the fill area of the text.
     #
-    # * *color* - New color of the text
+    # * *color* - New fill color of the text
     #
-    # *See also:* getColor
+    # *See also:* getFillColor
+    #
+    # *Deprecated:* There is now fill and outline colors instead
+    # of a single global color.
+    # Use setFillColor() or setOutlineColor() instead.
     def color=(color : Color)
       VoidCSFML.text_setcolor_QVe(to_unsafe, color)
+    end
+    # Set the fill color of the text
+    #
+    # By default, the text's fill color is opaque white.
+    # Setting the fill color to a transparent color with an outline
+    # will cause the outline to be displayed in the fill area of the text.
+    #
+    # * *color* - New fill color of the text
+    #
+    # *See also:* getFillColor
+    def fill_color=(color : Color)
+      VoidCSFML.text_setfillcolor_QVe(to_unsafe, color)
+    end
+    # Set the outline color of the text
+    #
+    # By default, the text's outline color is opaque black.
+    #
+    # * *color* - New outline color of the text
+    #
+    # *See also:* getOutlineColor
+    def outline_color=(color : Color)
+      VoidCSFML.text_setoutlinecolor_QVe(to_unsafe, color)
+    end
+    # Set the thickness of the text's outline
+    #
+    # By default, the outline thickness is 0.
+    #
+    # Be aware that using a negative value for the outline
+    # thickness will cause distorted rendering.
+    #
+    # * *thickness* - New outline thickness, in pixels
+    #
+    # *See also:* getOutlineThickness
+    def outline_thickness=(thickness : Number)
+      VoidCSFML.text_setoutlinethickness_Bw9(to_unsafe, LibC::Float.new(thickness))
     end
     # Get the text's string
     #
@@ -6483,14 +6621,47 @@ module SF
       VoidCSFML.text_getstyle(to_unsafe, out result)
       return result
     end
-    # Get the global color of the text
+    # Get the fill color of the text
     #
-    # *Returns:* Global color of the text
+    # *Returns:* Fill color of the text
     #
-    # *See also:* setColor
+    # *See also:* setFillColor
+    #
+    # *Deprecated:* There is now fill and outline colors instead
+    # of a single global color.
+    # Use getFillColor() or getOutlineColor() instead.
     def color() : Color
       result = Color.allocate
       VoidCSFML.text_getcolor(to_unsafe, result)
+      return result
+    end
+    # Get the fill color of the text
+    #
+    # *Returns:* Fill color of the text
+    #
+    # *See also:* setFillColor
+    def fill_color() : Color
+      result = Color.allocate
+      VoidCSFML.text_getfillcolor(to_unsafe, result)
+      return result
+    end
+    # Get the outline color of the text
+    #
+    # *Returns:* Outline color of the text
+    #
+    # *See also:* setOutlineColor
+    def outline_color() : Color
+      result = Color.allocate
+      VoidCSFML.text_getoutlinecolor(to_unsafe, result)
+      return result
+    end
+    # Get the outline thickness of the text
+    #
+    # *Returns:* Outline thickness of the text, in pixels
+    #
+    # *See also:* setOutlineThickness
+    def outline_thickness() : Float32
+      VoidCSFML.text_getoutlinethickness(to_unsafe, out result)
       return result
     end
     # Return the position of the *index-th* character

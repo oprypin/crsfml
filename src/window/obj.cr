@@ -77,6 +77,7 @@ module SF
     @major_version : LibC::UInt
     @minor_version : LibC::UInt
     @attribute_flags : UInt32
+    @s_rgb_capable : Bool
     # Enumeration of the context attribute flags
     @[Flags]
     enum Attribute
@@ -96,14 +97,16 @@ module SF
     # * *major* -        Major number of the context version
     # * *minor* -        Minor number of the context version
     # * *attributes* -   Attribute flags of the context
-    def initialize(depth : Int = 0, stencil : Int = 0, antialiasing : Int = 0, major : Int = 1, minor : Int = 1, attributes : Int = Default)
+    # * *s_rgb* -         sRGB capable framebuffer
+    def initialize(depth : Int = 0, stencil : Int = 0, antialiasing : Int = 0, major : Int = 1, minor : Int = 1, attributes : Int = Default, s_rgb : Bool = false)
       @depth_bits = uninitialized UInt32
       @stencil_bits = uninitialized UInt32
       @antialiasing_level = uninitialized UInt32
       @major_version = uninitialized UInt32
       @minor_version = uninitialized UInt32
       @attribute_flags = uninitialized UInt32
-      VoidCSFML.contextsettings_initialize_emSemSemSemSemSemS(to_unsafe, LibC::UInt.new(depth), LibC::UInt.new(stencil), LibC::UInt.new(antialiasing), LibC::UInt.new(major), LibC::UInt.new(minor), LibC::UInt.new(attributes))
+      @s_rgb_capable = uninitialized Bool
+      VoidCSFML.contextsettings_initialize_emSemSemSemSemSemSGZq(to_unsafe, LibC::UInt.new(depth), LibC::UInt.new(stencil), LibC::UInt.new(antialiasing), LibC::UInt.new(major), LibC::UInt.new(minor), LibC::UInt.new(attributes), s_rgb)
     end
     @depth_bits : LibC::UInt
     # Bits of the depth buffer
@@ -153,6 +156,14 @@ module SF
     def attribute_flags=(attribute_flags : Int)
       @attribute_flags = UInt32.new(attribute_flags)
     end
+    @s_rgb_capable : Bool
+    # Whether the context framebuffer is sRGB capable
+    def s_rgb_capable : Bool
+      @s_rgb_capable
+    end
+    def s_rgb_capable=(s_rgb_capable : Bool)
+      @s_rgb_capable = s_rgb_capable
+    end
     # :nodoc:
     def to_unsafe()
       pointerof(@depth_bits).as(Void*)
@@ -165,6 +176,7 @@ module SF
       @major_version = uninitialized UInt32
       @minor_version = uninitialized UInt32
       @attribute_flags = uninitialized UInt32
+      @s_rgb_capable = uninitialized Bool
       as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
       VoidCSFML.contextsettings_initialize_Fw4(to_unsafe, copy)
     end
@@ -206,7 +218,7 @@ module SF
   # // by the sf::Context destructor
   # ```
   class Context
-    @_context : VoidCSFML::Context_Buffer = VoidCSFML::Context_Buffer.new(0u8)
+    @_context : VoidCSFML::Context_Buffer
     # Default constructor
     #
     # The constructor creates and activates the context
@@ -229,6 +241,33 @@ module SF
       VoidCSFML.context_setactive_GZq(to_unsafe, active, out result)
       return result
     end
+    # Get the settings of the context
+    #
+    # Note that these settings may be different than the ones
+    # passed to the constructor; they are indeed adjusted if the
+    # original settings are not directly supported by the system.
+    #
+    # *Returns:* Structure containing the settings
+    def settings() : ContextSettings
+      result = ContextSettings.allocate
+      VoidCSFML.context_getsettings(to_unsafe, result)
+      return result
+    end
+    # Check whether a given OpenGL extension is available
+    #
+    # * *name* - Name of the extension to check for
+    #
+    # *Returns:* True if available, false if unavailable
+    def self.extension_available?(name : UInt8*) : Bool
+      VoidCSFML.context_isextensionavailable_Yy6(name, out result)
+      return result
+    end
+    # Get the currently active context
+    #
+    # *Returns:* The currently active context or NULL if none is active
+    def self.active_context() : Context?
+      return @_context_active_context
+    end
     # Construct a in-memory context
     #
     # This constructor is for internal use, you don't need
@@ -240,6 +279,10 @@ module SF
     def initialize(settings : ContextSettings, width : Int, height : Int)
       @_context = uninitialized VoidCSFML::Context_Buffer
       VoidCSFML.context_initialize_Fw4emSemS(to_unsafe, settings, LibC::UInt.new(width), LibC::UInt.new(height))
+    end
+    # :nodoc:
+    def self.active_context() : Context?
+      return @_context_active_context
     end
     include GlResource
     include NonCopyable
@@ -334,7 +377,7 @@ module SF
     _sf_enum Joystick::Axis
     # Structure holding a joystick's identification
     class Identification
-      @_joystick_identification : VoidCSFML::Joystick_Identification_Buffer = VoidCSFML::Joystick_Identification_Buffer.new(0u8)
+      @_joystick_identification : VoidCSFML::Joystick_Identification_Buffer
       def initialize()
         @_joystick_identification = uninitialized VoidCSFML::Joystick_Identification_Buffer
         VoidCSFML.joystick_identification_initialize(to_unsafe)
@@ -1716,7 +1759,7 @@ module SF
     # Get the current position of a touch in window coordinates
     #
     # This function returns the current touch position
-    # in global (desktop) coordinates.
+    # relative to the given window.
     #
     # * *finger* - Finger index
     # * *relative_to* - Reference window
@@ -2007,7 +2050,7 @@ module SF
   # }
   # ```
   class Window
-    @_window : VoidCSFML::Window_Buffer = VoidCSFML::Window_Buffer.new(0u8)
+    @_window : VoidCSFML::Window_Buffer
     # Default constructor
     #
     # This constructor doesn't actually create the window,
@@ -2045,8 +2088,7 @@ module SF
     # advanced OpenGL context settings such as antialiasing,
     # depth-buffer bits, etc.
     #
-    # * *handle* -   Platform-specific handle of the control (*hwnd* on
-    #                 Windows, *%window* on Linux/FreeBSD, *ns_window* on OS X)
+    # * *handle* -   Platform-specific handle of the control
     # * *settings* - Additional settings for the underlying OpenGL context
     def initialize(handle : WindowHandle, settings : ContextSettings = ContextSettings.new())
       @_window = uninitialized VoidCSFML::Window_Buffer
@@ -2091,8 +2133,7 @@ module SF
     # advanced OpenGL context settings such as antialiasing,
     # depth-buffer bits, etc.
     #
-    # * *handle* -   Platform-specific handle of the control (*hwnd* on
-    #                 Windows, *%window* on Linux/FreeBSD, *ns_window* on OS X)
+    # * *handle* -   Platform-specific handle of the control
     # * *settings* - Additional settings for the underlying OpenGL context
     def create(handle : WindowHandle, settings : ContextSettings = ContextSettings.new())
       VoidCSFML.window_create_rLQFw4(to_unsafe, handle, settings)
@@ -2306,6 +2347,19 @@ module SF
     def mouse_cursor_visible=(visible : Bool)
       VoidCSFML.window_setmousecursorvisible_GZq(to_unsafe, visible)
     end
+    # Grab or release the mouse cursor
+    #
+    # If set, grabs the mouse cursor inside this window's client
+    # area so it may no longer be moved outside its bounds.
+    # Note that grabbing is only active while the window has
+    # focus and calling this function for fullscreen windows
+    # won't have any effect (fullscreen windows always grab the
+    # cursor).
+    #
+    # * *grabbed* - True to enable, false to disable
+    def mouse_cursor_grabbed=(grabbed : Bool)
+      VoidCSFML.window_setmousecursorgrabbed_GZq(to_unsafe, grabbed)
+    end
     # Enable or disable automatic key-repeat
     #
     # If key repeat is enabled, you will receive repeated
@@ -2402,8 +2456,6 @@ module SF
     # You shouldn't need to use this function, unless you have
     # very specific stuff to implement that SFML doesn't support,
     # or implement a temporary workaround until a bug is fixed.
-    # The type is *hwnd* on Windows, *%window* on Linux/FreeBSD
-    # and *ns_window* on OS X.
     #
     # *Returns:* System handle of the window
     def system_handle() : WindowHandle
