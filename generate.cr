@@ -1,4 +1,4 @@
-# Copyright (C) 2016 Oleh Prypin <blaxpirit@gmail.com>
+# Copyright (C) 2016 Oleh Prypin <oleh@pryp.in>
 #
 # This software is provided 'as-is', without any express or implied
 # warranty. In no event will the authors be held liable for any damages

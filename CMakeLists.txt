@@ -3,8 +3,8 @@ cmake_minimum_required(VERSION 2.8.11)
 project(CrSFML)
 
 set(VERSION_MAJOR 2)
-set(VERSION_MINOR 3)
-set(VERSION_PATCH 10)
+set(VERSION_MINOR 4)
+set(VERSION_PATCH 0)
 
 
 
