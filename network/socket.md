@@ -108,7 +108,7 @@ unless socket.send(data) == SF::Socket::Done
 end
 
 # UDP socket:
-recipient = SF::IPAddress.new("192.168.0.5")
+recipient = SF::IpAddress.new("192.168.0.5")
 port = 54000
 unless socket.send(data, recipient, port) == SF::Socket::Done
   # error

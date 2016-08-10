@@ -58,7 +58,7 @@ The first thing to do is connect to an FTP server.
 
 ```crystal
 ftp = SF::Ftp.new
-ip_address = SF::IPAddress.new("ftp.myserver.org")
+ip_address = SF::IpAddress.new("ftp.myserver.org")
 ftp.connect(ip_address)
 ```
 
@@ -68,7 +68,7 @@ The standard port for FTP is 21. If, for some reason, your server uses a differe
 
 ```crystal
 ftp = SF::Ftp.new
-ip_address = SF::IPAddress.new("ftp.myserver.org")
+ip_address = SF::IpAddress.new("ftp.myserver.org")
 ftp.connect(ip_address, 45000)
 ```
 
@@ -76,7 +76,7 @@ You can also pass a third parameter, which is a time out value. This prevents yo
 
 ```crystal
 ftp = SF::Ftp.new
-ip_address = SF::IPAddress.new("ftp.myserver.org")
+ip_address = SF::IpAddress.new("ftp.myserver.org")
 ftp.connect(ip_address, 21, SF.seconds(5))
 ```
 
