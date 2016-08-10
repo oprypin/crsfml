@@ -87,7 +87,7 @@ EOF
     if [ -n "$git_uri" ]; then
         if [ -n "$new_tag" ]; then
             # Replace commit name with tag name in links
-            find doc -type f -exec sed -i -r -e "s,blob/$rev,blob/$new_tag,g" {} \;
+            find doc -type f -exec sed -i -r -e "s,blob/$rev,blob/v$new_tag,g" {} \;
         fi
 
         git checkout "$docs_branch"
