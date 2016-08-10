@@ -394,8 +394,8 @@ class CClass < CNamespace
         abstr = "abstract "
       end
       o<< "#{abstr}#{kind} #{name(context)}#{inh}"
-      if class? &&
-        o<< "@_#{full_name(Context::CrystalLib).downcase} : #{LIB_NAME}::#{full_name(Context::CrystalLib)}_Buffer = #{LIB_NAME}::#{full_name(Context::CrystalLib)}_Buffer.new(0u8)" # TODO remove init when abstract is fixed
+      if class?
+        o<< "@_#{full_name(Context::CrystalLib).downcase} : #{LIB_NAME}::#{full_name(Context::CrystalLib)}_Buffer"
       end
     end
     if none? { |item| item.is_a? CFunction && item.constructor? }
@@ -538,6 +538,9 @@ class CClass < CNamespace
         o<< "# :nodoc:"
         o<< "class #{typ.full_name(context)}::Reference < #{typ.full_name(context)}"
         o<< "def initialize(@this : Void*, @parent : #{name(context)})"
+        typ.type.as(CClass).inherited_classes.reverse_each do |c|
+          o<< "@_#{c.full_name(Context::CrystalLib).downcase} = uninitialized #{LIB_NAME}::#{c.full_name(Context::CrystalLib)}_Buffer"
+        end
         o<< "end"
         o<< "def finalize()"
         o<< "end"
@@ -586,6 +589,13 @@ class CClass < CNamespace
     })
   end
 
+  def inherited_classes : Array(CClass)
+    inh = [self]
+    while (c = inh[-1].inherited_class)
+      inh << c
+    end
+    inh
+  end
   def subclasses : Array(CClass)
     $all_types.each do |typ|
       if typ.is_a?(CClass) && typ.inherited_class == self
@@ -867,7 +877,7 @@ class CFunction < CItem
     cls = parent.as? CClass
 
     return if visibility.private?
-    return unless visibility.public? || (cls && (cls.abstract? || %w[SoundStream SoundRecorder].includes?(cls.inherited_class.try &.full_name)) && cls.class?)
+    return unless visibility.public? || (cls && (cls.abstract? || %w[SoundStream SoundRecorder].includes?(cls.inherited_class.try &.full_name)) && cls.class?) || constructor?
     if (operator_name || "").downcase.starts_with?("bool")
       @type = make_type("bool", nil)
     else
@@ -1135,6 +1145,7 @@ class CFunction < CItem
         ret = " : #{ret}"
       end
       func_name = name(context, parent: parent)
+      abstr = "protected " if visibility.protected? && constructor?
       abstr = "abstract " if abstract? #if cls.try &.module? && !static?
       unless cls && cls.abstract? && cls.class? || visibility.public?
         ret = nil
@@ -1144,8 +1155,8 @@ class CFunction < CItem
       end
       o<< "#{abstr}def #{"self." if static?}#{func_name}(#{cr_params.join(", ")})#{ret}"
 
-      return if abstr
-      unless cls && cls.abstract? && cls.class? || visibility.public?
+      return if abstract?
+      unless cls && cls.abstract? && cls.class? || visibility.public? || name(Context::Crystal) == "initialize"
         o<< "end"
         return true
       end
@@ -1165,11 +1176,7 @@ class CFunction < CItem
 
       if (constructor? || name(Context::Crystal) == "initialize") && (cls = parent.as? CClass)
         if cls.class?
-          inh = [cls]
-          while (c = inh[-1].inherited_class)
-            inh << c
-          end
-          inh.reverse_each do |c|
+          cls.inherited_classes.reverse_each do |c|
             o<< "@_#{c.full_name(Context::CrystalLib).downcase} = uninitialized #{LIB_NAME}::#{c.full_name(Context::CrystalLib)}_Buffer"
           end
           if cls.abstract?
