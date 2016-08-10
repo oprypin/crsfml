@@ -17,7 +17,7 @@ Documentation
 Introduction
 ------------
 
-**Note to existing users**: *CrSFML* has been recently rewritten from scratch. *CrSFML* releases since 2.4 have an entirely different installation procedure, and multiple important API changes.
+**Note to existing users**: *CrSFML* has been recently rewritten from scratch. *CrSFML* releases since 2.4 have an entirely different installation procedure, and multiple important API changes. See the [release notes][releases] for information.
 
 *CrSFML* is a library that allows SFML to be used with the Crystal programming language. [SFML][] is a library written in C++, so *CrSFML* also needs to ship C bindings to SFML, called *VoidCSFML*.
 
@@ -183,6 +183,7 @@ Create a shard.yml file in your project's folder (or add to it) with the followi
 
 ```yaml
 name: awesome-game
+version: 0.1.0
 
 dependencies:
   crsfml:
