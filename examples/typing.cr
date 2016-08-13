@@ -19,7 +19,7 @@ while window.open?
       when SF::Keyboard::Escape
         window.close()
       when SF::Keyboard::BackSpace
-        str = str[0...-1]
+        str = str.chop
       when SF::Keyboard::Return
         str += '\n'
       end

@@ -47,6 +47,7 @@ Examples
 - Controller state and events
 - Drawing with shapes
 - Simple GUI (just buttons)
+- Window coordinates vs view coordinates
 
 ### [sound_capture](sound_capture.cr)
 

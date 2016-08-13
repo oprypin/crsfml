@@ -24,7 +24,10 @@ text.position = {30, 20}
 text.color = SF::Color::Black
 wb_shader = SF::Shader.from_file("resources/shaders/wave.vert", "resources/shaders/blur.frag")
 
-window = SF::RenderWindow.new(SF::VideoMode.new(800, 600), "SFML Shader", SF::Style::Titlebar|SF::Style::Close)
+window = SF::RenderWindow.new(
+  SF::VideoMode.new(800, 600), "SFML Shader",
+  SF::Style::Titlebar|SF::Style::Close
+)
 window.vertical_sync_enabled = true
 
 scene = rand(2)

@@ -3,7 +3,7 @@ require "crsfml/window"
 require "crsfml/graphics"
 require "crsfml/audio"
 
-$font : SF::Font
+
 $font = SF::Font.from_file("resources/font/Ubuntu-R.ttf")
 
 $window = SF::RenderWindow.new(
@@ -13,61 +13,87 @@ $window = SF::RenderWindow.new(
 $window.framerate_limit = 30
 
 
-def display_fullscreen_modes()
-  text = SF::Text.new("Fullscreen modes:", $font, 20)
+abstract class View
+  abstract def frame()
 
-  SF::VideoMode.fullscreen_modes
-  .group_by { |mode| {mode.width, mode.height} }
-  .each do |wh, devices|
-    bpps = devices.map { |device| device.bits_per_pixel } .join('/')
-    text.string += "\n - #{wh[0]} x #{wh[1]} @ #{bpps} bpp"
+  def input(event : SF::Event) : Bool
+    case event
+    when SF::Event::KeyPressed, SF::Event::MouseButtonPressed
+      return false
+    end
+    true
   end
-
-  $window.clear()
-  $window.draw(text)
-  $window.display()
-  wait()
 end
 
-def display_audio_devices()
-  text = SF::Text.new("Audio devices:", $font, 25)
-  SF::SoundRecorder.available_devices.each do |device|
-    text.string += "\n - #{device}"
+class FullscreenModesView < View
+  TITLE = "Fullscreen modes"
+
+  def initialize
+    @text = SF::Text.new("Fullscreen modes:", $font, 20)
+
+    SF::VideoMode.fullscreen_modes.group_by { |mode|
+      {mode.width, mode.height}
+    }.each do |(width, height), devices|
+      bpps = devices.map(&.bits_per_pixel).join('/')
+      @text.string += "\n - #{width} x #{height} @ #{bpps} bpp"
+    end
   end
 
-  $window.clear()
-  $window.draw(text)
-  $window.display()
-  wait()
+  def frame()
+    $window.draw @text
+  end
 end
 
-def test_mouse()
-  $window.mouse_cursor_visible = false
+class AudioDevicesView < View
+  TITLE = "Audio devices"
 
-  wheel_delta = SF.vector2(0.0, 0.0)
-  while true
-    while event = $window.poll_event()
-      case event
-      when SF::Event::Closed
-        $window.mouse_cursor_visible = true
-        return
-      when SF::Event::MouseWheelScrolled
-        case event.wheel
-        when SF::Mouse::HorizontalWheel
-          wheel_delta.x += event.delta
-        else
-          wheel_delta.y += event.delta
-        end
+  def initialize
+    @text = SF::Text.new("Audio devices:", $font, 24)
+
+    SF::SoundRecorder.available_devices.each do |device|
+      @text.string += "\n - #{device}"
+    end
+  end
+
+  def frame()
+    $window.draw @text
+  end
+end
+
+class MouseView < View
+  TITLE = "Mouse"
+
+  @wheel_delta : SF::Vector2(Float64)
+  def initialize
+    $window.mouse_cursor_visible = false
+
+    @wheel_delta = SF::Vector2.new(0.0, 0.0)
+  end
+
+  def input(event)
+    case event
+    when SF::Event::KeyPressed
+      $window.mouse_cursor_visible = true
+      return false
+    when SF::Event::MouseWheelScrolled
+      case event.wheel
+      when SF::Mouse::HorizontalWheel
+        @wheel_delta.x += event.delta
+      else
+        @wheel_delta.y += event.delta
       end
     end
-    wheel_delta *= 0.9
+    true
+  end
 
-    $window.clear()
-    m = SF::Mouse.get_position($window)
+  def frame()
+    @wheel_delta *= 0.9
+
+    pos = $window.map_pixel_to_coords(SF::Mouse.get_position($window))
 
     shape = SF::CircleShape.new(15)
     shape.origin = SF.vector2(15, 15)
-    shape.position = SF.vector2(m.x, m.y)
+    shape.position = SF.vector2(pos.x, pos.y)
     shape.fill_color = SF.color(0, 200, 0)
     shape.scale SF.vector2(0.9, 1.1)
     $window.draw shape
@@ -76,186 +102,173 @@ def test_mouse()
     shape.origin = SF.vector2(8, 8)
     shape.fill_color = SF.color(255, 128, 0)
 
-    buttons = {
+    {
       SF::Mouse::Left => {-0.7, -0.7},
       SF::Mouse::Right => {0.7, -0.7},
       SF::Mouse::Middle => {0, -1},
       SF::Mouse::XButton1 => {-1, 0},
       SF::Mouse::XButton2 => {1, 0},
-    }
-    buttons.each do |btn, delta|
+    }.each do |btn, delta|
       if SF::Mouse.button_pressed?(btn)
-        shape.position = m + SF.vector2(20, 20) * delta
+        shape.position = pos + SF.vector2(20, 20) * delta
         $window.draw shape
       end
     end
 
-    shape = SF::ConvexShape.new()
-    shape.point_count = 3
+    shape = SF::ConvexShape.new(3)
     shape.fill_color = SF.color(128, 0, 255)
-    shape.position = m - {0, 4}
+    shape.position = pos - {0, 4}
     shape[0] = SF.vector2f(-8, 0)
     shape[1] = SF.vector2f(8, 0)
-    shape[2] = SF.vector2f(0, -wheel_delta.y*5)
+    shape[2] = SF.vector2f(0, -@wheel_delta.y*5)
     $window.draw shape
     shape[0] = SF.vector2f(0, -8)
     shape[1] = SF.vector2f(0, 8)
-    shape[2] = SF.vector2f(-wheel_delta.x*5, 0)
+    shape[2] = SF.vector2f(-@wheel_delta.x*5, 0)
     $window.draw shape
-
-    $window.display()
   end
 end
 
-def test_controller()
-  unless js = (0...SF::Joystick::Count).find { |js| SF::Joystick.connected?(js) }
-    return
+class ControllerView < View
+  TITLE = "Controller"
+
+  @js : Int32
+  def initialize
+    @js = (0...SF::Joystick::Count).find { |js|
+      SF::Joystick.connected?(js)
+    } .not_nil!
+    @text = SF::Text.new(SF::Joystick.get_identification(@js).name, $font, 20)
   end
 
-  while true
-    while event = $window.poll_event()
-      case event
-      when SF::Event::Closed
-        return
-      end
+  def input(event)
+    case event
+    when SF::Event::KeyPressed, SF::Event::MouseButtonPressed
+      return false
     end
+    true
+  end
 
-    $window.clear()
+  def frame()
+    $window.draw @text
 
-    text = SF::Text.new(SF::Joystick.get_identification(js).name, $font, 20)
-    $window.draw text
+    scale = (($window.view.size.x + $window.view.size.y) / 70).to_i
 
-    shape = SF::CircleShape.new(15)
-    shape.origin = SF.vector2(15, 15)
+    shape = SF::CircleShape.new(scale)
+    shape.origin = {shape.radius, shape.radius}
 
-    text = SF::Text.new("", $font, 20)
+    text = SF::Text.new("", $font, scale + 5)
     text.color = SF.color(0, 0, 0)
 
     button_pos = [
-      {5 + 0, 1},
-      {5 + 1, 0},
-      {5 - 1, 0},
-      {5 + 0, -1},
-      {-5, -3}, {5, -3},
-      {-2, -0.5}, {2, -0.5},
+      {10, 2}, {12, 0}, {8, 0}, {10, -2},
+      {-10, -6}, {10, -6},
+      {-4, -1}, {4, -1},
       {0, 0},
-      {-2.5, 2}, {2.5, 2},
+      {-5, 4}, {5, 4},
     ]
-    (0...SF::Joystick.get_button_count(js)).each do |btn|
-      text.string = (btn+1).to_s
-      text.origin = SF.vector2(text.local_bounds.width * 0.6, text.local_bounds.height * 0.85)
-      begin
-        delta = button_pos[btn]
-      rescue
-        delta = {0, button_pos.size - btn - 1}
-      end
-      shape.position = SF.vector2(400, 300) + SF.vector2(*delta) * 30
+    SF::Joystick.get_button_count(@js).times do |btn|
+      text.string = (btn + 1).to_s
+      text.origin = SF.vector2(text.local_bounds.width * 0.5 + scale/10, text.local_bounds.height * 0.85)
+      pos = button_pos.at(btn) { {0, (button_pos.size - 1 - btn) * 2} }
+
+      shape.position = $window.view.size / 2 + SF.vector2(*pos) * scale
       text.position = shape.position
-      shape.fill_color = SF::Joystick.button_pressed?(js, btn) ? SF.color(255, 128, 0) : SF.color(0, 128, 0)
+      shape.fill_color = SF::Joystick.button_pressed?(@js, btn) ? SF.color(255, 128, 0) : SF.color(0, 128, 0)
 
       $window.draw shape
-      $window.draw text if SF::Joystick.button_pressed?(js, btn)
+      $window.draw text if SF::Joystick.button_pressed?(@js, btn)
     end
 
-    shape = SF::CircleShape.new(10)
-    shape.origin = SF.vector2(10, 10)
+    shape = SF::CircleShape.new(scale * 3/4)
+    shape.origin = {shape.radius, shape.radius}
     shape.fill_color = SF.color(128, 0, 255)
 
-    axis_pos = [
-      {-2.5, 2, :h}, {-2.5, 2, :v},
-      {-5, -4.5, :v}, {5, -4.5, :v},
-      {2.5, 2, :h}, {2.5, 2, :v},
-      {-5, 0, :h}, {-5, 0, :v},
-    ]
-    axi = 0
-    axis_pos.group_by { |a| {a[0], a[1]} } .each do |delta, group|
-      dx = 0
-      dy = 0
-      any = false
-      group.each do |a|
-        ax = SF::Joystick::Axis.new(axi)
-        axi += 1
-        next unless SF::Joystick.axis?(js, ax)
-        p = SF::Joystick.get_axis_position(js, ax)
-        dx = p if a[2] == :h
-        dy = p if a[2] == :v
-        any = true
-      end
-      next unless any
-      shape.position = SF.vector2(400, 300) + SF.vector2(*delta) * 30 + SF.vector2(dx, dy) * 0.3
+    {
+      {SF::Joystick::X, SF::Joystick::Y} => {-5, 4},
+      {SF::Joystick::U, SF::Joystick::V} => {5, 4},
+      {SF::Joystick::PovX, SF::Joystick::PovY} => {-10, 0},
+      {nil, SF::Joystick::Z} => {-10, -8}, {nil, SF::Joystick::R} => {10, -8},
+    }.each do |axes, pos|
+      state = axes.map { |a| a ? SF::Joystick.get_axis_position(@js, a) / 100 : 0 }
+
+      max = axes.all? ? 1.75 : 1.0
+      shape.position = $window.view.size / 2 + (SF.vector2(*pos) + SF.vector2(*state) * max) * scale
 
       $window.draw shape
-    end
-
-    $window.display()
-  end
-end
-
-def wait()
-  while event = $window.wait_event()
-    case event
-    when SF::Event::KeyPressed, SF::Event::MouseButtonPressed, SF::Event::JoystickButtonPressed, SF::Event::Closed
-      break
     end
   end
 end
 
 
 class Button < SF::RectangleShape
-  def initialize(message, width, height, color = SF.color(0, 128, 0))
-    super(SF.vector2(width, height))
-    @text = SF::Text.new(message, $font, (height*0.8).to_i)
-    self.fill_color = color
-    @text.position = SF.vector2(((width - @text.global_bounds.width) / 2).to_i, -height / 20)
+  def initialize(message, geometry)
+    super({geometry.width, geometry.height})
+    @text = SF::Text.new(message, $font, (geometry.height * 0.8).to_i)
+    @text.position = {
+      size.x / 2 - @text.local_bounds.width * 0.5,
+      size.y / 2 - geometry.height * 0.5
+    }
+    self.position = {geometry.left, geometry.top}
+    self.fill_color = SF.color(0, 128, 0)
   end
 
-  def draw(target, states : SF::RenderStates)
+  def draw(target, states)
     super(target, states)
     states.transform *= transform
-
-    target.draw(@text, states)
+    $window.draw(@text, states)
   end
 end
 
-w = 400
-h = 50
-x = 200
-y = 25
-actions = {
-  Button.new("Mouse", w, h) => -> { test_mouse },
-  Button.new("Controller", w, h) => -> { test_controller },
-  Button.new("Fullscreen modes", w, h) => -> { display_fullscreen_modes },
-  Button.new("Audio devices", w, h) => -> { display_audio_devices },
-}
 
-actions.each_key do |btn|
-  btn.position = SF.vector2(x, y)
-  y += h + h/2
-end
+geometry = SF::Rect.new($window.size.x / 4, 25, width: $window.size.x / 2, height: 50)
+
+$buttons = {} of Button => View.class
+{% for cls in View.all_subclasses %}
+  {% if cls.subclasses.empty? %}
+    $buttons[Button.new({{cls}}::TITLE, geometry)] = {{cls}}
+    geometry.top += geometry.height * 3 / 2
+  {% end %}
+{% end %}
 
 version_text = SF::Text.new("SFML v#{SF::SFML_VERSION}\nCrSFML v#{SF::VERSION}", $font, 20)
-version_text.origin = {0, version_text.local_bounds.height}
-version_text.position = {5, $window.size.y - 15}
+version_text.origin = {0, version_text.local_bounds.height.round + 10}
+version_text.position = {5, $window.size.y - 5}
+
+$view : View? = nil
 
 while $window.open?
+  $window.clear(SF::Color::Black)
+
   while event = $window.poll_event()
-    case event
-    when SF::Event::Closed
+    if event.is_a? SF::Event::Closed
       $window.close()
-    when SF::Event::MouseButtonPressed
-      actions.each_key do |btn|
-        if btn.global_bounds.contains?(event.x.to_f, event.y.to_f)
-          actions[btn].call
-          break
+    end
+
+    if (view = $view)
+      if !view.input(event)
+        $view = nil
+      end
+    else
+      if event.is_a? SF::Event::MouseButtonPressed
+        coord = $window.map_pixel_to_coords({event.x, event.y})
+
+        $buttons.each do |btn, cls|
+          if btn.global_bounds.contains? coord
+            $view = cls.new rescue btn.fill_color = SF.color(128, 0, 0)
+          end
         end
       end
     end
   end
 
-  $window.clear()
-  actions.each_key do |btn|
-    $window.draw(btn)
+  if (view = $view)
+    view.frame()
+  else
+    $buttons.each_key do |btn|
+      $window.draw btn
+    end
+    $window.draw version_text
   end
-  $window.draw(version_text)
+
   $window.display()
 end
