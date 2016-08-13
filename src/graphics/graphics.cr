@@ -17,8 +17,9 @@ module SF
       vert = {top, top + height}
       (horz.min <= x < horz.max) && (vert.min <= y < vert.max)
     end
-    def contains?(point) : Bool
-      contains(*point)
+    def contains?(point : Vector2 | Tuple) : Bool
+      x, y = point
+      contains?(x, y)
     end
 
     def intersects?(other : Rect) : Rect?
