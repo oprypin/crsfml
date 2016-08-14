@@ -5,7 +5,7 @@ window = SF::RenderWindow.new(SF::VideoMode.new(800, 600), "Typing")
 
 str = ""
 
-font = SF::Font.from_file("resources/font/Ubuntu-R.ttf")
+font = SF::Font.from_file("resources/font/Cantarell-Regular.otf")
 
 text = SF::Text.new("_", font)
 text.color = SF::Color::Black

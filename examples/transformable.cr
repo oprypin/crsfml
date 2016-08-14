@@ -1,7 +1,7 @@
 require "crsfml"
 
 
-$font = SF::Font.from_file("resources/font/Ubuntu-R.ttf")
+$font = SF::Font.from_file("resources/font/Cantarell-Regular.otf")
 
 class Logo < SF::Transformable
   include SF::Drawable

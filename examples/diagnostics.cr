@@ -4,7 +4,7 @@ require "crsfml/graphics"
 require "crsfml/audio"
 
 
-$font = SF::Font.from_file("resources/font/Ubuntu-R.ttf")
+$font = SF::Font.from_file("resources/font/Cantarell-Regular.otf")
 
 $window = SF::RenderWindow.new(
   SF::VideoMode.new(800, 600), "Diagnostic information",
