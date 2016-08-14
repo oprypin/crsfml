@@ -1,7 +1,7 @@
 language: crystal
 env:
-- SFML=2.3.2
-- SFML=2.4.0
+  - SFML=2.3.2
+  - SFML=2.4.0
 before_install:
   - sudo apt-get install -qy build-essential cmake git libx11-dev freeglut3-dev libxcb-image0-dev libudev-dev libjpeg8-dev libopenal-dev libsndfile1-dev libfreetype6-dev
   - |
@@ -10,10 +10,15 @@ before_install:
     cmake . && make
     sudo make install
     cd ..
-before_script:
-  - mkdir build && cd build
 script:
-  - cmake -DCMAKE_MODULE_PATH="/usr/local/share/SFML/cmake/Modules" .. && make
+  - |
+    cmake -DCMAKE_MODULE_PATH="/usr/local/share/SFML/cmake/Modules" . && make
+    export LIBRARY_PATH="$PWD/voidcsfml/lib"
   - crystal doc
+  - |
+    cd examples
+    for f in *.cr; do
+        crystal build "$f"
+    done
 sudo: required
 dist: trusty
