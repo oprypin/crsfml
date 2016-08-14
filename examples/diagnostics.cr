@@ -1,16 +1,15 @@
-require "crsfml/system"
-require "crsfml/window"
-require "crsfml/graphics"
+require "yaml"
+require "crsfml"
 require "crsfml/audio"
 
 
 $font = SF::Font.from_file("resources/font/Cantarell-Regular.otf")
 
 $window = SF::RenderWindow.new(
-  SF::VideoMode.new(800, 600), "Diagnostic information",
+  SF::VideoMode.new(1280, 720), "Diagnostic information",
   settings: SF::ContextSettings.new(depth: 24, antialiasing: 8)
 )
-$window.framerate_limit = 30
+$window.framerate_limit = 60
 
 
 abstract class View
@@ -29,7 +28,7 @@ class FullscreenModesView < View
   TITLE = "Fullscreen modes"
 
   def initialize
-    @text = SF::Text.new("Fullscreen modes:", $font, 20)
+    @text = SF::Text.new("Fullscreen modes:", $font, 24)
 
     SF::VideoMode.fullscreen_modes.group_by { |mode|
       {mode.width, mode.height}
@@ -129,6 +128,109 @@ class MouseView < View
   end
 end
 
+class KeyboardView < View
+  TITLE = "Keyboard"
+
+  def initialize
+    @buttons = [] of Button
+    @key_to_button = {} of SF::Keyboard::Key => Button
+
+    scale = 55
+
+    yaml = YAML.parse(File.read("resources/keyboard-layout.yaml"))
+    y = 0.3
+    yaml.each do |line|
+      x = 0.3
+      line.each do |item|
+        w = h = 1
+        key_id = nil
+        key_text = ""
+        pos = {x, y}
+        first = true
+
+        item.as_h.each do |key, value|
+          key = key.as String
+          value = value.as String
+          if first
+            first = false
+            value = key if value.empty?
+            key_id = SF::Keyboard::Key.parse?(key)
+            key_text = value.gsub("  ", "\n")
+            key_text += '\n' unless key_text.includes? '\n'
+          else
+            value = value.to_f
+            case key
+              when "w"; w = value
+              when "h"; h = value
+              when "x"; x += value
+              when "y"; y += value
+            end
+          end
+        end
+
+        button = Button.new(key_text,
+          SF.float_rect((pos[0]+0.1)*scale, (pos[1]+0.1)*scale, (w-0.2)*scale, (h-0.2)*scale),
+          alignment: SF.vector2(0.0, 0.5)
+        )
+        button.outline_thickness = 3
+
+        @buttons << button
+        @key_to_button[key_id] = button if key_id
+
+        x += w
+      end
+      y += 1
+    end
+
+    @str = ""
+    @text = SF::Text.new("_", $font)
+    @text.position = {(0.3 * scale).round, (y * scale).round}
+  end
+
+  def input(event)
+    case event
+    when SF::Event::MouseButtonPressed
+      return false
+    when SF::Event::KeyPressed
+      @key_to_button[event.code]?.try &.outline_thickness = 6
+
+      case event.code
+      when SF::Keyboard::BackSpace
+        @str = @str.chop
+      when SF::Keyboard::Return
+        @str += '\n'
+      when SF::Keyboard::Tab
+        @str += '\t'
+      end
+    when SF::Event::TextEntered
+      if event.unicode >= ' '.ord && event.unicode != 0x7f # control chars and delete
+        @str += event.unicode.chr
+      end
+      @text.string = @str + "_"
+    end
+    true
+  end
+
+  def frame()
+    @key_to_button.each do |key, btn|
+      b = (btn.fill_color.b * 0.95).to_i
+      if SF::Keyboard.key_pressed?(key)
+        btn.fill_color = SF.color(255, 128, 0)
+        btn.text.color = SF.color(0, 0, 0)
+      else
+        btn.fill_color = SF.color(0, 128, 0)
+        btn.text.color = SF.color(255, 255, 255)
+      end
+      btn.outline_thickness = {btn.outline_thickness * 0.9, 3}.max
+    end
+
+    @buttons.each do |btn|
+      $window.draw btn
+    end
+    $window.draw @text
+  end
+end
+
 class ControllerView < View
   TITLE = "Controller"
 
@@ -137,7 +239,7 @@ class ControllerView < View
     @js = (0...SF::Joystick::Count).find { |js|
       SF::Joystick.connected?(js)
     } .not_nil!
-    @text = SF::Text.new(SF::Joystick.get_identification(@js).name, $font, 20)
+    @text = SF::Text.new(SF::Joystick.get_identification(@js).name, $font, 24)
   end
 
   def input(event)
@@ -201,16 +303,31 @@ end
 
 
 class Button < SF::RectangleShape
-  def initialize(message, geometry)
+  def initialize(message, geometry, alignment = SF.vector2(0.5, 0.5))
     super({geometry.width, geometry.height})
-    @text = SF::Text.new(message, $font, (geometry.height * 0.8).to_i)
-    @text.position = {
-      size.x / 2 - @text.local_bounds.width * 0.5,
-      size.y / 2 - geometry.height * 0.5
-    }
+
+    line_count = message.count('\n') + 1.15
+    dimension = size.to_a.min
+    font_size = (1..200).bsearch { |size|
+      $font.get_line_spacing(size) * 1.1 * line_count > dimension
+    } || 200
+
+    @text = SF::Text.new(message, $font, font_size)
+
     self.position = {geometry.left, geometry.top}
     self.fill_color = SF.color(0, 128, 0)
+
+    text_size = SF.vector2(
+      @text.local_bounds.width,
+      $font.get_line_spacing(font_size) * line_count
+    )
+    @text.position = {
+      (3 + (size.x - text_size.x - 6) * alignment.x + position.x.round).round - position.x,
+      (3 + (size.y - text_size.y - 6) * alignment.y + position.y.round).round - position.y
+    }
   end
+
+  getter text
 
   def draw(target, states)
     super(target, states)
