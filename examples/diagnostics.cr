@@ -213,7 +213,6 @@ class KeyboardView < View
 
   def frame()
     @key_to_button.each do |key, btn|
-      b = (btn.fill_color.b * 0.95).to_i
       if SF::Keyboard.key_pressed?(key)
         btn.fill_color = SF.color(255, 128, 0)
         btn.text.color = SF.color(0, 0, 0)
