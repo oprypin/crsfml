@@ -10,7 +10,7 @@ set(VERSION_PATCH 0)
 
 find_program(CRYSTAL crystal)
 
-find_package(SFML 2 COMPONENTS system window graphics audio network REQUIRED)
+find_package(SFML 2.3 COMPONENTS system window graphics audio network REQUIRED)
 include_directories(${SFML_INCLUDE_DIR})
 
 
@@ -27,7 +27,7 @@ if(NOT CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_CURRENT_BINARY_DIR)
     )
     foreach(path ${source_files}
         LICENSE README.md
-        voidcsfml/LICENSE voidcsfml/README.md voidcsfml/CMakeLists.txt
+        voidcsfml/LICENSE voidcsfml/README.md
         examples/README.md
     )
         configure_file(

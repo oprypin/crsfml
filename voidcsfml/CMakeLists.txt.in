@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 2.8.11)
 
-
-# project name
 project(VoidCSFML)
 
 add_custom_target(VoidCSFML ALL)
@@ -237,9 +235,16 @@ if(SFML_OS_WINDOWS)
     endif()
 endif()
 
-find_package(SFML 2 COMPONENTS system window graphics audio network REQUIRED)
+find_package(SFML @SFML_VERSION_MAJOR@.@SFML_VERSION_MINOR@
+    COMPONENTS system window graphics audio network REQUIRED
+)
+if(NOT "@SFML_VERSION_MAJOR@.@SFML_VERSION_MINOR@.@SFML_VERSION_PATCH@" STREQUAL "${SFML_VERSION_MAJOR}.${SFML_VERSION_MINOR}.${SFML_VERSION_PATCH}")
+    message(WARNING
+        "Expecting SFML @SFML_VERSION_MAJOR@.@SFML_VERSION_MINOR@.@SFML_VERSION_PATCH@, "
+        "found SFML ${SFML_VERSION_MAJOR}.${SFML_VERSION_MINOR}.${SFML_VERSION_PATCH}"
+    )
+endif()
 include_directories(${SFML_INCLUDE_DIR})
-
 
 
 voidcsfml_add_library(system)
