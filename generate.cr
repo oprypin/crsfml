@@ -190,6 +190,7 @@ abstract class CItem
     while @docs[-1]? == ""
       @docs.pop
     end
+    prev_line = ""
     @docs.each do |line|
       if line == "\\code"
         in_code = true
@@ -211,14 +212,16 @@ abstract class CItem
         line = line.sub /^\\return\b */, "*Returns:* "
         line = line.sub /^\\warning\b */, "*Warning:* "
         line = line.sub /^\\deprecated\b */, "*Deprecated:* "
-        line = line.sub /^\\see\b *(.+)/ { "*See also:* #{$~[1]}" }
         line = line.gsub /\bsf(::[^ \.;,()]+)/ { "`SF#{$~[1]}`" }
+        line = line.sub /^\\see\b *(.+)/ { "*See also:* " + $~[1].gsub(/(?<!`)\b[\w\.]+\b(?!`)/, "`\\0`") }
         line = line.gsub /<\/?b>/, "**"
         line = line.gsub "\\n", "\n"
         line = line.gsub '<', "&lt;"
         line = line.gsub '>', "&gt;"
+        line = line.gsub /\b([a-z][a-z0-9]+[A-Z][a-zA-Z0-9]*)\b/ { CFunction.new($~[1], nil, [] of CParameter).name(Context::Crystal) }
       end
-      o<< "# #{line}"
+      o<< "# #{line}" unless line == "" == prev_line
+      prev_line = line
     end
   end
 end
@@ -810,7 +813,7 @@ class CFunction < CItem
   end
 
   def setter_name : String?
-    return nil unless parameters.size == 1
+    return nil if parameters.size > 1
     name = @name.not_nil!.underscore
     if name.starts_with? "set_"
       name[4..-1] + "="
@@ -1621,7 +1624,7 @@ class CModule < CNamespace
         register_type enu
         upcoming_namespace = enu
 
-      when /^(virtual|static|explicit)? *(([^\(]+) )??(operator *.+?|~?\w+)\((.*)\)( const)?( = 0)?(;| *:)$/
+      when /^(virtual|static|explicit)? *(([^\(]+) )??(operator *.+?|~?\w+)\((.*)\)( const)?( = 0)?(;| *:( .+\{\})?)$/
         match = $~
         func_params = match[5].scan(/
           (?:
