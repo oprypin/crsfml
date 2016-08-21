@@ -10,6 +10,9 @@ set(VERSION_PATCH 0)
 
 find_program(CRYSTAL crystal)
 
+list(APPEND CMAKE_MODULE_PATH "/usr/local/share/SFML/cmake/Modules")
+list(APPEND CMAKE_MODULE_PATH "/usr/local/opt/sfml/share/SFML/cmake/Modules") # Homebrew
+
 find_package(SFML 2.3 COMPONENTS system window graphics audio network REQUIRED)
 include_directories(${SFML_INCLUDE_DIR})
 

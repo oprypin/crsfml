@@ -12,7 +12,7 @@ before_install:
     cd ..
 script:
   - |
-    cmake -DCMAKE_MODULE_PATH="/usr/local/share/SFML/cmake/Modules" . && make
+    cmake . && make
     export LIBRARY_PATH="$PWD/voidcsfml/lib"
   - crystal doc
   - |

@@ -235,6 +235,9 @@ if(SFML_OS_WINDOWS)
     endif()
 endif()
 
+list(APPEND CMAKE_MODULE_PATH "/usr/local/share/SFML/cmake/Modules")
+list(APPEND CMAKE_MODULE_PATH "/usr/local/opt/sfml/share/SFML/cmake/Modules") # Homebrew
+
 find_package(SFML @SFML_VERSION_MAJOR@.@SFML_VERSION_MINOR@
     COMPONENTS system window graphics audio network REQUIRED
 )
