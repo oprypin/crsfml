@@ -2,9 +2,6 @@ module SF
   struct Rect(T)
     property left : T, top : T, width : T, height : T
 
-    def initialize()
-      @left = @top = @width = @height = 0
-    end
     def initialize(@left : T, @top : T, @width : T, @height : T)
     end
     def initialize(position : Vector2(T), size : Vector2(T))

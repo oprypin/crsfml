@@ -6,9 +6,6 @@ module SF
 
     def initialize(@x : T, @y : T)
     end
-    def initialize(v)
-      @x, @y = v
-    end
 
     def each
       yield @x
