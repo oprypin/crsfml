@@ -55,6 +55,10 @@ module SF
     # Height of the rectangle
     property height : T
 
+    # Default constructor: equivalent to `new(0, 0, 0, 0)`
+    def initialize()
+      @left = @top = @width = @height = T.zero
+    end
     # Construct the rectangle from its coordinates
     #
     # Be careful, the last two parameters are the width
@@ -93,6 +97,12 @@ module SF
       x2 = {horz1.max, horz2.max}.min
       y2 = {vert1.max, vert2.max}.min
       Rect.new(x1, y1, x2-x1, y2-y1) if x1 < x2 && y1 < y2
+    end
+
+    # Returns true if all corresponding coordinates of two rects are equal
+    def ==(other : self) : Bool
+      left == other.left && top == other.top &&
+      width == other.width && height == other.height
     end
 
     # :nodoc:

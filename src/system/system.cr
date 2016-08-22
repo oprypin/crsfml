@@ -42,6 +42,10 @@ module SF
     # The *y* coordinate
     property y : T
 
+    # Default constructor: equivalent to `new(0, 0)`
+    def initialize()
+      @x = @y = T.zero
+    end
     # Construct the vector from its coordinates.
     def initialize(@x : T, @y : T)
     end
@@ -184,6 +188,10 @@ module SF
     # The *z* coordinate
     property z : T
 
+    # Default constructor: equivalent to `new(0, 0, 0)`
+    def initialize()
+      @x = @y = @z = T.zero
+    end
     # Construct the vector from its coordinates.
     def initialize(@x : T, @y : T, @z : T)
     end
@@ -208,6 +216,39 @@ module SF
       when 2; @z
       else; raise IndexError.new
       end
+    end
+
+    # Memberwise addition of two vectors
+    def +(other)
+      ox, oy, oz = other
+      SF.vector3(x + ox, y + oy, z + oz)
+    end
+    # Memberwise subtraction of two vectors
+    def -(other)
+      ox, oy, oz = other
+      SF.vector3(x - ox, y - oy, z - oz)
+    end
+    # Memberwise opposite of the vector
+    def -()
+      SF.vector3(-x, -y, -z)
+    end
+    # Memberwise multiplication by a scalar
+    def *(n : Number)
+      SF.vector3(x * n, y * n, z * n)
+    end
+    # Memberwise division by a scalar
+    def /(n : Number)
+      SF.vector3(x / n, y / n, z / n)
+    end
+    # Returns true if all corresponding coordinates of two vectors are equal
+    def ==(other : Vector3)
+      ox, oy, oz = other
+      x == ox && y == oy && z == oz
+    end
+
+    # :nodoc:
+    def to_unsafe()
+      pointerof(@x).as(Void*)
     end
   end
 
