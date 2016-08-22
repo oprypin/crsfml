@@ -1000,6 +1000,10 @@ class CFunction < CItem
         return
       when "wchar_t", "std::wstring", "std::ostream"
         return
+      when "char"
+        if param.type.pointer > 0
+          cr_type = "String"
+        end
       else
         if %w[std::size_t Int64 Uint64].includes?(type.full_name(Context::CPPSource)) && (
           (param.name(Context::Crystal).ends_with?("_count") && cr_args[-1].starts_with?(cr_arg[0...4])) ||
