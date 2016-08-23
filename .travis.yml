@@ -12,13 +12,14 @@ before_install:
     cd ..
 script:
   - |
-    cmake . && make
+    cmake . && make &&
     export LIBRARY_PATH="$PWD/voidcsfml/lib"
   - crystal doc
   - |
     cd examples
     for f in *.cr; do
-        crystal build "$f"
+        crystal build "$f" || error=true
     done
+    test -z $error
 sudo: required
 dist: trusty
