@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 2.8.11)
 
-
-# project name
 project(VoidCSFML)
 
 add_custom_target(VoidCSFML ALL)
@@ -237,9 +235,19 @@ if(SFML_OS_WINDOWS)
     endif()
 endif()
 
-find_package(SFML 2 COMPONENTS system window graphics audio network REQUIRED)
-include_directories(${SFML_INCLUDE_DIR})
+list(APPEND CMAKE_MODULE_PATH "/usr/local/share/SFML/cmake/Modules")
+list(APPEND CMAKE_MODULE_PATH "/usr/local/opt/sfml/share/SFML/cmake/Modules") # Homebrew
 
+find_package(SFML 2.4
+    COMPONENTS system window graphics audio network REQUIRED
+)
+if(NOT "2.4.0" STREQUAL "${SFML_VERSION_MAJOR}.${SFML_VERSION_MINOR}.${SFML_VERSION_PATCH}")
+    message(WARNING
+        "Expecting SFML 2.4.0, "
+        "found SFML ${SFML_VERSION_MAJOR}.${SFML_VERSION_MINOR}.${SFML_VERSION_PATCH}"
+    )
+endif()
+include_directories(${SFML_INCLUDE_DIR})
 
 
 voidcsfml_add_library(system)

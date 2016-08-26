@@ -41,7 +41,7 @@ void context_getsettings(void* self, void* result) {
     *(ContextSettings*)result = ((Context*)self)->getSettings();
 }
 void context_isextensionavailable_Yy6(char* name, unsigned char* result) {
-    *(bool*)result = Context::isExtensionAvailable((char const*)name);
+    *(bool*)result = Context::isExtensionAvailable(name);
 }
 void context_getactivecontext(void** result) {
     *(Context**)result = const_cast<Context*>(Context::getActiveContext());

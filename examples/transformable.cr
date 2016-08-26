@@ -1,14 +1,13 @@
 require "crsfml"
 
 
-$font : SF::Font
-$font = SF::Font.from_file("resources/font/Ubuntu-R.ttf")
+FONT = SF::Font.from_file("resources/font/Cantarell-Regular.otf")
 
 class Logo < SF::Transformable
   include SF::Drawable
 
-  def initialize(message="CrSFML")
-    @text = SF::Text.new(message, $font, 200)
+  def initialize(message = "CrSFML")
+    @text = SF::Text.new(message, FONT, 200)
     bounds = @text.local_bounds
     @shape = SF::RectangleShape.new(SF.vector2(bounds.width*1.2, bounds.height*2))
     @shape.fill_color = SF.color(0, 0, 128)
@@ -16,7 +15,7 @@ class Logo < SF::Transformable
     @text.origin = SF.vector2(bounds.width / 2, bounds.height * 0.8)
   end
 
-  def draw(target, states : SF::RenderStates)
+  def draw(target, states)
     states.transform *= transform
     target.draw(@shape, states)
     target.draw(@text, states)

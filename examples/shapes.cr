@@ -35,24 +35,24 @@ while window.open?
 
   # Top left
   vertex_array = SF::VertexArray.new(SF::Triangles)
-  vertex_array.append SF::Vertex.new(SF.vector2(0, 0), SF::Color::Green)
-  vertex_array.append SF::Vertex.new(SF.vector2(100, 0), SF::Color::Red)
-  vertex_array.append SF::Vertex.new(SF.vector2(0, 100), SF::Color::Blue)
+  vertex_array.append SF::Vertex.new({0, 0}, SF::Color::Green)
+  vertex_array.append SF::Vertex.new({100, 0}, SF::Color::Red)
+  vertex_array.append SF::Vertex.new({0, 100}, SF::Color::Blue)
   window.draw vertex_array
 
   # Top right
   vertices = [
-      SF::Vertex.new(SF.vector2(200, 0), SF::Color::Green),
-      SF::Vertex.new(SF.vector2(100, 0), SF::Color::Red),
-      SF::Vertex.new(SF.vector2(200, 100), SF::Color::Blue),
+      SF::Vertex.new({200, 0}, SF::Color::Green),
+      SF::Vertex.new({100, 0}, SF::Color::Red),
+      SF::Vertex.new({200, 100}, SF::Color::Blue),
   ]
   window.draw vertices, SF::Triangles
 
   # Bottom left
   convex_shape = SF::ConvexShape.new(3)
-  convex_shape[0] = SF.vector2(0, 200)
-  convex_shape[1] = SF.vector2(100, 200)
-  convex_shape[2] = SF.vector2(0, 100)
+  convex_shape[0] = {0, 200}
+  convex_shape[1] = {100, 200}
+  convex_shape[2] = {0, 100}
   convex_shape.fill_color = SF::Color::Green
   window.draw convex_shape
 

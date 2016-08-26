@@ -83,12 +83,6 @@ export LD_LIBRARY_PATH="$LIBRARY_PATH"
 
 If *SFML* is installed in an unusual location, some additional work needs to be done when compiling *VoidCSFML*. At the very least, it needs to find the file *SFML/cmake/Modules/FindSFML.cmake*. So specify the full path to the folder that contains it.
 
-On Linux, if SFML is installed to */usr/local* (which is the default when installing from source), run CMake like this:
-
-```bash
-cmake -DCMAKE_MODULE_PATH=/usr/local/share/SFML/cmake/Modules . && make
-```
-
 On Mac, if SFML is installed through [Homebrew][], CMake must be run like this:
 
 ```bash

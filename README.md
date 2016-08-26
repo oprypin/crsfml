@@ -17,7 +17,7 @@ Documentation
 Introduction
 ------------
 
-**Note to existing users**: *CrSFML* has been recently rewritten from scratch. *CrSFML* releases since 2.4 have an entirely different installation procedure, and multiple important API changes.
+**Note to existing users**: *CrSFML* has been recently rewritten from scratch. *CrSFML* releases since 2.4 have an entirely different installation procedure, and multiple important API changes. See the [release notes][releases] for information.
 
 *CrSFML* is a library that allows SFML to be used with the Crystal programming language. [SFML][] is a library written in C++, so *CrSFML* also needs to ship C bindings to SFML, called *VoidCSFML*.
 
@@ -55,7 +55,7 @@ Note that using [Shards][] is not enough to install *CrSFML*.
 
 This section defines two sets of step-by-step instructions to install *CrSFML* but these are not the only ways to do it; they can even be mixed (see [VoidCSFML installation instructions](voidcsfml/README.md#installation) for an alternative look)
 
-- [Approach 1](#approach-1): Generate latest *CrSFML* and *VoidCSFML* source code "from scratch"; build and use them from a local directory
+- [Approach 1](#approach-1): Generate latest *CrSFML* and *VoidCSFML* source code; build and use them from a local directory
     - Advantages:
         - The bindings can be fine-tuned to your system.
         - Supports multiple recent [SFML versions](#install-sfml).
@@ -65,7 +65,7 @@ This section defines two sets of step-by-step instructions to install *CrSFML* b
         - Can't install *CrSFML* directly though [shards][].
 - [Approach 2](#approach-2): Use pre-compiled sources; build *VoidCSFML* and install it globally; install a release of *CrSFML* through [shards][]
     - Advantages:
-        - Easier installation.
+        - Convenient installation.
     - Disadvantages:
         - Tied to a particular version of SFML (only SFML 2.4 right now).
         - Although sizes of SFML objects seem to always be of equal or smaller sizes than on Linux 64-bit with latest GCC (where the sources are generated), this is not completely guaranteed. So, in case of a mismatch, data may be written outside of the memory region allocated for an object.
@@ -97,7 +97,7 @@ brew update
 brew install sfml
 ```
 
-It can also be installed by copying binaries, as described in [official instructions][sfml-install], or by building from source in the same way as on [Linux](#linux).
+It can also be installed by copying binaries, as described in [official instructions][sfml-install], or by building from source in the same way as [on Linux](#linux).
 
 
 ### Approach 1
@@ -119,7 +119,7 @@ cd crsfml
 cmake . && make
 ```
 
-**Optional:** [out-of-source builds][] are also supported, but note that even the sources go to the build directory, so you need perform all the following steps inside the build directory and not the root *crsfml* directory.
+**Optional:** [out-of-source builds][] are also supported, but note that even the sources go to the build directory, so you would need perform all the following steps inside the build directory and not the root *crsfml* directory.
 
 If ran successfully, this generates all the source files for *VoidCSFML* and *CrSFML*, and also compiles *VoidCSFML*.
 
@@ -130,8 +130,8 @@ If SFML can't be found, make sure it is installed and consult the [CMake options
 The *voidcsfml/lib* folder contains the dynamic libraries that are needed to run any *CrSFML* program. So you need to configure the full path to them whenever you work with *CrSFML* so the linker can find them. To apply these for the current shell session, run:
 
 ```bash
-export LIBRARY_PATH=/full/path/to/crsfml/voidcsfml/lib
-export LD_LIBRARY_PATH="$LIBRARY_PATH"
+export LIBRARY_PATH=/full/path/to/crsfml/voidcsfml/lib  # Used during linking
+export LD_LIBRARY_PATH="$LIBRARY_PATH"                  # Used when running a binary
 
 # Try running an example:
 cd examples
@@ -151,6 +151,8 @@ ln -s /full/path/to/crsfml/src libs/crsfml
 echo 'require "crsfml"' >> my_project.cr
 crystal my_project.cr
 ```
+
+Now you're ready for the [tutorials][]!
 
 ### Approach 2
 
@@ -183,6 +185,7 @@ Create a shard.yml file in your project's folder (or add to it) with the followi
 
 ```yaml
 name: awesome-game
+version: 0.1.0
 
 dependencies:
   crsfml:
@@ -201,6 +204,8 @@ crystal deps
 echo 'require "crsfml"' >> awesome_game.cr
 crystal awesome_game.cr
 ```
+
+Now you're ready for the [tutorials][]!
 
 
 Credits

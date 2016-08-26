@@ -9,5 +9,6 @@ while window.open?
       window.close()
     end
   end
+  # Nothing is drawn, so the window may be blank or even garbled
   window.display()
 end

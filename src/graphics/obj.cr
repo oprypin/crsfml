@@ -6,8 +6,6 @@ module SF
   extend self
   # Blending modes for drawing
   #
-  #
-  #
   # `SF::BlendMode` is a class that represents a blend mode. A blend
   # mode determines how the colors of an object you draw are
   # mixed with the colors that are already in the buffer.
@@ -67,7 +65,7 @@ module SF
     # Enumeration of the blending factors
     #
     # The factors are mapped directly to their OpenGL equivalents,
-    # specified by glBlendFunc() or glBlendFuncSeparate().
+    # specified by gl_blend_func() or gl_blend_func_separate().
     enum Factor
       # (0, 0, 0, 0)
       Zero
@@ -94,7 +92,7 @@ module SF
     # Enumeration of the blending equations
     #
     # The equations are mapped directly to their OpenGL equivalents,
-    # specified by glBlendEquation() or glBlendEquationSeparate().
+    # specified by gl_blend_equation() or gl_blend_equation_separate().
     enum Equation
       # Pixel = Src * SrcFactor + Dst * DstFactor
       Add
@@ -198,7 +196,6 @@ module SF
     def alpha_equation=(alpha_equation : BlendMode::Equation)
       @alpha_equation = alpha_equation
     end
-    #
     # Overload of the == operator
     #
     # * *left* -  Left operand
@@ -209,7 +206,6 @@ module SF
       VoidCSFML.operator_eq_PG5PG5(to_unsafe, right, out result)
       return result
     end
-    #
     # Overload of the != operator
     #
     # * *left* -  Left operand
@@ -240,8 +236,6 @@ module SF
     end
   end
   # Define a 3x3 transform matrix
-  #
-  #
   #
   # A `SF::Transform` specifies how to translate, rotate, scale,
   # shear, project, whatever things. In mathematical terms, it defines
@@ -393,7 +387,7 @@ module SF
     #
     # *Returns:* Reference to *this
     #
-    # *See also:* rotate, scale
+    # *See also:* `rotate`, `scale`
     def translate(x : Number, y : Number) : Transform
       result = Transform.allocate
       VoidCSFML.transform_translate_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y), result)
@@ -412,7 +406,7 @@ module SF
     #
     # *Returns:* Reference to *this
     #
-    # *See also:* rotate, scale
+    # *See also:* `rotate`, `scale`
     def translate(offset : Vector2|Tuple) : Transform
       result = Transform.allocate
       offset = Vector2f.new(offset[0].to_f32, offset[1].to_f32)
@@ -432,7 +426,7 @@ module SF
     #
     # *Returns:* Reference to *this
     #
-    # *See also:* translate, scale
+    # *See also:* `translate`, `scale`
     def rotate(angle : Number) : Transform
       result = Transform.allocate
       VoidCSFML.transform_rotate_Bw9(to_unsafe, LibC::Float.new(angle), result)
@@ -458,7 +452,7 @@ module SF
     #
     # *Returns:* Reference to *this
     #
-    # *See also:* translate, scale
+    # *See also:* `translate`, `scale`
     def rotate(angle : Number, center_x : Number, center_y : Number) : Transform
       result = Transform.allocate
       VoidCSFML.transform_rotate_Bw9Bw9Bw9(to_unsafe, LibC::Float.new(angle), LibC::Float.new(center_x), LibC::Float.new(center_y), result)
@@ -483,7 +477,7 @@ module SF
     #
     # *Returns:* Reference to *this
     #
-    # *See also:* translate, scale
+    # *See also:* `translate`, `scale`
     def rotate(angle : Number, center : Vector2|Tuple) : Transform
       result = Transform.allocate
       center = Vector2f.new(center[0].to_f32, center[1].to_f32)
@@ -504,7 +498,7 @@ module SF
     #
     # *Returns:* Reference to *this
     #
-    # *See also:* translate, rotate
+    # *See also:* `translate`, `rotate`
     def scale(scale_x : Number, scale_y : Number) : Transform
       result = Transform.allocate
       VoidCSFML.transform_scale_Bw9Bw9(to_unsafe, LibC::Float.new(scale_x), LibC::Float.new(scale_y), result)
@@ -531,7 +525,7 @@ module SF
     #
     # *Returns:* Reference to *this
     #
-    # *See also:* translate, rotate
+    # *See also:* `translate`, `rotate`
     def scale(scale_x : Number, scale_y : Number, center_x : Number, center_y : Number) : Transform
       result = Transform.allocate
       VoidCSFML.transform_scale_Bw9Bw9Bw9Bw9(to_unsafe, LibC::Float.new(scale_x), LibC::Float.new(scale_y), LibC::Float.new(center_x), LibC::Float.new(center_y), result)
@@ -550,7 +544,7 @@ module SF
     #
     # *Returns:* Reference to *this
     #
-    # *See also:* translate, rotate
+    # *See also:* `translate`, `rotate`
     def scale(factors : Vector2|Tuple) : Transform
       result = Transform.allocate
       factors = Vector2f.new(factors[0].to_f32, factors[1].to_f32)
@@ -576,7 +570,7 @@ module SF
     #
     # *Returns:* Reference to *this
     #
-    # *See also:* translate, rotate
+    # *See also:* `translate`, `rotate`
     def scale(factors : Vector2|Tuple, center : Vector2|Tuple) : Transform
       result = Transform.allocate
       factors = Vector2f.new(factors[0].to_f32, factors[1].to_f32)
@@ -585,7 +579,6 @@ module SF
       return result
     end
     @m_matrix : LibC::Float[16]
-    #
     # Overload of binary operator * to combine two transforms
     #
     # This call is equivalent to calling Transform(left).combine(right).
@@ -599,10 +592,9 @@ module SF
       VoidCSFML.operator_mul_FPeFPe(to_unsafe, right, result)
       return result
     end
-    #
     # Overload of binary operator * to transform a point
     #
-    # This call is equivalent to calling left.transformPoint(right).
+    # This call is equivalent to calling left.transform_point(right).
     #
     # * *left* - Left operand (the transform)
     # * *right* - Right operand (the point to transform)
@@ -629,8 +621,6 @@ module SF
     end
   end
   # Define the states used for drawing to a RenderTarget
-  #
-  #
   #
   # There are four global states that can be applied to
   # the drawn objects:
@@ -808,8 +798,6 @@ module SF
   # Abstract base class for objects that can be drawn
   #        to a render target
   #
-  #
-  #
   # `SF::Drawable` is a very simple base class that allows objects
   # of derived classes to be drawn to a `SF::RenderTarget`.
   #
@@ -856,8 +844,6 @@ module SF
   module Drawable
   end
   # Decomposed transform defined by a position, a rotation and a scale
-  #
-  #
   #
   # This class is provided for convenience, on top of `SF::Transform`.
   #
@@ -968,7 +954,7 @@ module SF
     # * *x* - X coordinate of the new position
     # * *y* - Y coordinate of the new position
     #
-    # *See also:* move, getPosition
+    # *See also:* `move`, `position`
     def set_position(x : Number, y : Number)
       VoidCSFML.transformable_setposition_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y))
     end
@@ -980,7 +966,7 @@ module SF
     #
     # * *position* - New position
     #
-    # *See also:* move, getPosition
+    # *See also:* `move`, `position`
     def position=(position : Vector2|Tuple)
       position = Vector2f.new(position[0].to_f32, position[1].to_f32)
       VoidCSFML.transformable_setposition_UU2(to_unsafe, position)
@@ -993,7 +979,7 @@ module SF
     #
     # * *angle* - New rotation, in degrees
     #
-    # *See also:* rotate, getRotation
+    # *See also:* `rotate`, `rotation`
     def rotation=(angle : Number)
       VoidCSFML.transformable_setrotation_Bw9(to_unsafe, LibC::Float.new(angle))
     end
@@ -1006,7 +992,7 @@ module SF
     # * *factor_x* - New horizontal scale factor
     # * *factor_y* - New vertical scale factor
     #
-    # *See also:* scale, getScale
+    # *See also:* `scale`, `scale`
     def set_scale(factor_x : Number, factor_y : Number)
       VoidCSFML.transformable_setscale_Bw9Bw9(to_unsafe, LibC::Float.new(factor_x), LibC::Float.new(factor_y))
     end
@@ -1018,7 +1004,7 @@ module SF
     #
     # * *factors* - New scale factors
     #
-    # *See also:* scale, getScale
+    # *See also:* `scale`, `scale`
     def scale=(factors : Vector2|Tuple)
       factors = Vector2f.new(factors[0].to_f32, factors[1].to_f32)
       VoidCSFML.transformable_setscale_UU2(to_unsafe, factors)
@@ -1035,7 +1021,7 @@ module SF
     # * *x* - X coordinate of the new origin
     # * *y* - Y coordinate of the new origin
     #
-    # *See also:* getOrigin
+    # *See also:* `origin`
     def set_origin(x : Number, y : Number)
       VoidCSFML.transformable_setorigin_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y))
     end
@@ -1050,7 +1036,7 @@ module SF
     #
     # * *origin* - New origin
     #
-    # *See also:* getOrigin
+    # *See also:* `origin`
     def origin=(origin : Vector2|Tuple)
       origin = Vector2f.new(origin[0].to_f32, origin[1].to_f32)
       VoidCSFML.transformable_setorigin_UU2(to_unsafe, origin)
@@ -1059,7 +1045,7 @@ module SF
     #
     # *Returns:* Current position
     #
-    # *See also:* setPosition
+    # *See also:* `position=`
     def position() : Vector2f
       result = Vector2f.allocate
       VoidCSFML.transformable_getposition(to_unsafe, result)
@@ -1071,7 +1057,7 @@ module SF
     #
     # *Returns:* Current rotation, in degrees
     #
-    # *See also:* setRotation
+    # *See also:* `rotation=`
     def rotation() : Float32
       VoidCSFML.transformable_getrotation(to_unsafe, out result)
       return result
@@ -1080,7 +1066,7 @@ module SF
     #
     # *Returns:* Current scale factors
     #
-    # *See also:* setScale
+    # *See also:* `scale=`
     def scale() : Vector2f
       result = Vector2f.allocate
       VoidCSFML.transformable_getscale(to_unsafe, result)
@@ -1090,7 +1076,7 @@ module SF
     #
     # *Returns:* Current origin
     #
-    # *See also:* setOrigin
+    # *See also:* `origin=`
     def origin() : Vector2f
       result = Vector2f.allocate
       VoidCSFML.transformable_getorigin(to_unsafe, result)
@@ -1099,7 +1085,7 @@ module SF
     # Move the object by a given offset
     #
     # This function adds to the current position of the object,
-    # unlike setPosition which overwrites it.
+    # unlike position= which overwrites it.
     # Thus, it is equivalent to the following code:
     # ```c++
     # sf::Vector2f pos = object.getPosition();
@@ -1109,14 +1095,14 @@ module SF
     # * *offset_x* - X offset
     # * *offset_y* - Y offset
     #
-    # *See also:* setPosition
+    # *See also:* `position=`
     def move(offset_x : Number, offset_y : Number)
       VoidCSFML.transformable_move_Bw9Bw9(to_unsafe, LibC::Float.new(offset_x), LibC::Float.new(offset_y))
     end
     # Move the object by a given offset
     #
     # This function adds to the current position of the object,
-    # unlike setPosition which overwrites it.
+    # unlike position= which overwrites it.
     # Thus, it is equivalent to the following code:
     # ```c++
     # object.setPosition(object.getPosition() + offset);
@@ -1124,7 +1110,7 @@ module SF
     #
     # * *offset* - Offset
     #
-    # *See also:* setPosition
+    # *See also:* `position=`
     def move(offset : Vector2|Tuple)
       offset = Vector2f.new(offset[0].to_f32, offset[1].to_f32)
       VoidCSFML.transformable_move_UU2(to_unsafe, offset)
@@ -1132,7 +1118,7 @@ module SF
     # Rotate the object
     #
     # This function adds to the current rotation of the object,
-    # unlike setRotation which overwrites it.
+    # unlike rotation= which overwrites it.
     # Thus, it is equivalent to the following code:
     # ```c++
     # object.setRotation(object.getRotation() + angle);
@@ -1145,7 +1131,7 @@ module SF
     # Scale the object
     #
     # This function multiplies the current scale of the object,
-    # unlike setScale which overwrites it.
+    # unlike scale= which overwrites it.
     # Thus, it is equivalent to the following code:
     # ```c++
     # sf::Vector2f scale = object.getScale();
@@ -1155,14 +1141,14 @@ module SF
     # * *factor_x* - Horizontal scale factor
     # * *factor_y* - Vertical scale factor
     #
-    # *See also:* setScale
+    # *See also:* `scale=`
     def scale(factor_x : Number, factor_y : Number)
       VoidCSFML.transformable_scale_Bw9Bw9(to_unsafe, LibC::Float.new(factor_x), LibC::Float.new(factor_y))
     end
     # Scale the object
     #
     # This function multiplies the current scale of the object,
-    # unlike setScale which overwrites it.
+    # unlike scale= which overwrites it.
     # Thus, it is equivalent to the following code:
     # ```c++
     # sf::Vector2f scale = object.getScale();
@@ -1171,7 +1157,7 @@ module SF
     #
     # * *factor* - Scale factors
     #
-    # *See also:* setScale
+    # *See also:* `scale=`
     def scale(factor : Vector2|Tuple)
       factor = Vector2f.new(factor[0].to_f32, factor[1].to_f32)
       VoidCSFML.transformable_scale_UU2(to_unsafe, factor)
@@ -1180,7 +1166,7 @@ module SF
     #
     # *Returns:* Transform combining the position/rotation/scale/origin of the object
     #
-    # *See also:* getInverseTransform
+    # *See also:* `inverse_transform`
     def transform() : Transform
       result = Transform.allocate
       VoidCSFML.transformable_gettransform(to_unsafe, result)
@@ -1190,7 +1176,7 @@ module SF
     #
     # *Returns:* Inverse of the combined transformations applied to the object
     #
-    # *See also:* getTransform
+    # *See also:* `transform`
     def inverse_transform() : Transform
       result = Transform.allocate
       VoidCSFML.transformable_getinversetransform(to_unsafe, result)
@@ -1215,8 +1201,6 @@ module SF
     end
   end
   # Utility class for manipulating RGBA colors
-  #
-  #
   #
   # `SF::Color` is a simple color class composed of 4 components:
   # * Red
@@ -1333,7 +1317,6 @@ module SF
     def a=(a : Int)
       @a = UInt8.new(a)
     end
-    #
     # Overload of the == operator
     #
     # This operator compares two colors and check if they are equal.
@@ -1346,7 +1329,6 @@ module SF
       VoidCSFML.operator_eq_QVeQVe(to_unsafe, right, out result)
       return result
     end
-    #
     # Overload of the != operator
     #
     # This operator compares two colors and check if they are different.
@@ -1359,7 +1341,6 @@ module SF
       VoidCSFML.operator_ne_QVeQVe(to_unsafe, right, out result)
       return result
     end
-    #
     # Overload of the binary + operator
     #
     # This operator returns the component-wise sum of two colors.
@@ -1374,7 +1355,6 @@ module SF
       VoidCSFML.operator_add_QVeQVe(to_unsafe, right, result)
       return result
     end
-    #
     # Overload of the binary - operator
     #
     # This operator returns the component-wise subtraction of two colors.
@@ -1389,7 +1369,6 @@ module SF
       VoidCSFML.operator_sub_QVeQVe(to_unsafe, right, result)
       return result
     end
-    #
     # Overload of the binary * operator
     #
     # This operator returns the component-wise multiplication
@@ -1424,8 +1403,6 @@ module SF
     end
   end
   # Define a point with color and texture coordinates
-  #
-  #
   #
   # A vertex is an improved point. It has a position and other
   # extra attributes that will be used for drawing: in SFML,
@@ -1567,7 +1544,6 @@ module SF
       return typeof(self).new(self)
     end
   end
-  #
   # Types of primitives that a `SF::VertexArray` can render
   #
   # Points and lines have no area, therefore their thickness
@@ -1597,8 +1573,6 @@ module SF
   end
   _sf_enum PrimitiveType
   # Define a set of one or more 2D primitives
-  #
-  #
   #
   # `SF::VertexArray` is a very simple wrapper around a dynamic
   # array of vertices and a primitives type.
@@ -1645,28 +1619,28 @@ module SF
     # Get a read-write access to a vertex by its index
     #
     # This function doesn't check *index,* it must be in range
-    # [0, getVertexCount() - 1]. The behavior is undefined
+    # [0, vertex_count() - 1]. The behavior is undefined
     # otherwise.
     #
     # * *index* - Index of the vertex to get
     #
     # *Returns:* Reference to the index-th vertex
     #
-    # *See also:* getVertexCount
+    # *See also:* `vertex_count`
     def []=(index : Int, value : Vertex)
       VoidCSFML.vertexarray_operator_indexset_vgvRos(to_unsafe, LibC::SizeT.new(index), value)
     end
     # Get a read-only access to a vertex by its index
     #
     # This function doesn't check *index,* it must be in range
-    # [0, getVertexCount() - 1]. The behavior is undefined
+    # [0, vertex_count() - 1]. The behavior is undefined
     # otherwise.
     #
     # * *index* - Index of the vertex to get
     #
     # *Returns:* Const reference to the index-th vertex
     #
-    # *See also:* getVertexCount
+    # *See also:* `vertex_count`
     def [](index : Int) : Vertex
       result = Vertex.allocate
       VoidCSFML.vertexarray_operator_index_vgv(to_unsafe, LibC::SizeT.new(index), result)
@@ -1772,8 +1746,6 @@ module SF
   }
   # Base class for textured shapes with outline
   #
-  #
-  #
   # `SF::Shape` is a drawable class that allows to define and
   # display a custom convex shape on a render target.
   # It's only an abstract base, it needs to be specialized for
@@ -1795,8 +1767,8 @@ module SF
   #
   # You can write your own derived shape class, there are only
   # two virtual functions to override:
-  # * getPointCount must return the number of points of the shape
-  # * getPoint must return the points of the shape
+  # * point_count must return the number of points of the shape
+  # * point must return the points of the shape
   #
   # *See also:* `SF::RectangleShape`, `SF::CircleShape`, `SF::ConvexShape`, `SF::Transformable`
   abstract class Shape < Transformable
@@ -1821,7 +1793,7 @@ module SF
     # * *texture* -   New texture
     # * *reset_rect* - Should the texture rect be reset to the size of the new texture?
     #
-    # *See also:* getTexture, setTextureRect
+    # *See also:* `texture`, `texture_rect=`
     def set_texture(texture : Texture?, reset_rect : Bool = false)
       @_shape_texture = texture
       VoidCSFML.shape_settexture_MXdGZq(to_unsafe, texture, reset_rect)
@@ -1835,7 +1807,7 @@ module SF
     #
     # * *rect* - Rectangle defining the region of the texture to display
     #
-    # *See also:* getTextureRect, setTexture
+    # *See also:* `texture_rect`, `texture=`
     def texture_rect=(rect : IntRect)
       VoidCSFML.shape_settexturerect_2k1(to_unsafe, rect)
     end
@@ -1850,7 +1822,7 @@ module SF
     #
     # * *color* - New color of the shape
     #
-    # *See also:* getFillColor, setOutlineColor
+    # *See also:* `fill_color`, `outline_color=`
     def fill_color=(color : Color)
       VoidCSFML.shape_setfillcolor_QVe(to_unsafe, color)
     end
@@ -1860,7 +1832,7 @@ module SF
     #
     # * *color* - New outline color of the shape
     #
-    # *See also:* getOutlineColor, setFillColor
+    # *See also:* `outline_color`, `fill_color=`
     def outline_color=(color : Color)
       VoidCSFML.shape_setoutlinecolor_QVe(to_unsafe, color)
     end
@@ -1873,7 +1845,7 @@ module SF
     #
     # * *thickness* - New outline thickness
     #
-    # *See also:* getOutlineThickness
+    # *See also:* `outline_thickness`
     def outline_thickness=(thickness : Number)
       VoidCSFML.shape_setoutlinethickness_Bw9(to_unsafe, LibC::Float.new(thickness))
     end
@@ -1885,7 +1857,7 @@ module SF
     #
     # *Returns:* Pointer to the shape's texture
     #
-    # *See also:* setTexture
+    # *See also:* `texture=`
     def texture() : Texture?
       return @_shape_texture
     end
@@ -1893,7 +1865,7 @@ module SF
     #
     # *Returns:* Texture rectangle of the shape
     #
-    # *See also:* setTextureRect
+    # *See also:* `texture_rect=`
     def texture_rect() : IntRect
       result = IntRect.allocate
       VoidCSFML.shape_gettexturerect(to_unsafe, result)
@@ -1903,7 +1875,7 @@ module SF
     #
     # *Returns:* Fill color of the shape
     #
-    # *See also:* setFillColor
+    # *See also:* `fill_color=`
     def fill_color() : Color
       result = Color.allocate
       VoidCSFML.shape_getfillcolor(to_unsafe, result)
@@ -1913,7 +1885,7 @@ module SF
     #
     # *Returns:* Outline color of the shape
     #
-    # *See also:* setOutlineColor
+    # *See also:* `outline_color=`
     def outline_color() : Color
       result = Color.allocate
       VoidCSFML.shape_getoutlinecolor(to_unsafe, result)
@@ -1923,7 +1895,7 @@ module SF
     #
     # *Returns:* Outline thickness of the shape
     #
-    # *See also:* setOutlineThickness
+    # *See also:* `outline_thickness=`
     def outline_thickness() : Float32
       VoidCSFML.shape_getoutlinethickness(to_unsafe, out result)
       return result
@@ -1932,7 +1904,7 @@ module SF
     #
     # *Returns:* Number of points of the shape
     #
-    # *See also:* getPoint
+    # *See also:* `point`
     abstract def point_count() : LibC::SizeT
     # Get a point of the shape
     #
@@ -1941,11 +1913,11 @@ module SF
     # not taken into account.
     # The result is undefined if *index* is out of the valid range.
     #
-    # * *index* - Index of the point to get, in range [0 .. getPointCount() - 1]
+    # * *index* - Index of the point to get, in range [0 .. point_count() - 1]
     #
     # *Returns:* index-th point of the shape
     #
-    # *See also:* getPointCount
+    # *See also:* `point_count`
     abstract def get_point(index : Int) : Vector2f
     # Get the local bounding rectangle of the entity
     #
@@ -1993,7 +1965,7 @@ module SF
     #
     # This function must be called by the derived class everytime
     # the shape's points change (i.e. the result of either
-    # getPointCount or getPoint is different).
+    # point_count or point is different).
     def update()
       VoidCSFML.shape_update(to_unsafe)
     end
@@ -2124,8 +2096,6 @@ module SF
   end
   # Specialized shape representing a circle
   #
-  #
-  #
   # This class inherits all the functions of `SF::Transformable`
   # (position, rotation, scale, bounds, ...) as well as the
   # functions of `SF::Shape` (outline, color, texture, ...).
@@ -2167,7 +2137,7 @@ module SF
     #
     # * *radius* - New radius of the circle
     #
-    # *See also:* getRadius
+    # *See also:* `radius`
     def radius=(radius : Number)
       VoidCSFML.circleshape_setradius_Bw9(to_unsafe, LibC::Float.new(radius))
     end
@@ -2175,7 +2145,7 @@ module SF
     #
     # *Returns:* Radius of the circle
     #
-    # *See also:* setRadius
+    # *See also:* `radius=`
     def radius() : Float32
       VoidCSFML.circleshape_getradius(to_unsafe, out result)
       return result
@@ -2184,7 +2154,7 @@ module SF
     #
     # * *count* - New number of points of the circle
     #
-    # *See also:* getPointCount
+    # *See also:* `point_count`
     def point_count=(count : Int)
       VoidCSFML.circleshape_setpointcount_vgv(to_unsafe, LibC::SizeT.new(count))
     end
@@ -2192,7 +2162,7 @@ module SF
     #
     # *Returns:* Number of points of the circle
     #
-    # *See also:* setPointCount
+    # *See also:* `point_count=`
     def point_count() : LibC::SizeT
       VoidCSFML.circleshape_getpointcount(to_unsafe, out result)
       return result
@@ -2204,7 +2174,7 @@ module SF
     # not taken into account.
     # The result is undefined if *index* is out of the valid range.
     #
-    # * *index* - Index of the point to get, in range [0 .. getPointCount() - 1]
+    # * *index* - Index of the point to get, in range [0 .. point_count() - 1]
     #
     # *Returns:* index-th point of the shape
     def get_point(index : Int) : Vector2f
@@ -2395,8 +2365,6 @@ module SF
   end
   # Specialized shape representing a convex polygon
   #
-  #
-  #
   # This class inherits all the functions of `SF::Transformable`
   # (position, rotation, scale, bounds, ...) as well as the
   # functions of `SF::Shape` (outline, color, texture, ...).
@@ -2438,7 +2406,7 @@ module SF
     #
     # * *count* - New number of points of the polygon
     #
-    # *See also:* getPointCount
+    # *See also:* `point_count`
     def point_count=(count : Int)
       VoidCSFML.convexshape_setpointcount_vgv(to_unsafe, LibC::SizeT.new(count))
     end
@@ -2446,7 +2414,7 @@ module SF
     #
     # *Returns:* Number of points of the polygon
     #
-    # *See also:* setPointCount
+    # *See also:* `point_count=`
     def point_count() : LibC::SizeT
       VoidCSFML.convexshape_getpointcount(to_unsafe, out result)
       return result
@@ -2455,14 +2423,14 @@ module SF
     #
     # Don't forget that the polygon must remain convex, and
     # the points need to stay ordered!
-    # setPointCount must be called first in order to set the total
+    # point_count= must be called first in order to set the total
     # number of points. The result is undefined if *index* is out
     # of the valid range.
     #
-    # * *index* - Index of the point to change, in range [0 .. getPointCount() - 1]
+    # * *index* - Index of the point to change, in range [0 .. point_count() - 1]
     # * *point* - New position of the point
     #
-    # *See also:* getPoint
+    # *See also:* `point`
     def set_point(index : Int, point : Vector2|Tuple)
       point = Vector2f.new(point[0].to_f32, point[1].to_f32)
       VoidCSFML.convexshape_setpoint_vgvUU2(to_unsafe, LibC::SizeT.new(index), point)
@@ -2474,11 +2442,11 @@ module SF
     # not taken into account.
     # The result is undefined if *index* is out of the valid range.
     #
-    # * *index* - Index of the point to get, in range [0 .. getPointCount() - 1]
+    # * *index* - Index of the point to get, in range [0 .. point_count() - 1]
     #
     # *Returns:* Position of the index-th point of the polygon
     #
-    # *See also:* setPoint
+    # *See also:* `point=`
     def get_point(index : Int) : Vector2f
       result = Vector2f.allocate
       VoidCSFML.convexshape_getpoint_vgv(to_unsafe, LibC::SizeT.new(index), result)
@@ -2667,10 +2635,6 @@ module SF
   end
   # Structure describing a glyph
   #
-  # Default constructor
-  #
-  #
-  #
   # A glyph is the visual representation of a character.
   #
   # The `SF::Glyph` structure provides the information needed
@@ -2681,15 +2645,16 @@ module SF
   #
   # *See also:* `SF::Font`
   struct Glyph
+    @advance : LibC::Float
+    @bounds : FloatRect
+    @texture_rect : IntRect
+    # Default constructor
     def initialize()
       @advance = uninitialized Float32
       @bounds = uninitialized FloatRect
       @texture_rect = uninitialized IntRect
       VoidCSFML.glyph_initialize(to_unsafe)
     end
-    @advance : LibC::Float
-    @bounds : FloatRect
-    @texture_rect : IntRect
     @advance : LibC::Float
     # Offset to move horizontally to the next character
     def advance : Float32
@@ -2732,8 +2697,6 @@ module SF
   end
   # Class for loading, manipulating and saving images
   #
-  #
-  #
   # `SF::Image` is an abstraction to manipulate images
   # as bidimensional arrays of pixels. The class provides
   # functions to load, read, write and save pixels, as well
@@ -2745,7 +2708,7 @@ module SF
   # channels -- just like a `SF::Color`.
   # All the functions that return an array of pixels follow
   # this rule, and all parameters that you pass to `SF::Image`
-  # functions (such as loadFromMemory) must use this
+  # functions (such as load_from_memory) must use this
   # representation as well.
   #
   # A `SF::Image` can be copied, but it is a heavy resource and
@@ -2834,7 +2797,7 @@ module SF
     #
     # *Returns:* True if loading was successful
     #
-    # *See also:* loadFromMemory, loadFromStream, saveToFile
+    # *See also:* `load_from_memory`, `load_from_stream`, `save_to_file`
     def load_from_file(filename : String) : Bool
       VoidCSFML.image_loadfromfile_zkC(to_unsafe, filename.bytesize, filename, out result)
       return result
@@ -2861,7 +2824,7 @@ module SF
     #
     # *Returns:* True if loading was successful
     #
-    # *See also:* loadFromFile, loadFromStream
+    # *See also:* `load_from_file`, `load_from_stream`
     def load_from_memory(data : Slice) : Bool
       VoidCSFML.image_loadfrommemory_5h8vgv(to_unsafe, data, data.bytesize, out result)
       return result
@@ -2887,7 +2850,7 @@ module SF
     #
     # *Returns:* True if loading was successful
     #
-    # *See also:* loadFromFile, loadFromMemory
+    # *See also:* `load_from_file`, `load_from_memory`
     def load_from_stream(stream : InputStream) : Bool
       VoidCSFML.image_loadfromstream_PO0(to_unsafe, stream, out result)
       return result
@@ -2913,7 +2876,7 @@ module SF
     #
     # *Returns:* True if saving was successful
     #
-    # *See also:* create, loadFromFile, loadFromMemory
+    # *See also:* `create`, `load_from_file`, `load_from_memory`
     def save_to_file(filename : String) : Bool
       VoidCSFML.image_savetofile_zkC(to_unsafe, filename.bytesize, filename, out result)
       return result
@@ -2967,7 +2930,7 @@ module SF
     # * *y* -     Y coordinate of pixel to change
     # * *color* - New color of the pixel
     #
-    # *See also:* getPixel
+    # *See also:* `pixel`
     def set_pixel(x : Int, y : Int, color : Color)
       VoidCSFML.image_setpixel_emSemSQVe(to_unsafe, LibC::UInt.new(x), LibC::UInt.new(y), color)
     end
@@ -2982,7 +2945,7 @@ module SF
     #
     # *Returns:* Color of the pixel at coordinates (x, y)
     #
-    # *See also:* setPixel
+    # *See also:* `pixel=`
     def get_pixel(x : Int, y : Int) : Color
       result = Color.allocate
       VoidCSFML.image_getpixel_emSemS(to_unsafe, LibC::UInt.new(x), LibC::UInt.new(y), result)
@@ -2992,7 +2955,7 @@ module SF
     #
     # The returned value points to an array of RGBA pixels made of
     # 8 bits integers components. The size of the array is
-    # width * height * 4 (getSize().x * getSize().y * 4).
+    # width * height * 4 (size().x * size().y * 4).
     # Warning: the returned pointer may become invalid if you
     # modify the image, so you should never store it for too long.
     # If the image is empty, a null pointer is returned.
@@ -3030,8 +2993,6 @@ module SF
   end
   # Image living on the graphics card that can be used for drawing
   #
-  #
-  #
   # `SF::Texture` stores pixels that can be drawn, with a sprite
   # for example. A texture lives in the graphics card memory,
   # therefore it is very fast to draw a texture to a render target,
@@ -3054,7 +3015,7 @@ module SF
   # However, if you want to perform some modifications on the pixels
   # before creating the final texture, you can load your file to a
   # `SF::Image`, do whatever you need with the pixels, and then call
-  # Texture::loadFromImage.
+  # Texture::load_from_image.
   #
   # Since they live in the graphics card memory, the pixels of a texture
   # cannot be accessed without a slow copy first. And they cannot be
@@ -3183,7 +3144,7 @@ module SF
     # is adjusted to fit the image size.
     #
     # The maximum size for a texture depends on the graphics
-    # driver and can be retrieved with the getMaximumSize function.
+    # driver and can be retrieved with the maximum_size function.
     #
     # If this function fails, the texture is left unchanged.
     #
@@ -3192,7 +3153,7 @@ module SF
     #
     # *Returns:* True if loading was successful
     #
-    # *See also:* loadFromMemory, loadFromStream, loadFromImage
+    # *See also:* `load_from_memory`, `load_from_stream`, `load_from_image`
     def load_from_file(filename : String, area : IntRect = IntRect.new()) : Bool
       VoidCSFML.texture_loadfromfile_zkC2k1(to_unsafe, filename.bytesize, filename, area, out result)
       return result
@@ -3223,7 +3184,7 @@ module SF
     # is adjusted to fit the image size.
     #
     # The maximum size for a texture depends on the graphics
-    # driver and can be retrieved with the getMaximumSize function.
+    # driver and can be retrieved with the maximum_size function.
     #
     # If this function fails, the texture is left unchanged.
     #
@@ -3233,7 +3194,7 @@ module SF
     #
     # *Returns:* True if loading was successful
     #
-    # *See also:* loadFromFile, loadFromStream, loadFromImage
+    # *See also:* `load_from_file`, `load_from_stream`, `load_from_image`
     def load_from_memory(data : Slice, area : IntRect = IntRect.new()) : Bool
       VoidCSFML.texture_loadfrommemory_5h8vgv2k1(to_unsafe, data, data.bytesize, area, out result)
       return result
@@ -3264,7 +3225,7 @@ module SF
     # is adjusted to fit the image size.
     #
     # The maximum size for a texture depends on the graphics
-    # driver and can be retrieved with the getMaximumSize function.
+    # driver and can be retrieved with the maximum_size function.
     #
     # If this function fails, the texture is left unchanged.
     #
@@ -3273,7 +3234,7 @@ module SF
     #
     # *Returns:* True if loading was successful
     #
-    # *See also:* loadFromFile, loadFromMemory, loadFromImage
+    # *See also:* `load_from_file`, `load_from_memory`, `load_from_image`
     def load_from_stream(stream : InputStream, area : IntRect = IntRect.new()) : Bool
       VoidCSFML.texture_loadfromstream_PO02k1(to_unsafe, stream, area, out result)
       return result
@@ -3297,7 +3258,7 @@ module SF
     # is adjusted to fit the image size.
     #
     # The maximum size for a texture depends on the graphics
-    # driver and can be retrieved with the getMaximumSize function.
+    # driver and can be retrieved with the maximum_size function.
     #
     # If this function fails, the texture is left unchanged.
     #
@@ -3306,7 +3267,7 @@ module SF
     #
     # *Returns:* True if loading was successful
     #
-    # *See also:* loadFromFile, loadFromMemory
+    # *See also:* `load_from_file`, `load_from_memory`
     def load_from_image(image : Image, area : IntRect = IntRect.new()) : Bool
       VoidCSFML.texture_loadfromimage_dpt2k1(to_unsafe, image, area, out result)
       return result
@@ -3338,7 +3299,7 @@ module SF
     #
     # *Returns:* Image containing the texture's pixels
     #
-    # *See also:* loadFromImage
+    # *See also:* `load_from_image`
     def copy_to_image() : Image
       result = Image.allocate
       VoidCSFML.texture_copytoimage(to_unsafe, result)
@@ -3456,7 +3417,7 @@ module SF
     #
     # * *smooth* - True to enable smoothing, false to disable it
     #
-    # *See also:* isSmooth
+    # *See also:* `smooth?`
     def smooth=(smooth : Bool)
       VoidCSFML.texture_setsmooth_GZq(to_unsafe, smooth)
     end
@@ -3464,7 +3425,7 @@ module SF
     #
     # *Returns:* True if smoothing is enabled, false if it is disabled
     #
-    # *See also:* setSmooth
+    # *See also:* `smooth=`
     def smooth?() : Bool
       VoidCSFML.texture_issmooth(to_unsafe, out result)
       return result
@@ -3488,7 +3449,7 @@ module SF
     #
     # * *s_rgb* - True to enable sRGB conversion, false to disable it
     #
-    # *See also:* isSrgb
+    # *See also:* `srgb?`
     def srgb=(s_rgb : Bool)
       VoidCSFML.texture_setsrgb_GZq(to_unsafe, s_rgb)
     end
@@ -3496,7 +3457,7 @@ module SF
     #
     # *Returns:* True if the texture source is converted from sRGB, false if not
     #
-    # *See also:* setSrgb
+    # *See also:* `srgb=`
     def srgb?() : Bool
       VoidCSFML.texture_issrgb(to_unsafe, out result)
       return result
@@ -3519,7 +3480,7 @@ module SF
     #
     # * *repeated* - True to repeat the texture, false to disable repeating
     #
-    # *See also:* isRepeated
+    # *See also:* `repeated?`
     def repeated=(repeated : Bool)
       VoidCSFML.texture_setrepeated_GZq(to_unsafe, repeated)
     end
@@ -3527,7 +3488,7 @@ module SF
     #
     # *Returns:* True if repeat mode is enabled, false if it is disabled
     #
-    # *See also:* setRepeated
+    # *See also:* `repeated=`
     def repeated?() : Bool
       VoidCSFML.texture_isrepeated(to_unsafe, out result)
       return result
@@ -3563,9 +3524,9 @@ module SF
     # or implement a temporary workaround until a bug is fixed.
     #
     # *Returns:* OpenGL handle of the texture or 0 if not yet created
-    def native_handle() : UInt32
+    def native_handle() : Int32
       VoidCSFML.texture_getnativehandle(to_unsafe, out result)
-      return result
+      return result.to_i
     end
     # Bind a texture for rendering
     #
@@ -3605,9 +3566,9 @@ module SF
     # card, and up to 8192 pixels or more for newer hardware.
     #
     # *Returns:* Maximum size allowed for textures, in pixels
-    def self.maximum_size() : UInt32
+    def self.maximum_size() : Int32
       VoidCSFML.texture_getmaximumsize(out result)
-      return result
+      return result.to_i
     end
     include GlResource
     # :nodoc:
@@ -3630,11 +3591,9 @@ module SF
   end
   # Class for loading and manipulating character fonts
   #
-  #
-  #
   # Fonts can be loaded from a file, from memory or from a custom
   # stream, and supports the most common types of fonts. See
-  # the loadFromFile function for the complete list of supported formats.
+  # the load_from_file function for the complete list of supported formats.
   #
   # Once it is loaded, a `SF::Font` instance provides three
   # types of information about the font:
@@ -3762,7 +3721,7 @@ module SF
     #
     # *Returns:* True if loading succeeded, false if it failed
     #
-    # *See also:* loadFromMemory, loadFromStream
+    # *See also:* `load_from_memory`, `load_from_stream`
     def load_from_file(filename : String) : Bool
       VoidCSFML.font_loadfromfile_zkC(to_unsafe, filename.bytesize, filename, out result)
       return result
@@ -3792,7 +3751,7 @@ module SF
     #
     # *Returns:* True if loading succeeded, false if it failed
     #
-    # *See also:* loadFromFile, loadFromStream
+    # *See also:* `load_from_file`, `load_from_stream`
     def load_from_memory(data : Slice) : Bool
       VoidCSFML.font_loadfrommemory_5h8vgv(to_unsafe, data, data.bytesize, out result)
       return result
@@ -3823,7 +3782,7 @@ module SF
     #
     # *Returns:* True if loading succeeded, false if it failed
     #
-    # *See also:* loadFromFile, loadFromMemory
+    # *See also:* `load_from_file`, `load_from_memory`
     def load_from_stream(stream : InputStream) : Bool
       VoidCSFML.font_loadfromstream_PO0(to_unsafe, stream, out result)
       return result
@@ -3903,7 +3862,7 @@ module SF
     #
     # *Returns:* Underline position, in pixels
     #
-    # *See also:* getUnderlineThickness
+    # *See also:* `underline_thickness`
     def get_underline_position(character_size : Int) : Float32
       VoidCSFML.font_getunderlineposition_emS(to_unsafe, LibC::UInt.new(character_size), out result)
       return result
@@ -3916,7 +3875,7 @@ module SF
     #
     # *Returns:* Underline thickness, in pixels
     #
-    # *See also:* getUnderlinePosition
+    # *See also:* `underline_position`
     def get_underline_thickness(character_size : Int) : Float32
       VoidCSFML.font_getunderlinethickness_emS(to_unsafe, LibC::UInt.new(character_size), out result)
       return result
@@ -3966,8 +3925,6 @@ module SF
   end
   # Specialized shape representing a rectangle
   #
-  #
-  #
   # This class inherits all the functions of `SF::Transformable`
   # (position, rotation, scale, bounds, ...) as well as the
   # functions of `SF::Shape` (outline, color, texture, ...).
@@ -4000,7 +3957,7 @@ module SF
     #
     # * *size* - New size of the rectangle
     #
-    # *See also:* getSize
+    # *See also:* `size`
     def size=(size : Vector2|Tuple)
       size = Vector2f.new(size[0].to_f32, size[1].to_f32)
       VoidCSFML.rectangleshape_setsize_UU2(to_unsafe, size)
@@ -4009,7 +3966,7 @@ module SF
     #
     # *Returns:* Size of the rectangle
     #
-    # *See also:* setSize
+    # *See also:* `size=`
     def size() : Vector2f
       result = Vector2f.allocate
       VoidCSFML.rectangleshape_getsize(to_unsafe, result)
@@ -4221,8 +4178,6 @@ module SF
   end
   # 2D camera that defines what region is shown on screen
   #
-  #
-  #
   # `SF::View` defines a camera in the 2D scene. This is a
   # very powerful concept: you can scroll, rotate or zoom
   # the entire scene without altering the way that your
@@ -4304,7 +4259,7 @@ module SF
     # * *x* - X coordinate of the new center
     # * *y* - Y coordinate of the new center
     #
-    # *See also:* setSize, getCenter
+    # *See also:* `size=`, `center`
     def set_center(x : Number, y : Number)
       VoidCSFML.view_setcenter_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y))
     end
@@ -4312,7 +4267,7 @@ module SF
     #
     # * *center* - New center
     #
-    # *See also:* setSize, getCenter
+    # *See also:* `size=`, `center`
     def center=(center : Vector2|Tuple)
       center = Vector2f.new(center[0].to_f32, center[1].to_f32)
       VoidCSFML.view_setcenter_UU2(to_unsafe, center)
@@ -4322,7 +4277,7 @@ module SF
     # * *width* -  New width of the view
     # * *height* - New height of the view
     #
-    # *See also:* setCenter, getCenter
+    # *See also:* `center=`, `center`
     def set_size(width : Number, height : Number)
       VoidCSFML.view_setsize_Bw9Bw9(to_unsafe, LibC::Float.new(width), LibC::Float.new(height))
     end
@@ -4330,7 +4285,7 @@ module SF
     #
     # * *size* - New size
     #
-    # *See also:* setCenter, getCenter
+    # *See also:* `center=`, `center`
     def size=(size : Vector2|Tuple)
       size = Vector2f.new(size[0].to_f32, size[1].to_f32)
       VoidCSFML.view_setsize_UU2(to_unsafe, size)
@@ -4341,7 +4296,7 @@ module SF
     #
     # * *angle* - New angle, in degrees
     #
-    # *See also:* getRotation
+    # *See also:* `rotation`
     def rotation=(angle : Number)
       VoidCSFML.view_setrotation_Bw9(to_unsafe, LibC::Float.new(angle))
     end
@@ -4351,12 +4306,12 @@ module SF
     # view are displayed, expressed as a factor (between 0 and 1)
     # of the size of the RenderTarget to which the view is applied.
     # For example, a view which takes the left side of the target would
-    # be defined with View.setViewport(`SF::FloatRect`(0, 0, 0.5, 1)).
+    # be defined with View.viewport=(`SF::FloatRect`(0, 0, 0.5, 1)).
     # By default, a view has a viewport which covers the entire target.
     #
     # * *viewport* - New viewport rectangle
     #
-    # *See also:* getViewport
+    # *See also:* `viewport`
     def viewport=(viewport : FloatRect)
       VoidCSFML.view_setviewport_WPZ(to_unsafe, viewport)
     end
@@ -4366,7 +4321,7 @@ module SF
     #
     # * *rectangle* - Rectangle defining the zone to display
     #
-    # *See also:* setCenter, setSize, setRotation
+    # *See also:* `center=`, `size=`, `rotation=`
     def reset(rectangle : FloatRect)
       VoidCSFML.view_reset_WPZ(to_unsafe, rectangle)
     end
@@ -4374,7 +4329,7 @@ module SF
     #
     # *Returns:* Center of the view
     #
-    # *See also:* getSize, setCenter
+    # *See also:* `size`, `center=`
     def center() : Vector2f
       result = Vector2f.allocate
       VoidCSFML.view_getcenter(to_unsafe, result)
@@ -4384,7 +4339,7 @@ module SF
     #
     # *Returns:* Size of the view
     #
-    # *See also:* getCenter, setSize
+    # *See also:* `center`, `size=`
     def size() : Vector2f
       result = Vector2f.allocate
       VoidCSFML.view_getsize(to_unsafe, result)
@@ -4394,7 +4349,7 @@ module SF
     #
     # *Returns:* Rotation angle of the view, in degrees
     #
-    # *See also:* setRotation
+    # *See also:* `rotation=`
     def rotation() : Float32
       VoidCSFML.view_getrotation(to_unsafe, out result)
       return result
@@ -4403,7 +4358,7 @@ module SF
     #
     # *Returns:* Viewport rectangle, expressed as a factor of the target size
     #
-    # *See also:* setViewport
+    # *See also:* `viewport=`
     def viewport() : FloatRect
       result = FloatRect.allocate
       VoidCSFML.view_getviewport(to_unsafe, result)
@@ -4414,7 +4369,7 @@ module SF
     # * *offset_x* - X coordinate of the move offset
     # * *offset_y* - Y coordinate of the move offset
     #
-    # *See also:* setCenter, rotate, zoom
+    # *See also:* `center=`, `rotate`, `zoom`
     def move(offset_x : Number, offset_y : Number)
       VoidCSFML.view_move_Bw9Bw9(to_unsafe, LibC::Float.new(offset_x), LibC::Float.new(offset_y))
     end
@@ -4422,7 +4377,7 @@ module SF
     #
     # * *offset* - Move offset
     #
-    # *See also:* setCenter, rotate, zoom
+    # *See also:* `center=`, `rotate`, `zoom`
     def move(offset : Vector2|Tuple)
       offset = Vector2f.new(offset[0].to_f32, offset[1].to_f32)
       VoidCSFML.view_move_UU2(to_unsafe, offset)
@@ -4431,7 +4386,7 @@ module SF
     #
     # * *angle* - Angle to rotate, in degrees
     #
-    # *See also:* setRotation, move, zoom
+    # *See also:* `rotation=`, `move`, `zoom`
     def rotate(angle : Number)
       VoidCSFML.view_rotate_Bw9(to_unsafe, LibC::Float.new(angle))
     end
@@ -4446,7 +4401,7 @@ module SF
     #
     # * *factor* - Zoom factor to apply
     #
-    # *See also:* setSize, move, rotate
+    # *See also:* `size=`, `move`, `rotate`
     def zoom(factor : Number)
       VoidCSFML.view_zoom_Bw9(to_unsafe, LibC::Float.new(factor))
     end
@@ -4456,7 +4411,7 @@ module SF
     #
     # *Returns:* Projection transform defining the view
     #
-    # *See also:* getInverseTransform
+    # *See also:* `inverse_transform`
     def transform() : Transform
       result = Transform.allocate
       VoidCSFML.view_gettransform(to_unsafe, result)
@@ -4468,7 +4423,7 @@ module SF
     #
     # *Returns:* Inverse of the projection transform defining the view
     #
-    # *See also:* getTransform
+    # *See also:* `transform`
     def inverse_transform() : Transform
       result = Transform.allocate
       VoidCSFML.view_getinversetransform(to_unsafe, result)
@@ -4494,8 +4449,6 @@ module SF
   end
   # Base class for all render targets (window, texture, ...)
   #
-  #
-  #
   # `SF::RenderTarget` defines the common behavior of all the
   # 2D render targets usable in the graphics module. It makes
   # it possible to draw 2D entities like sprites, shapes, text
@@ -4512,7 +4465,7 @@ module SF
   # OpenGL stuff. It is even possible to mix together OpenGL calls
   # and regular SFML drawing commands. When doing so, make sure that
   # OpenGL states are not messed up by calling the
-  # pushGLStates/popGLStates functions.
+  # push_gl_states/pop_gl_states functions.
   #
   # *See also:* `SF::RenderWindow`, `SF::RenderTexture`, `SF::View`
   module RenderTarget
@@ -4536,11 +4489,11 @@ module SF
     # so it is not necessary to keep the original one alive
     # after calling this function.
     # To restore the original view of the target, you can pass
-    # the result of getDefaultView() to this function.
+    # the result of default_view() to this function.
     #
     # * *view* - New view to use
     #
-    # *See also:* getView, getDefaultView
+    # *See also:* `view`, `default_view`
     def view=(view : View)
       @_rendertarget_view = view
       VoidCSFML.rendertarget_setview_DDi(to_unsafe, view)
@@ -4549,7 +4502,7 @@ module SF
     #
     # *Returns:* The view object that is currently used
     #
-    # *See also:* setView, getDefaultView
+    # *See also:* `view=`, `default_view`
     def view() : View
       VoidCSFML.rendertarget_getview(to_unsafe, out result)
       return View::Reference.new(result, self)
@@ -4561,7 +4514,7 @@ module SF
     #
     # *Returns:* The default view of the render target
     #
-    # *See also:* setView, getView
+    # *See also:* `view=`, `view`
     def default_view() : View
       VoidCSFML.rendertarget_getdefaultview(to_unsafe, out result)
       return View::Reference.new(result, self)
@@ -4584,7 +4537,7 @@ module SF
     # Convert a point from target coordinates to world
     #        coordinates, using the current view
     #
-    # This function is an overload of the mapPixelToCoords
+    # This function is an overload of the map_pixel_to_coords
     # function that implicitly uses the current view.
     # It is equivalent to:
     # ```c++
@@ -4595,7 +4548,7 @@ module SF
     #
     # *Returns:* The converted point, in "world" coordinates
     #
-    # *See also:* mapCoordsToPixel
+    # *See also:* `map_coords_to_pixel`
     def map_pixel_to_coords(point : Vector2|Tuple) : Vector2f
       result = Vector2f.allocate
       point = Vector2i.new(point[0].to_i32, point[1].to_i32)
@@ -4627,7 +4580,7 @@ module SF
     #
     # *Returns:* The converted point, in "world" units
     #
-    # *See also:* mapCoordsToPixel
+    # *See also:* `map_coords_to_pixel`
     def map_pixel_to_coords(point : Vector2|Tuple, view : View) : Vector2f
       result = Vector2f.allocate
       point = Vector2i.new(point[0].to_i32, point[1].to_i32)
@@ -4637,7 +4590,7 @@ module SF
     # Convert a point from world coordinates to target
     #        coordinates, using the current view
     #
-    # This function is an overload of the mapCoordsToPixel
+    # This function is an overload of the map_coords_to_pixel
     # function that implicitly uses the current view.
     # It is equivalent to:
     # ```c++
@@ -4648,7 +4601,7 @@ module SF
     #
     # *Returns:* The converted point, in target coordinates (pixels)
     #
-    # *See also:* mapPixelToCoords
+    # *See also:* `map_pixel_to_coords`
     def map_coords_to_pixel(point : Vector2|Tuple) : Vector2i
       result = Vector2i.allocate
       point = Vector2f.new(point[0].to_f32, point[1].to_f32)
@@ -4676,7 +4629,7 @@ module SF
     #
     # *Returns:* The converted point, in target coordinates (pixels)
     #
-    # *See also:* mapPixelToCoords
+    # *See also:* `map_pixel_to_coords`
     def map_coords_to_pixel(point : Vector2|Tuple, view : View) : Vector2i
       result = Vector2i.allocate
       point = Vector2f.new(point[0].to_f32, point[1].to_f32)
@@ -4699,7 +4652,7 @@ module SF
     # Save the current OpenGL render states and matrices
     #
     # This function can be used when you mix SFML drawing
-    # and direct OpenGL rendering. Combined with popGLStates,
+    # and direct OpenGL rendering. Combined with pop_gl_states,
     # it ensures that:
     # * SFML's internal states are not messed up by your OpenGL code
     # * your OpenGL states are not modified by a call to a SFML function
@@ -4721,19 +4674,19 @@ module SF
     # It is provided for convenience, but the best results will
     # be achieved if you handle OpenGL states yourself (because
     # you know which states have really changed, and need to be
-    # saved and restored). Take a look at the resetGLStates
+    # saved and restored). Take a look at the reset_gl_states
     # function if you do so.
     #
-    # *See also:* popGLStates
+    # *See also:* `pop_gl_states`
     def push_gl_states()
       VoidCSFML.rendertarget_pushglstates(to_unsafe)
     end
     # Restore the previously saved OpenGL render states and matrices
     #
-    # See the description of pushGLStates to get a detailed
+    # See the description of push_gl_states to get a detailed
     # description of these functions.
     #
-    # *See also:* pushGLStates
+    # *See also:* `push_gl_states`
     def pop_gl_states()
       VoidCSFML.rendertarget_popglstates(to_unsafe)
     end
@@ -4741,7 +4694,7 @@ module SF
     #
     # This function can be used when you mix SFML drawing
     # and direct OpenGL rendering, if you choose not to use
-    # pushGLStates/popGLStates. It makes sure that all OpenGL
+    # push_gl_states/pop_gl_states. It makes sure that all OpenGL
     # states needed by SFML are set, so that subsequent draw()
     # calls will work as expected.
     #
@@ -4783,8 +4736,6 @@ module SF
     end
   end
   # Target for off-screen 2D rendering into a texture
-  #
-  #
   #
   # `SF::RenderTexture` is the little brother of `SF::RenderWindow`.
   # It implements the same 2D drawing and OpenGL-related functions
@@ -4851,7 +4802,7 @@ module SF
     # Constructs an empty, invalid render-texture. You must
     # call create to have a valid render-texture.
     #
-    # *See also:* create
+    # *See also:* `create`
     def initialize()
       @_rendertexture = uninitialized VoidCSFML::RenderTexture_Buffer
       VoidCSFML.rendertexture_initialize(to_unsafe)
@@ -4891,12 +4842,12 @@ module SF
     end
     # Enable or disable texture smoothing
     #
-    # This function is similar to Texture::setSmooth.
+    # This function is similar to Texture::smooth=.
     # This parameter is disabled by default.
     #
     # * *smooth* - True to enable smoothing, false to disable it
     #
-    # *See also:* isSmooth
+    # *See also:* `smooth?`
     def smooth=(smooth : Bool)
       VoidCSFML.rendertexture_setsmooth_GZq(to_unsafe, smooth)
     end
@@ -4904,19 +4855,19 @@ module SF
     #
     # *Returns:* True if texture smoothing is enabled
     #
-    # *See also:* setSmooth
+    # *See also:* `smooth=`
     def smooth?() : Bool
       VoidCSFML.rendertexture_issmooth(to_unsafe, out result)
       return result
     end
     # Enable or disable texture repeating
     #
-    # This function is similar to Texture::setRepeated.
+    # This function is similar to Texture::repeated=.
     # This parameter is disabled by default.
     #
     # * *repeated* - True to enable repeating, false to disable it
     #
-    # *See also:* isRepeated
+    # *See also:* `repeated?`
     def repeated=(repeated : Bool)
       VoidCSFML.rendertexture_setrepeated_GZq(to_unsafe, repeated)
     end
@@ -4924,14 +4875,14 @@ module SF
     #
     # *Returns:* True if texture is repeated
     #
-    # *See also:* setRepeated
+    # *See also:* `repeated=`
     def repeated?() : Bool
       VoidCSFML.rendertexture_isrepeated(to_unsafe, out result)
       return result
     end
     # Generate a mipmap using the current texture data
     #
-    # This function is similar to Texture::generateMipmap and operates
+    # This function is similar to Texture::generate_mipmap and operates
     # on the texture used as the target for drawing.
     # Be aware that any draw operation may modify the base level image data.
     # For this reason, calling this function only makes sense after all
@@ -5087,8 +5038,6 @@ module SF
     end
   end
   # Window that can serve as a target for 2D drawing
-  #
-  #
   #
   # `SF::RenderWindow` is the main class of the Graphics module.
   # It defines an OS window that can be painted using the other
@@ -5502,8 +5451,6 @@ module SF
   #
   # Implementation is private in the .cpp file.
   #
-  #
-  #
   # Shaders are programs written using a specific language,
   # executed directly by the graphics card and allowing
   # to apply real-time operations to the rendered entities.
@@ -5536,7 +5483,7 @@ module SF
   # * `SF::Transform` as matrices (\p mat3 or \p mat4)
   #
   # Every uniform variable in a shader can be set through one of the
-  # setUniform() or setUniformArray() overloads. For example, if you
+  # uniform=() or uniform_array=() overloads. For example, if you
   # have a shader with the following uniforms:
   # ```c++
   # uniform float offset;
@@ -5557,11 +5504,11 @@ module SF
   # shader.setUniform("current", sf::Shader::CurrentTexture);
   # ```
   #
-  # The old setParameter() overloads are deprecated and will be removed in a
-  # future version. You should use their setUniform() equivalents instead.
+  # The old parameter=() overloads are deprecated and will be removed in a
+  # future version. You should use their uniform=() equivalents instead.
   #
   # The special Shader::CurrentTexture argument maps the
-  # given \p sampler2D uniform to the current texture of the
+  # given \p sampler2d uniform to the current texture of the
   # object being drawn (which cannot be known in advance).
   #
   # To apply a shader to a drawable, you must pass it as an
@@ -5626,14 +5573,14 @@ module SF
       Fragment
     end
     _sf_enum Shader::Type
-    # Special type that can be passed to setUniform(),
+    # Special type that can be passed to uniform=(),
     #        and that represents the texture of the object being drawn
     #
-    # *See also:* setUniform(const std::string&, CurrentTextureType)
+    # *See also:* `uniform=`(`const` `std`::`string`&, `CurrentTextureType`)
     #
     # Represents the texture of the object being drawn
     #
-    # *See also:* setUniform(const std::string&, CurrentTextureType)
+    # *See also:* `uniform=`(`const` `std`::`string`&, `CurrentTextureType`)
     #
     # Default constructor
     #
@@ -5661,7 +5608,7 @@ module SF
     #
     # *Returns:* True if loading succeeded, false if it failed
     #
-    # *See also:* loadFromMemory, loadFromStream
+    # *See also:* `load_from_memory`, `load_from_stream`
     def load_from_file(filename : String, type : Shader::Type) : Bool
       VoidCSFML.shader_loadfromfile_zkCqL0(to_unsafe, filename.bytesize, filename, type, out result)
       return result
@@ -5691,7 +5638,7 @@ module SF
     #
     # *Returns:* True if loading succeeded, false if it failed
     #
-    # *See also:* loadFromMemory, loadFromStream
+    # *See also:* `load_from_memory`, `load_from_stream`
     def load_from_file(vertex_shader_filename : String, fragment_shader_filename : String) : Bool
       VoidCSFML.shader_loadfromfile_zkCzkC(to_unsafe, vertex_shader_filename.bytesize, vertex_shader_filename, fragment_shader_filename.bytesize, fragment_shader_filename, out result)
       return result
@@ -5722,7 +5669,7 @@ module SF
     #
     # *Returns:* True if loading succeeded, false if it failed
     #
-    # *See also:* loadFromMemory, loadFromStream
+    # *See also:* `load_from_memory`, `load_from_stream`
     def load_from_file(vertex_shader_filename : String, geometry_shader_filename : String, fragment_shader_filename : String) : Bool
       VoidCSFML.shader_loadfromfile_zkCzkCzkC(to_unsafe, vertex_shader_filename.bytesize, vertex_shader_filename, geometry_shader_filename.bytesize, geometry_shader_filename, fragment_shader_filename.bytesize, fragment_shader_filename, out result)
       return result
@@ -5751,7 +5698,7 @@ module SF
     #
     # *Returns:* True if loading succeeded, false if it failed
     #
-    # *See also:* loadFromFile, loadFromStream
+    # *See also:* `load_from_file`, `load_from_stream`
     def load_from_memory(shader : String, type : Shader::Type) : Bool
       VoidCSFML.shader_loadfrommemory_zkCqL0(to_unsafe, shader.bytesize, shader, type, out result)
       return result
@@ -5781,7 +5728,7 @@ module SF
     #
     # *Returns:* True if loading succeeded, false if it failed
     #
-    # *See also:* loadFromFile, loadFromStream
+    # *See also:* `load_from_file`, `load_from_stream`
     def load_from_memory(vertex_shader : String, fragment_shader : String) : Bool
       VoidCSFML.shader_loadfrommemory_zkCzkC(to_unsafe, vertex_shader.bytesize, vertex_shader, fragment_shader.bytesize, fragment_shader, out result)
       return result
@@ -5812,7 +5759,7 @@ module SF
     #
     # *Returns:* True if loading succeeded, false if it failed
     #
-    # *See also:* loadFromFile, loadFromStream
+    # *See also:* `load_from_file`, `load_from_stream`
     def load_from_memory(vertex_shader : String, geometry_shader : String, fragment_shader : String) : Bool
       VoidCSFML.shader_loadfrommemory_zkCzkCzkC(to_unsafe, vertex_shader.bytesize, vertex_shader, geometry_shader.bytesize, geometry_shader, fragment_shader.bytesize, fragment_shader, out result)
       return result
@@ -5841,7 +5788,7 @@ module SF
     #
     # *Returns:* True if loading succeeded, false if it failed
     #
-    # *See also:* loadFromFile, loadFromMemory
+    # *See also:* `load_from_file`, `load_from_memory`
     def load_from_stream(stream : InputStream, type : Shader::Type) : Bool
       VoidCSFML.shader_loadfromstream_PO0qL0(to_unsafe, stream, type, out result)
       return result
@@ -5871,7 +5818,7 @@ module SF
     #
     # *Returns:* True if loading succeeded, false if it failed
     #
-    # *See also:* loadFromFile, loadFromMemory
+    # *See also:* `load_from_file`, `load_from_memory`
     def load_from_stream(vertex_shader_stream : InputStream, fragment_shader_stream : InputStream) : Bool
       VoidCSFML.shader_loadfromstream_PO0PO0(to_unsafe, vertex_shader_stream, fragment_shader_stream, out result)
       return result
@@ -5902,7 +5849,7 @@ module SF
     #
     # *Returns:* True if loading succeeded, false if it failed
     #
-    # *See also:* loadFromFile, loadFromMemory
+    # *See also:* `load_from_file`, `load_from_memory`
     def load_from_stream(vertex_shader_stream : InputStream, geometry_shader_stream : InputStream, fragment_shader_stream : InputStream) : Bool
       VoidCSFML.shader_loadfromstream_PO0PO0PO0(to_unsafe, vertex_shader_stream, geometry_shader_stream, fragment_shader_stream, out result)
       return result
@@ -5919,62 +5866,62 @@ module SF
     end
     # Change a float parameter of the shader
     #
-    # *Deprecated:* Use setUniform(const std::string&, float) instead.
+    # *Deprecated:* Use uniform=(const std::string&, float) instead.
     def set_parameter(name : String, x : Number)
       VoidCSFML.shader_setparameter_zkCBw9(to_unsafe, name.bytesize, name, LibC::Float.new(x))
     end
     # Change a 2-components vector parameter of the shader
     #
-    # *Deprecated:* Use setUniform(const std::string&, const Glsl::Vec2&) instead.
+    # *Deprecated:* Use uniform=(const std::string&, const Glsl::Vec2&) instead.
     def set_parameter(name : String, x : Number, y : Number)
       VoidCSFML.shader_setparameter_zkCBw9Bw9(to_unsafe, name.bytesize, name, LibC::Float.new(x), LibC::Float.new(y))
     end
     # Change a 3-components vector parameter of the shader
     #
-    # *Deprecated:* Use setUniform(const std::string&, const Glsl::Vec3&) instead.
+    # *Deprecated:* Use uniform=(const std::string&, const Glsl::Vec3&) instead.
     def set_parameter(name : String, x : Number, y : Number, z : Number)
       VoidCSFML.shader_setparameter_zkCBw9Bw9Bw9(to_unsafe, name.bytesize, name, LibC::Float.new(x), LibC::Float.new(y), LibC::Float.new(z))
     end
     # Change a 4-components vector parameter of the shader
     #
-    # *Deprecated:* Use setUniform(const std::string&, const Glsl::Vec4&) instead.
+    # *Deprecated:* Use uniform=(const std::string&, const Glsl::Vec4&) instead.
     def set_parameter(name : String, x : Number, y : Number, z : Number, w : Number)
       VoidCSFML.shader_setparameter_zkCBw9Bw9Bw9Bw9(to_unsafe, name.bytesize, name, LibC::Float.new(x), LibC::Float.new(y), LibC::Float.new(z), LibC::Float.new(w))
     end
     # Change a 2-components vector parameter of the shader
     #
-    # *Deprecated:* Use setUniform(const std::string&, const Glsl::Vec2&) instead.
+    # *Deprecated:* Use uniform=(const std::string&, const Glsl::Vec2&) instead.
     def set_parameter(name : String, vector : Vector2|Tuple)
       vector = Vector2f.new(vector[0].to_f32, vector[1].to_f32)
       VoidCSFML.shader_setparameter_zkCUU2(to_unsafe, name.bytesize, name, vector)
     end
     # Change a 3-components vector parameter of the shader
     #
-    # *Deprecated:* Use setUniform(const std::string&, const Glsl::Vec3&) instead.
+    # *Deprecated:* Use uniform=(const std::string&, const Glsl::Vec3&) instead.
     def set_parameter(name : String, vector : Vector3f)
       VoidCSFML.shader_setparameter_zkCNzM(to_unsafe, name.bytesize, name, vector)
     end
     # Change a color parameter of the shader
     #
-    # *Deprecated:* Use setUniform(const std::string&, const Glsl::Vec4&) instead.
+    # *Deprecated:* Use uniform=(const std::string&, const Glsl::Vec4&) instead.
     def set_parameter(name : String, color : Color)
       VoidCSFML.shader_setparameter_zkCQVe(to_unsafe, name.bytesize, name, color)
     end
     # Change a matrix parameter of the shader
     #
-    # *Deprecated:* Use setUniform(const std::string&, const Glsl::Mat4&) instead.
+    # *Deprecated:* Use uniform=(const std::string&, const Glsl::Mat4&) instead.
     def set_parameter(name : String, transform : Transform)
       VoidCSFML.shader_setparameter_zkCFPe(to_unsafe, name.bytesize, name, transform)
     end
     # Change a texture parameter of the shader
     #
-    # *Deprecated:* Use setUniform(const std::string&, const Texture&) instead.
+    # *Deprecated:* Use uniform=(const std::string&, const Texture&) instead.
     def set_parameter(name : String, texture : Texture)
       VoidCSFML.shader_setparameter_zkCDJb(to_unsafe, name.bytesize, name, texture)
     end
     # Change a texture parameter of the shader
     #
-    # *Deprecated:* Use setUniform(const std::string&, CurrentTextureType) instead.
+    # *Deprecated:* Use uniform=(const std::string&, CurrentTextureType) instead.
     def set_parameter(name : String, p1 : CurrentTextureType)
       VoidCSFML.shader_setparameter_zkCLcV(to_unsafe, name.bytesize, name)
     end
@@ -5985,9 +5932,9 @@ module SF
     # or implement a temporary workaround until a bug is fixed.
     #
     # *Returns:* OpenGL handle of the shader or 0 if not yet loaded
-    def native_handle() : UInt32
+    def native_handle() : Int32
       VoidCSFML.shader_getnativehandle(to_unsafe, out result)
-      return result
+      return result.to_i
     end
     # Bind a shader for rendering
     #
@@ -6027,7 +5974,7 @@ module SF
     # the geometry shader features. If it returns false, then
     # any attempt to use `SF::Shader` geometry shader features will fail.
     #
-    # This function can only return true if isAvailable() would also
+    # This function can only return true if available?() would also
     # return true, since shaders in general have to be supported in
     # order for geometry shaders to be supported as well.
     #
@@ -6052,8 +5999,6 @@ module SF
   end
   # Drawable representation of a texture, with its
   #        own transformations, color, etc.
-  #
-  #
   #
   # `SF::Sprite` is a drawable class that allows to easily display
   # a texture (or a part of it) on a render target.
@@ -6114,7 +6059,7 @@ module SF
     #
     # * *texture* - Source texture
     #
-    # *See also:* setTexture
+    # *See also:* `texture=`
     def initialize(texture : Texture)
       @_transformable = uninitialized VoidCSFML::Transformable_Buffer
       @_sprite = uninitialized VoidCSFML::Sprite_Buffer
@@ -6126,7 +6071,7 @@ module SF
     # * *texture* -   Source texture
     # * *rectangle* - Sub-rectangle of the texture to assign to the sprite
     #
-    # *See also:* setTexture, setTextureRect
+    # *See also:* `texture=`, `texture_rect=`
     def initialize(texture : Texture, rectangle : IntRect)
       @_transformable = uninitialized VoidCSFML::Transformable_Buffer
       @_sprite = uninitialized VoidCSFML::Sprite_Buffer
@@ -6148,7 +6093,7 @@ module SF
     # * *texture* -   New texture
     # * *reset_rect* - Should the texture rect be reset to the size of the new texture?
     #
-    # *See also:* getTexture, setTextureRect
+    # *See also:* `texture`, `texture_rect=`
     def set_texture(texture : Texture, reset_rect : Bool = false)
       @_sprite_texture = texture
       VoidCSFML.sprite_settexture_DJbGZq(to_unsafe, texture, reset_rect)
@@ -6162,7 +6107,7 @@ module SF
     #
     # * *rectangle* - Rectangle defining the region of the texture to display
     #
-    # *See also:* getTextureRect, setTexture
+    # *See also:* `texture_rect`, `texture=`
     def texture_rect=(rectangle : IntRect)
       VoidCSFML.sprite_settexturerect_2k1(to_unsafe, rectangle)
     end
@@ -6175,7 +6120,7 @@ module SF
     #
     # * *color* - New color of the sprite
     #
-    # *See also:* getColor
+    # *See also:* `color`
     def color=(color : Color)
       VoidCSFML.sprite_setcolor_QVe(to_unsafe, color)
     end
@@ -6187,7 +6132,7 @@ module SF
     #
     # *Returns:* Pointer to the sprite's texture
     #
-    # *See also:* setTexture
+    # *See also:* `texture=`
     def texture() : Texture?
       return @_sprite_texture
     end
@@ -6195,7 +6140,7 @@ module SF
     #
     # *Returns:* Texture rectangle of the sprite
     #
-    # *See also:* setTextureRect
+    # *See also:* `texture_rect=`
     def texture_rect() : IntRect
       result = IntRect.allocate
       VoidCSFML.sprite_gettexturerect(to_unsafe, result)
@@ -6205,7 +6150,7 @@ module SF
     #
     # *Returns:* Global color of the sprite
     #
-    # *See also:* setColor
+    # *See also:* `color=`
     def color() : Color
       result = Color.allocate
       VoidCSFML.sprite_getcolor(to_unsafe, result)
@@ -6365,8 +6310,6 @@ module SF
   end
   # Graphical text that can be drawn to a render target
   #
-  #
-  #
   # `SF::Text` is a drawable class that allows to easily display
   # some text with custom style and color on a render target.
   #
@@ -6472,7 +6415,7 @@ module SF
     #
     # * *string* - New string
     #
-    # *See also:* getString
+    # *See also:* `string`
     def string=(string : String)
       VoidCSFML.text_setstring_bQs(to_unsafe, string.size, string.chars)
     end
@@ -6487,7 +6430,7 @@ module SF
     #
     # * *font* - New font
     #
-    # *See also:* getFont
+    # *See also:* `font`
     def font=(font : Font)
       @_text_font = font
       VoidCSFML.text_setfont_7CF(to_unsafe, font)
@@ -6506,7 +6449,7 @@ module SF
     #
     # * *size* - New character size, in pixels
     #
-    # *See also:* getCharacterSize
+    # *See also:* `character_size`
     def character_size=(size : Int)
       VoidCSFML.text_setcharactersize_emS(to_unsafe, LibC::UInt.new(size))
     end
@@ -6518,7 +6461,7 @@ module SF
     #
     # * *style* - New style
     #
-    # *See also:* getStyle
+    # *See also:* `style`
     def style=(style : Text::Style)
       VoidCSFML.text_setstyle_saL(to_unsafe, style)
     end
@@ -6530,11 +6473,11 @@ module SF
     #
     # * *color* - New fill color of the text
     #
-    # *See also:* getFillColor
+    # *See also:* `fill_color`
     #
     # *Deprecated:* There is now fill and outline colors instead
     # of a single global color.
-    # Use setFillColor() or setOutlineColor() instead.
+    # Use fill_color=() or outline_color=() instead.
     def color=(color : Color)
       VoidCSFML.text_setcolor_QVe(to_unsafe, color)
     end
@@ -6546,7 +6489,7 @@ module SF
     #
     # * *color* - New fill color of the text
     #
-    # *See also:* getFillColor
+    # *See also:* `fill_color`
     def fill_color=(color : Color)
       VoidCSFML.text_setfillcolor_QVe(to_unsafe, color)
     end
@@ -6556,7 +6499,7 @@ module SF
     #
     # * *color* - New outline color of the text
     #
-    # *See also:* getOutlineColor
+    # *See also:* `outline_color`
     def outline_color=(color : Color)
       VoidCSFML.text_setoutlinecolor_QVe(to_unsafe, color)
     end
@@ -6569,7 +6512,7 @@ module SF
     #
     # * *thickness* - New outline thickness, in pixels
     #
-    # *See also:* getOutlineThickness
+    # *See also:* `outline_thickness`
     def outline_thickness=(thickness : Number)
       VoidCSFML.text_setoutlinethickness_Bw9(to_unsafe, LibC::Float.new(thickness))
     end
@@ -6586,7 +6529,7 @@ module SF
     #
     # *Returns:* Text's string
     #
-    # *See also:* setString
+    # *See also:* `string=`
     def string() : String
       VoidCSFML.text_getstring(to_unsafe, out result)
       return String.build { |io| while (v = result.value) != '\0'; io << v; result += 1; end }
@@ -6599,7 +6542,7 @@ module SF
     #
     # *Returns:* Pointer to the text's font
     #
-    # *See also:* setFont
+    # *See also:* `font=`
     def font() : Font?
       return @_text_font
     end
@@ -6607,16 +6550,16 @@ module SF
     #
     # *Returns:* Size of the characters, in pixels
     #
-    # *See also:* setCharacterSize
-    def character_size() : UInt32
+    # *See also:* `character_size=`
+    def character_size() : Int32
       VoidCSFML.text_getcharactersize(to_unsafe, out result)
-      return result
+      return result.to_i
     end
     # Get the text's style
     #
     # *Returns:* Text's style
     #
-    # *See also:* setStyle
+    # *See also:* `style=`
     def style() : UInt32
       VoidCSFML.text_getstyle(to_unsafe, out result)
       return result
@@ -6625,11 +6568,11 @@ module SF
     #
     # *Returns:* Fill color of the text
     #
-    # *See also:* setFillColor
+    # *See also:* `fill_color=`
     #
     # *Deprecated:* There is now fill and outline colors instead
     # of a single global color.
-    # Use getFillColor() or getOutlineColor() instead.
+    # Use fill_color() or outline_color() instead.
     def color() : Color
       result = Color.allocate
       VoidCSFML.text_getcolor(to_unsafe, result)
@@ -6639,7 +6582,7 @@ module SF
     #
     # *Returns:* Fill color of the text
     #
-    # *See also:* setFillColor
+    # *See also:* `fill_color=`
     def fill_color() : Color
       result = Color.allocate
       VoidCSFML.text_getfillcolor(to_unsafe, result)
@@ -6649,7 +6592,7 @@ module SF
     #
     # *Returns:* Outline color of the text
     #
-    # *See also:* setOutlineColor
+    # *See also:* `outline_color=`
     def outline_color() : Color
       result = Color.allocate
       VoidCSFML.text_getoutlinecolor(to_unsafe, result)
@@ -6659,7 +6602,7 @@ module SF
     #
     # *Returns:* Outline thickness of the text, in pixels
     #
-    # *See also:* setOutlineThickness
+    # *See also:* `outline_thickness=`
     def outline_thickness() : Float32
       VoidCSFML.text_getoutlinethickness(to_unsafe, out result)
       return result

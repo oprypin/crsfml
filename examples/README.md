@@ -35,18 +35,17 @@ Examples
 - Custom transformable drawable
 - `Clock`
 
-### [typing](typing.cr)
-
-- Keyboard events, `TextEntered`
-- Unicode string
-
 ### [diagnostics](diagnostics.cr)
 
 - Listing controllers, screen modes, audio devices
 - Mouse state and events
+- Keyboard state and events, `TextEntered`
+- Unicode
 - Controller state and events
 - Drawing with shapes
 - Simple GUI (just buttons)
+- Switching between views
+- Window coordinates vs view coordinates
 
 ### [sound_capture](sound_capture.cr)
 

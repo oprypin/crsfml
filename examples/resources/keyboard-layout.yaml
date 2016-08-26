@@ -1,0 +1,136 @@
+- - Escape: 'Esc'
+    x: 1
+  - F1:
+  - F2:
+  - F3:
+  - F4:
+    x: 0.5
+  - F5:
+  - F6:
+  - F7:
+  - F8:
+    x: 0.5
+  - F9:
+  - F10:
+  - F11:
+  - F12:
+    x: 0.25
+  - PrintScreen: 'PrtSc'
+  - ScrollLock: 'Scroll  Lock'
+  - Pause: 'Pause  Break'
+    y: 0.25
+- - Tilde: '~  `'
+  - Num1: '!  1'
+  - Num2: '@  2'
+  - Num3: '#  3'
+  - Num4: '$  4'
+  - Num5: '%  5'
+  - Num6: '^  6'
+  - Num7: '&  7'
+  - Num8: '*  8'
+  - Num9: '(  9'
+  - Num0: ')  0'
+  - Dash: '_  -'
+  - Equal: '+  ='
+  - Backspace:
+    w: 2
+    x: 0.25
+  - Insert:
+  - Home:
+  - PageUp: 'PgUp'
+    x: 0.25
+  - NumLock: 'Num  Lock'
+  - Divide: '÷'
+  - Multiply: '×'
+  - Subtract: '−'
+- - Tab:
+    w: 1.5
+  - Q:
+  - W:
+  - E:
+  - R:
+  - T:
+  - Y:
+  - U:
+  - I:
+  - O:
+  - P:
+  - LBracket: '{  ['
+  - RBracket: '}  ]'
+  - BackSlash: '|  \'
+    w: 1.5
+    x: 0.25
+  - Delete:
+  - End:
+  - PageDown: 'PgDn'
+    x: 0.25
+  - Numpad7: '7  Home'
+  - Numpad8: '8  ↑'
+  - Numpad9: '9  PgUp'
+  - Add: '+'
+    h: 2
+- - CapsLock: 'Caps Lock'
+    w: 1.75
+  - A:
+  - S:
+  - D:
+  - F:
+  - G:
+  - H:
+  - J:
+  - K:
+  - L:
+  - SemiColon: ':  ;'
+  - Quote: '"  '''
+  - Return: 'Enter'
+    w: 2.25
+    x: 3.5
+  - Numpad4: '4  ←'
+  - Numpad5: '5'
+  - Numpad6: '6  →'
+- - LShift: 'Shift'
+    w: 2.25
+  - Z:
+  - X:
+  - C:
+  - V:
+  - B:
+  - N:
+  - M:
+  - Comma: '<  ,'
+  - Period: '>  .'
+  - Slash: '?  /'
+  - RShift: 'Shift'
+    w: 2.75
+    x: 1.25
+  - Up: ↑
+    x: 1.25
+  - Numpad1: '1  End'
+  - Numpad2: '2  ↓'
+  - Numpad3: '3  PgDn'
+  - NumpadReturn: 'Enter'
+    h: 2
+- - LControl: 'Ctrl'
+    w: 1.25
+  - LSystem: 'Win'
+    w: 1.25
+  - LAlt: 'Alt'
+    w: 1.25
+  - Space: ' '
+    w: 6.25
+  - RAlt: 'Alt'
+    w: 1.25
+  - RSystem: 'Win'
+    w: 1.25
+  - Menu:
+    w: 1.25
+  - RControl: 'Ctrl'
+    w: 1.25
+    x: 0.25
+  - Left: '←'
+  - Down: '↓'
+  - Right: '→'
+    x: 0.25
+  - Numpad0: '0  Ins'
+    w: 2
+  - NumpadComma: '.  Del'

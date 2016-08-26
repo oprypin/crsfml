@@ -1,6 +1,10 @@
 require "crsfml"
 
-@[Link("GL")]
+{% if flag? :darwin %}
+  @[Link(framework: "OpenGL")]
+{% else %}
+  @[Link("GL")]
+{% end %}
 lib GL
   fun viewport = glViewport(x : Int32, y : Int32, width : Int32, height : Int32)
   fun begin = glBegin(mode : UInt32)

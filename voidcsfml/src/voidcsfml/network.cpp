@@ -175,7 +175,7 @@ void ipaddress_initialize_zkC(void* self, size_t address_size, char* address) {
     new(self) IpAddress(std::string(address, address_size));
 }
 void ipaddress_initialize_Yy6(void* self, char* address) {
-    new(self) IpAddress((char const*)address);
+    new(self) IpAddress(address);
 }
 void ipaddress_initialize_9yU9yU9yU9yU(void* self, uint8_t byte0, uint8_t byte1, uint8_t byte2, uint8_t byte3) {
     new(self) IpAddress((Uint8)byte0, (Uint8)byte1, (Uint8)byte2, (Uint8)byte3);

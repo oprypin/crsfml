@@ -5,8 +5,6 @@ module SF
   extend self
   # Base class for classes that require an OpenGL context
   #
-  #
-  #
   # This class is for internal use only, it must be the base
   # of every class that requires a valid OpenGL context in
   # order to work.
@@ -14,8 +12,6 @@ module SF
   end
   # Structure defining the settings of the OpenGL
   #        context attached to a window
-  #
-  #
   #
   # ContextSettings allows to define several advanced settings
   # of the OpenGL context attached to a window. All these
@@ -25,14 +21,14 @@ module SF
   # this structure only if you're using SFML as a windowing
   # system for custom OpenGL rendering.
   #
-  # The depthBits and stencilBits members define the number
+  # The depth_bits and stencil_bits members define the number
   # of bits per pixel requested for the (respectively) depth
   # and stencil buffers.
   #
-  # antialiasingLevel represents the requested number of
+  # antialiasing_level represents the requested number of
   # multisampling levels for anti-aliasing.
   #
-  # majorVersion and minorVersion define the version of the
+  # major_version and minor_version define the version of the
   # OpenGL context that you want. Only versions greater or
   # equal to 3.0 are relevant; versions lesser than 3.0 are
   # all handled the same way (i.e. you can use any version
@@ -69,7 +65,7 @@ module SF
   # are not supported by the system; instead, SFML will try to
   # find the closest valid match. You can then retrieve the
   # settings that the window actually used to create its context,
-  # with Window::getSettings().
+  # with Window::settings().
   struct ContextSettings
     @depth_bits : LibC::UInt
     @stencil_bits : LibC::UInt
@@ -186,8 +182,6 @@ module SF
   end
   # Class holding a valid drawing context
   #
-  #
-  #
   # If you need to make OpenGL calls without having an
   # active window (like in a thread), you can use an
   # instance of this class to get a valid context.
@@ -258,7 +252,7 @@ module SF
     # * *name* - Name of the extension to check for
     #
     # *Returns:* True if available, false if unavailable
-    def self.extension_available?(name : UInt8*) : Bool
+    def self.extension_available?(name : String) : Bool
       VoidCSFML.context_isextensionavailable_Yy6(name, out result)
       return result
     end
@@ -296,8 +290,6 @@ module SF
     end
   end
   # Give access to the real-time state of the joysticks
-  #
-  #
   #
   # `SF::Joystick` provides an interface to the state of the
   # joysticks. It only contains static functions, so it's not
@@ -391,17 +383,17 @@ module SF
         VoidCSFML.joystick_identification_setname_Lnu(to_unsafe, name.size, name.chars)
       end
       # Manufacturer identifier
-      def vendor_id() : UInt32
+      def vendor_id() : Int32
         VoidCSFML.joystick_identification_getvendorid(to_unsafe, out result)
-        return result
+        return result.to_i
       end
       def vendor_id=(vendor_id : Int)
         VoidCSFML.joystick_identification_setvendorid_emS(to_unsafe, LibC::UInt.new(vendor_id))
       end
       # Product identifier
-      def product_id() : UInt32
+      def product_id() : Int32
         VoidCSFML.joystick_identification_getproductid(to_unsafe, out result)
-        return result
+        return result.to_i
       end
       def product_id=(product_id : Int)
         VoidCSFML.joystick_identification_setproductid_emS(to_unsafe, LibC::UInt.new(product_id))
@@ -440,9 +432,9 @@ module SF
     # * *joystick* - Index of the joystick
     #
     # *Returns:* Number of buttons supported by the joystick
-    def self.get_button_count(joystick : Int) : UInt32
+    def self.get_button_count(joystick : Int) : Int32
       VoidCSFML.joystick_getbuttoncount_emS(LibC::UInt.new(joystick), out result)
-      return result
+      return result.to_i
     end
     # Check if a joystick supports a given axis
     #
@@ -501,8 +493,6 @@ module SF
     end
   end
   # Give access to the real-time state of the keyboard
-  #
-  #
   #
   # `SF::Keyboard` provides an interface to the state of the
   # keyboard. It only contains static functions (a single
@@ -771,8 +761,6 @@ module SF
   end
   # Give access to the real-time state of the mouse
   #
-  #
-  #
   # `SF::Mouse` provides an interface to the state of the
   # mouse. It only contains static functions (a single
   # mouse is assumed), so it's not meant to be instantiated.
@@ -788,7 +776,7 @@ module SF
   # moved, pressed or released when your window is out of focus
   # and no event is triggered.
   #
-  # The setPosition and getPosition functions can be used to change
+  # The position= and position functions can be used to change
   # or retrieve the current position of the mouse pointer. There are
   # two versions: one that operates in global coordinates (relative
   # to the desktop) and one that operates in window coordinates
@@ -891,8 +879,6 @@ module SF
   end
   # Give access to the real-time state of the sensors
   #
-  #
-  #
   # `SF::Sensor` provides an interface to the state of the
   # various sensors that a device provides. It only contains static
   # functions, so it's not meant to be instantiated.
@@ -906,7 +892,7 @@ module SF
   # Depending on the OS and hardware of the device (phone, tablet, ...),
   # some sensor types may not be available. You should always check
   # the availability of a sensor before trying to read it, with the
-  # `SF::Sensor::isAvailable` function.
+  # `SF::Sensor::available?` function.
   #
   # You may wonder why some sensor types look so similar, for example
   # Accelerometer and Gravity / UserAcceleration. The first one
@@ -918,7 +904,7 @@ module SF
   # This is exactly the same for Gyroscope vs Orientation.
   #
   # Because sensors consume a non-negligible amount of current, they are
-  # all disabled by default. You must call `SF::Sensor::setEnabled` for each
+  # all disabled by default. You must call `SF::Sensor::enabled=` for each
   # sensor in which you are interested.
   #
   # Usage example:
@@ -988,11 +974,9 @@ module SF
   end
   # Defines a system event and its parameters
   #
-  #
-  #
   # `SF::Event` holds all the informations about a system event
   # that just happened. Events are retrieved using the
-  # `SF::Window::pollEvent` and `SF::Window::waitEvent` functions.
+  # `SF::Window::poll_event` and `SF::Window::wait_event` functions.
   #
   # A `SF::Event` instance contains the type of the event
   # (mouse moved, key pressed, window closed, ...) as well
@@ -1632,19 +1616,19 @@ module SF
     # A key was released (data in event.key)
     struct KeyReleased < KeyEvent
     end
-    # The mouse wheel was scrolled (data in event.mouseWheel) (deprecated)
+    # The mouse wheel was scrolled (data in event.mouse_wheel) (deprecated)
     struct MouseWheelMoved < MouseWheelEvent
     end
-    # The mouse wheel was scrolled (data in event.mouseWheelScroll)
+    # The mouse wheel was scrolled (data in event.mouse_wheel_scroll)
     struct MouseWheelScrolled < MouseWheelScrollEvent
     end
-    # A mouse button was pressed (data in event.mouseButton)
+    # A mouse button was pressed (data in event.mouse_button)
     struct MouseButtonPressed < MouseButtonEvent
     end
-    # A mouse button was released (data in event.mouseButton)
+    # A mouse button was released (data in event.mouse_button)
     struct MouseButtonReleased < MouseButtonEvent
     end
-    # The mouse cursor moved (data in event.mouseMove)
+    # The mouse cursor moved (data in event.mouse_move)
     struct MouseMoved < MouseMoveEvent
     end
     # The mouse cursor entered the area of the window (no data)
@@ -1653,19 +1637,19 @@ module SF
     # The mouse cursor left the area of the window (no data)
     struct MouseLeft < Event
     end
-    # A joystick button was pressed (data in event.joystickButton)
+    # A joystick button was pressed (data in event.joystick_button)
     struct JoystickButtonPressed < JoystickButtonEvent
     end
-    # A joystick button was released (data in event.joystickButton)
+    # A joystick button was released (data in event.joystick_button)
     struct JoystickButtonReleased < JoystickButtonEvent
     end
-    # The joystick moved along an axis (data in event.joystickMove)
+    # The joystick moved along an axis (data in event.joystick_move)
     struct JoystickMoved < JoystickMoveEvent
     end
-    # A joystick was connected (data in event.joystickConnect)
+    # A joystick was connected (data in event.joystick_connect)
     struct JoystickConnected < JoystickConnectEvent
     end
-    # A joystick was disconnected (data in event.joystickConnect)
+    # A joystick was disconnected (data in event.joystick_connect)
     struct JoystickDisconnected < JoystickConnectEvent
     end
     # A touch event began (data in event.touch)
@@ -1690,8 +1674,6 @@ module SF
   end
   # Give access to the real-time state of the touches
   #
-  #
-  #
   # `SF::Touch` provides an interface to the state of the
   # touches. It only contains static functions, so it's not
   # meant to be instantiated.
@@ -1705,7 +1687,7 @@ module SF
   # and you always get the real state of the touches, even if they
   # happen when your window is out of focus and no event is triggered.
   #
-  # The getPosition function can be used to retrieve the current
+  # The position function can be used to retrieve the current
   # position of a touch. There are two versions: one that operates
   # in global coordinates (relative to the desktop) and one that
   # operates in window coordinates (relative to a specific window).
@@ -1773,8 +1755,6 @@ module SF
   end
   # VideoMode defines a video mode (width, height, bpp)
   #
-  #
-  #
   # A video mode is defined by a width and a height (in pixels)
   # and a depth (in bits per pixel). Video modes are used to
   # setup windows (`SF::Window`) at creation time.
@@ -1787,13 +1767,13 @@ module SF
   #
   # `SF::VideoMode` provides a static function for retrieving
   # the list of all the video modes supported by the system:
-  # getFullscreenModes().
+  # fullscreen_modes().
   #
   # A custom video mode can also be checked directly for
-  # fullscreen compatibility with its isValid() function.
+  # fullscreen compatibility with its valid?() function.
   #
   # Additionally, `SF::VideoMode` provides a static function
-  # to get the mode currently used by the desktop: getDesktopMode().
+  # to get the mode currently used by the desktop: desktop_mode().
   # This allows to build windows with the same size or pixel
   # depth as the current resolution.
   #
@@ -1895,7 +1875,6 @@ module SF
     def bits_per_pixel=(bits_per_pixel : Int)
       @bits_per_pixel = LibC::UInt.new(bits_per_pixel)
     end
-    #
     # Overload of == operator to compare two video modes
     #
     # * *left* -  Left operand (a video mode)
@@ -1906,7 +1885,6 @@ module SF
       VoidCSFML.operator_eq_asWasW(to_unsafe, right, out result)
       return result
     end
-    #
     # Overload of != operator to compare two video modes
     #
     # * *left* -  Left operand (a video mode)
@@ -1917,7 +1895,6 @@ module SF
       VoidCSFML.operator_ne_asWasW(to_unsafe, right, out result)
       return result
     end
-    #
     # Overload of &lt; operator to compare video modes
     #
     # * *left* -  Left operand (a video mode)
@@ -1928,7 +1905,6 @@ module SF
       VoidCSFML.operator_lt_asWasW(to_unsafe, right, out result)
       return result
     end
-    #
     # Overload of &gt; operator to compare video modes
     #
     # * *left* -  Left operand (a video mode)
@@ -1939,7 +1915,6 @@ module SF
       VoidCSFML.operator_gt_asWasW(to_unsafe, right, out result)
       return result
     end
-    #
     # Overload of &lt;= operator to compare video modes
     #
     # * *left* -  Left operand (a video mode)
@@ -1950,7 +1925,6 @@ module SF
       VoidCSFML.operator_le_asWasW(to_unsafe, right, out result)
       return result
     end
-    #
     # Overload of &gt;= operator to compare video modes
     #
     # * *left* -  Left operand (a video mode)
@@ -1977,7 +1951,6 @@ module SF
       return typeof(self).new(self)
     end
   end
-  #
   # Enumeration of the window styles
   @[Flags]
   enum Style
@@ -1996,8 +1969,6 @@ module SF
   end
   # Window that serves as a target for OpenGL rendering
   #
-  #
-  #
   # `SF::Window` is the main class of the Window module. It defines
   # an OS window that is able to receive an OpenGL rendering.
   #
@@ -2007,11 +1978,11 @@ module SF
   # a view which is part of a bigger GUI with existing windows,
   # controls, etc. It can also serve as embedding an OpenGL rendering
   # area into a window created by another (probably richer) GUI library
-  # like Qt or wxWidgets.
+  # like Qt or wx_widgets.
   #
   # The `SF::Window` class provides a simple interface for manipulating
   # the window: move, resize, show/hide, control mouse cursor, etc.
-  # It also provides event handling through its pollEvent() and waitEvent()
+  # It also provides event handling through its poll_event() and wait_event()
   # functions.
   #
   # Note that OpenGL experts can pass their own parameters (antialiasing
@@ -2148,8 +2119,8 @@ module SF
     #
     # After calling this function, the `SF::Window` instance remains
     # valid and you can call create() to recreate the window.
-    # All other functions such as pollEvent() or display() will
-    # still work (i.e. you don't have to test isOpen() every time),
+    # All other functions such as poll_event() or display() will
+    # still work (i.e. you don't have to test open?() every time),
     # and will have no effect on closed windows.
     def close()
       VoidCSFML.window_close(to_unsafe)
@@ -2157,7 +2128,7 @@ module SF
     # Tell whether or not the window is open
     #
     # This function returns whether or not the window exists.
-    # Note that a hidden window (setVisible(false)) is open
+    # Note that a hidden window (visible=(false)) is open
     # (therefore this function would return true).
     #
     # *Returns:* True if the window is open, false if it has been closed
@@ -2197,7 +2168,7 @@ module SF
     #
     # *Returns:* True if an event was returned, or false if the event queue was empty
     #
-    # *See also:* waitEvent
+    # *See also:* `wait_event`
     def poll_event() : Event?
       event = uninitialized VoidCSFML::Event_Buffer
       VoidCSFML.window_pollevent_YJW(to_unsafe, event, out result)
@@ -2233,7 +2204,7 @@ module SF
     #
     # *Returns:* False if any error occurred
     #
-    # *See also:* pollEvent
+    # *See also:* `poll_event`
     def wait_event() : Event?
       event = uninitialized VoidCSFML::Event_Buffer
       VoidCSFML.window_waitevent_YJW(to_unsafe, event, out result)
@@ -2252,7 +2223,7 @@ module SF
     #
     # *Returns:* Position of the window, in pixels
     #
-    # *See also:* setPosition
+    # *See also:* `position=`
     def position() : Vector2i
       result = Vector2i.allocate
       VoidCSFML.window_getposition(to_unsafe, result)
@@ -2266,7 +2237,7 @@ module SF
     #
     # * *position* - New position, in pixels
     #
-    # *See also:* getPosition
+    # *See also:* `position`
     def position=(position : Vector2|Tuple)
       position = Vector2i.new(position[0].to_i32, position[1].to_i32)
       VoidCSFML.window_setposition_ufV(to_unsafe, position)
@@ -2278,7 +2249,7 @@ module SF
     #
     # *Returns:* Size in pixels
     #
-    # *See also:* setSize
+    # *See also:* `size=`
     def size() : Vector2u
       result = Vector2u.allocate
       VoidCSFML.window_getsize(to_unsafe, result)
@@ -2288,7 +2259,7 @@ module SF
     #
     # * *size* - New size, in pixels
     #
-    # *See also:* getSize
+    # *See also:* `size`
     def size=(size : Vector2|Tuple)
       size = Vector2u.new(size[0].to_u32, size[1].to_u32)
       VoidCSFML.window_setsize_DXO(to_unsafe, size)
@@ -2297,7 +2268,7 @@ module SF
     #
     # * *title* - New title
     #
-    # *See also:* setIcon
+    # *See also:* `icon=`
     def title=(title : String)
       VoidCSFML.window_settitle_bQs(to_unsafe, title.size, title.chars)
     end
@@ -2314,7 +2285,7 @@ module SF
     #               pixels are copied, so you need not keep the
     #               source alive after calling this function.
     #
-    # *See also:* setTitle
+    # *See also:* `title=`
     def set_icon(width : Int, height : Int, pixels : UInt8*)
       VoidCSFML.window_seticon_emSemS843(to_unsafe, LibC::UInt.new(width), LibC::UInt.new(height), pixels)
     end
@@ -2406,7 +2377,7 @@ module SF
     # on the previous thread first if it was active.
     # Only one window can be active on a thread at a time, thus
     # the window previously active (if any) automatically gets deactivated.
-    # This is not to be confused with requestFocus().
+    # This is not to be confused with request_focus().
     #
     # * *active* - True to activate, false to deactivate
     #
@@ -2423,9 +2394,9 @@ module SF
     # If a window requests focus, it only hints to the operating
     # system, that it would like to be focused. The operating system
     # is free to deny the request.
-    # This is not to be confused with setActive().
+    # This is not to be confused with active=().
     #
-    # *See also:* hasFocus
+    # *See also:* `focus?`
     def request_focus()
       VoidCSFML.window_requestfocus(to_unsafe)
     end
@@ -2436,7 +2407,7 @@ module SF
     # events.
     #
     # *Returns:* True if window has focus, false otherwise
-    # *See also:* requestFocus
+    # *See also:* `request_focus`
     def focus?() : Bool
       VoidCSFML.window_hasfocus(to_unsafe, out result)
       return result

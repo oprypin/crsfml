@@ -4,8 +4,6 @@ module SF
   extend self
   # Represents a time value
   #
-  #
-  #
   # `SF::Time` encapsulates a time value in a flexible way.
   # It allows to define a time value either as a number of
   # seconds, milliseconds or microseconds. It also works the
@@ -58,7 +56,7 @@ module SF
     #
     # *Returns:* Time in seconds
     #
-    # *See also:* asMilliseconds, asMicroseconds
+    # *See also:* `as_milliseconds`, `as_microseconds`
     def as_seconds() : Float32
       VoidCSFML.time_asseconds(to_unsafe, out result)
       return result
@@ -67,7 +65,7 @@ module SF
     #
     # *Returns:* Time in milliseconds
     #
-    # *See also:* asSeconds, asMicroseconds
+    # *See also:* `as_seconds`, `as_microseconds`
     def as_milliseconds() : Int32
       VoidCSFML.time_asmilliseconds(to_unsafe, out result)
       return result
@@ -76,13 +74,12 @@ module SF
     #
     # *Returns:* Time in microseconds
     #
-    # *See also:* asSeconds, asMilliseconds
+    # *See also:* `as_seconds`, `as_milliseconds`
     def as_microseconds() : Int64
       VoidCSFML.time_asmicroseconds(to_unsafe, out result)
       return result
     end
     @m_microseconds : Int64
-    #
     # Overload of == operator to compare two time values
     #
     # * *left* -  Left operand (a time)
@@ -93,7 +90,6 @@ module SF
       VoidCSFML.operator_eq_f4Tf4T(to_unsafe, right, out result)
       return result
     end
-    #
     # Overload of != operator to compare two time values
     #
     # * *left* -  Left operand (a time)
@@ -104,7 +100,6 @@ module SF
       VoidCSFML.operator_ne_f4Tf4T(to_unsafe, right, out result)
       return result
     end
-    #
     # Overload of &lt; operator to compare two time values
     #
     # * *left* -  Left operand (a time)
@@ -115,7 +110,6 @@ module SF
       VoidCSFML.operator_lt_f4Tf4T(to_unsafe, right, out result)
       return result
     end
-    #
     # Overload of &gt; operator to compare two time values
     #
     # * *left* -  Left operand (a time)
@@ -126,7 +120,6 @@ module SF
       VoidCSFML.operator_gt_f4Tf4T(to_unsafe, right, out result)
       return result
     end
-    #
     # Overload of &lt;= operator to compare two time values
     #
     # * *left* -  Left operand (a time)
@@ -137,7 +130,6 @@ module SF
       VoidCSFML.operator_le_f4Tf4T(to_unsafe, right, out result)
       return result
     end
-    #
     # Overload of &gt;= operator to compare two time values
     #
     # * *left* -  Left operand (a time)
@@ -148,7 +140,6 @@ module SF
       VoidCSFML.operator_ge_f4Tf4T(to_unsafe, right, out result)
       return result
     end
-    #
     # Overload of unary - operator to negate a time value
     #
     # * *right* - Right operand (a time)
@@ -159,7 +150,6 @@ module SF
       VoidCSFML.operator_sub_f4T(to_unsafe, result)
       return result
     end
-    #
     # Overload of binary + operator to add two time values
     #
     # * *left* -  Left operand (a time)
@@ -171,7 +161,6 @@ module SF
       VoidCSFML.operator_add_f4Tf4T(to_unsafe, right, result)
       return result
     end
-    #
     # Overload of binary - operator to subtract two time values
     #
     # * *left* -  Left operand (a time)
@@ -183,7 +172,6 @@ module SF
       VoidCSFML.operator_sub_f4Tf4T(to_unsafe, right, result)
       return result
     end
-    #
     # Overload of binary * operator to scale a time value
     #
     # * *left* -  Left operand (a time)
@@ -195,7 +183,6 @@ module SF
       VoidCSFML.operator_mul_f4TBw9(to_unsafe, LibC::Float.new(right), result)
       return result
     end
-    #
     # Overload of binary * operator to scale a time value
     #
     # * *left* -  Left operand (a time)
@@ -207,7 +194,6 @@ module SF
       VoidCSFML.operator_mul_f4TG4x(to_unsafe, Int64.new(right), result)
       return result
     end
-    #
     # Overload of binary / operator to scale a time value
     #
     # * *left* -  Left operand (a time)
@@ -219,7 +205,6 @@ module SF
       VoidCSFML.operator_div_f4TBw9(to_unsafe, LibC::Float.new(right), result)
       return result
     end
-    #
     # Overload of binary / operator to scale a time value
     #
     # * *left* -  Left operand (a time)
@@ -231,7 +216,6 @@ module SF
       VoidCSFML.operator_div_f4TG4x(to_unsafe, Int64.new(right), result)
       return result
     end
-    #
     # Overload of binary / operator to compute the ratio of two time values
     #
     # * *left* -  Left operand (a time)
@@ -242,7 +226,6 @@ module SF
       VoidCSFML.operator_div_f4Tf4T(to_unsafe, right, out result)
       return result
     end
-    #
     # Overload of binary % operator to compute remainder of a time value
     #
     # * *left* -  Left operand (a time)
@@ -268,48 +251,43 @@ module SF
       return typeof(self).new(self)
     end
   end
-  #
   # Construct a time value from a number of seconds
   #
   # * *amount* - Number of seconds
   #
   # *Returns:* Time value constructed from the amount of seconds
   #
-  # *See also:* milliseconds, microseconds
+  # *See also:* `milliseconds`, `microseconds`
   def seconds(amount : Number) : Time
     result = Time.allocate
     VoidCSFML.seconds_Bw9(LibC::Float.new(amount), result)
     return result
   end
-  #
   # Construct a time value from a number of milliseconds
   #
   # * *amount* - Number of milliseconds
   #
   # *Returns:* Time value constructed from the amount of milliseconds
   #
-  # *See also:* seconds, microseconds
+  # *See also:* `seconds`, `microseconds`
   def milliseconds(amount : Int) : Time
     result = Time.allocate
     VoidCSFML.milliseconds_qe2(Int32.new(amount), result)
     return result
   end
-  #
   # Construct a time value from a number of microseconds
   #
   # * *amount* - Number of microseconds
   #
   # *Returns:* Time value constructed from the amount of microseconds
   #
-  # *See also:* seconds, milliseconds
+  # *See also:* `seconds`, `milliseconds`
   def microseconds(amount : Int) : Time
     result = Time.allocate
     VoidCSFML.microseconds_G4x(Int64.new(amount), result)
     return result
   end
   # Utility class that measures the elapsed time
-  #
-  #
   #
   # `SF::Clock` is a lightweight class for measuring time.
   #
@@ -401,18 +379,16 @@ module SF
   }
   # Abstract class for custom file input streams
   #
-  #
-  #
   # This class allows users to define their own file input sources
   # from which SFML can load resources.
   #
   # SFML resource classes like `SF::Texture` and
-  # `SF::SoundBuffer` provide loadFromFile and loadFromMemory functions,
+  # `SF::SoundBuffer` provide load_from_file and load_from_memory functions,
   # which read data from conventional sources. However, if you
   # have data coming from a different source (over a network,
   # embedded, encrypted, compressed, etc) you can derive your
   # own class from `SF::InputStream` and load SFML resources with
-  # their loadFromStream function.
+  # their load_from_stream function.
   #
   # Usage example:
   # ```c++
@@ -507,8 +483,6 @@ module SF
   # Utility class that makes any derived
   #        class non-copyable
   #
-  #
-  #
   # This class makes its instances non-copyable, by explicitly
   # disabling its copy constructor and its assignment operator.
   #
@@ -538,8 +512,6 @@ module SF
   module NonCopyable
   end
   # Implementation of input stream based on a file
-  #
-  #
   #
   # This class is a specialization of InputStream that
   # reads from a file on disk.
@@ -646,8 +618,6 @@ module SF
   end
   # Implementation of input stream based on a memory chunk
   #
-  #
-  #
   # This class is a specialization of InputStream that
   # reads from data in memory.
   #
@@ -752,8 +722,6 @@ module SF
   # Blocks concurrent access to shared resources
   #        from multiple threads
   #
-  #
-  #
   # Mutex stands for "MUTual EXclusion". A mutex is a
   # synchronization object, used when multiple threads are involved.
   #
@@ -817,13 +785,13 @@ module SF
     # this call will block the execution until the mutex
     # is released.
     #
-    # *See also:* unlock
+    # *See also:* `unlock`
     def lock()
       VoidCSFML.mutex_lock(to_unsafe)
     end
     # Unlock the mutex
     #
-    # *See also:* lock
+    # *See also:* `lock`
     def unlock()
       VoidCSFML.mutex_unlock(to_unsafe)
     end
@@ -837,7 +805,6 @@ module SF
       to_s(io)
     end
   end
-  #
   # Make the current thread sleep for a given duration
   #
   # `SF::sleep` is the best way to block a program or one of its
@@ -848,8 +815,6 @@ module SF
     VoidCSFML.sleep_f4T(duration)
   end
   # Utility class to manipulate threads
-  #
-  #
   #
   # Threads provide a way to run multiple parts of the code
   # in parallel. When you launch a new thread, the execution

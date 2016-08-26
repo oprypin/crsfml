@@ -6,8 +6,6 @@ module SF
   # The audio listener is the point in the scene
   #        from where all the sounds are heard
   #
-  #
-  #
   # The audio listener defines the global properties of the
   # audio environment, it defines where and how sounds and musics
   # are heard. If `SF::View` is the eyes of the user, then `SF::Listener`
@@ -41,7 +39,7 @@ module SF
     #
     # * *volume* - New global volume, in the range [0, 100]
     #
-    # *See also:* getGlobalVolume
+    # *See also:* `global_volume`
     def self.global_volume=(volume : Number)
       VoidCSFML.listener_setglobalvolume_Bw9(LibC::Float.new(volume))
     end
@@ -49,7 +47,7 @@ module SF
     #
     # *Returns:* Current global volume, in the range [0, 100]
     #
-    # *See also:* setGlobalVolume
+    # *See also:* `global_volume=`
     def self.global_volume() : Float32
       VoidCSFML.listener_getglobalvolume(out result)
       return result
@@ -62,7 +60,7 @@ module SF
     # * *y* - Y coordinate of the listener's position
     # * *z* - Z coordinate of the listener's position
     #
-    # *See also:* getPosition, setDirection
+    # *See also:* `position`, `direction=`
     def self.set_position(x : Number, y : Number, z : Number)
       VoidCSFML.listener_setposition_Bw9Bw9Bw9(LibC::Float.new(x), LibC::Float.new(y), LibC::Float.new(z))
     end
@@ -72,7 +70,7 @@ module SF
     #
     # * *position* - New listener's position
     #
-    # *See also:* getPosition, setDirection
+    # *See also:* `position`, `direction=`
     def self.position=(position : Vector3f)
       VoidCSFML.listener_setposition_NzM(position)
     end
@@ -80,7 +78,7 @@ module SF
     #
     # *Returns:* Listener's position
     #
-    # *See also:* setPosition
+    # *See also:* `position=`
     def self.position() : Vector3f
       result = Vector3f.allocate
       VoidCSFML.listener_getposition(result)
@@ -99,7 +97,7 @@ module SF
     # * *y* - Y coordinate of the listener's direction
     # * *z* - Z coordinate of the listener's direction
     #
-    # *See also:* getDirection, setUpVector, setPosition
+    # *See also:* `direction`, `up_vector=`, `position=`
     def self.set_direction(x : Number, y : Number, z : Number)
       VoidCSFML.listener_setdirection_Bw9Bw9Bw9(LibC::Float.new(x), LibC::Float.new(y), LibC::Float.new(z))
     end
@@ -114,7 +112,7 @@ module SF
     #
     # * *direction* - New listener's direction
     #
-    # *See also:* getDirection, setUpVector, setPosition
+    # *See also:* `direction`, `up_vector=`, `position=`
     def self.direction=(direction : Vector3f)
       VoidCSFML.listener_setdirection_NzM(direction)
     end
@@ -122,7 +120,7 @@ module SF
     #
     # *Returns:* Listener's forward vector (not normalized)
     #
-    # *See also:* setDirection
+    # *See also:* `direction=`
     def self.direction() : Vector3f
       result = Vector3f.allocate
       VoidCSFML.listener_getdirection(result)
@@ -141,7 +139,7 @@ module SF
     # * *y* - Y coordinate of the listener's up vector
     # * *z* - Z coordinate of the listener's up vector
     #
-    # *See also:* getUpVector, setDirection, setPosition
+    # *See also:* `up_vector`, `direction=`, `position=`
     def self.set_up_vector(x : Number, y : Number, z : Number)
       VoidCSFML.listener_setupvector_Bw9Bw9Bw9(LibC::Float.new(x), LibC::Float.new(y), LibC::Float.new(z))
     end
@@ -156,7 +154,7 @@ module SF
     #
     # * *up_vector* - New listener's up vector
     #
-    # *See also:* getUpVector, setDirection, setPosition
+    # *See also:* `up_vector`, `direction=`, `position=`
     def self.up_vector=(up_vector : Vector3f)
       VoidCSFML.listener_setupvector_NzM(up_vector)
     end
@@ -164,7 +162,7 @@ module SF
     #
     # *Returns:* Listener's upward vector (not normalized)
     #
-    # *See also:* setUpVector
+    # *See also:* `up_vector=`
     def self.up_vector() : Vector3f
       result = Vector3f.allocate
       VoidCSFML.listener_getupvector(result)
@@ -173,16 +171,12 @@ module SF
   end
   # Base class for classes that require an OpenAL context
   #
-  #
-  #
   # This class is for internal use only, it must be the base
   # of every class that requires a valid OpenAL context in
   # order to work.
   module AlResource
   end
   # Base class defining a sound's properties
-  #
-  #
   #
   # `SF::SoundSource` is not meant to be used directly, it
   # only serves as a common base for all audio objects
@@ -219,7 +213,7 @@ module SF
     #
     # * *pitch* - New pitch to apply to the sound
     #
-    # *See also:* getPitch
+    # *See also:* `pitch`
     def pitch=(pitch : Number)
       VoidCSFML.soundsource_setpitch_Bw9(to_unsafe, LibC::Float.new(pitch))
     end
@@ -230,7 +224,7 @@ module SF
     #
     # * *volume* - Volume of the sound
     #
-    # *See also:* getVolume
+    # *See also:* `volume`
     def volume=(volume : Number)
       VoidCSFML.soundsource_setvolume_Bw9(to_unsafe, LibC::Float.new(volume))
     end
@@ -244,7 +238,7 @@ module SF
     # * *y* - Y coordinate of the position of the sound in the scene
     # * *z* - Z coordinate of the position of the sound in the scene
     #
-    # *See also:* getPosition
+    # *See also:* `position`
     def set_position(x : Number, y : Number, z : Number)
       VoidCSFML.soundsource_setposition_Bw9Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y), LibC::Float.new(z))
     end
@@ -256,7 +250,7 @@ module SF
     #
     # * *position* - Position of the sound in the scene
     #
-    # *See also:* getPosition
+    # *See also:* `position`
     def position=(position : Vector3f)
       VoidCSFML.soundsource_setposition_NzM(to_unsafe, position)
     end
@@ -270,7 +264,7 @@ module SF
     #
     # * *relative* - True to set the position relative, false to set it absolute
     #
-    # *See also:* isRelativeToListener
+    # *See also:* `relative_to_listener?`
     def relative_to_listener=(relative : Bool)
       VoidCSFML.soundsource_setrelativetolistener_GZq(to_unsafe, relative)
     end
@@ -285,7 +279,7 @@ module SF
     #
     # * *distance* - New minimum distance of the sound
     #
-    # *See also:* getMinDistance, setAttenuation
+    # *See also:* `min_distance`, `attenuation=`
     def min_distance=(distance : Number)
       VoidCSFML.soundsource_setmindistance_Bw9(to_unsafe, LibC::Float.new(distance))
     end
@@ -302,7 +296,7 @@ module SF
     #
     # * *attenuation* - New attenuation factor of the sound
     #
-    # *See also:* getAttenuation, setMinDistance
+    # *See also:* `attenuation`, `min_distance=`
     def attenuation=(attenuation : Number)
       VoidCSFML.soundsource_setattenuation_Bw9(to_unsafe, LibC::Float.new(attenuation))
     end
@@ -310,7 +304,7 @@ module SF
     #
     # *Returns:* Pitch of the sound
     #
-    # *See also:* setPitch
+    # *See also:* `pitch=`
     def pitch() : Float32
       VoidCSFML.soundsource_getpitch(to_unsafe, out result)
       return result
@@ -319,7 +313,7 @@ module SF
     #
     # *Returns:* Volume of the sound, in the range [0, 100]
     #
-    # *See also:* setVolume
+    # *See also:* `volume=`
     def volume() : Float32
       VoidCSFML.soundsource_getvolume(to_unsafe, out result)
       return result
@@ -328,7 +322,7 @@ module SF
     #
     # *Returns:* Position of the sound
     #
-    # *See also:* setPosition
+    # *See also:* `position=`
     def position() : Vector3f
       result = Vector3f.allocate
       VoidCSFML.soundsource_getposition(to_unsafe, result)
@@ -339,7 +333,7 @@ module SF
     #
     # *Returns:* True if the position is relative, false if it's absolute
     #
-    # *See also:* setRelativeToListener
+    # *See also:* `relative_to_listener=`
     def relative_to_listener?() : Bool
       VoidCSFML.soundsource_isrelativetolistener(to_unsafe, out result)
       return result
@@ -348,7 +342,7 @@ module SF
     #
     # *Returns:* Minimum distance of the sound
     #
-    # *See also:* setMinDistance, getAttenuation
+    # *See also:* `min_distance=`, `attenuation`
     def min_distance() : Float32
       VoidCSFML.soundsource_getmindistance(to_unsafe, out result)
       return result
@@ -357,7 +351,7 @@ module SF
     #
     # *Returns:* Attenuation factor of the sound
     #
-    # *See also:* setAttenuation, getMinDistance
+    # *See also:* `attenuation=`, `min_distance`
     def attenuation() : Float32
       VoidCSFML.soundsource_getattenuation(to_unsafe, out result)
       return result
@@ -389,8 +383,6 @@ module SF
   }
   # Abstract base class for streamed audio sources
   #
-  #
-  #
   # Unlike audio buffers (see `SF::SoundBuffer`), audio streams
   # are never completely loaded in memory. Instead, the audio
   # data is acquired continuously while the stream is playing.
@@ -409,8 +401,8 @@ module SF
   # by combining this class with the network module.
   #
   # A derived class has to override two virtual functions:
-  # * onGetData fills a new chunk of audio data to be played
-  # * onSeek changes the current playing position in the source
+  # * on_get_data fills a new chunk of audio data to be played
+  # * on_seek changes the current playing position in the source
   #
   # It is important to note that each SoundStream is played in its
   # own separate thread, so that the streaming loop doesn't block the
@@ -477,7 +469,7 @@ module SF
     # This function uses its own thread so that it doesn't block
     # the rest of the program while the stream is played.
     #
-    # *See also:* pause, stop
+    # *See also:* `pause`, `stop`
     def play()
       VoidCSFML.soundstream_play(to_unsafe)
     end
@@ -486,7 +478,7 @@ module SF
     # This function pauses the stream if it was playing,
     # otherwise (stream already paused or stopped) it has no effect.
     #
-    # *See also:* play, stop
+    # *See also:* `play`, `stop`
     def pause()
       VoidCSFML.soundstream_pause(to_unsafe)
     end
@@ -496,7 +488,7 @@ module SF
     # and does nothing if it was already stopped.
     # It also resets the playing position (unlike pause()).
     #
-    # *See also:* play, pause
+    # *See also:* `play`, `pause`
     def stop()
       VoidCSFML.soundstream_stop(to_unsafe)
     end
@@ -505,9 +497,9 @@ module SF
     # 1 channel means a mono sound, 2 means stereo, etc.
     #
     # *Returns:* Number of channels
-    def channel_count() : UInt32
+    def channel_count() : Int32
       VoidCSFML.soundstream_getchannelcount(to_unsafe, out result)
-      return result
+      return result.to_i
     end
     # Get the stream sample rate of the stream
     #
@@ -515,9 +507,9 @@ module SF
     # second. The higher, the better the quality.
     #
     # *Returns:* Sample rate, in number of samples per second
-    def sample_rate() : UInt32
+    def sample_rate() : Int32
       VoidCSFML.soundstream_getsamplerate(to_unsafe, out result)
-      return result
+      return result.to_i
     end
     # Get the current status of the stream (stopped, paused, playing)
     #
@@ -535,7 +527,7 @@ module SF
     #
     # * *time_offset* - New playing position, from the beginning of the stream
     #
-    # *See also:* getPlayingOffset
+    # *See also:* `playing_offset`
     def playing_offset=(time_offset : Time)
       VoidCSFML.soundstream_setplayingoffset_f4T(to_unsafe, time_offset)
     end
@@ -543,7 +535,7 @@ module SF
     #
     # *Returns:* Current playing position, from the beginning of the stream
     #
-    # *See also:* setPlayingOffset
+    # *See also:* `playing_offset=`
     def playing_offset() : Time
       result = Time.allocate
       VoidCSFML.soundstream_getplayingoffset(to_unsafe, result)
@@ -553,12 +545,12 @@ module SF
     #
     # If set, the stream will restart from beginning after
     # reaching the end and so on, until it is stopped or
-    # setLoop(false) is called.
+    # loop=(false) is called.
     # The default looping state for streams is false.
     #
     # * *loop* - True to play in loop, false to play once
     #
-    # *See also:* getLoop
+    # *See also:* `loop`
     def loop=(loop : Bool)
       VoidCSFML.soundstream_setloop_GZq(to_unsafe, loop)
     end
@@ -566,7 +558,7 @@ module SF
     #
     # *Returns:* True if the stream is looping, false otherwise
     #
-    # *See also:* setLoop
+    # *See also:* `loop=`
     def loop() : Bool
       VoidCSFML.soundstream_getloop(to_unsafe, out result)
       return result
@@ -690,8 +682,6 @@ module SF
   end
   # Streamed music played from an audio file
   #
-  #
-  #
   # Musics are sounds that are streamed rather than completely
   # loaded in memory. This is especially useful for compressed
   # musics that usually take hundreds of MB when they are
@@ -761,7 +751,7 @@ module SF
     #
     # *Returns:* True if loading succeeded, false if it failed
     #
-    # *See also:* openFromMemory, openFromStream
+    # *See also:* `open_from_memory`, `open_from_stream`
     def open_from_file(filename : String) : Bool
       VoidCSFML.music_openfromfile_zkC(to_unsafe, filename.bytesize, filename, out result)
       return result
@@ -793,7 +783,7 @@ module SF
     #
     # *Returns:* True if loading succeeded, false if it failed
     #
-    # *See also:* openFromFile, openFromStream
+    # *See also:* `open_from_file`, `open_from_stream`
     def open_from_memory(data : Slice) : Bool
       VoidCSFML.music_openfrommemory_5h8vgv(to_unsafe, data, data.bytesize, out result)
       return result
@@ -823,7 +813,7 @@ module SF
     #
     # *Returns:* True if loading succeeded, false if it failed
     #
-    # *See also:* openFromFile, openFromMemory
+    # *See also:* `open_from_file`, `open_from_memory`
     def open_from_stream(stream : InputStream) : Bool
       VoidCSFML.music_openfromstream_PO0(to_unsafe, stream, out result)
       return result
@@ -874,14 +864,14 @@ module SF
       VoidCSFML.music_stop(to_unsafe)
     end
     # :nodoc:
-    def channel_count() : UInt32
+    def channel_count() : Int32
       VoidCSFML.music_getchannelcount(to_unsafe, out result)
-      return result
+      return result.to_i
     end
     # :nodoc:
-    def sample_rate() : UInt32
+    def sample_rate() : Int32
       VoidCSFML.music_getsamplerate(to_unsafe, out result)
-      return result
+      return result.to_i
     end
     # :nodoc:
     def status() : SoundSource::Status
@@ -985,8 +975,6 @@ module SF
   end
   # Regular sound that can be played in the audio environment
   #
-  #
-  #
   # `SF::Sound` is the class to use to play sounds.
   # It provides:
   # * Control (play, pause, stop)
@@ -1001,7 +989,7 @@ module SF
   #
   # In order to work, a sound must be given a buffer of audio
   # data to play. Audio data (samples) is stored in `SF::SoundBuffer`,
-  # and attached to a sound with the setBuffer() function.
+  # and attached to a sound with the buffer=() function.
   # The buffer object attached to a sound must remain alive
   # as long as the sound uses it. Note that multiple sounds
   # can use the same sound buffer at the same time.
@@ -1045,7 +1033,7 @@ module SF
     # This function uses its own thread so that it doesn't block
     # the rest of the program while the sound is played.
     #
-    # *See also:* pause, stop
+    # *See also:* `pause`, `stop`
     def play()
       VoidCSFML.sound_play(to_unsafe)
     end
@@ -1054,7 +1042,7 @@ module SF
     # This function pauses the sound if it was playing,
     # otherwise (sound already paused or stopped) it has no effect.
     #
-    # *See also:* play, stop
+    # *See also:* `play`, `stop`
     def pause()
       VoidCSFML.sound_pause(to_unsafe)
     end
@@ -1064,7 +1052,7 @@ module SF
     # and does nothing if it was already stopped.
     # It also resets the playing position (unlike pause()).
     #
-    # *See also:* play, pause
+    # *See also:* `play`, `pause`
     def stop()
       VoidCSFML.sound_stop(to_unsafe)
     end
@@ -1076,7 +1064,7 @@ module SF
     #
     # * *buffer* - Sound buffer to attach to the sound
     #
-    # *See also:* getBuffer
+    # *See also:* `buffer`
     def buffer=(buffer : SoundBuffer)
       VoidCSFML.sound_setbuffer_mWu(to_unsafe, buffer)
     end
@@ -1084,12 +1072,12 @@ module SF
     #
     # If set, the sound will restart from beginning after
     # reaching the end and so on, until it is stopped or
-    # setLoop(false) is called.
+    # loop=(false) is called.
     # The default looping state for sound is false.
     #
     # * *loop* - True to play in loop, false to play once
     #
-    # *See also:* getLoop
+    # *See also:* `loop`
     def loop=(loop : Bool)
       VoidCSFML.sound_setloop_GZq(to_unsafe, loop)
     end
@@ -1102,7 +1090,7 @@ module SF
     #
     # * *time_offset* - New playing position, from the beginning of the sound
     #
-    # *See also:* getPlayingOffset
+    # *See also:* `playing_offset`
     def playing_offset=(time_offset : Time)
       VoidCSFML.sound_setplayingoffset_f4T(to_unsafe, time_offset)
     end
@@ -1118,7 +1106,7 @@ module SF
     #
     # *Returns:* True if the sound is looping, false otherwise
     #
-    # *See also:* setLoop
+    # *See also:* `loop=`
     def loop() : Bool
       VoidCSFML.sound_getloop(to_unsafe, out result)
       return result
@@ -1127,7 +1115,7 @@ module SF
     #
     # *Returns:* Current playing position, from the beginning of the sound
     #
-    # *See also:* setPlayingOffset
+    # *See also:* `playing_offset=`
     def playing_offset() : Time
       result = Time.allocate
       VoidCSFML.sound_getplayingoffset(to_unsafe, result)
@@ -1219,8 +1207,6 @@ module SF
   end
   # Storage for audio samples defining a sound
   #
-  #
-  #
   # A sound buffer holds the data of a sound, which is
   # an array of audio samples. A sample is a 16 bits signed integer
   # that defines the amplitude of the sound at a given time.
@@ -1230,7 +1216,7 @@ module SF
   # are like texture pixels, and a `SF::SoundBuffer` is similar to
   # a `SF::Texture`.
   #
-  # A sound buffer can be loaded from a file (see loadFromFile()
+  # A sound buffer can be loaded from a file (see load_from_file()
   # for the complete list of supported formats), from memory, from
   # a custom stream (see `SF::InputStream`) or directly from an array
   # of samples. It can also be saved back to a file.
@@ -1301,7 +1287,7 @@ module SF
     #
     # *Returns:* True if loading succeeded, false if it failed
     #
-    # *See also:* loadFromMemory, loadFromStream, loadFromSamples, saveToFile
+    # *See also:* `load_from_memory`, `load_from_stream`, `load_from_samples`, `save_to_file`
     def load_from_file(filename : String) : Bool
       VoidCSFML.soundbuffer_loadfromfile_zkC(to_unsafe, filename.bytesize, filename, out result)
       return result
@@ -1326,7 +1312,7 @@ module SF
     #
     # *Returns:* True if loading succeeded, false if it failed
     #
-    # *See also:* loadFromFile, loadFromStream, loadFromSamples
+    # *See also:* `load_from_file`, `load_from_stream`, `load_from_samples`
     def load_from_memory(data : Slice) : Bool
       VoidCSFML.soundbuffer_loadfrommemory_5h8vgv(to_unsafe, data, data.bytesize, out result)
       return result
@@ -1350,7 +1336,7 @@ module SF
     #
     # *Returns:* True if loading succeeded, false if it failed
     #
-    # *See also:* loadFromFile, loadFromMemory, loadFromSamples
+    # *See also:* `load_from_file`, `load_from_memory`, `load_from_samples`
     def load_from_stream(stream : InputStream) : Bool
       VoidCSFML.soundbuffer_loadfromstream_PO0(to_unsafe, stream, out result)
       return result
@@ -1377,7 +1363,7 @@ module SF
     #
     # *Returns:* True if loading succeeded, false if it failed
     #
-    # *See also:* loadFromFile, loadFromMemory, saveToFile
+    # *See also:* `load_from_file`, `load_from_memory`, `save_to_file`
     def load_from_samples(samples : Array(Int16) | Slice(Int16), channel_count : Int, sample_rate : Int) : Bool
       VoidCSFML.soundbuffer_loadfromsamples_xzLJvtemSemS(to_unsafe, samples, samples.size, LibC::UInt.new(channel_count), LibC::UInt.new(sample_rate), out result)
       return result
@@ -1401,7 +1387,7 @@ module SF
     #
     # *Returns:* True if saving succeeded, false if it failed
     #
-    # *See also:* loadFromFile, loadFromMemory, loadFromSamples
+    # *See also:* `load_from_file`, `load_from_memory`, `load_from_samples`
     def save_to_file(filename : String) : Bool
       VoidCSFML.soundbuffer_savetofile_zkC(to_unsafe, filename.bytesize, filename, out result)
       return result
@@ -1410,23 +1396,23 @@ module SF
     #
     # The format of the returned samples is 16 bits signed integer
     # (`SF::Int16`). The total number of samples in this array
-    # is given by the getSampleCount() function.
+    # is given by the sample_count() function.
     #
     # *Returns:* Read-only pointer to the array of sound samples
     #
-    # *See also:* getSampleCount
+    # *See also:* `sample_count`
     def samples() : Int16*
       VoidCSFML.soundbuffer_getsamples(to_unsafe, out result)
       return result
     end
     # Get the number of samples stored in the buffer
     #
-    # The array of samples can be accessed with the getSamples()
+    # The array of samples can be accessed with the samples()
     # function.
     #
     # *Returns:* Number of samples
     #
-    # *See also:* getSamples
+    # *See also:* `samples`
     def sample_count() : UInt64
       VoidCSFML.soundbuffer_getsamplecount(to_unsafe, out result)
       return result
@@ -1439,10 +1425,10 @@ module SF
     #
     # *Returns:* Sample rate (number of samples per second)
     #
-    # *See also:* getChannelCount, getDuration
-    def sample_rate() : UInt32
+    # *See also:* `channel_count`, `duration`
+    def sample_rate() : Int32
       VoidCSFML.soundbuffer_getsamplerate(to_unsafe, out result)
-      return result
+      return result.to_i
     end
     # Get the number of channels used by the sound
     #
@@ -1451,16 +1437,16 @@ module SF
     #
     # *Returns:* Number of channels
     #
-    # *See also:* getSampleRate, getDuration
-    def channel_count() : UInt32
+    # *See also:* `sample_rate`, `duration`
+    def channel_count() : Int32
       VoidCSFML.soundbuffer_getchannelcount(to_unsafe, out result)
-      return result
+      return result.to_i
     end
     # Get the total duration of the sound
     #
     # *Returns:* Sound duration
     #
-    # *See also:* getSampleRate, getChannelCount
+    # *See also:* `sample_rate`, `channel_count`
     def duration() : Time
       result = Time.allocate
       VoidCSFML.soundbuffer_getduration(to_unsafe, result)
@@ -1489,8 +1475,6 @@ module SF
   }
   # Abstract base class for capturing sound data
   #
-  #
-  #
   # `SF::SoundBuffer` provides a simple interface to access
   # the audio recording capabilities of the computer
   # (the microphone). As an abstract base class, it only cares
@@ -1500,41 +1484,41 @@ module SF
   # captured data to a sound buffer (see `SF::SoundBufferRecorder`).
   #
   # A derived class has only one virtual function to override:
-  # * onProcessSamples provides the new chunks of audio samples while the capture happens
+  # * on_process_samples provides the new chunks of audio samples while the capture happens
   #
   # Moreover, two additional virtual functions can be overridden
   # as well if necessary:
-  # * onStart is called before the capture happens, to perform custom initializations
-  # * onStop is called after the capture ends, to perform custom cleanup
+  # * on_start is called before the capture happens, to perform custom initializations
+  # * on_stop is called after the capture ends, to perform custom cleanup
   #
-  # A derived class can also control the frequency of the onProcessSamples
-  # calls, with the setProcessingInterval protected function. The default
+  # A derived class can also control the frequency of the on_process_samples
+  # calls, with the processing_interval= protected function. The default
   # interval is chosen so that recording thread doesn't consume too much
   # CPU, but it can be changed to a smaller value if you need to process
   # the recorded data in real time, for example.
   #
   # The audio capture feature may not be supported or activated
   # on every platform, thus it is recommended to check its
-  # availability with the isAvailable() function. If it returns
+  # availability with the available?() function. If it returns
   # false, then any attempt to use an audio recorder will fail.
   #
   # If you have multiple sound input devices connected to your
   # computer (for example: microphone, external soundcard, webcam mic, ...)
   # you can get a list of all available devices through the
-  # getAvailableDevices() function. You can then select a device
-  # by calling setDevice() with the appropriate device. Otherwise
+  # available_devices() function. You can then select a device
+  # by calling device=() with the appropriate device. Otherwise
   # the default capturing device will be used.
   #
   # By default the recording is in 16-bit mono. Using the
-  # setChannelCount method you can change the number of channels
+  # channel_count= method you can change the number of channels
   # used by the audio capture device to record. Note that you
   # have to decide whether you want to record in mono or stereo
   # before starting the recording.
   #
   # It is important to note that the audio capture happens in a
   # separate thread, so that it doesn't block the rest of the
-  # program. In particular, the onProcessSamples virtual function
-  # (but not onStart and not onStop) will be called
+  # program. In particular, the on_process_samples virtual function
+  # (but not on_start and not on_stop) will be called
   # from this separate thread. It is important to keep this in
   # mind, because you may have to take care of synchronization
   # issues if you share data between threads.
@@ -1606,23 +1590,23 @@ module SF
     # the rest of the program while the capture runs.
     # Please note that only one capture can happen at the same time.
     # You can select which capture device will be used, by passing
-    # the name to the setDevice() method. If none was selected
+    # the name to the device=() method. If none was selected
     # before, the default capture device will be used. You can get a
     # list of the names of all available capture devices by calling
-    # getAvailableDevices().
+    # available_devices().
     #
     # * *sample_rate* - Desired capture rate, in number of samples per second
     #
     # *Returns:* True, if start of capture was successful
     #
-    # *See also:* stop, getAvailableDevices
+    # *See also:* `stop`, `available_devices`
     def start(sample_rate : Int = 44100) : Bool
       VoidCSFML.soundrecorder_start_emS(to_unsafe, LibC::UInt.new(sample_rate), out result)
       return result
     end
     # Stop the capture
     #
-    # *See also:* start
+    # *See also:* `start`
     def stop()
       VoidCSFML.soundrecorder_stop(to_unsafe)
     end
@@ -1633,9 +1617,9 @@ module SF
     # (for example, 44100 samples/sec is CD quality).
     #
     # *Returns:* Sample rate, in samples per second
-    def sample_rate() : UInt32
+    def sample_rate() : Int32
       VoidCSFML.soundrecorder_getsamplerate(to_unsafe, out result)
-      return result
+      return result.to_i
     end
     # Get a list of the names of all available audio capture devices
     #
@@ -1669,7 +1653,7 @@ module SF
     #
     # *Returns:* True, if it was able to set the requested device
     #
-    # *See also:* getAvailableDevices, getDefaultDevice
+    # *See also:* `available_devices`, `default_device`
     def device=(name : String) : Bool
       VoidCSFML.soundrecorder_setdevice_zkC(to_unsafe, name.bytesize, name, out result)
       return result
@@ -1690,7 +1674,7 @@ module SF
     # * *channel_count* - Number of channels. Currently only
     #                     mono (1) and stereo (2) are supported.
     #
-    # *See also:* getChannelCount
+    # *See also:* `channel_count`
     def channel_count=(channel_count : Int)
       VoidCSFML.soundrecorder_setchannelcount_emS(to_unsafe, LibC::UInt.new(channel_count))
     end
@@ -1701,10 +1685,10 @@ module SF
     #
     # *Returns:* Number of channels
     #
-    # *See also:* setChannelCount
-    def channel_count() : UInt32
+    # *See also:* `channel_count=`
+    def channel_count() : Int32
       VoidCSFML.soundrecorder_getchannelcount(to_unsafe, out result)
-      return result
+      return result.to_i
     end
     # Check if the system supports audio capture
     #
@@ -1729,7 +1713,7 @@ module SF
     # Set the processing interval
     #
     # The processing interval controls the period
-    # between calls to the onProcessSamples function. You may
+    # between calls to the on_process_samples function. You may
     # want to use a small interval if you want to process the
     # recorded data in real time, for example.
     #
@@ -1788,17 +1772,15 @@ module SF
   # Specialized SoundRecorder which stores the captured
   #        audio data into a sound buffer
   #
-  #
-  #
   # `SF::SoundBufferRecorder` allows to access a recorded sound
   # through a `SF::SoundBuffer`, so that it can be played, saved
   # to a file, etc.
   #
   # It has the same simple interface as its base class (start(), stop())
   # and adds a function to retrieve the recorded sound buffer
-  # (getBuffer()).
+  # (buffer()).
   #
-  # As usual, don't forget to call the isAvailable() function
+  # As usual, don't forget to call the available?() function
   # before using this class (see `SF::SoundRecorder` for more details
   # about this).
   #
@@ -1870,9 +1852,9 @@ module SF
       VoidCSFML.soundbufferrecorder_stop(to_unsafe)
     end
     # :nodoc:
-    def sample_rate() : UInt32
+    def sample_rate() : Int32
       VoidCSFML.soundbufferrecorder_getsamplerate(to_unsafe, out result)
-      return result
+      return result.to_i
     end
     # :nodoc:
     def self.available_devices() : Array(String)
@@ -1899,9 +1881,9 @@ module SF
       VoidCSFML.soundbufferrecorder_setchannelcount_emS(to_unsafe, LibC::UInt.new(channel_count))
     end
     # :nodoc:
-    def channel_count() : UInt32
+    def channel_count() : Int32
       VoidCSFML.soundbufferrecorder_getchannelcount(to_unsafe, out result)
-      return result
+      return result.to_i
     end
     # :nodoc:
     def self.available?() : Bool
