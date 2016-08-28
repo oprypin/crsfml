@@ -1366,14 +1366,15 @@ class CFunction < CItem
         full = $~[1]
         short = $~[2]? || $~[3]? || "new"
         cls_name = cls.not_nil!.name(context).not_nil!
-        o<< "# Shorthand for `#{cls_name.underscore} = #{cls_name}.new; #{cls_name.underscore}.#{full}(...); #{cls_name.underscore}`"
+        obj_name = cls_name.underscore
+        o<< "# Shorthand for `#{obj_name} = #{cls_name}.new; #{obj_name}.#{full}(...); #{obj_name}`"
         if self.type.try &.type.full_name == "bool"
           o<< "#"
           o<< "# Raises `InitError` on failure"
         end
-        o<< "def self.#{short}(#{cr_params.join(", ")}) : self"
+        o<< "def self.#{short}(*args, **kwargs) : self"
         args = cr_params.map &.split(" : ")[0]
-        call = "obj.#{full}(#{args.join(", ")})"
+        call = "obj.#{full}(*args, **kwargs)"
         o<< "obj = new"
         if self.type.try &.type.full_name == "bool"
           o<< "if !#{call}"
