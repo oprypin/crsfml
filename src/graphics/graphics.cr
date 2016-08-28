@@ -90,13 +90,13 @@ module SF
     #
     # Returns the overlapped rectangle or nil if there is no overlap.
     def intersects?(other : Rect(T)) : Rect(T)?
-      horz1, horz2 = {left, left+width}, {other.left, other.left+width}
-      vert1, vert2 = {top, top+height}, {other.top, other.top+height}
+      horz1, horz2 = {left, left + width}, {other.left, other.left + other.width}
+      vert1, vert2 = {top, top + height}, {other.top, other.top + other.height}
       x1 = {horz1.min, horz2.min}.max
       y1 = {vert1.min, vert2.min}.max
       x2 = {horz1.max, horz2.max}.min
       y2 = {vert1.max, vert2.max}.min
-      Rect.new(x1, y1, x2-x1, y2-y1) if x1 < x2 && y1 < y2
+      Rect.new(x1, y1, x2 - x1, y2 - y1) if x1 < x2 && y1 < y2
     end
 
     # Returns true if all corresponding coordinates of two rects are equal
