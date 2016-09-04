@@ -52,6 +52,11 @@ end
 alias CTypeBase = CClass | CEnum | CNativeType
 
 class CType
+  @@all = {} of String => CTypeBase
+  def self.all
+    @@all
+  end
+
   def initialize(@type : CTypeBase, @reference = false, @pointer = 0, @const = false, @array = 1)
   end
 
@@ -77,11 +82,9 @@ class CType
 end
 
 
-$all_types = {} of String => CTypeBase
-
 def register_type(type : CTypeBase)
-  $all_types[type.full_name] = type
-  $all_types["String"] = CNativeType.new("String")
+  CType.all[type.full_name] = type
+  CType.all["String"] = CNativeType.new("String")
 rescue
 end
 
@@ -109,7 +112,7 @@ def find_type(name : String, parent : CNamespace?) : CTypeBase
     else
       full_names = [name]
     end
-    $all_types.each do |name, type|
+    CType.all.each do |name, type|
       if full_names.includes? name
         return type
       end
@@ -600,7 +603,7 @@ class CClass < CNamespace
     inh
   end
   def subclasses : Array(CClass)
-    $all_types.each do |typ|
+    CType.all.each do |typ|
       if typ.is_a?(CClass) && typ.inherited_class == self
         return [typ] + typ.subclasses
       end
@@ -1257,7 +1260,7 @@ class CFunction < CItem
         o<< "if result"
         o<< "{% begin %}"
         o<< "case event.to_unsafe.as(LibC::Int*).value"
-        union_var = $all_types["Event"].as(CClass).union?.not_nil!
+        union_var = CType.all["Event"].as(CClass).union?.not_nil!
         enu = union_var.type.type.as(CEnum)
         members = enu.members[0...-1].map(&.name(context))
         o<< "{% for m, i in %w[#{members.join(' ')}] %}"
@@ -1604,7 +1607,7 @@ class CModule < CNamespace
 
       when /^(class|struct) ((\w|(<.+?>))+);$/
         class_name = $~[2]
-        register_type CClass.new(class_name, visibility: Visibility::Private) unless $all_types.has_key? class_name
+        register_type CClass.new(class_name, visibility: Visibility::Private) unless CType.all.has_key? class_name
       when /^(class|struct) ((\w|(<.+?>))+)( : (.+))?$/
         class_name = $~[2]
         inherited = ($~[6]?.try &.split(',').map &.split.last) || [] of String
@@ -1796,7 +1799,7 @@ Output.write("sizes.cpp") do |o|
   o<< "int main() {"
   o<< "std::cout << \"lib #{LIB_NAME}\\n\""
 
-  $all_types.each_value do |type|
+  CType.all.each_value do |type|
     if type.is_a?(CClass) && type.visibility.public?
       if (inh = type.inherited_class)
         minus = " - sizeof(#{inh.full_name})"
