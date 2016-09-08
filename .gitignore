@@ -4,9 +4,9 @@
 !*.yml
 !*.md
 !LICENSE
-!CMakeLists.txt
 !*.in
 
+!/CMakeLists.txt
 !/generate.cr
 !/logo.png
 !/*.sh
@@ -24,6 +24,7 @@
 /src/*/lib.cr
 /src/*/obj.cr
 /src/sizes.cr
+/src/common.cr
 
 !/examples/
 !/examples/*.cr
