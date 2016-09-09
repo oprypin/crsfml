@@ -160,7 +160,7 @@ def identifier_hash(string) : String
     number <<= 8
     number |= digest[i]
   end
-  (number % (base**size)).to_s(base)[0...size]
+  (number % (base**size)).to_s(base).rjust(3, '0')
 end
 
 
