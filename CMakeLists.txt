@@ -76,10 +76,15 @@ add_custom_target(c-sources DEPENDS ${SRC_C})
 add_custom_target(crystal-sources DEPENDS ${SRC_CR} ${SIZES_CR})
 
 
+file(
+    GLOB doc_diffs
+    RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
+    "docs/*.diff"
+)
 add_custom_command(
     COMMAND ${CRYSTAL} run "${CMAKE_CURRENT_SOURCE_DIR}/generate.cr" -- ${SFML_INCLUDE_DIR}
     OUTPUT ${SRC_C} ${SRC_CR} ${SIZES_CPP}
-    DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/generate.cr"
+    DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/generate.cr" ${doc_diffs}
 )
 
 add_executable(sizes-generator ${SIZES_CPP})

@@ -163,6 +163,35 @@ def identifier_hash(string) : String
   (number % (base**size)).to_s(base).rjust(3, '0')
 end
 
+def apply_diff(a, diff)
+  b = a.lines
+  index = 0
+  diff.each_with_index do |d, diff_index|
+    if d.chomp.empty?
+      d = " " + d
+    end
+    if d.starts_with? "@@"
+      index, size = (d.split[2][1..-1] + ",1").split(',').map &.to_i
+      index -= 1 unless size == 0
+      next
+    end
+    if d[0] == '+'
+      b.insert(index, d[1..-1])
+      index += 1
+    elsif d[0] == ' ' || d[0] == '-'
+      if b[index]? != d[1..-1]
+        raise ArgumentError.new("Failed to apply diff (line #{diff_index + 1})")
+      end
+      if d[0] == '-'
+        b.delete_at index
+      else
+        index += 1
+      end
+    end
+  end
+  b.join
+end
+
 
 abstract class CItem
   def initialize(@name : String?, @visibility = Visibility::Public,
@@ -186,45 +215,62 @@ abstract class CItem
     result
   end
 
+  def qualname : String
+    parts = [parent.try(&.qualname), name(Context::Crystal)]
+    parts.compact.reject(&.empty?).join("::")
+  end
+
   abstract def render(context : Context, out : Output)
 
-  def render_docs(out o : Output)
+  def render_docs(out o : Output, name : String)
     in_code = false
     while @docs[-1]? == ""
       @docs.pop
     end
-    prev_line = ""
-    @docs.each do |line|
-      if line == "\\code"
-        in_code = true
-        line = "```c++"
-      elsif line == "\\endcode"
-        in_code = false
-        line = "```"
+    doc = String.build do |io|
+      prev_line = ""
+      @docs.each do |line|
+        if line == "\\code"
+          in_code = true
+          line = "```c++"
+        elsif line == "\\endcode"
+          in_code = false
+          line = "```"
+        end
+        unless in_code
+          line = line.sub /^\\brief\b */, ""
+          line = line.sub /^\\li\b */, "* "
+          line = line.sub /^    \b/, "  "
+          line = line.sub /^\\param\b *([^ ()]+)/ { "* *#{$~[1].underscore}* -" }
+          #line = line.sub /^\\ingroup\b *([^ ()]+)/ { "*SFML module: #{$~[1].underscore}*" }
+          line = line.sub /^\\(ingroup|relates)\b.*/, ""
+          line = line.gsub /(@ref|\\a)\b *([^ ()]+)/ { "*#{$~[2].underscore}*" }
+          line = line.gsub /(@ref|\\a)\b *([^ ()]+)/ { "*#{$~[2].underscore}*" }
+          line = line.sub /\\em\b *([^ ]+)/ { "*#{$~[1]}*" }
+          line = line.sub /^\\return\b */, "*Returns:* "
+          line = line.sub /^\\warning\b */, "*Warning:* "
+          line = line.sub /^\\deprecated\b */, "*Deprecated:* "
+          line = line.gsub /\bsf(::[^ \.;,()]+)/ { "`SF#{$~[1]}`" }
+          line = line.sub /^\\see\b *(.+)/ { "*See also:* " + $~[1].gsub(/(?<!`)\b[\w\.]+\b(?!`)/, "`\\0`") }
+          line = line.gsub /<\/?b>/, "**"
+          line = line.gsub "\\n", "\n"
+          line = line.gsub '<', "&lt;"
+          line = line.gsub '>', "&gt;"
+          line = line.gsub /\b([a-z][a-z0-9]+[A-Z][a-zA-Z0-9]*)\b/ { CFunction.new($~[1], nil, [] of CParameter).name(Context::Crystal) }
+        end
+        io << "#{line.rstrip}\n" unless line == "" == prev_line
+        prev_line = line
       end
-      unless in_code
-        line = line.sub /^\\brief\b */, ""
-        line = line.sub /^\\li\b */, "* "
-        line = line.sub /^    \b/, "  "
-        line = line.sub /^\\param\b *([^ ()]+)/ { "* *#{$~[1].underscore}* -" }
-        #line = line.sub /^\\ingroup\b *([^ ()]+)/ { "*SFML module: #{$~[1].underscore}*" }
-        line = line.sub /^\\(ingroup|relates)\b.*/, ""
-        line = line.gsub /(@ref|\\a)\b *([^ ()]+)/ { "*#{$~[2].underscore}*" }
-        line = line.gsub /(@ref|\\a)\b *([^ ()]+)/ { "*#{$~[2].underscore}*" }
-        line = line.sub /\\em\b *([^ ]+)/ { "*#{$~[1]}*" }
-        line = line.sub /^\\return\b */, "*Returns:* "
-        line = line.sub /^\\warning\b */, "*Warning:* "
-        line = line.sub /^\\deprecated\b */, "*Deprecated:* "
-        line = line.gsub /\bsf(::[^ \.;,()]+)/ { "`SF#{$~[1]}`" }
-        line = line.sub /^\\see\b *(.+)/ { "*See also:* " + $~[1].gsub(/(?<!`)\b[\w\.]+\b(?!`)/, "`\\0`") }
-        line = line.gsub /<\/?b>/, "**"
-        line = line.gsub "\\n", "\n"
-        line = line.gsub '<', "&lt;"
-        line = line.gsub '>', "&gt;"
-        line = line.gsub /\b([a-z][a-z0-9]+[A-Z][a-zA-Z0-9]*)\b/ { CFunction.new($~[1], nil, [] of CParameter).name(Context::Crystal) }
+    end
+    if (diff = CModule.doc_diffs[name]?)
+      begin
+        doc = apply_diff(doc, diff)
+        CModule.doc_diffs.delete name
+      rescue
       end
-      o<< "# #{line}" unless line == "" == prev_line
-      prev_line = line
+    end
+    doc.lines.each do |line|
+      o<< "# #{line.chomp}"
     end
   end
 end
@@ -383,7 +429,7 @@ class CClass < CNamespace
     end
 
     if context.crystal?
-      render_docs(o)
+      render_docs(o, qualname)
       inh = " < #{inherited_class.not_nil!.name(context)}" if inherited_class
       kind = case
       when module?
@@ -469,7 +515,7 @@ class CClass < CNamespace
               end
             end
           end
-          member.render_docs(o)
+          member.render_docs(o, qualname + "::" + member.name(Context::Crystal))
           o<< "struct #{member.name(context)} < #{inh}"
           o<< "end"
         end
@@ -696,7 +742,6 @@ class CEnumMember < CItem
   end
 
   def render(context : Context, out o : Output)
-    render_docs(o)
     line = name(context)
     if @value
       line += " = #{value(context)}"
@@ -719,14 +764,17 @@ class CEnum < CNamespace
   def render(context : Context, out o : Output)
     return if visibility.private?
     if context.crystal?
-      render_docs(o)
+      render_docs(o, qualname)
       if @name
         if members.map(&.value).compact.any?(&.includes? "<<")
           o<< "@[Flags]"
         end
         o<< "enum #{name(context)}"
       end
-      members.each &.render(context, o)
+      members.each do |member|
+        member.render_docs(o, qualname + "::" + member.name(Context::Crystal))
+        member.render(context, o)
+      end
       if @name
         o<< "end"
         unless full_name == "Style"
@@ -801,6 +849,11 @@ class CFunction < CItem
       name += "_#{hash}" unless hash.empty?
     end
     name
+  end
+
+  def qualname(parent : CNamespace? = @parent) : String
+    parts = [parent.try(&.qualname), name(Context::Crystal)]
+    parts.compact.reject(&.empty?).join(static? ? "." : "#")
   end
 
   def getter_name : String?
@@ -1132,8 +1185,6 @@ class CFunction < CItem
         end
       end
 
-      render_docs(o)
-
       ret_types = return_params.map { |param|
         if param.type.type.is_a?(CClass)
           suffix = "?" if param.type.pointer == 1 && !const_reference_getter?
@@ -1166,6 +1217,8 @@ class CFunction < CItem
       if operator_name == ">>"
         cr_params << "type : #{return_params[0].type.full_name(Context::Crystal)}.class"
       end
+
+      render_docs(o, "#{qualname(parent || cls)}(#{cr_params.map(&.split(" : ")[0]).join(",")})")
       o<< "#{abstr}def #{"self." if static?}#{func_name}(#{cr_params.join(", ")})#{ret}"
 
       return if abstract?
@@ -1414,6 +1467,11 @@ class CVariable < CItem
     name
   end
 
+  def qualname : String
+    parts = [parent.try(&.qualname), name(Context::Crystal)]
+    parts.compact.reject(&.empty?).join("#")
+  end
+
   getter type : CType
 
   def render(context : Context, out o : Output, var_only = false)
@@ -1432,7 +1490,7 @@ class CVariable < CItem
     return unless visibility.public?
     if parent.struct?
       if context.crystal?
-        render_docs(o)
+        render_docs(o, qualname + "()")
         o<< "def #{var_name} : #{type.full_name(context)}#{"?" if type.pointer > 0}"
         name = var_name
         if type.pointer > 0
@@ -1460,8 +1518,26 @@ class CModule < CNamespace
   getter dependencies = [] of String
   @done_files = Set(String).new
 
+  @@doc_diffs = {} of String => Array(String)
+  def self.doc_diffs
+    @@doc_diffs
+  end
+
   def initialize(@name : String)
     @parent = nil
+
+    begin
+      diff = [] of String
+      File.each_line(File.join(File.dirname(__FILE__), "docs", "#{name.downcase}.diff")) do |line|
+        if line.starts_with?("+++ SF::") || line.starts_with?("--- SF::")
+          @@doc_diffs[line[8..-1].chop] = diff = [] of String
+        else
+          diff << line
+        end
+      end
+    rescue
+    end
+
     process_file "#{name}.hpp"
   end
 
@@ -1811,4 +1887,11 @@ Output.write("sizes.cpp") do |o|
   o<< "<< \"end\\n\";"
   o<< "return 0;"
   o<< "}"
+end
+
+unless CModule.doc_diffs.empty?
+  STDERR.puts "Failed to apply doc diff for:"
+  CModule.doc_diffs.each_key do |name|
+    STDERR.puts name
+  end
 end

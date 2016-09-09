@@ -8,6 +8,7 @@
 
 !/CMakeLists.txt
 !/generate.cr
+!/save_docs.cr
 !/logo.png
 !/*.sh
 
@@ -25,6 +26,9 @@
 /src/*/obj.cr
 /src/sizes.cr
 /src/common.cr
+
+!/docs/
+!/docs/*.diff
 
 !/examples/
 !/examples/*.cr
