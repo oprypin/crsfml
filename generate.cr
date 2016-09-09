@@ -1144,7 +1144,7 @@ class CFunction < CItem
         if name == "SoundStream::Chunk"
           name = "Slice(Int16)"
         end
-        if param.type.full_name(Context::CPPSource) == "unsigned int"
+        if ["unsigned int", "std::size_t"].includes?(param.type.full_name(Context::CPPSource))
           name = "Int32" unless param.name(Context::Crystal).includes?("handle")
         end
         "#{name}#{suffix}"
@@ -1352,7 +1352,7 @@ class CFunction < CItem
             "Array.new(#{name}_size.to_i) { |i| String.new(#{name}[i]) }"
           elsif typ =~ /\bstd::vector<(.+)>/
             "Array.new(#{name}_size.to_i) { |i| #{name}.as(#{$~[1]}*)[i] }"
-          elsif typ == "unsigned int"
+          elsif typ == "unsigned int" || typ == "std::size_t"
             "#{name}.to_i"
           elsif param.type.type.as?(CClass).try &.class? && const_reference_getter?
             "#{param.type.full_name(Context::Crystal)}::Reference.new(#{name}, self)"
