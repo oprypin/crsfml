@@ -239,4 +239,18 @@ module SF
       set_texture(texture)
     end
   end
+
+  struct BlendMode
+    # Blend source and dest according to dest alpha
+    BlendAlpha = BlendMode.new(BlendMode::SrcAlpha, BlendMode::OneMinusSrcAlpha, BlendMode::Add,
+                              BlendMode::One, BlendMode::OneMinusSrcAlpha, BlendMode::Add)
+    # Add source to dest
+    BlendAdd = BlendMode.new(BlendMode::SrcAlpha, BlendMode::One, BlendMode::Add,
+                            BlendMode::One, BlendMode::One, BlendMode::Add)
+    # Multiply source and dest
+    BlendMultiply = BlendMode.new(BlendMode::DstColor, BlendMode::Zero)
+    # Overwrite dest with source
+    BlendNone = BlendMode.new(BlendMode::One, BlendMode::Zero)
+  end
+  _sf_enum BlendMode
 end
