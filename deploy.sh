@@ -59,8 +59,10 @@ pushd deploy
 
     crystal doc
 
-    logo="https://raw.githubusercontent.com/BlaXpirit/crsfml/$sources_branch/logo.png"
-    logo='<a href="https://github.com/BlaXpirit/crsfml#readme"><img src="'"$logo"'" alt="CrSFML" height="64"/></a>'
+    logo=\
+'<a href="https://github.com/BlaXpirit/crsfml#readme" style="padding: 3px 5px 2px; text-align: center">'\
+'<img src="https://raw.githubusercontent.com/BlaXpirit/crsfml/'"$sources_branch"'/logo.png" alt="CrSFML" style="width: 100%; max-width: 235px"/>'\
+'</a>'
     # Replace README link with CrSFML
     find doc/ -type f -exec sed -i -r -e "s,<a.+>README</a>,$logo," {} \;
 
@@ -82,6 +84,40 @@ pushd deploy
     <a href="SF.html">Redirecting...</a>
 </body>
 </html>
+EOF
+
+    cat << EOF >> doc/css/style.css
+#types-list {
+    background: #2f610e;
+}
+#types-list a {
+    color: #fff !important;
+}
+#types-list .current > a {
+    font-weight: bold;
+    font-weight: 600;
+}
+.superclass-hierarchy .superclass a:hover, .other-type a:hover, .entry-summary .signature:hover, .entry-detail:target .signature {
+    background: #eaf5db;
+    border-color: #567e25;
+}
+a, a:visited, a *, a:visited * {
+    color: #567e25 !important;
+}
+.superclass-hierarchy .superclass a, .other-type a, .entry-summary .signature, .entry-detail .signature {
+    background: #f9fafc;
+    color: #222 !important;
+    border-color: #dee4f0;
+}
+.tooltip span {
+    background: #eaf5db !important;
+    color: #222 !important;
+}
+pre {
+    padding: 2px 7px;
+    border: 1px solid #ccc;
+    color: #111;
+}
 EOF
 
     if [ -n "$git_uri" ]; then
