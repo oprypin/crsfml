@@ -241,7 +241,7 @@ abstract class CItem
           line = line.sub /^\\brief\b */, ""
           line = line.sub /^\\li\b */, "* "
           line = line.sub /^    \b/, "  "
-          line = line.sub /^\\param\b *([^ ()]+)/ { "* *#{$~[1].underscore}* -" }
+          line = line.sub /^\\param\b +([^ ()]+) +/ { "* *#{CParameter.new($~[1], make_type("", nil)).name(Context::Crystal)}* - " }
           #line = line.sub /^\\ingroup\b *([^ ()]+)/ { "*SFML module: #{$~[1].underscore}*" }
           line = line.sub /^\\(ingroup|relates)\b.*/, ""
           line = line.gsub /(@ref|\\a)\b *([^ ()]+)/ { "*#{$~[2].underscore}*" }
@@ -252,6 +252,7 @@ abstract class CItem
           line = line.sub /^\\deprecated\b */, "*Deprecated:* "
           line = line.gsub /\bsf(::[^ \.;,()]+)/ { "`SF#{$~[1]}`" }
           line = line.sub /^\\see\b *(.+)/ { "*See also:* " + $~[1].gsub(/(?<!`)\b[\w\.]+\b(?!`)/, "`\\0`") }
+          line = line.gsub /%([A-Z][a-zA-Z])/ { $~[1] }
           line = line.gsub /<\/?b>/, "**"
           line = line.gsub "\\n", "\n"
           line = line.gsub '<', "&lt;"
@@ -764,8 +765,8 @@ class CEnum < CNamespace
   def render(context : Context, out o : Output)
     return if visibility.private?
     if context.crystal?
-      render_docs(o, qualname)
       if @name
+        render_docs(o, qualname)
         if members.map(&.value).compact.any?(&.includes? "<<")
           o<< "@[Flags]"
         end
