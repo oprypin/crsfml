@@ -1629,6 +1629,10 @@ class CModule < CNamespace
     File.each_line("#{SFML_PATH}/#{file_name}") do |line|
       line = (buf + line).strip
 
+      if line =~ %r(^////+$) && prev_line !~ %r(^///)
+        docs_buffer.clear
+      end
+
       if case line
       when /^#(ifdef\b|(el)?if [^!])/
         preprocessor_stack.pop if $~[2]?
@@ -1685,6 +1689,7 @@ class CModule < CNamespace
       when /^(class|struct) ((\w|(<.+?>))+);$/
         class_name = $~[2]
         register_type CClass.new(class_name, visibility: Visibility::Private) unless CType.all.has_key? class_name
+        docs_buffer.clear
       when /^(class|struct) ((\w|(<.+?>))+)( : (.+))?$/
         class_name = $~[2]
         inherited = ($~[6]?.try &.split(',').map &.split.last) || [] of String
@@ -1751,15 +1756,18 @@ class CModule < CNamespace
       when /^typedef /
 
       when %r(^([^\(\)\/;]+) ([a-z]\w*)(\[[0-9]+\])?;( +///< (.+))$)
+        docs_buffer.clear
         var = CVariable.new(type: make_type("#{$~[1]}#{$~[3]?}", parent),
                             name: $~[2], parent: parent,
                             visibility: visibility, docs: [$~[5]?].compact)
         (parent || self) << var
 
       when /\{$/
+        docs_buffer.clear
         stack.push upcoming_namespace
         upcoming_namespace = nil
       when /^\}/
+        docs_buffer.clear
         stack.pop
       end
 
