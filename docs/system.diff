@@ -1,0 +1,322 @@
+--- SF::Clock
++++ SF::Clock
+@@ -11,8 +11,8 @@
+ Usage example:
+-```c++
+-sf::Clock clock;
++```
++clock = SF::Clock.new
+ ...
+-Time time1 = clock.getElapsedTime();
++time1 = clock.elapsed_time
+ ...
+-Time time2 = clock.restart();
++time2 = clock.restart()
+ ```
+--- SF::FileInputStream#read(data)
++++ SF::FileInputStream#read(data)
+@@ -6,3 +6,2 @@
+ * *data* - Buffer where to copy the read data
+-* *size* - Desired number of bytes to read
+ 
+--- SF::InputStream
++++ SF::InputStream
+@@ -14,38 +14,31 @@
+ Usage example:
+-```c++
+-// custom stream class that reads from inside a zip file
+-class ZipStream : public sf::InputStream
+-{
+-public:
+-
+-    ZipStream(std::string archive);
+-
+-    bool open(std::string filename);
++```
++# custom stream class that reads from inside a zip file
++class ZipStream < SF::InputStream
++    def initialize(archive : String)
+ 
+-    Int64 read(void* data, Int64 size);
++    def open(filename : String)
+ 
+-    Int64 seek(Int64 position);
++    def read(data : Slice) : Int64
+ 
+-    Int64 tell();
++    def seek(position : Int) : Int64
+ 
+-    Int64 getSize();
++    def tell() : Int64
+ 
+-private:
++    def size() : Int64
+ 
+     ...
+-};
++end
+ 
+-// now you can load textures...
+-sf::Texture texture;
+-ZipStream stream("resources.zip");
+-stream.open("images/img.png");
+-texture.loadFromStream(stream);
++# now you can load textures...
++stream = ZipStream.new("resources.zip")
++stream.open("images/img.png")
++texture = SF::Texture.from_stream(stream)
+ 
+-// musics...
+-sf::Music music;
+-ZipStream stream("resources.zip");
+-stream.open("musics/msc.ogg");
+-music.openFromStream(stream);
++# musics...
++stream = ZipStream.new("resources.zip")
++stream.open("musics/msc.ogg")
++music = SF::Music.from_stream(stream)
+ 
+-// etc.
++# etc.
+ ```
+--- SF::InputStream#read(data)
++++ SF::InputStream#read(data)
+@@ -6,3 +6,2 @@
+ * *data* - Buffer where to copy the read data
+-* *size* - Desired number of bytes to read
+ 
+--- SF::MemoryInputStream
++++ SF::MemoryInputStream
+@@ -18,8 +18,8 @@
+ Usage example:
+-```c++
+-void process(InputStream& stream);
++```
++def process(stream : InputStream)
++end
+ 
+-MemoryInputStream stream;
+-stream.open(thePtr, theSize);
+-process(stream);
++stream = SF::MemoryInputStream.open(slice)
++process(stream)
+ ```
+--- SF::MemoryInputStream#open(data)
++++ SF::MemoryInputStream#open(data)
+@@ -3,2 +3 @@
+ * *data* - Pointer to the data in memory
+-* *size_in_bytes* - Size of the data, in bytes
+--- SF::MemoryInputStream#read(data)
++++ SF::MemoryInputStream#read(data)
+@@ -6,3 +6,2 @@
+ * *data* - Buffer where to copy the read data
+-* *size* - Desired number of bytes to read
+ 
+--- SF::Mutex
++++ SF::Mutex
+@@ -14,19 +14,17 @@
+ Usage example:
+-```c++
+-Database database; // this is a critical resource that needs some protection
+-sf::Mutex mutex;
+-
+-void thread1()
+-{
+-    mutex.lock(); // this call will block the thread if the mutex is already locked by thread2
+-    database.write(...);
+-    mutex.unlock(); // if thread2 was waiting, it will now be unblocked
+-}
+-
+-void thread2()
+-{
+-    mutex.lock(); // this call will block the thread if the mutex is already locked by thread1
+-    database.write(...);
+-    mutex.unlock(); // if thread1 was waiting, it will now be unblocked
+-}
++```
++@database = Database.new # this is a critical resource that needs some protection
++@mutex = SF::Mutex.new
++
++def thread1()
++  @mutex.lock() # this call will block the thread if the mutex is already locked by thread2
++  @database.write(...)
++  @mutex.unlock() # if thread2 was waiting, it will now be unblocked
++end
++
++def thread2()
++  @mutex.lock() # this call will block the thread if the mutex is already locked by thread1
++  @database.write(...)
++  @mutex.unlock() # if thread1 was waiting, it will now be unblocked
++end
+ ```
+@@ -39,3 +37,3 @@
+ environments where exceptions can be thrown, you should
+-use the helper class `SF::Lock` to lock/unlock mutexes.
++use the helper method `synchronize` to lock/unlock mutexes.
+ 
+@@ -47,3 +45 @@
+ called lock(). If you don't, the mutex won't be released.
+-
+-*See also:* `SF::Lock`
+--- SF::NonCopyable
++++ SF::NonCopyable
+@@ -1,29 +1 @@
+-Utility class that makes any derived
+-       class non-copyable
+-
+-This class makes its instances non-copyable, by explicitly
+-disabling its copy constructor and its assignment operator.
+-
+-To create a non-copyable class, simply inherit from
+-`SF::NonCopyable`.
+-
+-The type of inheritance (public or private) doesn't matter,
+-the copy constructor and assignment operator are declared private
+-in `SF::NonCopyable` so they will end up being inaccessible in both
+-cases. Thus you can use a shorter syntax for inheriting from it
+-(see below).
+-
+-Usage example:
+-```c++
+-class MyNonCopyableClass : sf::NonCopyable
+-{
+-    ...
+-};
+-```
+-
+-Deciding whether the instances of a class can be copied
+-or not is a very important design choice. You are strongly
+-encouraged to think about it before writing a class,
+-and to use `SF::NonCopyable` when necessary to prevent
+-many potential future errors when using it. This is also
+-a very important indication to users of your class.
++Empty module that indicates the objects of the class can't be copied
+--- SF::Thread
++++ SF::Thread
+@@ -29,11 +29,10 @@
+ ```c++
+-// example 1: non member function with one argument
++# example 1: non member function with one argument
+ 
+ void threadFunc(int argument)
+-{
+     ...
+-}
++end
+ 
+-sf::Thread thread(&threadFunc, 5);
+-thread.launch(); // start the thread (internally calls threadFunc(5))
++thread = SF::Thread.new(&threadFunc, 5)
++thread.launch() # start the thread (internally calls threadFunc(5))
+ ```
+@@ -41,16 +40,14 @@
+ ```c++
+-// example 2: member function
++# example 2: member function
+ 
+ class Task
+-{
+ public:
+     void run()
+-    {
+         ...
+-    }
+-};
++    end
++end
+ 
+-Task task;
+-sf::Thread thread(&Task::run, &task);
+-thread.launch(); // start the thread (internally calls task.run())
++Task task
++thread = SF::Thread.new(&Task.run, &task)
++thread.launch() # start the thread (internally calls task.run())
+ ```
+@@ -58,14 +55,12 @@
+ ```c++
+-// example 3: functor
++# example 3: functor
+ 
+ struct Task
+-{
+     void operator()()
+-    {
+         ...
+-    }
+-};
++    end
++end
+ 
+-sf::Thread thread(Task());
+-thread.launch(); // start the thread (internally calls operator() on the Task instance)
++thread = SF::Thread.new(Task())
++thread.launch() # start the thread (internally calls operator() on the Task instance)
+ ```
+--- SF::Thread#initialize(function)
++++ SF::Thread#initialize(function)
+@@ -9,10 +9,9 @@
+ ```c++
+-void function(int arg);
++void function(int arg)
+ 
+-// --- or ----
++# --- or ----
+ 
+ struct Functor
+-{
+-    void operator()(std::string arg);
+-};
++    void operator()(std::string arg)
++end
+ ```
+--- SF::Time
++++ SF::Time
+@@ -20,20 +20,19 @@
+ Usage example:
+-```c++
+-sf::Time t1 = sf::seconds(0.1f);
+-Int32 milli = t1.asMilliseconds(); // 100
++```
++t1 = SF.seconds(0.1)
++milli = t1.as_milliseconds # 100
+ 
+-sf::Time t2 = sf::milliseconds(30);
+-Int64 micro = t2.asMicroseconds(); // 30000
++t2 = SF.milliseconds(30)
++micro = t2.as_microseconds # 30000
+ 
+-sf::Time t3 = sf::microseconds(-800000);
+-float sec = t3.asSeconds(); // -0.8
++t3 = SF.microseconds(-800000)
++sec = t3.as_seconds # -0.8
+ ```
+ 
+-```c++
+-void update(sf::Time elapsed)
+-{
+-   position += speed * elapsed.asSeconds();
+-}
++```
++def update(elapsed : SF::Time)
++  @position += @speed * elapsed.as_seconds
++end
+ 
+-update(sf::milliseconds(100));
++update(SF.milliseconds(100))
+ ```
+--- SF::FileInputStream
++++ SF::FileInputStream
+@@ -19,8 +19,8 @@
+ Usage example:
+-```c++
+-void process(InputStream& stream);
++```
++def process(stream : InputStream)
++end
+ 
+-FileInputStream stream;
+-if (stream.open("some_file.dat"))
+-   process(stream);
++stream = SF::FileInputStream.open("some_file.dat")
++process(stream)
+ ```

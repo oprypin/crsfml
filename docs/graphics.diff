@@ -1,0 +1,1573 @@
+--- SF::BlendMode
++++ SF::BlendMode
+@@ -2,3 +2,3 @@
+ 
+-`SF::BlendMode` is a class that represents a blend mode. A blend
++`SF::BlendMode` is a struct that represents a blend mode. A blend
+ mode determines how the colors of an object you draw are
+@@ -6,3 +6,3 @@
+ 
+-The class is composed of 6 components, each of which has its
++The struct is composed of 6 components, each of which has its
+ own public member variable:
+@@ -29,5 +29,5 @@
+ public members, with the equations being + or - operators):
+-```c++
+-dst.rgb = colorSrcFactor * src.rgb (colorEquation) colorDstFactor * dst.rgb
+-dst.a   = alphaSrcFactor * src.a   (alphaEquation) alphaDstFactor * dst.a
++```
++dst.rgb = color_src_factor * src.rgb (color_equation) color_dst_factor * dst.rgb
++dst.a   = alpha_src_factor * src.a   (alpha_equation) alpha_dst_factor * dst.a
+ ```
+@@ -36,11 +36,4 @@
+ 
+-The most common blending modes are defined as constants
+-in the sf namespace:
+-
+-```c++
+-sf::BlendMode alphaBlending          = sf::BlendAlpha;
+-sf::BlendMode additiveBlending       = sf::BlendAdd;
+-sf::BlendMode multiplicativeBlending = sf::BlendMultiply;
+-sf::BlendMode noBlending             = sf::BlendNone;
+-```
++The most common blending modes are defined as constants in the SF module:
++`SF::BlendAlpha`, `SF::BlendAdd`, `SF::BlendMultiply`, `SF::BlendNone`.
+ 
+@@ -48,3 +41,3 @@
+ object to a render target. It is part of the `SF::RenderStates` compound
+-that is passed to the member function `SF::RenderTarget::draw`().
++that is passed to the member function `SF::RenderTarget.draw`().
+ 
+--- SF::ConvexShape#set_point(index,point)
++++ SF::ConvexShape#set_point(index,point)
+@@ -8,3 +8,3 @@
+ 
+-* *index* - Index of the point to change, in range [0 .. point_count() - 1]
++* *index* - Index of the point to change, in range `0 ... point_count`
+ * *point* - New position of the point
+--- SF::Drawable
++++ SF::Drawable
+@@ -1,13 +1,13 @@
+-Abstract base class for objects that can be drawn
+-       to a render target
++Abstract module for objects that can be drawn
++to a render target
+ 
+-`SF::Drawable` is a very simple base class that allows objects
++`SF::Drawable` is a very simple module that allows objects
+ of derived classes to be drawn to a `SF::RenderTarget`.
+ 
+-All you have to do in your derived class is to override the
+-draw virtual function.
++All you have to do in your derived class is to implement the
++`draw` function.
+ 
+-Note that inheriting from `SF::Drawable` is not mandatory,
+-but it allows this nice syntax "window.draw(object)" rather
+-than "object.draw(window)", which is more consistent with other
++Note that including `SF::Drawable` is not mandatory,
++but it allows this nice syntax `window.draw(object)` rather
++than `object.draw(window)`, which is more consistent with other
+ SFML classes.
+@@ -15,30 +15,23 @@
+ Example:
+-```c++
+-class MyDrawable : public sf::Drawable
+-{
+-public:
+-
+-   ...
+-
+-private:
+-
+-    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
+-    {
+-        // You can draw other high-level objects
+-        target.draw(m_sprite, states);
+-
+-        // ... or use the low-level API
+-        states.texture = &m_texture;
+-        target.draw(m_vertices, states);
+-
+-        // ... or draw with OpenGL directly
+-        glBegin(GL_QUADS);
+-        ...
+-        glEnd();
+-    }
+-
+-    sf::Sprite m_sprite;
+-    sf::Texture m_texture;
+-    sf::VertexArray m_vertices;
+-};
++```
++class MyDrawable
++  include SF::Drawable
++  def draw(target : SF::RenderTarget, states : SF::RenderStates)
++    # You can draw other high-level objects
++    target.draw(@sprite, states)
++
++    # ... or use the low-level API
++    states.texture = @texture
++    target.draw(@vertices, states)
++
++    # ... or draw with OpenGL directly
++    glBegin(GL_QUADS)
++    ...
++    glEnd()
++  end
++
++  @sprite : SF::Sprite
++  @texture : SF::Texture
++  @vertices : SF::VertexArray
++end
+ ```
+--- SF::Font
++++ SF::Font
+@@ -33,23 +33,14 @@
+ Usage example:
+-```c++
+-// Declare a new font
+-sf::Font font;
+-
+-// Load it from a file
+-if (!font.loadFromFile("arial.ttf"))
+-{
+-    // error...
+-}
++```
++# Load a new font from file
++font = SF::Font.new.from_file("arial.ttf")
+ 
+-// Create a text which uses our font
+-sf::Text text1;
+-text1.setFont(font);
+-text1.setCharacterSize(30);
+-text1.setStyle(sf::Text::Regular);
++# Create a text which uses our font
++text1 = SF::Text.new("text", font, 30)
+ 
+-// Create another text using the same font, but with different parameters
+-sf::Text text2;
+-text2.setFont(font);
+-text2.setCharacterSize(50);
+-text2.setStyle(sf::Text::Italic);
++# Create another text using the same font, but with different parameters
++text2 = SF::Text.new
++text2.font = font
++text2.character_size = 50
++text2.style = (F::Text::Italic
+ ```
+--- SF::Font#load_from_memory(data)
++++ SF::Font#load_from_memory(data)
+@@ -10,4 +10,3 @@
+ 
+-* *data* - Pointer to the file data in memory
+-* *size_in_bytes* - Size of the data to load, in bytes
++* *data* - Slice containing the file data in memory
+ 
+--- SF::Image
++++ SF::Image
+@@ -21,23 +21,19 @@
+ Usage example:
+-```c++
+-// Load an image file from a file
+-sf::Image background;
+-if (!background.loadFromFile("background.jpg"))
+-    return -1;
+-
+-// Create a 20x20 image filled with black color
+-sf::Image image;
+-image.create(20, 20, sf::Color::Black);
+-
+-// Copy image1 on image2 at position (10, 10)
+-image.copy(background, 10, 10);
+-
+-// Make the top-left pixel transparent
+-sf::Color color = image.getPixel(0, 0);
+-color.a = 0;
+-image.setPixel(0, 0, color);
+-
+-// Save the image to a file
+-if (!image.saveToFile("result.png"))
+-    return -1;
++```
++# Load an image file from a file
++background = SF::Image.from_file("background.jpg")
++
++# Create a 20x20 image filled with black color
++image = SF::Image.new(20, 20, SF::Color::Black)
++
++# Copy image1 on image2 at position (10, 10)
++image.copy(background, 10, 10)
++
++# Make the top-left pixel transparent
++color = image.get_pixel(0, 0)
++color.a = 128
++image.set_pixel(0, 0, color)
++
++# Save the image to a file
++image.save_to_file("result.png") || error
+ ```
+--- SF::Image#load_from_memory(data)
++++ SF::Image#load_from_memory(data)
+@@ -7,4 +7,3 @@
+ 
+-* *data* - Pointer to the file data in memory
+-* *size* - Size of the data to load, in bytes
++* *data* - Slice containing the file data in memory
+ 
+--- SF::RectangleShape
++++ SF::RectangleShape
+@@ -7,10 +7,10 @@
+ Usage example:
+-```c++
+-sf::RectangleShape rectangle;
+-rectangle.setSize(sf::Vector2f(100, 50));
+-rectangle.setOutlineColor(sf::Color::Red);
+-rectangle.setOutlineThickness(5);
+-rectangle.setPosition(10, 20);
++```
++rectangle = SF::RectangleShape.new
++rectangle.size = SF.vector2f(100, 50)
++rectangle.outline_color = SF::Color::Red
++rectangle.outline_thickness = 5
++rectangle.position = {10, 20}
+ ...
+-window.draw(rectangle);
++window.draw rectangle
+ ```
+--- SF::RectangleShape#get_point(index)
++++ SF::RectangleShape#get_point(index)
+@@ -7,3 +7,3 @@
+ 
+-* *index* - Index of the point to get, in range [0 .. 3]
++* *index* - Index of the point to get, in range `0..3`
+ 
+--- SF::RenderStates
++++ SF::RenderStates
+@@ -22,13 +22,11 @@
+ directly without defining render states explicitly -- the
+-default set of states is ok in most cases.
+-```c++
+-window.draw(sprite);
++default set of states is OK in most cases.
++```
++window.draw(sprite)
+ ```
+ 
+-If you want to use a single specific render state,
+-for example a shader, you can pass it directly to the Draw
+-function: `SF::RenderStates` has an implicit one-argument
+-constructor for each state.
+-```c++
+-window.draw(sprite, shader);
++If you want to use a single specific render state, for example a
++shader, you can pass it to the constructor of `SF::RenderStates`.
++```
++window.draw(sprite, SF::RenderStates.new(shader))
+ ```
+@@ -36,3 +34,3 @@
+ When you're inside the Draw function of a drawable
+-object (inherited from `SF::Drawable`), you can
++object (one that includes `SF::Drawable`), you can
+ either pass the render states unmodified, or change
+--- SF::RenderTarget#map_coords_to_pixel(point)
++++ SF::RenderTarget#map_coords_to_pixel(point)
+@@ -6,4 +6,4 @@
+ It is equivalent to:
+-```c++
+-target.mapCoordsToPixel(point, target.getView());
++```
++target.map_coords_to_pixel(point, target.view)
+ ```
+--- SF::RenderTarget#map_pixel_to_coords(point)
++++ SF::RenderTarget#map_pixel_to_coords(point)
+@@ -6,4 +6,4 @@
+ It is equivalent to:
+-```c++
+-target.mapPixelToCoords(point, target.getView());
++```
++target.map_pixel_to_coords(point, target.view)
+ ```
+--- SF::RenderTarget#push_gl_states()
++++ SF::RenderTarget#push_gl_states()
+@@ -10,9 +10,9 @@
+ calls Draw functions. Example:
+-```c++
+-// OpenGL code here...
+-window.pushGLStates();
+-window.draw(...);
+-window.draw(...);
+-window.popGLStates();
+-// OpenGL code here...
++```
++# OpenGL code here...
++window.push_gl_states()
++window.draw(...)
++window.draw(...)
++window.pop_gl_states()
++# OpenGL code here...
+ ```
+--- SF::RenderTarget#reset_gl_states()
++++ SF::RenderTarget#reset_gl_states()
+@@ -9,10 +9,10 @@
+ Example:
+-```c++
+-// OpenGL code here...
+-glPushAttrib(...);
+-window.resetGLStates();
+-window.draw(...);
+-window.draw(...);
+-glPopAttrib(...);
+-// OpenGL code here...
++```
++# OpenGL code here...
++glPushAttrib(...)
++window.reset_gl_states()
++window.draw(...)
++window.draw(...)
++glPopAttrib(...)
++# OpenGL code here...
+ ```
+--- SF::RenderTexture
++++ SF::RenderTexture
+@@ -16,38 +16,35 @@
+ 
+-```c++
+-// Create a new render-window
+-sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
+-
+-// Create a new render-texture
+-sf::RenderTexture texture;
+-if (!texture.create(500, 500))
+-    return -1;
+-
+-// The main loop
+-while (window.isOpen())
+-{
+-   // Event processing
+-   // ...
+-
+-   // Clear the whole texture with red color
+-   texture.clear(sf::Color::Red);
+-
+-   // Draw stuff to the texture
+-   texture.draw(sprite);  // sprite is a sf::Sprite
+-   texture.draw(shape);   // shape is a sf::Shape
+-   texture.draw(text);    // text is a sf::Text
+-
+-   // We're done drawing to the texture
+-   texture.display();
+-
+-   // Now we start rendering to the window, clear it first
+-   window.clear();
+-
+-   // Draw the texture
+-   sf::Sprite sprite(texture.getTexture());
+-   window.draw(sprite);
+-
+-   // End the current frame and display its contents on screen
+-   window.display();
+-}
++```
++# Create a new render-window
++window = SF::RenderWindow.new(SF::VideoMode.new(800, 600), "SFML window")
++
++# Create a new render-texture
++texture = SF::RenderTexture.new(500, 500)
++
++# The main loop
++while window.open?
++   # Event processing
++   # ...
++
++   # Clear the whole texture with red color
++   texture.clear(SF::Color::Red)
++
++   # Draw stuff to the texture
++   texture.draw(sprite)  # sprite is a SF::Sprite
++   texture.draw(shape)   # shape is a SF::Shape
++   texture.draw(text)    # text is a SF::Text
++
++   # We're done drawing to the texture
++   texture.display()
++
++   # Now we start rendering to the window, clear it first
++   window.clear()
++
++   # Draw the texture
++   sprite = SF::Sprite(texture.texture)
++   window.draw(sprite)
++
++   # End the current frame and display its contents on screen
++   window.display()
++end
+ ```
+@@ -57,3 +54,3 @@
+ and regular SFML drawing commands. If you need a depth buffer for
+-3D rendering, don't forget to request it when calling RenderTexture::create.
++3D rendering, don't forget to request it when calling RenderTexture.create.
+ 
+--- SF::RenderTexture#generate_mipmap()
++++ SF::RenderTexture#generate_mipmap()
+@@ -2,3 +2,3 @@
+ 
+-This function is similar to Texture::generate_mipmap and operates
++This function is similar to Texture.generate_mipmap and operates
+ on the texture used as the target for drawing.
+--- SF::RenderTexture#repeated=(repeated)
++++ SF::RenderTexture#repeated=(repeated)
+@@ -2,3 +2,3 @@
+ 
+-This function is similar to Texture::repeated=.
++This function is similar to Texture.repeated=.
+ This parameter is disabled by default.
+--- SF::RenderTexture#smooth=(smooth)
++++ SF::RenderTexture#smooth=(smooth)
+@@ -2,3 +2,3 @@
+ 
+-This function is similar to Texture::smooth=.
++This function is similar to Texture.smooth=.
+ This parameter is disabled by default.
+--- SF::CircleShape
++++ SF::CircleShape
+@@ -7,10 +7,10 @@
+ Usage example:
+-```c++
+-sf::CircleShape circle;
+-circle.setRadius(150);
+-circle.setOutlineColor(sf::Color::Red);
+-circle.setOutlineThickness(5);
+-circle.setPosition(10, 20);
++```
++circle = SF::CircleShape.new
++circle.radius = 150
++circle.outline_color = SF::Color::Red
++circle.outline_thickness = 5
++circle.position = {10, 20}
+ ...
+-window.draw(circle);
++window.draw circle
+ ```
+--- SF::RenderWindow
++++ SF::RenderWindow
+@@ -16,32 +16,30 @@
+ 
+-```c++
+-// Declare and create a new render-window
+-sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
+-
+-// Limit the framerate to 60 frames per second (this step is optional)
+-window.setFramerateLimit(60);
+-
+-// The main loop - ends as soon as the window is closed
+-while (window.isOpen())
+-{
+-   // Event processing
+-   sf::Event event;
+-   while (window.pollEvent(event))
+-   {
+-       // Request for closing the window
+-       if (event.type == sf::Event::Closed)
+-           window.close();
+-   }
+-
+-   // Clear the whole window before rendering a new frame
+-   window.clear();
+-
+-   // Draw some graphical entities
+-   window.draw(sprite);
+-   window.draw(circle);
+-   window.draw(text);
+-
+-   // End the current frame and display its contents on screen
+-   window.display();
+-}
++```
++# Declare and create a new render-window
++window = SF::RenderWindow.new(SF::VideoMode.new(800, 600), "SFML window")
++
++# Limit the framerate to 60 frames per second (this step is optional)
++window.framerate_limit = 60
++
++# The main loop - ends as soon as the window is closed
++while window.open?
++  # Event processing
++  while (event = window.poll_event)
++    # Request for closing the window
++    if event.is_a? SF::Event::Closed
++      window.close()
++    end
++  end
++
++  # Clear the whole window before rendering a new frame
++  window.clear()
++
++  # Draw some graphical entities
++  window.draw sprite
++  window.draw circle
++  window.draw text
++
++  # End the current frame and display its contents on screen
++  window.display()
++end
+ ```
+@@ -52,40 +50,39 @@
+ 
+-```c++
+-// Create the render window
+-sf::RenderWindow window(sf::VideoMode(800, 600), "SFML OpenGL");
++```
++# Create the render window
++window = SF::RenderWindow.new(SF::VideoMode.new(800, 600), "SFML OpenGL")
+ 
+-// Create a sprite and a text to display
+-sf::Sprite sprite;
+-sf::Text text;
++# Create a sprite and a text to display
++sprite = SF::Sprite.new
++text = SF::Text.new
+ ...
+ 
+-// Perform OpenGL initializations
+-glMatrixMode(GL_PROJECTION);
++# Perform OpenGL initializations
++glMatrixMode(GL_PROJECTION)
+ ...
+ 
+-// Start the rendering loop
+-while (window.isOpen())
+-{
+-    // Process events
++# Start the rendering loop
++while window.open?
++  # Process events
++  ...
++
++  # Draw a background sprite
++  window.push_gl_states()
++  window.draw sprite
++  window.pop_gl_states()
++
++  # Draw a 3D object using OpenGL
++  glBegin(GL_QUADS)
++    glVertex3f(...)
+     ...
++  glEnd()
++
++  # Draw text on top of the 3D object
++  window.push_gl_states()
++  window.draw text
++  window.pop_gl_states()
+ 
+-    // Draw a background sprite
+-    window.pushGLStates();
+-    window.draw(sprite);
+-    window.popGLStates();
+-
+-    // Draw a 3D object using OpenGL
+-    glBegin(GL_QUADS);
+-        glVertex3f(...);
+-        ...
+-    glEnd();
+-
+-    // Draw text on top of the 3D object
+-    window.pushGLStates();
+-    window.draw(text);
+-    window.popGLStates();
+-
+-    // Finally, display the rendered frame on screen
+-    window.display();
+-}
++  # Finally, display the rendered frame on screen
++  window.display()
++end
+ ```
+--- SF::RenderWindow#capture()
++++ SF::RenderWindow#capture()
+@@ -3,10 +3,8 @@
+ *Deprecated:*
+-Use a `SF::Texture` and its `SF::Texture::update`(const Window&)
+-function and copy its contents into an `SF::Image` instead.
+-```c++
+-sf::Vector2u windowSize = window.getSize();
+-sf::Texture texture;
+-texture.create(windowSize.x, windowSize.y);
+-texture.update(window);
+-sf::Image screenshot = texture.copyToImage();
++Use a `SF::Texture` and its `SF::Texture#update(window)`
++method and copy its contents into an `SF::Image` instead.
++```
++texture = SF::Texture.new(window.size.x, window.size.y)
++texture.update(window)
++screenshot = texture.copy_to_image()
+ ```
+@@ -17,3 +15,3 @@
+ drawing, you should rather use a `SF::Texture` and its
+-update(Window&) function.
++`update(window)` method.
+ You can also draw things directly to a texture with the
+--- SF::CircleShape#get_point(index)
++++ SF::CircleShape#get_point(index)
+@@ -7,3 +7,3 @@
+ 
+-* *index* - Index of the point to get, in range [0 .. point_count() - 1]
++* *index* - Index of the point to get, in range `0 ... point_count`
+ 
+--- SF::Shader
++++ SF::Shader
+@@ -24,3 +24,3 @@
+ `SF::Shader` handles different types of uniforms:
+-* scalars: \p float, \p int, \p bool
++* scalars: `float`, `int`, `bool`
+ * vectors (2, 3 or 4 components)
+@@ -30,32 +30,28 @@
+ Some SFML-specific types can be converted:
+-* `SF::Color` as a 4D vector (\p vec4)
+-* `SF::Transform` as matrices (\p mat3 or \p mat4)
++* `SF::Color` as a 4D vector (`vec4`)
++* `SF::Transform` as matrices (`mat3` or `mat4`)
+ 
+ Every uniform variable in a shader can be set through one of the
+-uniform=() or uniform_array=() overloads. For example, if you
++`set_parameter` overloads, or through a shorthand. For example, if you
+ have a shader with the following uniforms:
+-```c++
+-uniform float offset;
+-uniform vec3 point;
+-uniform vec4 color;
+-uniform mat4 matrix;
+-uniform sampler2D overlay;
+-uniform sampler2D current;
++```glsl
++uniform float offset
++uniform vec3 point
++uniform vec4 color
++uniform mat4 matrix
++uniform sampler2D overlay
++uniform sampler2D current
+ ```
+-You can set their values from C++ code as follows, using the types
+-defined in the `SF::Glsl` namespace:
+-```c++
+-shader.setUniform("offset", 2.f);
+-shader.setUniform("point", sf::Vector3f(0.5f, 0.8f, 0.3f));
+-shader.setUniform("color", sf::Glsl::Vec4(color));          // color is a sf::Color
+-shader.setUniform("matrix", sf::Glsl::Mat4(transform));     // transform is a sf::Transform
+-shader.setUniform("overlay", texture);                      // texture is a sf::Texture
+-shader.setUniform("current", sf::Shader::CurrentTexture);
++You can set their values from C++ code as follows:
++```
++shader.offset 2.0
++shader.point 0.5, 0.8, 0.3
++shader.color color          # color is a SF::Color
++shader.matrix transform     # transform is a SF::Transform
++shader.overlay texture      # texture is a SF::Texture
++shader.current SF::Shader::CurrentTexture
+ ```
+-
+-The old parameter=() overloads are deprecated and will be removed in a
+-future version. You should use their uniform=() equivalents instead.
+ 
+ The special Shader::CurrentTexture argument maps the
+-given \p sampler2d uniform to the current texture of the
++given `sampler2d` uniform to the current texture of the
+ object being drawn (which cannot be known in advance).
+@@ -63,12 +59,6 @@
+ To apply a shader to a drawable, you must pass it as an
+-additional parameter to the \ref Window::draw() draw() function:
+-```c++
+-window.draw(sprite, &shader);
++additional parameter to the `Window.draw` function:
+ ```
+-
+-... which is in fact just a shortcut for this:
+-```c++
+-sf::RenderStates states;
+-states.shader = &shader;
+-window.draw(sprite, states);
++states = SF::RenderStates.new(shader)
++window.draw(sprite, states)
+ ```
+@@ -94,3 +84,3 @@
+ * draw everything directly to the main target, then use
+-  `SF::Texture::update`(Window&) to copy its contents to a texture
++  `SF::Texture.update`(Window&) to copy its contents to a texture
+   and draw it to the main target using the shader
+@@ -105,6 +95,6 @@
+ custom OpenGL geometry.
+-```c++
+-sf::Shader::bind(&shader);
++```
++SF::Shader.bind shader
+ ... render OpenGL geometry ...
+-sf::Shader::bind(NULL);
++SF::Shader.bind nil
+ ```
+--- SF::Shader.bind(shader)
++++ SF::Shader.bind(shader)
+@@ -6,11 +6,12 @@
+ 
+-```c++
+-sf::Shader s1, s2;
++```
++s1 = SF::Shader.new
++s2 = SF::Shader.new
+ ...
+-sf::Shader::bind(&s1);
+-// draw OpenGL stuff that use s1...
+-sf::Shader::bind(&s2);
+-// draw OpenGL stuff that use s2...
+-sf::Shader::bind(NULL);
+-// draw OpenGL stuff that use no shader...
++SF::Shader.bind s1
++# draw OpenGL stuff that use s1...
++SF::Shader.bind s2
++# draw OpenGL stuff that use s2...
++SF::Shader.bind nil
++# draw OpenGL stuff that use no shader...
+ ```
+--- SF::Shader#load_from_memory(shader,type)
++++ SF::Shader#load_from_memory(shader,type)
+@@ -5,3 +5,3 @@
+ The source code must be a valid shader in GLSL language.
+-GLSL is a C-like language dedicated to OpenGL shaders;
++GLSL is a C-like language dedicated to OpenGL shaders
+ you'll probably need to read a good documentation for
+--- SF::Shader#load_from_stream(stream,type)
++++ SF::Shader#load_from_stream(stream,type)
+@@ -5,3 +5,3 @@
+ The source code must be a valid shader in GLSL language.
+-GLSL is a C-like language dedicated to OpenGL shaders;
++GLSL is a C-like language dedicated to OpenGL shaders
+ you'll probably need to read a good documentation for it
+--- SF::Shader#load_from_stream(vertex_shader_stream,fragment_shader_stream)
++++ SF::Shader#load_from_stream(vertex_shader_stream,fragment_shader_stream)
+@@ -6,3 +6,3 @@
+ The source codes must be valid shaders in GLSL language.
+-GLSL is a C-like language dedicated to OpenGL shaders;
++GLSL is a C-like language dedicated to OpenGL shaders
+ you'll probably need to read a good documentation for
+--- SF::Shader#load_from_stream(vertex_shader_stream,geometry_shader_stream,fragment_shader_stream)
++++ SF::Shader#load_from_stream(vertex_shader_stream,geometry_shader_stream,fragment_shader_stream)
+@@ -6,3 +6,3 @@
+ The source codes must be valid shaders in GLSL language.
+-GLSL is a C-like language dedicated to OpenGL shaders;
++GLSL is a C-like language dedicated to OpenGL shaders
+ you'll probably need to read a good documentation for
+--- SF::Shader#set_parameter(name,color)
++++ SF::Shader#set_parameter(name,color)
+@@ -1,3 +1 @@
+ Change a color parameter of the shader
+-
+-*Deprecated:* Use uniform=(const std::string&, const Glsl::Vec4&) instead.
+--- SF::Shader#set_parameter(name,p1)
++++ SF::Shader#set_parameter(name,p1)
+@@ -1,3 +1 @@
+ Change a texture parameter of the shader
+-
+-*Deprecated:* Use uniform=(const std::string&, CurrentTextureType) instead.
+--- SF::Shader#set_parameter(name,texture)
++++ SF::Shader#set_parameter(name,texture)
+@@ -1,3 +1 @@
+ Change a texture parameter of the shader
+-
+-*Deprecated:* Use uniform=(const std::string&, const Texture&) instead.
+--- SF::Shader#set_parameter(name,transform)
++++ SF::Shader#set_parameter(name,transform)
+@@ -1,3 +1 @@
+ Change a matrix parameter of the shader
+-
+-*Deprecated:* Use uniform=(const std::string&, const Glsl::Mat4&) instead.
+--- SF::Shader#set_parameter(name,vector)
++++ SF::Shader#set_parameter(name,vector)
+@@ -1,3 +1 @@
+ Change a 3-components vector parameter of the shader
+-
+-*Deprecated:* Use uniform=(const std::string&, const Glsl::Vec3&) instead.
+--- SF::Shader#set_parameter(name,x)
++++ SF::Shader#set_parameter(name,x)
+@@ -1,3 +1 @@
+ Change a float parameter of the shader
+-
+-*Deprecated:* Use uniform=(const std::string&, float) instead.
+--- SF::Shader#set_parameter(name,x,y)
++++ SF::Shader#set_parameter(name,x,y)
+@@ -1,3 +1 @@
+ Change a 2-components vector parameter of the shader
+-
+-*Deprecated:* Use uniform=(const std::string&, const Glsl::Vec2&) instead.
+--- SF::Shader#set_parameter(name,x,y,z)
++++ SF::Shader#set_parameter(name,x,y,z)
+@@ -1,3 +1 @@
+ Change a 3-components vector parameter of the shader
+-
+-*Deprecated:* Use uniform=(const std::string&, const Glsl::Vec3&) instead.
+--- SF::Shader#set_parameter(name,x,y,z,w)
++++ SF::Shader#set_parameter(name,x,y,z,w)
+@@ -1,3 +1 @@
+ Change a 4-components vector parameter of the shader
+-
+-*Deprecated:* Use uniform=(const std::string&, const Glsl::Vec4&) instead.
+--- SF::Shape#get_point(index)
++++ SF::Shape#get_point(index)
+@@ -7,3 +7,3 @@
+ 
+-* *index* - Index of the point to get, in range [0 .. point_count() - 1]
++* *index* - Index of the point to get, in range `0 ... point_count`
+ 
+--- SF::Sprite
++++ SF::Sprite
+@@ -31,16 +31,15 @@
+ Usage example:
+-```c++
+-// Declare and load a texture
+-sf::Texture texture;
+-texture.loadFromFile("texture.png");
+-
+-// Create a sprite
+-sf::Sprite sprite;
+-sprite.setTexture(texture);
+-sprite.setTextureRect(sf::IntRect(10, 10, 50, 30));
+-sprite.setColor(sf::Color(255, 255, 255, 200));
+-sprite.setPosition(100, 25);
+-
+-// Draw it
+-window.draw(sprite);
++```
++# Declare and load a texture
++texture = SF::Texture.from_file("texture.png")
++
++# Create a sprite
++sprite = SF::Sprite.new
++sprite.texture = texture
++sprite.texture_rect = SF.int_rect(10, 10, 50, 30)
++sprite.color = SF.color(255, 255, 255, 200)
++sprite.position = {100, 25}
++
++# Draw it
++window.draw sprite
+ ```
+--- SF::Text
++++ SF::Text
+@@ -33,15 +33,14 @@
+ Usage example:
+-```c++
+-// Declare and load a font
+-sf::Font font;
+-font.loadFromFile("arial.ttf");
+-
+-// Create a text
+-sf::Text text("hello", font);
+-text.setCharacterSize(30);
+-text.setStyle(sf::Text::Bold);
+-text.setColor(sf::Color::Red);
+-
+-// Draw it
+-window.draw(text);
++```
++# Declare and load a font
++font = SF::Font.from_file("arial.ttf")
++
++# Create a text
++text = SF::Text.new("hello", font)
++text.character_size = 30
++text.style = SF::Text::Bold
++text.color = SF::Color::Red
++
++# Draw it
++window.draw text
+ ```
+--- SF::Text#string()
++++ SF::Text#string()
+@@ -2,11 +2,2 @@
+ 
+-The returned string is a `SF::String`, which can automatically
+-be converted to standard string types. So, the following
+-lines of code are all valid:
+-```c++
+-sf::String   s1 = text.getString();
+-std::string  s2 = text.getString();
+-std::wstring s3 = text.getString();
+-```
+-
+ *Returns:* Text's string
+--- SF::Text#string=(string)
++++ SF::Text#string=(string)
+@@ -2,11 +2,2 @@
+ 
+-The *string* argument is a `SF::String`, which can
+-automatically be constructed from standard string types.
+-So, the following calls are all valid:
+-```c++
+-text.setString("hello");
+-text.setString(L"hello");
+-text.setString(std::string("hello"));
+-text.setString(std::wstring(L"hello"));
+-```
+ A text's string is empty by default.
+--- SF::Texture
++++ SF::Texture
+@@ -11,3 +11,3 @@
+ you need to prepare the pixels first and then upload them
+-to the texture in a single operation (see Texture::update).
++to the texture in a single operation (see Texture.update).
+ 
+@@ -24,3 +24,3 @@
+ `SF::Image`, do whatever you need with the pixels, and then call
+-Texture::load_from_image.
++Texture.load_from_image.
+ 
+@@ -39,44 +39,38 @@
+ Usage example:
+-```c++
+-// This example shows the most common use of sf::Texture:
+-// drawing a sprite
++```
++# This example shows the most common use of SF::Texture:
++# drawing a sprite
+ 
+-// Load a texture from a file
+-sf::Texture texture;
+-if (!texture.loadFromFile("texture.png"))
+-    return -1;
++# Load a texture from a file
++texture = SF::Texture.from_file("texture.png")
+ 
+-// Assign it to a sprite
+-sf::Sprite sprite;
+-sprite.setTexture(texture);
++# Assign it to a sprite
++sprite = SF::Sprite.new(texture)
+ 
+-// Draw the textured sprite
+-window.draw(sprite);
++# Draw the textured sprite
++window.draw sprite
+ ```
+ 
+-```c++
+-// This example shows another common use of sf::Texture:
+-// streaming real-time data, like video frames
++```
++# This example shows another common use of SF::Texture:
++# streaming real-time data, like video frames
+ 
+-// Create an empty texture
+-sf::Texture texture;
+-if (!texture.create(640, 480))
+-    return -1;
++# Create an empty texture
++texture = SF::Texture.new(640, 480)
+ 
+-// Create a sprite that will display the texture
+-sf::Sprite sprite(texture);
++# Create a sprite that will display the texture
++sprite = SF::Sprite.new(texture)
+ 
+-while (...) // the main loop
+-{
+-    ...
++loop do # the main loop
++  ...
+ 
+-    // update the texture
+-    sf::Uint8* pixels = ...; // get a fresh chunk of pixels (the next frame of a movie, for example)
+-    texture.update(pixels);
++  # update the texture
++  pixels = (...).to_unsafe # get a fresh chunk of pixels (the next frame of a movie, for example)
++  texture.update(pixels)
+ 
+-    // draw it
+-    window.draw(sprite);
++  # draw it
++  window.draw sprite
+ 
+-    ...
+-}
++  ...
++end
+ 
+@@ -87,6 +81,6 @@
+ custom OpenGL geometry.
+-```c++
+-sf::Texture::bind(&texture);
++```
++SF::Texture.bind(texture)
+ ... render OpenGL geometry ...
+-sf::Texture::bind(NULL);
++SF::Texture.bind(nil)
+ ```
+--- SF::Texture::CoordinateType::Normalized
++++ SF::Texture::CoordinateType::Normalized
+@@ -1 +1 @@
+-Texture coordinates in range [0 .. 1]
++Texture coordinates in range `0.0 .. 1.0`
+--- SF::Texture::CoordinateType::Pixels
++++ SF::Texture::CoordinateType::Pixels
+@@ -1 +1 @@
+-Texture coordinates in range [0 .. size]
++Texture coordinates in range `0.0 .. size`
+--- SF::Texture.bind(texture,coordinate_type)
++++ SF::Texture.bind(texture,coordinate_type)
+@@ -6,11 +6,12 @@
+ 
+-```c++
+-sf::Texture t1, t2;
++```
++t1 = SF::Texture.new
++t2 = SF::Texture.new
+ ...
+-sf::Texture::bind(&t1);
+-// draw OpenGL stuff that use t1...
+-sf::Texture::bind(&t2);
+-// draw OpenGL stuff that use t2...
+-sf::Texture::bind(NULL);
+-// draw OpenGL stuff that use no texture...
++SF::Texture.bind t1
++# draw OpenGL stuff that use t1...
++SF::Texture.bind t2
++# draw OpenGL stuff that use t2...
++SF::Texture.bind nil
++# draw OpenGL stuff that use no texture...
+ ```
+@@ -19,5 +20,5 @@
+ coordinates will be interpreted. If Normalized (the default), they
+-must be in range [0 .. 1], which is the default way of handling
++must be in range `0.0 .. 1.0`, which is the default way of handling
+ texture coordinates with OpenGL. If Pixels, they must be given
+-in pixels (range [0 .. size]). This mode is used internally by
++in pixels (range `0.0 .. size`). This mode is used internally by
+ the graphics classes of SFML, it makes the definition of texture
+--- SF::Texture#load_from_file(filename,area)
++++ SF::Texture#load_from_file(filename,area)
+@@ -3,6 +3,6 @@
+ This function is a shortcut for the following code:
+-```c++
+-sf::Image image;
+-image.loadFromFile(filename);
+-texture.loadFromImage(image, area);
++```
++image = SF::Image.new
++image.load_from_file(filename)
++texture.load_from_image(image, area)
+ ```
+--- SF::Texture#load_from_memory(data,area)
++++ SF::Texture#load_from_memory(data,area)
+@@ -3,6 +3,6 @@
+ This function is a shortcut for the following code:
+-```c++
+-sf::Image image;
+-image.loadFromMemory(data, size);
+-texture.loadFromImage(image, area);
++```
++image = SF::Image.new
++image.load_from_memory(data, size)
++texture.load_from_image(image, area)
+ ```
+@@ -20,4 +20,3 @@
+ 
+-* *data* - Pointer to the file data in memory
+-* *size* - Size of the data to load, in bytes
++* *data* - Slice containing the file data in memory
+ * *area* - Area of the image to load
+--- SF::Texture#load_from_stream(stream,area)
++++ SF::Texture#load_from_stream(stream,area)
+@@ -3,6 +3,6 @@
+ This function is a shortcut for the following code:
+-```c++
+-sf::Image image;
+-image.loadFromStream(stream);
+-texture.loadFromImage(image, area);
++```
++image = SF::Image.new
++image.load_from_stream(stream)
++texture.load_from_image(image, area)
+ ```
+--- SF::Transform
++++ SF::Transform
+@@ -17,17 +17,17 @@
+ Example:
+-```c++
+-// define a translation transform
+-sf::Transform translation;
+-translation.translate(20, 50);
++```
++# define a translation transform
++translation = SF::Transform.new
++translation.translate(20, 50)
+ 
+-// define a rotation transform
+-sf::Transform rotation;
+-rotation.rotate(45);
++# define a rotation transform
++rotation = SF::Transform.new
++rotation.rotate(45)
+ 
+-// combine them
+-sf::Transform transform = translation * rotation;
++# combine them
++transform = translation * rotation
+ 
+-// use the result to transform stuff...
+-sf::Vector2f point = transform.transformPoint(10, 20);
+-sf::FloatRect rect = transform.transformRect(sf::FloatRect(0, 0, 10, 100));
++# use the result to transform stuff...
++point = transform.transform_point(10, 20)
++rect = transform.transform_rect(SF.float_rect(0, 0, 10, 100))
+ ```
+--- SF::Transform#matrix()
++++ SF::Transform#matrix()
+@@ -6,5 +6,5 @@
+ 
+-```c++
+-sf::Transform transform = ...;
+-glLoadMatrixf(transform.getMatrix());
++```
++transform = ...
++glLoadMatrixf(transform.matrix())
+ ```
+--- SF::Transform#rotate(angle)
++++ SF::Transform#rotate(angle)
+@@ -4,5 +4,5 @@
+ can be chained.
+-```c++
+-sf::Transform transform;
+-transform.rotate(90).translate(50, 20);
++```
++transform = SF::Transform.new
++transform.rotate(90).translate(50, 20)
+ ```
+--- SF::Transform#rotate(angle,center)
++++ SF::Transform#rotate(angle,center)
+@@ -9,5 +9,5 @@
+ can be chained.
+-```c++
+-sf::Transform transform;
+-transform.rotate(90, sf::Vector2f(8, 3)).translate(sf::Vector2f(50, 20));
++```
++transform = SF::Transform.new
++transform.rotate(90, SF.vector2f(8, 3)).translate(SF.vector2f(50, 20))
+ ```
+--- SF::Transform#rotate(angle,center_x,center_y)
++++ SF::Transform#rotate(angle,center_x,center_y)
+@@ -9,5 +9,5 @@
+ can be chained.
+-```c++
+-sf::Transform transform;
+-transform.rotate(90, 8, 3).translate(50, 20);
++```
++transform = SF::Transform.new
++transform.rotate(90, 8, 3).translate(50, 20)
+ ```
+--- SF::Transform#scale(factors)
++++ SF::Transform#scale(factors)
+@@ -4,5 +4,5 @@
+ can be chained.
+-```c++
+-sf::Transform transform;
+-transform.scale(sf::Vector2f(2, 1)).rotate(45);
++```
++transform = SF::Transform.new
++transform.scale(SF.vector2f(2, 1)).rotate(45)
+ ```
+--- SF::Transform#scale(factors,center)
++++ SF::Transform#scale(factors,center)
+@@ -9,5 +9,5 @@
+ can be chained.
+-```c++
+-sf::Transform transform;
+-transform.scale(sf::Vector2f(2, 1), sf::Vector2f(8, 3)).rotate(45);
++```
++transform = SF::Transform.new
++transform.scale(SF.vector2f(2, 1), SF.vector2f(8, 3)).rotate(45)
+ ```
+--- SF::Transform#scale(scale_x,scale_y)
++++ SF::Transform#scale(scale_x,scale_y)
+@@ -4,5 +4,5 @@
+ can be chained.
+-```c++
+-sf::Transform transform;
+-transform.scale(2, 1).rotate(45);
++```
++transform = SF::Transform.new
++transform.scale(2, 1).rotate(45)
+ ```
+--- SF::Transform#scale(scale_x,scale_y,center_x,center_y)
++++ SF::Transform#scale(scale_x,scale_y,center_x,center_y)
+@@ -9,5 +9,5 @@
+ can be chained.
+-```c++
+-sf::Transform transform;
+-transform.scale(2, 1, 8, 3).rotate(45);
++```
++transform = SF::Transform.new
++transform.scale(2, 1, 8, 3).rotate(45)
+ ```
+--- SF::Transform#translate(offset)
++++ SF::Transform#translate(offset)
+@@ -4,5 +4,5 @@
+ can be chained.
+-```c++
+-sf::Transform transform;
+-transform.translate(sf::Vector2f(100, 200)).rotate(45);
++```
++transform = SF::Transform.new
++transform.translate(SF.vector2f(100, 200)).rotate(45)
+ ```
+--- SF::Transform#translate(x,y)
++++ SF::Transform#translate(x,y)
+@@ -4,5 +4,5 @@
+ can be chained.
+-```c++
+-sf::Transform transform;
+-transform.translate(100, 200).rotate(45);
++```
++transform = SF::Transform.new
++transform.translate(100, 200).rotate(45)
+ ```
+--- SF::Transformable
++++ SF::Transformable
+@@ -40,16 +40,16 @@
+ texts and shapes do.
+-```c++
+-class MyEntity : public sf::Transformable, public sf::Drawable
+-{
+-    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
+-    {
+-        states.transform *= getTransform();
+-        target.draw(..., states);
+-    }
+-};
++```
++class MyEntity < SF::Transformable
++  include SF::Drawable
++
++  def draw(target, states)
++    states.transform *= self.transform
++    target.draw(..., states)
++  end
++end
+ 
+-MyEntity entity;
+-entity.setPosition(10, 20);
+-entity.setRotation(45);
+-window.draw(entity);
++entity = MyEntity.new
++entity.position = {10, 20}
++entity.rotation = 45
++window.draw entity
+ ```
+@@ -59,19 +59,7 @@
+ or you have different naming conventions for example).
+-```c++
++```
+ class MyEntity
+-{
+-public:
+-    void SetPosition(const MyVector& v)
+-    {
+-        myTransform.setPosition(v.x(), v.y());
+-    }
+-
+-    void Draw(sf::RenderTarget& target) const
+-    {
+-        target.draw(..., myTransform.getTransform());
+-    }
+-
+-private:
+-    sf::Transformable myTransform;
+-};
++    @transform : SF::Transformable
++    forward_missing_to @transform
++end
+ ```
+--- SF::Transformable#move(offset)
++++ SF::Transformable#move(offset)
+@@ -5,4 +5,4 @@
+ Thus, it is equivalent to the following code:
+-```c++
+-object.setPosition(object.getPosition() + offset);
++```
++object.position += offset
+ ```
+--- SF::Transformable#move(offset_x,offset_y)
++++ SF::Transformable#move(offset_x,offset_y)
+@@ -5,5 +5,5 @@
+ Thus, it is equivalent to the following code:
+-```c++
+-sf::Vector2f pos = object.getPosition();
+-object.setPosition(pos.x + offsetX, pos.y + offsetY);
++```
++pos = object.position
++object.set_position(pos.x + offset_x, pos.y + offset_y)
+ ```
+--- SF::Transformable#rotate(angle)
++++ SF::Transformable#rotate(angle)
+@@ -5,4 +5,4 @@
+ Thus, it is equivalent to the following code:
+-```c++
+-object.setRotation(object.getRotation() + angle);
++```
++object.rotation += angle
+ ```
+--- SF::Transformable#rotation()
++++ SF::Transformable#rotation()
+@@ -2,3 +2,3 @@
+ 
+-The rotation is always in the range [0, 360].
++The rotation is always in the range `0.0 ... 360.0`
+ 
+--- SF::Transformable#scale(factor)
++++ SF::Transformable#scale(factor)
+@@ -5,5 +5,5 @@
+ Thus, it is equivalent to the following code:
+-```c++
+-sf::Vector2f scale = object.getScale();
+-object.setScale(scale.x * factor.x, scale.y * factor.y);
++```
++scale = object.scale
++object.scale = {scale.x * factor.x, scale.y * factor.y}
+ ```
+--- SF::Transformable#scale(factor_x,factor_y)
++++ SF::Transformable#scale(factor_x,factor_y)
+@@ -5,5 +5,5 @@
+ Thus, it is equivalent to the following code:
+-```c++
+-sf::Vector2f scale = object.getScale();
+-object.setScale(scale.x * factorX, scale.y * factorY);
++```
++scale = object.scale
++object.set_scale(scale.x * factor_x, scale.y * factor_y)
+ ```
+--- SF::Vertex
++++ SF::Vertex
+@@ -18,14 +18,13 @@
+ Example:
+-```c++
+-// define a 100x100 square, red, with a 10x10 texture mapped on it
+-sf::Vertex vertices[] =
+-{
+-    sf::Vertex(sf::Vector2f(  0,   0), sf::Color::Red, sf::Vector2f( 0,  0)),
+-    sf::Vertex(sf::Vector2f(  0, 100), sf::Color::Red, sf::Vector2f( 0, 10)),
+-    sf::Vertex(sf::Vector2f(100, 100), sf::Color::Red, sf::Vector2f(10, 10)),
+-    sf::Vertex(sf::Vector2f(100,   0), sf::Color::Red, sf::Vector2f(10,  0))
+-};
++```
++# define a 100x100 square, red, with a 10x10 texture mapped on it
++vertices = [
++  SF::Vertex.new(SF.vector2f(  0,   0), SF::Color::Red, SF.vector2f( 0,  0)),
++  SF::Vertex.new(SF.vector2f(  0, 100), SF::Color::Red, SF.vector2f( 0, 10)),
++  SF::Vertex.new(SF.vector2f(100, 100), SF::Color::Red, SF.vector2f(10, 10)),
++  SF::Vertex.new(SF.vector2f(100,   0), SF::Color::Red, SF.vector2f(10,  0)),
++]
+ 
+-// draw it
+-window.draw(vertices, 4, sf::Quads);
++# draw it
++window.draw(vertices, SF::Quads)
+ ```
+--- SF::VertexArray
++++ SF::VertexArray
+@@ -5,3 +5,3 @@
+ 
+-It inherits `SF::Drawable`, but unlike other drawables it
++It includes `SF::Drawable`, but unlike other drawables it
+ is not transformable.
+@@ -9,10 +9,10 @@
+ Example:
+-```c++
+-sf::VertexArray lines(sf::LineStrip, 4);
+-lines[0].position = sf::Vector2f(10, 0);
+-lines[1].position = sf::Vector2f(20, 0);
+-lines[2].position = sf::Vector2f(30, 5);
+-lines[3].position = sf::Vector2f(40, 2);
++```
++lines = SF::VertexArray.new(SF::LineStrip, 4)
++lines[0] = SF::Vertex.new(SF.vector2f(10, 0))
++lines[1] = SF::Vertex.new(SF.vector2f(20, 0))
++lines[2] = SF::Vertex.new(SF.vector2f(30, 5))
++lines[3] = SF::Vertex.new(SF.vector2f(40, 2))
+ 
+-window.draw(lines);
++window.draw(lines)
+ ```
+--- SF::VertexArray#[](index)
++++ SF::VertexArray#[](index)
+@@ -1,6 +1,5 @@
+-Get a read-only access to a vertex by its index
++Get the vertex by its index
+ 
+-This function doesn't check *index,* it must be in range
+-[0, vertex_count() - 1]. The behavior is undefined
+-otherwise.
++This method doesn't check *index*, it must be in range
++`0 ... vertex_count`. The behavior is undefined otherwise.
+ 
+@@ -8,3 +7,3 @@
+ 
+-*Returns:* Const reference to the index-th vertex
++*Returns:* The index-th vertex
+ 
+--- SF::VertexArray#[]=(index,value)
++++ SF::VertexArray#[]=(index,value)
+@@ -1,10 +1,7 @@
+-Get a read-write access to a vertex by its index
++Set the vertex by its index
+ 
+-This function doesn't check *index,* it must be in range
+-[0, vertex_count() - 1]. The behavior is undefined
+-otherwise.
++This method doesn't check *index*, it must be in range
++`0 ... vertex_count`. The behavior is undefined otherwise.
+ 
+-* *index* - Index of the vertex to get
+-
+-*Returns:* Reference to the index-th vertex
++* *index* - Index of the vertex to set
+ 
+--- SF::View
++++ SF::View
+@@ -23,26 +23,26 @@
+ Usage example:
+-```c++
+-sf::RenderWindow window;
+-sf::View view;
++```
++window = SF::RenderWindow.new
++view = SF::View.new
+ 
+-// Initialize the view to a rectangle located at (100, 100) and with a size of 400x200
+-view.reset(sf::FloatRect(100, 100, 400, 200));
++# Initialize the view to a rectangle located at (100, 100) and with a size of 400x200
++view.reset(SF.float_rect(100, 100, 400, 200))
+ 
+-// Rotate it by 45 degrees
+-view.rotate(45);
++# Rotate it by 45 degrees
++view.rotate(45)
+ 
+-// Set its target viewport to be half of the window
+-view.setViewport(sf::FloatRect(0.f, 0.f, 0.5f, 1.f));
++# Set its target viewport to be half of the window
++view.viewport = SF.float_rect(0.0, 0.0, 0.5, 1.0)
+ 
+-// Apply it
+-window.setView(view);
++# Apply it
++window.view = view
+ 
+-// Render stuff
+-window.draw(someSprite);
++# Render stuff
++window.draw some_sprite
+ 
+-// Set the default view back
+-window.setView(window.getDefaultView());
++# Set the default view back
++window.view = window.default_view
+ 
+-// Render stuff not affected by the view
+-window.draw(someText);
++# Render stuff not affected by the view
++window.draw some_text
+ ```
+--- SF::Color
++++ SF::Color
+@@ -1,4 +1,4 @@
+-Utility class for manipulating RGBA colors
++Utility struct for manipulating RGBA colors
+ 
+-`SF::Color` is a simple color class composed of 4 components:
++`SF::Color` is a simple color struct composed of 4 components:
+ * Red
+@@ -9,9 +9,9 @@
+ Each component is a public member, an unsigned integer in
+-the range [0, 255]. Thus, colors can be constructed and
++the range `0..255`. Thus, colors can be constructed and
+ manipulated very easily:
+ 
+-```c++
+-sf::Color color(255, 0, 0); // red
+-color.r = 0;                // make it black
+-color.b = 128;              // make it dark blue
++```
++color = SF::Color.new(255, 0, 0) # red
++color.r = 0                      # make it black
++color.b = 128                    # make it dark blue
+ ```
+@@ -25,12 +25,12 @@
+ The most common colors are already defined as static variables:
+-```c++
+-sf::Color black       = sf::Color::Black;
+-sf::Color white       = sf::Color::White;
+-sf::Color red         = sf::Color::Red;
+-sf::Color green       = sf::Color::Green;
+-sf::Color blue        = sf::Color::Blue;
+-sf::Color yellow      = sf::Color::Yellow;
+-sf::Color magenta     = sf::Color::Magenta;
+-sf::Color cyan        = sf::Color::Cyan;
+-sf::Color transparent = sf::Color::Transparent;
++```
++black       = SF::Color::Black
++white       = SF::Color::White
++red         = SF::Color::Red
++green       = SF::Color::Green
++blue        = SF::Color::Blue
++yellow      = SF::Color::Yellow
++magenta     = SF::Color::Magenta
++cyan        = SF::Color::Cyan
++transparent = SF::Color::Transparent
+ ```
+--- SF::Color#initialize(red,green,blue,alpha)
++++ SF::Color#initialize(red,green,blue,alpha)
+@@ -2,5 +2,5 @@
+ 
+-* *red* - Red component (in the range [0, 255])
+-* *green* - Green component (in the range [0, 255])
+-* *blue* - Blue component (in the range [0, 255])
+-* *alpha* - Alpha (opacity) component (in the range [0, 255])
++* *red* - Red component (in the range `0..255`)
++* *green* - Green component (in the range `0..255`)
++* *blue* - Blue component (in the range `0..255`)
++* *alpha* - Alpha (opacity) component (in the range `0..255`)
+--- SF::Color#*(right)
++++ SF::Color#*(right)
+@@ -5,3 +5,3 @@
+ Components are then divided by 255 so that the result is
+-still in the range [0, 255].
++still in the range `0 .. 255`.
+ 
+--- SF::ConvexShape
++++ SF::ConvexShape
+@@ -12,13 +12,13 @@
+ Usage example:
+-```c++
+-sf::ConvexShape polygon;
+-polygon.setPointCount(3);
+-polygon.setPoint(0, sf::Vector2f(0, 0));
+-polygon.setPoint(1, sf::Vector2f(0, 10));
+-polygon.setPoint(2, sf::Vector2f(25, 5));
+-polygon.setOutlineColor(sf::Color::Red);
+-polygon.setOutlineThickness(5);
+-polygon.setPosition(10, 20);
++```
++polygon = SF::ConvexShape.new
++polygon.point_count = 3
++polygon[0] = SF.vector2f(0, 0)
++polygon[1] = SF.vector2f(0, 10)
++polygon[2] = SF.vector2f(25, 5)
++polygon.outline_color = SF::Color::Red
++polygon.outline_thickness = 5
++polygon.position = {10, 20}
+ ...
+-window.draw(polygon);
++window.draw polygon
+ ```
+--- SF::ConvexShape#get_point(index)
++++ SF::ConvexShape#get_point(index)
+@@ -7,3 +7,3 @@
+ 
+-* *index* - Index of the point to get, in range [0 .. point_count() - 1]
++* *index* - Index of the point to get, in range `0 ... point_count`
+ 

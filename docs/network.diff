@@ -1,0 +1,654 @@
+--- SF::Ftp
++++ SF::Ftp
+@@ -31,37 +31,37 @@
+ ```c++
+-// Create a new FTP client
+-sf::Ftp ftp;
++# Create a new FTP client
++ftp = SF::Ftp.new
+ 
+-// Connect to the server
+-sf::Ftp::Response response = ftp.connect("ftp://ftp.myserver.com");
++# Connect to the server
++SF::Ftp::Response response = ftp.connect("ftp://ftp.myserver.com")
+ if (response.isOk())
+-    std::cout << "Connected" << std::endl;
++    std::cout << "Connected" << std::endl
+ 
+-// Log in
+-response = ftp.login("laurent", "dF6Zm89D");
++# Log in
++response = ftp.login("laurent", "dF6Zm89D")
+ if (response.isOk())
+-    std::cout << "Logged in" << std::endl;
++    std::cout << "Logged in" << std::endl
+ 
+-// Print the working directory
+-sf::Ftp::DirectoryResponse directory = ftp.getWorkingDirectory();
++# Print the working directory
++SF::Ftp::DirectoryResponse directory = ftp.getWorkingDirectory()
+ if (directory.isOk())
+-    std::cout << "Working directory: " << directory.getDirectory() << std::endl;
++    std::cout << "Working directory: " << directory.getDirectory() << std::endl
+ 
+-// Create a new directory
+-response = ftp.createDirectory("files");
++# Create a new directory
++response = ftp.createDirectory("files")
+ if (response.isOk())
+-    std::cout << "Created new directory" << std::endl;
++    std::cout << "Created new directory" << std::endl
+ 
+-// Upload a file to this new directory
+-response = ftp.upload("local-path/file.txt", "files", sf::Ftp::Ascii);
++# Upload a file to this new directory
++response = ftp.upload("local-path/file.txt", "files", SF::Ftp::Ascii)
+ if (response.isOk())
+-    std::cout << "File uploaded" << std::endl;
++    std::cout << "File uploaded" << std::endl
+ 
+-// Send specific commands (here: FEAT to list supported FTP features)
+-response = ftp.sendCommand("FEAT");
++# Send specific commands (here: FEAT to list supported FTP features)
++response = ftp.sendCommand("FEAT")
+ if (response.isOk())
+-    std::cout << "Feature list:\n" << response.getMessage() << std::endl;
++    std::cout << "Feature list:\n" << response.getMessage() << std::endl
+ 
+-// Disconnect from the server (optional)
+-ftp.disconnect();
++# Disconnect from the server (optional)
++ftp.disconnect()
+ ```
+--- SF::IpAddress
++++ SF::IpAddress
+@@ -9,12 +9,12 @@
+ ```c++
+-sf::IpAddress a0;                                     // an invalid address
+-sf::IpAddress a1 = sf::IpAddress::None;               // an invalid address (same as a0)
+-sf::IpAddress a2("127.0.0.1");                        // the local host address
+-sf::IpAddress a3 = sf::IpAddress::Broadcast;          // the broadcast address
+-sf::IpAddress a4(192, 168, 1, 56);                    // a local address
+-sf::IpAddress a5("my_computer");                      // a local address created from a network name
+-sf::IpAddress a6("89.54.1.169");                      // a distant address
+-sf::IpAddress a7("www.google.com");                   // a distant address created from a network name
+-sf::IpAddress a8 = sf::IpAddress::getLocalAddress();  // my address on the local network
+-sf::IpAddress a9 = sf::IpAddress::getPublicAddress(); // my address on the internet
++a0 = SF::IpAddress.new                    # an invalid address
++a1 = SF::IpAddress::None                  # an invalid address (same as a0)
++a2 = SF::IpAddress.new("127.0.0.1")       # the local host address
++a3 = SF::IpAddress::Broadcast             # the broadcast address
++a4 = SF::IpAddress.new(192, 168, 1, 56)   # a local address
++a5 = SF::IpAddress.new("my_computer")     # a local address created from a network name
++a6 = SF::IpAddress.new("89.54.1.169")     # a distant address
++a7 = SF::IpAddress.new("www.google.com")  # a distant address created from a network name
++a8 = SF::IpAddress.getLocalAddress()      # my address on the local network
++a9 = SF::IpAddress.getPublicAddress()     # my address on the internet
+ ```
+--- SF::IpAddress#initialize(address)
++++ SF::IpAddress#initialize(address)
+@@ -5,3 +5,3 @@
+ purposes, and only if you got that representation from
+-IpAddress::to_integer().
++IpAddress.to_integer().
+ 
+--- SF::Packet
++++ SF::Packet
+@@ -23,12 +23,12 @@
+ ```c++
+-sf::Uint32 x = 24;
+-std::string s = "hello";
+-double d = 5.89;
++SF::Uint32 x = 24
++std::string s = "hello"
++double d = 5.89
+ 
+-// Group the variables to send into a packet
+-sf::Packet packet;
+-packet << x << s << d;
++# Group the variables to send into a packet
++packet = SF::Packet.new
++packet << x << s << d
+ 
+-// Send it over the network (socket is a valid sf::TcpSocket)
+-socket.send(packet);
++# Send it over the network (socket is a valid SF::TcpSocket)
++socket.send(packet)
+ 
+@@ -36,14 +36,13 @@
+ 
+-// Receive the packet at the other end
+-sf::Packet packet;
+-socket.receive(packet);
++# Receive the packet at the other end
++packet = SF::Packet.new
++socket.receive(packet)
+ 
+-// Extract the variables contained in the packet
+-sf::Uint32 x;
+-std::string s;
+-double d;
++# Extract the variables contained in the packet
++SF::Uint32 x
++std::string s
++double d
+ if (packet >> x >> s >> d)
+-{
+-    // Data extracted successfully...
+-}
++    # Data extracted successfully...
++end
+ ```
+@@ -63,17 +62,14 @@
+ struct MyStruct
+-{
+-    float       number;
+-    sf::Int8    integer;
+-    std::string str;
+-};
+-
+-sf::Packet& operator <<(sf::Packet& packet, const MyStruct& m)
+-{
+-    return packet << m.number << m.integer << m.str;
+-}
+-
+-sf::Packet& operator >>(sf::Packet& packet, MyStruct& m)
+-{
+-    return packet >> m.number >> m.integer >> m.str;
+-}
++    float       number
++    SF::Int8    integer
++    std::string str
++end
++
++SF::Packet& operator <<(SF::Packet& packet, const MyStruct& m)
++    return packet << m.number << m.integer << m.str
++end
++
++SF::Packet& operator >>(SF::Packet& packet, MyStruct& m)
++    return packet >> m.number >> m.integer >> m.str
++end
+ ```
+@@ -89,24 +85,21 @@
+ ```c++
+-class ZipPacket : public sf::Packet
+-{
++class ZipPacket : public SF::Packet
+     virtual const void* onSend(std::size_t& size)
+-    {
+-        const void* srcData = getData();
+-        std::size_t srcSize = getDataSize();
++        const void* srcData = getData()
++        std::size_t srcSize = getDataSize()
+ 
+-        return MySuperZipFunction(srcData, srcSize, &size);
+-    }
++        return MySuperZipFunction(srcData, srcSize, &size)
++    end
+ 
+     virtual void onReceive(const void* data, std::size_t size)
+-    {
+-        std::size_t dstSize;
+-        const void* dstData = MySuperUnzipFunction(data, size, &dstSize);
++        std::size_t dstSize
++        const void* dstData = MySuperUnzipFunction(data, size, &dstSize)
+ 
+-        append(dstData, dstSize);
+-    }
+-};
++        append(dstData, dstSize)
++    end
++end
+ 
+-// Use like regular packets:
+-ZipPacket packet;
+-packet << x << s << d;
++# Use like regular packets:
++ZipPacket packet
++packet << x << s << d
+ ...
+--- SF::Packet#read(type)
++++ SF::Packet#read(type)
+@@ -1 +1,2 @@
+-Overloads of operator &gt;&gt; to read data from the packet
++Read data from the packet. The expected type corresponds to
++what was actually sent.
+--- SF::Packet#valid?()
++++ SF::Packet#valid?()
+@@ -12,16 +12,14 @@
+ ```c++
+-float x;
+-packet >> x;
++float x
++packet >> x
+ if (packet)
+-{
+-   // ok, x was extracted successfully
+-}
++   # ok, x was extracted successfully
++end
+ 
+-// -- or --
++# -- or --
+ 
+-float x;
++float x
+ if (packet >> x)
+-{
+-   // ok, x was extracted successfully
+-}
++   # ok, x was extracted successfully
++end
+ ```
+--- SF::Packet#write(data)
++++ SF::Packet#write(data)
+@@ -1 +1 @@
+-Overloads of operator &lt;&lt; to write data into the packet
++Write data into the packet
+--- SF::SocketSelector
++++ SF::SocketSelector
+@@ -29,60 +29,51 @@
+ ```c++
+-// Create a socket to listen to new connections
+-sf::TcpListener listener;
+-listener.listen(55001);
++# Create a socket to listen to new connections
++listener = SF::TcpListener.new
++listener.listen(55001)
+ 
+-// Create a list to store the future clients
+-std::list<sf::TcpSocket*> clients;
++# Create a list to store the future clients
++std::list<SF::TcpSocket*> clients
+ 
+-// Create a selector
+-sf::SocketSelector selector;
++# Create a selector
++selector = SF::SocketSelector.new
+ 
+-// Add the listener to the selector
+-selector.add(listener);
++# Add the listener to the selector
++selector.add(listener)
+ 
+-// Endless loop that waits for new connections
++# Endless loop that waits for new connections
+ while (running)
+-{
+-    // Make the selector wait for data on any socket
++    # Make the selector wait for data on any socket
+     if (selector.wait())
+-    {
+-        // Test the listener
++        # Test the listener
+         if (selector.isReady(listener))
+-        {
+-            // The listener is ready: there is a pending connection
+-            sf::TcpSocket* client = new sf::TcpSocket;
+-            if (listener.accept(*client) == sf::Socket::Done)
+-            {
+-                // Add the new client to the clients list
+-                clients.push_back(client);
++            # The listener is ready: there is a pending connection
++            SF::TcpSocket* client = new SF::TcpSocket
++            if (listener.accept(*client) == SF::Socket::Done)
++                # Add the new client to the clients list
++                clients.push_back(client)
+ 
+-                // Add the new client to the selector so that we will
+-                // be notified when he sends something
+-                selector.add(*client);
+-            }
++                # Add the new client to the selector so that we will
++                # be notified when he sends something
++                selector.add(*client)
++            end
+             else
+-            {
+-                // Error, we won't get a new connection, delete the socket
+-                delete client;
+-            }
+-        }
++                # Error, we won't get a new connection, delete the socket
++                delete client
++            end
++        end
+         else
+-        {
+-            // The listener socket is not ready, test all other sockets (the clients)
+-            for (std::list<sf::TcpSocket*>::iterator it = clients.begin(); it != clients.end(); ++it)
+-            {
+-                sf::TcpSocket& client = **it;
++            # The listener socket is not ready, test all other sockets (the clients)
++            for (std::list<SF::TcpSocket*>::iterator it = clients.begin(); it != clients.end(); ++it)
++                SF::TcpSocket& client = **it
+                 if (selector.isReady(client))
+-                {
+-                    // The client has sent some data, we can receive it
+-                    sf::Packet packet;
+-                    if (client.receive(packet) == sf::Socket::Done)
+-                    {
++                    # The client has sent some data, we can receive it
++                    packet = SF::Packet.new
++                    if (client.receive(packet) == SF::Socket::Done)
+                         ...
+-                    }
+-                }
+-            }
+-        }
+-    }
+-}
++                    end
++                end
++            end
++        end
++    end
++end
+ ```
+--- SF::TcpListener
++++ SF::TcpListener
+@@ -23,18 +23,16 @@
+ ```c++
+-// Create a listener socket and make it wait for new
+-// connections on port 55001
+-sf::TcpListener listener;
+-listener.listen(55001);
++# Create a listener socket and make it wait for new
++# connections on port 55001
++listener = SF::TcpListener.new
++listener.listen(55001)
+ 
+-// Endless loop that waits for new connections
++# Endless loop that waits for new connections
+ while (running)
+-{
+-    sf::TcpSocket client;
+-    if (listener.accept(client) == sf::Socket::Done)
+-    {
+-        // A new client just connected!
+-        std::cout << "New connection received from " << client.getRemoteAddress() << std::endl;
+-        doSomethingWith(client);
+-    }
+-}
++    client = SF::TcpSocket.new
++    if (listener.accept(client) == SF::Socket::Done)
++        # A new client just connected!
++        std::cout << "New connection received from " << client.getRemoteAddress() << std::endl
++        doSomethingWith(client)
++    end
++end
+ ```
+--- SF::TcpSocket
++++ SF::TcpSocket
+@@ -34,38 +34,38 @@
+ ```c++
+-// ----- The client -----
+-
+-// Create a socket and connect it to 192.168.1.50 on port 55001
+-sf::TcpSocket socket;
+-socket.connect("192.168.1.50", 55001);
+-
+-// Send a message to the connected host
+-std::string message = "Hi, I am a client";
+-socket.send(message.c_str(), message.size() + 1);
+-
+-// Receive an answer from the server
+-char buffer[1024];
+-std::size_t received = 0;
+-socket.receive(buffer, sizeof(buffer), received);
+-std::cout << "The server said: " << buffer << std::endl;
+-
+-// ----- The server -----
+-
+-// Create a listener to wait for incoming connections on port 55001
+-sf::TcpListener listener;
+-listener.listen(55001);
+-
+-// Wait for a connection
+-sf::TcpSocket socket;
+-listener.accept(socket);
+-std::cout << "New client connected: " << socket.getRemoteAddress() << std::endl;
+-
+-// Receive a message from the client
+-char buffer[1024];
+-std::size_t received = 0;
+-socket.receive(buffer, sizeof(buffer), received);
+-std::cout << "The client said: " << buffer << std::endl;
+-
+-// Send an answer
+-std::string message = "Welcome, client";
+-socket.send(message.c_str(), message.size() + 1);
++# ----- The client -----
++
++# Create a socket and connect it to 192.168.1.50 on port 55001
++socket = SF::TcpSocket.new
++socket.connect("192.168.1.50", 55001)
++
++# Send a message to the connected host
++std::string message = "Hi, I am a client"
++socket.send(message.c_str(), message.size() + 1)
++
++# Receive an answer from the server
++char buffer[1024]
++std::size_t received = 0
++socket.receive(buffer, sizeof(buffer), received)
++std::cout << "The server said: " << buffer << std::endl
++
++# ----- The server -----
++
++# Create a listener to wait for incoming connections on port 55001
++listener = SF::TcpListener.new
++listener.listen(55001)
++
++# Wait for a connection
++socket = SF::TcpSocket.new
++listener.accept(socket)
++std::cout << "New client connected: " << socket.getRemoteAddress() << std::endl
++
++# Receive a message from the client
++char buffer[1024]
++std::size_t received = 0
++socket.receive(buffer, sizeof(buffer), received)
++std::cout << "The client said: " << buffer << std::endl
++
++# Send an answer
++std::string message = "Welcome, client"
++socket.send(message.c_str(), message.size() + 1)
+ ```
+--- SF::TcpSocket#receive(data)
++++ SF::TcpSocket#receive(data)
+@@ -6,7 +6,7 @@
+ 
+-* *data* - Pointer to the array to fill with the received bytes
+-* *size* - Maximum number of bytes that can be received
+-* *received* - This variable is filled with the actual number of bytes received
++* *data* - The slice to fill with the received bytes
+ 
+-*Returns:* Status code
++*Returns:*
++* Status code
++* The actual number of bytes received
+ 
+--- SF::TcpSocket#send(data)
++++ SF::TcpSocket#send(data)
+@@ -4,7 +4,7 @@
+ 
+-* *data* - Pointer to the sequence of bytes to send
+-* *size* - Number of bytes to send
+-* *sent* - The number of bytes sent will be written here
++* *data* - Slice containing the bytes to send
+ 
+-*Returns:* Status code
++*Returns:*
++* Status code
++* The number of bytes sent
+ 
+--- SF::UdpSocket
++++ SF::UdpSocket
+@@ -45,37 +45,37 @@
+ ```c++
+-// ----- The client -----
+-
+-// Create a socket and bind it to the port 55001
+-sf::UdpSocket socket;
+-socket.bind(55001);
+-
+-// Send a message to 192.168.1.50 on port 55002
+-std::string message = "Hi, I am " + sf::IpAddress::getLocalAddress().toString();
+-socket.send(message.c_str(), message.size() + 1, "192.168.1.50", 55002);
+-
+-// Receive an answer (most likely from 192.168.1.50, but could be anyone else)
+-char buffer[1024];
+-std::size_t received = 0;
+-sf::IpAddress sender;
+-unsigned short port;
+-socket.receive(buffer, sizeof(buffer), received, sender, port);
+-std::cout << sender.ToString() << " said: " << buffer << std::endl;
+-
+-// ----- The server -----
+-
+-// Create a socket and bind it to the port 55002
+-sf::UdpSocket socket;
+-socket.bind(55002);
+-
+-// Receive a message from anyone
+-char buffer[1024];
+-std::size_t received = 0;
+-sf::IpAddress sender;
+-unsigned short port;
+-socket.receive(buffer, sizeof(buffer), received, sender, port);
+-std::cout << sender.ToString() << " said: " << buffer << std::endl;
+-
+-// Send an answer
+-std::string message = "Welcome " + sender.toString();
+-socket.send(message.c_str(), message.size() + 1, sender, port);
++# ----- The client -----
++
++# Create a socket and bind it to the port 55001
++socket = SF::UdpSocket.new
++socket.bind(55001)
++
++# Send a message to 192.168.1.50 on port 55002
++std::string message = "Hi, I am " + SF::IpAddress.getLocalAddress().toString()
++socket.send(message.c_str(), message.size() + 1, "192.168.1.50", 55002)
++
++# Receive an answer (most likely from 192.168.1.50, but could be anyone else)
++char buffer[1024]
++std::size_t received = 0
++sender = SF::IpAddress.new
++unsigned short port
++socket.receive(buffer, sizeof(buffer), received, sender, port)
++std::cout << sender.ToString() << " said: " << buffer << std::endl
++
++# ----- The server -----
++
++# Create a socket and bind it to the port 55002
++socket = SF::UdpSocket.new
++socket.bind(55002)
++
++# Receive a message from anyone
++char buffer[1024]
++std::size_t received = 0
++sender = SF::IpAddress.new
++unsigned short port
++socket.receive(buffer, sizeof(buffer), received, sender, port)
++std::cout << sender.ToString() << " said: " << buffer << std::endl
++
++# Send an answer
++std::string message = "Welcome " + sender.toString()
++socket.send(message.c_str(), message.size() + 1, sender, port)
+ ```
+--- SF::UdpSocket#receive(data)
++++ SF::UdpSocket#receive(data)
+@@ -9,9 +9,9 @@
+ 
+-* *data* - Pointer to the array to fill with the received bytes
+-* *size* - Maximum number of bytes that can be received
+-* *received* - This variable is filled with the actual number of bytes received
+-* *remote_address* - Address of the peer that sent the data
+-* *remote_port* - Port of the peer that sent the data
++* *data* - The slice to fill with the received bytes
+ 
+-*Returns:* Status code
++*Returns:*
++* Status code
++* The actual number of bytes received
++* Address of the peer that sent the data
++* Port of the peer that sent the data
+ 
+--- SF::UdpSocket#receive(packet)
++++ SF::UdpSocket#receive(packet)
+@@ -6,6 +6,7 @@
+ * *packet* - Packet to fill with the received data
+-* *remote_address* - Address of the peer that sent the data
+-* *remote_port* - Port of the peer that sent the data
+ 
+-*Returns:* Status code
++*Returns:*
++* Status code
++* Address of the peer that sent the data
++* Port of the peer that sent the data
+ 
+--- SF::UdpSocket#send(data,remote_address,remote_port)
++++ SF::UdpSocket#send(data,remote_address,remote_port)
+@@ -2,8 +2,7 @@
+ 
+-Make sure that *size* is not greater than
+-UdpSocket::MaxDatagramSize, otherwise this function will
++Make sure that *data* size is not greater than
++`UdpSocket::MaxDatagramSize`, otherwise this function will
+ fail and no data will be sent.
+ 
+-* *data* - Pointer to the sequence of bytes to send
+-* *size* - Number of bytes to send
++* *data* - Slice containing the sequence of bytes to send
+ * *remote_address* - Address of the receiver
+--- SF::Ftp#send_command(command,parameter)
++++ SF::Ftp#send_command(command,parameter)
+@@ -7,3 +7,3 @@
+ in *parameter.* If the server returns information, you
+-can extract it from the response using Response::message().
++can extract it from the response using Response.message().
+ 
+--- SF::Http
++++ SF::Http
+@@ -32,24 +32,22 @@
+ ```c++
+-// Create a new HTTP client
+-sf::Http http;
++# Create a new HTTP client
++http = SF::Http.new
+ 
+-// We'll work on http://www.sfml-dev.org
+-http.setHost("http://www.sfml-dev.org");
++# We'll work on http://www.sfml-dev.org
++http.setHost("http://www.sfml-dev.org")
+ 
+-// Prepare a request to get the 'features.php' page
+-sf::Http::Request request("features.php");
++# Prepare a request to get the 'features.php' page
++SF::Http::Request request("features.php")
+ 
+-// Send the request
+-sf::Http::Response response = http.sendRequest(request);
++# Send the request
++SF::Http::Response response = http.sendRequest(request)
+ 
+-// Check the status code and display the result
+-sf::Http::Response::Status status = response.getStatus();
+-if (status == sf::Http::Response::Ok)
+-{
+-    std::cout << response.getBody() << std::endl;
+-}
++# Check the status code and display the result
++SF::Http::Response::Status status = response.getStatus()
++if (status == SF::Http::Response::Ok)
++    std::cout << response.getBody() << std::endl
++end
+ else
+-{
+-    std::cout << "Error " << status << std::endl;
+-}
++    std::cout << "Error " << status << std::endl
++end
+ ```
