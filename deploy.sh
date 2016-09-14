@@ -29,6 +29,7 @@ rm -r -- deploy/* 2>/dev/null || true
 
 cp --parents --no-dereference -- $(git ls-files) deploy/
 rm -- deploy/* deploy/.* deploy/src/README.md deploy/**/*.in 2>/dev/null || true
+rm -r deploy/docs || true
 cp README.md LICENSE logo.png deploy/
 
 pushd build

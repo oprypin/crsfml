@@ -271,6 +271,17 @@
 -object (inherited from `SF::Drawable`), you can
 +object (one that includes `SF::Drawable`), you can
  either pass the render states unmodified, or change
+--- SF::RenderTarget
++++ SF::RenderTarget
+@@ -1,2 +1,2 @@
+-Base class for all render targets (window, texture, ...)
++Base module for all render targets (window, texture, ...)
+ 
+@@ -12,3 +12,3 @@
+ documentation of `SF::View` for more details and sample pieces of
+-code about this class.
++code about this module.
+ 
 --- SF::RenderTarget#map_coords_to_pixel(point)
 +++ SF::RenderTarget#map_coords_to_pixel(point)
 @@ -6,4 +6,4 @@
@@ -378,29 +389,29 @@
 +
 +# The main loop
 +while window.open?
-+   # Event processing
-+   # ...
++  # Event processing
++  # ...
 +
-+   # Clear the whole texture with red color
-+   texture.clear(SF::Color::Red)
++  # Clear the whole texture with red color
++  texture.clear(SF::Color::Red)
 +
-+   # Draw stuff to the texture
-+   texture.draw(sprite)  # sprite is a SF::Sprite
-+   texture.draw(shape)   # shape is a SF::Shape
-+   texture.draw(text)    # text is a SF::Text
++  # Draw stuff to the texture
++  texture.draw(sprite)  # sprite is a SF::Sprite
++  texture.draw(shape)   # shape is a SF::Shape
++  texture.draw(text)    # text is a SF::Text
 +
-+   # We're done drawing to the texture
-+   texture.display()
++  # We're done drawing to the texture
++  texture.display()
 +
-+   # Now we start rendering to the window, clear it first
-+   window.clear()
++  # Now we start rendering to the window, clear it first
++  window.clear()
 +
-+   # Draw the texture
-+   sprite = SF::Sprite(texture.texture)
-+   window.draw(sprite)
++  # Draw the texture
++  sprite = SF::Sprite(texture.texture)
++  window.draw(sprite)
 +
-+   # End the current frame and display its contents on screen
-+   window.display()
++  # End the current frame and display its contents on screen
++  window.display()
 +end
  ```
 @@ -57,3 +54,3 @@
@@ -451,6 +462,11 @@
  ```
 --- SF::RenderWindow
 +++ SF::RenderWindow
+@@ -12,3 +12,3 @@
+ On top of that, `SF::RenderWindow` adds more features related to
+-2D drawing with the graphics module (see its base class
++2D drawing with the graphics module (see its base module
+ `SF::RenderTarget` for more details).
 @@ -16,32 +16,30 @@
  
 -```c++
@@ -689,12 +705,22 @@
 +states = SF::RenderStates.new(shader)
 +window.draw(sprite, states)
  ```
-@@ -94,3 +84,3 @@
- * draw everything directly to the main target, then use
+@@ -88,10 +78,6 @@
+ 
+-Shaders can also be used to apply global post-effects to the
+-current contents of the target (like the old `SF::PostFx` class
+-in SFML 1). This can be done in two different ways:
+-* draw everything to a `SF::RenderTexture`, then draw it to
+-  the main target using the shader
+-* draw everything directly to the main target, then use
 -  `SF::Texture::update`(Window&) to copy its contents to a texture
-+  `SF::Texture.update`(Window&) to copy its contents to a texture
-   and draw it to the main target using the shader
-@@ -105,6 +95,6 @@
+-  and draw it to the main target using the shader
++Shaders can also be used to apply global post-effects to the current
++contents of the target. This can be done in two different ways:
++* draw everything to a `SF::RenderTexture`, then draw it to the main target using the shader
++* draw everything directly to the main target, then use `SF::Texture.update(window)` to copy its contents to a texture and draw it to the main target using the shader
+ 
+@@ -105,8 +91,6 @@
  custom OpenGL geometry.
 -```c++
 -sf::Shader::bind(&shader);
@@ -704,6 +730,8 @@
 -sf::Shader::bind(NULL);
 +SF::Shader.bind nil
  ```
+-
+-*See also:* `SF::Glsl`
 --- SF::Shader.bind(shader)
 +++ SF::Shader.bind(shader)
 @@ -6,11 +6,12 @@
@@ -809,6 +837,15 @@
  Change a 4-components vector parameter of the shader
 -
 -*Deprecated:* Use uniform=(const std::string&, const Glsl::Vec4&) instead.
+--- SF::Shape
++++ SF::Shape
+@@ -23,4 +23,4 @@
+ two virtual functions to override:
+-* point_count must return the number of points of the shape
+-* point must return the points of the shape
++* `point_count` must return the number of points of the shape
++* `get_point` must return the points of the shape
+ 
 --- SF::Shape#get_point(index)
 +++ SF::Shape#get_point(index)
 @@ -7,3 +7,3 @@
@@ -816,6 +853,12 @@
 -* *index* - Index of the point to get, in range [0 .. point_count() - 1]
 +* *index* - Index of the point to get, in range `0 ... point_count`
  
+--- SF::Shape#update()
++++ SF::Shape#update()
+@@ -4,2 +4,2 @@
+ the shape's points change (i.e. the result of either
+-point_count or point is different).
++`point_count` or `get_point` is different).
 --- SF::Sprite
 +++ SF::Sprite
 @@ -31,16 +31,15 @@
@@ -1278,8 +1321,8 @@
 -private:
 -    sf::Transformable myTransform;
 -};
-+    @transform : SF::Transformable
-+    forward_missing_to @transform
++  @transform : SF::Transformable
++  forward_missing_to @transform
 +end
  ```
 --- SF::Transformable#move(offset)

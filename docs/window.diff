@@ -21,7 +21,24 @@
  ```
 --- SF::ContextSettings
 +++ SF::ContextSettings
-@@ -55,2 +55,2 @@
+@@ -27,5 +27,5 @@
+ context should follow the core or compatibility profile
+-of all newer (&gt;= 3.2) OpenGL specifications. For versions
+-3.0 and 3.1 there is only the core profile. By default
+-a compatibility context is created. You only need to specify
++of all newer (>= 3.2) OpenGL specifications. For versions 3.0
++and 3.1 there is only the core profile. By default a
++compatibility context is created. You only need to specify
+ the core flag if you want a core profile context to use with
+@@ -46,5 +46,4 @@
+ contexts are not supported. Further information is available on the
+-&lt;a href="https://developer.apple.com/opengl/capabilities/index.html"&gt;
+-OpenGL Capabilities Tables&lt;/a&gt; page. OS X also currently does
+-not support debug contexts.
++[OpenGL Capabilities Tables](https://developer.apple.com/opengl/capabilities/index.html)
++page. OS X also currently does not support debug contexts.
+ 
+@@ -55,2 +54,2 @@
  settings that the window actually used to create its context,
 -with Window::settings().
 +with Window.settings().
@@ -36,6 +53,19 @@
 +Empty module that indicates the class requires an OpenGL context
 --- SF::Joystick
 +++ SF::Joystick
+@@ -5,8 +5,8 @@
+ meant to be instantiated. Instead, each joystick is identified
+-by an index that is passed to the functions of this class.
++by an index that is passed to the functions of this module.
+ 
+-This class allows users to query the state of joysticks at any
++This module allows users to query the state of joysticks at any
+ time and directly, without having to deal with a window and
+-its events. Compared to the JoystickMoved, JoystickButtonPressed
+-and JoystickButtonReleased events, `SF::Joystick` can retrieve the
++its events. Compared to the `JoystickMoved`, `JoystickButtonPressed`
++and `JoystickButtonReleased` events, `SF::Joystick` can retrieve the
+ state of axes and buttons of joysticks at any time
 @@ -29,20 +29,20 @@
  window, or if you want to check joysticks state before creating one,
 -you must call `SF::Joystick::update` explicitly.
@@ -77,6 +107,14 @@
 +*Returns:* Current position of the axis, in range `-100 .. 100`
 --- SF::Keyboard
 +++ SF::Keyboard
+@@ -6,5 +6,5 @@
+ 
+-This class allows users to query the keyboard state at any
++This module allows users to query the keyboard state at any
+ time and directly, without having to deal with a window and
+-its events. Compared to the KeyPressed and KeyReleased events,
++its events. Compared to the `KeyPressed` and `KeyReleased` events,
+ `SF::Keyboard` can retrieve the state of a key at any time
 @@ -17,15 +17,10 @@
  Usage example:
 -```c++
@@ -148,6 +186,16 @@
  ```
 --- SF::Mouse
 +++ SF::Mouse
+@@ -6,6 +6,6 @@
+ 
+-This class allows users to query the mouse state at any
++This module allows users to query the mouse state at any
+ time and directly, without having to deal with a window and
+-its events. Compared to the MouseMoved, MouseButtonPressed
+-and MouseButtonReleased events, `SF::Mouse` can retrieve the
++its events. Compared to the `MouseMoved`, `MouseButtonPressed`
++and `MouseButtonReleased` events, `SF::Mouse` can retrieve the
+ state of the cursor and the buttons at any time
 @@ -24,13 +24,12 @@
  Usage example:
 -```c++
@@ -172,6 +220,14 @@
  ```
 --- SF::Sensor
 +++ SF::Sensor
+@@ -6,5 +6,5 @@
+ 
+-This class allows users to query the sensors values at any
++This module allows users to query the sensors values at any
+ time and directly, without having to deal with a window and
+-its events. Compared to the SensorChanged event, `SF::Sensor`
++its events. Compared to the `SensorChanged` event, `SF::Sensor`
+ can retrieve the state of a sensor at any time (you don't need to
 @@ -15,3 +15,3 @@
  the availability of a sensor before trying to read it, with the
 -`SF::Sensor::available?` function.
@@ -206,6 +262,11 @@
  ```
 --- SF::Touch
 +++ SF::Touch
+@@ -6,3 +6,3 @@
+ 
+-This class allows users to query the touches state at any
++This module allows users to query the touches state at any
+ time and directly, without having to deal with a window and
 @@ -29,13 +29,12 @@
  Usage example:
 -```c++
