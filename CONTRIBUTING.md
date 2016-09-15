@@ -31,3 +31,8 @@ Most of the changes to *CrSFML* will happen within one file, [*generate.cr*](gen
 If you want to implement a small change but are totally lost as to where it should go, you may want to `crystal run -Ddebug generate.cr`. This annotates every line in the generated files with the number of line in *generate.cr* that produced it. Then, hopefully, the backtracking won't be too bad.
 
 After introducing a change to *generate.cr* you can immediately try it out in some example code after running `cmake . && make`, but you may also want to see how exactly your change affects all of the generated source code. For that, a [*diff.sh*](diff.sh) tool is provided which generates and compares the code based on two different commits or the current uncommitted state. Run `./diff.sh` (equivalent to `./diff.sh HEAD`) to see the impact of the current uncommitted change, or compare any two commits (the syntax of commit shorthands is the same as in *git*).
+
+Contributing documentation
+==========================
+
+As mentioned, *CrSFML*'s code is mostly automatically generated, and the documentation is taken automatically from SFML (a C++ library). If you edit _src/*/obj.cr_ files, the changes will not be saved. However, the build process is set up to apply manual edits to the documentation by storing these changes in _docs/*.diff_ files. If you'd like to edit the documentation strings in source code and keep the changes, run *crystal save_docs.cr*. Your edits will be saved into the *diff* files. Note that this requires you to have the latest version of SFML to match what is already stored, otherwise differences in documentation between SFML versions will also be saved, but they're unwanted.

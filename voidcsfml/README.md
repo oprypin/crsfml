@@ -44,7 +44,7 @@ Building *VoidCSFML* (including sources) is also a part of *CrSFML*'s build proc
 cmake . && make
 ```
 
-**Optional:** [out-of-source builds][] are also supported, but note that even the sources go to the build directory, so you need perform all the following steps inside the build directory and not the root directory.
+> **Optional:** [out-of-source builds][] are also supported, but note that even the sources go to the build directory, so you need perform all the following steps inside the build directory and not the root directory.
 
 If ran successfully, this generates all the source files for *VoidCSFML* and *CrSFML*, and also compiles *VoidCSFML*.
 
@@ -58,7 +58,7 @@ If you have generated the sources manually or downloaded pre-generated sources, 
 cmake . && make
 ```
 
-**Optional:** [out-of-source builds][] are also supported.
+> **Optional:** [out-of-source builds][] are also supported.
 
 If ran successfully, this produces the libraries in the *voidcsfml/lib* folder.
 
