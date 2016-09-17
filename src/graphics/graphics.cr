@@ -281,5 +281,5 @@ module SF
     # Overwrite dest with source
     BlendNone = BlendMode.new(BlendMode::One, BlendMode::Zero)
   end
-  _sf_enum BlendMode
+  Util.extract BlendMode
 end

@@ -779,7 +779,7 @@ class CEnum < CNamespace
       if @name
         o<< "end"
         unless full_name == "Style"
-          o<< "_sf_enum #{full_name(context)}"
+          o<< "Util.extract #{full_name(context)}"
         end
       end
     end
