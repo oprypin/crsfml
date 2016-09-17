@@ -100,7 +100,7 @@ VOIDCSFML_API event_sensorevent_settype_jRE(void* self, int type);
 VOIDCSFML_API event_sensorevent_setx_Bw9(void* self, float x);
 VOIDCSFML_API event_sensorevent_sety_Bw9(void* self, float y);
 VOIDCSFML_API event_sensorevent_setz_Bw9(void* self, float z);
-VOIDCSFML_API event_sensorevent_initialize_L9(void* self, void* copy);
+VOIDCSFML_API event_sensorevent_initialize_0L9(void* self, void* copy);
 VOIDCSFML_API touch_isdown_emS(unsigned int finger, unsigned char* result);
 VOIDCSFML_API touch_getposition_emS(unsigned int finger, void* result);
 VOIDCSFML_API touch_getposition_emSJRh(unsigned int finger, void* relative_to, void* result);

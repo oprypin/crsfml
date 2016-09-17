@@ -1,7 +1,7 @@
 require "./sizes"
 
 module SF
-  VERSION = "2.4.1"
+  VERSION = "2.4.2"
   SFML_VERSION = "2.4.0"
 
   # Raised in shorthand class methods if initialization or resource loading fails

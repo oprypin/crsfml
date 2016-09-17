@@ -294,7 +294,7 @@ void event_sensorevent_sety_Bw9(void* self, float y) {
 void event_sensorevent_setz_Bw9(void* self, float z) {
     ((Event::SensorEvent*)self)->z = (float)z;
 }
-void event_sensorevent_initialize_L9(void* self, void* copy) {
+void event_sensorevent_initialize_0L9(void* self, void* copy) {
     new(self) Event::SensorEvent(*(Event::SensorEvent*)copy);
 }
 void touch_isdown_emS(unsigned int finger, unsigned char* result) {

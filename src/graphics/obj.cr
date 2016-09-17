@@ -6,15 +6,15 @@ module SF
   extend self
   # Blending modes for drawing
   #
-  # `SF::BlendMode` is a class that represents a blend mode. A blend
+  # `SF::BlendMode` is a struct that represents a blend mode. A blend
   # mode determines how the colors of an object you draw are
   # mixed with the colors that are already in the buffer.
   #
-  # The class is composed of 6 components, each of which has its
+  # The struct is composed of 6 components, each of which has its
   # own public member variable:
-  # * %Color Source Factor (*color_src_factor*)
-  # * %Color Destination Factor (*color_dst_factor*)
-  # * %Color Blend Equation (*color_equation*)
+  # * Color Source Factor (*color_src_factor*)
+  # * Color Destination Factor (*color_dst_factor*)
+  # * Color Blend Equation (*color_equation*)
   # * Alpha Source Factor (*alpha_src_factor*)
   # * Alpha Destination Factor (*alpha_dst_factor*)
   # * Alpha Blend Equation (*alpha_equation*)
@@ -33,26 +33,19 @@ module SF
   # to the following formula (*src* is the color of the source pixel, *dst*
   # the color of the destination pixel, the other variables correspond to the
   # public members, with the equations being + or - operators):
-  # ```c++
-  # dst.rgb = colorSrcFactor * src.rgb (colorEquation) colorDstFactor * dst.rgb
-  # dst.a   = alphaSrcFactor * src.a   (alphaEquation) alphaDstFactor * dst.a
+  # ```
+  # dst.rgb = color_src_factor * src.rgb (color_equation) color_dst_factor * dst.rgb
+  # dst.a   = alpha_src_factor * src.a   (alpha_equation) alpha_dst_factor * dst.a
   # ```
   # All factors and colors are represented as floating point numbers between
   # 0 and 1. Where necessary, the result is clamped to fit in that range.
   #
-  # The most common blending modes are defined as constants
-  # in the sf namespace:
-  #
-  # ```c++
-  # sf::BlendMode alphaBlending          = sf::BlendAlpha;
-  # sf::BlendMode additiveBlending       = sf::BlendAdd;
-  # sf::BlendMode multiplicativeBlending = sf::BlendMultiply;
-  # sf::BlendMode noBlending             = sf::BlendNone;
-  # ```
+  # The most common blending modes are defined as constants in the SF module:
+  # `SF::BlendAlpha`, `SF::BlendAdd`, `SF::BlendMultiply`, `SF::BlendNone`.
   #
   # In SFML, a blend mode can be specified every time you draw a `SF::Drawable`
   # object to a render target. It is part of the `SF::RenderStates` compound
-  # that is passed to the member function `SF::RenderTarget::draw`().
+  # that is passed to the member function `SF::RenderTarget.draw`().
   #
   # *See also:* `SF::RenderStates`, `SF::RenderTarget`
   struct BlendMode
@@ -119,9 +112,9 @@ module SF
     # This constructor uses the same factors and equation for both
     # color and alpha components. It also defaults to the Add equation.
     #
-    # * *source_factor* -      Specifies how to compute the source factor for the color and alpha channels.
+    # * *source_factor* - Specifies how to compute the source factor for the color and alpha channels.
     # * *destination_factor* - Specifies how to compute the destination factor for the color and alpha channels.
-    # * *blend_equation* -     Specifies how to combine the source and destination colors and alpha.
+    # * *blend_equation* - Specifies how to combine the source and destination colors and alpha.
     def initialize(source_factor : BlendMode::Factor, destination_factor : BlendMode::Factor, blend_equation : BlendMode::Equation = Add)
       @color_src_factor = uninitialized BlendMode::Factor
       @color_dst_factor = uninitialized BlendMode::Factor
@@ -133,12 +126,12 @@ module SF
     end
     # Construct the blend mode given the factors and equation.
     #
-    # * *color_source_factor* -      Specifies how to compute the source factor for the color channels.
+    # * *color_source_factor* - Specifies how to compute the source factor for the color channels.
     # * *color_destination_factor* - Specifies how to compute the destination factor for the color channels.
-    # * *color_blend_equation* -     Specifies how to combine the source and destination colors.
-    # * *alpha_source_factor* -      Specifies how to compute the source factor.
+    # * *color_blend_equation* - Specifies how to combine the source and destination colors.
+    # * *alpha_source_factor* - Specifies how to compute the source factor.
     # * *alpha_destination_factor* - Specifies how to compute the destination factor.
-    # * *alpha_blend_equation* -     Specifies how to combine the source and destination alphas.
+    # * *alpha_blend_equation* - Specifies how to combine the source and destination alphas.
     def initialize(color_source_factor : BlendMode::Factor, color_destination_factor : BlendMode::Factor, color_blend_equation : BlendMode::Equation, alpha_source_factor : BlendMode::Factor, alpha_destination_factor : BlendMode::Factor, alpha_blend_equation : BlendMode::Equation)
       @color_src_factor = uninitialized BlendMode::Factor
       @color_dst_factor = uninitialized BlendMode::Factor
@@ -198,7 +191,7 @@ module SF
     end
     # Overload of the == operator
     #
-    # * *left* -  Left operand
+    # * *left* - Left operand
     # * *right* - Right operand
     #
     # *Returns:* True if blending modes are equal, false if they are different
@@ -208,7 +201,7 @@ module SF
     end
     # Overload of the != operator
     #
-    # * *left* -  Left operand
+    # * *left* - Left operand
     # * *right* - Right operand
     #
     # *Returns:* True if blending modes are different, false if they are equal
@@ -252,31 +245,31 @@ module SF
   # detection).
   #
   # Example:
-  # ```c++
-  # // define a translation transform
-  # sf::Transform translation;
-  # translation.translate(20, 50);
+  # ```
+  # # define a translation transform
+  # translation = SF::Transform.new
+  # translation.translate(20, 50)
   #
-  # // define a rotation transform
-  # sf::Transform rotation;
-  # rotation.rotate(45);
+  # # define a rotation transform
+  # rotation = SF::Transform.new
+  # rotation.rotate(45)
   #
-  # // combine them
-  # sf::Transform transform = translation * rotation;
+  # # combine them
+  # transform = translation * rotation
   #
-  # // use the result to transform stuff...
-  # sf::Vector2f point = transform.transformPoint(10, 20);
-  # sf::FloatRect rect = transform.transformRect(sf::FloatRect(0, 0, 10, 100));
+  # # use the result to transform stuff...
+  # point = transform.transform_point(10, 20)
+  # rect = transform.transform_rect(SF.float_rect(0, 0, 10, 100))
   # ```
   #
   # *See also:* `SF::Transformable`, `SF::RenderStates`
   struct Transform
-    @m_matrix : LibC::Float[16]
+    @matrix : LibC::Float[16]
     # Default constructor
     #
     # Creates an identity transform (a transform that does nothing).
     def initialize()
-      @m_matrix = uninitialized Float32[16]
+      @matrix = uninitialized Float32[16]
       VoidCSFML.transform_initialize(to_unsafe)
     end
     # Construct a transform from a 3x3 matrix
@@ -291,7 +284,7 @@ module SF
     # * *a21* - Element (2, 1) of the matrix
     # * *a22* - Element (2, 2) of the matrix
     def initialize(a00 : Number, a01 : Number, a02 : Number, a10 : Number, a11 : Number, a12 : Number, a20 : Number, a21 : Number, a22 : Number)
-      @m_matrix = uninitialized Float32[16]
+      @matrix = uninitialized Float32[16]
       VoidCSFML.transform_initialize_Bw9Bw9Bw9Bw9Bw9Bw9Bw9Bw9Bw9(to_unsafe, LibC::Float.new(a00), LibC::Float.new(a01), LibC::Float.new(a02), LibC::Float.new(a10), LibC::Float.new(a11), LibC::Float.new(a12), LibC::Float.new(a20), LibC::Float.new(a21), LibC::Float.new(a22))
     end
     # Return the transform as a 4x4 matrix
@@ -300,9 +293,9 @@ module SF
     # containing the transform elements as a 4x4 matrix, which
     # is directly compatible with OpenGL functions.
     #
-    # ```c++
-    # sf::Transform transform = ...;
-    # glLoadMatrixf(transform.getMatrix());
+    # ```
+    # transform = ...
+    # glLoadMatrixf(transform.matrix())
     # ```
     #
     # *Returns:* Pointer to a 4x4 matrix
@@ -377,9 +370,9 @@ module SF
     #
     # This function returns a reference to *this, so that calls
     # can be chained.
-    # ```c++
-    # sf::Transform transform;
-    # transform.translate(100, 200).rotate(45);
+    # ```
+    # transform = SF::Transform.new
+    # transform.translate(100, 200).rotate(45)
     # ```
     #
     # * *x* - Offset to apply on X axis
@@ -397,9 +390,9 @@ module SF
     #
     # This function returns a reference to *this, so that calls
     # can be chained.
-    # ```c++
-    # sf::Transform transform;
-    # transform.translate(sf::Vector2f(100, 200)).rotate(45);
+    # ```
+    # transform = SF::Transform.new
+    # transform.translate(SF.vector2f(100, 200)).rotate(45)
     # ```
     #
     # * *offset* - Translation offset to apply
@@ -417,9 +410,9 @@ module SF
     #
     # This function returns a reference to *this, so that calls
     # can be chained.
-    # ```c++
-    # sf::Transform transform;
-    # transform.rotate(90).translate(50, 20);
+    # ```
+    # transform = SF::Transform.new
+    # transform.rotate(90).translate(50, 20)
     # ```
     #
     # * *angle* - Rotation angle, in degrees
@@ -441,9 +434,9 @@ module SF
     #
     # This function returns a reference to *this, so that calls
     # can be chained.
-    # ```c++
-    # sf::Transform transform;
-    # transform.rotate(90, 8, 3).translate(50, 20);
+    # ```
+    # transform = SF::Transform.new
+    # transform.rotate(90, 8, 3).translate(50, 20)
     # ```
     #
     # * *angle* - Rotation angle, in degrees
@@ -467,9 +460,9 @@ module SF
     #
     # This function returns a reference to *this, so that calls
     # can be chained.
-    # ```c++
-    # sf::Transform transform;
-    # transform.rotate(90, sf::Vector2f(8, 3)).translate(sf::Vector2f(50, 20));
+    # ```
+    # transform = SF::Transform.new
+    # transform.rotate(90, SF.vector2f(8, 3)).translate(SF.vector2f(50, 20))
     # ```
     #
     # * *angle* - Rotation angle, in degrees
@@ -488,9 +481,9 @@ module SF
     #
     # This function returns a reference to *this, so that calls
     # can be chained.
-    # ```c++
-    # sf::Transform transform;
-    # transform.scale(2, 1).rotate(45);
+    # ```
+    # transform = SF::Transform.new
+    # transform.scale(2, 1).rotate(45)
     # ```
     #
     # * *scale_x* - Scaling factor on the X axis
@@ -513,9 +506,9 @@ module SF
     #
     # This function returns a reference to *this, so that calls
     # can be chained.
-    # ```c++
-    # sf::Transform transform;
-    # transform.scale(2, 1, 8, 3).rotate(45);
+    # ```
+    # transform = SF::Transform.new
+    # transform.scale(2, 1, 8, 3).rotate(45)
     # ```
     #
     # * *scale_x* - Scaling factor on X axis
@@ -535,9 +528,9 @@ module SF
     #
     # This function returns a reference to *this, so that calls
     # can be chained.
-    # ```c++
-    # sf::Transform transform;
-    # transform.scale(sf::Vector2f(2, 1)).rotate(45);
+    # ```
+    # transform = SF::Transform.new
+    # transform.scale(SF.vector2f(2, 1)).rotate(45)
     # ```
     #
     # * *factors* - Scaling factors
@@ -560,9 +553,9 @@ module SF
     #
     # This function returns a reference to *this, so that calls
     # can be chained.
-    # ```c++
-    # sf::Transform transform;
-    # transform.scale(sf::Vector2f(2, 1), sf::Vector2f(8, 3)).rotate(45);
+    # ```
+    # transform = SF::Transform.new
+    # transform.scale(SF.vector2f(2, 1), SF.vector2f(8, 3)).rotate(45)
     # ```
     #
     # * *factors* - Scaling factors
@@ -578,7 +571,7 @@ module SF
       VoidCSFML.transform_scale_UU2UU2(to_unsafe, factors, center, result)
       return result
     end
-    @m_matrix : LibC::Float[16]
+    @matrix : LibC::Float[16]
     # Overload of binary operator * to combine two transforms
     #
     # This call is equivalent to calling Transform(left).combine(right).
@@ -608,11 +601,11 @@ module SF
     end
     # :nodoc:
     def to_unsafe()
-      pointerof(@m_matrix).as(Void*)
+      pointerof(@matrix).as(Void*)
     end
     # :nodoc:
     def initialize(copy : Transform)
-      @m_matrix = uninitialized Float32[16]
+      @matrix = uninitialized Float32[16]
       as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
       VoidCSFML.transform_initialize_FPe(to_unsafe, copy)
     end
@@ -642,21 +635,19 @@ module SF
   #
   # Most objects, especially high-level drawables, can be drawn
   # directly without defining render states explicitly -- the
-  # default set of states is ok in most cases.
-  # ```c++
-  # window.draw(sprite);
+  # default set of states is OK in most cases.
+  # ```
+  # window.draw(sprite)
   # ```
   #
-  # If you want to use a single specific render state,
-  # for example a shader, you can pass it directly to the Draw
-  # function: `SF::RenderStates` has an implicit one-argument
-  # constructor for each state.
-  # ```c++
-  # window.draw(sprite, shader);
+  # If you want to use a single specific render state, for example a
+  # shader, you can pass it to the constructor of `SF::RenderStates`.
+  # ```
+  # window.draw(sprite, SF::RenderStates.new(shader))
   # ```
   #
   # When you're inside the Draw function of a drawable
-  # object (inherited from `SF::Drawable`), you can
+  # object (one that includes `SF::Drawable`), you can
   # either pass the render states unmodified, or change
   # some of them.
   # For example, a transformable object will combine the
@@ -687,7 +678,7 @@ module SF
     end
     # Construct a default set of render states with a custom blend mode
     #
-    # * *the_blend_mode* - Blend mode to use
+    # * *blend_mode* - Blend mode to use
     def initialize(blend_mode : BlendMode)
       @blend_mode = uninitialized BlendMode
       @transform = uninitialized Transform
@@ -697,7 +688,7 @@ module SF
     end
     # Construct a default set of render states with a custom transform
     #
-    # * *the_transform* - Transform to use
+    # * *transform* - Transform to use
     def initialize(transform : Transform)
       @blend_mode = uninitialized BlendMode
       @transform = uninitialized Transform
@@ -707,7 +698,7 @@ module SF
     end
     # Construct a default set of render states with a custom texture
     #
-    # * *the_texture* - Texture to use
+    # * *texture* - Texture to use
     def initialize(texture : Texture?)
       @blend_mode = uninitialized BlendMode
       @transform = uninitialized Transform
@@ -718,7 +709,7 @@ module SF
     end
     # Construct a default set of render states with a custom shader
     #
-    # * *the_shader* - Shader to use
+    # * *shader* - Shader to use
     def initialize(shader : Shader)
       @blend_mode = uninitialized BlendMode
       @transform = uninitialized Transform
@@ -729,10 +720,10 @@ module SF
     end
     # Construct a set of render states with all its attributes
     #
-    # * *the_blend_mode* - Blend mode to use
-    # * *the_transform* - Transform to use
-    # * *the_texture* -   Texture to use
-    # * *the_shader* -    Shader to use
+    # * *blend_mode* - Blend mode to use
+    # * *transform* - Transform to use
+    # * *texture* - Texture to use
+    # * *shader* - Shader to use
     def initialize(blend_mode : BlendMode, transform : Transform, texture : Texture?, shader : Shader)
       @blend_mode = uninitialized BlendMode
       @transform = uninitialized Transform
@@ -795,49 +786,42 @@ module SF
       return typeof(self).new(self)
     end
   end
-  # Abstract base class for objects that can be drawn
-  #        to a render target
+  # Abstract module for objects that can be drawn
+  # to a render target
   #
-  # `SF::Drawable` is a very simple base class that allows objects
+  # `SF::Drawable` is a very simple module that allows objects
   # of derived classes to be drawn to a `SF::RenderTarget`.
   #
-  # All you have to do in your derived class is to override the
-  # draw virtual function.
+  # All you have to do in your derived class is to implement the
+  # `draw` function.
   #
-  # Note that inheriting from `SF::Drawable` is not mandatory,
-  # but it allows this nice syntax "window.draw(object)" rather
-  # than "object.draw(window)", which is more consistent with other
+  # Note that including `SF::Drawable` is not mandatory,
+  # but it allows this nice syntax `window.draw(object)` rather
+  # than `object.draw(window)`, which is more consistent with other
   # SFML classes.
   #
   # Example:
-  # ```c++
-  # class MyDrawable : public sf::Drawable
-  # {
-  # public:
+  # ```
+  # class MyDrawable
+  #   include SF::Drawable
+  #   def draw(target : SF::RenderTarget, states : SF::RenderStates)
+  #     # You can draw other high-level objects
+  #     target.draw(@sprite, states)
   #
-  #    ...
+  #     # ... or use the low-level API
+  #     states.texture = @texture
+  #     target.draw(@vertices, states)
   #
-  # private:
+  #     # ... or draw with OpenGL directly
+  #     glBegin(GL_QUADS)
+  #     ...
+  #     glEnd()
+  #   end
   #
-  #     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
-  #     {
-  #         // You can draw other high-level objects
-  #         target.draw(m_sprite, states);
-  #
-  #         // ... or use the low-level API
-  #         states.texture = &m_texture;
-  #         target.draw(m_vertices, states);
-  #
-  #         // ... or draw with OpenGL directly
-  #         glBegin(GL_QUADS);
-  #         ...
-  #         glEnd();
-  #     }
-  #
-  #     sf::Sprite m_sprite;
-  #     sf::Texture m_texture;
-  #     sf::VertexArray m_vertices;
-  # };
+  #   @sprite : SF::Sprite
+  #   @texture : SF::Texture
+  #   @vertices : SF::VertexArray
+  # end
   # ```
   #
   # *See also:* `SF::RenderTarget`
@@ -883,42 +867,30 @@ module SF
   # `SF::Transformable` can be used as a base class. It is often
   # combined with `SF::Drawable` -- that's what SFML's sprites,
   # texts and shapes do.
-  # ```c++
-  # class MyEntity : public sf::Transformable, public sf::Drawable
-  # {
-  #     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
-  #     {
-  #         states.transform *= getTransform();
-  #         target.draw(..., states);
-  #     }
-  # };
+  # ```
+  # class MyEntity < SF::Transformable
+  #   include SF::Drawable
   #
-  # MyEntity entity;
-  # entity.setPosition(10, 20);
-  # entity.setRotation(45);
-  # window.draw(entity);
+  #   def draw(target, states)
+  #     states.transform *= self.transform
+  #     target.draw(..., states)
+  #   end
+  # end
+  #
+  # entity = MyEntity.new
+  # entity.position = {10, 20}
+  # entity.rotation = 45
+  # window.draw entity
   # ```
   #
   # It can also be used as a member, if you don't want to use
   # its API directly (because you don't need all its functions,
   # or you have different naming conventions for example).
-  # ```c++
+  # ```
   # class MyEntity
-  # {
-  # public:
-  #     void SetPosition(const MyVector& v)
-  #     {
-  #         myTransform.setPosition(v.x(), v.y());
-  #     }
-  #
-  #     void Draw(sf::RenderTarget& target) const
-  #     {
-  #         target.draw(..., myTransform.getTransform());
-  #     }
-  #
-  # private:
-  #     sf::Transformable myTransform;
-  # };
+  #   @transform : SF::Transformable
+  #   forward_missing_to @transform
+  # end
   # ```
   #
   # A note on coordinates and undistorted rendering:
@@ -1053,7 +1025,7 @@ module SF
     end
     # get the orientation of the object
     #
-    # The rotation is always in the range [0, 360].
+    # The rotation is always in the range `0.0 ... 360.0`
     #
     # *Returns:* Current rotation, in degrees
     #
@@ -1087,9 +1059,9 @@ module SF
     # This function adds to the current position of the object,
     # unlike position= which overwrites it.
     # Thus, it is equivalent to the following code:
-    # ```c++
-    # sf::Vector2f pos = object.getPosition();
-    # object.setPosition(pos.x + offsetX, pos.y + offsetY);
+    # ```
+    # pos = object.position
+    # object.set_position(pos.x + offset_x, pos.y + offset_y)
     # ```
     #
     # * *offset_x* - X offset
@@ -1104,8 +1076,8 @@ module SF
     # This function adds to the current position of the object,
     # unlike position= which overwrites it.
     # Thus, it is equivalent to the following code:
-    # ```c++
-    # object.setPosition(object.getPosition() + offset);
+    # ```
+    # object.position += offset
     # ```
     #
     # * *offset* - Offset
@@ -1120,8 +1092,8 @@ module SF
     # This function adds to the current rotation of the object,
     # unlike rotation= which overwrites it.
     # Thus, it is equivalent to the following code:
-    # ```c++
-    # object.setRotation(object.getRotation() + angle);
+    # ```
+    # object.rotation += angle
     # ```
     #
     # * *angle* - Angle of rotation, in degrees
@@ -1133,9 +1105,9 @@ module SF
     # This function multiplies the current scale of the object,
     # unlike scale= which overwrites it.
     # Thus, it is equivalent to the following code:
-    # ```c++
-    # sf::Vector2f scale = object.getScale();
-    # object.setScale(scale.x * factorX, scale.y * factorY);
+    # ```
+    # scale = object.scale
+    # object.set_scale(scale.x * factor_x, scale.y * factor_y)
     # ```
     #
     # * *factor_x* - Horizontal scale factor
@@ -1150,9 +1122,9 @@ module SF
     # This function multiplies the current scale of the object,
     # unlike scale= which overwrites it.
     # Thus, it is equivalent to the following code:
-    # ```c++
-    # sf::Vector2f scale = object.getScale();
-    # object.setScale(scale.x * factor.x, scale.y * factor.y);
+    # ```
+    # scale = object.scale
+    # object.scale = {scale.x * factor.x, scale.y * factor.y}
     # ```
     #
     # * *factor* - Scale factors
@@ -1200,22 +1172,22 @@ module SF
       return typeof(self).new(self)
     end
   end
-  # Utility class for manipulating RGBA colors
+  # Utility struct for manipulating RGBA colors
   #
-  # `SF::Color` is a simple color class composed of 4 components:
+  # `SF::Color` is a simple color struct composed of 4 components:
   # * Red
   # * Green
   # * Blue
   # * Alpha (opacity)
   #
   # Each component is a public member, an unsigned integer in
-  # the range [0, 255]. Thus, colors can be constructed and
+  # the range `0..255`. Thus, colors can be constructed and
   # manipulated very easily:
   #
-  # ```c++
-  # sf::Color color(255, 0, 0); // red
-  # color.r = 0;                // make it black
-  # color.b = 128;              // make it dark blue
+  # ```
+  # color = SF::Color.new(255, 0, 0) # red
+  # color.r = 0                      # make it black
+  # color.b = 128                    # make it dark blue
   # ```
   #
   # The fourth component of colors, named "alpha", represents
@@ -1225,16 +1197,16 @@ module SF
   # other components is.
   #
   # The most common colors are already defined as static variables:
-  # ```c++
-  # sf::Color black       = sf::Color::Black;
-  # sf::Color white       = sf::Color::White;
-  # sf::Color red         = sf::Color::Red;
-  # sf::Color green       = sf::Color::Green;
-  # sf::Color blue        = sf::Color::Blue;
-  # sf::Color yellow      = sf::Color::Yellow;
-  # sf::Color magenta     = sf::Color::Magenta;
-  # sf::Color cyan        = sf::Color::Cyan;
-  # sf::Color transparent = sf::Color::Transparent;
+  # ```
+  # black       = SF::Color::Black
+  # white       = SF::Color::White
+  # red         = SF::Color::Red
+  # green       = SF::Color::Green
+  # blue        = SF::Color::Blue
+  # yellow      = SF::Color::Yellow
+  # magenta     = SF::Color::Magenta
+  # cyan        = SF::Color::Cyan
+  # transparent = SF::Color::Transparent
   # ```
   #
   # Colors can also be added and modulated (multiplied) using the
@@ -1257,10 +1229,10 @@ module SF
     end
     # Construct the color from its 4 RGBA components
     #
-    # * *red* -   Red component (in the range [0, 255])
-    # * *green* - Green component (in the range [0, 255])
-    # * *blue* -  Blue component (in the range [0, 255])
-    # * *alpha* - Alpha (opacity) component (in the range [0, 255])
+    # * *red* - Red component (in the range `0..255`)
+    # * *green* - Green component (in the range `0..255`)
+    # * *blue* - Blue component (in the range `0..255`)
+    # * *alpha* - Alpha (opacity) component (in the range `0..255`)
     def initialize(red : Int, green : Int, blue : Int, alpha : Int = 255)
       @r = uninitialized UInt8
       @g = uninitialized UInt8
@@ -1321,7 +1293,7 @@ module SF
     #
     # This operator compares two colors and check if they are equal.
     #
-    # * *left* -  Left operand
+    # * *left* - Left operand
     # * *right* - Right operand
     #
     # *Returns:* True if colors are equal, false if they are different
@@ -1333,7 +1305,7 @@ module SF
     #
     # This operator compares two colors and check if they are different.
     #
-    # * *left* -  Left operand
+    # * *left* - Left operand
     # * *right* - Right operand
     #
     # *Returns:* True if colors are different, false if they are equal
@@ -1346,7 +1318,7 @@ module SF
     # This operator returns the component-wise sum of two colors.
     # Components that exceed 255 are clamped to 255.
     #
-    # * *left* -  Left operand
+    # * *left* - Left operand
     # * *right* - Right operand
     #
     # *Returns:* Result of *left* + *right*
@@ -1360,7 +1332,7 @@ module SF
     # This operator returns the component-wise subtraction of two colors.
     # Components below 0 are clamped to 0.
     #
-    # * *left* -  Left operand
+    # * *left* - Left operand
     # * *right* - Right operand
     #
     # *Returns:* Result of *left* - *right*
@@ -1374,9 +1346,9 @@ module SF
     # This operator returns the component-wise multiplication
     # (also called "modulation") of two colors.
     # Components are then divided by 255 so that the result is
-    # still in the range [0, 255].
+    # still in the range `0 .. 255`.
     #
-    # * *left* -  Left operand
+    # * *left* - Left operand
     # * *right* - Right operand
     #
     # *Returns:* Result of *left* * *right*
@@ -1420,18 +1392,17 @@ module SF
   # systems, using vertices will allow you to get maximum performances.
   #
   # Example:
-  # ```c++
-  # // define a 100x100 square, red, with a 10x10 texture mapped on it
-  # sf::Vertex vertices[] =
-  # {
-  #     sf::Vertex(sf::Vector2f(  0,   0), sf::Color::Red, sf::Vector2f( 0,  0)),
-  #     sf::Vertex(sf::Vector2f(  0, 100), sf::Color::Red, sf::Vector2f( 0, 10)),
-  #     sf::Vertex(sf::Vector2f(100, 100), sf::Color::Red, sf::Vector2f(10, 10)),
-  #     sf::Vertex(sf::Vector2f(100,   0), sf::Color::Red, sf::Vector2f(10,  0))
-  # };
+  # ```
+  # # define a 100x100 square, red, with a 10x10 texture mapped on it
+  # vertices = [
+  #   SF::Vertex.new(SF.vector2f(  0,   0), SF::Color::Red, SF.vector2f( 0,  0)),
+  #   SF::Vertex.new(SF.vector2f(  0, 100), SF::Color::Red, SF.vector2f( 0, 10)),
+  #   SF::Vertex.new(SF.vector2f(100, 100), SF::Color::Red, SF.vector2f(10, 10)),
+  #   SF::Vertex.new(SF.vector2f(100,   0), SF::Color::Red, SF.vector2f(10,  0)),
+  # ]
   #
-  # // draw it
-  # window.draw(vertices, 4, sf::Quads);
+  # # draw it
+  # window.draw(vertices, SF::Quads)
   # ```
   #
   # Note: although texture coordinates are supposed to be an integer
@@ -1454,7 +1425,7 @@ module SF
     #
     # The vertex color is white and texture coordinates are (0, 0).
     #
-    # * *the_position* - Vertex position
+    # * *position* - Vertex position
     def initialize(position : Vector2|Tuple)
       @position = uninitialized Vector2f
       @color = uninitialized Color
@@ -1466,8 +1437,8 @@ module SF
     #
     # The texture coordinates are (0, 0).
     #
-    # * *the_position* - Vertex position
-    # * *the_color* -    Vertex color
+    # * *position* - Vertex position
+    # * *color* - Vertex color
     def initialize(position : Vector2|Tuple, color : Color)
       @position = uninitialized Vector2f
       @color = uninitialized Color
@@ -1479,8 +1450,8 @@ module SF
     #
     # The vertex color is white.
     #
-    # * *the_position* -  Vertex position
-    # * *the_tex_coords* - Vertex texture coordinates
+    # * *position* - Vertex position
+    # * *tex_coords* - Vertex texture coordinates
     def initialize(position : Vector2|Tuple, tex_coords : Vector2|Tuple)
       @position = uninitialized Vector2f
       @color = uninitialized Color
@@ -1491,9 +1462,9 @@ module SF
     end
     # Construct the vertex from its position, color and texture coordinates
     #
-    # * *the_position* -  Vertex position
-    # * *the_color* -     Vertex color
-    # * *the_tex_coords* - Vertex texture coordinates
+    # * *position* - Vertex position
+    # * *color* - Vertex color
+    # * *tex_coords* - Vertex texture coordinates
     def initialize(position : Vector2|Tuple, color : Color, tex_coords : Vector2|Tuple)
       @position = uninitialized Vector2f
       @color = uninitialized Color
@@ -1577,18 +1548,18 @@ module SF
   # `SF::VertexArray` is a very simple wrapper around a dynamic
   # array of vertices and a primitives type.
   #
-  # It inherits `SF::Drawable`, but unlike other drawables it
+  # It includes `SF::Drawable`, but unlike other drawables it
   # is not transformable.
   #
   # Example:
-  # ```c++
-  # sf::VertexArray lines(sf::LineStrip, 4);
-  # lines[0].position = sf::Vector2f(10, 0);
-  # lines[1].position = sf::Vector2f(20, 0);
-  # lines[2].position = sf::Vector2f(30, 5);
-  # lines[3].position = sf::Vector2f(40, 2);
+  # ```
+  # lines = SF::VertexArray.new(SF::LineStrip, 4)
+  # lines[0] = SF::Vertex.new(SF.vector2f(10, 0))
+  # lines[1] = SF::Vertex.new(SF.vector2f(20, 0))
+  # lines[2] = SF::Vertex.new(SF.vector2f(30, 5))
+  # lines[3] = SF::Vertex.new(SF.vector2f(40, 2))
   #
-  # window.draw(lines);
+  # window.draw(lines)
   # ```
   #
   # *See also:* `SF::Vertex`
@@ -1603,7 +1574,7 @@ module SF
     end
     # Construct the vertex array with a type and an initial number of vertices
     #
-    # * *type* -        Type of primitives
+    # * *type* - Type of primitives
     # * *vertex_count* - Initial number of vertices in the array
     def initialize(type : PrimitiveType, vertex_count : Int = 0)
       @_vertexarray = uninitialized VoidCSFML::VertexArray_Buffer
@@ -1612,33 +1583,29 @@ module SF
     # Return the vertex count
     #
     # *Returns:* Number of vertices in the array
-    def vertex_count() : LibC::SizeT
+    def vertex_count() : Int32
       VoidCSFML.vertexarray_getvertexcount(to_unsafe, out result)
-      return result
+      return result.to_i
     end
-    # Get a read-write access to a vertex by its index
+    # Set the vertex by its index
     #
-    # This function doesn't check *index,* it must be in range
-    # [0, vertex_count() - 1]. The behavior is undefined
-    # otherwise.
+    # This method doesn't check *index*, it must be in range
+    # `0 ... vertex_count`. The behavior is undefined otherwise.
     #
-    # * *index* - Index of the vertex to get
-    #
-    # *Returns:* Reference to the index-th vertex
+    # * *index* - Index of the vertex to set
     #
     # *See also:* `vertex_count`
     def []=(index : Int, value : Vertex)
       VoidCSFML.vertexarray_operator_indexset_vgvRos(to_unsafe, LibC::SizeT.new(index), value)
     end
-    # Get a read-only access to a vertex by its index
+    # Get the vertex by its index
     #
-    # This function doesn't check *index,* it must be in range
-    # [0, vertex_count() - 1]. The behavior is undefined
-    # otherwise.
+    # This method doesn't check *index*, it must be in range
+    # `0 ... vertex_count`. The behavior is undefined otherwise.
     #
     # * *index* - Index of the vertex to get
     #
-    # *Returns:* Const reference to the index-th vertex
+    # *Returns:* The index-th vertex
     #
     # *See also:* `vertex_count`
     def [](index : Int) : Vertex
@@ -1767,8 +1734,8 @@ module SF
   #
   # You can write your own derived shape class, there are only
   # two virtual functions to override:
-  # * point_count must return the number of points of the shape
-  # * point must return the points of the shape
+  # * `point_count` must return the number of points of the shape
+  # * `get_point` must return the points of the shape
   #
   # *See also:* `SF::RectangleShape`, `SF::CircleShape`, `SF::ConvexShape`, `SF::Transformable`
   abstract class Shape < Transformable
@@ -1790,7 +1757,7 @@ module SF
     # the shape is automatically adjusted to the size of the new
     # texture. If it is false, the texture rect is left unchanged.
     #
-    # * *texture* -   New texture
+    # * *texture* - New texture
     # * *reset_rect* - Should the texture rect be reset to the size of the new texture?
     #
     # *See also:* `texture`, `texture_rect=`
@@ -1905,7 +1872,7 @@ module SF
     # *Returns:* Number of points of the shape
     #
     # *See also:* `point`
-    abstract def point_count() : LibC::SizeT
+    abstract def point_count() : Int32
     # Get a point of the shape
     #
     # The returned point is in local coordinates, that is,
@@ -1913,7 +1880,7 @@ module SF
     # not taken into account.
     # The result is undefined if *index* is out of the valid range.
     #
-    # * *index* - Index of the point to get, in range [0 .. point_count() - 1]
+    # * *index* - Index of the point to get, in range `0 ... point_count`
     #
     # *Returns:* index-th point of the shape
     #
@@ -1965,7 +1932,7 @@ module SF
     #
     # This function must be called by the derived class everytime
     # the shape's points change (i.e. the result of either
-    # point_count or point is different).
+    # `point_count` or `get_point` is different).
     def update()
       VoidCSFML.shape_update(to_unsafe)
     end
@@ -2101,14 +2068,14 @@ module SF
   # functions of `SF::Shape` (outline, color, texture, ...).
   #
   # Usage example:
-  # ```c++
-  # sf::CircleShape circle;
-  # circle.setRadius(150);
-  # circle.setOutlineColor(sf::Color::Red);
-  # circle.setOutlineThickness(5);
-  # circle.setPosition(10, 20);
+  # ```
+  # circle = SF::CircleShape.new
+  # circle.radius = 150
+  # circle.outline_color = SF::Color::Red
+  # circle.outline_thickness = 5
+  # circle.position = {10, 20}
   # ...
-  # window.draw(circle);
+  # window.draw circle
   # ```
   #
   # Since the graphics card can't draw perfect circles, we have to
@@ -2125,7 +2092,7 @@ module SF
     @_circleshape : VoidCSFML::CircleShape_Buffer
     # Default constructor
     #
-    # * *radius* -     Radius of the circle
+    # * *radius* - Radius of the circle
     # * *point_count* - Number of points composing the circle
     def initialize(radius : Number = 0, point_count : Int = 30)
       @_transformable = uninitialized VoidCSFML::Transformable_Buffer
@@ -2163,9 +2130,9 @@ module SF
     # *Returns:* Number of points of the circle
     #
     # *See also:* `point_count=`
-    def point_count() : LibC::SizeT
+    def point_count() : Int32
       VoidCSFML.circleshape_getpointcount(to_unsafe, out result)
-      return result
+      return result.to_i
     end
     # Get a point of the circle
     #
@@ -2174,7 +2141,7 @@ module SF
     # not taken into account.
     # The result is undefined if *index* is out of the valid range.
     #
-    # * *index* - Index of the point to get, in range [0 .. point_count() - 1]
+    # * *index* - Index of the point to get, in range `0 ... point_count`
     #
     # *Returns:* index-th point of the shape
     def get_point(index : Int) : Vector2f
@@ -2375,17 +2342,17 @@ module SF
   # order would result in an incorrect shape.
   #
   # Usage example:
-  # ```c++
-  # sf::ConvexShape polygon;
-  # polygon.setPointCount(3);
-  # polygon.setPoint(0, sf::Vector2f(0, 0));
-  # polygon.setPoint(1, sf::Vector2f(0, 10));
-  # polygon.setPoint(2, sf::Vector2f(25, 5));
-  # polygon.setOutlineColor(sf::Color::Red);
-  # polygon.setOutlineThickness(5);
-  # polygon.setPosition(10, 20);
+  # ```
+  # polygon = SF::ConvexShape.new
+  # polygon.point_count = 3
+  # polygon[0] = SF.vector2f(0, 0)
+  # polygon[1] = SF.vector2f(0, 10)
+  # polygon[2] = SF.vector2f(25, 5)
+  # polygon.outline_color = SF::Color::Red
+  # polygon.outline_thickness = 5
+  # polygon.position = {10, 20}
   # ...
-  # window.draw(polygon);
+  # window.draw polygon
   # ```
   #
   # *See also:* `SF::Shape`, `SF::RectangleShape`, `SF::CircleShape`
@@ -2415,9 +2382,9 @@ module SF
     # *Returns:* Number of points of the polygon
     #
     # *See also:* `point_count=`
-    def point_count() : LibC::SizeT
+    def point_count() : Int32
       VoidCSFML.convexshape_getpointcount(to_unsafe, out result)
-      return result
+      return result.to_i
     end
     # Set the position of a point
     #
@@ -2427,7 +2394,7 @@ module SF
     # number of points. The result is undefined if *index* is out
     # of the valid range.
     #
-    # * *index* - Index of the point to change, in range [0 .. point_count() - 1]
+    # * *index* - Index of the point to change, in range `0 ... point_count`
     # * *point* - New position of the point
     #
     # *See also:* `point`
@@ -2442,7 +2409,7 @@ module SF
     # not taken into account.
     # The result is undefined if *index* is out of the valid range.
     #
-    # * *index* - Index of the point to get, in range [0 .. point_count() - 1]
+    # * *index* - Index of the point to get, in range `0 ... point_count`
     #
     # *Returns:* Position of the index-th point of the polygon
     #
@@ -2716,27 +2683,23 @@ module SF
   # pass or return them to avoid useless copies.
   #
   # Usage example:
-  # ```c++
-  # // Load an image file from a file
-  # sf::Image background;
-  # if (!background.loadFromFile("background.jpg"))
-  #     return -1;
+  # ```
+  # # Load an image file from a file
+  # background = SF::Image.from_file("background.jpg")
   #
-  # // Create a 20x20 image filled with black color
-  # sf::Image image;
-  # image.create(20, 20, sf::Color::Black);
+  # # Create a 20x20 image filled with black color
+  # image = SF::Image.new(20, 20, SF::Color::Black)
   #
-  # // Copy image1 on image2 at position (10, 10)
-  # image.copy(background, 10, 10);
+  # # Copy image1 on image2 at position (10, 10)
+  # image.copy(background, 10, 10)
   #
-  # // Make the top-left pixel transparent
-  # sf::Color color = image.getPixel(0, 0);
-  # color.a = 0;
-  # image.setPixel(0, 0, color);
+  # # Make the top-left pixel transparent
+  # color = image.get_pixel(0, 0)
+  # color.a = 128
+  # image.set_pixel(0, 0, color)
   #
-  # // Save the image to a file
-  # if (!image.saveToFile("result.png"))
-  #     return -1;
+  # # Save the image to a file
+  # image.save_to_file("result.png") || error
   # ```
   #
   # *See also:* `SF::Texture`
@@ -2755,16 +2718,16 @@ module SF
     end
     # Create the image and fill it with a unique color
     #
-    # * *width* -  Width of the image
+    # * *width* - Width of the image
     # * *height* - Height of the image
-    # * *color* -  Fill color
+    # * *color* - Fill color
     def create(width : Int, height : Int, color : Color = Color.new(0, 0, 0))
       VoidCSFML.image_create_emSemSQVe(to_unsafe, LibC::UInt.new(width), LibC::UInt.new(height), color)
     end
     # Shorthand for `image = Image.new; image.create(...); image`
-    def self.new(width : Int, height : Int, color : Color = Color.new(0, 0, 0)) : self
+    def self.new(*args, **kwargs) : self
       obj = new
-      obj.create(width, height, color)
+      obj.create(*args, **kwargs)
       obj
     end
     # Create the image from an array of pixels
@@ -2774,16 +2737,16 @@ module SF
     # an undefined behavior.
     # If *pixels* is null, an empty image is created.
     #
-    # * *width* -  Width of the image
+    # * *width* - Width of the image
     # * *height* - Height of the image
     # * *pixels* - Array of pixels to copy to the image
     def create(width : Int, height : Int, pixels : UInt8*)
       VoidCSFML.image_create_emSemS843(to_unsafe, LibC::UInt.new(width), LibC::UInt.new(height), pixels)
     end
     # Shorthand for `image = Image.new; image.create(...); image`
-    def self.new(width : Int, height : Int, pixels : UInt8*) : self
+    def self.new(*args, **kwargs) : self
       obj = new
-      obj.create(width, height, pixels)
+      obj.create(*args, **kwargs)
       obj
     end
     # Load the image from a file on disk
@@ -2805,9 +2768,9 @@ module SF
     # Shorthand for `image = Image.new; image.load_from_file(...); image`
     #
     # Raises `InitError` on failure
-    def self.from_file(filename : String) : self
+    def self.from_file(*args, **kwargs) : self
       obj = new
-      if !obj.load_from_file(filename)
+      if !obj.load_from_file(*args, **kwargs)
         raise InitError.new("Image.load_from_file failed")
       end
       obj
@@ -2819,8 +2782,7 @@ module SF
     # like progressive jpeg.
     # If this function fails, the image is left unchanged.
     #
-    # * *data* - Pointer to the file data in memory
-    # * *size* - Size of the data to load, in bytes
+    # * *data* - Slice containing the file data in memory
     #
     # *Returns:* True if loading was successful
     #
@@ -2832,9 +2794,9 @@ module SF
     # Shorthand for `image = Image.new; image.load_from_memory(...); image`
     #
     # Raises `InitError` on failure
-    def self.from_memory(data : Slice) : self
+    def self.from_memory(*args, **kwargs) : self
       obj = new
-      if !obj.load_from_memory(data)
+      if !obj.load_from_memory(*args, **kwargs)
         raise InitError.new("Image.load_from_memory failed")
       end
       obj
@@ -2858,9 +2820,9 @@ module SF
     # Shorthand for `image = Image.new; image.load_from_stream(...); image`
     #
     # Raises `InitError` on failure
-    def self.from_stream(stream : InputStream) : self
+    def self.from_stream(*args, **kwargs) : self
       obj = new
-      if !obj.load_from_stream(stream)
+      if !obj.load_from_stream(*args, **kwargs)
         raise InitError.new("Image.load_from_stream failed")
       end
       obj
@@ -2912,9 +2874,9 @@ module SF
     # source pixels is applied. If it is false, the pixels are
     # copied unchanged with their alpha value.
     #
-    # * *source* -     Source image to copy
-    # * *dest_x* -      X coordinate of the destination position
-    # * *dest_y* -      Y coordinate of the destination position
+    # * *source* - Source image to copy
+    # * *dest_x* - X coordinate of the destination position
+    # * *dest_y* - Y coordinate of the destination position
     # * *source_rect* - Sub-rectangle of the source image to copy
     # * *apply_alpha* - Should the copy take into account the source transparency?
     def copy(source : Image, dest_x : Int, dest_y : Int, source_rect : IntRect = IntRect.new(0, 0, 0, 0), apply_alpha : Bool = false)
@@ -2926,8 +2888,8 @@ module SF
     # coordinates, using out-of-range values will result in
     # an undefined behavior.
     #
-    # * *x* -     X coordinate of pixel to change
-    # * *y* -     Y coordinate of pixel to change
+    # * *x* - X coordinate of pixel to change
+    # * *y* - Y coordinate of pixel to change
     # * *color* - New color of the pixel
     #
     # *See also:* `pixel`
@@ -3002,7 +2964,7 @@ module SF
   # Being stored in the graphics card memory has some drawbacks.
   # A texture cannot be manipulated as freely as a `SF::Image`,
   # you need to prepare the pixels first and then upload them
-  # to the texture in a single operation (see Texture::update).
+  # to the texture in a single operation (see Texture.update).
   #
   # `SF::Texture` makes it easy to convert from/to `SF::Image`, but
   # keep in mind that these calls require transfers between
@@ -3015,7 +2977,7 @@ module SF
   # However, if you want to perform some modifications on the pixels
   # before creating the final texture, you can load your file to a
   # `SF::Image`, do whatever you need with the pixels, and then call
-  # Texture::load_from_image.
+  # Texture.load_from_image.
   #
   # Since they live in the graphics card memory, the pixels of a texture
   # cannot be accessed without a slow copy first. And they cannot be
@@ -3030,58 +2992,52 @@ module SF
   # alpha channels -- just like a `SF::Color`.
   #
   # Usage example:
-  # ```c++
-  # // This example shows the most common use of sf::Texture:
-  # // drawing a sprite
+  # ```
+  # # This example shows the most common use of SF::Texture:
+  # # drawing a sprite
   #
-  # // Load a texture from a file
-  # sf::Texture texture;
-  # if (!texture.loadFromFile("texture.png"))
-  #     return -1;
+  # # Load a texture from a file
+  # texture = SF::Texture.from_file("texture.png")
   #
-  # // Assign it to a sprite
-  # sf::Sprite sprite;
-  # sprite.setTexture(texture);
+  # # Assign it to a sprite
+  # sprite = SF::Sprite.new(texture)
   #
-  # // Draw the textured sprite
-  # window.draw(sprite);
+  # # Draw the textured sprite
+  # window.draw sprite
   # ```
   #
-  # ```c++
-  # // This example shows another common use of sf::Texture:
-  # // streaming real-time data, like video frames
+  # ```
+  # # This example shows another common use of SF::Texture:
+  # # streaming real-time data, like video frames
   #
-  # // Create an empty texture
-  # sf::Texture texture;
-  # if (!texture.create(640, 480))
-  #     return -1;
+  # # Create an empty texture
+  # texture = SF::Texture.new(640, 480)
   #
-  # // Create a sprite that will display the texture
-  # sf::Sprite sprite(texture);
+  # # Create a sprite that will display the texture
+  # sprite = SF::Sprite.new(texture)
   #
-  # while (...) // the main loop
-  # {
-  #     ...
+  # loop do # the main loop
+  #   ...
   #
-  #     // update the texture
-  #     sf::Uint8* pixels = ...; // get a fresh chunk of pixels (the next frame of a movie, for example)
-  #     texture.update(pixels);
+  #   # update the texture
+  #   pixels = (...).to_unsafe # get a fresh chunk of pixels (the next frame of a movie, for example)
+  #   texture.update(pixels)
   #
-  #     // draw it
-  #     window.draw(sprite);
+  #   # draw it
+  #   window.draw sprite
   #
-  #     ...
-  # }
+  #   ...
+  # end
   #
   # ```
   #
   # Like `SF::Shader` that can be used as a raw OpenGL shader,
   # `SF::Texture` can also be used directly as a raw texture for
   # custom OpenGL geometry.
-  # ```c++
-  # sf::Texture::bind(&texture);
+  # ```
+  # SF::Texture.bind(texture)
   # ... render OpenGL geometry ...
-  # sf::Texture::bind(NULL);
+  # SF::Texture.bind(nil)
   # ```
   #
   # *See also:* `SF::Sprite`, `SF::Image`, `SF::RenderTexture`
@@ -3089,9 +3045,9 @@ module SF
     @_texture : VoidCSFML::Texture_Buffer
     # Types of texture coordinates that can be used for rendering
     enum CoordinateType
-      # Texture coordinates in range [0 .. 1]
+      # Texture coordinates in range `0.0 .. 1.0`
       Normalized
-      # Texture coordinates in range [0 .. size]
+      # Texture coordinates in range `0.0 .. size`
       Pixels
     end
     _sf_enum Texture::CoordinateType
@@ -3110,7 +3066,7 @@ module SF
     #
     # If this function fails, the texture is left unchanged.
     #
-    # * *width* -  Width of the texture
+    # * *width* - Width of the texture
     # * *height* - Height of the texture
     #
     # *Returns:* True if creation was successful
@@ -3121,9 +3077,9 @@ module SF
     # Shorthand for `texture = Texture.new; texture.create(...); texture`
     #
     # Raises `InitError` on failure
-    def self.new(width : Int, height : Int) : self
+    def self.new(*args, **kwargs) : self
       obj = new
-      if !obj.create(width, height)
+      if !obj.create(*args, **kwargs)
         raise InitError.new("Texture.create failed")
       end
       obj
@@ -3131,10 +3087,10 @@ module SF
     # Load the texture from a file on disk
     #
     # This function is a shortcut for the following code:
-    # ```c++
-    # sf::Image image;
-    # image.loadFromFile(filename);
-    # texture.loadFromImage(image, area);
+    # ```
+    # image = SF::Image.new
+    # image.load_from_file(filename)
+    # texture.load_from_image(image, area)
     # ```
     #
     # The *area* argument can be used to load only a sub-rectangle
@@ -3149,7 +3105,7 @@ module SF
     # If this function fails, the texture is left unchanged.
     #
     # * *filename* - Path of the image file to load
-    # * *area* -     Area of the image to load
+    # * *area* - Area of the image to load
     #
     # *Returns:* True if loading was successful
     #
@@ -3161,9 +3117,9 @@ module SF
     # Shorthand for `texture = Texture.new; texture.load_from_file(...); texture`
     #
     # Raises `InitError` on failure
-    def self.from_file(filename : String, area : IntRect = IntRect.new()) : self
+    def self.from_file(*args, **kwargs) : self
       obj = new
-      if !obj.load_from_file(filename, area)
+      if !obj.load_from_file(*args, **kwargs)
         raise InitError.new("Texture.load_from_file failed")
       end
       obj
@@ -3171,10 +3127,10 @@ module SF
     # Load the texture from a file in memory
     #
     # This function is a shortcut for the following code:
-    # ```c++
-    # sf::Image image;
-    # image.loadFromMemory(data, size);
-    # texture.loadFromImage(image, area);
+    # ```
+    # image = SF::Image.new
+    # image.load_from_memory(data, size)
+    # texture.load_from_image(image, area)
     # ```
     #
     # The *area* argument can be used to load only a sub-rectangle
@@ -3188,8 +3144,7 @@ module SF
     #
     # If this function fails, the texture is left unchanged.
     #
-    # * *data* - Pointer to the file data in memory
-    # * *size* - Size of the data to load, in bytes
+    # * *data* - Slice containing the file data in memory
     # * *area* - Area of the image to load
     #
     # *Returns:* True if loading was successful
@@ -3202,9 +3157,9 @@ module SF
     # Shorthand for `texture = Texture.new; texture.load_from_memory(...); texture`
     #
     # Raises `InitError` on failure
-    def self.from_memory(data : Slice, area : IntRect = IntRect.new()) : self
+    def self.from_memory(*args, **kwargs) : self
       obj = new
-      if !obj.load_from_memory(data, area)
+      if !obj.load_from_memory(*args, **kwargs)
         raise InitError.new("Texture.load_from_memory failed")
       end
       obj
@@ -3212,10 +3167,10 @@ module SF
     # Load the texture from a custom stream
     #
     # This function is a shortcut for the following code:
-    # ```c++
-    # sf::Image image;
-    # image.loadFromStream(stream);
-    # texture.loadFromImage(image, area);
+    # ```
+    # image = SF::Image.new
+    # image.load_from_stream(stream)
+    # texture.load_from_image(image, area)
     # ```
     #
     # The *area* argument can be used to load only a sub-rectangle
@@ -3230,7 +3185,7 @@ module SF
     # If this function fails, the texture is left unchanged.
     #
     # * *stream* - Source stream to read from
-    # * *area* -   Area of the image to load
+    # * *area* - Area of the image to load
     #
     # *Returns:* True if loading was successful
     #
@@ -3242,9 +3197,9 @@ module SF
     # Shorthand for `texture = Texture.new; texture.load_from_stream(...); texture`
     #
     # Raises `InitError` on failure
-    def self.from_stream(stream : InputStream, area : IntRect = IntRect.new()) : self
+    def self.from_stream(*args, **kwargs) : self
       obj = new
-      if !obj.load_from_stream(stream, area)
+      if !obj.load_from_stream(*args, **kwargs)
         raise InitError.new("Texture.load_from_stream failed")
       end
       obj
@@ -3263,7 +3218,7 @@ module SF
     # If this function fails, the texture is left unchanged.
     #
     # * *image* - Image to load into the texture
-    # * *area* -  Area of the image to load
+    # * *area* - Area of the image to load
     #
     # *Returns:* True if loading was successful
     #
@@ -3275,9 +3230,9 @@ module SF
     # Shorthand for `texture = Texture.new; texture.load_from_image(...); texture`
     #
     # Raises `InitError` on failure
-    def self.from_image(image : Image, area : IntRect = IntRect.new()) : self
+    def self.from_image(*args, **kwargs) : self
       obj = new
-      if !obj.load_from_image(image, area)
+      if !obj.load_from_image(*args, **kwargs)
         raise InitError.new("Texture.load_from_image failed")
       end
       obj
@@ -3334,10 +3289,10 @@ module SF
     # texture was not previously created.
     #
     # * *pixels* - Array of pixels to copy to the texture
-    # * *width* -  Width of the pixel region contained in *pixels*
+    # * *width* - Width of the pixel region contained in *pixels*
     # * *height* - Height of the pixel region contained in *pixels*
-    # * *x* -      X offset in the texture where to copy the source pixels
-    # * *y* -      Y offset in the texture where to copy the source pixels
+    # * *x* - X offset in the texture where to copy the source pixels
+    # * *y* - Y offset in the texture where to copy the source pixels
     def update(pixels : UInt8*, width : Int, height : Int, x : Int, y : Int)
       VoidCSFML.texture_update_843emSemSemSemS(to_unsafe, pixels, LibC::UInt.new(width), LibC::UInt.new(height), LibC::UInt.new(x), LibC::UInt.new(y))
     end
@@ -3369,8 +3324,8 @@ module SF
     # previously created.
     #
     # * *image* - Image to copy to the texture
-    # * *x* -     X offset in the texture where to copy the source image
-    # * *y* -     Y offset in the texture where to copy the source image
+    # * *x* - X offset in the texture where to copy the source image
+    # * *y* - Y offset in the texture where to copy the source image
     def update(image : Image, x : Int, y : Int)
       VoidCSFML.texture_update_dptemSemS(to_unsafe, image, LibC::UInt.new(x), LibC::UInt.new(y))
     end
@@ -3402,8 +3357,8 @@ module SF
     # was not previously created.
     #
     # * *window* - Window to copy to the texture
-    # * *x* -      X offset in the texture where to copy the source window
-    # * *y* -      Y offset in the texture where to copy the source window
+    # * *x* - X offset in the texture where to copy the source window
+    # * *y* - Y offset in the texture where to copy the source window
     def update(window : Window, x : Int, y : Int)
       VoidCSFML.texture_update_JRhemSemS(to_unsafe, window, LibC::UInt.new(x), LibC::UInt.new(y))
     end
@@ -3534,22 +3489,23 @@ module SF
     # used when drawing SFML entities. It must be used only if you
     # mix `SF::Texture` with OpenGL code.
     #
-    # ```c++
-    # sf::Texture t1, t2;
+    # ```
+    # t1 = SF::Texture.new
+    # t2 = SF::Texture.new
     # ...
-    # sf::Texture::bind(&t1);
-    # // draw OpenGL stuff that use t1...
-    # sf::Texture::bind(&t2);
-    # // draw OpenGL stuff that use t2...
-    # sf::Texture::bind(NULL);
-    # // draw OpenGL stuff that use no texture...
+    # SF::Texture.bind t1
+    # # draw OpenGL stuff that use t1...
+    # SF::Texture.bind t2
+    # # draw OpenGL stuff that use t2...
+    # SF::Texture.bind nil
+    # # draw OpenGL stuff that use no texture...
     # ```
     #
     # The *coordinate_type* argument controls how texture
     # coordinates will be interpreted. If Normalized (the default), they
-    # must be in range [0 .. 1], which is the default way of handling
+    # must be in range `0.0 .. 1.0`, which is the default way of handling
     # texture coordinates with OpenGL. If Pixels, they must be given
-    # in pixels (range [0 .. size]). This mode is used internally by
+    # in pixels (range `0.0 .. size`). This mode is used internally by
     # the graphics classes of SFML, it makes the definition of texture
     # coordinates more intuitive for the high-level API, users don't need
     # to compute normalized values.
@@ -3622,27 +3578,18 @@ module SF
   # uses a local `SF::Font` instance for creating a text).
   #
   # Usage example:
-  # ```c++
-  # // Declare a new font
-  # sf::Font font;
+  # ```
+  # # Load a new font from file
+  # font = SF::Font.new.from_file("arial.ttf")
   #
-  # // Load it from a file
-  # if (!font.loadFromFile("arial.ttf"))
-  # {
-  #     // error...
-  # }
+  # # Create a text which uses our font
+  # text1 = SF::Text.new("text", font, 30)
   #
-  # // Create a text which uses our font
-  # sf::Text text1;
-  # text1.setFont(font);
-  # text1.setCharacterSize(30);
-  # text1.setStyle(sf::Text::Regular);
-  #
-  # // Create another text using the same font, but with different parameters
-  # sf::Text text2;
-  # text2.setFont(font);
-  # text2.setCharacterSize(50);
-  # text2.setStyle(sf::Text::Italic);
+  # # Create another text using the same font, but with different parameters
+  # text2 = SF::Text.new
+  # text2.font = font
+  # text2.character_size = 50
+  # text2.style = (F::Text::Italic
   # ```
   #
   # Apart from loading font files, and passing them to instances
@@ -3729,9 +3676,9 @@ module SF
     # Shorthand for `font = Font.new; font.load_from_file(...); font`
     #
     # Raises `InitError` on failure
-    def self.from_file(filename : String) : self
+    def self.from_file(*args, **kwargs) : self
       obj = new
-      if !obj.load_from_file(filename)
+      if !obj.load_from_file(*args, **kwargs)
         raise InitError.new("Font.load_from_file failed")
       end
       obj
@@ -3746,8 +3693,7 @@ module SF
     # valid until the `SF::Font` object loads a new font or
     # is destroyed.
     #
-    # * *data* -        Pointer to the file data in memory
-    # * *size_in_bytes* - Size of the data to load, in bytes
+    # * *data* - Slice containing the file data in memory
     #
     # *Returns:* True if loading succeeded, false if it failed
     #
@@ -3759,9 +3705,9 @@ module SF
     # Shorthand for `font = Font.new; font.load_from_memory(...); font`
     #
     # Raises `InitError` on failure
-    def self.from_memory(data : Slice) : self
+    def self.from_memory(*args, **kwargs) : self
       obj = new
-      if !obj.load_from_memory(data)
+      if !obj.load_from_memory(*args, **kwargs)
         raise InitError.new("Font.load_from_memory failed")
       end
       obj
@@ -3790,9 +3736,9 @@ module SF
     # Shorthand for `font = Font.new; font.load_from_stream(...); font`
     #
     # Raises `InitError` on failure
-    def self.from_stream(stream : InputStream) : self
+    def self.from_stream(*args, **kwargs) : self
       obj = new
-      if !obj.load_from_stream(stream)
+      if !obj.load_from_stream(*args, **kwargs)
         raise InitError.new("Font.load_from_stream failed")
       end
       obj
@@ -3813,9 +3759,9 @@ module SF
     # Be aware that using a negative value for the outline
     # thickness will cause distorted rendering.
     #
-    # * *code_point* -        Unicode code point of the character to get
-    # * *character_size* -    Reference character size
-    # * *bold* -             Retrieve the bold version or the regular one?
+    # * *code_point* - Unicode code point of the character to get
+    # * *character_size* - Reference character size
+    # * *bold* - Retrieve the bold version or the regular one?
     # * *outline_thickness* - Thickness of outline (when != 0 the glyph will not be filled)
     #
     # *Returns:* The glyph corresponding to *code_point* and *character_size*
@@ -3832,8 +3778,8 @@ module SF
     # closer than other characters. Most of the glyphs pairs have a
     # kerning offset of zero, though.
     #
-    # * *first* -         Unicode code point of the first character
-    # * *second* -        Unicode code point of the second character
+    # * *first* - Unicode code point of the first character
+    # * *second* - Unicode code point of the second character
     # * *character_size* - Reference character size
     #
     # *Returns:* Kerning value for *first* and *second,* in pixels
@@ -3930,14 +3876,14 @@ module SF
   # functions of `SF::Shape` (outline, color, texture, ...).
   #
   # Usage example:
-  # ```c++
-  # sf::RectangleShape rectangle;
-  # rectangle.setSize(sf::Vector2f(100, 50));
-  # rectangle.setOutlineColor(sf::Color::Red);
-  # rectangle.setOutlineThickness(5);
-  # rectangle.setPosition(10, 20);
+  # ```
+  # rectangle = SF::RectangleShape.new
+  # rectangle.size = SF.vector2f(100, 50)
+  # rectangle.outline_color = SF::Color::Red
+  # rectangle.outline_thickness = 5
+  # rectangle.position = {10, 20}
   # ...
-  # window.draw(rectangle);
+  # window.draw rectangle
   # ```
   #
   # *See also:* `SF::Shape`, `SF::CircleShape`, `SF::ConvexShape`
@@ -3976,9 +3922,9 @@ module SF
     #
     # *Returns:* Number of points of the shape. For rectangle
     #         shapes, this number is always 4.
-    def point_count() : LibC::SizeT
+    def point_count() : Int32
       VoidCSFML.rectangleshape_getpointcount(to_unsafe, out result)
-      return result
+      return result.to_i
     end
     # Get a point of the rectangle
     #
@@ -3987,7 +3933,7 @@ module SF
     # not taken into account.
     # The result is undefined if *index* is out of the valid range.
     #
-    # * *index* - Index of the point to get, in range [0 .. 3]
+    # * *index* - Index of the point to get, in range `0..3`
     #
     # *Returns:* index-th point of the shape
     def get_point(index : Int) : Vector2f
@@ -4199,30 +4145,30 @@ module SF
   # affected by the view until you use another view.
   #
   # Usage example:
-  # ```c++
-  # sf::RenderWindow window;
-  # sf::View view;
+  # ```
+  # window = SF::RenderWindow.new
+  # view = SF::View.new
   #
-  # // Initialize the view to a rectangle located at (100, 100) and with a size of 400x200
-  # view.reset(sf::FloatRect(100, 100, 400, 200));
+  # # Initialize the view to a rectangle located at (100, 100) and with a size of 400x200
+  # view.reset(SF.float_rect(100, 100, 400, 200))
   #
-  # // Rotate it by 45 degrees
-  # view.rotate(45);
+  # # Rotate it by 45 degrees
+  # view.rotate(45)
   #
-  # // Set its target viewport to be half of the window
-  # view.setViewport(sf::FloatRect(0.f, 0.f, 0.5f, 1.f));
+  # # Set its target viewport to be half of the window
+  # view.viewport = SF.float_rect(0.0, 0.0, 0.5, 1.0)
   #
-  # // Apply it
-  # window.setView(view);
+  # # Apply it
+  # window.view = view
   #
-  # // Render stuff
-  # window.draw(someSprite);
+  # # Render stuff
+  # window.draw some_sprite
   #
-  # // Set the default view back
-  # window.setView(window.getDefaultView());
+  # # Set the default view back
+  # window.view = window.default_view
   #
-  # // Render stuff not affected by the view
-  # window.draw(someText);
+  # # Render stuff not affected by the view
+  # window.draw some_text
   # ```
   #
   # See also the note on coordinates and undistorted rendering in `SF::Transformable`.
@@ -4247,7 +4193,7 @@ module SF
     # Construct the view from its center and size
     #
     # * *center* - Center of the zone to display
-    # * *size* -   Size of zone to display
+    # * *size* - Size of zone to display
     def initialize(center : Vector2|Tuple, size : Vector2|Tuple)
       @_view = uninitialized VoidCSFML::View_Buffer
       center = Vector2f.new(center[0].to_f32, center[1].to_f32)
@@ -4274,7 +4220,7 @@ module SF
     end
     # Set the size of the view
     #
-    # * *width* -  New width of the view
+    # * *width* - New width of the view
     # * *height* - New height of the view
     #
     # *See also:* `center=`, `center`
@@ -4447,7 +4393,7 @@ module SF
       return typeof(self).new(self)
     end
   end
-  # Base class for all render targets (window, texture, ...)
+  # Base module for all render targets (window, texture, ...)
   #
   # `SF::RenderTarget` defines the common behavior of all the
   # 2D render targets usable in the graphics module. It makes
@@ -4459,7 +4405,7 @@ module SF
   # scroll, rotate or zoom everything that is drawn,
   # without having to transform every single entity. See the
   # documentation of `SF::View` for more details and sample pieces of
-  # code about this class.
+  # code about this module.
   #
   # On top of that, render targets are still able to render direct
   # OpenGL stuff. It is even possible to mix together OpenGL calls
@@ -4540,8 +4486,8 @@ module SF
     # This function is an overload of the map_pixel_to_coords
     # function that implicitly uses the current view.
     # It is equivalent to:
-    # ```c++
-    # target.mapPixelToCoords(point, target.getView());
+    # ```
+    # target.map_pixel_to_coords(point, target.view)
     # ```
     #
     # * *point* - Pixel to convert
@@ -4593,8 +4539,8 @@ module SF
     # This function is an overload of the map_coords_to_pixel
     # function that implicitly uses the current view.
     # It is equivalent to:
-    # ```c++
-    # target.mapCoordsToPixel(point, target.getView());
+    # ```
+    # target.map_coords_to_pixel(point, target.view)
     # ```
     #
     # * *point* - Point to convert
@@ -4638,10 +4584,10 @@ module SF
     end
     # Draw primitives defined by an array of vertices
     #
-    # * *vertices* -    Pointer to the vertices
+    # * *vertices* - Pointer to the vertices
     # * *vertex_count* - Number of vertices in the array
-    # * *type* -        Type of primitives to draw
-    # * *states* -      Render states to use for drawing
+    # * *type* - Type of primitives to draw
+    # * *states* - Render states to use for drawing
     def draw(vertices : Array(Vertex) | Slice(Vertex), type : PrimitiveType, states : RenderStates = RenderStates::Default)
       VoidCSFML.rendertarget_draw_46svgvu9wmi4(to_unsafe, vertices, vertices.size, type, states)
     end
@@ -4659,13 +4605,13 @@ module SF
     #
     # More specifically, it must be used around code that
     # calls Draw functions. Example:
-    # ```c++
-    # // OpenGL code here...
-    # window.pushGLStates();
-    # window.draw(...);
-    # window.draw(...);
-    # window.popGLStates();
-    # // OpenGL code here...
+    # ```
+    # # OpenGL code here...
+    # window.push_gl_states()
+    # window.draw(...)
+    # window.draw(...)
+    # window.pop_gl_states()
+    # # OpenGL code here...
     # ```
     #
     # Note that this function is quite expensive: it saves all the
@@ -4699,14 +4645,14 @@ module SF
     # calls will work as expected.
     #
     # Example:
-    # ```c++
-    # // OpenGL code here...
-    # glPushAttrib(...);
-    # window.resetGLStates();
-    # window.draw(...);
-    # window.draw(...);
-    # glPopAttrib(...);
-    # // OpenGL code here...
+    # ```
+    # # OpenGL code here...
+    # glPushAttrib(...)
+    # window.reset_gl_states()
+    # window.draw(...)
+    # window.draw(...)
+    # glPopAttrib(...)
+    # # OpenGL code here...
     # ```
     def reset_gl_states()
       VoidCSFML.rendertarget_resetglstates(to_unsafe)
@@ -4751,48 +4697,45 @@ module SF
   #
   # Usage example:
   #
-  # ```c++
-  # // Create a new render-window
-  # sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
+  # ```
+  # # Create a new render-window
+  # window = SF::RenderWindow.new(SF::VideoMode.new(800, 600), "SFML window")
   #
-  # // Create a new render-texture
-  # sf::RenderTexture texture;
-  # if (!texture.create(500, 500))
-  #     return -1;
+  # # Create a new render-texture
+  # texture = SF::RenderTexture.new(500, 500)
   #
-  # // The main loop
-  # while (window.isOpen())
-  # {
-  #    // Event processing
-  #    // ...
+  # # The main loop
+  # while window.open?
+  #   # Event processing
+  #   # ...
   #
-  #    // Clear the whole texture with red color
-  #    texture.clear(sf::Color::Red);
+  #   # Clear the whole texture with red color
+  #   texture.clear(SF::Color::Red)
   #
-  #    // Draw stuff to the texture
-  #    texture.draw(sprite);  // sprite is a sf::Sprite
-  #    texture.draw(shape);   // shape is a sf::Shape
-  #    texture.draw(text);    // text is a sf::Text
+  #   # Draw stuff to the texture
+  #   texture.draw(sprite)  # sprite is a SF::Sprite
+  #   texture.draw(shape)   # shape is a SF::Shape
+  #   texture.draw(text)    # text is a SF::Text
   #
-  #    // We're done drawing to the texture
-  #    texture.display();
+  #   # We're done drawing to the texture
+  #   texture.display()
   #
-  #    // Now we start rendering to the window, clear it first
-  #    window.clear();
+  #   # Now we start rendering to the window, clear it first
+  #   window.clear()
   #
-  #    // Draw the texture
-  #    sf::Sprite sprite(texture.getTexture());
-  #    window.draw(sprite);
+  #   # Draw the texture
+  #   sprite = SF::Sprite(texture.texture)
+  #   window.draw(sprite)
   #
-  #    // End the current frame and display its contents on screen
-  #    window.display();
-  # }
+  #   # End the current frame and display its contents on screen
+  #   window.display()
+  # end
   # ```
   #
   # Like `SF::RenderWindow`, `SF::RenderTexture` is still able to render direct
   # OpenGL stuff. It is even possible to mix together OpenGL calls
   # and regular SFML drawing commands. If you need a depth buffer for
-  # 3D rendering, don't forget to request it when calling RenderTexture::create.
+  # 3D rendering, don't forget to request it when calling RenderTexture.create.
   #
   # *See also:* `SF::RenderTarget`, `SF::RenderWindow`, `SF::View`, `SF::Texture`
   class RenderTexture
@@ -4821,8 +4764,8 @@ module SF
     # a depth buffer. Otherwise it is unnecessary, and you should
     # leave this parameter to false (which is its default value).
     #
-    # * *width* -       Width of the render-texture
-    # * *height* -      Height of the render-texture
+    # * *width* - Width of the render-texture
+    # * *height* - Height of the render-texture
     # * *depth_buffer* - Do you want this render-texture to have a depth buffer?
     #
     # *Returns:* True if creation has been successful
@@ -4833,16 +4776,16 @@ module SF
     # Shorthand for `render_texture = RenderTexture.new; render_texture.create(...); render_texture`
     #
     # Raises `InitError` on failure
-    def self.new(width : Int, height : Int, depth_buffer : Bool = false) : self
+    def self.new(*args, **kwargs) : self
       obj = new
-      if !obj.create(width, height, depth_buffer)
+      if !obj.create(*args, **kwargs)
         raise InitError.new("RenderTexture.create failed")
       end
       obj
     end
     # Enable or disable texture smoothing
     #
-    # This function is similar to Texture::smooth=.
+    # This function is similar to Texture.smooth=.
     # This parameter is disabled by default.
     #
     # * *smooth* - True to enable smoothing, false to disable it
@@ -4862,7 +4805,7 @@ module SF
     end
     # Enable or disable texture repeating
     #
-    # This function is similar to Texture::repeated=.
+    # This function is similar to Texture.repeated=.
     # This parameter is disabled by default.
     #
     # * *repeated* - True to enable repeating, false to disable it
@@ -4882,7 +4825,7 @@ module SF
     end
     # Generate a mipmap using the current texture data
     #
-    # This function is similar to Texture::generate_mipmap and operates
+    # This function is similar to Texture.generate_mipmap and operates
     # on the texture used as the target for drawing.
     # Be aware that any draw operation may modify the base level image data.
     # For this reason, calling this function only makes sense after all
@@ -5049,84 +4992,81 @@ module SF
   # description of all these features, as well as code examples.
   #
   # On top of that, `SF::RenderWindow` adds more features related to
-  # 2D drawing with the graphics module (see its base class
+  # 2D drawing with the graphics module (see its base module
   # `SF::RenderTarget` for more details).
   # Here is a typical rendering and event loop with a `SF::RenderWindow:`
   #
-  # ```c++
-  # // Declare and create a new render-window
-  # sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
+  # ```
+  # # Declare and create a new render-window
+  # window = SF::RenderWindow.new(SF::VideoMode.new(800, 600), "SFML window")
   #
-  # // Limit the framerate to 60 frames per second (this step is optional)
-  # window.setFramerateLimit(60);
+  # # Limit the framerate to 60 frames per second (this step is optional)
+  # window.framerate_limit = 60
   #
-  # // The main loop - ends as soon as the window is closed
-  # while (window.isOpen())
-  # {
-  #    // Event processing
-  #    sf::Event event;
-  #    while (window.pollEvent(event))
-  #    {
-  #        // Request for closing the window
-  #        if (event.type == sf::Event::Closed)
-  #            window.close();
-  #    }
+  # # The main loop - ends as soon as the window is closed
+  # while window.open?
+  #   # Event processing
+  #   while (event = window.poll_event)
+  #     # Request for closing the window
+  #     if event.is_a? SF::Event::Closed
+  #       window.close()
+  #     end
+  #   end
   #
-  #    // Clear the whole window before rendering a new frame
-  #    window.clear();
+  #   # Clear the whole window before rendering a new frame
+  #   window.clear()
   #
-  #    // Draw some graphical entities
-  #    window.draw(sprite);
-  #    window.draw(circle);
-  #    window.draw(text);
+  #   # Draw some graphical entities
+  #   window.draw sprite
+  #   window.draw circle
+  #   window.draw text
   #
-  #    // End the current frame and display its contents on screen
-  #    window.display();
-  # }
+  #   # End the current frame and display its contents on screen
+  #   window.display()
+  # end
   # ```
   #
   # Like `SF::Window`, `SF::RenderWindow` is still able to render direct
   # OpenGL stuff. It is even possible to mix together OpenGL calls
   # and regular SFML drawing commands.
   #
-  # ```c++
-  # // Create the render window
-  # sf::RenderWindow window(sf::VideoMode(800, 600), "SFML OpenGL");
+  # ```
+  # # Create the render window
+  # window = SF::RenderWindow.new(SF::VideoMode.new(800, 600), "SFML OpenGL")
   #
-  # // Create a sprite and a text to display
-  # sf::Sprite sprite;
-  # sf::Text text;
+  # # Create a sprite and a text to display
+  # sprite = SF::Sprite.new
+  # text = SF::Text.new
   # ...
   #
-  # // Perform OpenGL initializations
-  # glMatrixMode(GL_PROJECTION);
+  # # Perform OpenGL initializations
+  # glMatrixMode(GL_PROJECTION)
   # ...
   #
-  # // Start the rendering loop
-  # while (window.isOpen())
-  # {
-  #     // Process events
+  # # Start the rendering loop
+  # while window.open?
+  #   # Process events
+  #   ...
+  #
+  #   # Draw a background sprite
+  #   window.push_gl_states()
+  #   window.draw sprite
+  #   window.pop_gl_states()
+  #
+  #   # Draw a 3D object using OpenGL
+  #   glBegin(GL_QUADS)
+  #     glVertex3f(...)
   #     ...
+  #   glEnd()
   #
-  #     // Draw a background sprite
-  #     window.pushGLStates();
-  #     window.draw(sprite);
-  #     window.popGLStates();
+  #   # Draw text on top of the 3D object
+  #   window.push_gl_states()
+  #   window.draw text
+  #   window.pop_gl_states()
   #
-  #     // Draw a 3D object using OpenGL
-  #     glBegin(GL_QUADS);
-  #         glVertex3f(...);
-  #         ...
-  #     glEnd();
-  #
-  #     // Draw text on top of the 3D object
-  #     window.pushGLStates();
-  #     window.draw(text);
-  #     window.popGLStates();
-  #
-  #     // Finally, display the rendered frame on screen
-  #     window.display();
-  # }
+  #   # Finally, display the rendered frame on screen
+  #   window.display()
+  # end
   # ```
   #
   # *See also:* `SF::Window`, `SF::RenderTarget`, `SF::RenderTexture`, `SF::View`
@@ -5153,9 +5093,9 @@ module SF
     # depth-buffer bits, etc. You shouldn't care about these
     # parameters for a regular usage of the graphics module.
     #
-    # * *mode* -     Video mode to use (defines the width, height and depth of the rendering area of the window)
-    # * *title* -    Title of the window
-    # * *style* -    %Window style, a bitwise OR combination of `SF::Style` enumerators
+    # * *mode* - Video mode to use (defines the width, height and depth of the rendering area of the window)
+    # * *title* - Title of the window
+    # * *style* - Window style, a bitwise OR combination of `SF::Style` enumerators
     # * *settings* - Additional settings for the underlying OpenGL context
     def initialize(mode : VideoMode, title : String, style : Style = Style::Default, settings : ContextSettings = ContextSettings.new())
       @_window = uninitialized VoidCSFML::Window_Buffer
@@ -5172,7 +5112,7 @@ module SF
     # depth-buffer bits, etc. You shouldn't care about these
     # parameters for a regular usage of the graphics module.
     #
-    # * *handle* -   Platform-specific handle of the control (*hwnd* on
+    # * *handle* - Platform-specific handle of the control (*hwnd* on
     #                 Windows, *%window* on Linux/FreeBSD, *ns_window* on OS X)
     # * *settings* - Additional settings for the underlying OpenGL context
     def initialize(handle : WindowHandle, settings : ContextSettings = ContextSettings.new())
@@ -5200,21 +5140,19 @@ module SF
     # Copy the current contents of the window to an image
     #
     # *Deprecated:*
-    # Use a `SF::Texture` and its `SF::Texture::update`(const Window&)
-    # function and copy its contents into an `SF::Image` instead.
-    # ```c++
-    # sf::Vector2u windowSize = window.getSize();
-    # sf::Texture texture;
-    # texture.create(windowSize.x, windowSize.y);
-    # texture.update(window);
-    # sf::Image screenshot = texture.copyToImage();
+    # Use a `SF::Texture` and its `SF::Texture#update(window)`
+    # method and copy its contents into an `SF::Image` instead.
+    # ```
+    # texture = SF::Texture.new(window.size.x, window.size.y)
+    # texture.update(window)
+    # screenshot = texture.copy_to_image()
     # ```
     #
     # This is a slow operation, whose main purpose is to make
     # screenshots of the application. If you want to update an
     # image with the contents of the window and then use it for
     # drawing, you should rather use a `SF::Texture` and its
-    # update(Window&) function.
+    # `update(window)` method.
     # You can also draw things directly to a texture with the
     # `SF::RenderTexture` class.
     #
@@ -5229,9 +5167,9 @@ module SF
       VoidCSFML.renderwindow_create_wg0bQssaLFw4(to_unsafe, mode, title.size, title.chars, style, settings)
     end
     # Shorthand for `render_window = RenderWindow.new; render_window.create(...); render_window`
-    def self.new(mode : VideoMode, title : String, style : Style = Style::Default, settings : ContextSettings = ContextSettings.new()) : self
+    def self.new(*args, **kwargs) : self
       obj = new
-      obj.create(mode, title, style, settings)
+      obj.create(*args, **kwargs)
       obj
     end
     # :nodoc:
@@ -5239,9 +5177,9 @@ module SF
       VoidCSFML.renderwindow_create_rLQFw4(to_unsafe, handle, settings)
     end
     # Shorthand for `render_window = RenderWindow.new; render_window.create(...); render_window`
-    def self.new(handle : WindowHandle, settings : ContextSettings = ContextSettings.new()) : self
+    def self.new(*args, **kwargs) : self
       obj = new
-      obj.create(handle, settings)
+      obj.create(*args, **kwargs)
       obj
     end
     # :nodoc:
@@ -5446,17 +5384,12 @@ module SF
   end
   # Shader class (vertex, geometry and fragment)
   #
-  # RAII object to save and restore the program
-  #        binding while uniforms are being set
-  #
-  # Implementation is private in the .cpp file.
-  #
   # Shaders are programs written using a specific language,
   # executed directly by the graphics card and allowing
   # to apply real-time operations to the rendered entities.
   #
   # There are three kinds of shaders:
-  # * %Vertex shaders, that process vertices
+  # * Vertex shaders, that process vertices
   # * Geometry shaders, that process primitives
   # * Fragment (pixel) shaders, that process pixels
   #
@@ -5473,55 +5406,45 @@ module SF
   # Like any C/C++ program, a GLSL shader has its own variables
   # called *uniforms* that you can set from your C++ application.
   # `SF::Shader` handles different types of uniforms:
-  # * scalars: \p float, \p int, \p bool
+  # * scalars: `float`, `int`, `bool`
   # * vectors (2, 3 or 4 components)
   # * matrices (3x3 or 4x4)
   # * samplers (textures)
   #
   # Some SFML-specific types can be converted:
-  # * `SF::Color` as a 4D vector (\p vec4)
-  # * `SF::Transform` as matrices (\p mat3 or \p mat4)
+  # * `SF::Color` as a 4D vector (`vec4`)
+  # * `SF::Transform` as matrices (`mat3` or `mat4`)
   #
   # Every uniform variable in a shader can be set through one of the
-  # uniform=() or uniform_array=() overloads. For example, if you
+  # `set_parameter` overloads, or through a shorthand. For example, if you
   # have a shader with the following uniforms:
-  # ```c++
-  # uniform float offset;
-  # uniform vec3 point;
-  # uniform vec4 color;
-  # uniform mat4 matrix;
-  # uniform sampler2D overlay;
-  # uniform sampler2D current;
+  # ```glsl
+  # uniform float offset
+  # uniform vec3 point
+  # uniform vec4 color
+  # uniform mat4 matrix
+  # uniform sampler2D overlay
+  # uniform sampler2D current
   # ```
-  # You can set their values from C++ code as follows, using the types
-  # defined in the `SF::Glsl` namespace:
-  # ```c++
-  # shader.setUniform("offset", 2.f);
-  # shader.setUniform("point", sf::Vector3f(0.5f, 0.8f, 0.3f));
-  # shader.setUniform("color", sf::Glsl::Vec4(color));          // color is a sf::Color
-  # shader.setUniform("matrix", sf::Glsl::Mat4(transform));     // transform is a sf::Transform
-  # shader.setUniform("overlay", texture);                      // texture is a sf::Texture
-  # shader.setUniform("current", sf::Shader::CurrentTexture);
+  # You can set their values from C++ code as follows:
   # ```
-  #
-  # The old parameter=() overloads are deprecated and will be removed in a
-  # future version. You should use their uniform=() equivalents instead.
+  # shader.offset 2.0
+  # shader.point 0.5, 0.8, 0.3
+  # shader.color color          # color is a SF::Color
+  # shader.matrix transform     # transform is a SF::Transform
+  # shader.overlay texture      # texture is a SF::Texture
+  # shader.current SF::Shader::CurrentTexture
+  # ```
   #
   # The special Shader::CurrentTexture argument maps the
-  # given \p sampler2d uniform to the current texture of the
+  # given `sampler2d` uniform to the current texture of the
   # object being drawn (which cannot be known in advance).
   #
   # To apply a shader to a drawable, you must pass it as an
-  # additional parameter to the \ref Window::draw() draw() function:
-  # ```c++
-  # window.draw(sprite, &shader);
+  # additional parameter to the `Window.draw` function:
   # ```
-  #
-  # ... which is in fact just a shortcut for this:
-  # ```c++
-  # sf::RenderStates states;
-  # states.shader = &shader;
-  # window.draw(sprite, states);
+  # states = SF::RenderStates.new(shader)
+  # window.draw(sprite, states)
   # ```
   #
   # In the code above we pass a pointer to the shader, because it may
@@ -5537,14 +5460,10 @@ module SF
   # arbitrary order; thus, texture lookups on pixels other than the
   # current one may not give you the expected result.
   #
-  # Shaders can also be used to apply global post-effects to the
-  # current contents of the target (like the old `SF::PostFx` class
-  # in SFML 1). This can be done in two different ways:
-  # * draw everything to a `SF::RenderTexture`, then draw it to
-  #   the main target using the shader
-  # * draw everything directly to the main target, then use
-  #   `SF::Texture::update`(Window&) to copy its contents to a texture
-  #   and draw it to the main target using the shader
+  # Shaders can also be used to apply global post-effects to the current
+  # contents of the target. This can be done in two different ways:
+  # * draw everything to a `SF::RenderTexture`, then draw it to the main target using the shader
+  # * draw everything directly to the main target, then use `SF::Texture.update(window)` to copy its contents to a texture and draw it to the main target using the shader
   #
   # The first technique is more optimized because it doesn't involve
   # retrieving the target's pixels to system memory, but the
@@ -5554,18 +5473,16 @@ module SF
   # Like `SF::Texture` that can be used as a raw OpenGL texture,
   # `SF::Shader` can also be used directly as a raw shader for
   # custom OpenGL geometry.
-  # ```c++
-  # sf::Shader::bind(&shader);
-  # ... render OpenGL geometry ...
-  # sf::Shader::bind(NULL);
   # ```
-  #
-  # *See also:* `SF::Glsl`
+  # SF::Shader.bind shader
+  # ... render OpenGL geometry ...
+  # SF::Shader.bind nil
+  # ```
   class Shader
     @_shader : VoidCSFML::Shader_Buffer
     # Types of shaders
     enum Type
-      # %Vertex shader
+      # Vertex shader
       Vertex
       # Geometry shader
       Geometry
@@ -5573,15 +5490,6 @@ module SF
       Fragment
     end
     _sf_enum Shader::Type
-    # Special type that can be passed to uniform=(),
-    #        and that represents the texture of the object being drawn
-    #
-    # *See also:* `uniform=`(`const` `std`::`string`&, `CurrentTextureType`)
-    #
-    # Represents the texture of the object being drawn
-    #
-    # *See also:* `uniform=`(`const` `std`::`string`&, `CurrentTextureType`)
-    #
     # Default constructor
     #
     # This constructor creates an invalid shader.
@@ -5604,7 +5512,7 @@ module SF
     # own shaders.
     #
     # * *filename* - Path of the vertex, geometry or fragment shader file to load
-    # * *type* -     Type of shader (vertex, geometry or fragment)
+    # * *type* - Type of shader (vertex, geometry or fragment)
     #
     # *Returns:* True if loading succeeded, false if it failed
     #
@@ -5616,9 +5524,9 @@ module SF
     # Shorthand for `shader = Shader.new; shader.load_from_file(...); shader`
     #
     # Raises `InitError` on failure
-    def self.from_file(filename : String, type : Shader::Type) : self
+    def self.from_file(*args, **kwargs) : self
       obj = new
-      if !obj.load_from_file(filename, type)
+      if !obj.load_from_file(*args, **kwargs)
         raise InitError.new("Shader.load_from_file failed")
       end
       obj
@@ -5633,7 +5541,7 @@ module SF
     # OpenGL shaders; you'll probably need to read a good documentation
     # for it before writing your own shaders.
     #
-    # * *vertex_shader_filename* -   Path of the vertex shader file to load
+    # * *vertex_shader_filename* - Path of the vertex shader file to load
     # * *fragment_shader_filename* - Path of the fragment shader file to load
     #
     # *Returns:* True if loading succeeded, false if it failed
@@ -5646,9 +5554,9 @@ module SF
     # Shorthand for `shader = Shader.new; shader.load_from_file(...); shader`
     #
     # Raises `InitError` on failure
-    def self.from_file(vertex_shader_filename : String, fragment_shader_filename : String) : self
+    def self.from_file(*args, **kwargs) : self
       obj = new
-      if !obj.load_from_file(vertex_shader_filename, fragment_shader_filename)
+      if !obj.load_from_file(*args, **kwargs)
         raise InitError.new("Shader.load_from_file failed")
       end
       obj
@@ -5663,7 +5571,7 @@ module SF
     # OpenGL shaders; you'll probably need to read a good documentation
     # for it before writing your own shaders.
     #
-    # * *vertex_shader_filename* -   Path of the vertex shader file to load
+    # * *vertex_shader_filename* - Path of the vertex shader file to load
     # * *geometry_shader_filename* - Path of the geometry shader file to load
     # * *fragment_shader_filename* - Path of the fragment shader file to load
     #
@@ -5677,9 +5585,9 @@ module SF
     # Shorthand for `shader = Shader.new; shader.load_from_file(...); shader`
     #
     # Raises `InitError` on failure
-    def self.from_file(vertex_shader_filename : String, geometry_shader_filename : String, fragment_shader_filename : String) : self
+    def self.from_file(*args, **kwargs) : self
       obj = new
-      if !obj.load_from_file(vertex_shader_filename, geometry_shader_filename, fragment_shader_filename)
+      if !obj.load_from_file(*args, **kwargs)
         raise InitError.new("Shader.load_from_file failed")
       end
       obj
@@ -5689,12 +5597,12 @@ module SF
     # This function loads a single shader, vertex, geometry
     # or fragment, identified by the second argument.
     # The source code must be a valid shader in GLSL language.
-    # GLSL is a C-like language dedicated to OpenGL shaders;
+    # GLSL is a C-like language dedicated to OpenGL shaders
     # you'll probably need to read a good documentation for
     # it before writing your own shaders.
     #
     # * *shader* - String containing the source code of the shader
-    # * *type* -   Type of shader (vertex, geometry or fragment)
+    # * *type* - Type of shader (vertex, geometry or fragment)
     #
     # *Returns:* True if loading succeeded, false if it failed
     #
@@ -5706,9 +5614,9 @@ module SF
     # Shorthand for `shader = Shader.new; shader.load_from_memory(...); shader`
     #
     # Raises `InitError` on failure
-    def self.from_memory(shader : String, type : Shader::Type) : self
+    def self.from_memory(*args, **kwargs) : self
       obj = new
-      if !obj.load_from_memory(shader, type)
+      if !obj.load_from_memory(*args, **kwargs)
         raise InitError.new("Shader.load_from_memory failed")
       end
       obj
@@ -5723,7 +5631,7 @@ module SF
     # probably need to read a good documentation for it before
     # writing your own shaders.
     #
-    # * *vertex_shader* -   String containing the source code of the vertex shader
+    # * *vertex_shader* - String containing the source code of the vertex shader
     # * *fragment_shader* - String containing the source code of the fragment shader
     #
     # *Returns:* True if loading succeeded, false if it failed
@@ -5736,9 +5644,9 @@ module SF
     # Shorthand for `shader = Shader.new; shader.load_from_memory(...); shader`
     #
     # Raises `InitError` on failure
-    def self.from_memory(vertex_shader : String, fragment_shader : String) : self
+    def self.from_memory(*args, **kwargs) : self
       obj = new
-      if !obj.load_from_memory(vertex_shader, fragment_shader)
+      if !obj.load_from_memory(*args, **kwargs)
         raise InitError.new("Shader.load_from_memory failed")
       end
       obj
@@ -5753,7 +5661,7 @@ module SF
     # probably need to read a good documentation for it before
     # writing your own shaders.
     #
-    # * *vertex_shader* -   String containing the source code of the vertex shader
+    # * *vertex_shader* - String containing the source code of the vertex shader
     # * *geometry_shader* - String containing the source code of the geometry shader
     # * *fragment_shader* - String containing the source code of the fragment shader
     #
@@ -5767,9 +5675,9 @@ module SF
     # Shorthand for `shader = Shader.new; shader.load_from_memory(...); shader`
     #
     # Raises `InitError` on failure
-    def self.from_memory(vertex_shader : String, geometry_shader : String, fragment_shader : String) : self
+    def self.from_memory(*args, **kwargs) : self
       obj = new
-      if !obj.load_from_memory(vertex_shader, geometry_shader, fragment_shader)
+      if !obj.load_from_memory(*args, **kwargs)
         raise InitError.new("Shader.load_from_memory failed")
       end
       obj
@@ -5779,12 +5687,12 @@ module SF
     # This function loads a single shader, vertex, geometry
     # or fragment, identified by the second argument.
     # The source code must be a valid shader in GLSL language.
-    # GLSL is a C-like language dedicated to OpenGL shaders;
+    # GLSL is a C-like language dedicated to OpenGL shaders
     # you'll probably need to read a good documentation for it
     # before writing your own shaders.
     #
     # * *stream* - Source stream to read from
-    # * *type* -   Type of shader (vertex, geometry or fragment)
+    # * *type* - Type of shader (vertex, geometry or fragment)
     #
     # *Returns:* True if loading succeeded, false if it failed
     #
@@ -5796,9 +5704,9 @@ module SF
     # Shorthand for `shader = Shader.new; shader.load_from_stream(...); shader`
     #
     # Raises `InitError` on failure
-    def self.from_stream(stream : InputStream, type : Shader::Type) : self
+    def self.from_stream(*args, **kwargs) : self
       obj = new
-      if !obj.load_from_stream(stream, type)
+      if !obj.load_from_stream(*args, **kwargs)
         raise InitError.new("Shader.load_from_stream failed")
       end
       obj
@@ -5809,11 +5717,11 @@ module SF
     # shaders. If one of them fails to load, the shader is left
     # empty (the valid shader is unloaded).
     # The source codes must be valid shaders in GLSL language.
-    # GLSL is a C-like language dedicated to OpenGL shaders;
+    # GLSL is a C-like language dedicated to OpenGL shaders
     # you'll probably need to read a good documentation for
     # it before writing your own shaders.
     #
-    # * *vertex_shader_stream* -   Source stream to read the vertex shader from
+    # * *vertex_shader_stream* - Source stream to read the vertex shader from
     # * *fragment_shader_stream* - Source stream to read the fragment shader from
     #
     # *Returns:* True if loading succeeded, false if it failed
@@ -5826,9 +5734,9 @@ module SF
     # Shorthand for `shader = Shader.new; shader.load_from_stream(...); shader`
     #
     # Raises `InitError` on failure
-    def self.from_stream(vertex_shader_stream : InputStream, fragment_shader_stream : InputStream) : self
+    def self.from_stream(*args, **kwargs) : self
       obj = new
-      if !obj.load_from_stream(vertex_shader_stream, fragment_shader_stream)
+      if !obj.load_from_stream(*args, **kwargs)
         raise InitError.new("Shader.load_from_stream failed")
       end
       obj
@@ -5839,11 +5747,11 @@ module SF
     # shaders. If one of them fails to load, the shader is left
     # empty (the valid shader is unloaded).
     # The source codes must be valid shaders in GLSL language.
-    # GLSL is a C-like language dedicated to OpenGL shaders;
+    # GLSL is a C-like language dedicated to OpenGL shaders
     # you'll probably need to read a good documentation for
     # it before writing your own shaders.
     #
-    # * *vertex_shader_stream* -   Source stream to read the vertex shader from
+    # * *vertex_shader_stream* - Source stream to read the vertex shader from
     # * *geometry_shader_stream* - Source stream to read the geometry shader from
     # * *fragment_shader_stream* - Source stream to read the fragment shader from
     #
@@ -5857,34 +5765,26 @@ module SF
     # Shorthand for `shader = Shader.new; shader.load_from_stream(...); shader`
     #
     # Raises `InitError` on failure
-    def self.from_stream(vertex_shader_stream : InputStream, geometry_shader_stream : InputStream, fragment_shader_stream : InputStream) : self
+    def self.from_stream(*args, **kwargs) : self
       obj = new
-      if !obj.load_from_stream(vertex_shader_stream, geometry_shader_stream, fragment_shader_stream)
+      if !obj.load_from_stream(*args, **kwargs)
         raise InitError.new("Shader.load_from_stream failed")
       end
       obj
     end
     # Change a float parameter of the shader
-    #
-    # *Deprecated:* Use uniform=(const std::string&, float) instead.
     def set_parameter(name : String, x : Number)
       VoidCSFML.shader_setparameter_zkCBw9(to_unsafe, name.bytesize, name, LibC::Float.new(x))
     end
     # Change a 2-components vector parameter of the shader
-    #
-    # *Deprecated:* Use uniform=(const std::string&, const Glsl::Vec2&) instead.
     def set_parameter(name : String, x : Number, y : Number)
       VoidCSFML.shader_setparameter_zkCBw9Bw9(to_unsafe, name.bytesize, name, LibC::Float.new(x), LibC::Float.new(y))
     end
     # Change a 3-components vector parameter of the shader
-    #
-    # *Deprecated:* Use uniform=(const std::string&, const Glsl::Vec3&) instead.
     def set_parameter(name : String, x : Number, y : Number, z : Number)
       VoidCSFML.shader_setparameter_zkCBw9Bw9Bw9(to_unsafe, name.bytesize, name, LibC::Float.new(x), LibC::Float.new(y), LibC::Float.new(z))
     end
     # Change a 4-components vector parameter of the shader
-    #
-    # *Deprecated:* Use uniform=(const std::string&, const Glsl::Vec4&) instead.
     def set_parameter(name : String, x : Number, y : Number, z : Number, w : Number)
       VoidCSFML.shader_setparameter_zkCBw9Bw9Bw9Bw9(to_unsafe, name.bytesize, name, LibC::Float.new(x), LibC::Float.new(y), LibC::Float.new(z), LibC::Float.new(w))
     end
@@ -5896,32 +5796,22 @@ module SF
       VoidCSFML.shader_setparameter_zkCUU2(to_unsafe, name.bytesize, name, vector)
     end
     # Change a 3-components vector parameter of the shader
-    #
-    # *Deprecated:* Use uniform=(const std::string&, const Glsl::Vec3&) instead.
     def set_parameter(name : String, vector : Vector3f)
       VoidCSFML.shader_setparameter_zkCNzM(to_unsafe, name.bytesize, name, vector)
     end
     # Change a color parameter of the shader
-    #
-    # *Deprecated:* Use uniform=(const std::string&, const Glsl::Vec4&) instead.
     def set_parameter(name : String, color : Color)
       VoidCSFML.shader_setparameter_zkCQVe(to_unsafe, name.bytesize, name, color)
     end
     # Change a matrix parameter of the shader
-    #
-    # *Deprecated:* Use uniform=(const std::string&, const Glsl::Mat4&) instead.
     def set_parameter(name : String, transform : Transform)
       VoidCSFML.shader_setparameter_zkCFPe(to_unsafe, name.bytesize, name, transform)
     end
     # Change a texture parameter of the shader
-    #
-    # *Deprecated:* Use uniform=(const std::string&, const Texture&) instead.
     def set_parameter(name : String, texture : Texture)
       VoidCSFML.shader_setparameter_zkCDJb(to_unsafe, name.bytesize, name, texture)
     end
     # Change a texture parameter of the shader
-    #
-    # *Deprecated:* Use uniform=(const std::string&, CurrentTextureType) instead.
     def set_parameter(name : String, p1 : CurrentTextureType)
       VoidCSFML.shader_setparameter_zkCLcV(to_unsafe, name.bytesize, name)
     end
@@ -5942,15 +5832,16 @@ module SF
     # used when drawing SFML entities. It must be used only if you
     # mix `SF::Shader` with OpenGL code.
     #
-    # ```c++
-    # sf::Shader s1, s2;
+    # ```
+    # s1 = SF::Shader.new
+    # s2 = SF::Shader.new
     # ...
-    # sf::Shader::bind(&s1);
-    # // draw OpenGL stuff that use s1...
-    # sf::Shader::bind(&s2);
-    # // draw OpenGL stuff that use s2...
-    # sf::Shader::bind(NULL);
-    # // draw OpenGL stuff that use no shader...
+    # SF::Shader.bind s1
+    # # draw OpenGL stuff that use s1...
+    # SF::Shader.bind s2
+    # # draw OpenGL stuff that use s2...
+    # SF::Shader.bind nil
+    # # draw OpenGL stuff that use no shader...
     # ```
     #
     # * *shader* - Shader to bind, can be null to use no shader
@@ -6028,20 +5919,19 @@ module SF
   # See also the note on coordinates and undistorted rendering in `SF::Transformable`.
   #
   # Usage example:
-  # ```c++
-  # // Declare and load a texture
-  # sf::Texture texture;
-  # texture.loadFromFile("texture.png");
+  # ```
+  # # Declare and load a texture
+  # texture = SF::Texture.from_file("texture.png")
   #
-  # // Create a sprite
-  # sf::Sprite sprite;
-  # sprite.setTexture(texture);
-  # sprite.setTextureRect(sf::IntRect(10, 10, 50, 30));
-  # sprite.setColor(sf::Color(255, 255, 255, 200));
-  # sprite.setPosition(100, 25);
+  # # Create a sprite
+  # sprite = SF::Sprite.new
+  # sprite.texture = texture
+  # sprite.texture_rect = SF.int_rect(10, 10, 50, 30)
+  # sprite.color = SF.color(255, 255, 255, 200)
+  # sprite.position = {100, 25}
   #
-  # // Draw it
-  # window.draw(sprite);
+  # # Draw it
+  # window.draw sprite
   # ```
   #
   # *See also:* `SF::Texture`, `SF::Transformable`
@@ -6068,7 +5958,7 @@ module SF
     end
     # Construct the sprite from a sub-rectangle of a source texture
     #
-    # * *texture* -   Source texture
+    # * *texture* - Source texture
     # * *rectangle* - Sub-rectangle of the texture to assign to the sprite
     #
     # *See also:* `texture=`, `texture_rect=`
@@ -6090,7 +5980,7 @@ module SF
     # the sprite is automatically adjusted to the size of the new
     # texture. If it is false, the texture rect is left unchanged.
     #
-    # * *texture* -   New texture
+    # * *texture* - New texture
     # * *reset_rect* - Should the texture rect be reset to the size of the new texture?
     #
     # *See also:* `texture`, `texture_rect=`
@@ -6341,19 +6231,18 @@ module SF
   # See also the note on coordinates and undistorted rendering in `SF::Transformable`.
   #
   # Usage example:
-  # ```c++
-  # // Declare and load a font
-  # sf::Font font;
-  # font.loadFromFile("arial.ttf");
+  # ```
+  # # Declare and load a font
+  # font = SF::Font.from_file("arial.ttf")
   #
-  # // Create a text
-  # sf::Text text("hello", font);
-  # text.setCharacterSize(30);
-  # text.setStyle(sf::Text::Bold);
-  # text.setColor(sf::Color::Red);
+  # # Create a text
+  # text = SF::Text.new("hello", font)
+  # text.character_size = 30
+  # text.style = SF::Text::Bold
+  # text.color = SF::Color::Red
   #
-  # // Draw it
-  # window.draw(text);
+  # # Draw it
+  # window.draw text
   # ```
   #
   # *See also:* `SF::Font`, `SF::Transformable`
@@ -6391,9 +6280,9 @@ module SF
     # of a certain size, make sure the corresponding bitmap
     # font that supports that size is used.
     #
-    # * *string* -         Text assigned to the string
-    # * *font* -           Font used to draw the string
-    # * *character_size* -  Base size of characters, in pixels
+    # * *string* - Text assigned to the string
+    # * *font* - Font used to draw the string
+    # * *character_size* - Base size of characters, in pixels
     def initialize(string : String, font : Font, character_size : Int = 30)
       @_transformable = uninitialized VoidCSFML::Transformable_Buffer
       @_text = uninitialized VoidCSFML::Text_Buffer
@@ -6402,15 +6291,6 @@ module SF
     end
     # Set the text's string
     #
-    # The *string* argument is a `SF::String`, which can
-    # automatically be constructed from standard string types.
-    # So, the following calls are all valid:
-    # ```c++
-    # text.setString("hello");
-    # text.setString(L"hello");
-    # text.setString(std::string("hello"));
-    # text.setString(std::wstring(L"hello"));
-    # ```
     # A text's string is empty by default.
     #
     # * *string* - New string
@@ -6517,15 +6397,6 @@ module SF
       VoidCSFML.text_setoutlinethickness_Bw9(to_unsafe, LibC::Float.new(thickness))
     end
     # Get the text's string
-    #
-    # The returned string is a `SF::String`, which can automatically
-    # be converted to standard string types. So, the following
-    # lines of code are all valid:
-    # ```c++
-    # sf::String   s1 = text.getString();
-    # std::string  s2 = text.getString();
-    # std::wstring s3 = text.getString();
-    # ```
     #
     # *Returns:* Text's string
     #

@@ -96,7 +96,7 @@ lib VoidCSFML
   fun packet_endofpacket(self : Void*, result : Bool*)
   fun packet_operator_bool(self : Void*, result : Bool*)
   fun packet_operator_shr_gRY(self : Void*, data : Bool*)
-  fun packet_operator_shr_y9(self : Void*, data : Int8*)
+  fun packet_operator_shr_0y9(self : Void*, data : Int8*)
   fun packet_operator_shr_8hc(self : Void*, data : UInt8*)
   fun packet_operator_shr_4k3(self : Void*, data : Int16*)
   fun packet_operator_shr_Xag(self : Void*, data : UInt16*)

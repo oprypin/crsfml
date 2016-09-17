@@ -20,15 +20,15 @@ module SF
   # contains static functions and doesn't have to be instantiated.
   #
   # Usage example:
-  # ```c++
-  # // Move the listener to the position (1, 0, -5)
-  # sf::Listener::setPosition(1, 0, -5);
+  # ```
+  # # Move the listener to the position (1, 0, -5)
+  # SF::Listener.set_position(1, 0, -5)
   #
-  # // Make it face the right axis (1, 0, 0)
-  # sf::Listener::setDirection(1, 0, 0);
+  # # Make it face the right axis (1, 0, 0)
+  # SF::Listener.direction = SF.vector3f(1, 0, 0)
   #
-  # // Reduce the global volume
-  # sf::Listener::setGlobalVolume(50);
+  # # Reduce the global volume
+  # SF::Listener.global_volume = 50
   # ```
   module Listener
     # Change the global volume of all the sounds and musics
@@ -37,7 +37,7 @@ module SF
     # the individual volume of each sound / music.
     # The default value for the volume is 100 (maximum).
     #
-    # * *volume* - New global volume, in the range [0, 100]
+    # * *volume* - New global volume, in the range `0..100`
     #
     # *See also:* `global_volume`
     def self.global_volume=(volume : Number)
@@ -45,7 +45,7 @@ module SF
     end
     # Get the current value of the global volume
     #
-    # *Returns:* Current global volume, in the range [0, 100]
+    # *Returns:* Current global volume, in the range `0..100`
     #
     # *See also:* `global_volume=`
     def self.global_volume() : Float32
@@ -169,11 +169,7 @@ module SF
       return result
     end
   end
-  # Base class for classes that require an OpenAL context
-  #
-  # This class is for internal use only, it must be the base
-  # of every class that requires a valid OpenAL context in
-  # order to work.
+  # Empty module that indicates the class requires an OpenAL context
   module AlResource
   end
   # Base class defining a sound's properties
@@ -311,7 +307,7 @@ module SF
     end
     # Get the volume of the sound
     #
-    # *Returns:* Volume of the sound, in the range [0, 100]
+    # *Returns:* Volume of the sound, in the range `0..100`
     #
     # *See also:* `volume=`
     def volume() : Float32
@@ -412,46 +408,30 @@ module SF
   # care of synchronization issues if you share data between threads.
   #
   # Usage example:
-  # ```c++
-  # class CustomStream : public sf::SoundStream
-  # {
-  # public:
+  # ```
+  # class CustomStream < SF::SoundStream
+  #   def initialize(location : String)
+  #     # Open the source and get audio settings
+  #     ...
   #
-  #     bool open(const std::string& location)
-  #     {
-  #         // Open the source and get audio settings
-  #         ...
-  #         unsigned int channelCount = ...;
-  #         unsigned int sampleRate = ...;
+  #     # Initialize the stream -- important!
+  #     super(channel_count, sample_rate)
+  #   end
   #
-  #         // Initialize the stream -- important!
-  #         initialize(channelCount, sampleRate);
-  #     }
+  #   def on_get_data()
+  #     # Return a slice with audio data from the stream source
+  #     # (note: must not be empty if you want to continue playing)
+  #     Slice.new(samples.to_unsafe, samples.size)
+  #   end
   #
-  # private:
+  #   def on_seek(time_offset)
+  #     # Change the current position in the stream source
+  #   end
+  # end
   #
-  #     virtual bool onGetData(Chunk& data)
-  #     {
-  #         // Fill the chunk with audio data from the stream source
-  #         // (note: must not be empty if you want to continue playing)
-  #         data.samples = ...;
-  #         data.sampleCount = ...;
-  #
-  #         // Return true to continue playing
-  #         return true;
-  #     }
-  #
-  #     virtual void onSeek(Uint32 timeOffset)
-  #     {
-  #         // Change the current position in the stream source
-  #         ...
-  #     }
-  # }
-  #
-  # // Usage
-  # CustomStream stream;
-  # stream.open("path/to/stream");
-  # stream.play();
+  # # Usage
+  # stream = CustomStream.new("path/to/stream")
+  # stream.play()
   # ```
   #
   # *See also:* `SF::Music`
@@ -582,7 +562,7 @@ module SF
     # audio stream change, but only when the stream is stopped.
     #
     # * *channel_count* - Number of channels of the stream
-    # * *sample_rate* -   Sample rate, in samples per second
+    # * *sample_rate* - Sample rate, in samples per second
     def initialize(channel_count : Int, sample_rate : Int)
       @_soundsource = uninitialized VoidCSFML::SoundSource_Buffer
       @_soundstream = uninitialized VoidCSFML::SoundStream_Buffer
@@ -702,24 +682,23 @@ module SF
   # very well.
   #
   # Usage example:
-  # ```c++
-  # // Declare a new music
-  # sf::Music music;
+  # ```
+  # # Declare a new music
+  # music = SF::Music.new
   #
-  # // Open it from an audio file
-  # if (!music.openFromFile("music.ogg"))
-  # {
-  #     // error...
-  # }
+  # # Open it from an audio file
+  # if !music.open_from_file("music.ogg")
+  #     # error...
+  # end
   #
-  # // Change some parameters
-  # music.setPosition(0, 1, 10); // change its 3D position
-  # music.setPitch(2);           // increase the pitch
-  # music.setVolume(50);         // reduce the volume
-  # music.setLoop(true);         // make it loop
+  # # Change some parameters
+  # music.set_position(0, 1, 10) # change its 3D position
+  # music.pitch = 2              # increase the pitch
+  # music.volume = 50            # reduce the volume
+  # music.loop = true            # make it loop
   #
-  # // Play it
-  # music.play();
+  # # Play it
+  # music.play()
   # ```
   #
   # *See also:* `SF::Sound`, `SF::SoundStream`
@@ -759,9 +738,9 @@ module SF
     # Shorthand for `music = Music.new; music.open_from_file(...); music`
     #
     # Raises `InitError` on failure
-    def self.from_file(filename : String) : self
+    def self.from_file(*args, **kwargs) : self
       obj = new
-      if !obj.open_from_file(filename)
+      if !obj.open_from_file(*args, **kwargs)
         raise InitError.new("Music.open_from_file failed")
       end
       obj
@@ -778,8 +757,7 @@ module SF
     # the `SF::Music` object loads a new music or is destroyed. That is,
     # you can't deallocate the buffer right after calling this function.
     #
-    # * *data* -        Pointer to the file data in memory
-    # * *size_in_bytes* - Size of the data to load, in bytes
+    # * *data* - Slice containing the file data in memory
     #
     # *Returns:* True if loading succeeded, false if it failed
     #
@@ -791,9 +769,9 @@ module SF
     # Shorthand for `music = Music.new; music.open_from_memory(...); music`
     #
     # Raises `InitError` on failure
-    def self.from_memory(data : Slice) : self
+    def self.from_memory(*args, **kwargs) : self
       obj = new
-      if !obj.open_from_memory(data)
+      if !obj.open_from_memory(*args, **kwargs)
         raise InitError.new("Music.open_from_memory failed")
       end
       obj
@@ -821,9 +799,9 @@ module SF
     # Shorthand for `music = Music.new; music.open_from_stream(...); music`
     #
     # Raises `InitError` on failure
-    def self.from_stream(stream : InputStream) : self
+    def self.from_stream(*args, **kwargs) : self
       obj = new
-      if !obj.open_from_stream(stream)
+      if !obj.open_from_stream(*args, **kwargs)
         raise InitError.new("Music.open_from_stream failed")
       end
       obj
@@ -995,13 +973,12 @@ module SF
   # can use the same sound buffer at the same time.
   #
   # Usage example:
-  # ```c++
-  # sf::SoundBuffer buffer;
-  # buffer.loadFromFile("sound.wav");
+  # ```
+  # buffer = SF::SoundBuffer.from_file("sound.wav")
   #
-  # sf::Sound sound;
-  # sound.setBuffer(buffer);
-  # sound.play();
+  # sound = SF::Sound.new
+  # sound.buffer = buffer
+  # sound.play()
   # ```
   #
   # *See also:* `SF::SoundBuffer`, `SF::Music`
@@ -1240,30 +1217,24 @@ module SF
   # uses a local `SF::SoundBuffer` instance for loading a sound).
   #
   # Usage example:
-  # ```c++
-  # // Declare a new sound buffer
-  # sf::SoundBuffer buffer;
+  # ```
+  # # Load a new sound buffer from a file
+  # buffer = SF::SoundBuffer.from_file("sound.wav")
   #
-  # // Load it from a file
-  # if (!buffer.loadFromFile("sound.wav"))
-  # {
-  #     // error...
-  # }
+  # # Create a sound source and bind it to the buffer
+  # sound1 = SF::Sound.new
+  # sound1.buffer = buffer
   #
-  # // Create a sound source and bind it to the buffer
-  # sf::Sound sound1;
-  # sound1.setBuffer(buffer);
+  # # Play the sound
+  # sound1.play()
   #
-  # // Play the sound
-  # sound1.play();
+  # # Create another sound source bound to the same buffer
+  # sound2 = SF::Sound.new
+  # sound2.buffer = buffer
   #
-  # // Create another sound source bound to the same buffer
-  # sf::Sound sound2;
-  # sound2.setBuffer(buffer);
-  #
-  # // Play it with a higher pitch -- the first sound remains unchanged
-  # sound2.setPitch(2);
-  # sound2.play();
+  # # Play it with a higher pitch -- the first sound remains unchanged
+  # sound2.pitch = 2
+  # sound2.play()
   # ```
   #
   # *See also:* `SF::Sound`, `SF::SoundBufferRecorder`
@@ -1295,9 +1266,9 @@ module SF
     # Shorthand for `sound_buffer = SoundBuffer.new; sound_buffer.load_from_file(...); sound_buffer`
     #
     # Raises `InitError` on failure
-    def self.from_file(filename : String) : self
+    def self.from_file(*args, **kwargs) : self
       obj = new
-      if !obj.load_from_file(filename)
+      if !obj.load_from_file(*args, **kwargs)
         raise InitError.new("SoundBuffer.load_from_file failed")
       end
       obj
@@ -1307,8 +1278,7 @@ module SF
     # See the documentation of `SF::InputSoundFile` for the list
     # of supported formats.
     #
-    # * *data* -        Pointer to the file data in memory
-    # * *size_in_bytes* - Size of the data to load, in bytes
+    # * *data* - Slice containing the file data in memory
     #
     # *Returns:* True if loading succeeded, false if it failed
     #
@@ -1320,9 +1290,9 @@ module SF
     # Shorthand for `sound_buffer = SoundBuffer.new; sound_buffer.load_from_memory(...); sound_buffer`
     #
     # Raises `InitError` on failure
-    def self.from_memory(data : Slice) : self
+    def self.from_memory(*args, **kwargs) : self
       obj = new
-      if !obj.load_from_memory(data)
+      if !obj.load_from_memory(*args, **kwargs)
         raise InitError.new("SoundBuffer.load_from_memory failed")
       end
       obj
@@ -1344,9 +1314,9 @@ module SF
     # Shorthand for `sound_buffer = SoundBuffer.new; sound_buffer.load_from_stream(...); sound_buffer`
     #
     # Raises `InitError` on failure
-    def self.from_stream(stream : InputStream) : self
+    def self.from_stream(*args, **kwargs) : self
       obj = new
-      if !obj.load_from_stream(stream)
+      if !obj.load_from_stream(*args, **kwargs)
         raise InitError.new("SoundBuffer.load_from_stream failed")
       end
       obj
@@ -1356,10 +1326,10 @@ module SF
     # The assumed format of the audio samples is 16 bits signed integer
     # (`SF::Int16`).
     #
-    # * *samples* -      Pointer to the array of samples in memory
-    # * *sample_count* -  Number of samples in the array
+    # * *samples* - Pointer to the array of samples in memory
+    # * *sample_count* - Number of samples in the array
     # * *channel_count* - Number of channels (1 = mono, 2 = stereo, ...)
-    # * *sample_rate* -   Sample rate (number of samples to play per second)
+    # * *sample_rate* - Sample rate (number of samples to play per second)
     #
     # *Returns:* True if loading succeeded, false if it failed
     #
@@ -1371,9 +1341,9 @@ module SF
     # Shorthand for `sound_buffer = SoundBuffer.new; sound_buffer.load_from_samples(...); sound_buffer`
     #
     # Raises `InitError` on failure
-    def self.from_samples(samples : Array(Int16) | Slice(Int16), channel_count : Int, sample_rate : Int) : self
+    def self.from_samples(*args, **kwargs) : self
       obj = new
-      if !obj.load_from_samples(samples, channel_count, sample_rate)
+      if !obj.load_from_samples(*args, **kwargs)
         raise InitError.new("SoundBuffer.load_from_samples failed")
       end
       obj
@@ -1527,51 +1497,45 @@ module SF
   # thread finishes before your object is destroyed.
   #
   # Usage example:
-  # ```c++
-  # class CustomRecorder : public sf::SoundRecorder
-  # {
-  #     ~CustomRecorder()
-  #     {
-  #         // Make sure to stop the recording thread
-  #         stop();
-  #     }
+  # ```
+  # class CustomRecorder < SF::SoundRecorder
+  #   def finalize
+  #     # Make sure to stop the recording thread
+  #     stop()
+  #   end
   #
-  #     virtual bool onStart() // optional
-  #     {
-  #         // Initialize whatever has to be done before the capture starts
-  #         ...
+  #   def on_start() # optional
+  #     # Initialize whatever has to be done before the capture starts
+  #     ...
   #
-  #         // Return true to start playing
-  #         return true;
-  #     }
+  #     # Return true to start playing
+  #     true
+  #   end
   #
-  #     virtual bool onProcessSamples(const Int16* samples, std::size_t sampleCount)
-  #     {
-  #         // Do something with the new chunk of samples (store them, send them, ...)
-  #         ...
+  #   def on_process_samples(samples)
+  #     # Do something with the new chunk of samples (store them, send them, ...)
+  #     ...
   #
-  #         // Return true to continue playing
-  #         return true;
-  #     }
+  #     # Return true to continue playing
+  #     true
+  #   end
   #
-  #     virtual void onStop() // optional
-  #     {
-  #         // Clean up whatever has to be done after the capture ends
-  #         ...
-  #     }
-  # }
+  #   def on_stop() # optional
+  #     # Clean up whatever has to be done after the capture ends
+  #     ...
+  #   end
+  # end
   #
-  # // Usage
-  # if (CustomRecorder::isAvailable())
-  # {
-  #     CustomRecorder recorder;
+  # # Usage
+  # if (CustomRecorder.isAvailable())
+  #     CustomRecorder recorder
   #
   #     if (!recorder.start())
-  #         return -1;
+  #         return -1
   #
   #     ...
-  #     recorder.stop();
-  # }
+  #     recorder.stop()
+  # end
   # ```
   #
   # *See also:* `SF::SoundBufferRecorder`
@@ -1745,7 +1709,7 @@ module SF
     # whatever it wants with it (storing it, playing it, sending
     # it over the network, etc.).
     #
-    # * *samples* -     Pointer to the new chunk of recorded samples
+    # * *samples* - Pointer to the new chunk of recorded samples
     # * *sample_count* - Number of samples pointed by *samples*
     #
     # *Returns:* True to continue the capture, or false to stop it
@@ -1785,21 +1749,20 @@ module SF
   # about this).
   #
   # Usage example:
-  # ```c++
-  # if (sf::SoundBufferRecorder::isAvailable())
-  # {
-  #     // Record some audio data
-  #     sf::SoundBufferRecorder recorder;
-  #     recorder.start();
-  #     ...
-  #     recorder.stop();
+  # ```
+  # if SF::SoundBufferRecorder.available?
+  #   # Record some audio data
+  #   recorder = SF::SoundBufferRecorder.new
+  #   recorder.start()
+  #   ...
+  #   recorder.stop()
   #
-  #     // Get the buffer containing the captured audio data
-  #     const sf::SoundBuffer& buffer = recorder.getBuffer();
+  #   # Get the buffer containing the captured audio data
+  #   buffer = recorder.buffer
   #
-  #     // Save it to a file (for example...)
-  #     buffer.saveToFile("my_record.ogg");
-  # }
+  #   # Save it to a file (for example...)
+  #   buffer.save_to_file("my_record.ogg")
+  # end
   # ```
   #
   # *See also:* `SF::SoundRecorder`
@@ -1833,7 +1796,7 @@ module SF
     end
     # Process a new chunk of recorded samples
     #
-    # * *samples* -     Pointer to the new chunk of recorded samples
+    # * *samples* - Pointer to the new chunk of recorded samples
     # * *sample_count* - Number of samples pointed by *samples*
     #
     # *Returns:* True to continue the capture, or false to stop it

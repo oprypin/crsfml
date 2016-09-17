@@ -90,13 +90,13 @@ module SF
     #
     # Returns the overlapped rectangle or nil if there is no overlap.
     def intersects?(other : Rect(T)) : Rect(T)?
-      horz1, horz2 = {left, left+width}, {other.left, other.left+width}
-      vert1, vert2 = {top, top+height}, {other.top, other.top+height}
+      horz1, horz2 = {left, left + width}, {other.left, other.left + other.width}
+      vert1, vert2 = {top, top + height}, {other.top, other.top + other.height}
       x1 = {horz1.min, horz2.min}.max
       y1 = {vert1.min, vert2.min}.max
       x2 = {horz1.max, horz2.max}.min
       y2 = {vert1.max, vert2.max}.min
-      Rect.new(x1, y1, x2-x1, y2-y1) if x1 < x2 && y1 < y2
+      Rect.new(x1, y1, x2 - x1, y2 - y1) if x1 < x2 && y1 < y2
     end
 
     # Returns true if all corresponding coordinates of two rects are equal
@@ -150,6 +150,12 @@ module SF
     Cyan = new(0, 255, 255)
     # Transparent (black) predefined color
     Transparent = new(0, 0, 0, 0)
+
+    def inspect(io)
+      io << {{@type.name}} << "(" << @r << ", " << @g << ", " << @b
+      io << ", a: " << @a if @a != 255
+      io << ")"
+    end
   end
   # Shorthand for `Color.new`
   def color(*args, **kwargs)
@@ -159,6 +165,18 @@ module SF
   struct RenderStates
     # Special instance holding the default render states
     Default = new
+
+    def inspect(io)
+      io << {{@type.name}} << "(@blend_mode="
+      @blend_mode.inspect(io)
+      io << ", @transform="
+      @transform.inspect(io)
+      io << ", texture="
+      @_renderstates_texture.inspect(io)
+      io << ", shader="
+      @_renderstates_shader.inspect(io)
+      io << ")"
+    end
   end
 
   class Shader
@@ -224,6 +242,17 @@ module SF
   struct Transform
     # The identity transform (does nothing)
     Identity = new
+
+    def inspect(io)
+      io << {{@type.name}} << "("
+      {% for index, i in [0, 4, 12, 1, 5, 13, 3, 7, 15] %}
+        {% if i > 0 %}
+          io << ",{% if i % 3 == 0 %} {% end %}"
+        {% end %}
+        io << @matrix[{{index}}]
+      {% end %}
+      io << ")"
+    end
   end
 
   class Sprite
@@ -239,4 +268,18 @@ module SF
       set_texture(texture)
     end
   end
+
+  struct BlendMode
+    # Blend source and dest according to dest alpha
+    BlendAlpha = BlendMode.new(BlendMode::SrcAlpha, BlendMode::OneMinusSrcAlpha, BlendMode::Add,
+                              BlendMode::One, BlendMode::OneMinusSrcAlpha, BlendMode::Add)
+    # Add source to dest
+    BlendAdd = BlendMode.new(BlendMode::SrcAlpha, BlendMode::One, BlendMode::Add,
+                            BlendMode::One, BlendMode::One, BlendMode::Add)
+    # Multiply source and dest
+    BlendMultiply = BlendMode.new(BlendMode::DstColor, BlendMode::Zero)
+    # Overwrite dest with source
+    BlendNone = BlendMode.new(BlendMode::One, BlendMode::Zero)
+  end
+  _sf_enum BlendMode
 end

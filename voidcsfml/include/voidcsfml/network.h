@@ -97,7 +97,7 @@ VOIDCSFML_API packet_getdatasize(void* self, size_t* result);
 VOIDCSFML_API packet_endofpacket(void* self, unsigned char* result);
 VOIDCSFML_API packet_operator_bool(void* self, unsigned char* result);
 VOIDCSFML_API packet_operator_shr_gRY(void* self, unsigned char* data);
-VOIDCSFML_API packet_operator_shr_y9(void* self, int8_t* data);
+VOIDCSFML_API packet_operator_shr_0y9(void* self, int8_t* data);
 VOIDCSFML_API packet_operator_shr_8hc(void* self, uint8_t* data);
 VOIDCSFML_API packet_operator_shr_4k3(void* self, int16_t* data);
 VOIDCSFML_API packet_operator_shr_Xag(void* self, uint16_t* data);

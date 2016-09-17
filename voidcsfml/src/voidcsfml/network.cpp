@@ -303,7 +303,7 @@ void packet_operator_bool(void* self, unsigned char* result) {
 void packet_operator_shr_gRY(void* self, unsigned char* data) {
     ((Packet*)self)->operator>>(*(bool*)data);
 }
-void packet_operator_shr_y9(void* self, int8_t* data) {
+void packet_operator_shr_0y9(void* self, int8_t* data) {
     ((Packet*)self)->operator>>(*(Int8*)data);
 }
 void packet_operator_shr_8hc(void* self, uint8_t* data) {

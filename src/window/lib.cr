@@ -99,7 +99,7 @@ lib VoidCSFML
   fun event_sensorevent_setx_Bw9(self : Void*, x : LibC::Float)
   fun event_sensorevent_sety_Bw9(self : Void*, y : LibC::Float)
   fun event_sensorevent_setz_Bw9(self : Void*, z : LibC::Float)
-  fun event_sensorevent_initialize_L9(self : Void*, copy : Void*)
+  fun event_sensorevent_initialize_0L9(self : Void*, copy : Void*)
   fun touch_isdown_emS(finger : LibC::UInt, result : Bool*)
   fun touch_getposition_emS(finger : LibC::UInt, result : Void*)
   fun touch_getposition_emSJRh(finger : LibC::UInt, relative_to : Void*, result : Void*)

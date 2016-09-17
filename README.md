@@ -119,7 +119,7 @@ cd crsfml
 cmake . && make
 ```
 
-**Optional:** [out-of-source builds][] are also supported, but note that even the sources go to the build directory, so you would need perform all the following steps inside the build directory and not the root *crsfml* directory.
+> **Optional:** [out-of-source builds][] are also supported, but note that even the sources go to the build directory, so you would need perform all the following steps inside the build directory and not the root *crsfml* directory.
 
 If ran successfully, this generates all the source files for *VoidCSFML* and *CrSFML*, and also compiles *VoidCSFML*.
 

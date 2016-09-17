@@ -48,7 +48,6 @@ module SF
       Error
     end
     _sf_enum Socket::Status
-    # Some special values used by sockets
     # Special value that tells the system to pick any available port
     AnyPort = 0
     # Destructor
@@ -141,43 +140,41 @@ module SF
   # the socket instance is still alive, you can call disconnect.
   #
   # Usage example:
-  # ```c++
-  # // ----- The client -----
+  # ```
+  # # ----- The client -----
   #
-  # // Create a socket and connect it to 192.168.1.50 on port 55001
-  # sf::TcpSocket socket;
-  # socket.connect("192.168.1.50", 55001);
+  # # Create a socket and connect it to 192.168.1.50 on port 55001
+  # socket = SF::TcpSocket.new
+  # socket.connect("192.168.1.50", 55001)
   #
-  # // Send a message to the connected host
-  # std::string message = "Hi, I am a client";
-  # socket.send(message.c_str(), message.size() + 1);
+  # # Send a message to the connected host
+  # message = "Hi, I am a client"
+  # socket.send(message.to_slice)
   #
-  # // Receive an answer from the server
-  # char buffer[1024];
-  # std::size_t received = 0;
-  # socket.receive(buffer, sizeof(buffer), received);
-  # std::cout << "The server said: " << buffer << std::endl;
+  # # Receive an answer from the server
+  # buffer = Slice(UInt8).new(1024)
+  # status, received = socket.receive(buffer)
+  # puts "The server said: #{buffer}"
   #
-  # // ----- The server -----
+  # # ----- The server -----
   #
-  # // Create a listener to wait for incoming connections on port 55001
-  # sf::TcpListener listener;
-  # listener.listen(55001);
+  # # Create a listener to wait for incoming connections on port 55001
+  # listener = SF::TcpListener.new
+  # listener.listen(55001)
   #
-  # // Wait for a connection
-  # sf::TcpSocket socket;
-  # listener.accept(socket);
-  # std::cout << "New client connected: " << socket.getRemoteAddress() << std::endl;
+  # # Wait for a connection
+  # socket = SF::TcpSocket.new
+  # listener.accept(socket)
+  # puts "New client connected: #{socket.remote_address}"
   #
-  # // Receive a message from the client
-  # char buffer[1024];
-  # std::size_t received = 0;
-  # socket.receive(buffer, sizeof(buffer), received);
-  # std::cout << "The client said: " << buffer << std::endl;
+  # # Receive a message from the client
+  # buffer = Slice(UInt8).new(1024)
+  # status, received = socket.receive(buffer)
+  # puts "The client said: #{buffer}"
   #
-  # // Send an answer
-  # std::string message = "Welcome, client";
-  # socket.send(message.c_str(), message.size() + 1);
+  # # Send an answer
+  # message = "Welcome, client"
+  # socket.send(message.to_slice)
   # ```
   #
   # *See also:* `SF::Socket`, `SF::UdpSocket`, `SF::Packet`
@@ -233,8 +230,8 @@ module SF
     # If the socket was previously connected, it is first disconnected.
     #
     # * *remote_address* - Address of the remote peer
-    # * *remote_port* -    Port of the remote peer
-    # * *timeout* -       Optional maximum time to wait
+    # * *remote_port* - Port of the remote peer
+    # * *timeout* - Optional maximum time to wait
     #
     # *Returns:* Status code
     #
@@ -273,16 +270,16 @@ module SF
     #
     # This function will fail if the socket is not connected.
     #
-    # * *data* - Pointer to the sequence of bytes to send
-    # * *size* - Number of bytes to send
-    # * *sent* - The number of bytes sent will be written here
+    # * *data* - Slice containing the bytes to send
     #
-    # *Returns:* Status code
+    # *Returns:*
+    # * Status code
+    # * The number of bytes sent
     #
     # *See also:* `receive`
-    def send(data : Slice) : {Socket::Status, LibC::SizeT}
+    def send(data : Slice) : {Socket::Status, Int32}
       VoidCSFML.tcpsocket_send_5h8vgvi49(to_unsafe, data, data.bytesize, out sent, out result)
-      return Socket::Status.new(result), sent
+      return Socket::Status.new(result), sent.to_i
     end
     # Receive raw data from the remote peer
     #
@@ -290,16 +287,16 @@ module SF
     # bytes are actually received.
     # This function will fail if the socket is not connected.
     #
-    # * *data* -     Pointer to the array to fill with the received bytes
-    # * *size* -     Maximum number of bytes that can be received
-    # * *received* - This variable is filled with the actual number of bytes received
+    # * *data* - The slice to fill with the received bytes
     #
-    # *Returns:* Status code
+    # *Returns:*
+    # * Status code
+    # * The actual number of bytes received
     #
     # *See also:* `send`
-    def receive(data : Slice) : {Socket::Status, LibC::SizeT}
+    def receive(data : Slice) : {Socket::Status, Int32}
       VoidCSFML.tcpsocket_receive_xALvgvi49(to_unsafe, data, data.bytesize, out received, out result)
-      return Socket::Status.new(result), received
+      return Socket::Status.new(result), received.to_i
     end
     # Send a formatted packet of data to the remote peer
     #
@@ -353,9 +350,6 @@ module SF
   end
   # A FTP client
   #
-  # Utility class for exchanging datas with the server
-  #        on the data channel
-  #
   # `SF::Ftp` is a very simple FTP client that allows you
   # to communicate with a FTP server. The FTP protocol allows
   # you to manipulate a remote file system (list files,
@@ -384,42 +378,48 @@ module SF
   # the task.
   #
   # Usage example:
-  # ```c++
-  # // Create a new FTP client
-  # sf::Ftp ftp;
+  # ```
+  # # Create a new FTP client
+  # ftp = SF::Ftp.new
   #
-  # // Connect to the server
-  # sf::Ftp::Response response = ftp.connect("ftp://ftp.myserver.com");
-  # if (response.isOk())
-  #     std::cout << "Connected" << std::endl;
+  # # Connect to the server
+  # response = ftp.connect("ftp://ftp.myserver.com")
+  # if response.ok?
+  #   puts "Connected"
+  # end
   #
-  # // Log in
-  # response = ftp.login("laurent", "dF6Zm89D");
-  # if (response.isOk())
-  #     std::cout << "Logged in" << std::endl;
+  # # Log in
+  # response = ftp.login("laurent", "dF6Zm89D")
+  # if response.ok?
+  #   puts "Logged in"
+  # end
   #
-  # // Print the working directory
-  # sf::Ftp::DirectoryResponse directory = ftp.getWorkingDirectory();
-  # if (directory.isOk())
-  #     std::cout << "Working directory: " << directory.getDirectory() << std::endl;
+  # # Print the working directory
+  # directory = ftp.working_directory()
+  # if directory.ok?
+  #   puts "Working directory: #{directory.directory}"
+  # end
   #
-  # // Create a new directory
-  # response = ftp.createDirectory("files");
-  # if (response.isOk())
-  #     std::cout << "Created new directory" << std::endl;
+  # # Create a new directory
+  # response = ftp.create_directory "files"
+  # if response.ok?
+  #   puts "Created new directory"
+  # end
   #
-  # // Upload a file to this new directory
-  # response = ftp.upload("local-path/file.txt", "files", sf::Ftp::Ascii);
-  # if (response.isOk())
-  #     std::cout << "File uploaded" << std::endl;
+  # # Upload a file to this new directory
+  # response = ftp.upload("local-path/file.txt", "files", SF::Ftp::Ascii)
+  # if response.ok?)
+  #   puts "File uploaded"
+  # end
   #
-  # // Send specific commands (here: FEAT to list supported FTP features)
-  # response = ftp.sendCommand("FEAT");
-  # if (response.isOk())
-  #     std::cout << "Feature list:\n" << response.getMessage() << std::endl;
+  # # Send specific commands (here: FEAT to list supported FTP features)
+  # response = ftp.send_command "FEAT"
+  # if response.ok?
+  #   puts "Feature list:\n#{response.message}"
+  # end
   #
-  # // Disconnect from the server (optional)
-  # ftp.disconnect();
+  # # Disconnect from the server
+  # ftp.disconnect()
   # ```
   class Ftp
     @_ftp : VoidCSFML::Ftp_Buffer
@@ -535,7 +535,7 @@ module SF
       # This constructor is used by the FTP client to build
       # the response.
       #
-      # * *code* -    Response status code
+      # * *code* - Response status code
       # * *message* - Response message
       def initialize(code : Ftp::Response::Status = InvalidResponse, message : String = "")
         @_ftp_response = uninitialized VoidCSFML::Ftp_Response_Buffer
@@ -641,8 +641,8 @@ module SF
       @_ftp_listingresponse : VoidCSFML::Ftp_ListingResponse_Buffer
       # Default constructor
       #
-      # * *response* -  Source response
-      # * *data* -      Data containing the raw listing
+      # * *response* - Source response
+      # * *data* - Data containing the raw listing
       def initialize(response : Ftp::Response, data : String)
         @_ftp_response = uninitialized VoidCSFML::Ftp_Response_Buffer
         @_ftp_listingresponse = uninitialized VoidCSFML::Ftp_ListingResponse_Buffer
@@ -707,8 +707,8 @@ module SF
     # you can use a timeout. The default value, Time::Zero, means that the
     # system timeout will be used (which is usually pretty long).
     #
-    # * *server* -  Name or address of the FTP server to connect to
-    # * *port* -    Port used for the connection
+    # * *server* - Name or address of the FTP server to connect to
+    # * *port* - Port used for the connection
     # * *timeout* - Maximum time to wait
     #
     # *Returns:* Server response to the request
@@ -745,7 +745,7 @@ module SF
     # Logging in is mandatory after connecting to the server.
     # Users that are not logged in cannot perform any operation.
     #
-    # * *name* -     User name
+    # * *name* - User name
     # * *password* - Password
     #
     # *Returns:* Server response to the request
@@ -859,7 +859,7 @@ module SF
     # The filenames must be relative to the current working
     # directory.
     #
-    # * *file* -    File to rename
+    # * *file* - File to rename
     # * *new_name* - New name of the file
     #
     # *Returns:* Server response to the request
@@ -898,8 +898,8 @@ module SF
     # be overwritten.
     #
     # * *remote_file* - Filename of the distant file to download
-    # * *local_path* -  The directory in which to put the file on the local computer
-    # * *mode* -       Transfer mode
+    # * *local_path* - The directory in which to put the file on the local computer
+    # * *mode* - Transfer mode
     #
     # *Returns:* Server response to the request
     #
@@ -916,9 +916,9 @@ module SF
     # remote path is relative to the current directory of the
     # FTP server.
     #
-    # * *local_file* -  Path of the local file to upload
+    # * *local_file* - Path of the local file to upload
     # * *remote_path* - The directory in which to put the file on the server
-    # * *mode* -       Transfer mode
+    # * *mode* - Transfer mode
     #
     # *Returns:* Server response to the request
     #
@@ -935,9 +935,9 @@ module SF
     # to send any FTP command to the server. If the command
     # requires one or more parameters, they can be specified
     # in *parameter.* If the server returns information, you
-    # can extract it from the response using Response::message().
+    # can extract it from the response using Response.message().
     #
-    # * *command* -   Command to send
+    # * *command* - Command to send
     # * *parameter* - Command parameter
     #
     # *Returns:* Server response to the request
@@ -964,30 +964,30 @@ module SF
   # address from/to various representations.
   #
   # Usage example:
-  # ```c++
-  # sf::IpAddress a0;                                     // an invalid address
-  # sf::IpAddress a1 = sf::IpAddress::None;               // an invalid address (same as a0)
-  # sf::IpAddress a2("127.0.0.1");                        // the local host address
-  # sf::IpAddress a3 = sf::IpAddress::Broadcast;          // the broadcast address
-  # sf::IpAddress a4(192, 168, 1, 56);                    // a local address
-  # sf::IpAddress a5("my_computer");                      // a local address created from a network name
-  # sf::IpAddress a6("89.54.1.169");                      // a distant address
-  # sf::IpAddress a7("www.google.com");                   // a distant address created from a network name
-  # sf::IpAddress a8 = sf::IpAddress::getLocalAddress();  // my address on the local network
-  # sf::IpAddress a9 = sf::IpAddress::getPublicAddress(); // my address on the internet
+  # ```
+  # a0 = SF::IpAddress.new                    # an invalid address
+  # a1 = SF::IpAddress::None                  # an invalid address (same as a0)
+  # a2 = SF::IpAddress.new("127.0.0.1")       # the local host address
+  # a3 = SF::IpAddress::Broadcast             # the broadcast address
+  # a4 = SF::IpAddress.new(192, 168, 1, 56)   # a local address
+  # a5 = SF::IpAddress.new("my_computer")     # a local address created from a network name
+  # a6 = SF::IpAddress.new("89.54.1.169")     # a distant address
+  # a7 = SF::IpAddress.new("www.google.com")  # a distant address created from a network name
+  # a8 = SF::IpAddress.local_address          # my address on the local network
+  # a9 = SF::IpAddress.get_public_address()   # my address on the internet
   # ```
   #
   # Note that `SF::IpAddress` currently doesn't support IPv6
   # nor other types of network addresses.
   struct IpAddress
-    @m_address : UInt32
-    @m_valid : Bool
+    @address : UInt32
+    @valid : Bool
     # Default constructor
     #
     # This constructor creates an empty (invalid) address
     def initialize()
-      @m_address = uninitialized UInt32
-      @m_valid = uninitialized Bool
+      @address = uninitialized UInt32
+      @valid = uninitialized Bool
       VoidCSFML.ipaddress_initialize(to_unsafe)
     end
     # Construct the address from a string
@@ -997,8 +997,8 @@ module SF
     #
     # * *address* - IP address or network name
     def initialize(address : String)
-      @m_address = uninitialized UInt32
-      @m_valid = uninitialized Bool
+      @address = uninitialized UInt32
+      @valid = uninitialized Bool
       VoidCSFML.ipaddress_initialize_zkC(to_unsafe, address.bytesize, address)
     end
     # Construct the address from a string
@@ -1011,8 +1011,8 @@ module SF
     #
     # * *address* - IP address or network name
     def initialize(address : String)
-      @m_address = uninitialized UInt32
-      @m_valid = uninitialized Bool
+      @address = uninitialized UInt32
+      @valid = uninitialized Bool
       VoidCSFML.ipaddress_initialize_Yy6(to_unsafe, address)
     end
     # Construct the address from 4 bytes
@@ -1026,8 +1026,8 @@ module SF
     # * *byte2* - Third byte of the address
     # * *byte3* - Fourth byte of the address
     def initialize(byte0 : Int, byte1 : Int, byte2 : Int, byte3 : Int)
-      @m_address = uninitialized UInt32
-      @m_valid = uninitialized Bool
+      @address = uninitialized UInt32
+      @valid = uninitialized Bool
       VoidCSFML.ipaddress_initialize_9yU9yU9yU9yU(to_unsafe, UInt8.new(byte0), UInt8.new(byte1), UInt8.new(byte2), UInt8.new(byte3))
     end
     # Construct the address from a 32-bits integer
@@ -1035,14 +1035,14 @@ module SF
     # This constructor uses the internal representation of
     # the address directly. It should be used for optimization
     # purposes, and only if you got that representation from
-    # IpAddress::to_integer().
+    # IpAddress.to_integer().
     #
     # * *address* - 4 bytes of the address packed into a 32-bits integer
     #
     # *See also:* `to_integer`
     def initialize(address : Int)
-      @m_address = uninitialized UInt32
-      @m_valid = uninitialized Bool
+      @address = uninitialized UInt32
+      @valid = uninitialized Bool
       VoidCSFML.ipaddress_initialize_saL(to_unsafe, UInt32.new(address))
     end
     # Get a string representation of the address
@@ -1113,11 +1113,11 @@ module SF
       VoidCSFML.ipaddress_getpublicaddress_f4T(timeout, result)
       return result
     end
-    @m_address : UInt32
-    @m_valid : Bool
+    @address : UInt32
+    @valid : Bool
     # Overload of == operator to compare two IP addresses
     #
-    # * *left* -  Left operand (a IP address)
+    # * *left* - Left operand (a IP address)
     # * *right* - Right operand (a IP address)
     #
     # *Returns:* True if both addresses are equal
@@ -1127,7 +1127,7 @@ module SF
     end
     # Overload of != operator to compare two IP addresses
     #
-    # * *left* -  Left operand (a IP address)
+    # * *left* - Left operand (a IP address)
     # * *right* - Right operand (a IP address)
     #
     # *Returns:* True if both addresses are different
@@ -1137,7 +1137,7 @@ module SF
     end
     # Overload of &lt; operator to compare two IP addresses
     #
-    # * *left* -  Left operand (a IP address)
+    # * *left* - Left operand (a IP address)
     # * *right* - Right operand (a IP address)
     #
     # *Returns:* True if *left* is lesser than *right*
@@ -1147,7 +1147,7 @@ module SF
     end
     # Overload of &gt; operator to compare two IP addresses
     #
-    # * *left* -  Left operand (a IP address)
+    # * *left* - Left operand (a IP address)
     # * *right* - Right operand (a IP address)
     #
     # *Returns:* True if *left* is greater than *right*
@@ -1157,7 +1157,7 @@ module SF
     end
     # Overload of &lt;= operator to compare two IP addresses
     #
-    # * *left* -  Left operand (a IP address)
+    # * *left* - Left operand (a IP address)
     # * *right* - Right operand (a IP address)
     #
     # *Returns:* True if *left* is lesser or equal than *right*
@@ -1167,7 +1167,7 @@ module SF
     end
     # Overload of &gt;= operator to compare two IP addresses
     #
-    # * *left* -  Left operand (a IP address)
+    # * *left* - Left operand (a IP address)
     # * *right* - Right operand (a IP address)
     #
     # *Returns:* True if *left* is greater or equal than *right*
@@ -1177,12 +1177,12 @@ module SF
     end
     # :nodoc:
     def to_unsafe()
-      pointerof(@m_address).as(Void*)
+      pointerof(@address).as(Void*)
     end
     # :nodoc:
     def initialize(copy : IpAddress)
-      @m_address = uninitialized UInt32
-      @m_valid = uninitialized Bool
+      @address = uninitialized UInt32
+      @valid = uninitialized Bool
       as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
       VoidCSFML.ipaddress_initialize_BfE(to_unsafe, copy)
     end
@@ -1221,29 +1221,23 @@ module SF
   # from the server.
   #
   # Usage example:
-  # ```c++
-  # // Create a new HTTP client
-  # sf::Http http;
+  # ```
+  # # Create a new HTTP client
+  # http = SF::Http.new("http://www.sfml-dev.org")
   #
-  # // We'll work on http://www.sfml-dev.org
-  # http.setHost("http://www.sfml-dev.org");
+  # # Prepare a request to get the 'features.php' page
+  # request = SF::Http::Request.new("features.php")
   #
-  # // Prepare a request to get the 'features.php' page
-  # sf::Http::Request request("features.php");
+  # # Send the request
+  # response = http.send_request request
   #
-  # // Send the request
-  # sf::Http::Response response = http.sendRequest(request);
-  #
-  # // Check the status code and display the result
-  # sf::Http::Response::Status status = response.getStatus();
-  # if (status == sf::Http::Response::Ok)
-  # {
-  #     std::cout << response.getBody() << std::endl;
-  # }
+  # # Check the status code and display the result
+  # SF::Http::Response::Status status = response.getStatus()
+  # if response.status == SF::Http::Response::Ok
+  #     puts response.body
   # else
-  # {
-  #     std::cout << "Error " << status << std::endl;
-  # }
+  #     puts "Error #{response.status}"
+  # end
   # ```
   class Http
     @_http : VoidCSFML::Http_Buffer
@@ -1269,9 +1263,9 @@ module SF
       # This constructor creates a GET request, with the root
       # URI ("/") and an empty body.
       #
-      # * *uri* -    Target URI
+      # * *uri* - Target URI
       # * *method* - Method to use for the request
-      # * *body* -   Content of the request's body
+      # * *body* - Content of the request's body
       def initialize(uri : String = "/", method : Http::Request::Method = Get, body : String = "")
         @_http_request = uninitialized VoidCSFML::Http_Request_Buffer
         VoidCSFML.http_request_initialize_zkC1ctzkC(to_unsafe, uri.bytesize, uri, method, body.bytesize, body)
@@ -1557,106 +1551,70 @@ module SF
   # * data is interpreted correctly according to the endianness
   # * the bounds of the packet are preserved (one send == one receive)
   #
-  # The `SF::Packet` class provides both input and output modes.
-  # It is designed to follow the behavior of standard C++ streams,
-  # using operators &gt;&gt; and &lt;&lt; to extract and insert data.
+  # The `SF::Packet` class provides both input and output, using `read`
+  # and `write` methods.
   #
-  # It is recommended to use only fixed-size types (like `SF::Int32`, etc.),
+  # It is recommended to use only fixed-size types (like `Int32`, etc.),
   # to avoid possible differences between the sender and the receiver.
-  # Indeed, the native C++ types may have different sizes on two platforms
-  # and your data may be corrupted if that happens.
   #
   # Usage example:
-  # ```c++
-  # sf::Uint32 x = 24;
-  # std::string s = "hello";
-  # double d = 5.89;
+  # ```
+  # x = 24u32
+  # s = "hello"
+  # d = 5.89
   #
-  # // Group the variables to send into a packet
-  # sf::Packet packet;
-  # packet << x << s << d;
+  # # Group the variables to send into a packet
+  # packet = SF::Packet.new
+  # packet.write x
+  # packet.write s
+  # packet.write d
   #
-  # // Send it over the network (socket is a valid sf::TcpSocket)
-  # socket.send(packet);
+  # # Send it over the network (socket is a valid SF::TcpSocket)
+  # socket.send packet
   #
   # -----------------------------------------------------------------
   #
-  # // Receive the packet at the other end
-  # sf::Packet packet;
-  # socket.receive(packet);
+  # # Receive the packet at the other end
+  # packet = SF::Packet.new
+  # socket.receive(packet)
   #
-  # // Extract the variables contained in the packet
-  # sf::Uint32 x;
-  # std::string s;
-  # double d;
-  # if (packet >> x >> s >> d)
-  # {
-  #     // Data extracted successfully...
-  # }
+  # # Extract the variables contained in the packet
+  # x = packet.read UInt32
+  # s = packet.read String
+  # d = packet.read Float64
+  # if packet.valid?
+  #   # Data extracted successfully...
+  # end
   # ```
   #
-  # Packets have built-in operator &gt;&gt; and &lt;&lt; overloads for
-  # standard types:
-  # * bool
-  # * fixed-size integer types (`SF::Int8/16/32`, `SF::Uint8/16/32`)
-  # * floating point numbers (float, double)
-  # * string types (char*, wchar_t*, std::string, std::wstring, `SF::String`)
+  # Packets have overloads of `read` and `write` methods for standard types:
   #
-  # Like standard streams, it is also possible to define your own
-  # overloads of operators &gt;&gt; and &lt;&lt; in order to handle your
-  # custom types.
+  # * Bool
+  # * Fixed-size integer types (`Int8/16/32/64`, `UInt8/16/32/64`)
+  # * Floating point numbers (`Float32/64`)
+  # * `String`
   #
-  # ```c++
+  # Like standard streams, it is also possible to define your own overloads
+  # of these methods in order to handle your custom types.
+  #
+  # ```
   # struct MyStruct
-  # {
-  #     float       number;
-  #     sf::Int8    integer;
-  #     std::string str;
-  # };
+  #   number : Float32
+  #   integer : Int8
+  #   str : String
+  # end
   #
-  # sf::Packet& operator <<(sf::Packet& packet, const MyStruct& m)
-  # {
-  #     return packet << m.number << m.integer << m.str;
-  # }
+  # class SF::Packet
+  #   def write(m : MyStruct)
+  #     write m.number
+  #     write m.integer
+  #     write m.str
+  #   end
   #
-  # sf::Packet& operator >>(sf::Packet& packet, MyStruct& m)
-  # {
-  #     return packet >> m.number >> m.integer >> m.str;
-  # }
-  # ```
-  #
-  # Packets also provide an extra feature that allows to apply
-  # custom transformations to the data before it is sent,
-  # and after it is received. This is typically used to
-  # handle automatic compression or encryption of the data.
-  # This is achieved by inheriting from `SF::Packet`, and overriding
-  # the on_send and on_receive functions.
-  #
-  # Here is an example:
-  # ```c++
-  # class ZipPacket : public sf::Packet
-  # {
-  #     virtual const void* onSend(std::size_t& size)
-  #     {
-  #         const void* srcData = getData();
-  #         std::size_t srcSize = getDataSize();
-  #
-  #         return MySuperZipFunction(srcData, srcSize, &size);
-  #     }
-  #
-  #     virtual void onReceive(const void* data, std::size_t size)
-  #     {
-  #         std::size_t dstSize;
-  #         const void* dstData = MySuperUnzipFunction(data, size, &dstSize);
-  #
-  #         append(dstData, dstSize);
-  #     }
-  # };
-  #
-  # // Use like regular packets:
-  # ZipPacket packet;
-  # packet << x << s << d;
-  # ...
+  #   def read(type : MyStruct.class) : MyStruct
+  #     MyStruct.new(packet.read(Float32), packet.read(Int8), packet.read(String))
+  #   end
+  # end
   # ```
   #
   # *See also:* `SF::TcpSocket`, `SF::UdpSocket`
@@ -1675,7 +1633,7 @@ module SF
     end
     # Append data to the end of the packet
     #
-    # * *data* -        Pointer to the sequence of bytes to append
+    # * *data* - Pointer to the sequence of bytes to append
     # * *size_in_bytes* - Number of bytes to append
     #
     # *See also:* `clear`
@@ -1712,9 +1670,9 @@ module SF
     # *Returns:* Data size, in bytes
     #
     # *See also:* `data`
-    def data_size() : LibC::SizeT
+    def data_size() : Int32
       VoidCSFML.packet_getdatasize(to_unsafe, out result)
-      return result
+      return result.to_i
     end
     # Tell if the reading position has reached the
     #        end of the packet
@@ -1740,26 +1698,12 @@ module SF
     # This behavior is the same as standard C++ streams.
     #
     # Usage example:
-    # ```c++
-    # float x;
-    # packet >> x;
-    # if (packet)
-    # {
-    #    // ok, x was extracted successfully
-    # }
-    #
-    # // -- or --
-    #
-    # float x;
-    # if (packet >> x)
-    # {
-    #    // ok, x was extracted successfully
-    # }
     # ```
-    #
-    # Don't focus on the return type, it's equivalent to bool but
-    # it disallows unwanted implicit conversions to integer or
-    # pointer types.
+    # x = packet.read(Float32)
+    # if packet.valid?
+    #    # ok, x was extracted successfully
+    # end
+    # ```
     #
     # *Returns:* True if last data extraction from packet was successful
     #
@@ -1768,13 +1712,14 @@ module SF
       VoidCSFML.packet_operator_bool(to_unsafe, out result)
       return result
     end
-    # Overloads of operator &gt;&gt; to read data from the packet
+    # Read data from the packet. The expected type corresponds to
+    # what was actually sent.
     def read(type : Bool.class) : Bool
       VoidCSFML.packet_operator_shr_gRY(to_unsafe, out data)
       return data
     end
     def read(type : Int8.class) : Int8
-      VoidCSFML.packet_operator_shr_y9(to_unsafe, out data)
+      VoidCSFML.packet_operator_shr_0y9(to_unsafe, out data)
       return data
     end
     def read(type : UInt8.class) : UInt8
@@ -1817,7 +1762,7 @@ module SF
       VoidCSFML.packet_operator_shr_GHF(to_unsafe, out data)
       return String.new(data)
     end
-    # Overloads of operator &lt;&lt; to write data into the packet
+    # Write data into the packet
     def write(data : Bool)
       VoidCSFML.packet_operator_shl_GZq(to_unsafe, data)
       self
@@ -1912,65 +1857,50 @@ module SF
   # * test each socket to find out which ones are ready
   #
   # Usage example:
-  # ```c++
-  # // Create a socket to listen to new connections
-  # sf::TcpListener listener;
-  # listener.listen(55001);
+  # ```
+  # # Create a socket to listen to new connections
+  # listener = SF::TcpListener.new
+  # listener.listen(55001)
   #
-  # // Create a list to store the future clients
-  # std::list<sf::TcpSocket*> clients;
+  # # Create an array to store the future clients
+  # clients = [] of SF::TcpSocket
   #
-  # // Create a selector
-  # sf::SocketSelector selector;
+  # # Create a selector
+  # selector = SF::SocketSelector.new
   #
-  # // Add the listener to the selector
-  # selector.add(listener);
+  # # Add the listener to the selector
+  # selector.add listener
   #
-  # // Endless loop that waits for new connections
-  # while (running)
-  # {
-  #     // Make the selector wait for data on any socket
-  #     if (selector.wait())
-  #     {
-  #         // Test the listener
-  #         if (selector.isReady(listener))
-  #         {
-  #             // The listener is ready: there is a pending connection
-  #             sf::TcpSocket* client = new sf::TcpSocket;
-  #             if (listener.accept(*client) == sf::Socket::Done)
-  #             {
-  #                 // Add the new client to the clients list
-  #                 clients.push_back(client);
+  # # Endless loop that waits for new connections
+  # while running
+  #   # Make the selector wait for data on any socket
+  #   if selector.wait()
+  #     # Test the listener
+  #     if selector.ready?(listener)
+  #       # The listener is ready: there is a pending connection
+  #       client = SF::TcpSocket.new
+  #       if listener.accept(client) == SF::Socket::Done
+  #         # Add the new client to the clients list
+  #         clients << client
   #
-  #                 // Add the new client to the selector so that we will
-  #                 // be notified when he sends something
-  #                 selector.add(*client);
-  #             }
-  #             else
-  #             {
-  #                 // Error, we won't get a new connection, delete the socket
-  #                 delete client;
-  #             }
-  #         }
-  #         else
-  #         {
-  #             // The listener socket is not ready, test all other sockets (the clients)
-  #             for (std::list<sf::TcpSocket*>::iterator it = clients.begin(); it != clients.end(); ++it)
-  #             {
-  #                 sf::TcpSocket& client = **it;
-  #                 if (selector.isReady(client))
-  #                 {
-  #                     // The client has sent some data, we can receive it
-  #                     sf::Packet packet;
-  #                     if (client.receive(packet) == sf::Socket::Done)
-  #                     {
-  #                         ...
-  #                     }
-  #                 }
-  #             }
-  #         }
-  #     }
-  # }
+  #         # Add the new client to the selector so that we will
+  #         # be notified when he sends something
+  #         selector.add client
+  #       end
+  #     else
+  #       # The listener socket is not ready, test all other sockets (the clients)
+  #       clients.each do |client|
+  #         if selector.ready?(client)
+  #           # The client has sent some data, we can receive it
+  #           packet = SF::Packet.new
+  #           if client.receive(packet) == SF::Socket::Done
+  #               ...
+  #           end
+  #         end
+  #       end
+  #     end
+  #   end
+  # end
   # ```
   #
   # *See also:* `SF::Socket`
@@ -2094,23 +2024,21 @@ module SF
   # function.
   #
   # Usage example:
-  # ```c++
-  # // Create a listener socket and make it wait for new
-  # // connections on port 55001
-  # sf::TcpListener listener;
-  # listener.listen(55001);
+  # ```
+  # # Create a listener socket and make it wait for new
+  # # connections on port 55001
+  # listener = SF::TcpListener.new
+  # listener.listen(55001)
   #
-  # // Endless loop that waits for new connections
-  # while (running)
-  # {
-  #     sf::TcpSocket client;
-  #     if (listener.accept(client) == sf::Socket::Done)
-  #     {
-  #         // A new client just connected!
-  #         std::cout << "New connection received from " << client.getRemoteAddress() << std::endl;
-  #         doSomethingWith(client);
-  #     }
-  # }
+  # # Endless loop that waits for new connections
+  # while running
+  #   client = SF::TcpSocket.new
+  #   if listener.accept(client) == SF::Socket::Done
+  #     # A new client just connected!
+  #     puts "New connection received from #{client.remote_address}"
+  #     do_something_with client
+  #   end
+  # end
   # ```
   #
   # *See also:* `SF::TcpSocket`, `SF::Socket`
@@ -2141,7 +2069,7 @@ module SF
     # If the socket was previously listening to another port,
     # it will be stopped first and bound to the new port.
     #
-    # * *port* -    Port to listen for new connections
+    # * *port* - Port to listen for new connections
     # * *address* - Address of the interface to listen on
     #
     # *Returns:* Status code
@@ -2236,42 +2164,36 @@ module SF
   # make the port available for other sockets.
   #
   # Usage example:
-  # ```c++
-  # // ----- The client -----
+  # ```
+  # # ----- The client -----
   #
-  # // Create a socket and bind it to the port 55001
-  # sf::UdpSocket socket;
-  # socket.bind(55001);
+  # # Create a socket and bind it to the port 55001
+  # socket = SF::UdpSocket.new
+  # socket.bind(55001)
   #
-  # // Send a message to 192.168.1.50 on port 55002
-  # std::string message = "Hi, I am " + sf::IpAddress::getLocalAddress().toString();
-  # socket.send(message.c_str(), message.size() + 1, "192.168.1.50", 55002);
+  # # Send a message to 192.168.1.50 on port 55002
+  # message = "Hi, I am #{SF::IpAddress.local_address}"
+  # socket.send(message.to_slice, "192.168.1.50", 55002)
   #
-  # // Receive an answer (most likely from 192.168.1.50, but could be anyone else)
-  # char buffer[1024];
-  # std::size_t received = 0;
-  # sf::IpAddress sender;
-  # unsigned short port;
-  # socket.receive(buffer, sizeof(buffer), received, sender, port);
-  # std::cout << sender.ToString() << " said: " << buffer << std::endl;
+  # # Receive an answer (most likely from 192.168.1.50, but could be anyone else)
+  # buffer = Slice(UInt8).new(1024)
+  # status, received, sender, port = socket.receive(buffer)
+  # puts "#{sender} said: #{buffer}"
   #
-  # // ----- The server -----
+  # # ----- The server -----
   #
-  # // Create a socket and bind it to the port 55002
-  # sf::UdpSocket socket;
-  # socket.bind(55002);
+  # # Create a socket and bind it to the port 55002
+  # socket = SF::UdpSocket.new
+  # socket.bind(55002)
   #
-  # // Receive a message from anyone
-  # char buffer[1024];
-  # std::size_t received = 0;
-  # sf::IpAddress sender;
-  # unsigned short port;
-  # socket.receive(buffer, sizeof(buffer), received, sender, port);
-  # std::cout << sender.ToString() << " said: " << buffer << std::endl;
+  # # Receive a message from anyone
+  # buffer = Slice(UInt8).new(1024)
+  # status, received, sender, port = socket.receive(buffer)
+  # puts "#{sender} said: #{buffer}"
   #
-  # // Send an answer
-  # std::string message = "Welcome " + sender.toString();
-  # socket.send(message.c_str(), message.size() + 1, sender, port);
+  # # Send an answer
+  # message = "Welcome #{sender}"
+  # socket.send(message.to_slice, sender, port)
   # ```
   #
   # *See also:* `SF::Socket`, `SF::TcpSocket`, `SF::Packet`
@@ -2305,7 +2227,7 @@ module SF
     # system to automatically pick an available port, and then
     # call local_port to retrieve the chosen port.
     #
-    # * *port* -    Port to bind the socket to
+    # * *port* - Port to bind the socket to
     # * *address* - Address of the interface to bind to
     #
     # *Returns:* Status code
@@ -2327,14 +2249,13 @@ module SF
     end
     # Send raw data to a remote peer
     #
-    # Make sure that *size* is not greater than
-    # UdpSocket::MaxDatagramSize, otherwise this function will
+    # Make sure that *data* size is not greater than
+    # `UdpSocket::MaxDatagramSize`, otherwise this function will
     # fail and no data will be sent.
     #
-    # * *data* -          Pointer to the sequence of bytes to send
-    # * *size* -          Number of bytes to send
+    # * *data* - Slice containing the sequence of bytes to send
     # * *remote_address* - Address of the receiver
-    # * *remote_port* -    Port of the receiver to send the data to
+    # * *remote_port* - Port of the receiver to send the data to
     #
     # *Returns:* Status code
     #
@@ -2352,19 +2273,19 @@ module SF
     # then an error will be returned and *all* the data will
     # be lost.
     #
-    # * *data* -          Pointer to the array to fill with the received bytes
-    # * *size* -          Maximum number of bytes that can be received
-    # * *received* -      This variable is filled with the actual number of bytes received
-    # * *remote_address* - Address of the peer that sent the data
-    # * *remote_port* -    Port of the peer that sent the data
+    # * *data* - The slice to fill with the received bytes
     #
-    # *Returns:* Status code
+    # *Returns:*
+    # * Status code
+    # * The actual number of bytes received
+    # * Address of the peer that sent the data
+    # * Port of the peer that sent the data
     #
     # *See also:* `send`
-    def receive(data : Slice) : {Socket::Status, LibC::SizeT, IpAddress, UInt16}
+    def receive(data : Slice) : {Socket::Status, Int32, IpAddress, UInt16}
       remote_address = IpAddress.new
       VoidCSFML.udpsocket_receive_xALvgvi499ylYII(to_unsafe, data, data.bytesize, out received, remote_address, out remote_port, out result)
-      return Socket::Status.new(result), received, remote_address, remote_port
+      return Socket::Status.new(result), received.to_i, remote_address, remote_port
     end
     # Send a formatted packet of data to a remote peer
     #
@@ -2372,9 +2293,9 @@ module SF
     # UdpSocket::MaxDatagramSize, otherwise this function will
     # fail and no data will be sent.
     #
-    # * *packet* -        Packet to send
+    # * *packet* - Packet to send
     # * *remote_address* - Address of the receiver
-    # * *remote_port* -    Port of the receiver to send the data to
+    # * *remote_port* - Port of the receiver to send the data to
     #
     # *Returns:* Status code
     #
@@ -2388,11 +2309,12 @@ module SF
     # In blocking mode, this function will wait until the whole packet
     # has been received.
     #
-    # * *packet* -        Packet to fill with the received data
-    # * *remote_address* - Address of the peer that sent the data
-    # * *remote_port* -    Port of the peer that sent the data
+    # * *packet* - Packet to fill with the received data
     #
-    # *Returns:* Status code
+    # *Returns:*
+    # * Status code
+    # * Address of the peer that sent the data
+    # * Port of the peer that sent the data
     #
     # *See also:* `send`
     def receive(packet : Packet) : {Socket::Status, IpAddress, UInt16}

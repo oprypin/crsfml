@@ -22,34 +22,33 @@ module SF
   # value, times can also be negative.
   #
   # Usage example:
-  # ```c++
-  # sf::Time t1 = sf::seconds(0.1f);
-  # Int32 milli = t1.asMilliseconds(); // 100
+  # ```
+  # t1 = SF.seconds(0.1)
+  # milli = t1.as_milliseconds # 100
   #
-  # sf::Time t2 = sf::milliseconds(30);
-  # Int64 micro = t2.asMicroseconds(); // 30000
+  # t2 = SF.milliseconds(30)
+  # micro = t2.as_microseconds # 30000
   #
-  # sf::Time t3 = sf::microseconds(-800000);
-  # float sec = t3.asSeconds(); // -0.8
+  # t3 = SF.microseconds(-800000)
+  # sec = t3.as_seconds # -0.8
   # ```
   #
-  # ```c++
-  # void update(sf::Time elapsed)
-  # {
-  #    position += speed * elapsed.asSeconds();
-  # }
+  # ```
+  # def update(elapsed : SF::Time)
+  #   @position += @speed * elapsed.as_seconds
+  # end
   #
-  # update(sf::milliseconds(100));
+  # update(SF.milliseconds(100))
   # ```
   #
   # *See also:* `SF::Clock`
   struct Time
-    @m_microseconds : Int64
+    @microseconds : Int64
     # Default constructor
     #
     # Sets the time value to zero.
     def initialize()
-      @m_microseconds = uninitialized Int64
+      @microseconds = uninitialized Int64
       VoidCSFML.time_initialize(to_unsafe)
     end
     # Return the time value as a number of seconds
@@ -79,10 +78,10 @@ module SF
       VoidCSFML.time_asmicroseconds(to_unsafe, out result)
       return result
     end
-    @m_microseconds : Int64
+    @microseconds : Int64
     # Overload of == operator to compare two time values
     #
-    # * *left* -  Left operand (a time)
+    # * *left* - Left operand (a time)
     # * *right* - Right operand (a time)
     #
     # *Returns:* True if both time values are equal
@@ -92,7 +91,7 @@ module SF
     end
     # Overload of != operator to compare two time values
     #
-    # * *left* -  Left operand (a time)
+    # * *left* - Left operand (a time)
     # * *right* - Right operand (a time)
     #
     # *Returns:* True if both time values are different
@@ -102,7 +101,7 @@ module SF
     end
     # Overload of &lt; operator to compare two time values
     #
-    # * *left* -  Left operand (a time)
+    # * *left* - Left operand (a time)
     # * *right* - Right operand (a time)
     #
     # *Returns:* True if *left* is lesser than *right*
@@ -112,7 +111,7 @@ module SF
     end
     # Overload of &gt; operator to compare two time values
     #
-    # * *left* -  Left operand (a time)
+    # * *left* - Left operand (a time)
     # * *right* - Right operand (a time)
     #
     # *Returns:* True if *left* is greater than *right*
@@ -122,7 +121,7 @@ module SF
     end
     # Overload of &lt;= operator to compare two time values
     #
-    # * *left* -  Left operand (a time)
+    # * *left* - Left operand (a time)
     # * *right* - Right operand (a time)
     #
     # *Returns:* True if *left* is lesser or equal than *right*
@@ -132,7 +131,7 @@ module SF
     end
     # Overload of &gt;= operator to compare two time values
     #
-    # * *left* -  Left operand (a time)
+    # * *left* - Left operand (a time)
     # * *right* - Right operand (a time)
     #
     # *Returns:* True if *left* is greater or equal than *right*
@@ -152,7 +151,7 @@ module SF
     end
     # Overload of binary + operator to add two time values
     #
-    # * *left* -  Left operand (a time)
+    # * *left* - Left operand (a time)
     # * *right* - Right operand (a time)
     #
     # *Returns:* Sum of the two times values
@@ -163,7 +162,7 @@ module SF
     end
     # Overload of binary - operator to subtract two time values
     #
-    # * *left* -  Left operand (a time)
+    # * *left* - Left operand (a time)
     # * *right* - Right operand (a time)
     #
     # *Returns:* Difference of the two times values
@@ -174,7 +173,7 @@ module SF
     end
     # Overload of binary * operator to scale a time value
     #
-    # * *left* -  Left operand (a time)
+    # * *left* - Left operand (a time)
     # * *right* - Right operand (a number)
     #
     # *Returns:* *left* multiplied by *right*
@@ -185,7 +184,7 @@ module SF
     end
     # Overload of binary * operator to scale a time value
     #
-    # * *left* -  Left operand (a time)
+    # * *left* - Left operand (a time)
     # * *right* - Right operand (a number)
     #
     # *Returns:* *left* multiplied by *right*
@@ -196,7 +195,7 @@ module SF
     end
     # Overload of binary / operator to scale a time value
     #
-    # * *left* -  Left operand (a time)
+    # * *left* - Left operand (a time)
     # * *right* - Right operand (a number)
     #
     # *Returns:* *left* divided by *right*
@@ -207,7 +206,7 @@ module SF
     end
     # Overload of binary / operator to scale a time value
     #
-    # * *left* -  Left operand (a time)
+    # * *left* - Left operand (a time)
     # * *right* - Right operand (a number)
     #
     # *Returns:* *left* divided by *right*
@@ -218,7 +217,7 @@ module SF
     end
     # Overload of binary / operator to compute the ratio of two time values
     #
-    # * *left* -  Left operand (a time)
+    # * *left* - Left operand (a time)
     # * *right* - Right operand (a time)
     #
     # *Returns:* *left* divided by *right*
@@ -228,7 +227,7 @@ module SF
     end
     # Overload of binary % operator to compute remainder of a time value
     #
-    # * *left* -  Left operand (a time)
+    # * *left* - Left operand (a time)
     # * *right* - Right operand (a time)
     #
     # *Returns:* *left* modulo *right*
@@ -239,11 +238,11 @@ module SF
     end
     # :nodoc:
     def to_unsafe()
-      pointerof(@m_microseconds).as(Void*)
+      pointerof(@microseconds).as(Void*)
     end
     # :nodoc:
     def initialize(copy : Time)
-      @m_microseconds = uninitialized Int64
+      @microseconds = uninitialized Int64
       as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
       VoidCSFML.time_initialize_PxG(to_unsafe, copy)
     end
@@ -298,12 +297,12 @@ module SF
   # changed.
   #
   # Usage example:
-  # ```c++
-  # sf::Clock clock;
+  # ```
+  # clock = SF::Clock.new
   # ...
-  # Time time1 = clock.getElapsedTime();
+  # time1 = clock.elapsed_time
   # ...
-  # Time time2 = clock.restart();
+  # time2 = clock.restart()
   # ```
   #
   # The `SF::Time` value returned by the clock can then be
@@ -391,42 +390,35 @@ module SF
   # their load_from_stream function.
   #
   # Usage example:
-  # ```c++
-  # // custom stream class that reads from inside a zip file
-  # class ZipStream : public sf::InputStream
-  # {
-  # public:
+  # ```
+  # # custom stream class that reads from inside a zip file
+  # class ZipStream < SF::InputStream
+  #     def initialize(archive : String)
   #
-  #     ZipStream(std::string archive);
+  #     def open(filename : String)
   #
-  #     bool open(std::string filename);
+  #     def read(data : Slice) : Int64
   #
-  #     Int64 read(void* data, Int64 size);
+  #     def seek(position : Int) : Int64
   #
-  #     Int64 seek(Int64 position);
+  #     def tell() : Int64
   #
-  #     Int64 tell();
-  #
-  #     Int64 getSize();
-  #
-  # private:
+  #     def size() : Int64
   #
   #     ...
-  # };
+  # end
   #
-  # // now you can load textures...
-  # sf::Texture texture;
-  # ZipStream stream("resources.zip");
-  # stream.open("images/img.png");
-  # texture.loadFromStream(stream);
+  # # now you can load textures...
+  # stream = ZipStream.new("resources.zip")
+  # stream.open("images/img.png")
+  # texture = SF::Texture.from_stream(stream)
   #
-  # // musics...
-  # sf::Music music;
-  # ZipStream stream("resources.zip");
-  # stream.open("musics/msc.ogg");
-  # music.openFromStream(stream);
+  # # musics...
+  # stream = ZipStream.new("resources.zip")
+  # stream.open("musics/msc.ogg")
+  # music = SF::Music.from_stream(stream)
   #
-  # // etc.
+  # # etc.
   # ```
   abstract class InputStream
     @_inputstream : VoidCSFML::InputStream_Buffer
@@ -435,15 +427,12 @@ module SF
       raise "Unexpected memory layout" if as(Void*) + sizeof(LibC::Int) != to_unsafe
       VoidCSFML.inputstream_initialize(to_unsafe)
     end
-    # Virtual destructor
-    #
     # Read data from the stream
     #
     # After reading, the stream's reading position must be
     # advanced by the amount of bytes read.
     #
     # * *data* - Buffer where to copy the read data
-    # * *size* - Desired number of bytes to read
     #
     # *Returns:* The number of bytes actually read, or -1 on error
     abstract def read(data : Slice) : Int64
@@ -480,35 +469,7 @@ module SF
       return typeof(self).new(self)
     end
   end
-  # Utility class that makes any derived
-  #        class non-copyable
-  #
-  # This class makes its instances non-copyable, by explicitly
-  # disabling its copy constructor and its assignment operator.
-  #
-  # To create a non-copyable class, simply inherit from
-  # `SF::NonCopyable`.
-  #
-  # The type of inheritance (public or private) doesn't matter,
-  # the copy constructor and assignment operator are declared private
-  # in `SF::NonCopyable` so they will end up being inaccessible in both
-  # cases. Thus you can use a shorter syntax for inheriting from it
-  # (see below).
-  #
-  # Usage example:
-  # ```c++
-  # class MyNonCopyableClass : sf::NonCopyable
-  # {
-  #     ...
-  # };
-  # ```
-  #
-  # Deciding whether the instances of a class can be copied
-  # or not is a very important design choice. You are strongly
-  # encouraged to think about it before writing a class,
-  # and to use `SF::NonCopyable` when necessary to prevent
-  # many potential future errors when using it. This is also
-  # a very important indication to users of your class.
+  # Empty module that indicates the objects of the class can't be copied
   module NonCopyable
   end
   # Implementation of input stream based on a file
@@ -530,12 +491,12 @@ module SF
   # you create your own algorithms that operate on an InputStream.
   #
   # Usage example:
-  # ```c++
-  # void process(InputStream& stream);
+  # ```
+  # def process(stream : InputStream)
+  # end
   #
-  # FileInputStream stream;
-  # if (stream.open("some_file.dat"))
-  #    process(stream);
+  # stream = SF::FileInputStream.open("some_file.dat")
+  # process(stream)
   # ```
   #
   # InputStream, MemoryInputStream
@@ -563,9 +524,9 @@ module SF
     # Shorthand for `file_input_stream = FileInputStream.new; file_input_stream.open(...); file_input_stream`
     #
     # Raises `InitError` on failure
-    def self.open(filename : String) : self
+    def self.open(*args, **kwargs) : self
       obj = new
-      if !obj.open(filename)
+      if !obj.open(*args, **kwargs)
         raise InitError.new("FileInputStream.open failed")
       end
       obj
@@ -576,7 +537,6 @@ module SF
     # advanced by the amount of bytes read.
     #
     # * *data* - Buffer where to copy the read data
-    # * *size* - Desired number of bytes to read
     #
     # *Returns:* The number of bytes actually read, or -1 on error
     def read(data : Slice) : Int64
@@ -634,12 +594,12 @@ module SF
   # you create your own algorithms that operate on an InputStream.
   #
   # Usage example:
-  # ```c++
-  # void process(InputStream& stream);
+  # ```
+  # def process(stream : InputStream)
+  # end
   #
-  # MemoryInputStream stream;
-  # stream.open(thePtr, theSize);
-  # process(stream);
+  # stream = SF::MemoryInputStream.open(slice)
+  # process(stream)
   # ```
   #
   # InputStream, FileInputStream
@@ -653,15 +613,14 @@ module SF
     end
     # Open the stream from its data
     #
-    # * *data* -        Pointer to the data in memory
-    # * *size_in_bytes* - Size of the data, in bytes
+    # * *data* - Pointer to the data in memory
     def open(data : Slice)
       VoidCSFML.memoryinputstream_open_5h8vgv(to_unsafe, data, data.bytesize)
     end
     # Shorthand for `memory_input_stream = MemoryInputStream.new; memory_input_stream.open(...); memory_input_stream`
-    def self.open(data : Slice) : self
+    def self.open(*args, **kwargs) : self
       obj = new
-      obj.open(data)
+      obj.open(*args, **kwargs)
       obj
     end
     # Read data from the stream
@@ -670,7 +629,6 @@ module SF
     # advanced by the amount of bytes read.
     #
     # * *data* - Buffer where to copy the read data
-    # * *size* - Desired number of bytes to read
     #
     # *Returns:* The number of bytes actually read, or -1 on error
     def read(data : Slice) : Int64
@@ -733,23 +691,21 @@ module SF
   # one thread at a time to access a critical region of your code.
   #
   # Usage example:
-  # ```c++
-  # Database database; // this is a critical resource that needs some protection
-  # sf::Mutex mutex;
+  # ```
+  # @database = Database.new # this is a critical resource that needs some protection
+  # @mutex = SF::Mutex.new
   #
-  # void thread1()
-  # {
-  #     mutex.lock(); // this call will block the thread if the mutex is already locked by thread2
-  #     database.write(...);
-  #     mutex.unlock(); // if thread2 was waiting, it will now be unblocked
-  # }
+  # def thread1()
+  #   @mutex.lock() # this call will block the thread if the mutex is already locked by thread2
+  #   @database.write(...)
+  #   @mutex.unlock() # if thread2 was waiting, it will now be unblocked
+  # end
   #
-  # void thread2()
-  # {
-  #     mutex.lock(); // this call will block the thread if the mutex is already locked by thread1
-  #     database.write(...);
-  #     mutex.unlock(); // if thread1 was waiting, it will now be unblocked
-  # }
+  # def thread2()
+  #   @mutex.lock() # this call will block the thread if the mutex is already locked by thread1
+  #   @database.write(...)
+  #   @mutex.unlock() # if thread1 was waiting, it will now be unblocked
+  # end
   # ```
   #
   # Be very careful with mutexes. A bad usage can lead to bad problems,
@@ -758,7 +714,7 @@ module SF
   #
   # To make the usage of mutexes more robust, particularly in
   # environments where exceptions can be thrown, you should
-  # use the helper class `SF::Lock` to lock/unlock mutexes.
+  # use the helper method `synchronize` to lock/unlock mutexes.
   #
   # SFML mutexes are recursive, which means that you can lock
   # a mutex multiple times in the same thread without creating
@@ -766,8 +722,6 @@ module SF
   # as usual, and the following ones have no effect.
   # However, you must call unlock() exactly as many times as you
   # called lock(). If you don't, the mutex won't be released.
-  #
-  # *See also:* `SF::Lock`
   class Mutex
     @_mutex : VoidCSFML::Mutex_Buffer
     # Default constructor
@@ -843,47 +797,42 @@ module SF
   #
   # Usage examples:
   # ```c++
-  # // example 1: non member function with one argument
+  # # example 1: non member function with one argument
   #
   # void threadFunc(int argument)
-  # {
   #     ...
-  # }
+  # end
   #
-  # sf::Thread thread(&threadFunc, 5);
-  # thread.launch(); // start the thread (internally calls threadFunc(5))
+  # thread = SF::Thread.new(&threadFunc, 5)
+  # thread.launch() # start the thread (internally calls threadFunc(5))
   # ```
   #
   # ```c++
-  # // example 2: member function
+  # # example 2: member function
   #
   # class Task
-  # {
   # public:
   #     void run()
-  #     {
   #         ...
-  #     }
-  # };
+  #     end
+  # end
   #
-  # Task task;
-  # sf::Thread thread(&Task::run, &task);
-  # thread.launch(); // start the thread (internally calls task.run())
+  # Task task
+  # thread = SF::Thread.new(&Task.run, &task)
+  # thread.launch() # start the thread (internally calls task.run())
   # ```
   #
   # ```c++
-  # // example 3: functor
+  # # example 3: functor
   #
   # struct Task
-  # {
   #     void operator()()
-  #     {
   #         ...
-  #     }
-  # };
+  #     end
+  # end
   #
-  # sf::Thread thread(Task());
-  # thread.launch(); // start the thread (internally calls operator() on the Task instance)
+  # thread = SF::Thread.new(Task())
+  # thread.launch() # start the thread (internally calls operator() on the Task instance)
   # ```
   #
   # Creating parallel threads of execution can be dangerous:
@@ -904,14 +853,13 @@ module SF
     #
     # Use this constructor for this kind of function:
     # ```c++
-    # void function(int arg);
+    # void function(int arg)
     #
-    # // --- or ----
+    # # --- or ----
     #
     # struct Functor
-    # {
-    #     void operator()(std::string arg);
-    # };
+    #     void operator()(std::string arg)
+    # end
     # ```
     # Note: this does *not* run the thread, use launch().
     #
