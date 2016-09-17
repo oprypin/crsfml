@@ -150,6 +150,12 @@ module SF
     Cyan = new(0, 255, 255)
     # Transparent (black) predefined color
     Transparent = new(0, 0, 0, 0)
+
+    def inspect(io)
+      io << {{@type.name}} << "(" << @r << ", " << @g << ", " << @b
+      io << ", a: " << @a if @a != 255
+      io << ")"
+    end
   end
   # Shorthand for `Color.new`
   def color(*args, **kwargs)
@@ -159,6 +165,18 @@ module SF
   struct RenderStates
     # Special instance holding the default render states
     Default = new
+
+    def inspect(io)
+      io << {{@type.name}} << "(@blend_mode="
+      @blend_mode.inspect(io)
+      io << ", @transform="
+      @transform.inspect(io)
+      io << ", texture="
+      @_renderstates_texture.inspect(io)
+      io << ", shader="
+      @_renderstates_shader.inspect(io)
+      io << ")"
+    end
   end
 
   class Shader
@@ -224,6 +242,17 @@ module SF
   struct Transform
     # The identity transform (does nothing)
     Identity = new
+
+    def inspect(io)
+      io << {{@type.name}} << "("
+      {% for index, i in [0, 4, 12, 1, 5, 13, 3, 7, 15] %}
+        {% if i > 0 %}
+          io << ",{% if i % 3 == 0 %} {% end %}"
+        {% end %}
+        io << @matrix[{{index}}]
+      {% end %}
+      io << ")"
+    end
   end
 
   class Sprite

@@ -10,5 +10,9 @@ module SF
     LocalHost = new(127, 0, 0, 1)
     # The "broadcast" address (for sending UDP messages to everyone on a local network)
     Broadcast = new(255, 255, 255, 255)
+
+    def inspect(io)
+      io << {{@type.name}} << "(\"" << to_s << "\")"
+    end
   end
 end

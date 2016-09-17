@@ -1465,6 +1465,9 @@ class CVariable < CItem
     unless context.cpp_source?
       name = name.underscore
     end
+    if name.starts_with?("m_")
+      name = name[2..-1]
+    end
     name
   end
 
