@@ -10,6 +10,7 @@ set(VERSION_PATCH 2)
 
 find_program(CRYSTAL crystal)
 
+list(APPEND CMAKE_MODULE_PATH "/usr/share/SFML/cmake/Modules")
 list(APPEND CMAKE_MODULE_PATH "/usr/local/share/SFML/cmake/Modules")
 list(APPEND CMAKE_MODULE_PATH "/usr/local/opt/sfml/share/SFML/cmake/Modules") # Homebrew
 
