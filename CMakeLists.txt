@@ -40,7 +40,7 @@ if(NOT CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_CURRENT_BINARY_DIR)
         )
     endforeach()
     file(
-        COPY "${CMAKE_CURRENT_SOURCE_DIR}/examples/libs"
+        COPY "${CMAKE_CURRENT_SOURCE_DIR}/examples/lib"
         DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/examples"
     )
 endif()

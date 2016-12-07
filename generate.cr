@@ -458,7 +458,7 @@ class CClass < CNamespace
     to_render = Set(CClass).new
     todo = [self]
     until todo.empty?
-      to_render.merge(todo)
+      to_render.merge!(todo)
       todo = todo.map { |cls| ([cls.inherited_class] + cls.inherited_modules.map { |m| find_type(m, nil).as?(CClass) }).compact } .flatten
     end
 

@@ -191,7 +191,7 @@ module SF
     # Forwards calls like `shader.param(arg1, arg2)` to
     # `shader.set_parameter("param", arg1, arg2)`
     macro method_missing(call)
-      set_parameter {{call.name.stringify}}, {{call.args.argify}}
+      set_parameter {{call.name.stringify}}, {{call.args.splat}}
     end
   end
 
