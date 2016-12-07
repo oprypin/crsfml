@@ -8,3 +8,8 @@ description: |
   Crystal bindings to SFML multimedia/game library
 
 license: zlib
+
+crystal: 0.20.1
+
+libraries:
+  SFML: @SFML_VERSION_MAJOR@.@SFML_VERSION_MINOR@.@SFML_VERSION_PATCH@
