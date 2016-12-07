@@ -98,11 +98,17 @@ EOF
     font-weight: bold;
     font-weight: 600;
 }
+#types-list a:focus {
+    outline: 1px solid #567e25;
+}
+.type-name {
+    color: #2f610e !important;
+}
 .superclass-hierarchy .superclass a:hover, .other-type a:hover, .entry-summary .signature:hover, .entry-detail:target .signature {
     background: #eaf5db;
     border-color: #567e25;
 }
-a, a:visited, a *, a:visited * {
+a, a:visited, a *, a:visited *, .kind {
     color: #567e25 !important;
 }
 .superclass-hierarchy .superclass a, .other-type a, .entry-summary .signature, .entry-detail .signature {
