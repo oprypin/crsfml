@@ -81,7 +81,7 @@ module SF
       # (1, 1, 1, 1) - (dst.a, dst.a, dst.a, dst.a)
       OneMinusDstAlpha
     end
-    _sf_enum BlendMode::Factor
+    Util.extract BlendMode::Factor
     # Enumeration of the blending equations
     #
     # The equations are mapped directly to their OpenGL equivalents,
@@ -94,7 +94,7 @@ module SF
       # Pixel = Dst * DstFactor - Src * SrcFactor
       ReverseSubtract
     end
-    _sf_enum BlendMode::Equation
+    Util.extract BlendMode::Equation
     # Default constructor
     #
     # Constructs a blending mode that does alpha blending.
@@ -1542,7 +1542,7 @@ module SF
     # *Deprecated:* Use TriangleFan instead
     TrianglesFan = TriangleFan
   end
-  _sf_enum PrimitiveType
+  Util.extract PrimitiveType
   # Define a set of one or more 2D primitives
   #
   # `SF::VertexArray` is a very simple wrapper around a dynamic
@@ -3050,7 +3050,7 @@ module SF
       # Texture coordinates in range `0.0 .. size`
       Pixels
     end
-    _sf_enum Texture::CoordinateType
+    Util.extract Texture::CoordinateType
     # Default constructor
     #
     # Creates an empty texture.
@@ -5489,7 +5489,7 @@ module SF
       # Fragment (pixel) shader
       Fragment
     end
-    _sf_enum Shader::Type
+    Util.extract Shader::Type
     # Default constructor
     #
     # This constructor creates an invalid shader.
@@ -6262,7 +6262,7 @@ module SF
       # Strike through characters
       StrikeThrough = 1 << 3
     end
-    _sf_enum Text::Style
+    Util.extract Text::Style
     # Default constructor
     #
     # Creates an empty text.

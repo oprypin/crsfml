@@ -191,7 +191,7 @@ module SF
     # Forwards calls like `shader.param(arg1, arg2)` to
     # `shader.set_parameter("param", arg1, arg2)`
     macro method_missing(call)
-      set_parameter {{call.name.stringify}}, {{call.args.argify}}
+      set_parameter {{call.name.stringify}}, {{call.args.splat}}
     end
   end
 
@@ -281,5 +281,5 @@ module SF
     # Overwrite dest with source
     BlendNone = BlendMode.new(BlendMode::One, BlendMode::Zero)
   end
-  _sf_enum BlendMode
+  Util.extract BlendMode
 end

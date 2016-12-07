@@ -140,12 +140,12 @@ crystal snakes.cr
 
 #### Make CrSFML available to your project
 
-Create a symbolic link to *CrSFML* in your project's *libs* folder.
+Create a symbolic link to *CrSFML* in your project's *lib* folder.
 
 ```bash
 cd ~/my-project
-mkdir libs
-ln -s /full/path/to/crsfml/src libs/crsfml
+mkdir lib
+ln -s /full/path/to/crsfml/src lib/crsfml
 
 # Try importing it:
 echo 'require "crsfml"' >> my_project.cr

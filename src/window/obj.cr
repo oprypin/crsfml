@@ -79,7 +79,7 @@ module SF
       # Debug attribute
       Debug = 1 << 2
     end
-    _sf_enum ContextSettings::Attribute
+    Util.extract ContextSettings::Attribute
     # Default constructor
     #
     # * *depth* - Depth buffer bits
@@ -359,7 +359,7 @@ module SF
       # The Y axis of the point-of-view hat
       PovY
     end
-    _sf_enum Joystick::Axis
+    Util.extract Joystick::Axis
     # Structure holding a joystick's identification
     class Identification
       @_joystick_identification : VoidCSFML::Joystick_Identification_Buffer
@@ -723,7 +723,7 @@ module SF
       # Keep last -- the total number of keyboard keys
       KeyCount
     end
-    _sf_enum Keyboard::Key
+    Util.extract Keyboard::Key
     # Check if a key is pressed
     #
     # * *key* - Key to check
@@ -800,7 +800,7 @@ module SF
       # Keep last -- the total number of mouse buttons
       ButtonCount
     end
-    _sf_enum Mouse::Button
+    Util.extract Mouse::Button
     # Mouse wheels
     enum Wheel
       # The vertical mouse wheel
@@ -808,7 +808,7 @@ module SF
       # The horizontal mouse wheel
       HorizontalWheel
     end
-    _sf_enum Mouse::Wheel
+    Util.extract Mouse::Wheel
     # Check if a mouse button is pressed
     #
     # * *button* - Button to check
@@ -924,7 +924,7 @@ module SF
       # Keep last -- the total number of sensor types
       Count
     end
-    _sf_enum Sensor::Type
+    Util.extract Sensor::Type
     # Check if a sensor is available on the underlying platform
     #
     # * *sensor* - Sensor to check
@@ -2299,9 +2299,7 @@ module SF
     # If set, grabs the mouse cursor inside this window's client
     # area so it may no longer be moved outside its bounds.
     # Note that grabbing is only active while the window has
-    # focus and calling this function for fullscreen windows
-    # won't have any effect (fullscreen windows always grab the
-    # cursor).
+    # focus.
     #
     # * *grabbed* - True to enable, false to disable
     def mouse_cursor_grabbed=(grabbed : Bool)

@@ -1,5 +1,5 @@
 name: crsfml
-version: 2.4.2
+version: 2.4.3
 
 authors:
   - Oleh Prypin <oleh@pryp.in>
@@ -8,3 +8,8 @@ description: |
   Crystal bindings to SFML multimedia/game library
 
 license: zlib
+
+crystal: 0.20.1
+
+libraries:
+  SFML: 2.4.1

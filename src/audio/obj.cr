@@ -194,7 +194,7 @@ module SF
       # Sound is playing
       Playing
     end
-    _sf_enum SoundSource::Status
+    Util.extract SoundSource::Status
     # Destructor
     def finalize()
       VoidCSFML.soundsource_finalize(to_unsafe)
