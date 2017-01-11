@@ -164,7 +164,7 @@ def identifier_hash(string) : String
 end
 
 def apply_diff(a, diff)
-  b = a.lines
+  b = a.lines(chomp: false)
   index = 0
   diff.each_with_index do |d, diff_index|
     if d.chomp.empty?
@@ -271,7 +271,7 @@ abstract class CItem
       end
     end
     doc.lines.each do |line|
-      o<< "# #{line.chomp}"
+      o<< "# #{line}"
     end
   end
 end
@@ -1532,9 +1532,9 @@ class CModule < CNamespace
 
     begin
       diff = [] of String
-      File.each_line(File.join(File.dirname(__FILE__), "docs", "#{name.downcase}.diff")) do |line|
+      File.each_line(File.join(File.dirname(__FILE__), "docs", "#{name.downcase}.diff"), chomp: false) do |line|
         if line.starts_with?("+++ SF::") || line.starts_with?("--- SF::")
-          @@doc_diffs[line[8..-1].chop] = diff = [] of String
+          @@doc_diffs[line[8..-1].chomp] = diff = [] of String
         else
           diff << line
         end
