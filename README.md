@@ -45,7 +45,7 @@ The API of *CrSFML* (a library for Crystal) attempts to be similar to SFML (a C+
 - SFML sometimes requires that an instance must remain alive as long as it is attached to the object. For example, a textured shape will cause errors if the texture object is destroyed. *CrSFML* prevents this problem by keeping a reference to the object.
 - The `Event` *union* and `EventType` *enum* are represented as a class hierarchy. Instead of `ev.type == SF::Event::Resized` use `ev.is_a?(SF::Event::Resized)`; instead of `ev.size.width` use `ev.width`.
 - Instead of subclassing `Drawable`, include the `Drawable` module with an abstract `draw` method.
-- Most of the [documentation](http://blaxpirit.github.io/crsfml/api/) is taken directly from SFML, so don't be surprised if it talks in C++ terms.
+- Most of the [documentation](http://oprypin.github.io/crsfml/api/) is taken directly from SFML, so don't be surprised if it talks in C++ terms.
 
 
 Installation
@@ -109,7 +109,7 @@ Prerequisites: [Git][], [CMake][], [Crystal][], a C++ compiler
 #### Download latest generator source code
 
 ```bash
-git clone https://github.com/blaxpirit/crsfml
+git clone https://github.com/oprypin/crsfml
 cd crsfml
 ```
 
@@ -220,11 +220,11 @@ This library uses and is based on [SFML][sfml-authors].
 Thanks to [Alan Willms][alanwillms] for translating [tutorials][] to Crystal.
 
 
-[tutorials]: http://blaxpirit.github.io/crsfml/tutorials/
-[api documentation]: http://blaxpirit.github.io/crsfml/api/
-[releases]: https://github.com/blaxpirit/crsfml/releases
-[demos]: https://github.com/blaxpirit/crsfml-examples
-[sources]: https://github.com/blaxpirit/crsfml/tree/sources
+[tutorials]: http://oprypin.github.io/crsfml/tutorials/
+[api documentation]: http://oprypin.github.io/crsfml/api/
+[releases]: https://github.com/oprypin/crsfml/releases
+[demos]: https://github.com/oprypin/crsfml-examples
+[sources]: https://github.com/oprypin/crsfml/tree/sources
 
 [sfml]: http://www.sfml-dev.org/ "Simple and Fast Multimedia Library"
 [csfml]: http://www.sfml-dev.org/download/csfml/
@@ -240,5 +240,5 @@ Thanks to [Alan Willms][alanwillms] for translating [tutorials][] to Crystal.
 [crystal]: http://crystal-lang.org/
 [shards]: https://github.com/crystal-lang/shards
 
-[blaxpirit]: https://github.com/BlaXpirit
+[blaxpirit]: https://github.com/oprypin
 [alanwillms]: https://github.com/alanwillms

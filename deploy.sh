@@ -61,8 +61,8 @@ pushd deploy
     crystal doc
 
     logo=\
-'<a href="https://github.com/BlaXpirit/crsfml#readme" style="padding: 3px 5px 2px; text-align: center">'\
-'<img src="https://raw.githubusercontent.com/BlaXpirit/crsfml/'"$sources_branch"'/logo.png" alt="CrSFML" style="width: 100%; max-width: 235px"/>'\
+'<a href="https://github.com/oprypin/crsfml#readme" style="padding: 3px 5px 2px; text-align: center">'\
+'<img src="https://raw.githubusercontent.com/oprypin/crsfml/'"$sources_branch"'/logo.png" alt="CrSFML" style="width: 100%; max-width: 235px"/>'\
 '</a>'
     # Replace README link with CrSFML
     find doc/ -type f -exec sed -i -r -e "s,<a.+>README</a>,$logo," {} \;
