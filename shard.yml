@@ -1,5 +1,5 @@
 name: crsfml
-version: 2.4.3
+version: 2.4.4
 
 authors:
   - Oleh Prypin <oleh@pryp.in>
@@ -9,7 +9,7 @@ description: |
 
 license: zlib
 
-crystal: 0.20.1
+crystal: 0.20.4
 
 libraries:
   SFML: 2.4.1

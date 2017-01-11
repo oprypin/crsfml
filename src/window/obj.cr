@@ -89,7 +89,7 @@ module SF
     # * *minor* - Minor number of the context version
     # * *attributes* - Attribute flags of the context
     # * *s_rgb* - sRGB capable framebuffer
-    def initialize(depth : Int = 0, stencil : Int = 0, antialiasing : Int = 0, major : Int = 1, minor : Int = 1, attributes : Int = Default, s_rgb : Bool = false)
+    def initialize(depth : Int = 0, stencil : Int = 0, antialiasing : Int = 0, major : Int = 1, minor : Int = 1, attributes : Attribute = Default, s_rgb : Bool = false)
       @depth_bits = uninitialized UInt32
       @stencil_bits = uninitialized UInt32
       @antialiasing_level = uninitialized UInt32
@@ -97,7 +97,7 @@ module SF
       @minor_version = uninitialized UInt32
       @attribute_flags = uninitialized UInt32
       @s_rgb_capable = uninitialized Bool
-      VoidCSFML.contextsettings_initialize_emSemSemSemSemSemSGZq(to_unsafe, LibC::UInt.new(depth), LibC::UInt.new(stencil), LibC::UInt.new(antialiasing), LibC::UInt.new(major), LibC::UInt.new(minor), LibC::UInt.new(attributes), s_rgb)
+      VoidCSFML.contextsettings_initialize_emSemSemSemSemSemSGZq(to_unsafe, LibC::UInt.new(depth), LibC::UInt.new(stencil), LibC::UInt.new(antialiasing), LibC::UInt.new(major), LibC::UInt.new(minor), attributes, s_rgb)
     end
     @depth_bits : LibC::UInt
     # Bits of the depth buffer

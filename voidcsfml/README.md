@@ -8,7 +8,7 @@ Information
 
 *VoidCSFML* is a library that allows [SFML][] (a library written in C++) to be used with pure C. It is not meant to be human-friendly or be used directly in C code (though it's possible). *VoidCSFML* is just an intermediate step between SFML and a higher-level binding (in this case, to [Crystal][] programming language) which is used because it's much easier to interface with a C library than a C++ one.
 
-You can browse the [latest generated source code](https://github.com/BlaXpirit/crsfml/tree/sources/voidcsfml) of *VoidCSFML*, but it comes almost entirely from a [generator program](https://github.com/BlaXpirit/crsfml/blob/master/generate.cr), so contributions are accepted only in the *master* branch.
+You can browse the [latest generated source code](https://github.com/oprypin/crsfml/tree/sources/voidcsfml) of *VoidCSFML*, but it comes almost entirely from a [generator program](https://github.com/oprypin/crsfml/blob/master/generate.cr), so contributions are accepted only in the *master* branch.
 
 Installation
 ------------
@@ -26,9 +26,9 @@ For building, [CMake][] and a C++ compiler are required (to the best of the auth
 
 ### Obtaining the sources
 
-Generating the sources is an **optional** step. If you are sure you have a matching version of SFML to the [pre-generated sources](https://github.com/BlaXpirit/crsfml/tree/sources/voidcsfml) (usually latest), you can use these. In fact, you may already be looking at the generated sources, just check whether the *voidcsfml/src* folder is populated. For development it's usually best to [build whole CrSFML](#building-crsfml). But, for completeness' sake, here's how to generate the sources manually:
+Generating the sources is an **optional** step. If you are sure you have a matching version of SFML to the [pre-generated sources](https://github.com/oprypin/crsfml/tree/sources/voidcsfml) (usually latest), you can use these. In fact, you may already be looking at the generated sources, just check whether the *voidcsfml/src* folder is populated. For development it's usually best to [build whole CrSFML](#building-crsfml). But, for completeness' sake, here's how to generate the sources manually:
 
-Go to *CrSFML*'s root folder and run [generate.cr](https://github.com/BlaXpirit/crsfml/blob/master/generate.cr):
+Go to *CrSFML*'s root folder and run [generate.cr](https://github.com/oprypin/crsfml/blob/master/generate.cr):
 
 ```bash
 crystal run generate.cr -- /usr/include
@@ -167,7 +167,7 @@ Not to forget that *VoidCSFML* is made automatically, so it can be quickly updat
 Credits
 -------
 
-*VoidCSFML* was made by [Oleh Prypin][blaxpirit].
+*VoidCSFML* was made by [Oleh Prypin][oprypin].
 
 *VoidCSFML* is [licensed](LICENSE) under the terms and conditions of the *zlib/libpng* license.
 
@@ -188,4 +188,4 @@ The CMake files are based on those of [CSFML][].
 [c]: https://en.wikipedia.org/wiki/C_(programming_language)
 [crystal]: http://crystal-lang.org/
 
-[blaxpirit]: https://github.com/BlaXpirit
+[oprypin]: https://github.com/oprypin
