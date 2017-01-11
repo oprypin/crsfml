@@ -1116,6 +1116,8 @@ class CFunction < CItem
               if cr_type == "UInt32" && cr_arg == "style"
                 cls_name = cls.not_nil!.full_name
                 cr_type = cls_name.includes?("Window") ? "Style" : "#{cls_name}::Style"
+              elsif cr_type == "UInt32" && cr_arg == "attributes"
+                cr_type = "Attribute"
               else
                 cr_type = "Int"
                 cr_arg = "#{type.full_name(Context::CrystalLib)}.new(#{cr_arg})"
