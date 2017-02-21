@@ -1,7 +1,7 @@
 language: crystal
 env:
   - SFML=2.3.2
-  - SFML=2.4.1
+  - SFML=2.4.2
 before_install:
   - sudo apt-get install -qy build-essential cmake git libx11-dev freeglut3-dev libxcb-image0-dev libudev-dev libjpeg8-dev libopenal-dev libsndfile1-dev libfreetype6-dev libxrandr-dev
   - |
