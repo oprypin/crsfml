@@ -773,6 +773,7 @@ class CEnum < CNamespace
         o<< "enum #{name(context)}"
       end
       members.each do |member|
+        next if member.name(Context::Crystal) == "None" && member.value == "0"
         member.render_docs(o, qualname + "::" + member.name(Context::Crystal))
         member.render(context, o)
       end
@@ -1807,7 +1808,7 @@ class Output
     tab = {% begin %}
       {{@type}}::TAB
     {% end %}
-    comment = {% if flag? :debug %}
+    comment = {% if flag? :verbose %}
       lineno ? "L#{lineno}" : nil
     {% else %}
       nil
