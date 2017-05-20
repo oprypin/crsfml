@@ -192,7 +192,7 @@ class KeyboardView < View
 
       case event.code
       when SF::Keyboard::BackSpace
-        @str = @str.chop
+        @str = @str.rchop
       when SF::Keyboard::Return
         @str += '\n'
       when SF::Keyboard::Tab

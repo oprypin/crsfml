@@ -1936,8 +1936,6 @@ module SF
   # Enumeration of the window styles
   @[Flags]
   enum Style
-    # No border / title bar (this flag and all others are mutually exclusive)
-    None = 0
     # Title bar + fixed border
     Titlebar = 1 << 0
     # Title bar + resizable border + maximize button
