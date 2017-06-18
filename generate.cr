@@ -22,6 +22,8 @@ require "digest/sha1"
 
 LIB_NAME = "VoidCSFML"
 
+DEBUG = ARGV.delete("--debug")
+
 INCLUDE_DIR = ARGV[0]? || "/usr/include"
 SFML_PATH = File.join(INCLUDE_DIR,
   File.basename(INCLUDE_DIR) == "SFML.framework" ? "Headers" : "SFML"
@@ -1808,11 +1810,11 @@ class Output
     tab = {% begin %}
       {{@type}}::TAB
     {% end %}
-    comment = {% if flag? :verbose %}
+    comment = if DEBUG
       lineno ? "L#{lineno}" : nil
-    {% else %}
+    else
       nil
-    {% end %}
+    end
     transform line.strip, comment do |line|
       @file << tab*@indent << line << '\n'
     end
