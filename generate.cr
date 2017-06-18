@@ -372,7 +372,7 @@ class CClass < CNamespace
           end
         end
 
-        callback_name = "#{full_name(context).downcase}_#{func.name(Context::CPPSource).downcase}_callback"
+        callback_name = "#{PREFIX}#{full_name(context).downcase}_#{func.name(Context::CPPSource).downcase}_callback"
         if context.c_header?
           o<< "#{LIB_NAME.upcase}_API (*#{callback_name})(#{c_params.join(", ")});"
         end
@@ -829,6 +829,7 @@ class CFunction < CItem
         parent_name = parent.full_name(context).not_nil!
         name = parent_name.downcase + "_" + name
       end
+      name = PREFIX + name
       hash = parameters.map { |param|
         identifier_hash(param.type.full_name)
       } .join
