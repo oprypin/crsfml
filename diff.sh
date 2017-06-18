@@ -24,9 +24,11 @@ tmp="$(mktemp -d)"
 cd "$tmp"
 mkdir a b
 
-(cd a && echo "$a" | CRYSTAL_CACHE_DIR=../.a crystal eval) &
+echo "$a" > a.cr
+(cd a && CRYSTAL_CACHE_DIR=../.a crystal run ../a.cr) &
 pid_a=$!
-(cd b && echo "$b" | CRYSTAL_CACHE_DIR=../.b crystal eval) &
+echo "$b" > b.cr
+(cd b && CRYSTAL_CACHE_DIR=../.b crystal run ../b.cr) &
 pid_b=$!
 
 wait $pid_a

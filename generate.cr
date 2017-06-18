@@ -16,11 +16,11 @@
 #    misrepresented as being the original software.
 # 3. This notice may not be removed or altered from any source distribution.
 
-
 require "digest/sha1"
 
 
 LIB_NAME = "VoidCSFML"
+PREFIX = "sfml_"
 
 DEBUG = ARGV.delete("--debug")
 
@@ -211,7 +211,7 @@ abstract class CItem
   def full_name(context = Context::CPPSource) : String
     result = (name(context) || "@")
     if (parent = @parent)
-      sep = (context.c_header? || context.crystal_lib? ? "_" : "::")
+      sep = (context.lib? ? "_" : "::")
       result = parent.full_name(context) + sep + result
     end
     result
@@ -305,20 +305,6 @@ class CClass < CNamespace
 
   getter inherited_class : CClass?
   getter inherited_modules : Array(String)
-
-  def this : String
-    if struct?
-      "@#{find(&.is_a? CVariable).not_nil!.name(Context::Crystal)}"
-    elsif module?
-      "_#{full_name(Context::CrystalLib).downcase}"
-    else
-      inh = self
-      while inh.inherited_class
-        inh = inh.inherited_class.not_nil!
-      end
-      "@_#{inh.full_name(Context::CrystalLib).downcase}"
-    end
-  end
 
   def render(context : Context, out o : Output)
     return unless @visibility.public?
@@ -528,22 +514,18 @@ class CClass < CNamespace
         o<< "include #{mod}"
       end
 
-      if module? && any? { |item| item.is_a?(CFunction) && item.constructor? && item.visibility.public? } && any? { |item| item.is_a?(CVariable) }
-        raise "Impossible"
-        o<< "@#{this} : #{LIB_NAME}::#{full_name(Context::CrystalLib)}_Buffer?"
-        o<< "# :nodoc:"
-        o<< "macro #{this}"
-        o<< "if !@#{this}"
-        o<< "@#{this} = uninitialized #{LIB_NAME}::#{full_name(Context::CrystalLib)}_Buffer"
-        o<< "#{LIB_NAME}.#{full_name(Context::CrystalLib).downcase}_initialize(@#{this}.not_nil!.to_unsafe)"
-        o<< "end"
-        o<< "@#{this}"
-        o<< "end"
-      end
       unless module?
         o<< "# :nodoc:"
         o<< "def to_unsafe()"
-        o<< "pointerof(#{this}).as(Void*)"
+        if struct?
+          o<< "pointerof(@#{find(&.is_a? CVariable).not_nil!.name(Context::Crystal)}).as(Void*)"
+        else
+          inh = self
+          while inh.inherited_class
+            inh = inh.inherited_class.not_nil!
+          end
+          o<< "pointerof(@_#{inh.full_name(Context::CrystalLib).downcase}).as(Void*)"
+        end
         o<< "end"
       end
       if class?
@@ -1265,7 +1247,7 @@ class CFunction < CItem
             end
           end
           if !constructor?
-            o<< "#{LIB_NAME}.#{cls.full_name(Context::CrystalLib).downcase}_initialize(to_unsafe)"
+            o<< "#{LIB_NAME}.#{CFunction.new("initialize", parent: cls, type: nil, parameters: [] of CParameter).name(Context::CrystalLib)}(to_unsafe)"
           end
         elsif cls.struct?
           cls.items.each do |item|
@@ -1562,7 +1544,7 @@ class CModule < CNamespace
       dependencies.each do |dep|
         o<< "#include <#{LIB_NAME.downcase}/#{dep.downcase}.h>"
       end
-      o<< "#{LIB_NAME.upcase}_API sfml_#{name.downcase}_version(int*, int*, int*);"
+      o<< "#{LIB_NAME.upcase}_API #{PREFIX}#{name.downcase}_version(int*, int*, int*);"
     when .cpp_source?
       o<< "#include <#{LIB_NAME.downcase}/#{name.downcase}.h>"
       o<< "#include <SFML/#{name}.hpp>"
@@ -1595,18 +1577,18 @@ class CModule < CNamespace
 
     case context
     when .crystal?
-      o<< "#{LIB_NAME}.sfml_#{name.downcase}_version(out major, out minor, out patch)"
+      o<< "#{LIB_NAME}.#{PREFIX}#{name.downcase}_version(out major, out minor, out patch)"
       o<< %q(if SFML_VERSION != (ver = "#{major}.#{minor}.#{patch}"))
       o<< %q(STDERR.puts "Warning: CrSFML was built for SFML #{SFML_VERSION}, found SFML #{ver}")
       o<< %q(end)
       o<< "end"
     when .crystal_lib?
-      o<< "fun sfml_#{name.downcase}_version(LibC::Int*, LibC::Int*, LibC::Int*)"
+      o<< "fun #{PREFIX}#{name.downcase}_version(LibC::Int*, LibC::Int*, LibC::Int*)"
       o<< "end"
     when .c_header?
       o<< "#endif"
     when .cpp_source?
-      o<< "void sfml_#{name.downcase}_version(int* major, int* minor, int* patch) {"
+      o<< "void #{PREFIX}#{name.downcase}_version(int* major, int* minor, int* patch) {"
       o<< "*major = SFML_VERSION_MAJOR;"
       o<< "*minor = SFML_VERSION_MINOR;"
       o<< "*patch = SFML_VERSION_PATCH;"
