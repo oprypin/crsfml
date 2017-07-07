@@ -147,7 +147,11 @@ Compile with:
 gcc -lvoidcsfml-window -lsfml-window -lvoidcsfml-system -lsfml-system main.c
 ```
 
-(or same with `clang`).
+(or same with `clang`). On Windows:
+
+```cmd
+cl -I include voidcsfml-window.lib voidcsfml-system.lib -Tp test.c
+```
 
 Note that additional flags may be needed if *VoidCSFML* is not installed globally (see above).
 

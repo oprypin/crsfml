@@ -1057,7 +1057,9 @@ class CFunction < CItem
           cr_type = "String"
         end
       else
-        if %w[std::size_t Int64 Uint64].includes?(type.full_name(Context::CPPSource)) && (
+        if type.full_name(Context::CPPSource) == "bool" && !return_params.includes? param
+          cpp_arg = "#{cpp_arg} != 0"
+        elsif %w[std::size_t Int64 Uint64].includes?(type.full_name(Context::CPPSource)) && (
           (param.name(Context::Crystal).ends_with?("_count") && cr_args[-1].starts_with?(cr_arg[0...4])) ||
           (param.name(Context::Crystal) == "size" || param.name(Context::Crystal) == "size_in_bytes")
         )
