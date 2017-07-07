@@ -694,6 +694,8 @@ class CNativeType
       cr_type = cl_type = "Bool"
     when "void"
       cr_type = cl_type = "Void"
+    when "WindowHandle"
+      return "SFMLWindowHandle" if context.c_header?
     end
     case context
     when .crystal?
