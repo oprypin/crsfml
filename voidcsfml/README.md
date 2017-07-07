@@ -125,7 +125,7 @@ int main()
     videomode_initialize_emSemSemS(videomode, 640, 480, 24);
 
     buf(contextsettings);
-    contextsettings_initialize_emSemSemSemSemSemS(contextsettings, 0, 0, 0, 1, 1, 0);
+    contextsettings_initialize_emSemSemSemSemSemSGZq(contextsettings, 0, 0, 0, 1, 1, 0, 0);
 
     buf(window);
     uint32_t title[] = {'V','o','i','d','C','S','F','M','L'};
