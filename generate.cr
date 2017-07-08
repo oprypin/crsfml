@@ -312,9 +312,11 @@ class CClass < CNamespace
     return if @name.not_nil! =~ /<|^String$|^ThreadLocal|SoundFile|^Lock$|^Chunk$/
 
     if abstract? && class?
+      buf = [] of String
+
       if context.cpp_source?
-        o<< "class _#{full_name(context)} : public sf::#{full_name(context)} {"
-        o<< "public:"
+        buf<< "class _#{full_name(context)} : public sf::#{full_name(context)} {"
+        buf<< "public:"
       end
 
       cpp_callbacks = [] of String
@@ -324,7 +326,7 @@ class CClass < CNamespace
 
         abstr = func.abstract? || func.name(Context::Crystal).starts_with?("on_")
         if func.visibility.protected? && !abstr && context.cpp_source? && !func.constructor?
-          o<< "using #{full_name(context)}::#{func.name(context)};"
+          buf<< "using #{full_name(context)}::#{func.name(context)};"
         end
         next unless abstr
 
@@ -374,23 +376,28 @@ class CClass < CNamespace
 
         callback_name = "#{PREFIX}#{full_name(context).downcase}_#{func.name(Context::CPPSource).downcase}_callback"
         if context.c_header?
-          o<< "#{LIB_NAME.upcase}_API (*#{callback_name})(#{c_params.join(", ")});"
+          o<< "#{LIB_NAME.upcase}_API #{callback_name}(void (*callback)(#{c_params.join(", ")}));"
         end
-        cpp_callbacks << "void (*#{callback_name})(#{c_params.join(", ")}) = 0;"
+        if context.cpp_source?
+          o<< "void (*_#{callback_name})(#{c_params.join(", ")}) = 0;"
+          o<< "void #{callback_name}(void (*callback)(#{c_params.join(", ")})) {"
+          o<< "_#{callback_name} = callback;"
+          o<< "}"
+        end
 
         if context.cpp_source?
           typ = func.type.try &.full_name || "void"
-          o<< "virtual #{typ} #{func.name(context)}(#{cpp_params.join(", ")})#{" const" if func.const?} {"
-          o<< "#{return_param.type.full_name} result;" if return_param
-          o<< "#{callback_name}(#{cpp_args.join(", ")});"
-          o<< "return result;" if return_param
-          o<< "}"
+          buf<< "virtual #{typ} #{func.name(context)}(#{cpp_params.join(", ")})#{" const" if func.const?} {"
+          buf<< "#{return_param.type.full_name} result;" if return_param
+          buf<< "_#{callback_name}(#{cpp_args.join(", ")});"
+          buf<< "return result;" if return_param
+          buf<< "}"
         end
         if context.crystal_lib?
-          o<< "$#{callback_name} : #{cl_params.map(&.split(" : ")[1]).join(", ")} ->"
+          o<< "fun #{callback_name}(callback : (#{cl_params.map(&.split(" : ")[1]).join(", ")} ->))"
         end
         if context.crystal?
-          o<< "#{LIB_NAME}.#{callback_name} = ->(#{cl_params.join(", ")}) {"
+          o<< "#{LIB_NAME}.#{callback_name}(->(#{cl_params.join(", ")}) {"
           o<< "#{"output = " if func.type}(self - sizeof(LibC::Int)).as(Union(#{full_name(context)})).#{func.name(context)}(#{cr_args.join(", ")})"
           if func.parameters.any? { |param| param.type.full_name(Context::CPPSource) == "SoundStream::Chunk" }
             o<< "data.value, data_size.value = output.to_unsafe, LibC::SizeT.new(output.size) if output"
@@ -406,12 +413,12 @@ class CClass < CNamespace
               o<< "result.value = output"
             end
           end
-          o<< "}"
+          o<< "})"
         end
       end
       if context.cpp_source?
-        o<< "};"
-        cpp_callbacks.each do |line|
+        buf<< "};"
+        buf.each do |line|
           o<< line
         end
       end
@@ -1836,7 +1843,7 @@ class CrystalOutput < Output
   TAB = " "*2
 
   def transform(line : String, comment : String? = nil)
-    dedent if line =~ /^(end|else|elsif|when)\b|^\}$/
+    dedent if line =~ /^(end|else|elsif|when)\b|^\}/
     comment = " "*{118 - line.size - TAB.size*@indent, 0}.max + "  # " + comment if comment
     yield "#{line}#{comment}"
     if line =~ /^(module|(abstract +)?(class|struct)|union|((private |protected +)?(def|macro))|lib|enum|case|if|unless|when) [^:]|^[^#]+(\b(begin|do)|\{)$/
