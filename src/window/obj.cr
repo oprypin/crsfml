@@ -97,7 +97,7 @@ module SF
       @minor_version = uninitialized UInt32
       @attribute_flags = uninitialized UInt32
       @s_rgb_capable = uninitialized Bool
-      VoidCSFML.contextsettings_initialize_emSemSemSemSemSemSGZq(to_unsafe, LibC::UInt.new(depth), LibC::UInt.new(stencil), LibC::UInt.new(antialiasing), LibC::UInt.new(major), LibC::UInt.new(minor), attributes, s_rgb)
+      VoidCSFML.sfml_contextsettings_initialize_emSemSemSemSemSemSGZq(to_unsafe, LibC::UInt.new(depth), LibC::UInt.new(stencil), LibC::UInt.new(antialiasing), LibC::UInt.new(major), LibC::UInt.new(minor), attributes, s_rgb)
     end
     @depth_bits : LibC::UInt
     # Bits of the depth buffer
@@ -169,7 +169,7 @@ module SF
       @attribute_flags = uninitialized UInt32
       @s_rgb_capable = uninitialized Bool
       as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
-      VoidCSFML.contextsettings_initialize_Fw4(to_unsafe, copy)
+      VoidCSFML.sfml_contextsettings_initialize_Fw4(to_unsafe, copy)
     end
     def dup() : self
       return typeof(self).new(self)
@@ -212,13 +212,13 @@ module SF
     # The constructor creates and activates the context
     def initialize()
       @_context = uninitialized VoidCSFML::Context_Buffer
-      VoidCSFML.context_initialize(to_unsafe)
+      VoidCSFML.sfml_context_initialize(to_unsafe)
     end
     # Destructor
     #
     # The destructor deactivates and destroys the context
     def finalize()
-      VoidCSFML.context_finalize(to_unsafe)
+      VoidCSFML.sfml_context_finalize(to_unsafe)
     end
     # Activate or deactivate explicitly the context
     #
@@ -226,7 +226,7 @@ module SF
     #
     # *Returns:* True on success, false on failure
     def active=(active : Bool) : Bool
-      VoidCSFML.context_setactive_GZq(to_unsafe, active, out result)
+      VoidCSFML.sfml_context_setactive_GZq(to_unsafe, active, out result)
       return result
     end
     # Get the settings of the context
@@ -238,7 +238,7 @@ module SF
     # *Returns:* Structure containing the settings
     def settings() : ContextSettings
       result = ContextSettings.allocate
-      VoidCSFML.context_getsettings(to_unsafe, result)
+      VoidCSFML.sfml_context_getsettings(to_unsafe, result)
       return result
     end
     # Check whether a given OpenGL extension is available
@@ -247,7 +247,7 @@ module SF
     #
     # *Returns:* True if available, false if unavailable
     def self.extension_available?(name : String) : Bool
-      VoidCSFML.context_isextensionavailable_Yy6(name, out result)
+      VoidCSFML.sfml_context_isextensionavailable_Yy6(name, out result)
       return result
     end
     # Get the currently active context
@@ -266,7 +266,7 @@ module SF
     # * *height* - Back buffer height
     def initialize(settings : ContextSettings, width : Int, height : Int)
       @_context = uninitialized VoidCSFML::Context_Buffer
-      VoidCSFML.context_initialize_Fw4emSemS(to_unsafe, settings, LibC::UInt.new(width), LibC::UInt.new(height))
+      VoidCSFML.sfml_context_initialize_Fw4emSemS(to_unsafe, settings, LibC::UInt.new(width), LibC::UInt.new(height))
     end
     # :nodoc:
     def self.active_context() : Context?
@@ -365,31 +365,31 @@ module SF
       @_joystick_identification : VoidCSFML::Joystick_Identification_Buffer
       def initialize()
         @_joystick_identification = uninitialized VoidCSFML::Joystick_Identification_Buffer
-        VoidCSFML.joystick_identification_initialize(to_unsafe)
+        VoidCSFML.sfml_joystick_identification_initialize(to_unsafe)
       end
       # Name of the joystick
       def name() : String
-        VoidCSFML.joystick_identification_getname(to_unsafe, out result)
+        VoidCSFML.sfml_joystick_identification_getname(to_unsafe, out result)
         return String.build { |io| while (v = result.value) != '\0'; io << v; result += 1; end }
       end
       def name=(name : String)
-        VoidCSFML.joystick_identification_setname_Lnu(to_unsafe, name.size, name.chars)
+        VoidCSFML.sfml_joystick_identification_setname_Lnu(to_unsafe, name.size, name.chars)
       end
       # Manufacturer identifier
       def vendor_id() : Int32
-        VoidCSFML.joystick_identification_getvendorid(to_unsafe, out result)
+        VoidCSFML.sfml_joystick_identification_getvendorid(to_unsafe, out result)
         return result.to_i
       end
       def vendor_id=(vendor_id : Int)
-        VoidCSFML.joystick_identification_setvendorid_emS(to_unsafe, LibC::UInt.new(vendor_id))
+        VoidCSFML.sfml_joystick_identification_setvendorid_emS(to_unsafe, LibC::UInt.new(vendor_id))
       end
       # Product identifier
       def product_id() : Int32
-        VoidCSFML.joystick_identification_getproductid(to_unsafe, out result)
+        VoidCSFML.sfml_joystick_identification_getproductid(to_unsafe, out result)
         return result.to_i
       end
       def product_id=(product_id : Int)
-        VoidCSFML.joystick_identification_setproductid_emS(to_unsafe, LibC::UInt.new(product_id))
+        VoidCSFML.sfml_joystick_identification_setproductid_emS(to_unsafe, LibC::UInt.new(product_id))
       end
       # :nodoc:
       def to_unsafe()
@@ -403,7 +403,7 @@ module SF
       def initialize(copy : Joystick::Identification)
         @_joystick_identification = uninitialized VoidCSFML::Joystick_Identification_Buffer
         as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
-        VoidCSFML.joystick_identification_initialize_ISj(to_unsafe, copy)
+        VoidCSFML.sfml_joystick_identification_initialize_ISj(to_unsafe, copy)
       end
       def dup() : self
         return typeof(self).new(self)
@@ -415,7 +415,7 @@ module SF
     #
     # *Returns:* True if the joystick is connected, false otherwise
     def self.connected?(joystick : Int) : Bool
-      VoidCSFML.joystick_isconnected_emS(LibC::UInt.new(joystick), out result)
+      VoidCSFML.sfml_joystick_isconnected_emS(LibC::UInt.new(joystick), out result)
       return result
     end
     # Return the number of buttons supported by a joystick
@@ -426,7 +426,7 @@ module SF
     #
     # *Returns:* Number of buttons supported by the joystick
     def self.get_button_count(joystick : Int) : Int32
-      VoidCSFML.joystick_getbuttoncount_emS(LibC::UInt.new(joystick), out result)
+      VoidCSFML.sfml_joystick_getbuttoncount_emS(LibC::UInt.new(joystick), out result)
       return result.to_i
     end
     # Check if a joystick supports a given axis
@@ -438,7 +438,7 @@ module SF
     #
     # *Returns:* True if the joystick supports the axis, false otherwise
     def self.axis?(joystick : Int, axis : Joystick::Axis) : Bool
-      VoidCSFML.joystick_hasaxis_emSHdj(LibC::UInt.new(joystick), axis, out result)
+      VoidCSFML.sfml_joystick_hasaxis_emSHdj(LibC::UInt.new(joystick), axis, out result)
       return result
     end
     # Check if a joystick button is pressed
@@ -450,7 +450,7 @@ module SF
     #
     # *Returns:* True if the button is pressed, false otherwise
     def self.button_pressed?(joystick : Int, button : Int) : Bool
-      VoidCSFML.joystick_isbuttonpressed_emSemS(LibC::UInt.new(joystick), LibC::UInt.new(button), out result)
+      VoidCSFML.sfml_joystick_isbuttonpressed_emSemS(LibC::UInt.new(joystick), LibC::UInt.new(button), out result)
       return result
     end
     # Get the current position of a joystick axis
@@ -462,7 +462,7 @@ module SF
     #
     # *Returns:* Current position of the axis, in range `-100 .. 100`
     def self.get_axis_position(joystick : Int, axis : Joystick::Axis) : Float32
-      VoidCSFML.joystick_getaxisposition_emSHdj(LibC::UInt.new(joystick), axis, out result)
+      VoidCSFML.sfml_joystick_getaxisposition_emSHdj(LibC::UInt.new(joystick), axis, out result)
       return result
     end
     # Get the joystick information
@@ -472,7 +472,7 @@ module SF
     # *Returns:* Structure containing joystick information.
     def self.get_identification(joystick : Int) : Joystick::Identification
       result = Joystick::Identification.allocate
-      VoidCSFML.joystick_getidentification_emS(LibC::UInt.new(joystick), result)
+      VoidCSFML.sfml_joystick_getidentification_emS(LibC::UInt.new(joystick), result)
       return result
     end
     # Update the states of all joysticks
@@ -482,7 +482,7 @@ module SF
     # call it if you have no window yet (or no window at all):
     # in this case the joystick states are not updated automatically.
     def self.update()
-      VoidCSFML.joystick_update()
+      VoidCSFML.sfml_joystick_update()
     end
   end
   # Give access to the real-time state of the keyboard
@@ -730,7 +730,7 @@ module SF
     #
     # *Returns:* True if the key is pressed, false otherwise
     def self.key_pressed?(key : Keyboard::Key) : Bool
-      VoidCSFML.keyboard_iskeypressed_cKW(key, out result)
+      VoidCSFML.sfml_keyboard_iskeypressed_cKW(key, out result)
       return result
     end
     # Show or hide the virtual keyboard
@@ -744,7 +744,7 @@ module SF
     #
     # * *visible* - True to show, false to hide
     def self.virtual_keyboard_visible=(visible : Bool)
-      VoidCSFML.keyboard_setvirtualkeyboardvisible_GZq(visible)
+      VoidCSFML.sfml_keyboard_setvirtualkeyboardvisible_GZq(visible)
     end
   end
   # Give access to the real-time state of the mouse
@@ -815,7 +815,7 @@ module SF
     #
     # *Returns:* True if the button is pressed, false otherwise
     def self.button_pressed?(button : Mouse::Button) : Bool
-      VoidCSFML.mouse_isbuttonpressed_Zxg(button, out result)
+      VoidCSFML.sfml_mouse_isbuttonpressed_Zxg(button, out result)
       return result
     end
     # Get the current position of the mouse in desktop coordinates
@@ -826,7 +826,7 @@ module SF
     # *Returns:* Current position of the mouse
     def self.position() : Vector2i
       result = Vector2i.allocate
-      VoidCSFML.mouse_getposition(result)
+      VoidCSFML.sfml_mouse_getposition(result)
       return result
     end
     # Get the current position of the mouse in window coordinates
@@ -839,7 +839,7 @@ module SF
     # *Returns:* Current position of the mouse
     def self.get_position(relative_to : Window) : Vector2i
       result = Vector2i.allocate
-      VoidCSFML.mouse_getposition_JRh(relative_to, result)
+      VoidCSFML.sfml_mouse_getposition_JRh(relative_to, result)
       return result
     end
     # Set the current position of the mouse in desktop coordinates
@@ -850,7 +850,7 @@ module SF
     # * *position* - New position of the mouse
     def self.position=(position : Vector2|Tuple)
       position = Vector2i.new(position[0].to_i32, position[1].to_i32)
-      VoidCSFML.mouse_setposition_ufV(position)
+      VoidCSFML.sfml_mouse_setposition_ufV(position)
     end
     # Set the current position of the mouse in window coordinates
     #
@@ -861,7 +861,7 @@ module SF
     # * *relative_to* - Reference window
     def self.set_position(position : Vector2|Tuple, relative_to : Window)
       position = Vector2i.new(position[0].to_i32, position[1].to_i32)
-      VoidCSFML.mouse_setposition_ufVJRh(position, relative_to)
+      VoidCSFML.sfml_mouse_setposition_ufVJRh(position, relative_to)
     end
   end
   # Give access to the real-time state of the sensors
@@ -931,7 +931,7 @@ module SF
     #
     # *Returns:* True if the sensor is available, false otherwise
     def self.available?(sensor : Sensor::Type) : Bool
-      VoidCSFML.sensor_isavailable_jRE(sensor, out result)
+      VoidCSFML.sfml_sensor_isavailable_jRE(sensor, out result)
       return result
     end
     # Enable or disable a sensor
@@ -945,7 +945,7 @@ module SF
     # * *sensor* - Sensor to enable
     # * *enabled* - True to enable, false to disable
     def self.set_enabled(sensor : Sensor::Type, enabled : Bool)
-      VoidCSFML.sensor_setenabled_jREGZq(sensor, enabled)
+      VoidCSFML.sfml_sensor_setenabled_jREGZq(sensor, enabled)
     end
     # Get the current sensor value
     #
@@ -954,7 +954,7 @@ module SF
     # *Returns:* The current sensor value
     def self.get_value(sensor : Sensor::Type) : Vector3f
       result = Vector3f.allocate
-      VoidCSFML.sensor_getvalue_jRE(sensor, result)
+      VoidCSFML.sfml_sensor_getvalue_jRE(sensor, result)
       return result
     end
   end
@@ -1003,7 +1003,7 @@ module SF
       def initialize()
         @width = uninitialized UInt32
         @height = uninitialized UInt32
-        VoidCSFML.event_sizeevent_initialize(to_unsafe)
+        VoidCSFML.sfml_event_sizeevent_initialize(to_unsafe)
       end
       @width : LibC::UInt
       @height : LibC::UInt
@@ -1032,7 +1032,7 @@ module SF
         @width = uninitialized UInt32
         @height = uninitialized UInt32
         as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
-        VoidCSFML.event_sizeevent_initialize_isq(to_unsafe, copy)
+        VoidCSFML.sfml_event_sizeevent_initialize_isq(to_unsafe, copy)
       end
       def dup() : self
         return typeof(self).new(self)
@@ -1046,7 +1046,7 @@ module SF
         @control = uninitialized Bool
         @shift = uninitialized Bool
         @system = uninitialized Bool
-        VoidCSFML.event_keyevent_initialize(to_unsafe)
+        VoidCSFML.sfml_event_keyevent_initialize(to_unsafe)
       end
       @code : Keyboard::Key
       @alt : Bool
@@ -1105,7 +1105,7 @@ module SF
         @shift = uninitialized Bool
         @system = uninitialized Bool
         as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
-        VoidCSFML.event_keyevent_initialize_wJ8(to_unsafe, copy)
+        VoidCSFML.sfml_event_keyevent_initialize_wJ8(to_unsafe, copy)
       end
       def dup() : self
         return typeof(self).new(self)
@@ -1115,7 +1115,7 @@ module SF
     abstract struct TextEvent < Event
       def initialize()
         @unicode = uninitialized UInt32
-        VoidCSFML.event_textevent_initialize(to_unsafe)
+        VoidCSFML.sfml_event_textevent_initialize(to_unsafe)
       end
       @unicode : UInt32
       @unicode : UInt32
@@ -1134,7 +1134,7 @@ module SF
       def initialize(copy : Event::TextEvent)
         @unicode = uninitialized UInt32
         as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
-        VoidCSFML.event_textevent_initialize_uku(to_unsafe, copy)
+        VoidCSFML.sfml_event_textevent_initialize_uku(to_unsafe, copy)
       end
       def dup() : self
         return typeof(self).new(self)
@@ -1145,7 +1145,7 @@ module SF
       def initialize()
         @x = uninitialized Int32
         @y = uninitialized Int32
-        VoidCSFML.event_mousemoveevent_initialize(to_unsafe)
+        VoidCSFML.sfml_event_mousemoveevent_initialize(to_unsafe)
       end
       @x : LibC::Int
       @y : LibC::Int
@@ -1174,7 +1174,7 @@ module SF
         @x = uninitialized Int32
         @y = uninitialized Int32
         as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
-        VoidCSFML.event_mousemoveevent_initialize_1i3(to_unsafe, copy)
+        VoidCSFML.sfml_event_mousemoveevent_initialize_1i3(to_unsafe, copy)
       end
       def dup() : self
         return typeof(self).new(self)
@@ -1187,7 +1187,7 @@ module SF
         @button = uninitialized Mouse::Button
         @x = uninitialized Int32
         @y = uninitialized Int32
-        VoidCSFML.event_mousebuttonevent_initialize(to_unsafe)
+        VoidCSFML.sfml_event_mousebuttonevent_initialize(to_unsafe)
       end
       @button : Mouse::Button
       @x : LibC::Int
@@ -1226,7 +1226,7 @@ module SF
         @x = uninitialized Int32
         @y = uninitialized Int32
         as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
-        VoidCSFML.event_mousebuttonevent_initialize_Tjo(to_unsafe, copy)
+        VoidCSFML.sfml_event_mousebuttonevent_initialize_Tjo(to_unsafe, copy)
       end
       def dup() : self
         return typeof(self).new(self)
@@ -1241,7 +1241,7 @@ module SF
         @delta = uninitialized Int32
         @x = uninitialized Int32
         @y = uninitialized Int32
-        VoidCSFML.event_mousewheelevent_initialize(to_unsafe)
+        VoidCSFML.sfml_event_mousewheelevent_initialize(to_unsafe)
       end
       @delta : LibC::Int
       @x : LibC::Int
@@ -1280,7 +1280,7 @@ module SF
         @x = uninitialized Int32
         @y = uninitialized Int32
         as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
-        VoidCSFML.event_mousewheelevent_initialize_Wk7(to_unsafe, copy)
+        VoidCSFML.sfml_event_mousewheelevent_initialize_Wk7(to_unsafe, copy)
       end
       def dup() : self
         return typeof(self).new(self)
@@ -1293,7 +1293,7 @@ module SF
         @delta = uninitialized Float32
         @x = uninitialized Int32
         @y = uninitialized Int32
-        VoidCSFML.event_mousewheelscrollevent_initialize(to_unsafe)
+        VoidCSFML.sfml_event_mousewheelscrollevent_initialize(to_unsafe)
       end
       @wheel : Mouse::Wheel
       @delta : LibC::Float
@@ -1342,7 +1342,7 @@ module SF
         @x = uninitialized Int32
         @y = uninitialized Int32
         as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
-        VoidCSFML.event_mousewheelscrollevent_initialize_Am0(to_unsafe, copy)
+        VoidCSFML.sfml_event_mousewheelscrollevent_initialize_Am0(to_unsafe, copy)
       end
       def dup() : self
         return typeof(self).new(self)
@@ -1353,7 +1353,7 @@ module SF
     abstract struct JoystickConnectEvent < Event
       def initialize()
         @joystick_id = uninitialized UInt32
-        VoidCSFML.event_joystickconnectevent_initialize(to_unsafe)
+        VoidCSFML.sfml_event_joystickconnectevent_initialize(to_unsafe)
       end
       @joystick_id : LibC::UInt
       @joystick_id : LibC::UInt
@@ -1372,7 +1372,7 @@ module SF
       def initialize(copy : Event::JoystickConnectEvent)
         @joystick_id = uninitialized UInt32
         as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
-        VoidCSFML.event_joystickconnectevent_initialize_rYL(to_unsafe, copy)
+        VoidCSFML.sfml_event_joystickconnectevent_initialize_rYL(to_unsafe, copy)
       end
       def dup() : self
         return typeof(self).new(self)
@@ -1384,7 +1384,7 @@ module SF
         @joystick_id = uninitialized UInt32
         @axis = uninitialized Joystick::Axis
         @position = uninitialized Float32
-        VoidCSFML.event_joystickmoveevent_initialize(to_unsafe)
+        VoidCSFML.sfml_event_joystickmoveevent_initialize(to_unsafe)
       end
       @joystick_id : LibC::UInt
       @axis : Joystick::Axis
@@ -1423,7 +1423,7 @@ module SF
         @axis = uninitialized Joystick::Axis
         @position = uninitialized Float32
         as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
-        VoidCSFML.event_joystickmoveevent_initialize_S8f(to_unsafe, copy)
+        VoidCSFML.sfml_event_joystickmoveevent_initialize_S8f(to_unsafe, copy)
       end
       def dup() : self
         return typeof(self).new(self)
@@ -1435,7 +1435,7 @@ module SF
       def initialize()
         @joystick_id = uninitialized UInt32
         @button = uninitialized UInt32
-        VoidCSFML.event_joystickbuttonevent_initialize(to_unsafe)
+        VoidCSFML.sfml_event_joystickbuttonevent_initialize(to_unsafe)
       end
       @joystick_id : LibC::UInt
       @button : LibC::UInt
@@ -1464,7 +1464,7 @@ module SF
         @joystick_id = uninitialized UInt32
         @button = uninitialized UInt32
         as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
-        VoidCSFML.event_joystickbuttonevent_initialize_V0a(to_unsafe, copy)
+        VoidCSFML.sfml_event_joystickbuttonevent_initialize_V0a(to_unsafe, copy)
       end
       def dup() : self
         return typeof(self).new(self)
@@ -1476,7 +1476,7 @@ module SF
         @finger = uninitialized UInt32
         @x = uninitialized Int32
         @y = uninitialized Int32
-        VoidCSFML.event_touchevent_initialize(to_unsafe)
+        VoidCSFML.sfml_event_touchevent_initialize(to_unsafe)
       end
       @finger : LibC::UInt
       @x : LibC::Int
@@ -1515,7 +1515,7 @@ module SF
         @x = uninitialized Int32
         @y = uninitialized Int32
         as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
-        VoidCSFML.event_touchevent_initialize_1F1(to_unsafe, copy)
+        VoidCSFML.sfml_event_touchevent_initialize_1F1(to_unsafe, copy)
       end
       def dup() : self
         return typeof(self).new(self)
@@ -1528,7 +1528,7 @@ module SF
         @x = uninitialized Float32
         @y = uninitialized Float32
         @z = uninitialized Float32
-        VoidCSFML.event_sensorevent_initialize(to_unsafe)
+        VoidCSFML.sfml_event_sensorevent_initialize(to_unsafe)
       end
       @type : Sensor::Type
       @x : LibC::Float
@@ -1577,7 +1577,7 @@ module SF
         @y = uninitialized Float32
         @z = uninitialized Float32
         as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
-        VoidCSFML.event_sensorevent_initialize_0L9(to_unsafe, copy)
+        VoidCSFML.sfml_event_sensorevent_initialize_0L9(to_unsafe, copy)
       end
       def dup() : self
         return typeof(self).new(self)
@@ -1709,7 +1709,7 @@ module SF
     #
     # *Returns:* True if *finger* is currently touching the screen, false otherwise
     def self.down?(finger : Int) : Bool
-      VoidCSFML.touch_isdown_emS(LibC::UInt.new(finger), out result)
+      VoidCSFML.sfml_touch_isdown_emS(LibC::UInt.new(finger), out result)
       return result
     end
     # Get the current position of a touch in desktop coordinates
@@ -1722,7 +1722,7 @@ module SF
     # *Returns:* Current position of *finger,* or undefined if it's not down
     def self.get_position(finger : Int) : Vector2i
       result = Vector2i.allocate
-      VoidCSFML.touch_getposition_emS(LibC::UInt.new(finger), result)
+      VoidCSFML.sfml_touch_getposition_emS(LibC::UInt.new(finger), result)
       return result
     end
     # Get the current position of a touch in window coordinates
@@ -1736,7 +1736,7 @@ module SF
     # *Returns:* Current position of *finger,* or undefined if it's not down
     def self.get_position(finger : Int, relative_to : Window) : Vector2i
       result = Vector2i.allocate
-      VoidCSFML.touch_getposition_emSJRh(LibC::UInt.new(finger), relative_to, result)
+      VoidCSFML.sfml_touch_getposition_emSJRh(LibC::UInt.new(finger), relative_to, result)
       return result
     end
   end
@@ -1786,7 +1786,7 @@ module SF
       @width = uninitialized UInt32
       @height = uninitialized UInt32
       @bits_per_pixel = uninitialized UInt32
-      VoidCSFML.videomode_initialize(to_unsafe)
+      VoidCSFML.sfml_videomode_initialize(to_unsafe)
     end
     # Construct the video mode with its attributes
     #
@@ -1797,14 +1797,14 @@ module SF
       @width = uninitialized UInt32
       @height = uninitialized UInt32
       @bits_per_pixel = uninitialized UInt32
-      VoidCSFML.videomode_initialize_emSemSemS(to_unsafe, LibC::UInt.new(width), LibC::UInt.new(height), LibC::UInt.new(bits_per_pixel))
+      VoidCSFML.sfml_videomode_initialize_emSemSemS(to_unsafe, LibC::UInt.new(width), LibC::UInt.new(height), LibC::UInt.new(bits_per_pixel))
     end
     # Get the current desktop video mode
     #
     # *Returns:* Current desktop video mode
     def self.desktop_mode() : VideoMode
       result = VideoMode.allocate
-      VoidCSFML.videomode_getdesktopmode(result)
+      VoidCSFML.sfml_videomode_getdesktopmode(result)
       return result
     end
     # Retrieve all the video modes supported in fullscreen mode
@@ -1819,7 +1819,7 @@ module SF
     #
     # *Returns:* Array containing all the supported fullscreen modes
     def self.fullscreen_modes() : Array(VideoMode)
-      VoidCSFML.videomode_getfullscreenmodes(out result, out result_size)
+      VoidCSFML.sfml_videomode_getfullscreenmodes(out result, out result_size)
       return Array.new(result_size.to_i) { |i| result.as(VideoMode*)[i] }
     end
     # Tell whether or not the video mode is valid
@@ -1830,7 +1830,7 @@ module SF
     #
     # *Returns:* True if the video mode is valid for fullscreen mode
     def valid?() : Bool
-      VoidCSFML.videomode_isvalid(to_unsafe, out result)
+      VoidCSFML.sfml_videomode_isvalid(to_unsafe, out result)
       return result
     end
     @width : LibC::UInt
@@ -1864,7 +1864,7 @@ module SF
     #
     # *Returns:* True if modes are equal
     def ==(right : VideoMode) : Bool
-      VoidCSFML.operator_eq_asWasW(to_unsafe, right, out result)
+      VoidCSFML.sfml_operator_eq_asWasW(to_unsafe, right, out result)
       return result
     end
     # Overload of != operator to compare two video modes
@@ -1874,7 +1874,7 @@ module SF
     #
     # *Returns:* True if modes are different
     def !=(right : VideoMode) : Bool
-      VoidCSFML.operator_ne_asWasW(to_unsafe, right, out result)
+      VoidCSFML.sfml_operator_ne_asWasW(to_unsafe, right, out result)
       return result
     end
     # Overload of &lt; operator to compare video modes
@@ -1884,7 +1884,7 @@ module SF
     #
     # *Returns:* True if *left* is lesser than *right*
     def <(right : VideoMode) : Bool
-      VoidCSFML.operator_lt_asWasW(to_unsafe, right, out result)
+      VoidCSFML.sfml_operator_lt_asWasW(to_unsafe, right, out result)
       return result
     end
     # Overload of &gt; operator to compare video modes
@@ -1894,7 +1894,7 @@ module SF
     #
     # *Returns:* True if *left* is greater than *right*
     def >(right : VideoMode) : Bool
-      VoidCSFML.operator_gt_asWasW(to_unsafe, right, out result)
+      VoidCSFML.sfml_operator_gt_asWasW(to_unsafe, right, out result)
       return result
     end
     # Overload of &lt;= operator to compare video modes
@@ -1904,7 +1904,7 @@ module SF
     #
     # *Returns:* True if *left* is lesser or equal than *right*
     def <=(right : VideoMode) : Bool
-      VoidCSFML.operator_le_asWasW(to_unsafe, right, out result)
+      VoidCSFML.sfml_operator_le_asWasW(to_unsafe, right, out result)
       return result
     end
     # Overload of &gt;= operator to compare video modes
@@ -1914,7 +1914,7 @@ module SF
     #
     # *Returns:* True if *left* is greater or equal than *right*
     def >=(right : VideoMode) : Bool
-      VoidCSFML.operator_ge_asWasW(to_unsafe, right, out result)
+      VoidCSFML.sfml_operator_ge_asWasW(to_unsafe, right, out result)
       return result
     end
     # :nodoc:
@@ -1927,7 +1927,7 @@ module SF
       @height = uninitialized UInt32
       @bits_per_pixel = uninitialized UInt32
       as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
-      VoidCSFML.videomode_initialize_asW(to_unsafe, copy)
+      VoidCSFML.sfml_videomode_initialize_asW(to_unsafe, copy)
     end
     def dup() : self
       return typeof(self).new(self)
@@ -2006,7 +2006,7 @@ module SF
     # use the other constructors or call create() to do so.
     def initialize()
       @_window = uninitialized VoidCSFML::Window_Buffer
-      VoidCSFML.window_initialize(to_unsafe)
+      VoidCSFML.sfml_window_initialize(to_unsafe)
     end
     # Construct a new window
     #
@@ -2026,7 +2026,7 @@ module SF
     # * *settings* - Additional settings for the underlying OpenGL context
     def initialize(mode : VideoMode, title : String, style : Style = Style::Default, settings : ContextSettings = ContextSettings.new())
       @_window = uninitialized VoidCSFML::Window_Buffer
-      VoidCSFML.window_initialize_wg0bQssaLFw4(to_unsafe, mode, title.size, title.chars, style, settings)
+      VoidCSFML.sfml_window_initialize_wg0bQssaLFw4(to_unsafe, mode, title.size, title.chars, style, settings)
     end
     # Construct the window from an existing control
     #
@@ -2041,13 +2041,13 @@ module SF
     # * *settings* - Additional settings for the underlying OpenGL context
     def initialize(handle : WindowHandle, settings : ContextSettings = ContextSettings.new())
       @_window = uninitialized VoidCSFML::Window_Buffer
-      VoidCSFML.window_initialize_rLQFw4(to_unsafe, handle, settings)
+      VoidCSFML.sfml_window_initialize_rLQFw4(to_unsafe, handle, settings)
     end
     # Destructor
     #
     # Closes the window and frees all the resources attached to it.
     def finalize()
-      VoidCSFML.window_finalize(to_unsafe)
+      VoidCSFML.sfml_window_finalize(to_unsafe)
     end
     # Create (or recreate) the window
     #
@@ -2064,7 +2064,7 @@ module SF
     # * *style* - Window style, a bitwise OR combination of `SF::Style` enumerators
     # * *settings* - Additional settings for the underlying OpenGL context
     def create(mode : VideoMode, title : String, style : Style = Style::Default, settings : ContextSettings = ContextSettings.new())
-      VoidCSFML.window_create_wg0bQssaLFw4(to_unsafe, mode, title.size, title.chars, style, settings)
+      VoidCSFML.sfml_window_create_wg0bQssaLFw4(to_unsafe, mode, title.size, title.chars, style, settings)
     end
     # Shorthand for `window = Window.new; window.create(...); window`
     def self.new(*args, **kwargs) : self
@@ -2085,7 +2085,7 @@ module SF
     # * *handle* - Platform-specific handle of the control
     # * *settings* - Additional settings for the underlying OpenGL context
     def create(handle : WindowHandle, settings : ContextSettings = ContextSettings.new())
-      VoidCSFML.window_create_rLQFw4(to_unsafe, handle, settings)
+      VoidCSFML.sfml_window_create_rLQFw4(to_unsafe, handle, settings)
     end
     # Shorthand for `window = Window.new; window.create(...); window`
     def self.new(*args, **kwargs) : self
@@ -2101,7 +2101,7 @@ module SF
     # still work (i.e. you don't have to test open?() every time),
     # and will have no effect on closed windows.
     def close()
-      VoidCSFML.window_close(to_unsafe)
+      VoidCSFML.sfml_window_close(to_unsafe)
     end
     # Tell whether or not the window is open
     #
@@ -2111,7 +2111,7 @@ module SF
     #
     # *Returns:* True if the window is open, false if it has been closed
     def open?() : Bool
-      VoidCSFML.window_isopen(to_unsafe, out result)
+      VoidCSFML.sfml_window_isopen(to_unsafe, out result)
       return result
     end
     # Get the settings of the OpenGL context of the window
@@ -2124,7 +2124,7 @@ module SF
     # *Returns:* Structure containing the OpenGL context settings
     def settings() : ContextSettings
       result = ContextSettings.allocate
-      VoidCSFML.window_getsettings(to_unsafe, result)
+      VoidCSFML.sfml_window_getsettings(to_unsafe, result)
       return result
     end
     # Pop the event on top of the event queue, if any, and return it
@@ -2147,7 +2147,7 @@ module SF
     # *See also:* `wait_event`
     def poll_event() : Event?
       event = uninitialized VoidCSFML::Event_Buffer
-      VoidCSFML.window_pollevent_YJW(to_unsafe, event, out result)
+      VoidCSFML.sfml_window_pollevent_YJW(to_unsafe, event, out result)
       if result
         {% begin %}
         case event.to_unsafe.as(LibC::Int*).value
@@ -2181,7 +2181,7 @@ module SF
     # *See also:* `poll_event`
     def wait_event() : Event?
       event = uninitialized VoidCSFML::Event_Buffer
-      VoidCSFML.window_waitevent_YJW(to_unsafe, event, out result)
+      VoidCSFML.sfml_window_waitevent_YJW(to_unsafe, event, out result)
       if result
         {% begin %}
         case event.to_unsafe.as(LibC::Int*).value
@@ -2200,7 +2200,7 @@ module SF
     # *See also:* `position=`
     def position() : Vector2i
       result = Vector2i.allocate
-      VoidCSFML.window_getposition(to_unsafe, result)
+      VoidCSFML.sfml_window_getposition(to_unsafe, result)
       return result
     end
     # Change the position of the window on screen
@@ -2214,7 +2214,7 @@ module SF
     # *See also:* `position`
     def position=(position : Vector2|Tuple)
       position = Vector2i.new(position[0].to_i32, position[1].to_i32)
-      VoidCSFML.window_setposition_ufV(to_unsafe, position)
+      VoidCSFML.sfml_window_setposition_ufV(to_unsafe, position)
     end
     # Get the size of the rendering region of the window
     #
@@ -2226,7 +2226,7 @@ module SF
     # *See also:* `size=`
     def size() : Vector2u
       result = Vector2u.allocate
-      VoidCSFML.window_getsize(to_unsafe, result)
+      VoidCSFML.sfml_window_getsize(to_unsafe, result)
       return result
     end
     # Change the size of the rendering region of the window
@@ -2236,7 +2236,7 @@ module SF
     # *See also:* `size`
     def size=(size : Vector2|Tuple)
       size = Vector2u.new(size[0].to_u32, size[1].to_u32)
-      VoidCSFML.window_setsize_DXO(to_unsafe, size)
+      VoidCSFML.sfml_window_setsize_DXO(to_unsafe, size)
     end
     # Change the title of the window
     #
@@ -2244,7 +2244,7 @@ module SF
     #
     # *See also:* `icon=`
     def title=(title : String)
-      VoidCSFML.window_settitle_bQs(to_unsafe, title.size, title.chars)
+      VoidCSFML.sfml_window_settitle_bQs(to_unsafe, title.size, title.chars)
     end
     # Change the window's icon
     #
@@ -2261,7 +2261,7 @@ module SF
     #
     # *See also:* `title=`
     def set_icon(width : Int, height : Int, pixels : UInt8*)
-      VoidCSFML.window_seticon_emSemS843(to_unsafe, LibC::UInt.new(width), LibC::UInt.new(height), pixels)
+      VoidCSFML.sfml_window_seticon_emSemS843(to_unsafe, LibC::UInt.new(width), LibC::UInt.new(height), pixels)
     end
     # Show or hide the window
     #
@@ -2269,7 +2269,7 @@ module SF
     #
     # * *visible* - True to show the window, false to hide it
     def visible=(visible : Bool)
-      VoidCSFML.window_setvisible_GZq(to_unsafe, visible)
+      VoidCSFML.sfml_window_setvisible_GZq(to_unsafe, visible)
     end
     # Enable or disable vertical synchronization
     #
@@ -2282,7 +2282,7 @@ module SF
     #
     # * *enabled* - True to enable v-sync, false to deactivate it
     def vertical_sync_enabled=(enabled : Bool)
-      VoidCSFML.window_setverticalsyncenabled_GZq(to_unsafe, enabled)
+      VoidCSFML.sfml_window_setverticalsyncenabled_GZq(to_unsafe, enabled)
     end
     # Show or hide the mouse cursor
     #
@@ -2290,7 +2290,7 @@ module SF
     #
     # * *visible* - True to show the mouse cursor, false to hide it
     def mouse_cursor_visible=(visible : Bool)
-      VoidCSFML.window_setmousecursorvisible_GZq(to_unsafe, visible)
+      VoidCSFML.sfml_window_setmousecursorvisible_GZq(to_unsafe, visible)
     end
     # Grab or release the mouse cursor
     #
@@ -2301,7 +2301,7 @@ module SF
     #
     # * *grabbed* - True to enable, false to disable
     def mouse_cursor_grabbed=(grabbed : Bool)
-      VoidCSFML.window_setmousecursorgrabbed_GZq(to_unsafe, grabbed)
+      VoidCSFML.sfml_window_setmousecursorgrabbed_GZq(to_unsafe, grabbed)
     end
     # Enable or disable automatic key-repeat
     #
@@ -2313,7 +2313,7 @@ module SF
     #
     # * *enabled* - True to enable, false to disable
     def key_repeat_enabled=(enabled : Bool)
-      VoidCSFML.window_setkeyrepeatenabled_GZq(to_unsafe, enabled)
+      VoidCSFML.sfml_window_setkeyrepeatenabled_GZq(to_unsafe, enabled)
     end
     # Limit the framerate to a maximum fixed frequency
     #
@@ -2328,7 +2328,7 @@ module SF
     #
     # * *limit* - Framerate limit, in frames per seconds (use 0 to disable limit)
     def framerate_limit=(limit : Int)
-      VoidCSFML.window_setframeratelimit_emS(to_unsafe, LibC::UInt.new(limit))
+      VoidCSFML.sfml_window_setframeratelimit_emS(to_unsafe, LibC::UInt.new(limit))
     end
     # Change the joystick threshold
     #
@@ -2339,7 +2339,7 @@ module SF
     #
     # * *threshold* - New threshold, in the range `0.0 .. 100.0`
     def joystick_threshold=(threshold : Number)
-      VoidCSFML.window_setjoystickthreshold_Bw9(to_unsafe, LibC::Float.new(threshold))
+      VoidCSFML.sfml_window_setjoystickthreshold_Bw9(to_unsafe, LibC::Float.new(threshold))
     end
     # Activate or deactivate the window as the current target
     #        for OpenGL rendering
@@ -2355,7 +2355,7 @@ module SF
     #
     # *Returns:* True if operation was successful, false otherwise
     def active=(active : Bool = true) : Bool
-      VoidCSFML.window_setactive_GZq(to_unsafe, active, out result)
+      VoidCSFML.sfml_window_setactive_GZq(to_unsafe, active, out result)
       return result
     end
     # Request the current window to be made the active
@@ -2370,7 +2370,7 @@ module SF
     #
     # *See also:* `focus?`
     def request_focus()
-      VoidCSFML.window_requestfocus(to_unsafe)
+      VoidCSFML.sfml_window_requestfocus(to_unsafe)
     end
     # Check whether the window has the input focus
     #
@@ -2381,7 +2381,7 @@ module SF
     # *Returns:* True if window has focus, false otherwise
     # *See also:* `request_focus`
     def focus?() : Bool
-      VoidCSFML.window_hasfocus(to_unsafe, out result)
+      VoidCSFML.sfml_window_hasfocus(to_unsafe, out result)
       return result
     end
     # Display on screen what has been rendered to the window so far
@@ -2390,7 +2390,7 @@ module SF
     # has been done for the current frame, in order to show
     # it on screen.
     def display()
-      VoidCSFML.window_display(to_unsafe)
+      VoidCSFML.sfml_window_display(to_unsafe)
     end
     # Get the OS-specific handle of the window
     #
@@ -2402,7 +2402,7 @@ module SF
     #
     # *Returns:* System handle of the window
     def system_handle() : WindowHandle
-      VoidCSFML.window_getsystemhandle(to_unsafe, out result)
+      VoidCSFML.sfml_window_getsystemhandle(to_unsafe, out result)
       return result
     end
     include GlResource

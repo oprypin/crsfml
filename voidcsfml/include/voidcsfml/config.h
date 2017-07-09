@@ -77,15 +77,15 @@
 #if defined(_WIN32)
     // Window handle is HWND (HWND__*) on Windows
     struct HWND__;
-    typedef HWND__* WindowHandle;
+    typedef HWND__* SFMLWindowHandle;
 
 #elif defined(__APPLE__)
     // Window handle is NSWindow or NSView (void*) on Mac OS X - Cocoa
-    typedef void* WindowHandle;
+    typedef void* SFMLWindowHandle;
 
 #elif defined(__unix__)
     // Window handle is Window (unsigned long) on Unix - X11
-    typedef unsigned long WindowHandle;
+    typedef unsigned long SFMLWindowHandle;
 
 #endif
 
@@ -93,9 +93,9 @@
 // OS-specific socket handle type
 
 #if defined(_WIN32)
-    typedef unsigned int* SocketHandle;
+    typedef unsigned int* SFMLSocketHandle;
 #else
-    typedef int SocketHandle;
+    typedef int SFMLSocketHandle;
 #endif
 
 

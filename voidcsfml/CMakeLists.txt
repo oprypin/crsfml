@@ -153,7 +153,7 @@ macro(voidcsfml_add_library module)
     else()
         set_target_properties(${target} PROPERTIES DEBUG_POSTFIX -d)
     endif()
-    if (SFML_OS_WINDOWS AND SFML_COMPILER_GCC)
+    if(SFML_OS_WINDOWS AND SFML_COMPILER_GCC)
         # on Windows/gcc get rid of "lib" prefix for shared libraries,
         # and transform the ".dll.a" suffix into ".a" for import libraries
         set_target_properties(${target} PROPERTIES PREFIX "")
@@ -210,14 +210,8 @@ macro(voidcsfml_add_library module)
 endmacro()
 
 
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated-declarations")
-
-
 # add the VoidCSFML sources path
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
-
-# set the output directory for VoidCSFML libraries
-set(LIBRARY_OUTPUT_PATH "${CMAKE_CURRENT_BINARY_DIR}/lib")
 
 # define the export symbol
 add_definitions(-DVOIDCSFML_EXPORTS)
@@ -229,7 +223,7 @@ endif()
 
 # find SFML libraries (C++)
 if(SFML_OS_WINDOWS)
-    if (VOIDCSFML_LINK_SFML_STATICALLY)
+    if(VOIDCSFML_LINK_SFML_STATICALLY)
         set(SFML_STATIC_LIBRARIES TRUE)
         add_definitions(-DSFML_STATIC)
     endif()

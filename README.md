@@ -127,11 +127,11 @@ If SFML can't be found, make sure it is installed and consult the [CMake options
 
 #### Configure the path to VoidCSFML libraries
 
-The *voidcsfml/lib* folder contains the dynamic libraries that are needed to run any *CrSFML* program. So you need to configure the full path to them whenever you work with *CrSFML* so the linker can find them. To apply these for the current shell session, run:
+Now the *voidcsfml* folder contains the dynamic libraries that are needed to run any *CrSFML* program. So you need to configure the full path to them whenever you work with *CrSFML* so the linker can find them. To apply these for the current shell session, run:
 
 ```bash
-export LIBRARY_PATH=/full/path/to/crsfml/voidcsfml/lib  # Used during linking
-export LD_LIBRARY_PATH="$LIBRARY_PATH"                  # Used when running a binary
+export LIBRARY_PATH=/full/path/to/crsfml/voidcsfml  # Used during linking
+export LD_LIBRARY_PATH="$LIBRARY_PATH"              # Used when running a binary
 
 # Try running an example:
 cd examples

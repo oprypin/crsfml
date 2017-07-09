@@ -41,7 +41,7 @@ module SF
     #
     # *See also:* `global_volume`
     def self.global_volume=(volume : Number)
-      VoidCSFML.listener_setglobalvolume_Bw9(LibC::Float.new(volume))
+      VoidCSFML.sfml_listener_setglobalvolume_Bw9(LibC::Float.new(volume))
     end
     # Get the current value of the global volume
     #
@@ -49,7 +49,7 @@ module SF
     #
     # *See also:* `global_volume=`
     def self.global_volume() : Float32
-      VoidCSFML.listener_getglobalvolume(out result)
+      VoidCSFML.sfml_listener_getglobalvolume(out result)
       return result
     end
     # Set the position of the listener in the scene
@@ -62,7 +62,7 @@ module SF
     #
     # *See also:* `position`, `direction=`
     def self.set_position(x : Number, y : Number, z : Number)
-      VoidCSFML.listener_setposition_Bw9Bw9Bw9(LibC::Float.new(x), LibC::Float.new(y), LibC::Float.new(z))
+      VoidCSFML.sfml_listener_setposition_Bw9Bw9Bw9(LibC::Float.new(x), LibC::Float.new(y), LibC::Float.new(z))
     end
     # Set the position of the listener in the scene
     #
@@ -72,7 +72,7 @@ module SF
     #
     # *See also:* `position`, `direction=`
     def self.position=(position : Vector3f)
-      VoidCSFML.listener_setposition_NzM(position)
+      VoidCSFML.sfml_listener_setposition_NzM(position)
     end
     # Get the current position of the listener in the scene
     #
@@ -81,7 +81,7 @@ module SF
     # *See also:* `position=`
     def self.position() : Vector3f
       result = Vector3f.allocate
-      VoidCSFML.listener_getposition(result)
+      VoidCSFML.sfml_listener_getposition(result)
       return result
     end
     # Set the forward vector of the listener in the scene
@@ -99,7 +99,7 @@ module SF
     #
     # *See also:* `direction`, `up_vector=`, `position=`
     def self.set_direction(x : Number, y : Number, z : Number)
-      VoidCSFML.listener_setdirection_Bw9Bw9Bw9(LibC::Float.new(x), LibC::Float.new(y), LibC::Float.new(z))
+      VoidCSFML.sfml_listener_setdirection_Bw9Bw9Bw9(LibC::Float.new(x), LibC::Float.new(y), LibC::Float.new(z))
     end
     # Set the forward vector of the listener in the scene
     #
@@ -114,7 +114,7 @@ module SF
     #
     # *See also:* `direction`, `up_vector=`, `position=`
     def self.direction=(direction : Vector3f)
-      VoidCSFML.listener_setdirection_NzM(direction)
+      VoidCSFML.sfml_listener_setdirection_NzM(direction)
     end
     # Get the current forward vector of the listener in the scene
     #
@@ -123,7 +123,7 @@ module SF
     # *See also:* `direction=`
     def self.direction() : Vector3f
       result = Vector3f.allocate
-      VoidCSFML.listener_getdirection(result)
+      VoidCSFML.sfml_listener_getdirection(result)
       return result
     end
     # Set the upward vector of the listener in the scene
@@ -141,7 +141,7 @@ module SF
     #
     # *See also:* `up_vector`, `direction=`, `position=`
     def self.set_up_vector(x : Number, y : Number, z : Number)
-      VoidCSFML.listener_setupvector_Bw9Bw9Bw9(LibC::Float.new(x), LibC::Float.new(y), LibC::Float.new(z))
+      VoidCSFML.sfml_listener_setupvector_Bw9Bw9Bw9(LibC::Float.new(x), LibC::Float.new(y), LibC::Float.new(z))
     end
     # Set the upward vector of the listener in the scene
     #
@@ -156,7 +156,7 @@ module SF
     #
     # *See also:* `up_vector`, `direction=`, `position=`
     def self.up_vector=(up_vector : Vector3f)
-      VoidCSFML.listener_setupvector_NzM(up_vector)
+      VoidCSFML.sfml_listener_setupvector_NzM(up_vector)
     end
     # Get the current upward vector of the listener in the scene
     #
@@ -165,7 +165,7 @@ module SF
     # *See also:* `up_vector=`
     def self.up_vector() : Vector3f
       result = Vector3f.allocate
-      VoidCSFML.listener_getupvector(result)
+      VoidCSFML.sfml_listener_getupvector(result)
       return result
     end
   end
@@ -197,7 +197,7 @@ module SF
     Util.extract SoundSource::Status
     # Destructor
     def finalize()
-      VoidCSFML.soundsource_finalize(to_unsafe)
+      VoidCSFML.sfml_soundsource_finalize(to_unsafe)
     end
     # Set the pitch of the sound
     #
@@ -211,7 +211,7 @@ module SF
     #
     # *See also:* `pitch`
     def pitch=(pitch : Number)
-      VoidCSFML.soundsource_setpitch_Bw9(to_unsafe, LibC::Float.new(pitch))
+      VoidCSFML.sfml_soundsource_setpitch_Bw9(to_unsafe, LibC::Float.new(pitch))
     end
     # Set the volume of the sound
     #
@@ -222,7 +222,7 @@ module SF
     #
     # *See also:* `volume`
     def volume=(volume : Number)
-      VoidCSFML.soundsource_setvolume_Bw9(to_unsafe, LibC::Float.new(volume))
+      VoidCSFML.sfml_soundsource_setvolume_Bw9(to_unsafe, LibC::Float.new(volume))
     end
     # Set the 3D position of the sound in the audio scene
     #
@@ -236,7 +236,7 @@ module SF
     #
     # *See also:* `position`
     def set_position(x : Number, y : Number, z : Number)
-      VoidCSFML.soundsource_setposition_Bw9Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y), LibC::Float.new(z))
+      VoidCSFML.sfml_soundsource_setposition_Bw9Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y), LibC::Float.new(z))
     end
     # Set the 3D position of the sound in the audio scene
     #
@@ -248,7 +248,7 @@ module SF
     #
     # *See also:* `position`
     def position=(position : Vector3f)
-      VoidCSFML.soundsource_setposition_NzM(to_unsafe, position)
+      VoidCSFML.sfml_soundsource_setposition_NzM(to_unsafe, position)
     end
     # Make the sound's position relative to the listener or absolute
     #
@@ -262,7 +262,7 @@ module SF
     #
     # *See also:* `relative_to_listener?`
     def relative_to_listener=(relative : Bool)
-      VoidCSFML.soundsource_setrelativetolistener_GZq(to_unsafe, relative)
+      VoidCSFML.sfml_soundsource_setrelativetolistener_GZq(to_unsafe, relative)
     end
     # Set the minimum distance of the sound
     #
@@ -277,7 +277,7 @@ module SF
     #
     # *See also:* `min_distance`, `attenuation=`
     def min_distance=(distance : Number)
-      VoidCSFML.soundsource_setmindistance_Bw9(to_unsafe, LibC::Float.new(distance))
+      VoidCSFML.sfml_soundsource_setmindistance_Bw9(to_unsafe, LibC::Float.new(distance))
     end
     # Set the attenuation factor of the sound
     #
@@ -294,7 +294,7 @@ module SF
     #
     # *See also:* `attenuation`, `min_distance=`
     def attenuation=(attenuation : Number)
-      VoidCSFML.soundsource_setattenuation_Bw9(to_unsafe, LibC::Float.new(attenuation))
+      VoidCSFML.sfml_soundsource_setattenuation_Bw9(to_unsafe, LibC::Float.new(attenuation))
     end
     # Get the pitch of the sound
     #
@@ -302,7 +302,7 @@ module SF
     #
     # *See also:* `pitch=`
     def pitch() : Float32
-      VoidCSFML.soundsource_getpitch(to_unsafe, out result)
+      VoidCSFML.sfml_soundsource_getpitch(to_unsafe, out result)
       return result
     end
     # Get the volume of the sound
@@ -311,7 +311,7 @@ module SF
     #
     # *See also:* `volume=`
     def volume() : Float32
-      VoidCSFML.soundsource_getvolume(to_unsafe, out result)
+      VoidCSFML.sfml_soundsource_getvolume(to_unsafe, out result)
       return result
     end
     # Get the 3D position of the sound in the audio scene
@@ -321,7 +321,7 @@ module SF
     # *See also:* `position=`
     def position() : Vector3f
       result = Vector3f.allocate
-      VoidCSFML.soundsource_getposition(to_unsafe, result)
+      VoidCSFML.sfml_soundsource_getposition(to_unsafe, result)
       return result
     end
     # Tell whether the sound's position is relative to the
@@ -331,7 +331,7 @@ module SF
     #
     # *See also:* `relative_to_listener=`
     def relative_to_listener?() : Bool
-      VoidCSFML.soundsource_isrelativetolistener(to_unsafe, out result)
+      VoidCSFML.sfml_soundsource_isrelativetolistener(to_unsafe, out result)
       return result
     end
     # Get the minimum distance of the sound
@@ -340,7 +340,7 @@ module SF
     #
     # *See also:* `min_distance=`, `attenuation`
     def min_distance() : Float32
-      VoidCSFML.soundsource_getmindistance(to_unsafe, out result)
+      VoidCSFML.sfml_soundsource_getmindistance(to_unsafe, out result)
       return result
     end
     # Get the attenuation factor of the sound
@@ -349,7 +349,7 @@ module SF
     #
     # *See also:* `attenuation=`, `min_distance`
     def attenuation() : Float32
-      VoidCSFML.soundsource_getattenuation(to_unsafe, out result)
+      VoidCSFML.sfml_soundsource_getattenuation(to_unsafe, out result)
       return result
     end
     # Default constructor
@@ -357,7 +357,7 @@ module SF
     # This constructor is meant to be called by derived classes only.
     protected def initialize()
       @_soundsource = uninitialized VoidCSFML::SoundSource_Buffer
-      VoidCSFML.soundsource_initialize(to_unsafe)
+      VoidCSFML.sfml_soundsource_initialize(to_unsafe)
     end
     include AlResource
     # :nodoc:
@@ -369,14 +369,14 @@ module SF
       to_s(io)
     end
   end
-  VoidCSFML.soundstream_ongetdata_callback = ->(self : Void*, data : Int16**, data_size : LibC::SizeT*, result : Bool*) {
+  VoidCSFML.sfml_soundstream_ongetdata_callback(->(self : Void*, data : Int16**, data_size : LibC::SizeT*, result : Bool*) {
     output = (self - sizeof(LibC::Int)).as(Union(SoundStream)).on_get_data()
     data.value, data_size.value = output.to_unsafe, LibC::SizeT.new(output.size) if output
     result.value = !!output
-  }
-  VoidCSFML.soundstream_onseek_callback = ->(self : Void*, time_offset : Void*) {
+  })
+  VoidCSFML.sfml_soundstream_onseek_callback(->(self : Void*, time_offset : Void*) {
     (self - sizeof(LibC::Int)).as(Union(SoundStream)).on_seek(time_offset.as(Time*).value)
-  }
+  })
   # Abstract base class for streamed audio sources
   #
   # Unlike audio buffers (see `SF::SoundBuffer`), audio streams
@@ -439,7 +439,7 @@ module SF
     @_soundstream : VoidCSFML::SoundStream_Buffer
     # Destructor
     def finalize()
-      VoidCSFML.soundstream_finalize(to_unsafe)
+      VoidCSFML.sfml_soundstream_finalize(to_unsafe)
     end
     # Start or resume playing the audio stream
     #
@@ -451,7 +451,7 @@ module SF
     #
     # *See also:* `pause`, `stop`
     def play()
-      VoidCSFML.soundstream_play(to_unsafe)
+      VoidCSFML.sfml_soundstream_play(to_unsafe)
     end
     # Pause the audio stream
     #
@@ -460,7 +460,7 @@ module SF
     #
     # *See also:* `play`, `stop`
     def pause()
-      VoidCSFML.soundstream_pause(to_unsafe)
+      VoidCSFML.sfml_soundstream_pause(to_unsafe)
     end
     # Stop playing the audio stream
     #
@@ -470,7 +470,7 @@ module SF
     #
     # *See also:* `play`, `pause`
     def stop()
-      VoidCSFML.soundstream_stop(to_unsafe)
+      VoidCSFML.sfml_soundstream_stop(to_unsafe)
     end
     # Return the number of channels of the stream
     #
@@ -478,7 +478,7 @@ module SF
     #
     # *Returns:* Number of channels
     def channel_count() : Int32
-      VoidCSFML.soundstream_getchannelcount(to_unsafe, out result)
+      VoidCSFML.sfml_soundstream_getchannelcount(to_unsafe, out result)
       return result.to_i
     end
     # Get the stream sample rate of the stream
@@ -488,14 +488,14 @@ module SF
     #
     # *Returns:* Sample rate, in number of samples per second
     def sample_rate() : Int32
-      VoidCSFML.soundstream_getsamplerate(to_unsafe, out result)
+      VoidCSFML.sfml_soundstream_getsamplerate(to_unsafe, out result)
       return result.to_i
     end
     # Get the current status of the stream (stopped, paused, playing)
     #
     # *Returns:* Current status
     def status() : SoundSource::Status
-      VoidCSFML.soundstream_getstatus(to_unsafe, out result)
+      VoidCSFML.sfml_soundstream_getstatus(to_unsafe, out result)
       return SoundSource::Status.new(result)
     end
     # Change the current playing position of the stream
@@ -509,7 +509,7 @@ module SF
     #
     # *See also:* `playing_offset`
     def playing_offset=(time_offset : Time)
-      VoidCSFML.soundstream_setplayingoffset_f4T(to_unsafe, time_offset)
+      VoidCSFML.sfml_soundstream_setplayingoffset_f4T(to_unsafe, time_offset)
     end
     # Get the current playing position of the stream
     #
@@ -518,7 +518,7 @@ module SF
     # *See also:* `playing_offset=`
     def playing_offset() : Time
       result = Time.allocate
-      VoidCSFML.soundstream_getplayingoffset(to_unsafe, result)
+      VoidCSFML.sfml_soundstream_getplayingoffset(to_unsafe, result)
       return result
     end
     # Set whether or not the stream should loop after reaching the end
@@ -532,7 +532,7 @@ module SF
     #
     # *See also:* `loop`
     def loop=(loop : Bool)
-      VoidCSFML.soundstream_setloop_GZq(to_unsafe, loop)
+      VoidCSFML.sfml_soundstream_setloop_GZq(to_unsafe, loop)
     end
     # Tell whether or not the stream is in loop mode
     #
@@ -540,7 +540,7 @@ module SF
     #
     # *See also:* `loop=`
     def loop() : Bool
-      VoidCSFML.soundstream_getloop(to_unsafe, out result)
+      VoidCSFML.sfml_soundstream_getloop(to_unsafe, out result)
       return result
     end
     # Default constructor
@@ -550,7 +550,7 @@ module SF
       @_soundsource = uninitialized VoidCSFML::SoundSource_Buffer
       @_soundstream = uninitialized VoidCSFML::SoundStream_Buffer
       raise "Unexpected memory layout" if as(Void*) + sizeof(LibC::Int) != to_unsafe
-      VoidCSFML.soundstream_initialize(to_unsafe)
+      VoidCSFML.sfml_soundstream_initialize(to_unsafe)
     end
     # Define the audio stream parameters
     #
@@ -567,8 +567,8 @@ module SF
       @_soundsource = uninitialized VoidCSFML::SoundSource_Buffer
       @_soundstream = uninitialized VoidCSFML::SoundStream_Buffer
       raise "Unexpected memory layout" if as(Void*) + sizeof(LibC::Int) != to_unsafe
-      VoidCSFML.soundstream_initialize(to_unsafe)
-      VoidCSFML.soundstream_initialize_emSemS(to_unsafe, LibC::UInt.new(channel_count), LibC::UInt.new(sample_rate))
+      VoidCSFML.sfml_soundstream_initialize(to_unsafe)
+      VoidCSFML.sfml_soundstream_initialize_emSemS(to_unsafe, LibC::UInt.new(channel_count), LibC::UInt.new(sample_rate))
     end
     # Request a new chunk of audio samples from the stream source
     #
@@ -594,61 +594,61 @@ module SF
     abstract def on_seek(time_offset : Time)
     # :nodoc:
     def pitch=(pitch : Number)
-      VoidCSFML.soundstream_setpitch_Bw9(to_unsafe, LibC::Float.new(pitch))
+      VoidCSFML.sfml_soundstream_setpitch_Bw9(to_unsafe, LibC::Float.new(pitch))
     end
     # :nodoc:
     def volume=(volume : Number)
-      VoidCSFML.soundstream_setvolume_Bw9(to_unsafe, LibC::Float.new(volume))
+      VoidCSFML.sfml_soundstream_setvolume_Bw9(to_unsafe, LibC::Float.new(volume))
     end
     # :nodoc:
     def set_position(x : Number, y : Number, z : Number)
-      VoidCSFML.soundstream_setposition_Bw9Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y), LibC::Float.new(z))
+      VoidCSFML.sfml_soundstream_setposition_Bw9Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y), LibC::Float.new(z))
     end
     # :nodoc:
     def position=(position : Vector3f)
-      VoidCSFML.soundstream_setposition_NzM(to_unsafe, position)
+      VoidCSFML.sfml_soundstream_setposition_NzM(to_unsafe, position)
     end
     # :nodoc:
     def relative_to_listener=(relative : Bool)
-      VoidCSFML.soundstream_setrelativetolistener_GZq(to_unsafe, relative)
+      VoidCSFML.sfml_soundstream_setrelativetolistener_GZq(to_unsafe, relative)
     end
     # :nodoc:
     def min_distance=(distance : Number)
-      VoidCSFML.soundstream_setmindistance_Bw9(to_unsafe, LibC::Float.new(distance))
+      VoidCSFML.sfml_soundstream_setmindistance_Bw9(to_unsafe, LibC::Float.new(distance))
     end
     # :nodoc:
     def attenuation=(attenuation : Number)
-      VoidCSFML.soundstream_setattenuation_Bw9(to_unsafe, LibC::Float.new(attenuation))
+      VoidCSFML.sfml_soundstream_setattenuation_Bw9(to_unsafe, LibC::Float.new(attenuation))
     end
     # :nodoc:
     def pitch() : Float32
-      VoidCSFML.soundstream_getpitch(to_unsafe, out result)
+      VoidCSFML.sfml_soundstream_getpitch(to_unsafe, out result)
       return result
     end
     # :nodoc:
     def volume() : Float32
-      VoidCSFML.soundstream_getvolume(to_unsafe, out result)
+      VoidCSFML.sfml_soundstream_getvolume(to_unsafe, out result)
       return result
     end
     # :nodoc:
     def position() : Vector3f
       result = Vector3f.allocate
-      VoidCSFML.soundstream_getposition(to_unsafe, result)
+      VoidCSFML.sfml_soundstream_getposition(to_unsafe, result)
       return result
     end
     # :nodoc:
     def relative_to_listener?() : Bool
-      VoidCSFML.soundstream_isrelativetolistener(to_unsafe, out result)
+      VoidCSFML.sfml_soundstream_isrelativetolistener(to_unsafe, out result)
       return result
     end
     # :nodoc:
     def min_distance() : Float32
-      VoidCSFML.soundstream_getmindistance(to_unsafe, out result)
+      VoidCSFML.sfml_soundstream_getmindistance(to_unsafe, out result)
       return result
     end
     # :nodoc:
     def attenuation() : Float32
-      VoidCSFML.soundstream_getattenuation(to_unsafe, out result)
+      VoidCSFML.sfml_soundstream_getattenuation(to_unsafe, out result)
       return result
     end
     # :nodoc:
@@ -709,11 +709,11 @@ module SF
       @_soundsource = uninitialized VoidCSFML::SoundSource_Buffer
       @_soundstream = uninitialized VoidCSFML::SoundStream_Buffer
       @_music = uninitialized VoidCSFML::Music_Buffer
-      VoidCSFML.music_initialize(to_unsafe)
+      VoidCSFML.sfml_music_initialize(to_unsafe)
     end
     # Destructor
     def finalize()
-      VoidCSFML.music_finalize(to_unsafe)
+      VoidCSFML.sfml_music_finalize(to_unsafe)
     end
     # Open a music from an audio file
     #
@@ -732,7 +732,7 @@ module SF
     #
     # *See also:* `open_from_memory`, `open_from_stream`
     def open_from_file(filename : String) : Bool
-      VoidCSFML.music_openfromfile_zkC(to_unsafe, filename.bytesize, filename, out result)
+      VoidCSFML.sfml_music_openfromfile_zkC(to_unsafe, filename.bytesize, filename, out result)
       return result
     end
     # Shorthand for `music = Music.new; music.open_from_file(...); music`
@@ -763,7 +763,7 @@ module SF
     #
     # *See also:* `open_from_file`, `open_from_stream`
     def open_from_memory(data : Slice) : Bool
-      VoidCSFML.music_openfrommemory_5h8vgv(to_unsafe, data, data.bytesize, out result)
+      VoidCSFML.sfml_music_openfrommemory_5h8vgv(to_unsafe, data, data.bytesize, out result)
       return result
     end
     # Shorthand for `music = Music.new; music.open_from_memory(...); music`
@@ -793,7 +793,7 @@ module SF
     #
     # *See also:* `open_from_file`, `open_from_memory`
     def open_from_stream(stream : InputStream) : Bool
-      VoidCSFML.music_openfromstream_PO0(to_unsafe, stream, out result)
+      VoidCSFML.sfml_music_openfromstream_PO0(to_unsafe, stream, out result)
       return result
     end
     # Shorthand for `music = Music.new; music.open_from_stream(...); music`
@@ -811,7 +811,7 @@ module SF
     # *Returns:* Music duration
     def duration() : Time
       result = Time.allocate
-      VoidCSFML.music_getduration(to_unsafe, result)
+      VoidCSFML.sfml_music_getduration(to_unsafe, result)
       return result
     end
     # Request a new chunk of audio samples from the stream source
@@ -831,48 +831,48 @@ module SF
     end
     # :nodoc:
     def play()
-      VoidCSFML.music_play(to_unsafe)
+      VoidCSFML.sfml_music_play(to_unsafe)
     end
     # :nodoc:
     def pause()
-      VoidCSFML.music_pause(to_unsafe)
+      VoidCSFML.sfml_music_pause(to_unsafe)
     end
     # :nodoc:
     def stop()
-      VoidCSFML.music_stop(to_unsafe)
+      VoidCSFML.sfml_music_stop(to_unsafe)
     end
     # :nodoc:
     def channel_count() : Int32
-      VoidCSFML.music_getchannelcount(to_unsafe, out result)
+      VoidCSFML.sfml_music_getchannelcount(to_unsafe, out result)
       return result.to_i
     end
     # :nodoc:
     def sample_rate() : Int32
-      VoidCSFML.music_getsamplerate(to_unsafe, out result)
+      VoidCSFML.sfml_music_getsamplerate(to_unsafe, out result)
       return result.to_i
     end
     # :nodoc:
     def status() : SoundSource::Status
-      VoidCSFML.music_getstatus(to_unsafe, out result)
+      VoidCSFML.sfml_music_getstatus(to_unsafe, out result)
       return SoundSource::Status.new(result)
     end
     # :nodoc:
     def playing_offset=(time_offset : Time)
-      VoidCSFML.music_setplayingoffset_f4T(to_unsafe, time_offset)
+      VoidCSFML.sfml_music_setplayingoffset_f4T(to_unsafe, time_offset)
     end
     # :nodoc:
     def playing_offset() : Time
       result = Time.allocate
-      VoidCSFML.music_getplayingoffset(to_unsafe, result)
+      VoidCSFML.sfml_music_getplayingoffset(to_unsafe, result)
       return result
     end
     # :nodoc:
     def loop=(loop : Bool)
-      VoidCSFML.music_setloop_GZq(to_unsafe, loop)
+      VoidCSFML.sfml_music_setloop_GZq(to_unsafe, loop)
     end
     # :nodoc:
     def loop() : Bool
-      VoidCSFML.music_getloop(to_unsafe, out result)
+      VoidCSFML.sfml_music_getloop(to_unsafe, out result)
       return result
     end
     # :nodoc:
@@ -880,66 +880,66 @@ module SF
       @_soundsource = uninitialized VoidCSFML::SoundSource_Buffer
       @_soundstream = uninitialized VoidCSFML::SoundStream_Buffer
       @_music = uninitialized VoidCSFML::Music_Buffer
-      VoidCSFML.music_initialize(to_unsafe)
-      VoidCSFML.music_initialize_emSemS(to_unsafe, LibC::UInt.new(channel_count), LibC::UInt.new(sample_rate))
+      VoidCSFML.sfml_music_initialize(to_unsafe)
+      VoidCSFML.sfml_music_initialize_emSemS(to_unsafe, LibC::UInt.new(channel_count), LibC::UInt.new(sample_rate))
     end
     # :nodoc:
     def pitch=(pitch : Number)
-      VoidCSFML.music_setpitch_Bw9(to_unsafe, LibC::Float.new(pitch))
+      VoidCSFML.sfml_music_setpitch_Bw9(to_unsafe, LibC::Float.new(pitch))
     end
     # :nodoc:
     def volume=(volume : Number)
-      VoidCSFML.music_setvolume_Bw9(to_unsafe, LibC::Float.new(volume))
+      VoidCSFML.sfml_music_setvolume_Bw9(to_unsafe, LibC::Float.new(volume))
     end
     # :nodoc:
     def set_position(x : Number, y : Number, z : Number)
-      VoidCSFML.music_setposition_Bw9Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y), LibC::Float.new(z))
+      VoidCSFML.sfml_music_setposition_Bw9Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y), LibC::Float.new(z))
     end
     # :nodoc:
     def position=(position : Vector3f)
-      VoidCSFML.music_setposition_NzM(to_unsafe, position)
+      VoidCSFML.sfml_music_setposition_NzM(to_unsafe, position)
     end
     # :nodoc:
     def relative_to_listener=(relative : Bool)
-      VoidCSFML.music_setrelativetolistener_GZq(to_unsafe, relative)
+      VoidCSFML.sfml_music_setrelativetolistener_GZq(to_unsafe, relative)
     end
     # :nodoc:
     def min_distance=(distance : Number)
-      VoidCSFML.music_setmindistance_Bw9(to_unsafe, LibC::Float.new(distance))
+      VoidCSFML.sfml_music_setmindistance_Bw9(to_unsafe, LibC::Float.new(distance))
     end
     # :nodoc:
     def attenuation=(attenuation : Number)
-      VoidCSFML.music_setattenuation_Bw9(to_unsafe, LibC::Float.new(attenuation))
+      VoidCSFML.sfml_music_setattenuation_Bw9(to_unsafe, LibC::Float.new(attenuation))
     end
     # :nodoc:
     def pitch() : Float32
-      VoidCSFML.music_getpitch(to_unsafe, out result)
+      VoidCSFML.sfml_music_getpitch(to_unsafe, out result)
       return result
     end
     # :nodoc:
     def volume() : Float32
-      VoidCSFML.music_getvolume(to_unsafe, out result)
+      VoidCSFML.sfml_music_getvolume(to_unsafe, out result)
       return result
     end
     # :nodoc:
     def position() : Vector3f
       result = Vector3f.allocate
-      VoidCSFML.music_getposition(to_unsafe, result)
+      VoidCSFML.sfml_music_getposition(to_unsafe, result)
       return result
     end
     # :nodoc:
     def relative_to_listener?() : Bool
-      VoidCSFML.music_isrelativetolistener(to_unsafe, out result)
+      VoidCSFML.sfml_music_isrelativetolistener(to_unsafe, out result)
       return result
     end
     # :nodoc:
     def min_distance() : Float32
-      VoidCSFML.music_getmindistance(to_unsafe, out result)
+      VoidCSFML.sfml_music_getmindistance(to_unsafe, out result)
       return result
     end
     # :nodoc:
     def attenuation() : Float32
-      VoidCSFML.music_getattenuation(to_unsafe, out result)
+      VoidCSFML.sfml_music_getattenuation(to_unsafe, out result)
       return result
     end
     # :nodoc:
@@ -988,7 +988,7 @@ module SF
     def initialize()
       @_soundsource = uninitialized VoidCSFML::SoundSource_Buffer
       @_sound = uninitialized VoidCSFML::Sound_Buffer
-      VoidCSFML.sound_initialize(to_unsafe)
+      VoidCSFML.sfml_sound_initialize(to_unsafe)
     end
     # Construct the sound with a buffer
     #
@@ -996,11 +996,11 @@ module SF
     def initialize(buffer : SoundBuffer)
       @_soundsource = uninitialized VoidCSFML::SoundSource_Buffer
       @_sound = uninitialized VoidCSFML::Sound_Buffer
-      VoidCSFML.sound_initialize_mWu(to_unsafe, buffer)
+      VoidCSFML.sfml_sound_initialize_mWu(to_unsafe, buffer)
     end
     # Destructor
     def finalize()
-      VoidCSFML.sound_finalize(to_unsafe)
+      VoidCSFML.sfml_sound_finalize(to_unsafe)
     end
     # Start or resume playing the sound
     #
@@ -1012,7 +1012,7 @@ module SF
     #
     # *See also:* `pause`, `stop`
     def play()
-      VoidCSFML.sound_play(to_unsafe)
+      VoidCSFML.sfml_sound_play(to_unsafe)
     end
     # Pause the sound
     #
@@ -1021,7 +1021,7 @@ module SF
     #
     # *See also:* `play`, `stop`
     def pause()
-      VoidCSFML.sound_pause(to_unsafe)
+      VoidCSFML.sfml_sound_pause(to_unsafe)
     end
     # stop playing the sound
     #
@@ -1031,7 +1031,7 @@ module SF
     #
     # *See also:* `play`, `pause`
     def stop()
-      VoidCSFML.sound_stop(to_unsafe)
+      VoidCSFML.sfml_sound_stop(to_unsafe)
     end
     # Set the source buffer containing the audio data to play
     #
@@ -1043,7 +1043,7 @@ module SF
     #
     # *See also:* `buffer`
     def buffer=(buffer : SoundBuffer)
-      VoidCSFML.sound_setbuffer_mWu(to_unsafe, buffer)
+      VoidCSFML.sfml_sound_setbuffer_mWu(to_unsafe, buffer)
     end
     # Set whether or not the sound should loop after reaching the end
     #
@@ -1056,7 +1056,7 @@ module SF
     #
     # *See also:* `loop`
     def loop=(loop : Bool)
-      VoidCSFML.sound_setloop_GZq(to_unsafe, loop)
+      VoidCSFML.sfml_sound_setloop_GZq(to_unsafe, loop)
     end
     # Change the current playing position of the sound
     #
@@ -1069,14 +1069,14 @@ module SF
     #
     # *See also:* `playing_offset`
     def playing_offset=(time_offset : Time)
-      VoidCSFML.sound_setplayingoffset_f4T(to_unsafe, time_offset)
+      VoidCSFML.sfml_sound_setplayingoffset_f4T(to_unsafe, time_offset)
     end
     # Get the audio buffer attached to the sound
     #
     # *Returns:* Sound buffer attached to the sound (can be NULL)
     def buffer() : SoundBuffer?
       result = SoundBuffer.allocate
-      VoidCSFML.sound_getbuffer(to_unsafe, result)
+      VoidCSFML.sfml_sound_getbuffer(to_unsafe, result)
       return result
     end
     # Tell whether or not the sound is in loop mode
@@ -1085,7 +1085,7 @@ module SF
     #
     # *See also:* `loop=`
     def loop() : Bool
-      VoidCSFML.sound_getloop(to_unsafe, out result)
+      VoidCSFML.sfml_sound_getloop(to_unsafe, out result)
       return result
     end
     # Get the current playing position of the sound
@@ -1095,14 +1095,14 @@ module SF
     # *See also:* `playing_offset=`
     def playing_offset() : Time
       result = Time.allocate
-      VoidCSFML.sound_getplayingoffset(to_unsafe, result)
+      VoidCSFML.sfml_sound_getplayingoffset(to_unsafe, result)
       return result
     end
     # Get the current status of the sound (stopped, paused, playing)
     #
     # *Returns:* Current status of the sound
     def status() : SoundSource::Status
-      VoidCSFML.sound_getstatus(to_unsafe, out result)
+      VoidCSFML.sfml_sound_getstatus(to_unsafe, out result)
       return SoundSource::Status.new(result)
     end
     # Reset the internal buffer of the sound
@@ -1112,65 +1112,65 @@ module SF
     # this sound uses, when it is destroyed in order to prevent
     # the sound from using a dead buffer.
     def reset_buffer()
-      VoidCSFML.sound_resetbuffer(to_unsafe)
+      VoidCSFML.sfml_sound_resetbuffer(to_unsafe)
     end
     # :nodoc:
     def pitch=(pitch : Number)
-      VoidCSFML.sound_setpitch_Bw9(to_unsafe, LibC::Float.new(pitch))
+      VoidCSFML.sfml_sound_setpitch_Bw9(to_unsafe, LibC::Float.new(pitch))
     end
     # :nodoc:
     def volume=(volume : Number)
-      VoidCSFML.sound_setvolume_Bw9(to_unsafe, LibC::Float.new(volume))
+      VoidCSFML.sfml_sound_setvolume_Bw9(to_unsafe, LibC::Float.new(volume))
     end
     # :nodoc:
     def set_position(x : Number, y : Number, z : Number)
-      VoidCSFML.sound_setposition_Bw9Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y), LibC::Float.new(z))
+      VoidCSFML.sfml_sound_setposition_Bw9Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y), LibC::Float.new(z))
     end
     # :nodoc:
     def position=(position : Vector3f)
-      VoidCSFML.sound_setposition_NzM(to_unsafe, position)
+      VoidCSFML.sfml_sound_setposition_NzM(to_unsafe, position)
     end
     # :nodoc:
     def relative_to_listener=(relative : Bool)
-      VoidCSFML.sound_setrelativetolistener_GZq(to_unsafe, relative)
+      VoidCSFML.sfml_sound_setrelativetolistener_GZq(to_unsafe, relative)
     end
     # :nodoc:
     def min_distance=(distance : Number)
-      VoidCSFML.sound_setmindistance_Bw9(to_unsafe, LibC::Float.new(distance))
+      VoidCSFML.sfml_sound_setmindistance_Bw9(to_unsafe, LibC::Float.new(distance))
     end
     # :nodoc:
     def attenuation=(attenuation : Number)
-      VoidCSFML.sound_setattenuation_Bw9(to_unsafe, LibC::Float.new(attenuation))
+      VoidCSFML.sfml_sound_setattenuation_Bw9(to_unsafe, LibC::Float.new(attenuation))
     end
     # :nodoc:
     def pitch() : Float32
-      VoidCSFML.sound_getpitch(to_unsafe, out result)
+      VoidCSFML.sfml_sound_getpitch(to_unsafe, out result)
       return result
     end
     # :nodoc:
     def volume() : Float32
-      VoidCSFML.sound_getvolume(to_unsafe, out result)
+      VoidCSFML.sfml_sound_getvolume(to_unsafe, out result)
       return result
     end
     # :nodoc:
     def position() : Vector3f
       result = Vector3f.allocate
-      VoidCSFML.sound_getposition(to_unsafe, result)
+      VoidCSFML.sfml_sound_getposition(to_unsafe, result)
       return result
     end
     # :nodoc:
     def relative_to_listener?() : Bool
-      VoidCSFML.sound_isrelativetolistener(to_unsafe, out result)
+      VoidCSFML.sfml_sound_isrelativetolistener(to_unsafe, out result)
       return result
     end
     # :nodoc:
     def min_distance() : Float32
-      VoidCSFML.sound_getmindistance(to_unsafe, out result)
+      VoidCSFML.sfml_sound_getmindistance(to_unsafe, out result)
       return result
     end
     # :nodoc:
     def attenuation() : Float32
-      VoidCSFML.sound_getattenuation(to_unsafe, out result)
+      VoidCSFML.sfml_sound_getattenuation(to_unsafe, out result)
       return result
     end
     # :nodoc:
@@ -1243,11 +1243,11 @@ module SF
     # Default constructor
     def initialize()
       @_soundbuffer = uninitialized VoidCSFML::SoundBuffer_Buffer
-      VoidCSFML.soundbuffer_initialize(to_unsafe)
+      VoidCSFML.sfml_soundbuffer_initialize(to_unsafe)
     end
     # Destructor
     def finalize()
-      VoidCSFML.soundbuffer_finalize(to_unsafe)
+      VoidCSFML.sfml_soundbuffer_finalize(to_unsafe)
     end
     # Load the sound buffer from a file
     #
@@ -1260,7 +1260,7 @@ module SF
     #
     # *See also:* `load_from_memory`, `load_from_stream`, `load_from_samples`, `save_to_file`
     def load_from_file(filename : String) : Bool
-      VoidCSFML.soundbuffer_loadfromfile_zkC(to_unsafe, filename.bytesize, filename, out result)
+      VoidCSFML.sfml_soundbuffer_loadfromfile_zkC(to_unsafe, filename.bytesize, filename, out result)
       return result
     end
     # Shorthand for `sound_buffer = SoundBuffer.new; sound_buffer.load_from_file(...); sound_buffer`
@@ -1284,7 +1284,7 @@ module SF
     #
     # *See also:* `load_from_file`, `load_from_stream`, `load_from_samples`
     def load_from_memory(data : Slice) : Bool
-      VoidCSFML.soundbuffer_loadfrommemory_5h8vgv(to_unsafe, data, data.bytesize, out result)
+      VoidCSFML.sfml_soundbuffer_loadfrommemory_5h8vgv(to_unsafe, data, data.bytesize, out result)
       return result
     end
     # Shorthand for `sound_buffer = SoundBuffer.new; sound_buffer.load_from_memory(...); sound_buffer`
@@ -1308,7 +1308,7 @@ module SF
     #
     # *See also:* `load_from_file`, `load_from_memory`, `load_from_samples`
     def load_from_stream(stream : InputStream) : Bool
-      VoidCSFML.soundbuffer_loadfromstream_PO0(to_unsafe, stream, out result)
+      VoidCSFML.sfml_soundbuffer_loadfromstream_PO0(to_unsafe, stream, out result)
       return result
     end
     # Shorthand for `sound_buffer = SoundBuffer.new; sound_buffer.load_from_stream(...); sound_buffer`
@@ -1335,7 +1335,7 @@ module SF
     #
     # *See also:* `load_from_file`, `load_from_memory`, `save_to_file`
     def load_from_samples(samples : Array(Int16) | Slice(Int16), channel_count : Int, sample_rate : Int) : Bool
-      VoidCSFML.soundbuffer_loadfromsamples_xzLJvtemSemS(to_unsafe, samples, samples.size, LibC::UInt.new(channel_count), LibC::UInt.new(sample_rate), out result)
+      VoidCSFML.sfml_soundbuffer_loadfromsamples_xzLJvtemSemS(to_unsafe, samples, samples.size, LibC::UInt.new(channel_count), LibC::UInt.new(sample_rate), out result)
       return result
     end
     # Shorthand for `sound_buffer = SoundBuffer.new; sound_buffer.load_from_samples(...); sound_buffer`
@@ -1359,7 +1359,7 @@ module SF
     #
     # *See also:* `load_from_file`, `load_from_memory`, `load_from_samples`
     def save_to_file(filename : String) : Bool
-      VoidCSFML.soundbuffer_savetofile_zkC(to_unsafe, filename.bytesize, filename, out result)
+      VoidCSFML.sfml_soundbuffer_savetofile_zkC(to_unsafe, filename.bytesize, filename, out result)
       return result
     end
     # Get the array of audio samples stored in the buffer
@@ -1372,7 +1372,7 @@ module SF
     #
     # *See also:* `sample_count`
     def samples() : Int16*
-      VoidCSFML.soundbuffer_getsamples(to_unsafe, out result)
+      VoidCSFML.sfml_soundbuffer_getsamples(to_unsafe, out result)
       return result
     end
     # Get the number of samples stored in the buffer
@@ -1384,7 +1384,7 @@ module SF
     #
     # *See also:* `samples`
     def sample_count() : UInt64
-      VoidCSFML.soundbuffer_getsamplecount(to_unsafe, out result)
+      VoidCSFML.sfml_soundbuffer_getsamplecount(to_unsafe, out result)
       return result
     end
     # Get the sample rate of the sound
@@ -1397,7 +1397,7 @@ module SF
     #
     # *See also:* `channel_count`, `duration`
     def sample_rate() : Int32
-      VoidCSFML.soundbuffer_getsamplerate(to_unsafe, out result)
+      VoidCSFML.sfml_soundbuffer_getsamplerate(to_unsafe, out result)
       return result.to_i
     end
     # Get the number of channels used by the sound
@@ -1409,7 +1409,7 @@ module SF
     #
     # *See also:* `sample_rate`, `duration`
     def channel_count() : Int32
-      VoidCSFML.soundbuffer_getchannelcount(to_unsafe, out result)
+      VoidCSFML.sfml_soundbuffer_getchannelcount(to_unsafe, out result)
       return result.to_i
     end
     # Get the total duration of the sound
@@ -1419,7 +1419,7 @@ module SF
     # *See also:* `sample_rate`, `channel_count`
     def duration() : Time
       result = Time.allocate
-      VoidCSFML.soundbuffer_getduration(to_unsafe, result)
+      VoidCSFML.sfml_soundbuffer_getduration(to_unsafe, result)
       return result
     end
     include AlResource
@@ -1432,17 +1432,17 @@ module SF
       to_s(io)
     end
   end
-  VoidCSFML.soundrecorder_onstart_callback = ->(self : Void*, result : Bool*) {
+  VoidCSFML.sfml_soundrecorder_onstart_callback(->(self : Void*, result : Bool*) {
     output = (self - sizeof(LibC::Int)).as(Union(SoundRecorder)).on_start()
     result.value = !!output
-  }
-  VoidCSFML.soundrecorder_onprocesssamples_callback = ->(self : Void*, samples : Int16*, sample_count : LibC::SizeT, result : Bool*) {
+  })
+  VoidCSFML.sfml_soundrecorder_onprocesssamples_callback(->(self : Void*, samples : Int16*, sample_count : LibC::SizeT, result : Bool*) {
     output = (self - sizeof(LibC::Int)).as(Union(SoundRecorder)).on_process_samples(Slice(Int16).new(samples, sample_count))
     result.value = !!output
-  }
-  VoidCSFML.soundrecorder_onstop_callback = ->(self : Void*) {
+  })
+  VoidCSFML.sfml_soundrecorder_onstop_callback(->(self : Void*) {
     (self - sizeof(LibC::Int)).as(Union(SoundRecorder)).on_stop()
-  }
+  })
   # Abstract base class for capturing sound data
   #
   # `SF::SoundBuffer` provides a simple interface to access
@@ -1543,7 +1543,7 @@ module SF
     @_soundrecorder : VoidCSFML::SoundRecorder_Buffer
     # destructor
     def finalize()
-      VoidCSFML.soundrecorder_finalize(to_unsafe)
+      VoidCSFML.sfml_soundrecorder_finalize(to_unsafe)
     end
     # Start the capture
     #
@@ -1565,14 +1565,14 @@ module SF
     #
     # *See also:* `stop`, `available_devices`
     def start(sample_rate : Int = 44100) : Bool
-      VoidCSFML.soundrecorder_start_emS(to_unsafe, LibC::UInt.new(sample_rate), out result)
+      VoidCSFML.sfml_soundrecorder_start_emS(to_unsafe, LibC::UInt.new(sample_rate), out result)
       return result
     end
     # Stop the capture
     #
     # *See also:* `start`
     def stop()
-      VoidCSFML.soundrecorder_stop(to_unsafe)
+      VoidCSFML.sfml_soundrecorder_stop(to_unsafe)
     end
     # Get the sample rate
     #
@@ -1582,7 +1582,7 @@ module SF
     #
     # *Returns:* Sample rate, in samples per second
     def sample_rate() : Int32
-      VoidCSFML.soundrecorder_getsamplerate(to_unsafe, out result)
+      VoidCSFML.sfml_soundrecorder_getsamplerate(to_unsafe, out result)
       return result.to_i
     end
     # Get a list of the names of all available audio capture devices
@@ -1592,7 +1592,7 @@ module SF
     #
     # *Returns:* A vector of strings containing the names
     def self.available_devices() : Array(String)
-      VoidCSFML.soundrecorder_getavailabledevices(out result, out result_size)
+      VoidCSFML.sfml_soundrecorder_getavailabledevices(out result, out result_size)
       return Array.new(result_size.to_i) { |i| String.new(result[i]) }
     end
     # Get the name of the default audio capture device
@@ -1603,7 +1603,7 @@ module SF
     #
     # *Returns:* The name of the default audio capture device
     def self.default_device() : String
-      VoidCSFML.soundrecorder_getdefaultdevice(out result)
+      VoidCSFML.sfml_soundrecorder_getdefaultdevice(out result)
       return String.new(result)
     end
     # Set the audio capture device
@@ -1619,14 +1619,14 @@ module SF
     #
     # *See also:* `available_devices`, `default_device`
     def device=(name : String) : Bool
-      VoidCSFML.soundrecorder_setdevice_zkC(to_unsafe, name.bytesize, name, out result)
+      VoidCSFML.sfml_soundrecorder_setdevice_zkC(to_unsafe, name.bytesize, name, out result)
       return result
     end
     # Get the name of the current audio capture device
     #
     # *Returns:* The name of the current audio capture device
     def device() : String
-      VoidCSFML.soundrecorder_getdevice(to_unsafe, out result)
+      VoidCSFML.sfml_soundrecorder_getdevice(to_unsafe, out result)
       return String.new(result)
     end
     # Set the channel count of the audio capture device
@@ -1640,7 +1640,7 @@ module SF
     #
     # *See also:* `channel_count`
     def channel_count=(channel_count : Int)
-      VoidCSFML.soundrecorder_setchannelcount_emS(to_unsafe, LibC::UInt.new(channel_count))
+      VoidCSFML.sfml_soundrecorder_setchannelcount_emS(to_unsafe, LibC::UInt.new(channel_count))
     end
     # Get the number of channels used by this recorder
     #
@@ -1651,7 +1651,7 @@ module SF
     #
     # *See also:* `channel_count=`
     def channel_count() : Int32
-      VoidCSFML.soundrecorder_getchannelcount(to_unsafe, out result)
+      VoidCSFML.sfml_soundrecorder_getchannelcount(to_unsafe, out result)
       return result.to_i
     end
     # Check if the system supports audio capture
@@ -1663,7 +1663,7 @@ module SF
     #
     # *Returns:* True if audio capture is supported, false otherwise
     def self.available?() : Bool
-      VoidCSFML.soundrecorder_isavailable(out result)
+      VoidCSFML.sfml_soundrecorder_isavailable(out result)
       return result
     end
     # Default constructor
@@ -1672,7 +1672,7 @@ module SF
     protected def initialize()
       @_soundrecorder = uninitialized VoidCSFML::SoundRecorder_Buffer
       raise "Unexpected memory layout" if as(Void*) + sizeof(LibC::Int) != to_unsafe
-      VoidCSFML.soundrecorder_initialize(to_unsafe)
+      VoidCSFML.sfml_soundrecorder_initialize(to_unsafe)
     end
     # Set the processing interval
     #
@@ -1688,7 +1688,7 @@ module SF
     #
     # * *interval* - Processing interval
     def processing_interval=(interval : Time)
-      VoidCSFML.soundrecorder_setprocessinginterval_f4T(to_unsafe, interval)
+      VoidCSFML.sfml_soundrecorder_setprocessinginterval_f4T(to_unsafe, interval)
     end
     # Start capturing audio data
     #
@@ -1699,7 +1699,7 @@ module SF
     #
     # *Returns:* True to start the capture, or false to abort it
     def on_start() : Bool
-      VoidCSFML.soundrecorder_onstart(to_unsafe, out result)
+      VoidCSFML.sfml_soundrecorder_onstart(to_unsafe, out result)
       return result
     end
     # Process a new chunk of recorded samples
@@ -1721,7 +1721,7 @@ module SF
     # ends. If not, this function can be ignored; the default
     # implementation does nothing.
     def on_stop()
-      VoidCSFML.soundrecorder_onstop(to_unsafe)
+      VoidCSFML.sfml_soundrecorder_onstop(to_unsafe)
     end
     include AlResource
     # :nodoc:
@@ -1771,11 +1771,11 @@ module SF
     def initialize()
       @_soundrecorder = uninitialized VoidCSFML::SoundRecorder_Buffer
       @_soundbufferrecorder = uninitialized VoidCSFML::SoundBufferRecorder_Buffer
-      VoidCSFML.soundbufferrecorder_initialize(to_unsafe)
+      VoidCSFML.sfml_soundbufferrecorder_initialize(to_unsafe)
     end
     # destructor
     def finalize()
-      VoidCSFML.soundbufferrecorder_finalize(to_unsafe)
+      VoidCSFML.sfml_soundbufferrecorder_finalize(to_unsafe)
     end
     # Get the sound buffer containing the captured audio data
     #
@@ -1786,7 +1786,7 @@ module SF
     #
     # *Returns:* Read-only access to the sound buffer
     def buffer() : SoundBuffer
-      VoidCSFML.soundbufferrecorder_getbuffer(to_unsafe, out result)
+      VoidCSFML.sfml_soundbufferrecorder_getbuffer(to_unsafe, out result)
       return SoundBuffer::Reference.new(result, self)
     end
     # Start capturing audio data
@@ -1807,50 +1807,50 @@ module SF
     end
     # :nodoc:
     def start(sample_rate : Int = 44100) : Bool
-      VoidCSFML.soundbufferrecorder_start_emS(to_unsafe, LibC::UInt.new(sample_rate), out result)
+      VoidCSFML.sfml_soundbufferrecorder_start_emS(to_unsafe, LibC::UInt.new(sample_rate), out result)
       return result
     end
     # :nodoc:
     def stop()
-      VoidCSFML.soundbufferrecorder_stop(to_unsafe)
+      VoidCSFML.sfml_soundbufferrecorder_stop(to_unsafe)
     end
     # :nodoc:
     def sample_rate() : Int32
-      VoidCSFML.soundbufferrecorder_getsamplerate(to_unsafe, out result)
+      VoidCSFML.sfml_soundbufferrecorder_getsamplerate(to_unsafe, out result)
       return result.to_i
     end
     # :nodoc:
     def self.available_devices() : Array(String)
-      VoidCSFML.soundbufferrecorder_getavailabledevices(out result, out result_size)
+      VoidCSFML.sfml_soundbufferrecorder_getavailabledevices(out result, out result_size)
       return Array.new(result_size.to_i) { |i| String.new(result[i]) }
     end
     # :nodoc:
     def self.default_device() : String
-      VoidCSFML.soundbufferrecorder_getdefaultdevice(out result)
+      VoidCSFML.sfml_soundbufferrecorder_getdefaultdevice(out result)
       return String.new(result)
     end
     # :nodoc:
     def device=(name : String) : Bool
-      VoidCSFML.soundbufferrecorder_setdevice_zkC(to_unsafe, name.bytesize, name, out result)
+      VoidCSFML.sfml_soundbufferrecorder_setdevice_zkC(to_unsafe, name.bytesize, name, out result)
       return result
     end
     # :nodoc:
     def device() : String
-      VoidCSFML.soundbufferrecorder_getdevice(to_unsafe, out result)
+      VoidCSFML.sfml_soundbufferrecorder_getdevice(to_unsafe, out result)
       return String.new(result)
     end
     # :nodoc:
     def channel_count=(channel_count : Int)
-      VoidCSFML.soundbufferrecorder_setchannelcount_emS(to_unsafe, LibC::UInt.new(channel_count))
+      VoidCSFML.sfml_soundbufferrecorder_setchannelcount_emS(to_unsafe, LibC::UInt.new(channel_count))
     end
     # :nodoc:
     def channel_count() : Int32
-      VoidCSFML.soundbufferrecorder_getchannelcount(to_unsafe, out result)
+      VoidCSFML.sfml_soundbufferrecorder_getchannelcount(to_unsafe, out result)
       return result.to_i
     end
     # :nodoc:
     def self.available?() : Bool
-      VoidCSFML.soundbufferrecorder_isavailable(out result)
+      VoidCSFML.sfml_soundbufferrecorder_isavailable(out result)
       return result
     end
     # :nodoc:

@@ -52,7 +52,7 @@ module SF
     AnyPort = 0
     # Destructor
     def finalize()
-      VoidCSFML.socket_finalize(to_unsafe)
+      VoidCSFML.sfml_socket_finalize(to_unsafe)
     end
     # Set the blocking state of the socket
     #
@@ -69,7 +69,7 @@ module SF
     #
     # *See also:* `blocking?`
     def blocking=(blocking : Bool)
-      VoidCSFML.socket_setblocking_GZq(to_unsafe, blocking)
+      VoidCSFML.sfml_socket_setblocking_GZq(to_unsafe, blocking)
     end
     # Tell whether the socket is in blocking or non-blocking mode
     #
@@ -77,7 +77,7 @@ module SF
     #
     # *See also:* `blocking=`
     def blocking?() : Bool
-      VoidCSFML.socket_isblocking(to_unsafe, out result)
+      VoidCSFML.sfml_socket_isblocking(to_unsafe, out result)
       return result
     end
     # Types of protocols that the socket can use
@@ -95,7 +95,7 @@ module SF
     # * *type* - Type of the socket (TCP or UDP)
     protected def initialize(type : Socket::Type)
       @_socket = uninitialized VoidCSFML::Socket_Buffer
-      VoidCSFML.socket_initialize_Wi8(to_unsafe, type)
+      VoidCSFML.sfml_socket_initialize_Wi8(to_unsafe, type)
     end
     include NonCopyable
     # :nodoc:
@@ -184,7 +184,7 @@ module SF
     def initialize()
       @_socket = uninitialized VoidCSFML::Socket_Buffer
       @_tcpsocket = uninitialized VoidCSFML::TcpSocket_Buffer
-      VoidCSFML.tcpsocket_initialize(to_unsafe)
+      VoidCSFML.sfml_tcpsocket_initialize(to_unsafe)
     end
     # Get the port to which the socket is bound locally
     #
@@ -194,7 +194,7 @@ module SF
     #
     # *See also:* `connect`, `remote_port`
     def local_port() : UInt16
-      VoidCSFML.tcpsocket_getlocalport(to_unsafe, out result)
+      VoidCSFML.sfml_tcpsocket_getlocalport(to_unsafe, out result)
       return result
     end
     # Get the address of the connected peer
@@ -207,7 +207,7 @@ module SF
     # *See also:* `remote_port`
     def remote_address() : IpAddress
       result = IpAddress.allocate
-      VoidCSFML.tcpsocket_getremoteaddress(to_unsafe, result)
+      VoidCSFML.sfml_tcpsocket_getremoteaddress(to_unsafe, result)
       return result
     end
     # Get the port of the connected peer to which
@@ -219,7 +219,7 @@ module SF
     #
     # *See also:* `remote_address`
     def remote_port() : UInt16
-      VoidCSFML.tcpsocket_getremoteport(to_unsafe, out result)
+      VoidCSFML.sfml_tcpsocket_getremoteport(to_unsafe, out result)
       return result
     end
     # Connect the socket to a remote peer
@@ -237,7 +237,7 @@ module SF
     #
     # *See also:* `disconnect`
     def connect(remote_address : IpAddress, remote_port : Int, timeout : Time = Time::Zero) : Socket::Status
-      VoidCSFML.tcpsocket_connect_BfEbxif4T(to_unsafe, remote_address, LibC::UShort.new(remote_port), timeout, out result)
+      VoidCSFML.sfml_tcpsocket_connect_BfEbxif4T(to_unsafe, remote_address, LibC::UShort.new(remote_port), timeout, out result)
       return Socket::Status.new(result)
     end
     # Disconnect the socket from its remote peer
@@ -247,7 +247,7 @@ module SF
     #
     # *See also:* `connect`
     def disconnect()
-      VoidCSFML.tcpsocket_disconnect(to_unsafe)
+      VoidCSFML.sfml_tcpsocket_disconnect(to_unsafe)
     end
     # Send raw data to the remote peer
     #
@@ -263,7 +263,7 @@ module SF
     #
     # *See also:* `receive`
     def send(data : Slice) : Socket::Status
-      VoidCSFML.tcpsocket_send_5h8vgv(to_unsafe, data, data.bytesize, out result)
+      VoidCSFML.sfml_tcpsocket_send_5h8vgv(to_unsafe, data, data.bytesize, out result)
       return Socket::Status.new(result)
     end
     # Send raw data to the remote peer
@@ -278,7 +278,7 @@ module SF
     #
     # *See also:* `receive`
     def send(data : Slice) : {Socket::Status, Int32}
-      VoidCSFML.tcpsocket_send_5h8vgvi49(to_unsafe, data, data.bytesize, out sent, out result)
+      VoidCSFML.sfml_tcpsocket_send_5h8vgvi49(to_unsafe, data, data.bytesize, out sent, out result)
       return Socket::Status.new(result), sent.to_i
     end
     # Receive raw data from the remote peer
@@ -295,7 +295,7 @@ module SF
     #
     # *See also:* `send`
     def receive(data : Slice) : {Socket::Status, Int32}
-      VoidCSFML.tcpsocket_receive_xALvgvi49(to_unsafe, data, data.bytesize, out received, out result)
+      VoidCSFML.sfml_tcpsocket_receive_xALvgvi49(to_unsafe, data, data.bytesize, out received, out result)
       return Socket::Status.new(result), received.to_i
     end
     # Send a formatted packet of data to the remote peer
@@ -312,7 +312,7 @@ module SF
     #
     # *See also:* `receive`
     def send(packet : Packet) : Socket::Status
-      VoidCSFML.tcpsocket_send_jyF(to_unsafe, packet, out result)
+      VoidCSFML.sfml_tcpsocket_send_jyF(to_unsafe, packet, out result)
       return Socket::Status.new(result)
     end
     # Receive a formatted packet of data from the remote peer
@@ -327,16 +327,16 @@ module SF
     #
     # *See also:* `send`
     def receive(packet : Packet) : Socket::Status
-      VoidCSFML.tcpsocket_receive_jyF(to_unsafe, packet, out result)
+      VoidCSFML.sfml_tcpsocket_receive_jyF(to_unsafe, packet, out result)
       return Socket::Status.new(result)
     end
     # :nodoc:
     def blocking=(blocking : Bool)
-      VoidCSFML.tcpsocket_setblocking_GZq(to_unsafe, blocking)
+      VoidCSFML.sfml_tcpsocket_setblocking_GZq(to_unsafe, blocking)
     end
     # :nodoc:
     def blocking?() : Bool
-      VoidCSFML.tcpsocket_isblocking(to_unsafe, out result)
+      VoidCSFML.sfml_tcpsocket_isblocking(to_unsafe, out result)
       return result
     end
     # :nodoc:
@@ -425,7 +425,7 @@ module SF
     @_ftp : VoidCSFML::Ftp_Buffer
     def initialize()
       @_ftp = uninitialized VoidCSFML::Ftp_Buffer
-      VoidCSFML.ftp_initialize(to_unsafe)
+      VoidCSFML.sfml_ftp_initialize(to_unsafe)
     end
     # Enumeration of transfer modes
     enum TransferMode
@@ -539,7 +539,7 @@ module SF
       # * *message* - Response message
       def initialize(code : Ftp::Response::Status = InvalidResponse, message : String = "")
         @_ftp_response = uninitialized VoidCSFML::Ftp_Response_Buffer
-        VoidCSFML.ftp_response_initialize_nyWzkC(to_unsafe, code, message.bytesize, message)
+        VoidCSFML.sfml_ftp_response_initialize_nyWzkC(to_unsafe, code, message.bytesize, message)
       end
       # Check if the status code means a success
       #
@@ -548,21 +548,21 @@ module SF
       #
       # *Returns:* True if the status is a success, false if it is a failure
       def ok?() : Bool
-        VoidCSFML.ftp_response_isok(to_unsafe, out result)
+        VoidCSFML.sfml_ftp_response_isok(to_unsafe, out result)
         return result
       end
       # Get the status code of the response
       #
       # *Returns:* Status code
       def status() : Ftp::Response::Status
-        VoidCSFML.ftp_response_getstatus(to_unsafe, out result)
+        VoidCSFML.sfml_ftp_response_getstatus(to_unsafe, out result)
         return Ftp::Response::Status.new(result)
       end
       # Get the full message contained in the response
       #
       # *Returns:* The response message
       def message() : String
-        VoidCSFML.ftp_response_getmessage(to_unsafe, out result)
+        VoidCSFML.sfml_ftp_response_getmessage(to_unsafe, out result)
         return String.new(result)
       end
       # :nodoc:
@@ -577,7 +577,7 @@ module SF
       def initialize(copy : Ftp::Response)
         @_ftp_response = uninitialized VoidCSFML::Ftp_Response_Buffer
         as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
-        VoidCSFML.ftp_response_initialize_lXv(to_unsafe, copy)
+        VoidCSFML.sfml_ftp_response_initialize_lXv(to_unsafe, copy)
       end
       def dup() : self
         return typeof(self).new(self)
@@ -592,28 +592,28 @@ module SF
       def initialize(response : Ftp::Response)
         @_ftp_response = uninitialized VoidCSFML::Ftp_Response_Buffer
         @_ftp_directoryresponse = uninitialized VoidCSFML::Ftp_DirectoryResponse_Buffer
-        VoidCSFML.ftp_directoryresponse_initialize_lXv(to_unsafe, response)
+        VoidCSFML.sfml_ftp_directoryresponse_initialize_lXv(to_unsafe, response)
       end
       # Get the directory returned in the response
       #
       # *Returns:* Directory name
       def directory() : String
-        VoidCSFML.ftp_directoryresponse_getdirectory(to_unsafe, out result)
+        VoidCSFML.sfml_ftp_directoryresponse_getdirectory(to_unsafe, out result)
         return String.new(result)
       end
       # :nodoc:
       def ok?() : Bool
-        VoidCSFML.ftp_directoryresponse_isok(to_unsafe, out result)
+        VoidCSFML.sfml_ftp_directoryresponse_isok(to_unsafe, out result)
         return result
       end
       # :nodoc:
       def status() : Ftp::Response::Status
-        VoidCSFML.ftp_directoryresponse_getstatus(to_unsafe, out result)
+        VoidCSFML.sfml_ftp_directoryresponse_getstatus(to_unsafe, out result)
         return Ftp::Response::Status.new(result)
       end
       # :nodoc:
       def message() : String
-        VoidCSFML.ftp_directoryresponse_getmessage(to_unsafe, out result)
+        VoidCSFML.sfml_ftp_directoryresponse_getmessage(to_unsafe, out result)
         return String.new(result)
       end
       # :nodoc:
@@ -629,7 +629,7 @@ module SF
         @_ftp_response = uninitialized VoidCSFML::Ftp_Response_Buffer
         @_ftp_directoryresponse = uninitialized VoidCSFML::Ftp_DirectoryResponse_Buffer
         as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
-        VoidCSFML.ftp_directoryresponse_initialize_Zyp(to_unsafe, copy)
+        VoidCSFML.sfml_ftp_directoryresponse_initialize_Zyp(to_unsafe, copy)
       end
       def dup() : self
         return typeof(self).new(self)
@@ -646,28 +646,28 @@ module SF
       def initialize(response : Ftp::Response, data : String)
         @_ftp_response = uninitialized VoidCSFML::Ftp_Response_Buffer
         @_ftp_listingresponse = uninitialized VoidCSFML::Ftp_ListingResponse_Buffer
-        VoidCSFML.ftp_listingresponse_initialize_lXvzkC(to_unsafe, response, data.bytesize, data)
+        VoidCSFML.sfml_ftp_listingresponse_initialize_lXvzkC(to_unsafe, response, data.bytesize, data)
       end
       # Return the array of directory/file names
       #
       # *Returns:* Array containing the requested listing
       def listing() : Array(String)
-        VoidCSFML.ftp_listingresponse_getlisting(to_unsafe, out result, out result_size)
+        VoidCSFML.sfml_ftp_listingresponse_getlisting(to_unsafe, out result, out result_size)
         return Array.new(result_size.to_i) { |i| String.new(result[i]) }
       end
       # :nodoc:
       def ok?() : Bool
-        VoidCSFML.ftp_listingresponse_isok(to_unsafe, out result)
+        VoidCSFML.sfml_ftp_listingresponse_isok(to_unsafe, out result)
         return result
       end
       # :nodoc:
       def status() : Ftp::Response::Status
-        VoidCSFML.ftp_listingresponse_getstatus(to_unsafe, out result)
+        VoidCSFML.sfml_ftp_listingresponse_getstatus(to_unsafe, out result)
         return Ftp::Response::Status.new(result)
       end
       # :nodoc:
       def message() : String
-        VoidCSFML.ftp_listingresponse_getmessage(to_unsafe, out result)
+        VoidCSFML.sfml_ftp_listingresponse_getmessage(to_unsafe, out result)
         return String.new(result)
       end
       # :nodoc:
@@ -683,7 +683,7 @@ module SF
         @_ftp_response = uninitialized VoidCSFML::Ftp_Response_Buffer
         @_ftp_listingresponse = uninitialized VoidCSFML::Ftp_ListingResponse_Buffer
         as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
-        VoidCSFML.ftp_listingresponse_initialize_2ho(to_unsafe, copy)
+        VoidCSFML.sfml_ftp_listingresponse_initialize_2ho(to_unsafe, copy)
       end
       def dup() : self
         return typeof(self).new(self)
@@ -694,7 +694,7 @@ module SF
     # Automatically closes the connection with the server if
     # it is still opened.
     def finalize()
-      VoidCSFML.ftp_finalize(to_unsafe)
+      VoidCSFML.sfml_ftp_finalize(to_unsafe)
     end
     # Connect to the specified FTP server
     #
@@ -716,7 +716,7 @@ module SF
     # *See also:* `disconnect`
     def connect(server : IpAddress, port : Int = 21, timeout : Time = Time::Zero) : Ftp::Response
       result = Ftp::Response.allocate
-      VoidCSFML.ftp_connect_BfEbxif4T(to_unsafe, server, LibC::UShort.new(port), timeout, result)
+      VoidCSFML.sfml_ftp_connect_BfEbxif4T(to_unsafe, server, LibC::UShort.new(port), timeout, result)
       return result
     end
     # Close the connection with the server
@@ -726,7 +726,7 @@ module SF
     # *See also:* `connect`
     def disconnect() : Ftp::Response
       result = Ftp::Response.allocate
-      VoidCSFML.ftp_disconnect(to_unsafe, result)
+      VoidCSFML.sfml_ftp_disconnect(to_unsafe, result)
       return result
     end
     # Log in using an anonymous account
@@ -737,7 +737,7 @@ module SF
     # *Returns:* Server response to the request
     def login() : Ftp::Response
       result = Ftp::Response.allocate
-      VoidCSFML.ftp_login(to_unsafe, result)
+      VoidCSFML.sfml_ftp_login(to_unsafe, result)
       return result
     end
     # Log in using a username and a password
@@ -751,7 +751,7 @@ module SF
     # *Returns:* Server response to the request
     def login(name : String, password : String) : Ftp::Response
       result = Ftp::Response.allocate
-      VoidCSFML.ftp_login_zkCzkC(to_unsafe, name.bytesize, name, password.bytesize, password, result)
+      VoidCSFML.sfml_ftp_login_zkCzkC(to_unsafe, name.bytesize, name, password.bytesize, password, result)
       return result
     end
     # Send a null command to keep the connection alive
@@ -762,7 +762,7 @@ module SF
     # *Returns:* Server response to the request
     def keep_alive() : Ftp::Response
       result = Ftp::Response.allocate
-      VoidCSFML.ftp_keepalive(to_unsafe, result)
+      VoidCSFML.sfml_ftp_keepalive(to_unsafe, result)
       return result
     end
     # Get the current working directory
@@ -777,7 +777,7 @@ module SF
       return @_ftp_working_directory.not_nil! if @_ftp_working_directory
       result = Ftp::DirectoryResponse.allocate
       @_ftp_working_directory = result
-      VoidCSFML.ftp_getworkingdirectory(to_unsafe, result)
+      VoidCSFML.sfml_ftp_getworkingdirectory(to_unsafe, result)
       return result
     end
     @_ftp_working_directory : Ftp::DirectoryResponse? = nil
@@ -795,7 +795,7 @@ module SF
     # *See also:* `working_directory`, `change_directory`, `parent_directory`
     def get_directory_listing(directory : String = "") : Ftp::ListingResponse
       result = Ftp::ListingResponse.allocate
-      VoidCSFML.ftp_getdirectorylisting_zkC(to_unsafe, directory.bytesize, directory, result)
+      VoidCSFML.sfml_ftp_getdirectorylisting_zkC(to_unsafe, directory.bytesize, directory, result)
       return result
     end
     # Change the current working directory
@@ -809,7 +809,7 @@ module SF
     # *See also:* `working_directory`, `directory_listing`, `parent_directory`
     def change_directory(directory : String) : Ftp::Response
       result = Ftp::Response.allocate
-      VoidCSFML.ftp_changedirectory_zkC(to_unsafe, directory.bytesize, directory, result)
+      VoidCSFML.sfml_ftp_changedirectory_zkC(to_unsafe, directory.bytesize, directory, result)
       return result
     end
     # Go to the parent directory of the current one
@@ -819,7 +819,7 @@ module SF
     # *See also:* `working_directory`, `directory_listing`, `change_directory`
     def parent_directory() : Ftp::Response
       result = Ftp::Response.allocate
-      VoidCSFML.ftp_parentdirectory(to_unsafe, result)
+      VoidCSFML.sfml_ftp_parentdirectory(to_unsafe, result)
       return result
     end
     # Create a new directory
@@ -834,7 +834,7 @@ module SF
     # *See also:* `delete_directory`
     def create_directory(name : String) : Ftp::Response
       result = Ftp::Response.allocate
-      VoidCSFML.ftp_createdirectory_zkC(to_unsafe, name.bytesize, name, result)
+      VoidCSFML.sfml_ftp_createdirectory_zkC(to_unsafe, name.bytesize, name, result)
       return result
     end
     # Remove an existing directory
@@ -851,7 +851,7 @@ module SF
     # *See also:* `create_directory`
     def delete_directory(name : String) : Ftp::Response
       result = Ftp::Response.allocate
-      VoidCSFML.ftp_deletedirectory_zkC(to_unsafe, name.bytesize, name, result)
+      VoidCSFML.sfml_ftp_deletedirectory_zkC(to_unsafe, name.bytesize, name, result)
       return result
     end
     # Rename an existing file
@@ -867,7 +867,7 @@ module SF
     # *See also:* `delete_file`
     def rename_file(file : String, new_name : String) : Ftp::Response
       result = Ftp::Response.allocate
-      VoidCSFML.ftp_renamefile_zkCzkC(to_unsafe, file.bytesize, file, new_name.bytesize, new_name, result)
+      VoidCSFML.sfml_ftp_renamefile_zkCzkC(to_unsafe, file.bytesize, file, new_name.bytesize, new_name, result)
       return result
     end
     # Remove an existing file
@@ -884,7 +884,7 @@ module SF
     # *See also:* `rename_file`
     def delete_file(name : String) : Ftp::Response
       result = Ftp::Response.allocate
-      VoidCSFML.ftp_deletefile_zkC(to_unsafe, name.bytesize, name, result)
+      VoidCSFML.sfml_ftp_deletefile_zkC(to_unsafe, name.bytesize, name, result)
       return result
     end
     # Download a file from the server
@@ -906,7 +906,7 @@ module SF
     # *See also:* `upload`
     def download(remote_file : String, local_path : String, mode : Ftp::TransferMode = Binary) : Ftp::Response
       result = Ftp::Response.allocate
-      VoidCSFML.ftp_download_zkCzkCJP8(to_unsafe, remote_file.bytesize, remote_file, local_path.bytesize, local_path, mode, result)
+      VoidCSFML.sfml_ftp_download_zkCzkCJP8(to_unsafe, remote_file.bytesize, remote_file, local_path.bytesize, local_path, mode, result)
       return result
     end
     # Upload a file to the server
@@ -925,7 +925,7 @@ module SF
     # *See also:* `download`
     def upload(local_file : String, remote_path : String, mode : Ftp::TransferMode = Binary) : Ftp::Response
       result = Ftp::Response.allocate
-      VoidCSFML.ftp_upload_zkCzkCJP8(to_unsafe, local_file.bytesize, local_file, remote_path.bytesize, remote_path, mode, result)
+      VoidCSFML.sfml_ftp_upload_zkCzkCJP8(to_unsafe, local_file.bytesize, local_file, remote_path.bytesize, remote_path, mode, result)
       return result
     end
     # Send a command to the FTP server
@@ -943,7 +943,7 @@ module SF
     # *Returns:* Server response to the request
     def send_command(command : String, parameter : String = "") : Ftp::Response
       result = Ftp::Response.allocate
-      VoidCSFML.ftp_sendcommand_zkCzkC(to_unsafe, command.bytesize, command, parameter.bytesize, parameter, result)
+      VoidCSFML.sfml_ftp_sendcommand_zkCzkC(to_unsafe, command.bytesize, command, parameter.bytesize, parameter, result)
       return result
     end
     include NonCopyable
@@ -988,7 +988,7 @@ module SF
     def initialize()
       @address = uninitialized UInt32
       @valid = uninitialized Bool
-      VoidCSFML.ipaddress_initialize(to_unsafe)
+      VoidCSFML.sfml_ipaddress_initialize(to_unsafe)
     end
     # Construct the address from a string
     #
@@ -999,7 +999,7 @@ module SF
     def initialize(address : String)
       @address = uninitialized UInt32
       @valid = uninitialized Bool
-      VoidCSFML.ipaddress_initialize_zkC(to_unsafe, address.bytesize, address)
+      VoidCSFML.sfml_ipaddress_initialize_zkC(to_unsafe, address.bytesize, address)
     end
     # Construct the address from a string
     #
@@ -1013,7 +1013,7 @@ module SF
     def initialize(address : String)
       @address = uninitialized UInt32
       @valid = uninitialized Bool
-      VoidCSFML.ipaddress_initialize_Yy6(to_unsafe, address)
+      VoidCSFML.sfml_ipaddress_initialize_Yy6(to_unsafe, address)
     end
     # Construct the address from 4 bytes
     #
@@ -1028,7 +1028,7 @@ module SF
     def initialize(byte0 : Int, byte1 : Int, byte2 : Int, byte3 : Int)
       @address = uninitialized UInt32
       @valid = uninitialized Bool
-      VoidCSFML.ipaddress_initialize_9yU9yU9yU9yU(to_unsafe, UInt8.new(byte0), UInt8.new(byte1), UInt8.new(byte2), UInt8.new(byte3))
+      VoidCSFML.sfml_ipaddress_initialize_9yU9yU9yU9yU(to_unsafe, UInt8.new(byte0), UInt8.new(byte1), UInt8.new(byte2), UInt8.new(byte3))
     end
     # Construct the address from a 32-bits integer
     #
@@ -1043,7 +1043,7 @@ module SF
     def initialize(address : Int)
       @address = uninitialized UInt32
       @valid = uninitialized Bool
-      VoidCSFML.ipaddress_initialize_saL(to_unsafe, UInt32.new(address))
+      VoidCSFML.sfml_ipaddress_initialize_saL(to_unsafe, UInt32.new(address))
     end
     # Get a string representation of the address
     #
@@ -1055,7 +1055,7 @@ module SF
     #
     # *See also:* `to_integer`
     def to_s() : String
-      VoidCSFML.ipaddress_tostring(to_unsafe, out result)
+      VoidCSFML.sfml_ipaddress_tostring(to_unsafe, out result)
       return String.new(result)
     end
     # Get an integer representation of the address
@@ -1070,7 +1070,7 @@ module SF
     #
     # *See also:* `to_s`
     def to_integer() : UInt32
-      VoidCSFML.ipaddress_tointeger(to_unsafe, out result)
+      VoidCSFML.sfml_ipaddress_tointeger(to_unsafe, out result)
       return result
     end
     # Get the computer's local address
@@ -1086,7 +1086,7 @@ module SF
     # *See also:* `public_address`
     def self.local_address() : IpAddress
       result = IpAddress.allocate
-      VoidCSFML.ipaddress_getlocaladdress(result)
+      VoidCSFML.sfml_ipaddress_getlocaladdress(result)
       return result
     end
     # Get the computer's public address
@@ -1110,7 +1110,7 @@ module SF
     # *See also:* `local_address`
     def self.get_public_address(timeout : Time = Time::Zero) : IpAddress
       result = IpAddress.allocate
-      VoidCSFML.ipaddress_getpublicaddress_f4T(timeout, result)
+      VoidCSFML.sfml_ipaddress_getpublicaddress_f4T(timeout, result)
       return result
     end
     @address : UInt32
@@ -1122,7 +1122,7 @@ module SF
     #
     # *Returns:* True if both addresses are equal
     def ==(right : IpAddress) : Bool
-      VoidCSFML.operator_eq_BfEBfE(to_unsafe, right, out result)
+      VoidCSFML.sfml_operator_eq_BfEBfE(to_unsafe, right, out result)
       return result
     end
     # Overload of != operator to compare two IP addresses
@@ -1132,7 +1132,7 @@ module SF
     #
     # *Returns:* True if both addresses are different
     def !=(right : IpAddress) : Bool
-      VoidCSFML.operator_ne_BfEBfE(to_unsafe, right, out result)
+      VoidCSFML.sfml_operator_ne_BfEBfE(to_unsafe, right, out result)
       return result
     end
     # Overload of &lt; operator to compare two IP addresses
@@ -1142,7 +1142,7 @@ module SF
     #
     # *Returns:* True if *left* is lesser than *right*
     def <(right : IpAddress) : Bool
-      VoidCSFML.operator_lt_BfEBfE(to_unsafe, right, out result)
+      VoidCSFML.sfml_operator_lt_BfEBfE(to_unsafe, right, out result)
       return result
     end
     # Overload of &gt; operator to compare two IP addresses
@@ -1152,7 +1152,7 @@ module SF
     #
     # *Returns:* True if *left* is greater than *right*
     def >(right : IpAddress) : Bool
-      VoidCSFML.operator_gt_BfEBfE(to_unsafe, right, out result)
+      VoidCSFML.sfml_operator_gt_BfEBfE(to_unsafe, right, out result)
       return result
     end
     # Overload of &lt;= operator to compare two IP addresses
@@ -1162,7 +1162,7 @@ module SF
     #
     # *Returns:* True if *left* is lesser or equal than *right*
     def <=(right : IpAddress) : Bool
-      VoidCSFML.operator_le_BfEBfE(to_unsafe, right, out result)
+      VoidCSFML.sfml_operator_le_BfEBfE(to_unsafe, right, out result)
       return result
     end
     # Overload of &gt;= operator to compare two IP addresses
@@ -1172,7 +1172,7 @@ module SF
     #
     # *Returns:* True if *left* is greater or equal than *right*
     def >=(right : IpAddress) : Bool
-      VoidCSFML.operator_ge_BfEBfE(to_unsafe, right, out result)
+      VoidCSFML.sfml_operator_ge_BfEBfE(to_unsafe, right, out result)
       return result
     end
     # :nodoc:
@@ -1184,7 +1184,7 @@ module SF
       @address = uninitialized UInt32
       @valid = uninitialized Bool
       as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
-      VoidCSFML.ipaddress_initialize_BfE(to_unsafe, copy)
+      VoidCSFML.sfml_ipaddress_initialize_BfE(to_unsafe, copy)
     end
     def dup() : self
       return typeof(self).new(self)
@@ -1268,7 +1268,7 @@ module SF
       # * *body* - Content of the request's body
       def initialize(uri : String = "/", method : Http::Request::Method = Get, body : String = "")
         @_http_request = uninitialized VoidCSFML::Http_Request_Buffer
-        VoidCSFML.http_request_initialize_zkC1ctzkC(to_unsafe, uri.bytesize, uri, method, body.bytesize, body)
+        VoidCSFML.sfml_http_request_initialize_zkC1ctzkC(to_unsafe, uri.bytesize, uri, method, body.bytesize, body)
       end
       # Set the value of a field
       #
@@ -1281,7 +1281,7 @@ module SF
       # * *field* - Name of the field to set
       # * *value* - Value of the field
       def set_field(field : String, value : String)
-        VoidCSFML.http_request_setfield_zkCzkC(to_unsafe, field.bytesize, field, value.bytesize, value)
+        VoidCSFML.sfml_http_request_setfield_zkCzkC(to_unsafe, field.bytesize, field, value.bytesize, value)
       end
       # Set the request method
       #
@@ -1291,7 +1291,7 @@ module SF
       #
       # * *method* - Method to use for the request
       def method=(method : Http::Request::Method)
-        VoidCSFML.http_request_setmethod_1ct(to_unsafe, method)
+        VoidCSFML.sfml_http_request_setmethod_1ct(to_unsafe, method)
       end
       # Set the requested URI
       #
@@ -1301,7 +1301,7 @@ module SF
       #
       # * *uri* - URI to request, relative to the host
       def uri=(uri : String)
-        VoidCSFML.http_request_seturi_zkC(to_unsafe, uri.bytesize, uri)
+        VoidCSFML.sfml_http_request_seturi_zkC(to_unsafe, uri.bytesize, uri)
       end
       # Set the HTTP version for the request
       #
@@ -1310,7 +1310,7 @@ module SF
       # * *major* - Major HTTP version number
       # * *minor* - Minor HTTP version number
       def set_http_version(major : Int, minor : Int)
-        VoidCSFML.http_request_sethttpversion_emSemS(to_unsafe, LibC::UInt.new(major), LibC::UInt.new(minor))
+        VoidCSFML.sfml_http_request_sethttpversion_emSemS(to_unsafe, LibC::UInt.new(major), LibC::UInt.new(minor))
       end
       # Set the body of the request
       #
@@ -1320,7 +1320,7 @@ module SF
       #
       # * *body* - Content of the body
       def body=(body : String)
-        VoidCSFML.http_request_setbody_zkC(to_unsafe, body.bytesize, body)
+        VoidCSFML.sfml_http_request_setbody_zkC(to_unsafe, body.bytesize, body)
       end
       # :nodoc:
       def to_unsafe()
@@ -1334,7 +1334,7 @@ module SF
       def initialize(copy : Http::Request)
         @_http_request = uninitialized VoidCSFML::Http_Request_Buffer
         as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
-        VoidCSFML.http_request_initialize_Jat(to_unsafe, copy)
+        VoidCSFML.sfml_http_request_initialize_Jat(to_unsafe, copy)
       end
       def dup() : self
         return typeof(self).new(self)
@@ -1398,7 +1398,7 @@ module SF
       # Constructs an empty response.
       def initialize()
         @_http_response = uninitialized VoidCSFML::Http_Response_Buffer
-        VoidCSFML.http_response_initialize(to_unsafe)
+        VoidCSFML.sfml_http_response_initialize(to_unsafe)
       end
       # Get the value of a field
       #
@@ -1410,7 +1410,7 @@ module SF
       #
       # *Returns:* Value of the field, or empty string if not found
       def get_field(field : String) : String
-        VoidCSFML.http_response_getfield_zkC(to_unsafe, field.bytesize, field, out result)
+        VoidCSFML.sfml_http_response_getfield_zkC(to_unsafe, field.bytesize, field, out result)
         return String.new(result)
       end
       # Get the response status code
@@ -1422,7 +1422,7 @@ module SF
       #
       # *Returns:* Status code of the response
       def status() : Http::Response::Status
-        VoidCSFML.http_response_getstatus(to_unsafe, out result)
+        VoidCSFML.sfml_http_response_getstatus(to_unsafe, out result)
         return Http::Response::Status.new(result)
       end
       # Get the major HTTP version number of the response
@@ -1431,7 +1431,7 @@ module SF
       #
       # *See also:* `minor_http_version`
       def major_http_version() : Int32
-        VoidCSFML.http_response_getmajorhttpversion(to_unsafe, out result)
+        VoidCSFML.sfml_http_response_getmajorhttpversion(to_unsafe, out result)
         return result.to_i
       end
       # Get the minor HTTP version number of the response
@@ -1440,7 +1440,7 @@ module SF
       #
       # *See also:* `major_http_version`
       def minor_http_version() : Int32
-        VoidCSFML.http_response_getminorhttpversion(to_unsafe, out result)
+        VoidCSFML.sfml_http_response_getminorhttpversion(to_unsafe, out result)
         return result.to_i
       end
       # Get the body of the response
@@ -1453,7 +1453,7 @@ module SF
       #
       # *Returns:* The response body
       def body() : String
-        VoidCSFML.http_response_getbody(to_unsafe, out result)
+        VoidCSFML.sfml_http_response_getbody(to_unsafe, out result)
         return String.new(result)
       end
       # :nodoc:
@@ -1468,7 +1468,7 @@ module SF
       def initialize(copy : Http::Response)
         @_http_response = uninitialized VoidCSFML::Http_Response_Buffer
         as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
-        VoidCSFML.http_response_initialize_N50(to_unsafe, copy)
+        VoidCSFML.sfml_http_response_initialize_N50(to_unsafe, copy)
       end
       def dup() : self
         return typeof(self).new(self)
@@ -1477,7 +1477,7 @@ module SF
     # Default constructor
     def initialize()
       @_http = uninitialized VoidCSFML::Http_Buffer
-      VoidCSFML.http_initialize(to_unsafe)
+      VoidCSFML.sfml_http_initialize(to_unsafe)
     end
     # Construct the HTTP client with the target host
     #
@@ -1492,7 +1492,7 @@ module SF
     # * *port* - Port to use for connection
     def initialize(host : String, port : Int = 0)
       @_http = uninitialized VoidCSFML::Http_Buffer
-      VoidCSFML.http_initialize_zkCbxi(to_unsafe, host.bytesize, host, LibC::UShort.new(port))
+      VoidCSFML.sfml_http_initialize_zkCbxi(to_unsafe, host.bytesize, host, LibC::UShort.new(port))
     end
     # Set the target host
     #
@@ -1507,7 +1507,7 @@ module SF
     # * *host* - Web server to connect to
     # * *port* - Port to use for connection
     def set_host(host : String, port : Int = 0)
-      VoidCSFML.http_sethost_zkCbxi(to_unsafe, host.bytesize, host, LibC::UShort.new(port))
+      VoidCSFML.sfml_http_sethost_zkCbxi(to_unsafe, host.bytesize, host, LibC::UShort.new(port))
     end
     # Send a HTTP request and return the server's response.
     #
@@ -1526,7 +1526,7 @@ module SF
     # *Returns:* Server's response
     def send_request(request : Http::Request, timeout : Time = Time::Zero) : Http::Response
       result = Http::Response.allocate
-      VoidCSFML.http_sendrequest_Jatf4T(to_unsafe, request, timeout, result)
+      VoidCSFML.sfml_http_sendrequest_Jatf4T(to_unsafe, request, timeout, result)
       return result
     end
     include NonCopyable
@@ -1625,11 +1625,11 @@ module SF
     # Creates an empty packet.
     def initialize()
       @_packet = uninitialized VoidCSFML::Packet_Buffer
-      VoidCSFML.packet_initialize(to_unsafe)
+      VoidCSFML.sfml_packet_initialize(to_unsafe)
     end
     # Virtual destructor
     def finalize()
-      VoidCSFML.packet_finalize(to_unsafe)
+      VoidCSFML.sfml_packet_finalize(to_unsafe)
     end
     # Append data to the end of the packet
     #
@@ -1638,7 +1638,7 @@ module SF
     #
     # *See also:* `clear`
     def append(data : Slice)
-      VoidCSFML.packet_append_5h8vgv(to_unsafe, data, data.bytesize)
+      VoidCSFML.sfml_packet_append_5h8vgv(to_unsafe, data, data.bytesize)
     end
     # Clear the packet
     #
@@ -1646,7 +1646,7 @@ module SF
     #
     # *See also:* `append`
     def clear()
-      VoidCSFML.packet_clear(to_unsafe)
+      VoidCSFML.sfml_packet_clear(to_unsafe)
     end
     # Get a pointer to the data contained in the packet
     #
@@ -1659,7 +1659,7 @@ module SF
     #
     # *See also:* `data_size`
     def data() : Void*
-      VoidCSFML.packet_getdata(to_unsafe, out result)
+      VoidCSFML.sfml_packet_getdata(to_unsafe, out result)
       return result
     end
     # Get the size of the data contained in the packet
@@ -1671,7 +1671,7 @@ module SF
     #
     # *See also:* `data`
     def data_size() : Int32
-      VoidCSFML.packet_getdatasize(to_unsafe, out result)
+      VoidCSFML.sfml_packet_getdatasize(to_unsafe, out result)
       return result.to_i
     end
     # Tell if the reading position has reached the
@@ -1684,7 +1684,7 @@ module SF
     #
     # *See also:* `operator` `bool`
     def end_of_packet() : Bool
-      VoidCSFML.packet_endofpacket(to_unsafe, out result)
+      VoidCSFML.sfml_packet_endofpacket(to_unsafe, out result)
       return result
     end
     # Test the validity of the packet, for reading
@@ -1709,106 +1709,106 @@ module SF
     #
     # *See also:* `end_of_packet`
     def valid?() : Bool
-      VoidCSFML.packet_operator_bool(to_unsafe, out result)
+      VoidCSFML.sfml_packet_operator_bool(to_unsafe, out result)
       return result
     end
     # Read data from the packet. The expected type corresponds to
     # what was actually sent.
     def read(type : Bool.class) : Bool
-      VoidCSFML.packet_operator_shr_gRY(to_unsafe, out data)
+      VoidCSFML.sfml_packet_operator_shr_gRY(to_unsafe, out data)
       return data
     end
     def read(type : Int8.class) : Int8
-      VoidCSFML.packet_operator_shr_0y9(to_unsafe, out data)
+      VoidCSFML.sfml_packet_operator_shr_0y9(to_unsafe, out data)
       return data
     end
     def read(type : UInt8.class) : UInt8
-      VoidCSFML.packet_operator_shr_8hc(to_unsafe, out data)
+      VoidCSFML.sfml_packet_operator_shr_8hc(to_unsafe, out data)
       return data
     end
     def read(type : Int16.class) : Int16
-      VoidCSFML.packet_operator_shr_4k3(to_unsafe, out data)
+      VoidCSFML.sfml_packet_operator_shr_4k3(to_unsafe, out data)
       return data
     end
     def read(type : UInt16.class) : UInt16
-      VoidCSFML.packet_operator_shr_Xag(to_unsafe, out data)
+      VoidCSFML.sfml_packet_operator_shr_Xag(to_unsafe, out data)
       return data
     end
     def read(type : Int32.class) : Int32
-      VoidCSFML.packet_operator_shr_NiZ(to_unsafe, out data)
+      VoidCSFML.sfml_packet_operator_shr_NiZ(to_unsafe, out data)
       return data
     end
     def read(type : UInt32.class) : UInt32
-      VoidCSFML.packet_operator_shr_qTz(to_unsafe, out data)
+      VoidCSFML.sfml_packet_operator_shr_qTz(to_unsafe, out data)
       return data
     end
     def read(type : Int64.class) : Int64
-      VoidCSFML.packet_operator_shr_BuW(to_unsafe, out data)
+      VoidCSFML.sfml_packet_operator_shr_BuW(to_unsafe, out data)
       return data
     end
     def read(type : UInt64.class) : UInt64
-      VoidCSFML.packet_operator_shr_7H7(to_unsafe, out data)
+      VoidCSFML.sfml_packet_operator_shr_7H7(to_unsafe, out data)
       return data
     end
     def read(type : Float32.class) : Float32
-      VoidCSFML.packet_operator_shr_ATF(to_unsafe, out data)
+      VoidCSFML.sfml_packet_operator_shr_ATF(to_unsafe, out data)
       return data
     end
     def read(type : Float64.class) : Float64
-      VoidCSFML.packet_operator_shr_nIp(to_unsafe, out data)
+      VoidCSFML.sfml_packet_operator_shr_nIp(to_unsafe, out data)
       return data
     end
     def read(type : String.class) : String
-      VoidCSFML.packet_operator_shr_GHF(to_unsafe, out data)
+      VoidCSFML.sfml_packet_operator_shr_GHF(to_unsafe, out data)
       return String.new(data)
     end
     # Write data into the packet
     def write(data : Bool)
-      VoidCSFML.packet_operator_shl_GZq(to_unsafe, data)
+      VoidCSFML.sfml_packet_operator_shl_GZq(to_unsafe, data)
       self
     end
     def write(data : Int8)
-      VoidCSFML.packet_operator_shl_k6g(to_unsafe, data)
+      VoidCSFML.sfml_packet_operator_shl_k6g(to_unsafe, data)
       self
     end
     def write(data : UInt8)
-      VoidCSFML.packet_operator_shl_9yU(to_unsafe, data)
+      VoidCSFML.sfml_packet_operator_shl_9yU(to_unsafe, data)
       self
     end
     def write(data : Int16)
-      VoidCSFML.packet_operator_shl_yAA(to_unsafe, data)
+      VoidCSFML.sfml_packet_operator_shl_yAA(to_unsafe, data)
       self
     end
     def write(data : UInt16)
-      VoidCSFML.packet_operator_shl_BtU(to_unsafe, data)
+      VoidCSFML.sfml_packet_operator_shl_BtU(to_unsafe, data)
       self
     end
     def write(data : Int32)
-      VoidCSFML.packet_operator_shl_qe2(to_unsafe, data)
+      VoidCSFML.sfml_packet_operator_shl_qe2(to_unsafe, data)
       self
     end
     def write(data : UInt32)
-      VoidCSFML.packet_operator_shl_saL(to_unsafe, data)
+      VoidCSFML.sfml_packet_operator_shl_saL(to_unsafe, data)
       self
     end
     def write(data : Int64)
-      VoidCSFML.packet_operator_shl_G4x(to_unsafe, data)
+      VoidCSFML.sfml_packet_operator_shl_G4x(to_unsafe, data)
       self
     end
     def write(data : UInt64)
-      VoidCSFML.packet_operator_shl_Jvt(to_unsafe, data)
+      VoidCSFML.sfml_packet_operator_shl_Jvt(to_unsafe, data)
       self
     end
     def write(data : Float32)
-      VoidCSFML.packet_operator_shl_Bw9(to_unsafe, data)
+      VoidCSFML.sfml_packet_operator_shl_Bw9(to_unsafe, data)
       self
     end
     def write(data : Float64)
-      VoidCSFML.packet_operator_shl_mYt(to_unsafe, data)
+      VoidCSFML.sfml_packet_operator_shl_mYt(to_unsafe, data)
       self
     end
     def write(data : String)
-      VoidCSFML.packet_operator_shl_zkC(to_unsafe, data.bytesize, data)
+      VoidCSFML.sfml_packet_operator_shl_zkC(to_unsafe, data.bytesize, data)
       self
     end
     # :nodoc:
@@ -1823,7 +1823,7 @@ module SF
     def initialize(copy : Packet)
       @_packet = uninitialized VoidCSFML::Packet_Buffer
       as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
-      VoidCSFML.packet_initialize_54U(to_unsafe, copy)
+      VoidCSFML.sfml_packet_initialize_54U(to_unsafe, copy)
     end
     def dup() : self
       return typeof(self).new(self)
@@ -1909,11 +1909,11 @@ module SF
     # Default constructor
     def initialize()
       @_socketselector = uninitialized VoidCSFML::SocketSelector_Buffer
-      VoidCSFML.socketselector_initialize(to_unsafe)
+      VoidCSFML.sfml_socketselector_initialize(to_unsafe)
     end
     # Destructor
     def finalize()
-      VoidCSFML.socketselector_finalize(to_unsafe)
+      VoidCSFML.sfml_socketselector_finalize(to_unsafe)
     end
     # Add a new socket to the selector
     #
@@ -1926,7 +1926,7 @@ module SF
     #
     # *See also:* `remove`, `clear`
     def add(socket : Socket)
-      VoidCSFML.socketselector_add_JTp(to_unsafe, socket)
+      VoidCSFML.sfml_socketselector_add_JTp(to_unsafe, socket)
     end
     # Remove a socket from the selector
     #
@@ -1937,7 +1937,7 @@ module SF
     #
     # *See also:* `add`, `clear`
     def remove(socket : Socket)
-      VoidCSFML.socketselector_remove_JTp(to_unsafe, socket)
+      VoidCSFML.sfml_socketselector_remove_JTp(to_unsafe, socket)
     end
     # Remove all the sockets stored in the selector
     #
@@ -1947,7 +1947,7 @@ module SF
     #
     # *See also:* `add`, `remove`
     def clear()
-      VoidCSFML.socketselector_clear(to_unsafe)
+      VoidCSFML.sfml_socketselector_clear(to_unsafe)
     end
     # Wait until one or more sockets are ready to receive
     #
@@ -1963,7 +1963,7 @@ module SF
     #
     # *See also:* `ready?`
     def wait(timeout : Time = Time::Zero) : Bool
-      VoidCSFML.socketselector_wait_f4T(to_unsafe, timeout, out result)
+      VoidCSFML.sfml_socketselector_wait_f4T(to_unsafe, timeout, out result)
       return result
     end
     # Test a socket to know if it is ready to receive data
@@ -1981,7 +1981,7 @@ module SF
     #
     # *See also:* `ready?`
     def ready?(socket : Socket) : Bool
-      VoidCSFML.socketselector_isready_JTp(to_unsafe, socket, out result)
+      VoidCSFML.sfml_socketselector_isready_JTp(to_unsafe, socket, out result)
       return result
     end
     # :nodoc:
@@ -1996,7 +1996,7 @@ module SF
     def initialize(copy : SocketSelector)
       @_socketselector = uninitialized VoidCSFML::SocketSelector_Buffer
       as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
-      VoidCSFML.socketselector_initialize_fWq(to_unsafe, copy)
+      VoidCSFML.sfml_socketselector_initialize_fWq(to_unsafe, copy)
     end
     def dup() : self
       return typeof(self).new(self)
@@ -2048,7 +2048,7 @@ module SF
     def initialize()
       @_socket = uninitialized VoidCSFML::Socket_Buffer
       @_tcplistener = uninitialized VoidCSFML::TcpListener_Buffer
-      VoidCSFML.tcplistener_initialize(to_unsafe)
+      VoidCSFML.sfml_tcplistener_initialize(to_unsafe)
     end
     # Get the port to which the socket is bound locally
     #
@@ -2059,7 +2059,7 @@ module SF
     #
     # *See also:* `listen`
     def local_port() : UInt16
-      VoidCSFML.tcplistener_getlocalport(to_unsafe, out result)
+      VoidCSFML.sfml_tcplistener_getlocalport(to_unsafe, out result)
       return result
     end
     # Start listening for connections
@@ -2076,7 +2076,7 @@ module SF
     #
     # *See also:* `accept`, `close`
     def listen(port : Int, address : IpAddress = IpAddress::Any) : Socket::Status
-      VoidCSFML.tcplistener_listen_bxiBfE(to_unsafe, LibC::UShort.new(port), address, out result)
+      VoidCSFML.sfml_tcplistener_listen_bxiBfE(to_unsafe, LibC::UShort.new(port), address, out result)
       return Socket::Status.new(result)
     end
     # Stop listening and close the socket
@@ -2086,7 +2086,7 @@ module SF
     #
     # *See also:* `listen`
     def close()
-      VoidCSFML.tcplistener_close(to_unsafe)
+      VoidCSFML.sfml_tcplistener_close(to_unsafe)
     end
     # Accept a new connection
     #
@@ -2099,16 +2099,16 @@ module SF
     #
     # *See also:* `listen`
     def accept(socket : TcpSocket) : Socket::Status
-      VoidCSFML.tcplistener_accept_WsF(to_unsafe, socket, out result)
+      VoidCSFML.sfml_tcplistener_accept_WsF(to_unsafe, socket, out result)
       return Socket::Status.new(result)
     end
     # :nodoc:
     def blocking=(blocking : Bool)
-      VoidCSFML.tcplistener_setblocking_GZq(to_unsafe, blocking)
+      VoidCSFML.sfml_tcplistener_setblocking_GZq(to_unsafe, blocking)
     end
     # :nodoc:
     def blocking?() : Bool
-      VoidCSFML.tcplistener_isblocking(to_unsafe, out result)
+      VoidCSFML.sfml_tcplistener_isblocking(to_unsafe, out result)
       return result
     end
     # :nodoc:
@@ -2205,7 +2205,7 @@ module SF
     def initialize()
       @_socket = uninitialized VoidCSFML::Socket_Buffer
       @_udpsocket = uninitialized VoidCSFML::UdpSocket_Buffer
-      VoidCSFML.udpsocket_initialize(to_unsafe)
+      VoidCSFML.sfml_udpsocket_initialize(to_unsafe)
     end
     # Get the port to which the socket is bound locally
     #
@@ -2216,7 +2216,7 @@ module SF
     #
     # *See also:* `bind`
     def local_port() : UInt16
-      VoidCSFML.udpsocket_getlocalport(to_unsafe, out result)
+      VoidCSFML.sfml_udpsocket_getlocalport(to_unsafe, out result)
       return result
     end
     # Bind the socket to a specific port
@@ -2234,7 +2234,7 @@ module SF
     #
     # *See also:* `unbind`, `local_port`
     def bind(port : Int, address : IpAddress = IpAddress::Any) : Socket::Status
-      VoidCSFML.udpsocket_bind_bxiBfE(to_unsafe, LibC::UShort.new(port), address, out result)
+      VoidCSFML.sfml_udpsocket_bind_bxiBfE(to_unsafe, LibC::UShort.new(port), address, out result)
       return Socket::Status.new(result)
     end
     # Unbind the socket from the local port to which it is bound
@@ -2247,7 +2247,7 @@ module SF
     #
     # *See also:* `bind`
     def unbind()
-      VoidCSFML.udpsocket_unbind(to_unsafe)
+      VoidCSFML.sfml_udpsocket_unbind(to_unsafe)
     end
     # Send raw data to a remote peer
     #
@@ -2263,7 +2263,7 @@ module SF
     #
     # *See also:* `receive`
     def send(data : Slice, remote_address : IpAddress, remote_port : Int) : Socket::Status
-      VoidCSFML.udpsocket_send_5h8vgvBfEbxi(to_unsafe, data, data.bytesize, remote_address, LibC::UShort.new(remote_port), out result)
+      VoidCSFML.sfml_udpsocket_send_5h8vgvBfEbxi(to_unsafe, data, data.bytesize, remote_address, LibC::UShort.new(remote_port), out result)
       return Socket::Status.new(result)
     end
     # Receive raw data from a remote peer
@@ -2286,7 +2286,7 @@ module SF
     # *See also:* `send`
     def receive(data : Slice) : {Socket::Status, Int32, IpAddress, UInt16}
       remote_address = IpAddress.new
-      VoidCSFML.udpsocket_receive_xALvgvi499ylYII(to_unsafe, data, data.bytesize, out received, remote_address, out remote_port, out result)
+      VoidCSFML.sfml_udpsocket_receive_xALvgvi499ylYII(to_unsafe, data, data.bytesize, out received, remote_address, out remote_port, out result)
       return Socket::Status.new(result), received.to_i, remote_address, remote_port
     end
     # Send a formatted packet of data to a remote peer
@@ -2303,7 +2303,7 @@ module SF
     #
     # *See also:* `receive`
     def send(packet : Packet, remote_address : IpAddress, remote_port : Int) : Socket::Status
-      VoidCSFML.udpsocket_send_jyFBfEbxi(to_unsafe, packet, remote_address, LibC::UShort.new(remote_port), out result)
+      VoidCSFML.sfml_udpsocket_send_jyFBfEbxi(to_unsafe, packet, remote_address, LibC::UShort.new(remote_port), out result)
       return Socket::Status.new(result)
     end
     # Receive a formatted packet of data from a remote peer
@@ -2321,16 +2321,16 @@ module SF
     # *See also:* `send`
     def receive(packet : Packet) : {Socket::Status, IpAddress, UInt16}
       remote_address = IpAddress.new
-      VoidCSFML.udpsocket_receive_jyF9ylYII(to_unsafe, packet, remote_address, out remote_port, out result)
+      VoidCSFML.sfml_udpsocket_receive_jyF9ylYII(to_unsafe, packet, remote_address, out remote_port, out result)
       return Socket::Status.new(result), remote_address, remote_port
     end
     # :nodoc:
     def blocking=(blocking : Bool)
-      VoidCSFML.udpsocket_setblocking_GZq(to_unsafe, blocking)
+      VoidCSFML.sfml_udpsocket_setblocking_GZq(to_unsafe, blocking)
     end
     # :nodoc:
     def blocking?() : Bool
-      VoidCSFML.udpsocket_isblocking(to_unsafe, out result)
+      VoidCSFML.sfml_udpsocket_isblocking(to_unsafe, out result)
       return result
     end
     # :nodoc:

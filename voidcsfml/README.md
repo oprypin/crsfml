@@ -125,7 +125,7 @@ int main()
     videomode_initialize_emSemSemS(videomode, 640, 480, 24);
 
     buf(contextsettings);
-    contextsettings_initialize_emSemSemSemSemSemS(contextsettings, 0, 0, 0, 1, 1, 0);
+    contextsettings_initialize_emSemSemSemSemSemSGZq(contextsettings, 0, 0, 0, 1, 1, 0, 0);
 
     buf(window);
     uint32_t title[] = {'V','o','i','d','C','S','F','M','L'};
@@ -147,7 +147,11 @@ Compile with:
 gcc -lvoidcsfml-window -lsfml-window -lvoidcsfml-system -lsfml-system main.c
 ```
 
-(or same with `clang`).
+(or same with `clang`). On Windows:
+
+```cmd
+cl -I include voidcsfml-window.lib voidcsfml-system.lib -Tp test.c
+```
 
 Note that additional flags may be needed if *VoidCSFML* is not installed globally (see above).
 

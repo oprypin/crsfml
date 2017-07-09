@@ -49,7 +49,7 @@ module SF
     # Sets the time value to zero.
     def initialize()
       @microseconds = uninitialized Int64
-      VoidCSFML.time_initialize(to_unsafe)
+      VoidCSFML.sfml_time_initialize(to_unsafe)
     end
     # Return the time value as a number of seconds
     #
@@ -57,7 +57,7 @@ module SF
     #
     # *See also:* `as_milliseconds`, `as_microseconds`
     def as_seconds() : Float32
-      VoidCSFML.time_asseconds(to_unsafe, out result)
+      VoidCSFML.sfml_time_asseconds(to_unsafe, out result)
       return result
     end
     # Return the time value as a number of milliseconds
@@ -66,7 +66,7 @@ module SF
     #
     # *See also:* `as_seconds`, `as_microseconds`
     def as_milliseconds() : Int32
-      VoidCSFML.time_asmilliseconds(to_unsafe, out result)
+      VoidCSFML.sfml_time_asmilliseconds(to_unsafe, out result)
       return result
     end
     # Return the time value as a number of microseconds
@@ -75,7 +75,7 @@ module SF
     #
     # *See also:* `as_seconds`, `as_milliseconds`
     def as_microseconds() : Int64
-      VoidCSFML.time_asmicroseconds(to_unsafe, out result)
+      VoidCSFML.sfml_time_asmicroseconds(to_unsafe, out result)
       return result
     end
     @microseconds : Int64
@@ -86,7 +86,7 @@ module SF
     #
     # *Returns:* True if both time values are equal
     def ==(right : Time) : Bool
-      VoidCSFML.operator_eq_f4Tf4T(to_unsafe, right, out result)
+      VoidCSFML.sfml_operator_eq_f4Tf4T(to_unsafe, right, out result)
       return result
     end
     # Overload of != operator to compare two time values
@@ -96,7 +96,7 @@ module SF
     #
     # *Returns:* True if both time values are different
     def !=(right : Time) : Bool
-      VoidCSFML.operator_ne_f4Tf4T(to_unsafe, right, out result)
+      VoidCSFML.sfml_operator_ne_f4Tf4T(to_unsafe, right, out result)
       return result
     end
     # Overload of &lt; operator to compare two time values
@@ -106,7 +106,7 @@ module SF
     #
     # *Returns:* True if *left* is lesser than *right*
     def <(right : Time) : Bool
-      VoidCSFML.operator_lt_f4Tf4T(to_unsafe, right, out result)
+      VoidCSFML.sfml_operator_lt_f4Tf4T(to_unsafe, right, out result)
       return result
     end
     # Overload of &gt; operator to compare two time values
@@ -116,7 +116,7 @@ module SF
     #
     # *Returns:* True if *left* is greater than *right*
     def >(right : Time) : Bool
-      VoidCSFML.operator_gt_f4Tf4T(to_unsafe, right, out result)
+      VoidCSFML.sfml_operator_gt_f4Tf4T(to_unsafe, right, out result)
       return result
     end
     # Overload of &lt;= operator to compare two time values
@@ -126,7 +126,7 @@ module SF
     #
     # *Returns:* True if *left* is lesser or equal than *right*
     def <=(right : Time) : Bool
-      VoidCSFML.operator_le_f4Tf4T(to_unsafe, right, out result)
+      VoidCSFML.sfml_operator_le_f4Tf4T(to_unsafe, right, out result)
       return result
     end
     # Overload of &gt;= operator to compare two time values
@@ -136,7 +136,7 @@ module SF
     #
     # *Returns:* True if *left* is greater or equal than *right*
     def >=(right : Time) : Bool
-      VoidCSFML.operator_ge_f4Tf4T(to_unsafe, right, out result)
+      VoidCSFML.sfml_operator_ge_f4Tf4T(to_unsafe, right, out result)
       return result
     end
     # Overload of unary - operator to negate a time value
@@ -146,7 +146,7 @@ module SF
     # *Returns:* Opposite of the time value
     def -() : Time
       result = Time.allocate
-      VoidCSFML.operator_sub_f4T(to_unsafe, result)
+      VoidCSFML.sfml_operator_sub_f4T(to_unsafe, result)
       return result
     end
     # Overload of binary + operator to add two time values
@@ -157,7 +157,7 @@ module SF
     # *Returns:* Sum of the two times values
     def +(right : Time) : Time
       result = Time.allocate
-      VoidCSFML.operator_add_f4Tf4T(to_unsafe, right, result)
+      VoidCSFML.sfml_operator_add_f4Tf4T(to_unsafe, right, result)
       return result
     end
     # Overload of binary - operator to subtract two time values
@@ -168,7 +168,7 @@ module SF
     # *Returns:* Difference of the two times values
     def -(right : Time) : Time
       result = Time.allocate
-      VoidCSFML.operator_sub_f4Tf4T(to_unsafe, right, result)
+      VoidCSFML.sfml_operator_sub_f4Tf4T(to_unsafe, right, result)
       return result
     end
     # Overload of binary * operator to scale a time value
@@ -179,7 +179,7 @@ module SF
     # *Returns:* *left* multiplied by *right*
     def *(right : Number) : Time
       result = Time.allocate
-      VoidCSFML.operator_mul_f4TBw9(to_unsafe, LibC::Float.new(right), result)
+      VoidCSFML.sfml_operator_mul_f4TBw9(to_unsafe, LibC::Float.new(right), result)
       return result
     end
     # Overload of binary * operator to scale a time value
@@ -190,7 +190,7 @@ module SF
     # *Returns:* *left* multiplied by *right*
     def *(right : Int) : Time
       result = Time.allocate
-      VoidCSFML.operator_mul_f4TG4x(to_unsafe, Int64.new(right), result)
+      VoidCSFML.sfml_operator_mul_f4TG4x(to_unsafe, Int64.new(right), result)
       return result
     end
     # Overload of binary / operator to scale a time value
@@ -201,7 +201,7 @@ module SF
     # *Returns:* *left* divided by *right*
     def /(right : Number) : Time
       result = Time.allocate
-      VoidCSFML.operator_div_f4TBw9(to_unsafe, LibC::Float.new(right), result)
+      VoidCSFML.sfml_operator_div_f4TBw9(to_unsafe, LibC::Float.new(right), result)
       return result
     end
     # Overload of binary / operator to scale a time value
@@ -212,7 +212,7 @@ module SF
     # *Returns:* *left* divided by *right*
     def /(right : Int) : Time
       result = Time.allocate
-      VoidCSFML.operator_div_f4TG4x(to_unsafe, Int64.new(right), result)
+      VoidCSFML.sfml_operator_div_f4TG4x(to_unsafe, Int64.new(right), result)
       return result
     end
     # Overload of binary / operator to compute the ratio of two time values
@@ -222,7 +222,7 @@ module SF
     #
     # *Returns:* *left* divided by *right*
     def /(right : Time) : Float32
-      VoidCSFML.operator_div_f4Tf4T(to_unsafe, right, out result)
+      VoidCSFML.sfml_operator_div_f4Tf4T(to_unsafe, right, out result)
       return result
     end
     # Overload of binary % operator to compute remainder of a time value
@@ -233,7 +233,7 @@ module SF
     # *Returns:* *left* modulo *right*
     def %(right : Time) : Time
       result = Time.allocate
-      VoidCSFML.operator_mod_f4Tf4T(to_unsafe, right, result)
+      VoidCSFML.sfml_operator_mod_f4Tf4T(to_unsafe, right, result)
       return result
     end
     # :nodoc:
@@ -244,7 +244,7 @@ module SF
     def initialize(copy : Time)
       @microseconds = uninitialized Int64
       as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
-      VoidCSFML.time_initialize_PxG(to_unsafe, copy)
+      VoidCSFML.sfml_time_initialize_PxG(to_unsafe, copy)
     end
     def dup() : self
       return typeof(self).new(self)
@@ -259,7 +259,7 @@ module SF
   # *See also:* `milliseconds`, `microseconds`
   def seconds(amount : Number) : Time
     result = Time.allocate
-    VoidCSFML.seconds_Bw9(LibC::Float.new(amount), result)
+    VoidCSFML.sfml_seconds_Bw9(LibC::Float.new(amount), result)
     return result
   end
   # Construct a time value from a number of milliseconds
@@ -271,7 +271,7 @@ module SF
   # *See also:* `seconds`, `microseconds`
   def milliseconds(amount : Int) : Time
     result = Time.allocate
-    VoidCSFML.milliseconds_qe2(Int32.new(amount), result)
+    VoidCSFML.sfml_milliseconds_qe2(Int32.new(amount), result)
     return result
   end
   # Construct a time value from a number of microseconds
@@ -283,7 +283,7 @@ module SF
   # *See also:* `seconds`, `milliseconds`
   def microseconds(amount : Int) : Time
     result = Time.allocate
-    VoidCSFML.microseconds_G4x(Int64.new(amount), result)
+    VoidCSFML.sfml_microseconds_G4x(Int64.new(amount), result)
     return result
   end
   # Utility class that measures the elapsed time
@@ -317,7 +317,7 @@ module SF
     # The clock starts automatically after being constructed.
     def initialize()
       @_clock = uninitialized VoidCSFML::Clock_Buffer
-      VoidCSFML.clock_initialize(to_unsafe)
+      VoidCSFML.sfml_clock_initialize(to_unsafe)
     end
     # Get the elapsed time
     #
@@ -328,7 +328,7 @@ module SF
     # *Returns:* Time elapsed
     def elapsed_time() : Time
       result = Time.allocate
-      VoidCSFML.clock_getelapsedtime(to_unsafe, result)
+      VoidCSFML.sfml_clock_getelapsedtime(to_unsafe, result)
       return result
     end
     # Restart the clock
@@ -339,7 +339,7 @@ module SF
     # *Returns:* Time elapsed
     def restart() : Time
       result = Time.allocate
-      VoidCSFML.clock_restart(to_unsafe, result)
+      VoidCSFML.sfml_clock_restart(to_unsafe, result)
       return result
     end
     # :nodoc:
@@ -354,28 +354,28 @@ module SF
     def initialize(copy : Clock)
       @_clock = uninitialized VoidCSFML::Clock_Buffer
       as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
-      VoidCSFML.clock_initialize_LuC(to_unsafe, copy)
+      VoidCSFML.sfml_clock_initialize_LuC(to_unsafe, copy)
     end
     def dup() : self
       return typeof(self).new(self)
     end
   end
-  VoidCSFML.inputstream_read_callback = ->(self : Void*, data : Void*, size : Int64, result : Int64*) {
+  VoidCSFML.sfml_inputstream_read_callback(->(self : Void*, data : Void*, size : Int64, result : Int64*) {
     output = (self - sizeof(LibC::Int)).as(Union(InputStream)).read(Slice(UInt8).new(data.as(UInt8*), size))
     result.value = Int64.new(output)
-  }
-  VoidCSFML.inputstream_seek_callback = ->(self : Void*, position : Int64, result : Int64*) {
+  })
+  VoidCSFML.sfml_inputstream_seek_callback(->(self : Void*, position : Int64, result : Int64*) {
     output = (self - sizeof(LibC::Int)).as(Union(InputStream)).seek(position)
     result.value = Int64.new(output)
-  }
-  VoidCSFML.inputstream_tell_callback = ->(self : Void*, result : Int64*) {
+  })
+  VoidCSFML.sfml_inputstream_tell_callback(->(self : Void*, result : Int64*) {
     output = (self - sizeof(LibC::Int)).as(Union(InputStream)).tell()
     result.value = Int64.new(output)
-  }
-  VoidCSFML.inputstream_getsize_callback = ->(self : Void*, result : Int64*) {
+  })
+  VoidCSFML.sfml_inputstream_getsize_callback(->(self : Void*, result : Int64*) {
     output = (self - sizeof(LibC::Int)).as(Union(InputStream)).size()
     result.value = Int64.new(output)
-  }
+  })
   # Abstract class for custom file input streams
   #
   # This class allows users to define their own file input sources
@@ -425,7 +425,7 @@ module SF
     def initialize()
       @_inputstream = uninitialized VoidCSFML::InputStream_Buffer
       raise "Unexpected memory layout" if as(Void*) + sizeof(LibC::Int) != to_unsafe
-      VoidCSFML.inputstream_initialize(to_unsafe)
+      VoidCSFML.sfml_inputstream_initialize(to_unsafe)
     end
     # Read data from the stream
     #
@@ -463,7 +463,7 @@ module SF
       @_inputstream = uninitialized VoidCSFML::InputStream_Buffer
       raise "Unexpected memory layout" if as(Void*) + sizeof(LibC::Int) != to_unsafe
       as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
-      VoidCSFML.inputstream_initialize_mua(to_unsafe, copy)
+      VoidCSFML.sfml_inputstream_initialize_mua(to_unsafe, copy)
     end
     def dup() : self
       return typeof(self).new(self)
@@ -506,11 +506,11 @@ module SF
     def initialize()
       @_inputstream = uninitialized VoidCSFML::InputStream_Buffer
       @_fileinputstream = uninitialized VoidCSFML::FileInputStream_Buffer
-      VoidCSFML.fileinputstream_initialize(to_unsafe)
+      VoidCSFML.sfml_fileinputstream_initialize(to_unsafe)
     end
     # Default destructor
     def finalize()
-      VoidCSFML.fileinputstream_finalize(to_unsafe)
+      VoidCSFML.sfml_fileinputstream_finalize(to_unsafe)
     end
     # Open the stream from a file path
     #
@@ -518,7 +518,7 @@ module SF
     #
     # *Returns:* True on success, false on error
     def open(filename : String) : Bool
-      VoidCSFML.fileinputstream_open_zkC(to_unsafe, filename.bytesize, filename, out result)
+      VoidCSFML.sfml_fileinputstream_open_zkC(to_unsafe, filename.bytesize, filename, out result)
       return result
     end
     # Shorthand for `file_input_stream = FileInputStream.new; file_input_stream.open(...); file_input_stream`
@@ -540,7 +540,7 @@ module SF
     #
     # *Returns:* The number of bytes actually read, or -1 on error
     def read(data : Slice) : Int64
-      VoidCSFML.fileinputstream_read_xALG4x(to_unsafe, data, data.bytesize, out result)
+      VoidCSFML.sfml_fileinputstream_read_xALG4x(to_unsafe, data, data.bytesize, out result)
       return result
     end
     # Change the current reading position
@@ -549,21 +549,21 @@ module SF
     #
     # *Returns:* The position actually sought to, or -1 on error
     def seek(position : Int) : Int64
-      VoidCSFML.fileinputstream_seek_G4x(to_unsafe, Int64.new(position), out result)
+      VoidCSFML.sfml_fileinputstream_seek_G4x(to_unsafe, Int64.new(position), out result)
       return result
     end
     # Get the current reading position in the stream
     #
     # *Returns:* The current position, or -1 on error.
     def tell() : Int64
-      VoidCSFML.fileinputstream_tell(to_unsafe, out result)
+      VoidCSFML.sfml_fileinputstream_tell(to_unsafe, out result)
       return result
     end
     # Return the size of the stream
     #
     # *Returns:* The total number of bytes available in the stream, or -1 on error
     def size() : Int64
-      VoidCSFML.fileinputstream_getsize(to_unsafe, out result)
+      VoidCSFML.sfml_fileinputstream_getsize(to_unsafe, out result)
       return result
     end
     include NonCopyable
@@ -609,13 +609,13 @@ module SF
     def initialize()
       @_inputstream = uninitialized VoidCSFML::InputStream_Buffer
       @_memoryinputstream = uninitialized VoidCSFML::MemoryInputStream_Buffer
-      VoidCSFML.memoryinputstream_initialize(to_unsafe)
+      VoidCSFML.sfml_memoryinputstream_initialize(to_unsafe)
     end
     # Open the stream from its data
     #
     # * *data* - Pointer to the data in memory
     def open(data : Slice)
-      VoidCSFML.memoryinputstream_open_5h8vgv(to_unsafe, data, data.bytesize)
+      VoidCSFML.sfml_memoryinputstream_open_5h8vgv(to_unsafe, data, data.bytesize)
     end
     # Shorthand for `memory_input_stream = MemoryInputStream.new; memory_input_stream.open(...); memory_input_stream`
     def self.open(*args, **kwargs) : self
@@ -632,7 +632,7 @@ module SF
     #
     # *Returns:* The number of bytes actually read, or -1 on error
     def read(data : Slice) : Int64
-      VoidCSFML.memoryinputstream_read_xALG4x(to_unsafe, data, data.bytesize, out result)
+      VoidCSFML.sfml_memoryinputstream_read_xALG4x(to_unsafe, data, data.bytesize, out result)
       return result
     end
     # Change the current reading position
@@ -641,21 +641,21 @@ module SF
     #
     # *Returns:* The position actually sought to, or -1 on error
     def seek(position : Int) : Int64
-      VoidCSFML.memoryinputstream_seek_G4x(to_unsafe, Int64.new(position), out result)
+      VoidCSFML.sfml_memoryinputstream_seek_G4x(to_unsafe, Int64.new(position), out result)
       return result
     end
     # Get the current reading position in the stream
     #
     # *Returns:* The current position, or -1 on error.
     def tell() : Int64
-      VoidCSFML.memoryinputstream_tell(to_unsafe, out result)
+      VoidCSFML.sfml_memoryinputstream_tell(to_unsafe, out result)
       return result
     end
     # Return the size of the stream
     #
     # *Returns:* The total number of bytes available in the stream, or -1 on error
     def size() : Int64
-      VoidCSFML.memoryinputstream_getsize(to_unsafe, out result)
+      VoidCSFML.sfml_memoryinputstream_getsize(to_unsafe, out result)
       return result
     end
     # :nodoc:
@@ -671,7 +671,7 @@ module SF
       @_inputstream = uninitialized VoidCSFML::InputStream_Buffer
       @_memoryinputstream = uninitialized VoidCSFML::MemoryInputStream_Buffer
       as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
-      VoidCSFML.memoryinputstream_initialize_kYd(to_unsafe, copy)
+      VoidCSFML.sfml_memoryinputstream_initialize_kYd(to_unsafe, copy)
     end
     def dup() : self
       return typeof(self).new(self)
@@ -727,11 +727,11 @@ module SF
     # Default constructor
     def initialize()
       @_mutex = uninitialized VoidCSFML::Mutex_Buffer
-      VoidCSFML.mutex_initialize(to_unsafe)
+      VoidCSFML.sfml_mutex_initialize(to_unsafe)
     end
     # Destructor
     def finalize()
-      VoidCSFML.mutex_finalize(to_unsafe)
+      VoidCSFML.sfml_mutex_finalize(to_unsafe)
     end
     # Lock the mutex
     #
@@ -741,13 +741,13 @@ module SF
     #
     # *See also:* `unlock`
     def lock()
-      VoidCSFML.mutex_lock(to_unsafe)
+      VoidCSFML.sfml_mutex_lock(to_unsafe)
     end
     # Unlock the mutex
     #
     # *See also:* `lock`
     def unlock()
-      VoidCSFML.mutex_unlock(to_unsafe)
+      VoidCSFML.sfml_mutex_unlock(to_unsafe)
     end
     include NonCopyable
     # :nodoc:
@@ -766,7 +766,7 @@ module SF
   #
   # * *duration* - Time to sleep
   def sleep(duration : Time)
-    VoidCSFML.sleep_f4T(duration)
+    VoidCSFML.sfml_sleep_f4T(duration)
   end
   # Utility class to manipulate threads
   #
@@ -868,14 +868,14 @@ module SF
     def initialize(function : ->)
       @_thread = uninitialized VoidCSFML::Thread_Buffer
       @function = Box.box(function)
-      VoidCSFML.thread_initialize_XPcbdx(to_unsafe, ->(argument) { Box(->).unbox(argument).call }, @function)
+      VoidCSFML.sfml_thread_initialize_XPcbdx(to_unsafe, ->(argument) { Box(->).unbox(argument).call }, @function)
     end
     # Destructor
     #
     # This destructor calls wait(), so that the internal thread
     # cannot survive after its `SF::Thread` instance is destroyed.
     def finalize()
-      VoidCSFML.thread_finalize(to_unsafe)
+      VoidCSFML.sfml_thread_finalize(to_unsafe)
     end
     # Run the thread
     #
@@ -884,7 +884,7 @@ module SF
     # After this function returns, the thread's function is
     # running in parallel to the calling code.
     def launch()
-      VoidCSFML.thread_launch(to_unsafe)
+      VoidCSFML.sfml_thread_launch(to_unsafe)
     end
     # Wait until the thread finishes
     #
@@ -895,7 +895,7 @@ module SF
     # If this function is called from its owner thread, it
     # returns without doing anything.
     def wait()
-      VoidCSFML.thread_wait(to_unsafe)
+      VoidCSFML.sfml_thread_wait(to_unsafe)
     end
     # Terminate the thread
     #
@@ -906,7 +906,7 @@ module SF
     # on some operating systems. You should rather try to make
     # the thread function terminate by itself.
     def terminate()
-      VoidCSFML.thread_terminate(to_unsafe)
+      VoidCSFML.sfml_thread_terminate(to_unsafe)
     end
     include NonCopyable
     # :nodoc:
