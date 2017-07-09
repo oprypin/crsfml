@@ -7,6 +7,7 @@ class Logo < SF::Transformable
   include SF::Drawable
 
   def initialize(message = "CrSFML")
+    super()
     @text = SF::Text.new(message, FONT, 200)
     bounds = @text.local_bounds
     @shape = SF::RectangleShape.new(SF.vector2(bounds.width*1.2, bounds.height*2))
