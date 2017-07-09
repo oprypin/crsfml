@@ -637,7 +637,7 @@
 -* scalars: \p float, \p int, \p bool
 +* scalars: `float`, `int`, `bool`
  * vectors (2, 3 or 4 components)
-@@ -30,32 +30,28 @@
+@@ -30,9 +30,9 @@
  Some SFML-specific types can be converted:
 -* `SF::Color` as a 4D vector (\p vec4)
 -* `SF::Transform` as matrices (\p mat3 or \p mat4)
@@ -649,19 +649,9 @@
 +`set_parameter` overloads, or through a shorthand. For example, if you
  have a shader with the following uniforms:
 -```c++
--uniform float offset;
--uniform vec3 point;
--uniform vec4 color;
--uniform mat4 matrix;
--uniform sampler2D overlay;
--uniform sampler2D current;
 +```glsl
-+uniform float offset
-+uniform vec3 point
-+uniform vec4 color
-+uniform mat4 matrix
-+uniform sampler2D overlay
-+uniform sampler2D current
+ uniform float offset;
+@@ -44,18 +44,14 @@
  ```
 -You can set their values from C++ code as follows, using the types
 -defined in the `SF::Glsl` namespace:
@@ -672,7 +662,7 @@
 -shader.setUniform("matrix", sf::Glsl::Mat4(transform));     // transform is a sf::Transform
 -shader.setUniform("overlay", texture);                      // texture is a sf::Texture
 -shader.setUniform("current", sf::Shader::CurrentTexture);
-+You can set their values from C++ code as follows:
++You can set their values from Crystal code as follows:
 +```
 +shader.offset 2.0
 +shader.point 0.5, 0.8, 0.3
@@ -686,7 +676,7 @@
 -future version. You should use their uniform=() equivalents instead.
  
  The special Shader::CurrentTexture argument maps the
--given \p sampler2d uniform to the current texture of the
+-given \p sampler2_d uniform to the current texture of the
 +given `sampler2d` uniform to the current texture of the
  object being drawn (which cannot be known in advance).
 @@ -63,12 +59,6 @@
@@ -705,22 +695,18 @@
 +states = SF::RenderStates.new(shader)
 +window.draw(sprite, states)
  ```
-@@ -88,10 +78,6 @@
- 
--Shaders can also be used to apply global post-effects to the
+@@ -89,4 +79,3 @@
+ Shaders can also be used to apply global post-effects to the
 -current contents of the target (like the old `SF::PostFx` class
 -in SFML 1). This can be done in two different ways:
--* draw everything to a `SF::RenderTexture`, then draw it to
--  the main target using the shader
--* draw everything directly to the main target, then use
++current contents of the target. This can be done in two different ways:
+ * draw everything to a `SF::RenderTexture`, then draw it to
+@@ -94,3 +83,3 @@
+ * draw everything directly to the main target, then use
 -  `SF::Texture::update`(Window&) to copy its contents to a texture
--  and draw it to the main target using the shader
-+Shaders can also be used to apply global post-effects to the current
-+contents of the target. This can be done in two different ways:
-+* draw everything to a `SF::RenderTexture`, then draw it to the main target using the shader
-+* draw everything directly to the main target, then use `SF::Texture.update(window)` to copy its contents to a texture and draw it to the main target using the shader
- 
-@@ -105,8 +91,6 @@
++  `SF::Texture::update(window)` to copy its contents to a texture
+   and draw it to the main target using the shader
+@@ -105,8 +94,6 @@
  custom OpenGL geometry.
 -```c++
 -sf::Shader::bind(&shader);

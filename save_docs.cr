@@ -98,7 +98,7 @@ source_pairs.each do |mod, files|
 
   Process.run("git", %w[diff -U1 --minimal --text --no-index --no-prefix --no-renames a b]) do |pr|
     File.open(File.join(current, "docs", "#{mod}.diff"), "w") do |diff|
-      pr.output.each_line do |line|
+      pr.output.each_line(chomp: false) do |line|
         case line.chomp
         when /^(---|\+\+\+) [ab]\/(\d+)$/
           diff.puts "#{$1} #{items[$2.to_i]}"

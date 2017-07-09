@@ -321,11 +321,6 @@
 +desktop = SF::VideoMode.desktop_mode
 +window.create(SF::VideoMode.new(1024, 768, desktop.bits_per_pixel), "SFML window")
  ```
---- SF::Event::JoystickButtonEvent#joystick_id()
-+++ SF::Event::JoystickButtonEvent#joystick_id()
-@@ -1 +1 @@
--Index of the joystick (in range [0 .. Joystick::Count - 1])
-+Index of the joystick (in range `0 ... Joystick::Count`)
 --- SF::Window
 +++ SF::Window
 @@ -25,29 +25,27 @@
@@ -383,6 +378,11 @@
 +  window.display()
 +end
  ```
+--- SF::Event::JoystickButtonEvent#joystick_id()
++++ SF::Event::JoystickButtonEvent#joystick_id()
+@@ -1 +1 @@
+-Index of the joystick (in range [0 .. Joystick::Count - 1])
++Index of the joystick (in range `0 ... Joystick::Count`)
 --- SF::Window#framerate_limit=(limit)
 +++ SF::Window#framerate_limit=(limit)
 @@ -6,3 +6,3 @@
