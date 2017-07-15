@@ -856,7 +856,7 @@ class CFunction < CItem
     name = @name.not_nil!.underscore
     case name
     when .starts_with? "get_"
-      name[4..-1] if parameters.size == 0
+      parameters.size == 0 ? name[4..-1] : name
     when .starts_with? "is_"
       name[3..-1] + "?"
     when .starts_with? "has_"
@@ -900,7 +900,7 @@ class CFunction < CItem
   end
 
   def reference_getter? : CType?
-    if (typ = self.type) && typ.type.as?(CClass).try &.class? && !(typ.reference? && typ.const?) && getter_name
+    if (typ = self.type) && typ.type.as?(CClass).try &.class? && (typ.reference? && !typ.const? || typ.pointer > 0) && getter_name
       typ
     end
   end
