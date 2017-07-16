@@ -401,7 +401,7 @@ class CClass < CNamespace
         if context.crystal?
           o<< "#{LIB_NAME}.#{callback_name}(->(#{cl_params.join(", ")}) {"
           inst = (SAFE ? "self" : "(self - sizeof(LibC::Int))")
-          o<< "#{"output = " if func.type}#{inst}.as(Union(#{full_name(context)})).#{func.name(context)}(#{cr_args.join(", ")})"
+          o<< "#{"output = " if func.type}#{inst}.as(#{full_name(context)}).#{func.name(context)}(#{cr_args.join(", ")})"
           if func.parameters.any? { |param| param.type.full_name(Context::CPPSource) == "SoundStream::Chunk" }
             o<< "data.value, data_size.value = output.to_unsafe, LibC::SizeT.new(output.size) if output"
           end
