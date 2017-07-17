@@ -13,7 +13,7 @@ before_install:
 script:
   - |
     cmake . && make &&
-    export LIBRARY_PATH="$PWD/voidcsfml/lib"
+    export LIBRARY_PATH="$PWD/voidcsfml"
   - crystal doc
   - |
     cd examples
