@@ -136,7 +136,7 @@
 -}
 +```
 +# Load a new font from file
-+font = SF::Font.new.from_file("arial.ttf")
++font = SF::Font.from_file("arial.ttf")
  
 -// Create a text which uses our font
 -sf::Text text1;
@@ -155,7 +155,7 @@
 +text2 = SF::Text.new
 +text2.font = font
 +text2.character_size = 50
-+text2.style = (F::Text::Italic
++text2.style = SF::Text::Italic
  ```
 --- SF::Font#load_from_memory(data)
 +++ SF::Font#load_from_memory(data)
