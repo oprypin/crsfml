@@ -4,7 +4,7 @@ project(CrSFML)
 
 set(VERSION_MAJOR 2)
 set(VERSION_MINOR 4)
-set(VERSION_PATCH 5)
+set(VERSION_PATCH 10)
 
 
 option(CRSFML_SAFE "Don't apply optimizations that are not safe." OFF)
