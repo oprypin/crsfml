@@ -168,7 +168,6 @@ module SF
       @minor_version = uninitialized UInt32
       @attribute_flags = uninitialized UInt32
       @s_rgb_capable = uninitialized Bool
-      as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
       VoidCSFML.sfml_contextsettings_initialize_Fw4(to_unsafe, copy)
     end
     def dup() : self
@@ -206,12 +205,12 @@ module SF
   # # by the SF::Context destructor
   # ```
   class Context
-    @_context : VoidCSFML::Context_Buffer
+    @this : Void*
     # Default constructor
     #
     # The constructor creates and activates the context
     def initialize()
-      @_context = uninitialized VoidCSFML::Context_Buffer
+      VoidCSFML.sfml_context_allocate(out @this)
       VoidCSFML.sfml_context_initialize(to_unsafe)
     end
     # Destructor
@@ -219,6 +218,7 @@ module SF
     # The destructor deactivates and destroys the context
     def finalize()
       VoidCSFML.sfml_context_finalize(to_unsafe)
+      VoidCSFML.sfml_context_free(@this)
     end
     # Activate or deactivate explicitly the context
     #
@@ -265,7 +265,7 @@ module SF
     # * *width* - Back buffer width
     # * *height* - Back buffer height
     def initialize(settings : ContextSettings, width : Int, height : Int)
-      @_context = uninitialized VoidCSFML::Context_Buffer
+      VoidCSFML.sfml_context_allocate(out @this)
       VoidCSFML.sfml_context_initialize_Fw4emSemS(to_unsafe, settings, LibC::UInt.new(width), LibC::UInt.new(height))
     end
     # :nodoc:
@@ -276,7 +276,7 @@ module SF
     include NonCopyable
     # :nodoc:
     def to_unsafe()
-      pointerof(@_context).as(Void*)
+      @this
     end
     # :nodoc:
     def inspect(io)
@@ -362,9 +362,13 @@ module SF
     Util.extract Joystick::Axis
     # Structure holding a joystick's identification
     class Identification
-      @_joystick_identification : VoidCSFML::Joystick_Identification_Buffer
+      @this : Void*
+      def finalize()
+        VoidCSFML.sfml_joystick_identification_finalize(to_unsafe)
+        VoidCSFML.sfml_joystick_identification_free(@this)
+      end
       def initialize()
-        @_joystick_identification = uninitialized VoidCSFML::Joystick_Identification_Buffer
+        VoidCSFML.sfml_joystick_identification_allocate(out @this)
         VoidCSFML.sfml_joystick_identification_initialize(to_unsafe)
       end
       # Name of the joystick
@@ -393,7 +397,7 @@ module SF
       end
       # :nodoc:
       def to_unsafe()
-        pointerof(@_joystick_identification).as(Void*)
+        @this
       end
       # :nodoc:
       def inspect(io)
@@ -401,8 +405,7 @@ module SF
       end
       # :nodoc:
       def initialize(copy : Joystick::Identification)
-        @_joystick_identification = uninitialized VoidCSFML::Joystick_Identification_Buffer
-        as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
+        VoidCSFML.sfml_joystick_identification_allocate(out @this)
         VoidCSFML.sfml_joystick_identification_initialize_ISj(to_unsafe, copy)
       end
       def dup() : self
@@ -471,7 +474,7 @@ module SF
     #
     # *Returns:* Structure containing joystick information.
     def self.get_identification(joystick : Int) : Joystick::Identification
-      result = Joystick::Identification.allocate
+      result = Joystick::Identification.new
       VoidCSFML.sfml_joystick_getidentification_emS(LibC::UInt.new(joystick), result)
       return result
     end
@@ -1031,7 +1034,6 @@ module SF
       def initialize(copy : Event::SizeEvent)
         @width = uninitialized UInt32
         @height = uninitialized UInt32
-        as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
         VoidCSFML.sfml_event_sizeevent_initialize_isq(to_unsafe, copy)
       end
       def dup() : self
@@ -1104,7 +1106,6 @@ module SF
         @control = uninitialized Bool
         @shift = uninitialized Bool
         @system = uninitialized Bool
-        as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
         VoidCSFML.sfml_event_keyevent_initialize_wJ8(to_unsafe, copy)
       end
       def dup() : self
@@ -1133,7 +1134,6 @@ module SF
       # :nodoc:
       def initialize(copy : Event::TextEvent)
         @unicode = uninitialized UInt32
-        as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
         VoidCSFML.sfml_event_textevent_initialize_uku(to_unsafe, copy)
       end
       def dup() : self
@@ -1173,7 +1173,6 @@ module SF
       def initialize(copy : Event::MouseMoveEvent)
         @x = uninitialized Int32
         @y = uninitialized Int32
-        as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
         VoidCSFML.sfml_event_mousemoveevent_initialize_1i3(to_unsafe, copy)
       end
       def dup() : self
@@ -1225,7 +1224,6 @@ module SF
         @button = uninitialized Mouse::Button
         @x = uninitialized Int32
         @y = uninitialized Int32
-        as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
         VoidCSFML.sfml_event_mousebuttonevent_initialize_Tjo(to_unsafe, copy)
       end
       def dup() : self
@@ -1279,7 +1277,6 @@ module SF
         @delta = uninitialized Int32
         @x = uninitialized Int32
         @y = uninitialized Int32
-        as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
         VoidCSFML.sfml_event_mousewheelevent_initialize_Wk7(to_unsafe, copy)
       end
       def dup() : self
@@ -1341,7 +1338,6 @@ module SF
         @delta = uninitialized Float32
         @x = uninitialized Int32
         @y = uninitialized Int32
-        as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
         VoidCSFML.sfml_event_mousewheelscrollevent_initialize_Am0(to_unsafe, copy)
       end
       def dup() : self
@@ -1371,7 +1367,6 @@ module SF
       # :nodoc:
       def initialize(copy : Event::JoystickConnectEvent)
         @joystick_id = uninitialized UInt32
-        as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
         VoidCSFML.sfml_event_joystickconnectevent_initialize_rYL(to_unsafe, copy)
       end
       def dup() : self
@@ -1422,7 +1417,6 @@ module SF
         @joystick_id = uninitialized UInt32
         @axis = uninitialized Joystick::Axis
         @position = uninitialized Float32
-        as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
         VoidCSFML.sfml_event_joystickmoveevent_initialize_S8f(to_unsafe, copy)
       end
       def dup() : self
@@ -1463,7 +1457,6 @@ module SF
       def initialize(copy : Event::JoystickButtonEvent)
         @joystick_id = uninitialized UInt32
         @button = uninitialized UInt32
-        as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
         VoidCSFML.sfml_event_joystickbuttonevent_initialize_V0a(to_unsafe, copy)
       end
       def dup() : self
@@ -1514,7 +1507,6 @@ module SF
         @finger = uninitialized UInt32
         @x = uninitialized Int32
         @y = uninitialized Int32
-        as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
         VoidCSFML.sfml_event_touchevent_initialize_1F1(to_unsafe, copy)
       end
       def dup() : self
@@ -1576,7 +1568,6 @@ module SF
         @x = uninitialized Float32
         @y = uninitialized Float32
         @z = uninitialized Float32
-        as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
         VoidCSFML.sfml_event_sensorevent_initialize_0L9(to_unsafe, copy)
       end
       def dup() : self
@@ -1926,7 +1917,6 @@ module SF
       @width = uninitialized UInt32
       @height = uninitialized UInt32
       @bits_per_pixel = uninitialized UInt32
-      as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
       VoidCSFML.sfml_videomode_initialize_asW(to_unsafe, copy)
     end
     def dup() : self
@@ -1999,13 +1989,13 @@ module SF
   # end
   # ```
   class Window
-    @_window : VoidCSFML::Window_Buffer
+    @this : Void*
     # Default constructor
     #
     # This constructor doesn't actually create the window,
     # use the other constructors or call create() to do so.
     def initialize()
-      @_window = uninitialized VoidCSFML::Window_Buffer
+      VoidCSFML.sfml_window_allocate(out @this)
       VoidCSFML.sfml_window_initialize(to_unsafe)
     end
     # Construct a new window
@@ -2025,7 +2015,7 @@ module SF
     # * *style* - Window style, a bitwise OR combination of `SF::Style` enumerators
     # * *settings* - Additional settings for the underlying OpenGL context
     def initialize(mode : VideoMode, title : String, style : Style = Style::Default, settings : ContextSettings = ContextSettings.new())
-      @_window = uninitialized VoidCSFML::Window_Buffer
+      VoidCSFML.sfml_window_allocate(out @this)
       VoidCSFML.sfml_window_initialize_wg0bQssaLFw4(to_unsafe, mode, title.size, title.chars, style, settings)
     end
     # Construct the window from an existing control
@@ -2040,7 +2030,7 @@ module SF
     # * *handle* - Platform-specific handle of the control
     # * *settings* - Additional settings for the underlying OpenGL context
     def initialize(handle : WindowHandle, settings : ContextSettings = ContextSettings.new())
-      @_window = uninitialized VoidCSFML::Window_Buffer
+      VoidCSFML.sfml_window_allocate(out @this)
       VoidCSFML.sfml_window_initialize_rLQFw4(to_unsafe, handle, settings)
     end
     # Destructor
@@ -2048,6 +2038,7 @@ module SF
     # Closes the window and frees all the resources attached to it.
     def finalize()
       VoidCSFML.sfml_window_finalize(to_unsafe)
+      VoidCSFML.sfml_window_free(@this)
     end
     # Create (or recreate) the window
     #
@@ -2146,14 +2137,14 @@ module SF
     #
     # *See also:* `wait_event`
     def poll_event() : Event?
-      event = uninitialized VoidCSFML::Event_Buffer
+      VoidCSFML.sfml_event_allocate(out event)
       VoidCSFML.sfml_window_pollevent_YJW(to_unsafe, event, out result)
       if result
         {% begin %}
-        case event.to_unsafe.as(LibC::Int*).value
+        case event.as(LibC::Int*).value
           {% for m, i in %w[Closed Resized LostFocus GainedFocus TextEntered KeyPressed KeyReleased MouseWheelMoved MouseWheelScrolled MouseButtonPressed MouseButtonReleased MouseMoved MouseEntered MouseLeft JoystickButtonPressed JoystickButtonReleased JoystickMoved JoystickConnected JoystickDisconnected TouchBegan TouchMoved TouchEnded SensorChanged] %}
         when {{i}}
-          (event.to_unsafe.as(LibC::Int*) + 1).as(Event::{{m.id}}*).value
+          (event.as(LibC::Int*) + 1).as(Event::{{m.id}}*).value
           {% end %}
         end .not_nil!
         {% end %}
@@ -2180,14 +2171,14 @@ module SF
     #
     # *See also:* `poll_event`
     def wait_event() : Event?
-      event = uninitialized VoidCSFML::Event_Buffer
+      VoidCSFML.sfml_event_allocate(out event)
       VoidCSFML.sfml_window_waitevent_YJW(to_unsafe, event, out result)
       if result
         {% begin %}
-        case event.to_unsafe.as(LibC::Int*).value
+        case event.as(LibC::Int*).value
           {% for m, i in %w[Closed Resized LostFocus GainedFocus TextEntered KeyPressed KeyReleased MouseWheelMoved MouseWheelScrolled MouseButtonPressed MouseButtonReleased MouseMoved MouseEntered MouseLeft JoystickButtonPressed JoystickButtonReleased JoystickMoved JoystickConnected JoystickDisconnected TouchBegan TouchMoved TouchEnded SensorChanged] %}
         when {{i}}
-          (event.to_unsafe.as(LibC::Int*) + 1).as(Event::{{m.id}}*).value
+          (event.as(LibC::Int*) + 1).as(Event::{{m.id}}*).value
           {% end %}
         end .not_nil!
         {% end %}
@@ -2409,7 +2400,7 @@ module SF
     include NonCopyable
     # :nodoc:
     def to_unsafe()
-      pointerof(@_window).as(Void*)
+      @this
     end
     # :nodoc:
     def inspect(io)

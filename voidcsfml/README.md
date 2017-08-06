@@ -122,20 +122,20 @@ Here is a usage example (just to get an idea about what happens under the hood, 
 int main()
 {
     buf(videomode);
-    videomode_initialize_emSemSemS(videomode, 640, 480, 24);
+    sfml_videomode_initialize_emSemSemS(videomode, 640, 480, 24);
 
     buf(contextsettings);
-    contextsettings_initialize_emSemSemSemSemSemSGZq(contextsettings, 0, 0, 0, 1, 1, 0, 0);
+    sfml_contextsettings_initialize_emSemSemSemSemSemSGZq(contextsettings, 0, 0, 0, 1, 1, 0, 0);
 
     buf(window);
     uint32_t title[] = {'V','o','i','d','C','S','F','M','L'};
-    window_initialize_wg0bQssaLFw4(window, videomode, 9, title, 7, contextsettings);
+    sfml_window_initialize_wg0bQssaLFw4(window, videomode, 9, title, 7, contextsettings);
 
-    window_display(window);
+    sfml_window_display(window);
 
     buf(time);
-    seconds_Bw9(3, time);
-    sleep_f4T(time);
+    sfml_seconds_Bw9(3, time);
+    sfml_sleep_f4T(time);
 
     return 0;
 }

@@ -1,6 +1,12 @@
 #include <voidcsfml/network.h>
 #include <SFML/Network.hpp>
 using namespace sf;
+void sfml_socket_allocate(void** result) {
+    *result = malloc(sizeof(Socket));
+}
+void sfml_socket_free(void* self) {
+    free(self);
+}
 void sfml_socket_finalize(void* self) {
     ((Socket*)self)->~Socket();
 }
@@ -9,6 +15,15 @@ void sfml_socket_setblocking_GZq(void* self, unsigned char blocking) {
 }
 void sfml_socket_isblocking(void* self, unsigned char* result) {
     *(bool*)result = ((Socket*)self)->isBlocking();
+}
+void sfml_tcpsocket_allocate(void** result) {
+    *result = malloc(sizeof(TcpSocket));
+}
+void sfml_tcpsocket_finalize(void* self) {
+    ((TcpSocket*)self)->~TcpSocket();
+}
+void sfml_tcpsocket_free(void* self) {
+    free(self);
 }
 void sfml_tcpsocket_initialize(void* self) {
     new(self) TcpSocket();
@@ -49,8 +64,23 @@ void sfml_tcpsocket_setblocking_GZq(void* self, unsigned char blocking) {
 void sfml_tcpsocket_isblocking(void* self, unsigned char* result) {
     *(bool*)result = ((TcpSocket*)self)->isBlocking();
 }
+void sfml_ftp_allocate(void** result) {
+    *result = malloc(sizeof(Ftp));
+}
 void sfml_ftp_initialize(void* self) {
     new(self) Ftp();
+}
+void sfml_ftp_free(void* self) {
+    free(self);
+}
+void sfml_ftp_response_allocate(void** result) {
+    *result = malloc(sizeof(Ftp::Response));
+}
+void sfml_ftp_response_finalize(void* self) {
+    ((Ftp::Response*)self)->~Response();
+}
+void sfml_ftp_response_free(void* self) {
+    free(self);
 }
 void sfml_ftp_response_initialize_nyWzkC(void* self, int code, size_t message_size, char* message) {
     new(self) Ftp::Response((Ftp::Response::Status)code, std::string(message, message_size));
@@ -68,6 +98,15 @@ void sfml_ftp_response_getmessage(void* self, char** result) {
 }
 void sfml_ftp_response_initialize_lXv(void* self, void* copy) {
     new(self) Ftp::Response(*(Ftp::Response*)copy);
+}
+void sfml_ftp_directoryresponse_allocate(void** result) {
+    *result = malloc(sizeof(Ftp::DirectoryResponse));
+}
+void sfml_ftp_directoryresponse_finalize(void* self) {
+    ((Ftp::DirectoryResponse*)self)->~DirectoryResponse();
+}
+void sfml_ftp_directoryresponse_free(void* self) {
+    free(self);
 }
 void sfml_ftp_directoryresponse_initialize_lXv(void* self, void* response) {
     new(self) Ftp::DirectoryResponse(*(Ftp::Response*)response);
@@ -90,6 +129,15 @@ void sfml_ftp_directoryresponse_getmessage(void* self, char** result) {
 }
 void sfml_ftp_directoryresponse_initialize_Zyp(void* self, void* copy) {
     new(self) Ftp::DirectoryResponse(*(Ftp::DirectoryResponse*)copy);
+}
+void sfml_ftp_listingresponse_allocate(void** result) {
+    *result = malloc(sizeof(Ftp::ListingResponse));
+}
+void sfml_ftp_listingresponse_finalize(void* self) {
+    ((Ftp::ListingResponse*)self)->~ListingResponse();
+}
+void sfml_ftp_listingresponse_free(void* self) {
+    free(self);
 }
 void sfml_ftp_listingresponse_initialize_lXvzkC(void* self, void* response, size_t data_size, char* data) {
     new(self) Ftp::ListingResponse(*(Ftp::Response*)response, std::string(data, data_size));
@@ -168,6 +216,12 @@ void sfml_ftp_upload_zkCzkCJP8(void* self, size_t local_file_size, char* local_f
 void sfml_ftp_sendcommand_zkCzkC(void* self, size_t command_size, char* command, size_t parameter_size, char* parameter, void* result) {
     *(Ftp::Response*)result = ((Ftp*)self)->sendCommand(std::string(command, command_size), std::string(parameter, parameter_size));
 }
+void sfml_ipaddress_allocate(void** result) {
+    *result = malloc(sizeof(IpAddress));
+}
+void sfml_ipaddress_free(void* self) {
+    free(self);
+}
 void sfml_ipaddress_initialize(void* self) {
     new(self) IpAddress();
 }
@@ -218,6 +272,24 @@ void sfml_operator_ge_BfEBfE(void* left, void* right, unsigned char* result) {
 void sfml_ipaddress_initialize_BfE(void* self, void* copy) {
     new(self) IpAddress(*(IpAddress*)copy);
 }
+void sfml_http_allocate(void** result) {
+    *result = malloc(sizeof(Http));
+}
+void sfml_http_finalize(void* self) {
+    ((Http*)self)->~Http();
+}
+void sfml_http_free(void* self) {
+    free(self);
+}
+void sfml_http_request_allocate(void** result) {
+    *result = malloc(sizeof(Http::Request));
+}
+void sfml_http_request_finalize(void* self) {
+    ((Http::Request*)self)->~Request();
+}
+void sfml_http_request_free(void* self) {
+    free(self);
+}
 void sfml_http_request_initialize_zkC1ctzkC(void* self, size_t uri_size, char* uri, int method, size_t body_size, char* body) {
     new(self) Http::Request(std::string(uri, uri_size), (Http::Request::Method)method, std::string(body, body_size));
 }
@@ -238,6 +310,15 @@ void sfml_http_request_setbody_zkC(void* self, size_t body_size, char* body) {
 }
 void sfml_http_request_initialize_Jat(void* self, void* copy) {
     new(self) Http::Request(*(Http::Request*)copy);
+}
+void sfml_http_response_allocate(void** result) {
+    *result = malloc(sizeof(Http::Response));
+}
+void sfml_http_response_finalize(void* self) {
+    ((Http::Response*)self)->~Response();
+}
+void sfml_http_response_free(void* self) {
+    free(self);
 }
 void sfml_http_response_initialize(void* self) {
     new(self) Http::Response();
@@ -275,6 +356,12 @@ void sfml_http_sethost_zkCbxi(void* self, size_t host_size, char* host, unsigned
 }
 void sfml_http_sendrequest_Jatf4T(void* self, void* request, void* timeout, void* result) {
     *(Http::Response*)result = ((Http*)self)->sendRequest(*(Http::Request*)request, *(Time*)timeout);
+}
+void sfml_packet_allocate(void** result) {
+    *result = malloc(sizeof(Packet));
+}
+void sfml_packet_free(void* self) {
+    free(self);
 }
 void sfml_packet_initialize(void* self) {
     new(self) Packet();
@@ -377,6 +464,12 @@ void sfml_packet_operator_shl_zkC(void* self, size_t data_size, char* data) {
 void sfml_packet_initialize_54U(void* self, void* copy) {
     new(self) Packet(*(Packet*)copy);
 }
+void sfml_socketselector_allocate(void** result) {
+    *result = malloc(sizeof(SocketSelector));
+}
+void sfml_socketselector_free(void* self) {
+    free(self);
+}
 void sfml_socketselector_initialize(void* self) {
     new(self) SocketSelector();
 }
@@ -401,6 +494,15 @@ void sfml_socketselector_isready_JTp(void* self, void* socket, unsigned char* re
 void sfml_socketselector_initialize_fWq(void* self, void* copy) {
     new(self) SocketSelector(*(SocketSelector*)copy);
 }
+void sfml_tcplistener_allocate(void** result) {
+    *result = malloc(sizeof(TcpListener));
+}
+void sfml_tcplistener_finalize(void* self) {
+    ((TcpListener*)self)->~TcpListener();
+}
+void sfml_tcplistener_free(void* self) {
+    free(self);
+}
 void sfml_tcplistener_initialize(void* self) {
     new(self) TcpListener();
 }
@@ -421,6 +523,15 @@ void sfml_tcplistener_setblocking_GZq(void* self, unsigned char blocking) {
 }
 void sfml_tcplistener_isblocking(void* self, unsigned char* result) {
     *(bool*)result = ((TcpListener*)self)->isBlocking();
+}
+void sfml_udpsocket_allocate(void** result) {
+    *result = malloc(sizeof(UdpSocket));
+}
+void sfml_udpsocket_finalize(void* self) {
+    ((UdpSocket*)self)->~UdpSocket();
+}
+void sfml_udpsocket_free(void* self) {
+    free(self);
 }
 void sfml_udpsocket_initialize(void* self) {
     new(self) UdpSocket();

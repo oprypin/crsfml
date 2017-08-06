@@ -184,7 +184,7 @@ module SF
   #
   # *See also:* `SF::Sound`, `SF::SoundStream`
   class SoundSource
-    @_soundsource : VoidCSFML::SoundSource_Buffer
+    @this : Void*
     # Enumeration of the sound source states
     enum Status
       # Sound is not playing
@@ -198,6 +198,7 @@ module SF
     # Destructor
     def finalize()
       VoidCSFML.sfml_soundsource_finalize(to_unsafe)
+      VoidCSFML.sfml_soundsource_free(@this)
     end
     # Set the pitch of the sound
     #
@@ -356,13 +357,13 @@ module SF
     #
     # This constructor is meant to be called by derived classes only.
     protected def initialize()
-      @_soundsource = uninitialized VoidCSFML::SoundSource_Buffer
+      VoidCSFML.sfml_soundsource_allocate(out @this)
       VoidCSFML.sfml_soundsource_initialize(to_unsafe)
     end
     include AlResource
     # :nodoc:
     def to_unsafe()
-      pointerof(@_soundsource).as(Void*)
+      @this
     end
     # :nodoc:
     def inspect(io)
@@ -370,12 +371,12 @@ module SF
     end
   end
   VoidCSFML.sfml_soundstream_ongetdata_callback(->(self : Void*, data : Int16**, data_size : LibC::SizeT*, result : Bool*) {
-    output = (self - sizeof(LibC::Int)).as(Union(SoundStream)).on_get_data()
+    output = self.as(SoundStream).on_get_data()
     data.value, data_size.value = output.to_unsafe, LibC::SizeT.new(output.size) if output
     result.value = !!output
   })
   VoidCSFML.sfml_soundstream_onseek_callback(->(self : Void*, time_offset : Void*) {
-    (self - sizeof(LibC::Int)).as(Union(SoundStream)).on_seek(time_offset.as(Time*).value)
+    self.as(SoundStream).on_seek(time_offset.as(Time*).value)
   })
   # Abstract base class for streamed audio sources
   #
@@ -436,10 +437,11 @@ module SF
   #
   # *See also:* `SF::Music`
   abstract class SoundStream < SoundSource
-    @_soundstream : VoidCSFML::SoundStream_Buffer
+    @this : Void*
     # Destructor
     def finalize()
       VoidCSFML.sfml_soundstream_finalize(to_unsafe)
+      VoidCSFML.sfml_soundstream_free(@this)
     end
     # Start or resume playing the audio stream
     #
@@ -547,10 +549,9 @@ module SF
     #
     # This constructor is only meant to be called by derived classes.
     protected def initialize()
-      @_soundsource = uninitialized VoidCSFML::SoundSource_Buffer
-      @_soundstream = uninitialized VoidCSFML::SoundStream_Buffer
-      raise "Unexpected memory layout" if as(Void*) + sizeof(LibC::Int) != to_unsafe
+      VoidCSFML.sfml_soundstream_allocate(out @this)
       VoidCSFML.sfml_soundstream_initialize(to_unsafe)
+      VoidCSFML.sfml_soundstream_parent(@this, self.as(Void*))
     end
     # Define the audio stream parameters
     #
@@ -564,11 +565,10 @@ module SF
     # * *channel_count* - Number of channels of the stream
     # * *sample_rate* - Sample rate, in samples per second
     def initialize(channel_count : Int, sample_rate : Int)
-      @_soundsource = uninitialized VoidCSFML::SoundSource_Buffer
-      @_soundstream = uninitialized VoidCSFML::SoundStream_Buffer
-      raise "Unexpected memory layout" if as(Void*) + sizeof(LibC::Int) != to_unsafe
+      VoidCSFML.sfml_soundstream_allocate(out @this)
       VoidCSFML.sfml_soundstream_initialize(to_unsafe)
       VoidCSFML.sfml_soundstream_initialize_emSemS(to_unsafe, LibC::UInt.new(channel_count), LibC::UInt.new(sample_rate))
+      VoidCSFML.sfml_soundstream_parent(@this, self.as(Void*))
     end
     # Request a new chunk of audio samples from the stream source
     #
@@ -653,7 +653,7 @@ module SF
     end
     # :nodoc:
     def to_unsafe()
-      pointerof(@_soundsource).as(Void*)
+      @this
     end
     # :nodoc:
     def inspect(io)
@@ -703,17 +703,16 @@ module SF
   #
   # *See also:* `SF::Sound`, `SF::SoundStream`
   class Music < SoundStream
-    @_music : VoidCSFML::Music_Buffer
+    @this : Void*
     # Default constructor
     def initialize()
-      @_soundsource = uninitialized VoidCSFML::SoundSource_Buffer
-      @_soundstream = uninitialized VoidCSFML::SoundStream_Buffer
-      @_music = uninitialized VoidCSFML::Music_Buffer
+      VoidCSFML.sfml_music_allocate(out @this)
       VoidCSFML.sfml_music_initialize(to_unsafe)
     end
     # Destructor
     def finalize()
       VoidCSFML.sfml_music_finalize(to_unsafe)
+      VoidCSFML.sfml_music_free(@this)
     end
     # Open a music from an audio file
     #
@@ -877,9 +876,7 @@ module SF
     end
     # :nodoc:
     def initialize(channel_count : Int, sample_rate : Int)
-      @_soundsource = uninitialized VoidCSFML::SoundSource_Buffer
-      @_soundstream = uninitialized VoidCSFML::SoundStream_Buffer
-      @_music = uninitialized VoidCSFML::Music_Buffer
+      VoidCSFML.sfml_music_allocate(out @this)
       VoidCSFML.sfml_music_initialize(to_unsafe)
       VoidCSFML.sfml_music_initialize_emSemS(to_unsafe, LibC::UInt.new(channel_count), LibC::UInt.new(sample_rate))
     end
@@ -944,7 +941,7 @@ module SF
     end
     # :nodoc:
     def to_unsafe()
-      pointerof(@_soundsource).as(Void*)
+      @this
     end
     # :nodoc:
     def inspect(io)
@@ -983,24 +980,23 @@ module SF
   #
   # *See also:* `SF::SoundBuffer`, `SF::Music`
   class Sound < SoundSource
-    @_sound : VoidCSFML::Sound_Buffer
+    @this : Void*
     # Default constructor
     def initialize()
-      @_soundsource = uninitialized VoidCSFML::SoundSource_Buffer
-      @_sound = uninitialized VoidCSFML::Sound_Buffer
+      VoidCSFML.sfml_sound_allocate(out @this)
       VoidCSFML.sfml_sound_initialize(to_unsafe)
     end
     # Construct the sound with a buffer
     #
     # * *buffer* - Sound buffer containing the audio data to play with the sound
     def initialize(buffer : SoundBuffer)
-      @_soundsource = uninitialized VoidCSFML::SoundSource_Buffer
-      @_sound = uninitialized VoidCSFML::Sound_Buffer
+      VoidCSFML.sfml_sound_allocate(out @this)
       VoidCSFML.sfml_sound_initialize_mWu(to_unsafe, buffer)
     end
     # Destructor
     def finalize()
       VoidCSFML.sfml_sound_finalize(to_unsafe)
+      VoidCSFML.sfml_sound_free(@this)
     end
     # Start or resume playing the sound
     #
@@ -1175,7 +1171,7 @@ module SF
     end
     # :nodoc:
     def to_unsafe()
-      pointerof(@_soundsource).as(Void*)
+      @this
     end
     # :nodoc:
     def inspect(io)
@@ -1239,15 +1235,16 @@ module SF
   #
   # *See also:* `SF::Sound`, `SF::SoundBufferRecorder`
   class SoundBuffer
-    @_soundbuffer : VoidCSFML::SoundBuffer_Buffer
+    @this : Void*
     # Default constructor
     def initialize()
-      @_soundbuffer = uninitialized VoidCSFML::SoundBuffer_Buffer
+      VoidCSFML.sfml_soundbuffer_allocate(out @this)
       VoidCSFML.sfml_soundbuffer_initialize(to_unsafe)
     end
     # Destructor
     def finalize()
       VoidCSFML.sfml_soundbuffer_finalize(to_unsafe)
+      VoidCSFML.sfml_soundbuffer_free(@this)
     end
     # Load the sound buffer from a file
     #
@@ -1425,7 +1422,7 @@ module SF
     include AlResource
     # :nodoc:
     def to_unsafe()
-      pointerof(@_soundbuffer).as(Void*)
+      @this
     end
     # :nodoc:
     def inspect(io)
@@ -1433,15 +1430,15 @@ module SF
     end
   end
   VoidCSFML.sfml_soundrecorder_onstart_callback(->(self : Void*, result : Bool*) {
-    output = (self - sizeof(LibC::Int)).as(Union(SoundRecorder)).on_start()
+    output = self.as(SoundRecorder).on_start()
     result.value = !!output
   })
   VoidCSFML.sfml_soundrecorder_onprocesssamples_callback(->(self : Void*, samples : Int16*, sample_count : LibC::SizeT, result : Bool*) {
-    output = (self - sizeof(LibC::Int)).as(Union(SoundRecorder)).on_process_samples(Slice(Int16).new(samples, sample_count))
+    output = self.as(SoundRecorder).on_process_samples(Slice(Int16).new(samples, sample_count))
     result.value = !!output
   })
   VoidCSFML.sfml_soundrecorder_onstop_callback(->(self : Void*) {
-    (self - sizeof(LibC::Int)).as(Union(SoundRecorder)).on_stop()
+    self.as(SoundRecorder).on_stop()
   })
   # Abstract base class for capturing sound data
   #
@@ -1540,10 +1537,11 @@ module SF
   #
   # *See also:* `SF::SoundBufferRecorder`
   abstract class SoundRecorder
-    @_soundrecorder : VoidCSFML::SoundRecorder_Buffer
+    @this : Void*
     # destructor
     def finalize()
       VoidCSFML.sfml_soundrecorder_finalize(to_unsafe)
+      VoidCSFML.sfml_soundrecorder_free(@this)
     end
     # Start the capture
     #
@@ -1670,9 +1668,9 @@ module SF
     #
     # This constructor is only meant to be called by derived classes.
     protected def initialize()
-      @_soundrecorder = uninitialized VoidCSFML::SoundRecorder_Buffer
-      raise "Unexpected memory layout" if as(Void*) + sizeof(LibC::Int) != to_unsafe
+      VoidCSFML.sfml_soundrecorder_allocate(out @this)
       VoidCSFML.sfml_soundrecorder_initialize(to_unsafe)
+      VoidCSFML.sfml_soundrecorder_parent(@this, self.as(Void*))
     end
     # Set the processing interval
     #
@@ -1726,7 +1724,7 @@ module SF
     include AlResource
     # :nodoc:
     def to_unsafe()
-      pointerof(@_soundrecorder).as(Void*)
+      @this
     end
     # :nodoc:
     def inspect(io)
@@ -1767,15 +1765,15 @@ module SF
   #
   # *See also:* `SF::SoundRecorder`
   class SoundBufferRecorder < SoundRecorder
-    @_soundbufferrecorder : VoidCSFML::SoundBufferRecorder_Buffer
+    @this : Void*
     def initialize()
-      @_soundrecorder = uninitialized VoidCSFML::SoundRecorder_Buffer
-      @_soundbufferrecorder = uninitialized VoidCSFML::SoundBufferRecorder_Buffer
+      VoidCSFML.sfml_soundbufferrecorder_allocate(out @this)
       VoidCSFML.sfml_soundbufferrecorder_initialize(to_unsafe)
     end
     # destructor
     def finalize()
       VoidCSFML.sfml_soundbufferrecorder_finalize(to_unsafe)
+      VoidCSFML.sfml_soundbufferrecorder_free(@this)
     end
     # Get the sound buffer containing the captured audio data
     #
@@ -1858,7 +1856,7 @@ module SF
     end
     # :nodoc:
     def to_unsafe()
-      pointerof(@_soundrecorder).as(Void*)
+      @this
     end
     # :nodoc:
     def inspect(io)
@@ -1868,7 +1866,6 @@ module SF
   # :nodoc:
   class SoundBuffer::Reference < SoundBuffer
     def initialize(@this : Void*, @parent : SoundBufferRecorder)
-      @_soundbuffer = uninitialized VoidCSFML::SoundBuffer_Buffer
     end
     def finalize()
     end

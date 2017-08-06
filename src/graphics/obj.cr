@@ -221,7 +221,6 @@ module SF
       @alpha_src_factor = uninitialized BlendMode::Factor
       @alpha_dst_factor = uninitialized BlendMode::Factor
       @alpha_equation = uninitialized BlendMode::Equation
-      as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
       VoidCSFML.sfml_blendmode_initialize_PG5(to_unsafe, copy)
     end
     def dup() : self
@@ -606,7 +605,6 @@ module SF
     # :nodoc:
     def initialize(copy : Transform)
       @matrix = uninitialized Float32[16]
-      as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
       VoidCSFML.sfml_transform_initialize_FPe(to_unsafe, copy)
     end
     def dup() : self
@@ -779,7 +777,6 @@ module SF
       @transform = uninitialized Transform
       @texture = uninitialized Void*
       @shader = uninitialized Void*
-      as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
       VoidCSFML.sfml_renderstates_initialize_mi4(to_unsafe, copy)
     end
     def dup() : self
@@ -907,15 +904,16 @@ module SF
   #
   # *See also:* `SF::Transform`
   class Transformable
-    @_transformable : VoidCSFML::Transformable_Buffer
+    @this : Void*
     # Default constructor
     def initialize()
-      @_transformable = uninitialized VoidCSFML::Transformable_Buffer
+      VoidCSFML.sfml_transformable_allocate(out @this)
       VoidCSFML.sfml_transformable_initialize(to_unsafe)
     end
     # Virtual destructor
     def finalize()
       VoidCSFML.sfml_transformable_finalize(to_unsafe)
+      VoidCSFML.sfml_transformable_free(@this)
     end
     # set the position of the object
     #
@@ -1156,7 +1154,7 @@ module SF
     end
     # :nodoc:
     def to_unsafe()
-      pointerof(@_transformable).as(Void*)
+      @this
     end
     # :nodoc:
     def inspect(io)
@@ -1164,8 +1162,7 @@ module SF
     end
     # :nodoc:
     def initialize(copy : Transformable)
-      @_transformable = uninitialized VoidCSFML::Transformable_Buffer
-      as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
+      VoidCSFML.sfml_transformable_allocate(out @this)
       VoidCSFML.sfml_transformable_initialize_dkg(to_unsafe, copy)
     end
     def dup() : self
@@ -1367,7 +1364,6 @@ module SF
       @g = uninitialized UInt8
       @b = uninitialized UInt8
       @a = uninitialized UInt8
-      as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
       VoidCSFML.sfml_color_initialize_QVe(to_unsafe, copy)
     end
     def dup() : self
@@ -1508,7 +1504,6 @@ module SF
       @position = uninitialized Vector2f
       @color = uninitialized Color
       @tex_coords = uninitialized Vector2f
-      as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
       VoidCSFML.sfml_vertex_initialize_Y3J(to_unsafe, copy)
     end
     def dup() : self
@@ -1564,12 +1559,16 @@ module SF
   #
   # *See also:* `SF::Vertex`
   class VertexArray
-    @_vertexarray : VoidCSFML::VertexArray_Buffer
+    @this : Void*
+    def finalize()
+      VoidCSFML.sfml_vertexarray_finalize(to_unsafe)
+      VoidCSFML.sfml_vertexarray_free(@this)
+    end
     # Default constructor
     #
     # Creates an empty vertex array.
     def initialize()
-      @_vertexarray = uninitialized VoidCSFML::VertexArray_Buffer
+      VoidCSFML.sfml_vertexarray_allocate(out @this)
       VoidCSFML.sfml_vertexarray_initialize(to_unsafe)
     end
     # Construct the vertex array with a type and an initial number of vertices
@@ -1577,7 +1576,7 @@ module SF
     # * *type* - Type of primitives
     # * *vertex_count* - Initial number of vertices in the array
     def initialize(type : PrimitiveType, vertex_count : Int = 0)
-      @_vertexarray = uninitialized VoidCSFML::VertexArray_Buffer
+      VoidCSFML.sfml_vertexarray_allocate(out @this)
       VoidCSFML.sfml_vertexarray_initialize_u9wvgv(to_unsafe, type, LibC::SizeT.new(vertex_count))
     end
     # Return the vertex count
@@ -1675,7 +1674,7 @@ module SF
     include Drawable
     # :nodoc:
     def to_unsafe()
-      pointerof(@_vertexarray).as(Void*)
+      @this
     end
     # :nodoc:
     def inspect(io)
@@ -1695,8 +1694,7 @@ module SF
     end
     # :nodoc:
     def initialize(copy : VertexArray)
-      @_vertexarray = uninitialized VoidCSFML::VertexArray_Buffer
-      as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
+      VoidCSFML.sfml_vertexarray_allocate(out @this)
       VoidCSFML.sfml_vertexarray_initialize_EXB(to_unsafe, copy)
     end
     def dup() : self
@@ -1704,11 +1702,11 @@ module SF
     end
   end
   VoidCSFML.sfml_shape_getpointcount_callback(->(self : Void*, result : LibC::SizeT*) {
-    output = (self - sizeof(LibC::Int)).as(Union(Shape)).point_count()
+    output = self.as(Shape).point_count()
     result.value = LibC::SizeT.new(output)
   })
   VoidCSFML.sfml_shape_getpoint_callback(->(self : Void*, index : LibC::SizeT, result : Void*) {
-    output = (self - sizeof(LibC::Int)).as(Union(Shape)).get_point(index)
+    output = self.as(Shape).get_point(index)
     result.as(Vector2f*).value = Vector2f.new(output[0].to_f32, output[1].to_f32)
   })
   # Base class for textured shapes with outline
@@ -1739,10 +1737,11 @@ module SF
   #
   # *See also:* `SF::RectangleShape`, `SF::CircleShape`, `SF::ConvexShape`, `SF::Transformable`
   abstract class Shape < Transformable
-    @_shape : VoidCSFML::Shape_Buffer
+    @this : Void*
     # Virtual destructor
     def finalize()
       VoidCSFML.sfml_shape_finalize(to_unsafe)
+      VoidCSFML.sfml_shape_free(@this)
     end
     # Change the source texture of the shape
     #
@@ -1923,10 +1922,9 @@ module SF
     end
     # Default constructor
     protected def initialize()
-      @_transformable = uninitialized VoidCSFML::Transformable_Buffer
-      @_shape = uninitialized VoidCSFML::Shape_Buffer
-      raise "Unexpected memory layout" if as(Void*) + sizeof(LibC::Int) != to_unsafe
+      VoidCSFML.sfml_shape_allocate(out @this)
       VoidCSFML.sfml_shape_initialize(to_unsafe)
+      VoidCSFML.sfml_shape_parent(@this, self.as(Void*))
     end
     # Recompute the internal geometry of the shape
     #
@@ -2031,7 +2029,7 @@ module SF
     include Drawable
     # :nodoc:
     def to_unsafe()
-      pointerof(@_transformable).as(Void*)
+      @this
     end
     # :nodoc:
     def inspect(io)
@@ -2051,11 +2049,9 @@ module SF
     end
     # :nodoc:
     def initialize(copy : Shape)
-      @_transformable = uninitialized VoidCSFML::Transformable_Buffer
-      @_shape = uninitialized VoidCSFML::Shape_Buffer
-      raise "Unexpected memory layout" if as(Void*) + sizeof(LibC::Int) != to_unsafe
-      as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
+      VoidCSFML.sfml_shape_allocate(out @this)
       VoidCSFML.sfml_shape_initialize_r5K(to_unsafe, copy)
+      VoidCSFML.sfml_shape_parent(@this, self.as(Void*))
     end
     def dup() : self
       return typeof(self).new(self)
@@ -2089,15 +2085,17 @@ module SF
   #
   # *See also:* `SF::Shape`, `SF::RectangleShape`, `SF::ConvexShape`
   class CircleShape < Shape
-    @_circleshape : VoidCSFML::CircleShape_Buffer
+    @this : Void*
+    def finalize()
+      VoidCSFML.sfml_circleshape_finalize(to_unsafe)
+      VoidCSFML.sfml_circleshape_free(@this)
+    end
     # Default constructor
     #
     # * *radius* - Radius of the circle
     # * *point_count* - Number of points composing the circle
     def initialize(radius : Number = 0, point_count : Int = 30)
-      @_transformable = uninitialized VoidCSFML::Transformable_Buffer
-      @_shape = uninitialized VoidCSFML::Shape_Buffer
-      @_circleshape = uninitialized VoidCSFML::CircleShape_Buffer
+      VoidCSFML.sfml_circleshape_allocate(out @this)
       VoidCSFML.sfml_circleshape_initialize_Bw9vgv(to_unsafe, LibC::Float.new(radius), LibC::SizeT.new(point_count))
     end
     # Set the radius of the circle
@@ -2300,7 +2298,7 @@ module SF
     end
     # :nodoc:
     def to_unsafe()
-      pointerof(@_transformable).as(Void*)
+      @this
     end
     # :nodoc:
     def inspect(io)
@@ -2320,10 +2318,7 @@ module SF
     end
     # :nodoc:
     def initialize(copy : CircleShape)
-      @_transformable = uninitialized VoidCSFML::Transformable_Buffer
-      @_shape = uninitialized VoidCSFML::Shape_Buffer
-      @_circleshape = uninitialized VoidCSFML::CircleShape_Buffer
-      as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
+      VoidCSFML.sfml_circleshape_allocate(out @this)
       VoidCSFML.sfml_circleshape_initialize_Ii7(to_unsafe, copy)
     end
     def dup() : self
@@ -2357,14 +2352,16 @@ module SF
   #
   # *See also:* `SF::Shape`, `SF::RectangleShape`, `SF::CircleShape`
   class ConvexShape < Shape
-    @_convexshape : VoidCSFML::ConvexShape_Buffer
+    @this : Void*
+    def finalize()
+      VoidCSFML.sfml_convexshape_finalize(to_unsafe)
+      VoidCSFML.sfml_convexshape_free(@this)
+    end
     # Default constructor
     #
     # * *point_count* - Number of points of the polygon
     def initialize(point_count : Int = 0)
-      @_transformable = uninitialized VoidCSFML::Transformable_Buffer
-      @_shape = uninitialized VoidCSFML::Shape_Buffer
-      @_convexshape = uninitialized VoidCSFML::ConvexShape_Buffer
+      VoidCSFML.sfml_convexshape_allocate(out @this)
       VoidCSFML.sfml_convexshape_initialize_vgv(to_unsafe, LibC::SizeT.new(point_count))
     end
     # Set the number of points of the polygon
@@ -2570,7 +2567,7 @@ module SF
     end
     # :nodoc:
     def to_unsafe()
-      pointerof(@_transformable).as(Void*)
+      @this
     end
     # :nodoc:
     def inspect(io)
@@ -2590,10 +2587,7 @@ module SF
     end
     # :nodoc:
     def initialize(copy : ConvexShape)
-      @_transformable = uninitialized VoidCSFML::Transformable_Buffer
-      @_shape = uninitialized VoidCSFML::Shape_Buffer
-      @_convexshape = uninitialized VoidCSFML::ConvexShape_Buffer
-      as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
+      VoidCSFML.sfml_convexshape_allocate(out @this)
       VoidCSFML.sfml_convexshape_initialize_Ydx(to_unsafe, copy)
     end
     def dup() : self
@@ -2655,7 +2649,6 @@ module SF
       @advance = uninitialized Float32
       @bounds = uninitialized FloatRect
       @texture_rect = uninitialized IntRect
-      as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
       VoidCSFML.sfml_glyph_initialize_UlF(to_unsafe, copy)
     end
     def dup() : self
@@ -2704,17 +2697,18 @@ module SF
   #
   # *See also:* `SF::Texture`
   class Image
-    @_image : VoidCSFML::Image_Buffer
+    @this : Void*
     # Default constructor
     #
     # Creates an empty image.
     def initialize()
-      @_image = uninitialized VoidCSFML::Image_Buffer
+      VoidCSFML.sfml_image_allocate(out @this)
       VoidCSFML.sfml_image_initialize(to_unsafe)
     end
     # Destructor
     def finalize()
       VoidCSFML.sfml_image_finalize(to_unsafe)
+      VoidCSFML.sfml_image_free(@this)
     end
     # Create the image and fill it with a unique color
     #
@@ -2937,7 +2931,7 @@ module SF
     end
     # :nodoc:
     def to_unsafe()
-      pointerof(@_image).as(Void*)
+      @this
     end
     # :nodoc:
     def inspect(io)
@@ -2945,8 +2939,7 @@ module SF
     end
     # :nodoc:
     def initialize(copy : Image)
-      @_image = uninitialized VoidCSFML::Image_Buffer
-      as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
+      VoidCSFML.sfml_image_allocate(out @this)
       VoidCSFML.sfml_image_initialize_dpt(to_unsafe, copy)
     end
     def dup() : self
@@ -3042,7 +3035,7 @@ module SF
   #
   # *See also:* `SF::Sprite`, `SF::Image`, `SF::RenderTexture`
   class Texture
-    @_texture : VoidCSFML::Texture_Buffer
+    @this : Void*
     # Types of texture coordinates that can be used for rendering
     enum CoordinateType
       # Texture coordinates in range `0.0 .. 1.0`
@@ -3055,12 +3048,13 @@ module SF
     #
     # Creates an empty texture.
     def initialize()
-      @_texture = uninitialized VoidCSFML::Texture_Buffer
+      VoidCSFML.sfml_texture_allocate(out @this)
       VoidCSFML.sfml_texture_initialize(to_unsafe)
     end
     # Destructor
     def finalize()
       VoidCSFML.sfml_texture_finalize(to_unsafe)
+      VoidCSFML.sfml_texture_free(@this)
     end
     # Create the texture
     #
@@ -3256,7 +3250,7 @@ module SF
     #
     # *See also:* `load_from_image`
     def copy_to_image() : Image
-      result = Image.allocate
+      result = Image.new
       VoidCSFML.sfml_texture_copytoimage(to_unsafe, result)
       return result
     end
@@ -3529,7 +3523,7 @@ module SF
     include GlResource
     # :nodoc:
     def to_unsafe()
-      pointerof(@_texture).as(Void*)
+      @this
     end
     # :nodoc:
     def inspect(io)
@@ -3537,8 +3531,7 @@ module SF
     end
     # :nodoc:
     def initialize(copy : Texture)
-      @_texture = uninitialized VoidCSFML::Texture_Buffer
-      as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
+      VoidCSFML.sfml_texture_allocate(out @this)
       VoidCSFML.sfml_texture_initialize_DJb(to_unsafe, copy)
     end
     def dup() : self
@@ -3580,7 +3573,7 @@ module SF
   # Usage example:
   # ```
   # # Load a new font from file
-  # font = SF::Font.new.from_file("arial.ttf")
+  # font = SF::Font.from_file("arial.ttf")
   #
   # # Create a text which uses our font
   # text1 = SF::Text.new("text", font, 30)
@@ -3589,7 +3582,7 @@ module SF
   # text2 = SF::Text.new
   # text2.font = font
   # text2.character_size = 50
-  # text2.style = (F::Text::Italic
+  # text2.style = SF::Text::Italic
   # ```
   #
   # Apart from loading font files, and passing them to instances
@@ -3605,13 +3598,17 @@ module SF
   #
   # *See also:* `SF::Text`
   class Font
-    @_font : VoidCSFML::Font_Buffer
+    @this : Void*
     # Holds various information about a font
     class Info
-      @_font_info : VoidCSFML::Font_Info_Buffer
+      @this : Void*
       def initialize()
-        @_font_info = uninitialized VoidCSFML::Font_Info_Buffer
+        VoidCSFML.sfml_font_info_allocate(out @this)
         VoidCSFML.sfml_font_info_initialize(to_unsafe)
+      end
+      def finalize()
+        VoidCSFML.sfml_font_info_finalize(to_unsafe)
+        VoidCSFML.sfml_font_info_free(@this)
       end
       # The font family
       def family() : String
@@ -3623,7 +3620,7 @@ module SF
       end
       # :nodoc:
       def to_unsafe()
-        pointerof(@_font_info).as(Void*)
+        @this
       end
       # :nodoc:
       def inspect(io)
@@ -3631,8 +3628,7 @@ module SF
       end
       # :nodoc:
       def initialize(copy : Font::Info)
-        @_font_info = uninitialized VoidCSFML::Font_Info_Buffer
-        as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
+        VoidCSFML.sfml_font_info_allocate(out @this)
         VoidCSFML.sfml_font_info_initialize_HPc(to_unsafe, copy)
       end
       def dup() : self
@@ -3643,7 +3639,7 @@ module SF
     #
     # This constructor defines an empty font
     def initialize()
-      @_font = uninitialized VoidCSFML::Font_Buffer
+      VoidCSFML.sfml_font_allocate(out @this)
       VoidCSFML.sfml_font_initialize(to_unsafe)
     end
     # Destructor
@@ -3651,6 +3647,7 @@ module SF
     # Cleans up all the internal resources used by the font
     def finalize()
       VoidCSFML.sfml_font_finalize(to_unsafe)
+      VoidCSFML.sfml_font_free(@this)
     end
     # Load the font from a file
     #
@@ -3835,14 +3832,13 @@ module SF
     # * *character_size* - Reference character size
     #
     # *Returns:* Texture containing the glyphs of the requested size
-    def get_texture(character_size : Int) : Texture?
-      result = Texture.allocate
+    def get_texture(character_size : Int) : Texture
       VoidCSFML.sfml_font_gettexture_emS(to_unsafe, LibC::UInt.new(character_size), out result)
-      return result
+      return Texture::Reference.new(result, self)
     end
     # :nodoc:
     def to_unsafe()
-      pointerof(@_font).as(Void*)
+      @this
     end
     # :nodoc:
     def inspect(io)
@@ -3850,8 +3846,7 @@ module SF
     end
     # :nodoc:
     def initialize(copy : Font)
-      @_font = uninitialized VoidCSFML::Font_Buffer
-      as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
+      VoidCSFML.sfml_font_allocate(out @this)
       VoidCSFML.sfml_font_initialize_7CF(to_unsafe, copy)
     end
     def dup() : self
@@ -3861,7 +3856,16 @@ module SF
   # :nodoc:
   class Font::Info::Reference < Font::Info
     def initialize(@this : Void*, @parent : Font)
-      @_font_info = uninitialized VoidCSFML::Font_Info_Buffer
+    end
+    def finalize()
+    end
+    def to_unsafe()
+      @this
+    end
+  end
+  # :nodoc:
+  class Texture::Reference < Texture
+    def initialize(@this : Void*, @parent : Font)
     end
     def finalize()
     end
@@ -3888,14 +3892,16 @@ module SF
   #
   # *See also:* `SF::Shape`, `SF::CircleShape`, `SF::ConvexShape`
   class RectangleShape < Shape
-    @_rectangleshape : VoidCSFML::RectangleShape_Buffer
+    @this : Void*
+    def finalize()
+      VoidCSFML.sfml_rectangleshape_finalize(to_unsafe)
+      VoidCSFML.sfml_rectangleshape_free(@this)
+    end
     # Default constructor
     #
     # * *size* - Size of the rectangle
     def initialize(size : Vector2|Tuple = Vector2.new(0, 0))
-      @_transformable = uninitialized VoidCSFML::Transformable_Buffer
-      @_shape = uninitialized VoidCSFML::Shape_Buffer
-      @_rectangleshape = uninitialized VoidCSFML::RectangleShape_Buffer
+      VoidCSFML.sfml_rectangleshape_allocate(out @this)
       size = Vector2f.new(size[0].to_f32, size[1].to_f32)
       VoidCSFML.sfml_rectangleshape_initialize_UU2(to_unsafe, size)
     end
@@ -4092,7 +4098,7 @@ module SF
     end
     # :nodoc:
     def to_unsafe()
-      pointerof(@_transformable).as(Void*)
+      @this
     end
     # :nodoc:
     def inspect(io)
@@ -4112,10 +4118,7 @@ module SF
     end
     # :nodoc:
     def initialize(copy : RectangleShape)
-      @_transformable = uninitialized VoidCSFML::Transformable_Buffer
-      @_shape = uninitialized VoidCSFML::Shape_Buffer
-      @_rectangleshape = uninitialized VoidCSFML::RectangleShape_Buffer
-      as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
+      VoidCSFML.sfml_rectangleshape_allocate(out @this)
       VoidCSFML.sfml_rectangleshape_initialize_wlj(to_unsafe, copy)
     end
     def dup() : self
@@ -4175,19 +4178,23 @@ module SF
   #
   # *See also:* `SF::RenderWindow`, `SF::RenderTexture`
   class View
-    @_view : VoidCSFML::View_Buffer
+    @this : Void*
+    def finalize()
+      VoidCSFML.sfml_view_finalize(to_unsafe)
+      VoidCSFML.sfml_view_free(@this)
+    end
     # Default constructor
     #
     # This constructor creates a default view of (0, 0, 1000, 1000)
     def initialize()
-      @_view = uninitialized VoidCSFML::View_Buffer
+      VoidCSFML.sfml_view_allocate(out @this)
       VoidCSFML.sfml_view_initialize(to_unsafe)
     end
     # Construct the view from a rectangle
     #
     # * *rectangle* - Rectangle defining the zone to display
     def initialize(rectangle : FloatRect)
-      @_view = uninitialized VoidCSFML::View_Buffer
+      VoidCSFML.sfml_view_allocate(out @this)
       VoidCSFML.sfml_view_initialize_WPZ(to_unsafe, rectangle)
     end
     # Construct the view from its center and size
@@ -4195,7 +4202,7 @@ module SF
     # * *center* - Center of the zone to display
     # * *size* - Size of zone to display
     def initialize(center : Vector2|Tuple, size : Vector2|Tuple)
-      @_view = uninitialized VoidCSFML::View_Buffer
+      VoidCSFML.sfml_view_allocate(out @this)
       center = Vector2f.new(center[0].to_f32, center[1].to_f32)
       size = Vector2f.new(size[0].to_f32, size[1].to_f32)
       VoidCSFML.sfml_view_initialize_UU2UU2(to_unsafe, center, size)
@@ -4377,7 +4384,7 @@ module SF
     end
     # :nodoc:
     def to_unsafe()
-      pointerof(@_view).as(Void*)
+      @this
     end
     # :nodoc:
     def inspect(io)
@@ -4385,8 +4392,7 @@ module SF
     end
     # :nodoc:
     def initialize(copy : View)
-      @_view = uninitialized VoidCSFML::View_Buffer
-      as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
+      VoidCSFML.sfml_view_allocate(out @this)
       VoidCSFML.sfml_view_initialize_DDi(to_unsafe, copy)
     end
     def dup() : self
@@ -4662,7 +4668,6 @@ module SF
   # :nodoc:
   class View::Reference < View
     def initialize(@this : Void*, @parent : RenderTarget)
-      @_view = uninitialized VoidCSFML::View_Buffer
     end
     def finalize()
     end
@@ -4673,7 +4678,6 @@ module SF
   # :nodoc:
   class View::Reference < View
     def initialize(@this : Void*, @parent : RenderTarget)
-      @_view = uninitialized VoidCSFML::View_Buffer
     end
     def finalize()
     end
@@ -4739,7 +4743,7 @@ module SF
   #
   # *See also:* `SF::RenderTarget`, `SF::RenderWindow`, `SF::View`, `SF::Texture`
   class RenderTexture
-    @_rendertexture : VoidCSFML::RenderTexture_Buffer
+    @this : Void*
     # Default constructor
     #
     # Constructs an empty, invalid render-texture. You must
@@ -4747,12 +4751,13 @@ module SF
     #
     # *See also:* `create`
     def initialize()
-      @_rendertexture = uninitialized VoidCSFML::RenderTexture_Buffer
+      VoidCSFML.sfml_rendertexture_allocate(out @this)
       VoidCSFML.sfml_rendertexture_initialize(to_unsafe)
     end
     # Destructor
     def finalize()
       VoidCSFML.sfml_rendertexture_finalize(to_unsafe)
+      VoidCSFML.sfml_rendertexture_free(@this)
     end
     # Create the render-texture
     #
@@ -4962,7 +4967,7 @@ module SF
     include RenderTarget
     # :nodoc:
     def to_unsafe()
-      pointerof(@_rendertexture).as(Void*)
+      @this
     end
     # :nodoc:
     def inspect(io)
@@ -4972,7 +4977,6 @@ module SF
   # :nodoc:
   class Texture::Reference < Texture
     def initialize(@this : Void*, @parent : RenderTexture)
-      @_texture = uninitialized VoidCSFML::Texture_Buffer
     end
     def finalize()
     end
@@ -5071,14 +5075,13 @@ module SF
   #
   # *See also:* `SF::Window`, `SF::RenderTarget`, `SF::RenderTexture`, `SF::View`
   class RenderWindow < Window
-    @_renderwindow : VoidCSFML::RenderWindow_Buffer
+    @this : Void*
     # Default constructor
     #
     # This constructor doesn't actually create the window,
     # use the other constructors or call create() to do so.
     def initialize()
-      @_window = uninitialized VoidCSFML::Window_Buffer
-      @_renderwindow = uninitialized VoidCSFML::RenderWindow_Buffer
+      VoidCSFML.sfml_renderwindow_allocate(out @this)
       VoidCSFML.sfml_renderwindow_initialize(to_unsafe)
     end
     # Construct a new window
@@ -5098,8 +5101,7 @@ module SF
     # * *style* - Window style, a bitwise OR combination of `SF::Style` enumerators
     # * *settings* - Additional settings for the underlying OpenGL context
     def initialize(mode : VideoMode, title : String, style : Style = Style::Default, settings : ContextSettings = ContextSettings.new())
-      @_window = uninitialized VoidCSFML::Window_Buffer
-      @_renderwindow = uninitialized VoidCSFML::RenderWindow_Buffer
+      VoidCSFML.sfml_renderwindow_allocate(out @this)
       VoidCSFML.sfml_renderwindow_initialize_wg0bQssaLFw4(to_unsafe, mode, title.size, title.chars, style, settings)
     end
     # Construct the window from an existing control
@@ -5116,8 +5118,7 @@ module SF
     #                 Windows, *%window* on Linux/FreeBSD, *ns_window* on OS X)
     # * *settings* - Additional settings for the underlying OpenGL context
     def initialize(handle : WindowHandle, settings : ContextSettings = ContextSettings.new())
-      @_window = uninitialized VoidCSFML::Window_Buffer
-      @_renderwindow = uninitialized VoidCSFML::RenderWindow_Buffer
+      VoidCSFML.sfml_renderwindow_allocate(out @this)
       VoidCSFML.sfml_renderwindow_initialize_rLQFw4(to_unsafe, handle, settings)
     end
     # Destructor
@@ -5125,6 +5126,7 @@ module SF
     # Closes the window and frees all the resources attached to it.
     def finalize()
       VoidCSFML.sfml_renderwindow_finalize(to_unsafe)
+      VoidCSFML.sfml_renderwindow_free(@this)
     end
     # Get the size of the rendering region of the window
     #
@@ -5158,7 +5160,7 @@ module SF
     #
     # *Returns:* Image containing the captured contents
     def capture() : Image
-      result = Image.allocate
+      result = Image.new
       VoidCSFML.sfml_renderwindow_capture(to_unsafe, result)
       return result
     end
@@ -5199,14 +5201,14 @@ module SF
     end
     # :nodoc:
     def poll_event() : Event?
-      event = uninitialized VoidCSFML::Event_Buffer
+      VoidCSFML.sfml_event_allocate(out event)
       VoidCSFML.sfml_renderwindow_pollevent_YJW(to_unsafe, event, out result)
       if result
         {% begin %}
-        case event.to_unsafe.as(LibC::Int*).value
+        case event.as(LibC::Int*).value
           {% for m, i in %w[Closed Resized LostFocus GainedFocus TextEntered KeyPressed KeyReleased MouseWheelMoved MouseWheelScrolled MouseButtonPressed MouseButtonReleased MouseMoved MouseEntered MouseLeft JoystickButtonPressed JoystickButtonReleased JoystickMoved JoystickConnected JoystickDisconnected TouchBegan TouchMoved TouchEnded SensorChanged] %}
         when {{i}}
-          (event.to_unsafe.as(LibC::Int*) + 1).as(Event::{{m.id}}*).value
+          (event.as(LibC::Int*) + 1).as(Event::{{m.id}}*).value
           {% end %}
         end .not_nil!
         {% end %}
@@ -5214,14 +5216,14 @@ module SF
     end
     # :nodoc:
     def wait_event() : Event?
-      event = uninitialized VoidCSFML::Event_Buffer
+      VoidCSFML.sfml_event_allocate(out event)
       VoidCSFML.sfml_renderwindow_waitevent_YJW(to_unsafe, event, out result)
       if result
         {% begin %}
-        case event.to_unsafe.as(LibC::Int*).value
+        case event.as(LibC::Int*).value
           {% for m, i in %w[Closed Resized LostFocus GainedFocus TextEntered KeyPressed KeyReleased MouseWheelMoved MouseWheelScrolled MouseButtonPressed MouseButtonReleased MouseMoved MouseEntered MouseLeft JoystickButtonPressed JoystickButtonReleased JoystickMoved JoystickConnected JoystickDisconnected TouchBegan TouchMoved TouchEnded SensorChanged] %}
         when {{i}}
-          (event.to_unsafe.as(LibC::Int*) + 1).as(Event::{{m.id}}*).value
+          (event.as(LibC::Int*) + 1).as(Event::{{m.id}}*).value
           {% end %}
         end .not_nil!
         {% end %}
@@ -5375,7 +5377,7 @@ module SF
     include RenderTarget
     # :nodoc:
     def to_unsafe()
-      pointerof(@_window).as(Void*)
+      @this
     end
     # :nodoc:
     def inspect(io)
@@ -5406,19 +5408,19 @@ module SF
   # Like any C/C++ program, a GLSL shader has its own variables
   # called *uniforms* that you can set from your C++ application.
   # `SF::Shader` handles different types of uniforms:
-  # * scalars: \p float, \p int, \p bool
+  # * scalars: `float`, `int`, `bool`
   # * vectors (2, 3 or 4 components)
   # * matrices (3x3 or 4x4)
   # * samplers (textures)
   #
   # Some SFML-specific types can be converted:
-  # * `SF::Color` as a 4D vector (\p vec4)
-  # * `SF::Transform` as matrices (\p mat3 or \p mat4)
+  # * `SF::Color` as a 4D vector (`vec4`)
+  # * `SF::Transform` as matrices (`mat3` or `mat4`)
   #
   # Every uniform variable in a shader can be set through one of the
-  # uniform=() or uniform_array=() overloads. For example, if you
+  # `set_parameter` overloads, or through a shorthand. For example, if you
   # have a shader with the following uniforms:
-  # ```c++
+  # ```glsl
   # uniform float offset;
   # uniform vec3 point;
   # uniform vec4 color;
@@ -5426,35 +5428,25 @@ module SF
   # uniform sampler2D overlay;
   # uniform sampler2D current;
   # ```
-  # You can set their values from C++ code as follows, using the types
-  # defined in the `SF::Glsl` namespace:
-  # ```c++
-  # shader.setUniform("offset", 2.f);
-  # shader.setUniform("point", sf::Vector3f(0.5f, 0.8f, 0.3f));
-  # shader.setUniform("color", sf::Glsl::Vec4(color));          // color is a sf::Color
-  # shader.setUniform("matrix", sf::Glsl::Mat4(transform));     // transform is a sf::Transform
-  # shader.setUniform("overlay", texture);                      // texture is a sf::Texture
-  # shader.setUniform("current", sf::Shader::CurrentTexture);
+  # You can set their values from Crystal code as follows:
+  # ```
+  # shader.offset 2.0
+  # shader.point 0.5, 0.8, 0.3
+  # shader.color color          # color is a SF::Color
+  # shader.matrix transform     # transform is a SF::Transform
+  # shader.overlay texture      # texture is a SF::Texture
+  # shader.current SF::Shader::CurrentTexture
   # ```
   #
-  # The old parameter=() overloads are deprecated and will be removed in a
-  # future version. You should use their uniform=() equivalents instead.
-  #
   # The special Shader::CurrentTexture argument maps the
-  # given \p sampler2_d uniform to the current texture of the
+  # given `sampler2d` uniform to the current texture of the
   # object being drawn (which cannot be known in advance).
   #
   # To apply a shader to a drawable, you must pass it as an
-  # additional parameter to the \ref Window::draw() draw() function:
-  # ```c++
-  # window.draw(sprite, &shader);
+  # additional parameter to the `Window.draw` function:
   # ```
-  #
-  # ... which is in fact just a shortcut for this:
-  # ```c++
-  # sf::RenderStates states;
-  # states.shader = &shader;
-  # window.draw(sprite, states);
+  # states = SF::RenderStates.new(shader)
+  # window.draw(sprite, states)
   # ```
   #
   # In the code above we pass a pointer to the shader, because it may
@@ -5471,12 +5463,11 @@ module SF
   # current one may not give you the expected result.
   #
   # Shaders can also be used to apply global post-effects to the
-  # current contents of the target (like the old `SF::PostFx` class
-  # in SFML 1). This can be done in two different ways:
+  # current contents of the target. This can be done in two different ways:
   # * draw everything to a `SF::RenderTexture`, then draw it to
   #   the main target using the shader
   # * draw everything directly to the main target, then use
-  #   `SF::Texture::update`(Window&) to copy its contents to a texture
+  #   `SF::Texture::update(window)` to copy its contents to a texture
   #   and draw it to the main target using the shader
   #
   # The first technique is more optimized because it doesn't involve
@@ -5487,15 +5478,13 @@ module SF
   # Like `SF::Texture` that can be used as a raw OpenGL texture,
   # `SF::Shader` can also be used directly as a raw shader for
   # custom OpenGL geometry.
-  # ```c++
-  # sf::Shader::bind(&shader);
-  # ... render OpenGL geometry ...
-  # sf::Shader::bind(NULL);
   # ```
-  #
-  # *See also:* `SF::Glsl`
+  # SF::Shader.bind shader
+  # ... render OpenGL geometry ...
+  # SF::Shader.bind nil
+  # ```
   class Shader
-    @_shader : VoidCSFML::Shader_Buffer
+    @this : Void*
     # Types of shaders
     enum Type
       # Vertex shader
@@ -5510,12 +5499,13 @@ module SF
     #
     # This constructor creates an invalid shader.
     def initialize()
-      @_shader = uninitialized VoidCSFML::Shader_Buffer
+      VoidCSFML.sfml_shader_allocate(out @this)
       VoidCSFML.sfml_shader_initialize(to_unsafe)
     end
     # Destructor
     def finalize()
       VoidCSFML.sfml_shader_finalize(to_unsafe)
+      VoidCSFML.sfml_shader_free(@this)
     end
     # Load the vertex, geometry or fragment shader from a file
     #
@@ -5897,7 +5887,7 @@ module SF
     include NonCopyable
     # :nodoc:
     def to_unsafe()
-      pointerof(@_shader).as(Void*)
+      @this
     end
     # :nodoc:
     def inspect(io)
@@ -5952,13 +5942,16 @@ module SF
   #
   # *See also:* `SF::Texture`, `SF::Transformable`
   class Sprite < Transformable
-    @_sprite : VoidCSFML::Sprite_Buffer
+    @this : Void*
+    def finalize()
+      VoidCSFML.sfml_sprite_finalize(to_unsafe)
+      VoidCSFML.sfml_sprite_free(@this)
+    end
     # Default constructor
     #
     # Creates an empty sprite with no source texture.
     def initialize()
-      @_transformable = uninitialized VoidCSFML::Transformable_Buffer
-      @_sprite = uninitialized VoidCSFML::Sprite_Buffer
+      VoidCSFML.sfml_sprite_allocate(out @this)
       VoidCSFML.sfml_sprite_initialize(to_unsafe)
     end
     # Construct the sprite from a source texture
@@ -5967,8 +5960,7 @@ module SF
     #
     # *See also:* `texture=`
     def initialize(texture : Texture)
-      @_transformable = uninitialized VoidCSFML::Transformable_Buffer
-      @_sprite = uninitialized VoidCSFML::Sprite_Buffer
+      VoidCSFML.sfml_sprite_allocate(out @this)
       @_sprite_texture = texture
       VoidCSFML.sfml_sprite_initialize_DJb(to_unsafe, texture)
     end
@@ -5979,8 +5971,7 @@ module SF
     #
     # *See also:* `texture=`, `texture_rect=`
     def initialize(texture : Texture, rectangle : IntRect)
-      @_transformable = uninitialized VoidCSFML::Transformable_Buffer
-      @_sprite = uninitialized VoidCSFML::Sprite_Buffer
+      VoidCSFML.sfml_sprite_allocate(out @this)
       @_sprite_texture = texture
       VoidCSFML.sfml_sprite_initialize_DJb2k1(to_unsafe, texture, rectangle)
     end
@@ -6185,7 +6176,7 @@ module SF
     include Drawable
     # :nodoc:
     def to_unsafe()
-      pointerof(@_transformable).as(Void*)
+      @this
     end
     # :nodoc:
     def inspect(io)
@@ -6205,9 +6196,7 @@ module SF
     end
     # :nodoc:
     def initialize(copy : Sprite)
-      @_transformable = uninitialized VoidCSFML::Transformable_Buffer
-      @_sprite = uninitialized VoidCSFML::Sprite_Buffer
-      as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
+      VoidCSFML.sfml_sprite_allocate(out @this)
       VoidCSFML.sfml_sprite_initialize_8xu(to_unsafe, copy)
     end
     def dup() : self
@@ -6263,7 +6252,11 @@ module SF
   #
   # *See also:* `SF::Font`, `SF::Transformable`
   class Text < Transformable
-    @_text : VoidCSFML::Text_Buffer
+    @this : Void*
+    def finalize()
+      VoidCSFML.sfml_text_finalize(to_unsafe)
+      VoidCSFML.sfml_text_free(@this)
+    end
     # Enumeration of the string drawing styles
     @[Flags]
     enum Style
@@ -6283,8 +6276,7 @@ module SF
     #
     # Creates an empty text.
     def initialize()
-      @_transformable = uninitialized VoidCSFML::Transformable_Buffer
-      @_text = uninitialized VoidCSFML::Text_Buffer
+      VoidCSFML.sfml_text_allocate(out @this)
       VoidCSFML.sfml_text_initialize(to_unsafe)
     end
     # Construct the text from a string, font and size
@@ -6300,8 +6292,7 @@ module SF
     # * *font* - Font used to draw the string
     # * *character_size* - Base size of characters, in pixels
     def initialize(string : String, font : Font, character_size : Int = 30)
-      @_transformable = uninitialized VoidCSFML::Transformable_Buffer
-      @_text = uninitialized VoidCSFML::Text_Buffer
+      VoidCSFML.sfml_text_allocate(out @this)
       @_text_font = font
       VoidCSFML.sfml_text_initialize_bQs7CFemS(to_unsafe, string.size, string.chars, font, LibC::UInt.new(character_size))
     end
@@ -6634,7 +6625,7 @@ module SF
     include Drawable
     # :nodoc:
     def to_unsafe()
-      pointerof(@_transformable).as(Void*)
+      @this
     end
     # :nodoc:
     def inspect(io)
@@ -6654,9 +6645,7 @@ module SF
     end
     # :nodoc:
     def initialize(copy : Text)
-      @_transformable = uninitialized VoidCSFML::Transformable_Buffer
-      @_text = uninitialized VoidCSFML::Text_Buffer
-      as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
+      VoidCSFML.sfml_text_allocate(out @this)
       VoidCSFML.sfml_text_initialize_clM(to_unsafe, copy)
     end
     def dup() : self

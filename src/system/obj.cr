@@ -243,7 +243,6 @@ module SF
     # :nodoc:
     def initialize(copy : Time)
       @microseconds = uninitialized Int64
-      as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
       VoidCSFML.sfml_time_initialize_PxG(to_unsafe, copy)
     end
     def dup() : self
@@ -311,12 +310,16 @@ module SF
   #
   # *See also:* `SF::Time`
   class Clock
-    @_clock : VoidCSFML::Clock_Buffer
+    @this : Void*
+    def finalize()
+      VoidCSFML.sfml_clock_finalize(to_unsafe)
+      VoidCSFML.sfml_clock_free(@this)
+    end
     # Default constructor
     #
     # The clock starts automatically after being constructed.
     def initialize()
-      @_clock = uninitialized VoidCSFML::Clock_Buffer
+      VoidCSFML.sfml_clock_allocate(out @this)
       VoidCSFML.sfml_clock_initialize(to_unsafe)
     end
     # Get the elapsed time
@@ -344,7 +347,7 @@ module SF
     end
     # :nodoc:
     def to_unsafe()
-      pointerof(@_clock).as(Void*)
+      @this
     end
     # :nodoc:
     def inspect(io)
@@ -352,8 +355,7 @@ module SF
     end
     # :nodoc:
     def initialize(copy : Clock)
-      @_clock = uninitialized VoidCSFML::Clock_Buffer
-      as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
+      VoidCSFML.sfml_clock_allocate(out @this)
       VoidCSFML.sfml_clock_initialize_LuC(to_unsafe, copy)
     end
     def dup() : self
@@ -361,19 +363,19 @@ module SF
     end
   end
   VoidCSFML.sfml_inputstream_read_callback(->(self : Void*, data : Void*, size : Int64, result : Int64*) {
-    output = (self - sizeof(LibC::Int)).as(Union(InputStream)).read(Slice(UInt8).new(data.as(UInt8*), size))
+    output = self.as(InputStream).read(Slice(UInt8).new(data.as(UInt8*), size))
     result.value = Int64.new(output)
   })
   VoidCSFML.sfml_inputstream_seek_callback(->(self : Void*, position : Int64, result : Int64*) {
-    output = (self - sizeof(LibC::Int)).as(Union(InputStream)).seek(position)
+    output = self.as(InputStream).seek(position)
     result.value = Int64.new(output)
   })
   VoidCSFML.sfml_inputstream_tell_callback(->(self : Void*, result : Int64*) {
-    output = (self - sizeof(LibC::Int)).as(Union(InputStream)).tell()
+    output = self.as(InputStream).tell()
     result.value = Int64.new(output)
   })
   VoidCSFML.sfml_inputstream_getsize_callback(->(self : Void*, result : Int64*) {
-    output = (self - sizeof(LibC::Int)).as(Union(InputStream)).size()
+    output = self.as(InputStream).size()
     result.value = Int64.new(output)
   })
   # Abstract class for custom file input streams
@@ -421,11 +423,15 @@ module SF
   # # etc.
   # ```
   abstract class InputStream
-    @_inputstream : VoidCSFML::InputStream_Buffer
+    @this : Void*
     def initialize()
-      @_inputstream = uninitialized VoidCSFML::InputStream_Buffer
-      raise "Unexpected memory layout" if as(Void*) + sizeof(LibC::Int) != to_unsafe
+      VoidCSFML.sfml_inputstream_allocate(out @this)
       VoidCSFML.sfml_inputstream_initialize(to_unsafe)
+      VoidCSFML.sfml_inputstream_parent(@this, self.as(Void*))
+    end
+    def finalize()
+      VoidCSFML.sfml_inputstream_finalize(to_unsafe)
+      VoidCSFML.sfml_inputstream_free(@this)
     end
     # Read data from the stream
     #
@@ -452,7 +458,7 @@ module SF
     abstract def size() : Int64
     # :nodoc:
     def to_unsafe()
-      pointerof(@_inputstream).as(Void*)
+      @this
     end
     # :nodoc:
     def inspect(io)
@@ -460,10 +466,9 @@ module SF
     end
     # :nodoc:
     def initialize(copy : InputStream)
-      @_inputstream = uninitialized VoidCSFML::InputStream_Buffer
-      raise "Unexpected memory layout" if as(Void*) + sizeof(LibC::Int) != to_unsafe
-      as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
+      VoidCSFML.sfml_inputstream_allocate(out @this)
       VoidCSFML.sfml_inputstream_initialize_mua(to_unsafe, copy)
+      VoidCSFML.sfml_inputstream_parent(@this, self.as(Void*))
     end
     def dup() : self
       return typeof(self).new(self)
@@ -501,16 +506,16 @@ module SF
   #
   # InputStream, MemoryInputStream
   class FileInputStream < InputStream
-    @_fileinputstream : VoidCSFML::FileInputStream_Buffer
+    @this : Void*
     # Default constructor
     def initialize()
-      @_inputstream = uninitialized VoidCSFML::InputStream_Buffer
-      @_fileinputstream = uninitialized VoidCSFML::FileInputStream_Buffer
+      VoidCSFML.sfml_fileinputstream_allocate(out @this)
       VoidCSFML.sfml_fileinputstream_initialize(to_unsafe)
     end
     # Default destructor
     def finalize()
       VoidCSFML.sfml_fileinputstream_finalize(to_unsafe)
+      VoidCSFML.sfml_fileinputstream_free(@this)
     end
     # Open the stream from a file path
     #
@@ -569,7 +574,7 @@ module SF
     include NonCopyable
     # :nodoc:
     def to_unsafe()
-      pointerof(@_inputstream).as(Void*)
+      @this
     end
     # :nodoc:
     def inspect(io)
@@ -604,11 +609,14 @@ module SF
   #
   # InputStream, FileInputStream
   class MemoryInputStream < InputStream
-    @_memoryinputstream : VoidCSFML::MemoryInputStream_Buffer
+    @this : Void*
+    def finalize()
+      VoidCSFML.sfml_memoryinputstream_finalize(to_unsafe)
+      VoidCSFML.sfml_memoryinputstream_free(@this)
+    end
     # Default constructor
     def initialize()
-      @_inputstream = uninitialized VoidCSFML::InputStream_Buffer
-      @_memoryinputstream = uninitialized VoidCSFML::MemoryInputStream_Buffer
+      VoidCSFML.sfml_memoryinputstream_allocate(out @this)
       VoidCSFML.sfml_memoryinputstream_initialize(to_unsafe)
     end
     # Open the stream from its data
@@ -660,7 +668,7 @@ module SF
     end
     # :nodoc:
     def to_unsafe()
-      pointerof(@_inputstream).as(Void*)
+      @this
     end
     # :nodoc:
     def inspect(io)
@@ -668,9 +676,7 @@ module SF
     end
     # :nodoc:
     def initialize(copy : MemoryInputStream)
-      @_inputstream = uninitialized VoidCSFML::InputStream_Buffer
-      @_memoryinputstream = uninitialized VoidCSFML::MemoryInputStream_Buffer
-      as(Void*).copy_from(copy.as(Void*), instance_sizeof(typeof(self)))
+      VoidCSFML.sfml_memoryinputstream_allocate(out @this)
       VoidCSFML.sfml_memoryinputstream_initialize_kYd(to_unsafe, copy)
     end
     def dup() : self
@@ -723,15 +729,16 @@ module SF
   # However, you must call unlock() exactly as many times as you
   # called lock(). If you don't, the mutex won't be released.
   class Mutex
-    @_mutex : VoidCSFML::Mutex_Buffer
+    @this : Void*
     # Default constructor
     def initialize()
-      @_mutex = uninitialized VoidCSFML::Mutex_Buffer
+      VoidCSFML.sfml_mutex_allocate(out @this)
       VoidCSFML.sfml_mutex_initialize(to_unsafe)
     end
     # Destructor
     def finalize()
       VoidCSFML.sfml_mutex_finalize(to_unsafe)
+      VoidCSFML.sfml_mutex_free(@this)
     end
     # Lock the mutex
     #
@@ -752,7 +759,7 @@ module SF
     include NonCopyable
     # :nodoc:
     def to_unsafe()
-      pointerof(@_mutex).as(Void*)
+      @this
     end
     # :nodoc:
     def inspect(io)
@@ -843,7 +850,7 @@ module SF
   #
   # *See also:* `SF::Mutex`
   class Thread
-    @_thread : VoidCSFML::Thread_Buffer
+    @this : Void*
     # Construct the thread from a functor with an argument
     #
     # This constructor works for function objects, as well
@@ -866,7 +873,7 @@ module SF
     # * *function* - Functor or free function to use as the entry point of the thread
     # * *argument* - argument to forward to the function
     def initialize(function : ->)
-      @_thread = uninitialized VoidCSFML::Thread_Buffer
+      VoidCSFML.sfml_thread_allocate(out @this)
       @function = Box.box(function)
       VoidCSFML.sfml_thread_initialize_XPcbdx(to_unsafe, ->(argument) { Box(->).unbox(argument).call }, @function)
     end
@@ -876,6 +883,7 @@ module SF
     # cannot survive after its `SF::Thread` instance is destroyed.
     def finalize()
       VoidCSFML.sfml_thread_finalize(to_unsafe)
+      VoidCSFML.sfml_thread_free(@this)
     end
     # Run the thread
     #
@@ -911,7 +919,7 @@ module SF
     include NonCopyable
     # :nodoc:
     def to_unsafe()
-      pointerof(@_thread).as(Void*)
+      @this
     end
     # :nodoc:
     def inspect(io)

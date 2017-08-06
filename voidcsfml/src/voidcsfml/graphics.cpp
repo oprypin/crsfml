@@ -1,6 +1,12 @@
 #include <voidcsfml/graphics.h>
 #include <SFML/Graphics.hpp>
 using namespace sf;
+void sfml_blendmode_allocate(void** result) {
+    *result = malloc(sizeof(BlendMode));
+}
+void sfml_blendmode_free(void* self) {
+    free(self);
+}
 void sfml_blendmode_initialize(void* self) {
     new(self) BlendMode();
 }
@@ -36,6 +42,12 @@ void sfml_operator_ne_PG5PG5(void* left, void* right, unsigned char* result) {
 }
 void sfml_blendmode_initialize_PG5(void* self, void* copy) {
     new(self) BlendMode(*(BlendMode*)copy);
+}
+void sfml_transform_allocate(void** result) {
+    *result = malloc(sizeof(Transform));
+}
+void sfml_transform_free(void* self) {
+    free(self);
 }
 void sfml_transform_initialize(void* self) {
     new(self) Transform();
@@ -97,6 +109,12 @@ void sfml_operator_mul_FPeUU2(void* left, void* right, void* result) {
 void sfml_transform_initialize_FPe(void* self, void* copy) {
     new(self) Transform(*(Transform*)copy);
 }
+void sfml_renderstates_allocate(void** result) {
+    *result = malloc(sizeof(RenderStates));
+}
+void sfml_renderstates_free(void* self) {
+    free(self);
+}
 void sfml_renderstates_initialize(void* self) {
     new(self) RenderStates();
 }
@@ -129,6 +147,18 @@ void sfml_renderstates_setshader_8P6(void* self, void* shader) {
 }
 void sfml_renderstates_initialize_mi4(void* self, void* copy) {
     new(self) RenderStates(*(RenderStates*)copy);
+}
+void sfml_drawable_allocate(void** result) {
+    *result = malloc(sizeof(Drawable));
+}
+void sfml_drawable_free(void* self) {
+    free(self);
+}
+void sfml_transformable_allocate(void** result) {
+    *result = malloc(sizeof(Transformable));
+}
+void sfml_transformable_free(void* self) {
+    free(self);
 }
 void sfml_transformable_initialize(void* self) {
     new(self) Transformable();
@@ -193,6 +223,12 @@ void sfml_transformable_getinversetransform(void* self, void* result) {
 void sfml_transformable_initialize_dkg(void* self, void* copy) {
     new(self) Transformable(*(Transformable*)copy);
 }
+void sfml_color_allocate(void** result) {
+    *result = malloc(sizeof(Color));
+}
+void sfml_color_free(void* self) {
+    free(self);
+}
 void sfml_color_initialize(void* self) {
     new(self) Color();
 }
@@ -235,6 +271,12 @@ void sfml_operator_mul_QVeQVe(void* left, void* right, void* result) {
 void sfml_color_initialize_QVe(void* self, void* copy) {
     new(self) Color(*(Color*)copy);
 }
+void sfml_vertex_allocate(void** result) {
+    *result = malloc(sizeof(Vertex));
+}
+void sfml_vertex_free(void* self) {
+    free(self);
+}
 void sfml_vertex_initialize(void* self) {
     new(self) Vertex();
 }
@@ -261,6 +303,15 @@ void sfml_vertex_settexcoords_llt(void* self, void* tex_coords) {
 }
 void sfml_vertex_initialize_Y3J(void* self, void* copy) {
     new(self) Vertex(*(Vertex*)copy);
+}
+void sfml_vertexarray_allocate(void** result) {
+    *result = malloc(sizeof(VertexArray));
+}
+void sfml_vertexarray_finalize(void* self) {
+    ((VertexArray*)self)->~VertexArray();
+}
+void sfml_vertexarray_free(void* self) {
+    free(self);
 }
 void sfml_vertexarray_initialize(void* self) {
     new(self) VertexArray();
@@ -317,18 +368,28 @@ void sfml_shape_getpoint_callback(void (*callback)(void*, size_t, void*)) {
 }
 class _Shape : public sf::Shape {
 public:
+    void* parent;
     virtual std::size_t getPointCount() const {
         std::size_t result;
-        _sfml_shape_getpointcount_callback((void*)this, (size_t*)&result);
+        _sfml_shape_getpointcount_callback(parent, (size_t*)&result);
         return result;
     }
     virtual Vector2f getPoint(std::size_t index) const {
         Vector2f result;
-        _sfml_shape_getpoint_callback((void*)this, (size_t)index, &result);
+        _sfml_shape_getpoint_callback(parent, (size_t)index, &result);
         return result;
     }
     using Shape::update;
 };
+void sfml_shape_parent(void* self, void* parent) {
+    ((_Shape*)self)->parent = parent;
+}
+void sfml_shape_allocate(void** result) {
+    *result = malloc(sizeof(_Shape));
+}
+void sfml_shape_free(void* self) {
+    free(self);
+}
 void sfml_shape_finalize(void* self) {
     ((_Shape*)self)->~_Shape();
 }
@@ -439,6 +500,15 @@ void sfml_shape_draw_Xk1RoT(void* self, void* target, void* states) {
 }
 void sfml_shape_initialize_r5K(void* self, void* copy) {
     new(self) _Shape(*(_Shape*)copy);
+}
+void sfml_circleshape_allocate(void** result) {
+    *result = malloc(sizeof(CircleShape));
+}
+void sfml_circleshape_finalize(void* self) {
+    ((CircleShape*)self)->~CircleShape();
+}
+void sfml_circleshape_free(void* self) {
+    free(self);
 }
 void sfml_circleshape_initialize_Bw9vgv(void* self, float radius, size_t point_count) {
     new(self) CircleShape((float)radius, (std::size_t)point_count);
@@ -560,6 +630,15 @@ void sfml_circleshape_draw_Xk1RoT(void* self, void* target, void* states) {
 void sfml_circleshape_initialize_Ii7(void* self, void* copy) {
     new(self) CircleShape(*(CircleShape*)copy);
 }
+void sfml_convexshape_allocate(void** result) {
+    *result = malloc(sizeof(ConvexShape));
+}
+void sfml_convexshape_finalize(void* self) {
+    ((ConvexShape*)self)->~ConvexShape();
+}
+void sfml_convexshape_free(void* self) {
+    free(self);
+}
 void sfml_convexshape_initialize_vgv(void* self, size_t point_count) {
     new(self) ConvexShape((std::size_t)point_count);
 }
@@ -677,6 +756,12 @@ void sfml_convexshape_draw_Xk1RoT(void* self, void* target, void* states) {
 void sfml_convexshape_initialize_Ydx(void* self, void* copy) {
     new(self) ConvexShape(*(ConvexShape*)copy);
 }
+void sfml_glyph_allocate(void** result) {
+    *result = malloc(sizeof(Glyph));
+}
+void sfml_glyph_free(void* self) {
+    free(self);
+}
 void sfml_glyph_initialize(void* self) {
     new(self) Glyph();
 }
@@ -691,6 +776,12 @@ void sfml_glyph_settexturerect_POq(void* self, void* texture_rect) {
 }
 void sfml_glyph_initialize_UlF(void* self, void* copy) {
     new(self) Glyph(*(Glyph*)copy);
+}
+void sfml_image_allocate(void** result) {
+    *result = malloc(sizeof(Image));
+}
+void sfml_image_free(void* self) {
+    free(self);
 }
 void sfml_image_initialize(void* self) {
     new(self) Image();
@@ -742,6 +833,12 @@ void sfml_image_flipvertically(void* self) {
 }
 void sfml_image_initialize_dpt(void* self, void* copy) {
     new(self) Image(*(Image*)copy);
+}
+void sfml_texture_allocate(void** result) {
+    *result = malloc(sizeof(Texture));
+}
+void sfml_texture_free(void* self) {
+    free(self);
 }
 void sfml_texture_initialize(void* self) {
     new(self) Texture();
@@ -821,8 +918,23 @@ void sfml_texture_getmaximumsize(unsigned int* result) {
 void sfml_texture_initialize_DJb(void* self, void* copy) {
     new(self) Texture(*(Texture*)copy);
 }
+void sfml_font_allocate(void** result) {
+    *result = malloc(sizeof(Font));
+}
+void sfml_font_free(void* self) {
+    free(self);
+}
+void sfml_font_info_allocate(void** result) {
+    *result = malloc(sizeof(Font::Info));
+}
 void sfml_font_info_initialize(void* self) {
     new(self) Font::Info();
+}
+void sfml_font_info_finalize(void* self) {
+    ((Font::Info*)self)->~Info();
+}
+void sfml_font_info_free(void* self) {
+    free(self);
 }
 void sfml_font_info_getfamily(void* self, char** result) {
     static std::string str;
@@ -873,6 +985,15 @@ void sfml_font_gettexture_emS(void* self, unsigned int character_size, void** re
 }
 void sfml_font_initialize_7CF(void* self, void* copy) {
     new(self) Font(*(Font*)copy);
+}
+void sfml_rectangleshape_allocate(void** result) {
+    *result = malloc(sizeof(RectangleShape));
+}
+void sfml_rectangleshape_finalize(void* self) {
+    ((RectangleShape*)self)->~RectangleShape();
+}
+void sfml_rectangleshape_free(void* self) {
+    free(self);
 }
 void sfml_rectangleshape_initialize_UU2(void* self, void* size) {
     new(self) RectangleShape(*(Vector2f*)size);
@@ -991,6 +1112,15 @@ void sfml_rectangleshape_draw_Xk1RoT(void* self, void* target, void* states) {
 void sfml_rectangleshape_initialize_wlj(void* self, void* copy) {
     new(self) RectangleShape(*(RectangleShape*)copy);
 }
+void sfml_view_allocate(void** result) {
+    *result = malloc(sizeof(View));
+}
+void sfml_view_finalize(void* self) {
+    ((View*)self)->~View();
+}
+void sfml_view_free(void* self) {
+    free(self);
+}
 void sfml_view_initialize(void* self) {
     new(self) View();
 }
@@ -1054,6 +1184,12 @@ void sfml_view_getinversetransform(void* self, void* result) {
 void sfml_view_initialize_DDi(void* self, void* copy) {
     new(self) View(*(View*)copy);
 }
+void sfml_rendertarget_allocate(void** result) {
+    *result = malloc(sizeof(RenderTarget));
+}
+void sfml_rendertarget_free(void* self) {
+    free(self);
+}
 void sfml_rendertarget_clear_QVe(void* self, void* color) {
     ((RenderTarget*)self)->clear(*(Color*)color);
 }
@@ -1092,6 +1228,12 @@ void sfml_rendertarget_popglstates(void* self) {
 }
 void sfml_rendertarget_resetglstates(void* self) {
     ((RenderTarget*)self)->resetGLStates();
+}
+void sfml_rendertexture_allocate(void** result) {
+    *result = malloc(sizeof(RenderTexture));
+}
+void sfml_rendertexture_free(void* self) {
+    free(self);
 }
 void sfml_rendertexture_initialize(void* self) {
     new(self) RenderTexture();
@@ -1167,6 +1309,12 @@ void sfml_rendertexture_popglstates(void* self) {
 }
 void sfml_rendertexture_resetglstates(void* self) {
     ((RenderTexture*)self)->resetGLStates();
+}
+void sfml_renderwindow_allocate(void** result) {
+    *result = malloc(sizeof(RenderWindow));
+}
+void sfml_renderwindow_free(void* self) {
+    free(self);
 }
 void sfml_renderwindow_initialize(void* self) {
     new(self) RenderWindow();
@@ -1297,6 +1445,12 @@ void sfml_renderwindow_popglstates(void* self) {
 void sfml_renderwindow_resetglstates(void* self) {
     ((RenderWindow*)self)->resetGLStates();
 }
+void sfml_shader_allocate(void** result) {
+    *result = malloc(sizeof(Shader));
+}
+void sfml_shader_free(void* self) {
+    free(self);
+}
 void sfml_shader_initialize(void* self) {
     new(self) Shader();
 }
@@ -1371,6 +1525,15 @@ void sfml_shader_isavailable(unsigned char* result) {
 }
 void sfml_shader_isgeometryavailable(unsigned char* result) {
     *(bool*)result = Shader::isGeometryAvailable();
+}
+void sfml_sprite_allocate(void** result) {
+    *result = malloc(sizeof(Sprite));
+}
+void sfml_sprite_finalize(void* self) {
+    ((Sprite*)self)->~Sprite();
+}
+void sfml_sprite_free(void* self) {
+    free(self);
 }
 void sfml_sprite_initialize(void* self) {
     new(self) Sprite();
@@ -1470,6 +1633,15 @@ void sfml_sprite_draw_Xk1RoT(void* self, void* target, void* states) {
 }
 void sfml_sprite_initialize_8xu(void* self, void* copy) {
     new(self) Sprite(*(Sprite*)copy);
+}
+void sfml_text_allocate(void** result) {
+    *result = malloc(sizeof(Text));
+}
+void sfml_text_finalize(void* self) {
+    ((Text*)self)->~Text();
+}
+void sfml_text_free(void* self) {
+    free(self);
 }
 void sfml_text_initialize(void* self) {
     new(self) Text();

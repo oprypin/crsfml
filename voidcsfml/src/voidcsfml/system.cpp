@@ -1,6 +1,12 @@
 #include <voidcsfml/system.h>
 #include <SFML/System.hpp>
 using namespace sf;
+void sfml_time_allocate(void** result) {
+    *result = malloc(sizeof(Time));
+}
+void sfml_time_free(void* self) {
+    free(self);
+}
 void sfml_time_initialize(void* self) {
     new(self) Time();
 }
@@ -70,6 +76,15 @@ void sfml_milliseconds_qe2(int32_t amount, void* result) {
 void sfml_microseconds_G4x(int64_t amount, void* result) {
     *(Time*)result = microseconds((Int64)amount);
 }
+void sfml_clock_allocate(void** result) {
+    *result = malloc(sizeof(Clock));
+}
+void sfml_clock_finalize(void* self) {
+    ((Clock*)self)->~Clock();
+}
+void sfml_clock_free(void* self) {
+    free(self);
+}
 void sfml_clock_initialize(void* self) {
     new(self) Clock();
 }
@@ -100,32 +115,57 @@ void sfml_inputstream_getsize_callback(void (*callback)(void*, int64_t*)) {
 }
 class _InputStream : public sf::InputStream {
 public:
+    void* parent;
     virtual Int64 read(void* data, Int64 size) {
         Int64 result;
-        _sfml_inputstream_read_callback((void*)this, (void*)data, (int64_t)size, (int64_t*)&result);
+        _sfml_inputstream_read_callback(parent, (void*)data, (int64_t)size, (int64_t*)&result);
         return result;
     }
     virtual Int64 seek(Int64 position) {
         Int64 result;
-        _sfml_inputstream_seek_callback((void*)this, (int64_t)position, (int64_t*)&result);
+        _sfml_inputstream_seek_callback(parent, (int64_t)position, (int64_t*)&result);
         return result;
     }
     virtual Int64 tell() {
         Int64 result;
-        _sfml_inputstream_tell_callback((void*)this, (int64_t*)&result);
+        _sfml_inputstream_tell_callback(parent, (int64_t*)&result);
         return result;
     }
     virtual Int64 getSize() {
         Int64 result;
-        _sfml_inputstream_getsize_callback((void*)this, (int64_t*)&result);
+        _sfml_inputstream_getsize_callback(parent, (int64_t*)&result);
         return result;
     }
 };
+void sfml_inputstream_parent(void* self, void* parent) {
+    ((_InputStream*)self)->parent = parent;
+}
+void sfml_inputstream_allocate(void** result) {
+    *result = malloc(sizeof(_InputStream));
+}
 void sfml_inputstream_initialize(void* self) {
     new(self) _InputStream();
 }
+void sfml_inputstream_finalize(void* self) {
+    ((_InputStream*)self)->~_InputStream();
+}
+void sfml_inputstream_free(void* self) {
+    free(self);
+}
 void sfml_inputstream_initialize_mua(void* self, void* copy) {
     new(self) _InputStream(*(_InputStream*)copy);
+}
+void sfml_noncopyable_allocate(void** result) {
+    *result = malloc(sizeof(NonCopyable));
+}
+void sfml_noncopyable_free(void* self) {
+    free(self);
+}
+void sfml_fileinputstream_allocate(void** result) {
+    *result = malloc(sizeof(FileInputStream));
+}
+void sfml_fileinputstream_free(void* self) {
+    free(self);
 }
 void sfml_fileinputstream_initialize(void* self) {
     new(self) FileInputStream();
@@ -148,6 +188,15 @@ void sfml_fileinputstream_tell(void* self, int64_t* result) {
 void sfml_fileinputstream_getsize(void* self, int64_t* result) {
     *(Int64*)result = ((FileInputStream*)self)->getSize();
 }
+void sfml_memoryinputstream_allocate(void** result) {
+    *result = malloc(sizeof(MemoryInputStream));
+}
+void sfml_memoryinputstream_finalize(void* self) {
+    ((MemoryInputStream*)self)->~MemoryInputStream();
+}
+void sfml_memoryinputstream_free(void* self) {
+    free(self);
+}
 void sfml_memoryinputstream_initialize(void* self) {
     new(self) MemoryInputStream();
 }
@@ -169,6 +218,12 @@ void sfml_memoryinputstream_getsize(void* self, int64_t* result) {
 void sfml_memoryinputstream_initialize_kYd(void* self, void* copy) {
     new(self) MemoryInputStream(*(MemoryInputStream*)copy);
 }
+void sfml_mutex_allocate(void** result) {
+    *result = malloc(sizeof(Mutex));
+}
+void sfml_mutex_free(void* self) {
+    free(self);
+}
 void sfml_mutex_initialize(void* self) {
     new(self) Mutex();
 }
@@ -183,6 +238,12 @@ void sfml_mutex_unlock(void* self) {
 }
 void sfml_sleep_f4T(void* duration) {
     sleep(*(Time*)duration);
+}
+void sfml_thread_allocate(void** result) {
+    *result = malloc(sizeof(Thread));
+}
+void sfml_thread_free(void* self) {
+    free(self);
 }
 void sfml_thread_initialize_XPcbdx(void* self, void (*function)(void*), void* argument) {
     new(self) Thread(function, argument);
