@@ -3,6 +3,12 @@ require "crsfml"
 
 FONT = SF::Font.from_file("resources/font/Cantarell-Regular.otf")
 
+struct SF::Rect
+  def center
+    SF::Vector2.new(left + width / 2, top + height / 2)
+  end
+end
+
 class Logo < SF::Transformable
   include SF::Drawable
 
@@ -10,16 +16,17 @@ class Logo < SF::Transformable
     super()
     @text = SF::Text.new(message, FONT, 200)
     bounds = @text.local_bounds
-    @shape = SF::RectangleShape.new(SF.vector2(bounds.width*1.2, bounds.height*2))
+    @text.origin = bounds.center
+
+    @shape = SF::RectangleShape.new(SF.vector2(bounds.width * 1.2, bounds.height * 2))
     @shape.fill_color = SF.color(0, 0, 128)
     @shape.origin = @shape.size / 2
-    @text.origin = SF.vector2(bounds.width / 2, bounds.height * 0.8)
   end
 
   def draw(target, states)
     states.transform *= transform
-    target.draw(@shape, states)
-    target.draw(@text, states)
+    target.draw @shape, states
+    target.draw @text, states
   end
 end
 
@@ -50,4 +57,3 @@ while window.open?
   window.draw logo
   window.display()
 end
-

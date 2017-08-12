@@ -1,66 +1,83 @@
 # Adapted from SFML Shader example
-# https://github.com/LaurentGomila/SFML/blob/master/examples/shader/Shader.cpp
+# https://github.com/SFML/SFML/blob/master/examples/shader/Shader.cpp
 
 require "crsfml"
 require "crsfml/network"
 
-sprite = SF::Sprite.new(SF::Texture.from_file("resources/background.jpg"))
-px_shader = SF::Shader.from_file("resources/shaders/pixelate.frag", SF::Shader::Fragment)
-px_shader.texture SF::Shader::CurrentTexture
+FONT = SF::Font.from_file("resources/font/Cantarell-Regular.otf")
 
-http = SF::Http.new("loripsum.net")
-response = http.send_request(SF::Http::Request.new("/api/12/short/plaintext"))
-
-if response.status.ok?
-  ipsum = response.body
-else
-  ipsum = "Couldn't download sample text."
+def mouse_pos(window)
+  cursor = SF::Mouse.get_position(window)
+  {cursor.x.to_f / window.size.x, cursor.y.to_f / window.size.y}
 end
 
+class Scene1
+  BACKGROUND_TEXTURE = SF::Texture.from_file("resources/background.jpg")
 
-font = SF::Font.from_file("resources/font/Cantarell-Regular.otf")
-text = SF::Text.new(ipsum, font, 22)
-text.position = {30, 20}
-text.color = SF::Color::Black
-wb_shader = SF::Shader.from_file("resources/shaders/wave.vert", "resources/shaders/blur.frag")
+  def initialize
+    @sprite = SF::Sprite.new(BACKGROUND_TEXTURE)
+    @shader = SF::Shader.from_file("resources/shaders/pixelate.frag", SF::Shader::Fragment)
+    @shader.texture SF::Shader::CurrentTexture
+  end
+
+  def draw(window)
+    x, y = mouse_pos(window)
+    @shader.pixel_threshold (x + y)/30.0
+
+    window.draw @sprite, SF::RenderStates.new(shader: @shader)
+  end
+end
+
+class Scene2
+  def initialize
+    http = SF::Http.new("loripsum.net")
+    response = http.send_request(SF::Http::Request.new("/api/12/short/plaintext"))
+    if response.status.ok?
+      ipsum = response.body
+    else
+      ipsum = "Couldn't download sample text."
+    end
+    @text = SF::Text.new(ipsum, FONT, 22)
+    @text.position = {30, 20}
+    @text.color = SF::Color::Black
+
+    @shader = SF::Shader.from_file("resources/shaders/wave.vert", "resources/shaders/blur.frag")
+    @clock = SF::Clock.new
+  end
+
+  def draw(window)
+    x, y = mouse_pos(window)
+    time = @clock.elapsed_time.as_seconds
+
+    @shader.wave_phase time
+    @shader.wave_amplitude x * 40, y * 40
+    @shader.blur_radius (x + y) * 0.008
+
+    window.clear SF::Color::White
+    window.draw @text, SF::RenderStates.new(shader: @shader)
+  end
+end
 
 window = SF::RenderWindow.new(
   SF::VideoMode.new(800, 600), "SFML Shader",
-  SF::Style::Titlebar|SF::Style::Close
+  SF::Style::Titlebar | SF::Style::Close
 )
 window.vertical_sync_enabled = true
 
-scene = rand(2)
+scenes = [Scene1, Scene2].shuffle.cycle
+scene = scenes.next.new
 
-clock = SF::Clock.new()
+clock = SF::Clock.new
 while window.open?
-  while event = window.poll_event()
+  while event = window.poll_event
     case event
     when SF::Event::Closed
-      window.close()
+      window.close
     when SF::Event::MouseButtonPressed, SF::Event::KeyPressed
-      scene = (scene+1) % 2
+      scene = scenes.next.new
     end
   end
 
-  cursor = SF::Mouse.get_position(window)
-  x = cursor.x .fdiv window.size.x
-  y = cursor.y .fdiv window.size.y
-  time = clock.elapsed_time.as_seconds
-
-  case scene
-  when 0
-    px_shader.pixel_threshold (x+y)/30.0
-
-    window.draw sprite, SF::RenderStates.new(shader: px_shader)
-  when 1
-    wb_shader.wave_phase time
-    wb_shader.wave_amplitude x*40, y*40
-    wb_shader.blur_radius (x+y)*0.008
-
-    window.clear SF::Color::White
-    window.draw text, SF::RenderStates.new(shader: wb_shader)
-  end
-
-  window.display()
+  scene.draw(window)
+  window.display
 end

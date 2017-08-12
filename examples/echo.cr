@@ -46,7 +46,7 @@ ss = MySoundStream.new(samples, mutex, 1, 44100)
 ss.play()
 
 puts "Recording... Press Enter to stop"
-gets
+read_line
 
 sr.stop()
 ss.stop()

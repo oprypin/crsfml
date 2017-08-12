@@ -2,14 +2,28 @@ require "crsfml"
 
 
 Left = SF.vector2(-1, 0)
-Up =  SF.vector2(0, -1)
-Right =  SF.vector2(1, 0)
+Up = SF.vector2(0, -1)
+Right = SF.vector2(1, 0)
 Down = SF.vector2(0, 1)
 Directions = [Left, Up, Right, Down]
 
 
 def random_color()
   SF::Color.new(rand(128) + 128, rand(128) + 128, rand(128) + 128)
+end
+
+
+struct SF::Rect
+  def center
+    SF::Vector2.new(left + width/2, top + height/2)
+  end
+end
+
+class SF::Transformable
+  def center!
+    self.origin = local_bounds.center
+    self
+  end
 end
 
 
@@ -23,8 +37,7 @@ struct Food
   end
 
   def draw(target, states)
-    circle = SF::CircleShape.new(0.45)
-    circle.origin = {-0.05, -0.05}
+    circle = SF::CircleShape.new(0.9 / 2).center!
     circle.position = position
     circle.fill_color = @color
     target.draw circle, states
@@ -34,31 +47,32 @@ end
 class Snake
   include SF::Drawable
 
-  @direction : SF::Vector2i
-
   getter body
+  @direction : SF::Vector2i
 
   def initialize(@field : Field, start : SF::Vector2i, @color : SF::Color)
     @direction = Up
-    @body = Array(SF::Vector2i).new(3) { |i|
-      start + {0, i}
-    }
+    @body = Deque(SF::Vector2i).new(3) { |i| start + {0, i} }
   end
 
   def head
     @body.first
   end
 
+  # Warp any position out of bounds to the other edge of the field
+  private def warp(pos)
+    pos.x %= @field.size.x
+    pos.y %= @field.size.y
+    pos
+  end
+
   def step()
-    head = self.head + @direction
-    head.x %= @field.size.x
-    head.y %= @field.size.y
-    @body.insert(0, head)
+    @body.unshift warp(head + @direction)
     @body.pop()
   end
 
   def turn(direction)
-    @direction = direction unless @body[1] == head + direction
+    @direction = direction unless head + direction == @body[1]?
   end
 
   def grow()
@@ -69,7 +83,7 @@ class Snake
   end
 
   def collides?(other : self)
-    other.body.includes? head
+    other != self && other.body.includes? head
   end
 
   def collides?(food : Food)
@@ -82,47 +96,41 @@ class Snake
 
   def draw(target, states)
     @body.each_with_index do |current, i|
-      segment = SF::CircleShape.new(0.9 / 2)
-      segment.origin = {-0.05, -0.05}
+      segment = SF::CircleShape.new(0.9 / 2).center!
       segment.position = current
       segment.fill_color = @color
       target.draw segment, states
 
-      # The following is eye candy and may be removed
-      # but change the above to RectangleShape of size (0.9, 0.9)
-
       # Look in 4 directions around this segment. If there is another one
       # neighboring it, draw a square between them
-      Directions.each do |d|
-        td = current + d
-        td.x %= @field.size.x
-        td.y %= @field.size.y
-
+      Directions.each do |offset|
+        look = warp(current + offset)
         if (
-          (i > 0 && td == @body[i-1]) ||
-          (i < @body.size-1 && td == @body[i+1])
+          (i - 1 >= 0 && @body[i - 1] == look) ||
+          (i + 1 < @body.size && @body[i + 1] == look)
         )
-          connection = SF::RectangleShape.new({0.9, 0.9})
-          connection.origin = {-0.05, -0.05}
-          connection.position = current + d / 2.0
+          connection = SF::RectangleShape.new({0.9, 0.9}).center!
+          connection.position = current + offset / 2.0
           connection.fill_color = @color
           target.draw connection, states
         end
       end
-
-      # Draw eyes with a darkened color
-      eye = SF::CircleShape.new(0.1)
-      eye.fill_color = SF::Color.new(
-        @color.r / 3, @color.g / 3, @color.b / 3
-      )
-
-      delta = SF.vector2(@direction.y.abs, @direction.x.abs) / 4.0
-      eye.position = head
-      {-1, 1}.each do |m|
-        eye.origin = delta*m - {0.4, 0.4}
-        target.draw eye, states
-      end
     end
+
+    # Draw eyes with a darkened color
+    eye = SF::CircleShape.new(0.1)
+    eye.position = head
+    eye.fill_color = SF::Color.new(
+      @color.r / 3, @color.g / 3, @color.b / 3
+    )
+
+    offset = SF.vector2(@direction.y, -@direction.x) / 4.0
+    # Left eye
+    eye.center!.origin -= offset
+    target.draw eye, states
+    # Right eye
+    eye.center!.origin += offset
+    target.draw eye, states
   end
 end
 
@@ -137,33 +145,27 @@ class Field
   end
 
   def add(snake)
-    @snakes.push snake
+    @snakes << snake
   end
 
   def step()
     while @foods.size < @snakes.size + 1
       food = Food.new(SF.vector2(rand(@size.x), rand(@size.y)), random_color())
-
-      @foods.push food unless @snakes.any? do |snake|
-        snake.body.includes? food.position
-      end
+      next if @snakes.any?(&.body.includes? food.position)
+      @foods << food
     end
 
     @snakes.each do |snake|
       snake.step()
 
-      @foods = @foods.reject do |food|
-        if snake.collides? food
-          snake.grow()
-          true
-        end
+      if (food = @foods.find &->snake.collides?(Food))
+        @foods.delete food
+        snake.grow()
       end
     end
 
-    snakes = @snakes
-    @snakes = snakes.reject do |snake|
-      snake.collides? ||
-      snakes.any? { |snake2| snake != snake2 && snake.collides? snake2 }
+    @snakes = @snakes.reject do |snake|
+      snake.collides? || @snakes.any? &.collides? snake
     end
   end
 
@@ -180,10 +182,9 @@ end
 
 field = Field.new(SF.vector2(40, 40))
 
-snake1 = Snake.new(field, field.size / 2 - {5, 0}, random_color())
-snake2 = Snake.new(field, field.size / 2 + {5, 0}, random_color())
-field.add snake1
-field.add snake2
+
+field.add (snake1 = Snake.new(field, field.size / 2 - {5, 0}, random_color()))
+field.add (snake2 = Snake.new(field, field.size / 2 + {5, 0}, random_color()))
 
 scale = 20
 
@@ -195,7 +196,9 @@ window.framerate_limit = 10
 
 
 states = SF::RenderStates.new(
-  transform: SF::Transform.new.scale(scale, scale)
+  transform: SF::Transform.new
+    .scale(scale, scale)  # Allow all operations to use 1 as the size of the grid
+    .translate(0.5, 0.5)  # Move the reference point to centers of grid squares
 )
 
 while window.open?
