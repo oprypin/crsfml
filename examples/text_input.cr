@@ -5,6 +5,7 @@ class TypingWidget < SF::Transformable
   include SF::Drawable
 
   @pinned_cur_pos : Float32? = nil
+  @clipboard : String? = nil
 
   def initialize(font : SF::Font, character_size : Int32)
     super()
@@ -74,8 +75,67 @@ class TypingWidget < SF::Transformable
     end
   end
 
-  private def delete_selection()
+  def selection
     a, b = [{@y, @x}, @anchor].sort!
+    {a, b}
+  end
+
+  def select_range(selection)
+    @anchor, yx = selection
+    @y, @x = yx
+    @anchor_pos = 0.0f32
+    update_cursor(true)
+  end
+  def select_all
+    select_range({ {0, 0}, {@lines.size - 1, line(-1).size} })
+  end
+
+  def text
+    @lines.map(&.string).join('\n')
+  end
+  def text(selection)
+    a, b = selection
+    lines = [] of String
+    (a[0]..b[0]).each do |y|
+      line = line(y)
+      line = line[0...b[1]] if y == b[0]
+      line = line[a[1]..-1] if y == a[0]
+      lines << line
+    end
+    lines.join('\n')
+  end
+
+  def copy()
+    a, b = selection
+    return if a == b
+    @clipboard = text({a, b})
+  end
+
+  def cut()
+    if copy()
+      delete_selection()
+      @clipboard
+    end
+  end
+
+  def paste(text = @clipboard)
+    if text
+      delete_selection()
+      lines = text.lines
+      last_line_size = lines[-1].size
+      lines[0] = line[0...@x] + lines[0]
+      lines[-1] += line[@x..-1]
+      set @y..@y, lines
+      @y += lines.size - 1
+      @x = 0 if lines.size > 1
+      @x += last_line_size
+      update_cursor()
+      text
+    end
+  end
+
+  private def delete_selection()
+    a, b = selection
     return false if a == b
     set a[0]..b[0], [line(a[0])[0...a[1]] + line(b[0])[b[1]..-1]]
     @y, @x = a
@@ -191,6 +251,14 @@ class TypingWidget < SF::Transformable
         delete()
       when SF::Keyboard::Return
         newline()
+      when SF::Keyboard::X
+        cut() if event.control
+      when SF::Keyboard::C
+        copy() if event.control
+      when SF::Keyboard::V
+        paste() if event.control
+      when SF::Keyboard::A
+        select_all() if event.control
       end
     when SF::Event::TextEntered
       if event.unicode >= ' '.ord && event.unicode != 0x7f  # control chars and delete
