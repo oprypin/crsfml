@@ -117,28 +117,20 @@ module SF
     Vector2.new(x, y)
   end
   # :nodoc:
-  def vector2(x : Float32, y : Float64)
+  def vector2(x : Float32, y : Int32|Float64)
     Vector2.new(x, y.to_f32)
   end
   # :nodoc:
-  def vector2(x : Float64, y : Float32)
+  def vector2(x : Int32|Float64, y : Float32)
     Vector2.new(x.to_f32, y)
   end
   # :nodoc:
-  def vector2(x : Int32, y : Float32)
-    Vector2.new(x.to_f32, y.to_f32)
+  def vector2(x : Float64, y : Int32)
+    Vector2.new(x, y.to_f64)
   end
   # :nodoc:
   def vector2(x : Int32, y : Float64)
-    Vector2.new(x.to_f64, y.to_f64)
-  end
-  # :nodoc:
-  def vector2(x : Float32, y : Int32)
-    Vector2.new(x.to_f32, y.to_f32)
-  end
-  # :nodoc:
-  def vector2(x : Float64, y : Int32)
-    Vector2.new(x.to_f64, y.to_f64)
+    Vector2.new(x.to_f64, y)
   end
 
   alias Vector2i = Vector2(Int32)
