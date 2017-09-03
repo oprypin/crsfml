@@ -32,41 +32,6 @@ abstract class View
   end
 end
 
-class FullscreenModesView < View
-  TITLE = "Fullscreen modes"
-
-  def initialize(@window : SF::RenderWindow)
-    @text = SF::Text.new("Fullscreen modes:", FONT, 24)
-
-    @text.string = SF::VideoMode.fullscreen_modes.group_by { |mode|
-      {mode.width, mode.height}
-    }.map { |(width, height), devices|
-      bpps = devices.map(&.bits_per_pixel).join('/')
-      "- #{width} x #{height} @ #{bpps} bpp"
-    }.join('\n')
-  end
-
-  def frame()
-    @window.draw @text
-  end
-end
-
-class AudioDevicesView < View
-  TITLE = "Audio devices"
-
-  def initialize(@window : SF::RenderWindow)
-    @text = SF::Text.new("Audio devices:", FONT, 24)
-
-    @text.string = SF::SoundRecorder.available_devices.map { |device|
-      "- #{device}"
-    }.join('\n')
-  end
-
-  def frame()
-    @window.draw @text
-  end
-end
-
 class MouseView < View
   TITLE = "Mouse"
 
@@ -150,9 +115,10 @@ class KeyboardView < View
   private def rescale()
     @buttons.clear
 
-    scale = @window.size.x * 55.0 / 1280
+    zoom = 55.5
+    scale = zoom * @window.size.x / 1280
     margin = SF.vector2f(0.1, 0.1)
-    @outline_thickness = (3 ** (scale / 55)).round.to_i
+    @outline_thickness = (3 ** (scale / zoom)).round.to_i
 
     yaml = YAML.parse(File.read("resources/keyboard-layout.yaml"))
     y = margin.y * 3
@@ -305,6 +271,41 @@ class ControllerView < View
 
       @window.draw hat
     end
+  end
+end
+
+class FullscreenModesView < View
+  TITLE = "Fullscreen modes"
+
+  def initialize(@window : SF::RenderWindow)
+    @text = SF::Text.new("Fullscreen modes:", FONT, 24)
+
+    @text.string = SF::VideoMode.fullscreen_modes.group_by { |mode|
+      {mode.width, mode.height}
+    }.map { |(width, height), devices|
+      bpps = devices.map(&.bits_per_pixel).join('/')
+      "- #{width} x #{height} @ #{bpps} bpp"
+    }.join('\n')
+  end
+
+  def frame()
+    @window.draw @text
+  end
+end
+
+class AudioDevicesView < View
+  TITLE = "Audio devices"
+
+  def initialize(@window : SF::RenderWindow)
+    @text = SF::Text.new("Audio devices:", FONT, 24)
+
+    @text.string = SF::SoundRecorder.available_devices.map { |device|
+      "- #{device}"
+    }.join('\n')
+  end
+
+  def frame()
+    @window.draw @text
   end
 end
 
