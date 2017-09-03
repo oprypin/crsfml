@@ -1,6 +1,7 @@
 require "yaml"
 require "crsfml"
 require "crsfml/audio"
+require "./text_input"
 
 
 FONT = SF::Font.from_file("resources/font/Cantarell-Regular.otf")
@@ -135,8 +136,9 @@ class KeyboardView < View
   TITLE = "Keyboard"
 
   def initialize(@window : SF::RenderWindow)
-    @str = ""
-    @text = SF::Text.new("_", FONT)
+    @typing = TypingWidget.new(FONT, 30)
+    @typing.color = Color::WHITE
+    @typing.selection_color = Color::PURPLE
 
     @buttons = [] of Button
     @key_to_button = {} of SF::Keyboard::Key => Button
@@ -201,32 +203,20 @@ class KeyboardView < View
       y += 1
     end
 
-    @text.position = SF.vector2(margin.x * 3 * scale, y * scale).round
+    @typing.position = SF.vector2(margin.x * 3 * scale, y * scale).round
   end
 
   def input(event)
     case event
     when SF::Event::MouseButtonPressed
-      return false
+      return false if event.button.right?
     when SF::Event::KeyPressed
+      return false if event.code.escape?
       @key_to_button[event.code]?.try &.outline_thickness = @outline_thickness * 2
-
-      case event.code
-      when SF::Keyboard::BackSpace
-        @str = @str.rchop
-      when SF::Keyboard::Return
-        @str += '\n'
-      when SF::Keyboard::Tab
-        @str += '\t'
-      end
-    when SF::Event::TextEntered
-      if event.unicode >= ' '.ord && event.unicode != 0x7f # control chars and delete
-        @str += event.unicode.chr
-      end
-      @text.string = @str + "_"
     when SF::Event::Resized
       rescale()
     end
+    @typing.input(event)
     true
   end
 
@@ -245,7 +235,7 @@ class KeyboardView < View
     @buttons.each do |btn|
       @window.draw btn
     end
-    @window.draw @text
+    @window.draw @typing
   end
 end
 
@@ -446,4 +436,6 @@ class DiagnosticsApplication < SF::RenderWindow
   end
 end
 
-DiagnosticsApplication.new.run()
+def main()  # Overriding the `main` of `text_input.cr`
+  DiagnosticsApplication.new.run()
+end

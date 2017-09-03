@@ -35,12 +35,16 @@ Examples
 - Custom transformable drawable
 - `Clock`
 
+### [text_input](text_input.cr)
+- Unicode keyboard input
+- Text metric measurements
+- 
+
 ### [diagnostics](diagnostics.cr)
 
 - Listing controllers, screen modes, audio devices
 - Mouse state and events
-- Keyboard state and events, `TextEntered`
-- Unicode
+- Keyboard state and events
 - Controller state and events
 - Drawing with shapes
 - Simple GUI (just buttons)
