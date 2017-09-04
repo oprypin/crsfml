@@ -317,7 +317,7 @@ class TypingWidget < SF::Transformable
 
     a, b = [{@y, @cur_pos}, {@anchor[0], @anchor_pos}].sort!
     if a != b
-      quad = SF::VertexArray.new(SF::TriangleStrip, 4)
+      quad = SF::VertexArray.new(SF::TrianglesStrip, 4)
       (a[0]..b[0]).each do |y|
         y1 = y * spacing
         y2 = y1 + spacing

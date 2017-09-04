@@ -64,8 +64,7 @@ window = SF::RenderWindow.new(
 )
 window.vertical_sync_enabled = true
 
-scenes = [Scene1, Scene2].shuffle.cycle
-scene = scenes.next.new
+scenes = [Scene1, Scene2].map &.new
 
 clock = SF::Clock.new
 while window.open?
@@ -74,10 +73,10 @@ while window.open?
     when SF::Event::Closed
       window.close
     when SF::Event::MouseButtonPressed, SF::Event::KeyPressed
-      scene = scenes.next.new
+      scenes.rotate!
     end
   end
 
-  scene.draw(window)
+  scenes.first.draw(window)
   window.display
 end
