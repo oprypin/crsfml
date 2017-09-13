@@ -86,7 +86,7 @@ If *SFML* is installed in an unusual location, some additional work needs to be 
 On Mac, if SFML is installed through [Homebrew][], CMake must be run like this:
 
 ```bash
-sfml=/usr/local/Cellar/sfml/2.*
+sfml=(/usr/local/Cellar/sfml/2.*)
 cmake -DCMAKE_MODULE_PATH="$sfml/share/SFML/cmake/Modules" . && make
 ```
 

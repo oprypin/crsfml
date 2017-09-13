@@ -1,8 +1,13 @@
 language: crystal
-env:
-  - SFML=2.3.2
-  - SFML=2.4.2
-  - SFML=2.4.2 SAFE=ON
+matrix:
+  include:
+    - env: SFML=2.3.2
+    - env: SFML=2.4.2
+    - env: SFML=2.4.2 SAFE=ON
+    - os: osx
+    - os: osx
+      env: SAFE=ON
+  fast_finish: true
 dist: trusty
 addons:
   apt:
@@ -12,13 +17,18 @@ addons:
     ]
 before_install:
   - |
-    curl -L "https://github.com/SFML/SFML/archive/$SFML.tar.gz" | tar -xz &&
-    cd SFML* &&
-    cmake . &&
-    make &&
-    export sfml="$(pwd)" &&
-    export {LD_,}LIBRARY_PATH="$sfml/lib" &&
-    cd ..
+    if [ $TRAVIS_OS_NAME = osx ]; then
+        brew install sfml &&
+        sfml=(/usr/local/Cellar/sfml/2.*) && export sfml="$sfml"
+    else
+        curl -L "https://github.com/SFML/SFML/archive/$SFML.tar.gz" | tar -xz &&
+        cd SFML* &&
+        cmake . &&
+        make &&
+        export sfml="$(pwd)" &&
+        export {LD_,}LIBRARY_PATH="$sfml/lib" &&
+        cd ..
+    fi
 script:
   - |
     cmake . -DCRSFML_SAFE=$SAFE -DCMAKE_MODULE_PATH="$sfml/cmake/Modules" -DSFML_ROOT="$sfml" -DSFML_INCLUDE_DIR="$sfml/include" &&
@@ -28,7 +38,18 @@ script:
     crystal doc
   - |
     cd examples
-    for f in *.cr; do
-        crystal build "$f" || error=true
+    for example in *.cr; do
+        echo "Building $example"
+        crystal build "$example" || error=true
     done
+    test -z $error
+  - |
+    if [ $TRAVIS_OS_NAME = osx ]; then
+        for example in flippy_bird gl shader shapes simple snakes text_input transformable; do
+            echo "Running $example"
+            ./$example & pid=$!
+            sleep 3
+            kill $pid || error=true
+        done
+    fi
     test -z $error
