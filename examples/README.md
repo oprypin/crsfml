@@ -38,7 +38,8 @@ Examples
 ### [text_input](text_input.cr)
 - Unicode keyboard input
 - Text metric measurements
-- 
+- `Clock`
+- `BlendMode` (draw with inverted color)
 
 ### [diagnostics](diagnostics.cr)
 

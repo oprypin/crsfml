@@ -165,7 +165,7 @@ class Field
     end
 
     @snakes = @snakes.reject do |snake|
-      snake.collides? || @snakes.any? &.collides? snake
+      snake.collides? || @snakes.any? &->snake.collides?(Snake)
     end
   end
 

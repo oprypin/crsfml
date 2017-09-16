@@ -312,7 +312,6 @@ class TypingWidget < SF::Transformable
   def draw(target, states)
     states.transform *= transform
 
-    rect = SF::RectangleShape.new()
     spacing = font.get_line_spacing(character_size)
 
     a, b = [{@y, @cur_pos}, {@anchor[0], @anchor_pos}].sort!
@@ -336,7 +335,10 @@ class TypingWidget < SF::Transformable
       target.draw line, states
     end
 
-    states.blend_mode = SF::BlendMode.new(SF::BlendMode::OneMinusDstColor, SF::BlendMode::Zero)
+    states.blend_mode = SF::BlendMode.new(
+        SF::BlendMode::OneMinusDstColor,  # Invert original color
+        SF::BlendMode::Zero  # Ignore new vertex color
+    )
     if @cur_clock.elapsed_time.as_seconds % 1.0 < 0.5
       y1 = @y * spacing
       y2 = y1 + spacing
