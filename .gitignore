@@ -2,6 +2,7 @@
 
 !.gitignore
 !*.yml
+/shard.yml
 !*.md
 !LICENSE
 !*.in
@@ -24,7 +25,6 @@
 !/src/**/*.cr
 /src/*/lib.cr
 /src/*/obj.cr
-/src/sizes.cr
 /src/common.cr
 
 !/docs/
