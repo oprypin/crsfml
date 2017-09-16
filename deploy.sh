@@ -12,7 +12,7 @@ cd "$(dirname "$0")"
 
 mkdir build || true
 pushd build
-    cmake -DCRSFML_SAFE=ON ..
+    cmake ..
     make
 popd
 

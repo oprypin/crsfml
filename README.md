@@ -53,12 +53,11 @@ Note that using [Shards][] is not enough to install *CrSFML*.
 
 This section defines two sets of step-by-step instructions to install *CrSFML* but these are not the only ways to do it; they can even be mixed (see [VoidCSFML installation instructions](voidcsfml/README.md#installation) for an alternative look)
 
-- [Approach 1](#approach-1) **(strongly recommended)**: Generate latest *CrSFML* and *VoidCSFML* source code; build and use them from a local directory
+- [Approach 1](#approach-1) **(recommended)**: Generate latest *CrSFML* and *VoidCSFML* source code; build and use them from a local directory
     - Advantages:
         - This is the right setup if you wish to:
              - Distribute your application with the libraries
              - Contribute to *CrSFML*
-        - The bindings can be fine-tuned to your system.
         - Supports multiple recent [SFML versions](#install-sfml).
     - Disadvantages:
         - Need to always provide full path to *VoidCSFML* libraries when running a program using *CrSFML*.
@@ -67,7 +66,6 @@ This section defines two sets of step-by-step instructions to install *CrSFML* b
     - Advantages:
         - Convenient installation.
     - Disadvantages:
-        - Less performant, because memory layout optimizations can't be cross-platform.
         - Global installation litters your system.
         - Tied to a particular version of SFML (only SFML 2.4 right now).
 

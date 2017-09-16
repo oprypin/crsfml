@@ -3,10 +3,7 @@ matrix:
   include:
     - env: SFML=2.3.2
     - env: SFML=2.4.2
-    - env: SFML=2.4.2 SAFE=ON
     - os: osx
-    - os: osx
-      env: SAFE=ON
   fast_finish: true
 dist: trusty
 addons:
@@ -31,7 +28,7 @@ before_install:
     fi
 script:
   - |
-    cmake . -DCRSFML_SAFE=$SAFE -DCMAKE_MODULE_PATH="$sfml/cmake/Modules" -DSFML_ROOT="$sfml" -DSFML_INCLUDE_DIR="$sfml/include" &&
+    cmake . -DCMAKE_MODULE_PATH="$sfml/cmake/Modules" -DSFML_ROOT="$sfml" -DSFML_INCLUDE_DIR="$sfml/include" &&
     make &&
     export {LD_,}LIBRARY_PATH="$(pwd)/voidcsfml${LIBRARY_PATH:+:$LIBRARY_PATH}"
   - |

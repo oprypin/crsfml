@@ -116,26 +116,32 @@ Here is a usage example (just to get an idea about what happens under the hood, 
 #include <voidcsfml/system.h>
 #include <voidcsfml/window.h>
 
-// Use the same "large enough" buffer everywhere just for demostration
-#define buf(name)  char name[1024]
-
 int main()
 {
-    buf(videomode);
+    void* videomode; sfml_videomode_allocate(&videomode);
     sfml_videomode_initialize_emSemSemS(videomode, 640, 480, 24);
 
-    buf(contextsettings);
+    uint32_t title[] = {'V','o','i','d','C','S','F','M','L'};
+
+    void* contextsettings; sfml_contextsettings_allocate(&contextsettings);
     sfml_contextsettings_initialize_emSemSemSemSemSemSGZq(contextsettings, 0, 0, 0, 1, 1, 0, 0);
 
-    buf(window);
-    uint32_t title[] = {'V','o','i','d','C','S','F','M','L'};
+    void* window; sfml_window_allocate(&window);
     sfml_window_initialize_wg0bQssaLFw4(window, videomode, 9, title, 7, contextsettings);
+
+    sfml_contextsettings_free(contextsettings);
+    sfml_videomode_free(videomode);
 
     sfml_window_display(window);
 
-    buf(time);
+    void* time; sfml_time_allocate(&time);
     sfml_seconds_Bw9(3, time);
     sfml_sleep_f4T(time);
+
+    sfml_time_free(time);
+
+    sfml_window_close(window);
+    sfml_window_finalize(window); sfml_window_free(window);
 
     return 0;
 }

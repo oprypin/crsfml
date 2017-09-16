@@ -7,12 +7,6 @@ set(VERSION_MINOR 4)
 set(VERSION_PATCH 10)
 
 
-option(CRSFML_SAFE "Don't apply optimizations that are not safe." OFF)
-if(CRSFML_SAFE)
-    set(GENERATE_ARGS "--safe")
-endif()
-
-
 find_program(CRYSTAL crystal)
 
 list(APPEND CMAKE_MODULE_PATH "/usr/share/SFML/cmake/Modules")
@@ -64,7 +58,6 @@ foreach(path_in ${source_files_in})
 endforeach()
 
 
-
 # Prepare lists of files to be generated
 foreach(module system window graphics audio network)
     foreach(file lib obj)
@@ -75,13 +68,8 @@ foreach(module system window graphics audio network)
     list(APPEND SRC_C "${CMAKE_CURRENT_BINARY_DIR}/voidcsfml/src/voidcsfml/${module}.cpp")
 endforeach()
 
-if(NOT CRSFML_SAFE)
-    set(SIZES_CPP "${CMAKE_CURRENT_BINARY_DIR}/sizes.cpp")
-    set(SIZES_CR "${CMAKE_CURRENT_BINARY_DIR}/src/sizes.cr")
-endif()
-
 add_custom_target(c-sources DEPENDS ${SRC_C})
-add_custom_target(crystal-sources DEPENDS ${SRC_CR} ${SIZES_CR})
+add_custom_target(crystal-sources DEPENDS ${SRC_CR})
 
 
 file(
@@ -91,20 +79,9 @@ file(
 )
 add_custom_command(
     COMMAND ${CRYSTAL} run "${CMAKE_CURRENT_SOURCE_DIR}/generate.cr" -- ${GENERATE_ARGS} ${SFML_INCLUDE_DIR}
-    OUTPUT ${SRC_C} ${SRC_CR} ${SIZES_CPP}
+    OUTPUT ${SRC_C} ${SRC_CR}
     DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/generate.cr" ${doc_diffs}
 )
-
-if(NOT CRSFML_SAFE)
-    add_executable(sizes-generator ${SIZES_CPP})
-
-    # Run sizes.cpp to generate sizes.cr
-    add_custom_command(
-        COMMAND sizes-generator > ${SIZES_CR}
-        OUTPUT ${SIZES_CR}
-        DEPENDS sizes-generator
-    )
-endif()
 
 
 add_subdirectory("${CMAKE_CURRENT_BINARY_DIR}/voidcsfml" "${CMAKE_CURRENT_BINARY_DIR}/voidcsfml")
