@@ -138,7 +138,7 @@ end
 def make_type(name : String, parent : CNamespace?) : CType
   array = 1
   name = name.sub /\[([0-9]+)\]$/ do
-    array = $~[1].to_i
+    array = $1.to_i
     ""
   end
   info = {
@@ -243,23 +243,23 @@ abstract class CItem
           line = line.sub /^\\brief\b */, ""
           line = line.sub /^\\li\b */, "* "
           line = line.sub /^    \b/, "  "
-          line = line.sub /^\\param\b +([^ ()]+) +/ { "* *#{CParameter.new($~[1], make_type("", nil)).name(Context::Crystal)}* - " }
-          #line = line.sub /^\\ingroup\b *([^ ()]+)/ { "*SFML module: #{$~[1].underscore}*" }
+          line = line.sub /^\\param\b +([^ ()]+) +/ { "* *#{CParameter.new($1, make_type("", nil)).name(Context::Crystal)}* - " }
+          #line = line.sub /^\\ingroup\b *([^ ()]+)/ { "*SFML module: #{$1.underscore}*" }
           line = line.sub /^\\(ingroup|relates)\b.*/, ""
-          line = line.gsub /(@ref|\\a)\b *([^ ()]+)/ { "*#{$~[2].underscore}*" }
-          line = line.gsub /(@ref|\\a)\b *([^ ()]+)/ { "*#{$~[2].underscore}*" }
-          line = line.sub /\\em\b *([^ ]+)/ { "*#{$~[1]}*" }
+          line = line.gsub /(@ref|\\a)\b *([^ ()]+)/ { "*#{$2.underscore}*" }
+          line = line.gsub /(@ref|\\a)\b *([^ ()]+)/ { "*#{$2.underscore}*" }
+          line = line.sub /\\em\b *([^ ]+)/ { "*#{$1}*" }
           line = line.sub /^\\return\b */, "*Returns:* "
           line = line.sub /^\\warning\b */, "*Warning:* "
           line = line.sub /^\\deprecated\b */, "*Deprecated:* "
-          line = line.gsub /\bsf(::[^ \.;,()]+)/ { "`SF#{$~[1]}`" }
-          line = line.sub /^\\see\b *(.+)/ { "*See also:* " + $~[1].gsub(/(?<!`)\b[\w\.]+\b(?!`)/, "`\\0`") }
-          line = line.gsub /%([A-Z][a-zA-Z])/ { $~[1] }
+          line = line.gsub /\bsf(::[^ \.;,()]+)/ { "`SF#{$1}`" }
+          line = line.sub /^\\see\b *(.+)/ { "*See also:* " + $1.gsub(/(?<!`)\b[\w\.]+\b(?!`)/, "`\\0`") }
+          line = line.gsub /%([A-Z][a-zA-Z])/ { $1 }
           line = line.gsub /<\/?b>/, "**"
           line = line.gsub "\\n", "\n"
           line = line.gsub '<', "&lt;"
           line = line.gsub '>', "&gt;"
-          line = line.gsub /\b([a-z][a-z0-9]+[A-Z][a-zA-Z0-9]*)\b/ { CFunction.new($~[1], nil, [] of CParameter).name(Context::Crystal) }
+          line = line.gsub /\b([a-z][a-z0-9]+[A-Z][a-zA-Z0-9]*)\b/ { CFunction.new($1, nil, [] of CParameter).name(Context::Crystal) }
         end
         io << "#{line.rstrip}\n" unless line == "" == prev_line
         prev_line = line
@@ -687,22 +687,22 @@ class CNativeType
       c_type = "uint32_t*"
       cl_type = "Char*"
     when /\bstd::vector<(.+)>/
-      if $~[1] == "std::string"
+      if $1 == "std::string"
         c_type = "char**"
         cl_type = "LibC::Char**"
         cr_type = "Array(String)"
       else
         c_type = "void*"
         cl_type = "Void*"
-        cr_type = "Array(#{$~[1]})"
+        cr_type = "Array(#{$1})"
       end
     when "std::size_t"
       c_type = "size_t"
       cl_type = cr_type = "LibC::SizeT"
     when /^(unsigned )?(int|short)$/
-      u = "U" if $~[1]?
-      cl_type = "LibC::#{u}#{$~[2].capitalize}"
-      cr_type = "#{u}" + {"int" => "Int32", "short" => "Int16"}[$~[2]]
+      u = "U" if $1?
+      cl_type = "LibC::#{u}#{$2.capitalize}"
+      cr_type = "#{u}" + {"int" => "Int32", "short" => "Int16"}[$2]
     when /^(Int|Uint)[0-9]+$/
       c_type = "#{c_type.downcase}_t"
       cl_type = cr_type = cl_type.sub("int", "Int")
@@ -887,7 +887,7 @@ class CFunction < CItem
 
   def operator_name : String?
     if @name =~ /operator\b *(.+)/
-      $~[1]
+      $1
     end
   end
   def operator? : Bool
@@ -1106,7 +1106,7 @@ class CFunction < CItem
           else
             if type.full_name(Context::CPPSource) =~ /^Vector2([fiu])$/
               cr_type = "Vector2|Tuple"
-              conversions << "#{cr_arg} = Vector2#{$~[1]}.new(#{cr_arg}[0].to_#{$~[1]}32, #{cr_arg}[1].to_#{$~[1]}32)" if context.crystal?
+              conversions << "#{cr_arg} = Vector2#{$1}.new(#{cr_arg}[0].to_#{$1}32, #{cr_arg}[1].to_#{$1}32)" if context.crystal?
             end
             c_type = "void*"; cl_type = "Void*"
           end
@@ -1397,9 +1397,9 @@ class CFunction < CItem
             o<< "for (std::size_t i = 0; i < strs.size(); ++i) bufs[i] = const_cast<char*>(strs[i].c_str());"
             o<< "*result_size = bufs.size();"
             cpp_asgn, cpp_call = "*result = ", "&bufs[0]"
-          elsif type.full_name(context) =~ /\bstd::vector<(.+)>/
-            o<< "static #{$~[0]} objs;"
-            o<< "objs = const_cast<#{$~[0]}&>(#{cpp_call});"
+          elsif type.full_name(context) =~ /\b(std::vector<.+>)/
+            o<< "static #{$1} objs;"
+            o<< "objs = const_cast<#{$1}&>(#{cpp_call});"
             o<< "*result_size = objs.size();"
             cpp_asgn, cpp_call = "*result = ", "&objs[0]"
           elsif type.const? && type.pointer > 0
@@ -1432,7 +1432,7 @@ class CFunction < CItem
           elsif typ =~ /\bstd::vector<std::string>/
             "Array.new(#{name}_size.to_i) { |i| String.new(#{name}[i]) }"
           elsif typ =~ /\bstd::vector<(.+)>/
-            "Array.new(#{name}_size.to_i) { |i| #{name}.as(#{$~[1]}*)[i] }"
+            "Array.new(#{name}_size.to_i) { |i| #{name}.as(#{$1}*)[i] }"
           elsif typ == "unsigned int" || typ == "std::size_t"
             "#{name}.to_i"
           elsif param.type.type.as?(CClass).try &.class? && const_reference_getter?
@@ -1447,8 +1447,8 @@ class CFunction < CItem
       o<< "end"
 
       if name(Context::Crystal) =~ /^([a-z]+_(from_.+)|create|(open))$/
-        full = $~[1]
-        short = $~[2]? || $~[3]? || "new"
+        full = $1
+        short = $2? || $3? || "new"
         cls_name = cls.not_nil!.name(context).not_nil!
         obj_name = cls_name.underscore
         o<< "# Shorthand for `#{obj_name} = #{cls_name}.new; #{obj_name}.#{full}(...); #{obj_name}`"
@@ -1665,10 +1665,10 @@ class CModule < CNamespace
 
       if case line
       when /^#(ifdef\b|(el)?if [^!])/
-        preprocessor_stack.pop if $~[2]?
+        preprocessor_stack.pop if $2?
         preprocessor_stack.push false
       when /^#(ifndef\b|(el)?if !)/
-        preprocessor_stack.pop if $~[2]?
+        preprocessor_stack.pop if $2?
         preprocessor_stack.push true
       when /^#else$/
         preprocessor_stack.push !preprocessor_stack.pop
@@ -1699,8 +1699,8 @@ class CModule < CNamespace
 
       if (enu = stack.last?).is_a? CEnum
         if line =~ %r(^(\w+)( *= *([^,/]+))?,?( +///< (.+))?$)
-          member = CEnumMember.new($~[1], value: $~[3]?,
-                                   parent: enu, docs: [$~[5]?].compact)
+          member = CEnumMember.new($1, value: $3?,
+                                   parent: enu, docs: [$5?].compact)
           enu.add member
           next
         end
@@ -1709,20 +1709,20 @@ class CModule < CNamespace
       case line
 
       when %r(^#include <SFML/(#{@name}/\w+\.hpp)>$)
-        process_file $~[1]
+        process_file $1
       when %r(^#include <SFML/(\w+)(/\w+)?\.hpp>$)
-        @dependencies |= [$~[1]]
+        @dependencies |= [$1]
 
       when %r(^///( (.+))?$)
-        docs_buffer << ($~[2]? || "")
+        docs_buffer << ($2? || "")
 
       when /^(class|struct) ((\w|(<.+?>))+);$/
-        class_name = $~[2]
+        class_name = $2
         register_type CClass.new(class_name, visibility: Visibility::Private) unless CType.all.has_key? class_name
         docs_buffer.clear
       when /^(class|struct) ((\w|(<.+?>))+)( : (.+))?$/
-        class_name = $~[2]
-        inherited = ($~[6]?.try &.split(',').map &.split.last) || [] of String
+        class_name = $2
+        inherited = ($6?.try &.split(',').map &.split.last) || [] of String
         cls = CClass.new(class_name, inherited, **common_info)
         unless class_name.includes?('<') || prev_line.includes?("template <")
           (parent || self) << cls
@@ -1730,7 +1730,7 @@ class CModule < CNamespace
         end
         upcoming_namespace = cls
         first_class ||= cls
-        visibilities[cls] = ($~[1] == "struct" ? Visibility::Public : Visibility::Private)
+        visibilities[cls] = ($1 == "struct" ? Visibility::Public : Visibility::Private)
 
       when "private:"
         visibilities[parent.as CClass] = Visibility::Private
@@ -1740,7 +1740,7 @@ class CModule < CNamespace
         visibilities[parent.as CClass] = Visibility::Public
 
       when /^enum( (\w+))?$/
-        name = $~[2]?
+        name = $2?
         if !name && file_name.includes? "WindowStyle"
           name = "Style"
         end
@@ -1761,9 +1761,9 @@ class CModule < CNamespace
           )+
         /x).map_with_index { |param_m, param_i|
           if param_m[0].strip =~ /^(.+?)(\b(\w+)\b( = (.+))?)?$/
-            CParameter.new(type: make_type($~[1], parent),
-                           name: $~[3]? || "p#{param_i}",
-                           default: $~[5]?)
+            CParameter.new(type: make_type($1, parent),
+                           name: $3? || "p#{param_i}",
+                           default: $5?)
           end .not_nil!
         }
         if match[3]?
@@ -1787,9 +1787,9 @@ class CModule < CNamespace
 
       when %r(^([^\(\)\/;]+) ([a-z]\w*)(\[[0-9]+\])?;( +///< (.+))$)
         docs_buffer.clear
-        var = CVariable.new(type: make_type("#{$~[1]}#{$~[3]?}", parent),
-                            name: $~[2], parent: parent,
-                            visibility: visibility, docs: [$~[5]?].compact)
+        var = CVariable.new(type: make_type("#{$1}#{$3?}", parent),
+                            name: $2, parent: parent,
+                            visibility: visibility, docs: [$5?].compact)
         (parent || self) << var
 
       when /\{$/
