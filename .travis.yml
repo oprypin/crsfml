@@ -42,7 +42,7 @@ script:
     test -z $error
   - |
     if [ $TRAVIS_OS_NAME = osx ]; then
-        for example in flippy_bird gl shader simple snakes text_input transformable; do
+        for example in flippy_bird gl shader simple text_input transformable; do
             echo "Running $example"
             ./$example & pid=$!
             sleep 3
