@@ -115,30 +115,35 @@ Several programming tools exist to help you protect shared data and make your co
 The most basic (and used) primitive is the mutex. Mutex stands for "MUTual EXclusion": it ensures that only a single thread is able to run the code that it guards. Let's see how they can bring some order to the example above:
 
 ```crystal
-$mutex = SF::Mutex.new
+require "crsfml/system"
 
-def func
-  $mutex.lock
+class Foo
+  @mutex = SF::Mutex.new
 
-  7.times do
-    puts "I'm thread number one"
+  def task
+    @mutex.lock
+
+    7.times { puts "I'm thread number one" }
+
+    @mutex.unlock
   end
 
-  $mutex.unlock
+  def main
+    thread = SF::Thread.new(->task)
+    thread.launch
+
+    @mutex.lock
+
+    7.times { puts "I'm the main thread" }
+
+    @mutex.unlock
+
+    thread.wait # wait until function task has finished
+  end
 end
 
-thread = SF::Thread.new(->func)
-thread.launch
-
-$mutex.lock
-
-7.times do
-  puts "I'm the main thread"
-end
-
-$mutex.unlock
-
-thread.wait
+foo = Foo.new
+foo.main
 ```
 
 This code uses a shared resource (standard output). Inappropriate use of it causes the lines/letters to be randomly mixed or even crashes. To avoid this, we protect the corresponding region of the code with a mutex.
@@ -170,34 +175,34 @@ Don't worry: mutexes are already thread-safe, there's no need to protect them. B
 
 To make sure that mutexes are always unlocked in an environment where exceptions can be thrown, CrSFML provides a special method that receives a block: `synchronize`. The mutex is locked before the block and is unlocked after the block (even if an exception is raised).
 
-A similar effect can be achieved manually, for example, here is a function with multiple `return` statements:
+Thus, we can write previous code example in a simpler way, using `synchronize` like this:
 
 ```crystal
-require "crsfml"
+require "crsfml/system"
 
-$mutex = SF::Mutex.new()
+class Foo
+  @mutex = SF::Mutex.new
 
-def func
-  $mutex.lock
-
-  begin
-    image1 = SF::Image.from_file("...")
-  rescue
-    return false # $mutex.unlock()
+  def task
+    @mutex.synchronize do # lock mutex implicitly
+      7.times { puts "I'm thread number one" }
+    end # unlock mutex implicitly
   end
 
-  begin
-    image2 = SF::Image.from_file("...")
-  rescue
-    return false # $mutex.unlock()
-  end
+  def main
+    thread = SF::Thread.new(->task)
+    thread.launch
 
-  true
-ensure
-  $mutex.unlock()
+    @mutex.synchronize do # same as above
+      7.times { puts "I'm the main thread" }
+    end
+
+    thread.wait
+  end
 end
 
-func()
+foo = Foo.new
+foo.main
 ```
 
 ## Common mistakes
@@ -218,7 +223,7 @@ start_thread()
 # ...
 ```
 
-Programers who write this kind of code expect the `start_thread` function to start a thread that will live on its own and be destroyed when the threaded function ends. This is not what happens. The threaded function appears to block the main thread, as if the thread wasn't working.
+Programmers who write this kind of code expect the `start_thread` function to start a thread that will live on its own and be destroyed when the threaded function ends. This is not what happens. The threaded function appears to block the main thread, as if the thread wasn't working.
 
 What is the cause of this? The [Thread]({{book.api}}/Thread.html) instance is local to the `start_thread()` function and is therefore destroyed, when the function returns. The finalizer of [Thread]({{book.api}}/Thread.html) is invoked, which calls `wait()` as we've learned above, and the result is that the main thread blocks and waits for the threaded function to be finished instead of continuing to run in parallel.
 
