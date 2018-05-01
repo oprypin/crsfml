@@ -1600,7 +1600,7 @@ class CModule < CNamespace
           o<< "require \"../#{dep.downcase}/lib\""
         end
       end
-      o<< "@[Link(\"#{LIB_NAME.downcase}-#{name.downcase}\")]"
+      o<< "@[Link(ldflags: \"-L\#{__DIR__}/../../voidcsfml -l#{LIB_NAME.downcase}-#{name.downcase}\")]"
       o<< "lib #{LIB_NAME}"
     when .crystal?
       o<< "require \"./lib\""

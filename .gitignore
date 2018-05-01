@@ -2,7 +2,6 @@
 
 !.gitignore
 !*.yml
-/shard.yml
 !*.md
 !LICENSE
 !*.in

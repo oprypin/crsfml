@@ -1,5 +1,5 @@
 name: crsfml
-version: @VERSION_MAJOR@.@VERSION_MINOR@.@VERSION_PATCH@
+version: 0.1.1
 
 authors:
   - Oleh Prypin <oleh@pryp.in>
@@ -7,9 +7,10 @@ authors:
 description: |
   Crystal bindings to SFML multimedia/game library
 
+scripts:
+  postinstall: cmake . && make
+
 license: zlib
 
 crystal: 0.23.1
 
-libraries:
-  SFML: @SFML_VERSION_MAJOR@.@SFML_VERSION_MINOR@.@SFML_VERSION_PATCH@
