@@ -3,6 +3,7 @@ matrix:
   include:
     - env: SFML=2.3.2
     - env: SFML=2.4.2
+    - env: SFML=2.5.0
     - os: osx
   fast_finish: true
 dist: trusty

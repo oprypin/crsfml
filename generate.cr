@@ -30,7 +30,7 @@ SFML_PATH = File.join(INCLUDE_DIR,
 )
 
 MODULE_CLASSES = %w[NonCopyable GlResource Drawable RenderTarget AlResource]
-STRUCTS = %w[IntRect FloatRect Vector2i Vector2u Vector2f Vector3f Time Transform IpAddress]
+STRUCTS = %w[IntRect FloatRect Vector2i Vector2u Vector2f Vector3f Time Transform IpAddress Music::TimeSpan]
 
 
 enum Context
@@ -1225,9 +1225,6 @@ class CFunction < CItem
       func_name = name(context, parent: parent)
       abstr = "protected " if visibility.protected? && constructor?
       abstr = "abstract " if abstract? #if cls.try &.module? && !static?
-      unless cls && cls.abstract? && cls.class? || visibility.public?
-        ret = nil
-      end
       if operator_name == ">>"
         cr_params << "type : #{return_params[0].type.full_name(Context::Crystal)}.class"
       end
@@ -1237,6 +1234,16 @@ class CFunction < CItem
 
       return if abstract?
       unless cls && cls.abstract? && cls.class? || visibility.public? || name(Context::Crystal) == "initialize"
+        if ret_types.size == 1
+          case ret_types[0]
+          when .ends_with? "?"
+            o<< "nil"
+          when "Bool"
+            o<< "false"
+          when .starts_with? "Int"
+            o<< "#{ret_types[0]}.zero"
+          end
+        end
         o<< "end"
         return true
       end
@@ -1601,6 +1608,7 @@ class CModule < CNamespace
         end
       end
       o<< "@[Link(\"#{LIB_NAME.downcase}-#{name.downcase}\")]"
+      o<< "@[Link(\"sfml-#{name.downcase}\")]"
       o<< "lib #{LIB_NAME}"
     when .crystal?
       o<< "require \"./lib\""
@@ -1749,6 +1757,8 @@ class CModule < CNamespace
         register_type enu
         upcoming_namespace = enu
 
+      when /^typedef /
+
       when /^(virtual|static|explicit)? *(([^\(]+) )??(operator *.+?|~?\w+)\((.*)\)( const)?( = 0)?(;| *:( .+\{\})?)$/
         match = $~
         func_params = match[5].scan(/
@@ -1782,8 +1792,6 @@ class CModule < CNamespace
           next if !parent
         end
         (parent || self) << func
-
-      when /^typedef /
 
       when %r(^([^\(\)\/;]+) ([a-z]\w*)(\[[0-9]+\])?;( +///< (.+))$)
         docs_buffer.clear
