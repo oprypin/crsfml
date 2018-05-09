@@ -29,7 +29,7 @@ before_install:
     fi
 script:
   - |
-    cmake . -DCMAKE_MODULE_PATH="$sfml/cmake/Modules" -DSFML_ROOT="$sfml" -DSFML_INCLUDE_DIR="$sfml/include" &&
+    cmake -DSFML_DIR="$sfml" -DSFML_ROOT="$sfml" -DSFML_INCLUDE_DIR="$sfml/include" -DCMAKE_MODULE_PATH="$sfml/cmake/Modules" &&
     make &&
     export {LD_,}LIBRARY_PATH="$(pwd)/voidcsfml${LIBRARY_PATH:+:$LIBRARY_PATH}"
   - |
