@@ -40,6 +40,7 @@ Examples
 - Text metric measurements
 - `Clock`
 - `BlendMode` (draw with inverted color)
+- Detecting features by SFML version
 
 ### [diagnostics](diagnostics.cr)
 

@@ -1,10 +1,16 @@
 require "crsfml"
 
+{% if compare_versions(SF::SFML_VERSION, "2.5.0") >= 0 %}
+  Clipboard = SF::Clipboard
+{% else %}
+  module Clipboard
+    class_property string : String? = nil
+  end
+{% end %}
+
 
 class TypingWidget < SF::Transformable
   include SF::Drawable
-
-  @clipboard : String? = nil
 
   def initialize(font : SF::Font, character_size : Int32)
     super()
@@ -123,23 +129,24 @@ class TypingWidget < SF::Transformable
     }.join('\n')
   end
 
-  # Copy the current selection to the internal clipboard
+  # Copy the current selection to the clipboard
   def copy()
     a, b = selection
     return if a == b
-    @clipboard = text({a, b})
+    Clipboard.string = txt = text({a, b})
+    txt
   end
 
   # Copy and delete the current selection
   def cut()
-    if copy()
+    if (txt = copy())
       delete_selection()
-      @clipboard
+      txt
     end
   end
 
-  # Replace the current selection with the text (default: internal clipboard contents)
-  def paste(text = @clipboard)
+  # Replace the current selection with the text (default: clipboard contents)
+  def paste(text = Clipboard.string)
     if text
       delete_selection()
       lines = text.lines
