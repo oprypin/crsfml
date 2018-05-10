@@ -94,7 +94,7 @@ When SFML is built in a local folder, even more options are needed:
 
 ```bash
 sfml=/full/path/to/SFML
-cmake -DSFML_ROOT="$sfml" -DSFML_INCLUDE_DIR="$sfml/include" -DCMAKE_MODULE_PATH="$sfml/cmake/Modules" . && make
+cmake -DSFML_DIR="$sfml" -DSFML_ROOT="$sfml" -DSFML_INCLUDE_DIR="$sfml/include" -DCMAKE_MODULE_PATH="$sfml/cmake/Modules" . && make
 ```
 
 This also means that when using *VoidCSFML*, in addition to specifying the full path to its libs, you will also need to specify the full path to SFML's libs:

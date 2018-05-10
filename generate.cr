@@ -18,29 +18,30 @@
 
 require "digest/sha1"
 
-
 LIB_NAME = "VoidCSFML"
-PREFIX = "sfml_"
+PREFIX   = "sfml_"
 
 DEBUG = ARGV.delete("--debug")
 
 INCLUDE_DIR = ARGV[0]? || "/usr/include"
-SFML_PATH = File.join(INCLUDE_DIR,
+SFML_PATH   = File.join(INCLUDE_DIR,
   File.basename(INCLUDE_DIR) == "SFML.framework" ? "Headers" : "SFML"
 )
 
 MODULE_CLASSES = %w[NonCopyable GlResource Drawable RenderTarget AlResource]
-STRUCTS = %w[IntRect FloatRect Vector2i Vector2u Vector2f Vector3f Time Transform IpAddress]
-
+STRUCTS        = %w[IntRect FloatRect Vector2i Vector2u Vector2f Vector3f Time Transform IpAddress Music::TimeSpan]
 
 enum Context
   CHeader, CPPSource, Crystal, CrystalLib
+
   def cr?
     crystal? || crystal_lib?
   end
+
   def lib?
     crystal_lib? || c_header?
   end
+
   def c?
     c_header? || cpp_source?
   end
@@ -50,11 +51,11 @@ enum Visibility
   Private, Protected, Public
 end
 
-
 alias CTypeBase = CClass | CEnum | CNativeType
 
 class CType
   @@all = {} of String => CTypeBase
+
   def self.all
     @@all
   end
@@ -83,7 +84,6 @@ class CType
   forward_missing_to @type
 end
 
-
 def register_type(type : CTypeBase)
   CType.all[type.full_name] = type
   CType.all["String"] = CNativeType.new("String")
@@ -98,7 +98,6 @@ end
   cls.struct = false
   register_type cls
 end
-
 
 def find_type(name : String, parent : CNamespace?) : CTypeBase
   if name.starts_with?("sf::")
@@ -143,9 +142,9 @@ def make_type(name : String, parent : CNamespace?) : CType
   end
   info = {
     reference: remove_and_count(name, "&") > 0,
-    pointer: remove_and_count(name, "*"),
-    const: remove_and_count(name, /\bconst\b/) > 0,
-    array: array,
+    pointer:   remove_and_count(name, "*"),
+    const:     remove_and_count(name, /\bconst\b/) > 0,
+    array:     array,
   }
   name = name.strip
 
@@ -158,7 +157,7 @@ def identifier_hash(string) : String
   size = 3
   digest = Digest::SHA1.digest(string)
   number = 0u64
-  (digest.size - sizeof(UInt64) ... digest.size).each do |i|
+  (digest.size - sizeof(UInt64)...digest.size).each do |i|
     number <<= 8
     number |= digest[i]
   end
@@ -193,7 +192,6 @@ def apply_diff(a, diff)
   end
   b.join
 end
-
 
 abstract class CItem
   def initialize(@name : String?, @visibility = Visibility::Public,
@@ -244,7 +242,7 @@ abstract class CItem
           line = line.sub /^\\li\b */, "* "
           line = line.sub /^    \b/, "  "
           line = line.sub /^\\param\b +([^ ()]+) +/ { "* *#{CParameter.new($1, make_type("", nil)).name(Context::Crystal)}* - " }
-          #line = line.sub /^\\ingroup\b *([^ ()]+)/ { "*SFML module: #{$1.underscore}*" }
+          # line = line.sub /^\\ingroup\b *([^ ()]+)/ { "*SFML module: #{$1.underscore}*" }
           line = line.sub /^\\(ingroup|relates)\b.*/, ""
           line = line.gsub /(@ref|\\a)\b *([^ ()]+)/ { "*#{$2.underscore}*" }
           line = line.gsub /(@ref|\\a)\b *([^ ()]+)/ { "*#{$2.underscore}*" }
@@ -273,7 +271,7 @@ abstract class CItem
       end
     end
     doc.lines.each do |line|
-      o<< "# #{line}"
+      o << "# #{line}"
     end
   end
 end
@@ -283,8 +281,6 @@ abstract class CNamespace < CItem
 
   forward_missing_to @items
 end
-
-
 
 class CClass < CNamespace
   @struct : Bool? = nil
@@ -315,9 +311,9 @@ class CClass < CNamespace
       buf = [] of String
 
       if context.cpp_source?
-        buf<< "class _#{full_name(context)} : public sf::#{full_name(context)} {"
-        buf<< "public:"
-        buf<< "void* parent;"
+        buf << "class _#{full_name(context)} : public sf::#{full_name(context)} {"
+        buf << "public:"
+        buf << "void* parent;"
       end
 
       cpp_callbacks = [] of String
@@ -327,7 +323,7 @@ class CClass < CNamespace
 
         abstr = func.abstract? || func.name(Context::Crystal).starts_with?("on_")
         if func.visibility.protected? && !abstr && context.cpp_source? && !func.constructor?
-          buf<< "using #{full_name(context)}::#{func.name(context)};"
+          buf << "using #{full_name(context)}::#{func.name(context)};"
         end
         next unless abstr
 
@@ -377,51 +373,51 @@ class CClass < CNamespace
 
         callback_name = "#{PREFIX}#{full_name(context).downcase}_#{func.name(Context::CPPSource).downcase}_callback"
         if context.c_header?
-          o<< "#{LIB_NAME.upcase}_API #{callback_name}(void (*callback)(#{c_params.join(", ")}));"
+          o << "#{LIB_NAME.upcase}_API #{callback_name}(void (*callback)(#{c_params.join(", ")}));"
         end
         if context.cpp_source?
-          o<< "void (*_#{callback_name})(#{c_params.join(", ")}) = 0;"
-          o<< "void #{callback_name}(void (*callback)(#{c_params.join(", ")})) {"
-          o<< "_#{callback_name} = callback;"
-          o<< "}"
+          o << "void (*_#{callback_name})(#{c_params.join(", ")}) = 0;"
+          o << "void #{callback_name}(void (*callback)(#{c_params.join(", ")})) {"
+          o << "_#{callback_name} = callback;"
+          o << "}"
         end
 
         if context.cpp_source?
           typ = func.type.try &.full_name || "void"
-          buf<< "virtual #{typ} #{func.name(context)}(#{cpp_params.join(", ")})#{" const" if func.const?} {"
-          buf<< "#{return_param.type.full_name} result;" if return_param
-          buf<< "_#{callback_name}(#{cpp_args.join(", ")});"
-          buf<< "return result;" if return_param
-          buf<< "}"
+          buf << "virtual #{typ} #{func.name(context)}(#{cpp_params.join(", ")})#{" const" if func.const?} {"
+          buf << "#{return_param.type.full_name} result;" if return_param
+          buf << "_#{callback_name}(#{cpp_args.join(", ")});"
+          buf << "return result;" if return_param
+          buf << "}"
         end
         if context.crystal_lib?
-          o<< "fun #{callback_name}(callback : (#{cl_params.map(&.split(" : ")[1]).join(", ")} ->))"
+          o << "fun #{callback_name}(callback : (#{cl_params.map(&.split(" : ")[1]).join(", ")} ->))"
         end
         if context.crystal?
-          o<< "#{LIB_NAME}.#{callback_name}(->(#{cl_params.join(", ")}) {"
+          o << "#{LIB_NAME}.#{callback_name}(->(#{cl_params.join(", ")}) {"
           inst = ("self")
-          o<< "#{"output = " if func.type}#{inst}.as(#{full_name(context)}).#{func.name(context)}(#{cr_args.join(", ")})"
+          o << "#{"output = " if func.type}#{inst}.as(#{full_name(context)}).#{func.name(context)}(#{cr_args.join(", ")})"
           if func.parameters.any? { |param| param.type.full_name(Context::CPPSource) == "SoundStream::Chunk" }
-            o<< "data.value, data_size.value = output.to_unsafe, LibC::SizeT.new(output.size) if output"
+            o << "data.value, data_size.value = output.to_unsafe, LibC::SizeT.new(output.size) if output"
           end
           if (typ = func.type)
             if typ.type.full_name(Context::Crystal) == "Bool"
-              o<< "result.value = !!output"
+              o << "result.value = !!output"
             elsif typ.type.is_a?(CNativeType)
-              o<< "result.value = #{typ.type.full_name(Context::Crystal)}.new(output)"
+              o << "result.value = #{typ.type.full_name(Context::Crystal)}.new(output)"
             elsif typ.type.full_name == "Vector2f"
-              o<< "result.as(Vector2f*).value = Vector2f.new(output[0].to_f32, output[1].to_f32)"
+              o << "result.as(Vector2f*).value = Vector2f.new(output[0].to_f32, output[1].to_f32)"
             else
-              o<< "result.value = output"
+              o << "result.value = output"
             end
           end
-          o<< "})"
+          o << "})"
         end
       end
       if context.cpp_source?
-        buf<< "};"
+        buf << "};"
         buf.each do |line|
-          o<< line
+          o << line
         end
       end
     end
@@ -430,22 +426,22 @@ class CClass < CNamespace
       render_docs(o, qualname)
       inh = " < #{inherited_class.not_nil!.name(context)}" if inherited_class
       kind = case
-      when module?
-        "module"
-      when struct?
-        "struct"
-      else
-        "class"
-      end
+             when module?
+               "module"
+             when struct?
+               "struct"
+             else
+               "class"
+             end
       abstr = "abstract " if abstract? && !module?
       parent = self.parent
       if parent.is_a?(CClass) && parent.union?
         inh = " < #{parent.name(context)}"
         abstr = "abstract "
       end
-      o<< "#{abstr}#{kind} #{name(context)}#{inh}"
+      o << "#{abstr}#{kind} #{name(context)}#{inh}"
       if class?
-        o<< "@this : Void*"
+        o << "@this : Void*"
       end
     end
     if abstract? && class?
@@ -474,7 +470,7 @@ class CClass < CNamespace
     todo = [self]
     until todo.empty?
       to_render.concat(todo)
-      todo = todo.map { |cls| ([cls.inherited_class] + cls.inherited_modules.map { |m| find_type(m, nil).as?(CClass) }).compact } .flatten
+      todo = todo.map { |cls| ([cls.inherited_class] + cls.inherited_modules.map { |m| find_type(m, nil).as?(CClass) }).compact }.flatten
     end
 
     done_functions = Set(String).new
@@ -532,30 +528,30 @@ class CClass < CNamespace
             end
           end
           member.render_docs(o, qualname + "::" + member.name(Context::Crystal))
-          o<< "struct #{member.name(context)} < #{inh}"
-          o<< "end"
+          o << "struct #{member.name(context)} < #{inh}"
+          o << "end"
         end
       end
 
       inherited_modules.each do |mod|
-        o<< "include #{mod}"
+        o << "include #{mod}"
       end
 
       unless module?
-        o<< "# :nodoc:"
-        o<< "def to_unsafe()"
+        o << "# :nodoc:"
+        o << "def to_unsafe()"
         if struct?
-          o<< "pointerof(@#{find(&.is_a? CVariable).not_nil!.name(Context::Crystal)}).as(Void*)"
+          o << "pointerof(@#{find(&.is_a? CVariable).not_nil!.name(Context::Crystal)}).as(Void*)"
         else
-          o<< "@this"
+          o << "@this"
         end
-        o<< "end"
+        o << "end"
       end
       if class?
-        o<< "# :nodoc:"
-        o<< "def inspect(io)"
-        o<< "to_s(io)"
-        o<< "end"
+        o << "# :nodoc:"
+        o << "def inspect(io)"
+        o << "to_s(io)"
+        o << "end"
       end
     end
 
@@ -563,14 +559,14 @@ class CClass < CNamespace
       %w[RenderTexture RenderWindow RenderTarget].each do |target|
         func = CFunction.new("draw", type: nil,
           parameters: [CParameter.new("target", make_type("const #{target} &", nil)),
-                      CParameter.new("states", make_type("RenderStates", nil))],
+                       CParameter.new("states", make_type("RenderStates", nil))],
           visibility: visibility, parent: self, docs: [":nodoc:"]
         )
 
         if context.cpp_source?
-          o<< "void #{func.name(Context::CHeader)}(void* self, void* target, void* states) {"
-          o<< "((#{target}*)target)->draw(*(#{"_" if abstract?}#{self.full_name(context)}*)self, *(RenderStates*)states);"
-          o<< "}"
+          o << "void #{func.name(Context::CHeader)}(void* self, void* target, void* states) {"
+          o << "((#{target}*)target)->draw(*(#{"_" if abstract?}#{self.full_name(context)}*)self, *(RenderStates*)states);"
+          o << "}"
         else
           func.render(context, o)
         end
@@ -583,28 +579,28 @@ class CClass < CNamespace
         visibility: Visibility::Public, parent: self, docs: [":nodoc:"]
       ).render(context, o)
       if context.crystal?
-        o<< "def dup() : self"
-        o<< "return typeof(self).new(self)"
-        o<< "end"
+        o << "def dup() : self"
+        o << "return typeof(self).new(self)"
+        o << "end"
       end
     end
 
     if context.crystal?
-      o<< "end"
+      o << "end"
 
       each do |func|
         next unless func.is_a? CFunction
         next unless (typ = func.const_reference_getter?)
-        o<< "# :nodoc:"
-        o<< "class #{typ.full_name(context)}::Reference < #{typ.full_name(context)}"
-        o<< "def initialize(@this : Void*, @parent : #{name(context)})"
-        o<< "end"
-        o<< "def finalize()"
-        o<< "end"
-        o<< "def to_unsafe()"
-        o<< "@this"
-        o<< "end"
-        o<< "end"
+        o << "# :nodoc:"
+        o << "class #{typ.full_name(context)}::Reference < #{typ.full_name(context)}"
+        o << "def initialize(@this : Void*, @parent : #{name(context)})"
+        o << "end"
+        o << "def finalize()"
+        o << "end"
+        o << "def to_unsafe()"
+        o << "@this"
+        o << "end"
+        o << "end"
       end
     end
   end
@@ -619,6 +615,7 @@ class CClass < CNamespace
     end
     nil
   end
+
   def struct? : Bool
     return @struct.not_nil! if !@struct.nil?
     return false if module?
@@ -627,15 +624,18 @@ class CClass < CNamespace
     return false if any? { |item| item.is_a?(CVariable) && %w[String std::string].includes?(item.type.full_name) }
     any? { |item| item.is_a?(CVariable) && item.visibility.public? }
   end
+
   def struct=(value : Bool)
     @struct = value
   end
+
   def module? : Bool
     return true if MODULE_CLASSES.includes? self.full_name
     none? { |item|
       item.is_a?(CFunction) && !item.static? || item.is_a?(CVariable) && item.visibility.public?
     }
   end
+
   def class? : Bool
     @struct == false || !struct? && !module?
   end
@@ -653,6 +653,7 @@ class CClass < CNamespace
     end
     inh
   end
+
   def subclasses : Array(CClass)
     CType.all.each do |typ|
       if typ.is_a?(CClass) && typ.inherited_class == self
@@ -661,6 +662,7 @@ class CClass < CNamespace
     end
     return [] of CClass
   end
+
   def has_module?(mod : String) : Bool
     cls = self
     while cls.is_a? CClass
@@ -728,6 +730,7 @@ class CNativeType
       @name.not_nil!
     end
   end
+
   def full_name(context = Context::CPPSource) : String
     name(context)
   end
@@ -753,7 +756,7 @@ class CEnumMember < CItem
     if @value
       line += " = #{value(context)}"
     end
-    o<< line
+    o << line
   end
 end
 
@@ -774,9 +777,9 @@ class CEnum < CNamespace
       if @name
         render_docs(o, qualname)
         if members.map(&.value).compact.any?(&.includes? "<<")
-          o<< "@[Flags]"
+          o << "@[Flags]"
         end
-        o<< "enum #{name(context)}"
+        o << "enum #{name(context)}"
       end
       members.each do |member|
         next if member.name(Context::Crystal) == "None" && member.value == "0"
@@ -784,9 +787,9 @@ class CEnum < CNamespace
         member.render(context, o)
       end
       if @name
-        o<< "end"
+        o << "end"
         unless full_name == "Style"
-          o<< "Util.extract #{full_name(context)}"
+          o << "Util.extract #{full_name(context)}"
         end
       end
     end
@@ -828,9 +831,9 @@ class CFunction < CItem
       name = getter_name || setter_name || name
       name = {
         "to_string" => "to_s",
-        ">>" => "read",
-        "<<" => "write",
-        "BoolType" => "valid?",
+        ">>"        => "read",
+        "<<"        => "write",
+        "BoolType"  => "valid?",
       }.fetch(name, name)
     end
     if context.lib?
@@ -854,7 +857,7 @@ class CFunction < CItem
       name = PREFIX + name
       hash = parameters.map { |param|
         identifier_hash(param.type.full_name)
-      } .join
+      }.join
       name += "_#{hash}" unless hash.empty? || @name == "parent"
     end
     name
@@ -890,6 +893,7 @@ class CFunction < CItem
       $1
     end
   end
+
   def operator? : Bool
     !!operator_name
   end
@@ -899,6 +903,7 @@ class CFunction < CItem
       "initialize"
     end
   end
+
   def constructor?
     !!constructor_name
   end
@@ -908,6 +913,7 @@ class CFunction < CItem
       "finalize"
     end
   end
+
   def destructor?
     !!destructor_name
   end
@@ -917,11 +923,13 @@ class CFunction < CItem
       typ
     end
   end
+
   def const_reference_getter? : CType?
     if (typ = self.type) && typ.type.as?(CClass).try &.class? && (typ.reference? && typ.const?) && getter_name
       typ
     end
   end
+
   def reference_setter? : CType?
     if @name.not_nil!.underscore.starts_with?("set_") && !parameters.empty?
       typ = parameters[0].type
@@ -930,14 +938,15 @@ class CFunction < CItem
       end
     end
   end
+
   def reference_var : String?
     name = if reference_setter?
-      @name.not_nil!.underscore[4..-1]
-    elsif reference_getter?
-      getter_name
-    else
-      return
-    end
+             @name.not_nil!.underscore[4..-1]
+           elsif reference_getter?
+             getter_name
+           else
+             return
+           end
     "@_#{parent.try &.full_name(Context::CrystalLib).not_nil!.downcase}_#{name}"
   end
 
@@ -979,7 +988,7 @@ class CFunction < CItem
         if (cls.module? || cls.union?)
           return
         end
-        cpp_obj = "new(self) #{name}".sub /[A-Z]\w*$/, ""  # avoid name duplication
+        cpp_obj = "new(self) #{name}".sub /[A-Z]\w*$/, "" # avoid name duplication
       elsif static?
         cpp_obj = "#{name}::"
       else
@@ -1004,12 +1013,12 @@ class CFunction < CItem
     if (type = self.type)
       extra = (type.reference? && type.const? && type.type.as?(CClass).try &.class? ? 1 : 0)
       type = CType.new(type: type.type, reference: type.reference?,
-                       pointer: type.pointer + extra, const: type.const?)
+        pointer: type.pointer + extra, const: type.const?)
       return_params << CParameter.new("result", type)
       cpp_asgn = "*result = "
-      #if type.type.is_a? CClass
+      # if type.type.is_a? CClass
       cpp_asgn = "*(#{type.type.full_name}#{"*"*type.pointer}*)result = "
-      #end
+      # end
 
       if type.full_name(Context::CPPSource).starts_with?("std::vector<")
         extra_return_params << CParameter.new("result_size", make_type("std::size_t*", nil))
@@ -1018,7 +1027,7 @@ class CFunction < CItem
 
     parameters.each do |param|
       if ((param.type.reference? || param.type.pointer > 0) && !param.type.const? && !getter_name && !(param.type.type.as?(CClass).try &.class?) &&
-          (!param.name.ends_with?('s') || param.name.ends_with?("ss")) && param.name(Context::Crystal) !~ /stream$|^packet$/)
+         (!param.name.ends_with?('s') || param.name.ends_with?("ss")) && param.name(Context::Crystal) !~ /stream$|^packet$/)
         if param.type.full_name != "void*" && docs.none? &.=~ /#{param.name}.+\bfill\b/
           return_params << param
         end
@@ -1074,11 +1083,11 @@ class CFunction < CItem
         if type.full_name(Context::CPPSource) == "bool" && !return_params.includes? param
           cpp_arg = "#{cpp_arg} != 0"
         elsif %w[std::size_t Int64 Uint64].includes?(type.full_name(Context::CPPSource)) && (
-          (param.name(Context::Crystal).ends_with?("_count") && cr_args[-1].starts_with?(cr_arg[0...4])) ||
-          (param.name(Context::Crystal) == "size" || param.name(Context::Crystal) == "size_in_bytes")
-        )
+                (param.name(Context::Crystal).ends_with?("_count") && cr_args[-1].starts_with?(cr_arg[0...4])) ||
+                (param.name(Context::Crystal) == "size" || param.name(Context::Crystal) == "size_in_bytes")
+              )
           cr_params.pop
-          prev_param = parameters[param_i-1]
+          prev_param = parameters[param_i - 1]
           typ = prev_param.type.full_name(Context::Crystal)
           if typ == "Void"
             typ = "Slice"
@@ -1089,7 +1098,7 @@ class CFunction < CItem
           end
           cr_param = "#{prev_param.name(Context::Crystal)} : #{typ}"
         elsif {type.full_name(Context::CPPSource), param.name} == {"A", "argument"}
-          prev_param = parameters[param_i-1]
+          prev_param = parameters[param_i - 1]
           c_params[-1] = "void (*#{prev_param.name(Context::CHeader)})(void*)"
           cl_params[-1] = "#{prev_param.name(Context::CrystalLib)} : (Void*)->"
           c_type = "void*"
@@ -1224,51 +1233,58 @@ class CFunction < CItem
       end
       func_name = name(context, parent: parent)
       abstr = "protected " if visibility.protected? && constructor?
-      abstr = "abstract " if abstract? #if cls.try &.module? && !static?
-      unless cls && cls.abstract? && cls.class? || visibility.public?
-        ret = nil
-      end
+      abstr = "abstract " if abstract? # if cls.try &.module? && !static?
       if operator_name == ">>"
         cr_params << "type : #{return_params[0].type.full_name(Context::Crystal)}.class"
       end
 
       render_docs(o, "#{qualname(parent || cls)}(#{cr_params.map(&.split(" : ")[0]).join(",")})")
-      o<< "#{abstr}def #{"self." if static?}#{func_name}(#{cr_params.join(", ")})#{ret}"
+      o << "#{abstr}def #{"self." if static?}#{func_name}(#{cr_params.join(", ")})#{ret}"
 
       return if abstract?
       unless cls && cls.abstract? && cls.class? || visibility.public? || name(Context::Crystal) == "initialize"
-        o<< "end"
+        if ret_types.size == 1
+          case ret_types[0]
+          when .ends_with? "?"
+            o << "nil"
+          when "Bool"
+            o << "false"
+          when .starts_with? "Int"
+            o << "#{ret_types[0]}.zero"
+          end
+        end
+        o << "end"
         return true
       end
 
       if (typ = reference_getter?)
         if typ.pointer > 0
-          o<< "return #{reference_var}"
-          o<< "end"
+          o << "return #{reference_var}"
+          o << "end"
           return
         elsif typ.type.as(CClass).class?
-          o<< "return #{reference_var}.not_nil! if #{reference_var}"
+          o << "return #{reference_var}.not_nil! if #{reference_var}"
           conversions << "#{reference_var} = #{return_params[0].name}"
         end
       elsif reference_setter?
-        o<< "#{reference_var} = #{parameters[0].name(Context::Crystal)}"
+        o << "#{reference_var} = #{parameters[0].name(Context::Crystal)}"
       end
 
       if (constructor? || name(Context::Crystal) == "initialize") && (cls = parent.as? CClass)
         if cls.class?
-          o<< "#{LIB_NAME}.#{CFunction.new("allocate", parent: cls, type: nil, parameters: [] of CParameter).name(Context::CrystalLib)}(out @this)"
+          o << "#{LIB_NAME}.#{CFunction.new("allocate", parent: cls, type: nil, parameters: [] of CParameter).name(Context::CrystalLib)}(out @this)"
           cls.each do |func|
             next unless func.is_a?(CFunction) && !func.visibility.private?
             if func.reference_setter?
               parameters.each do |param|
                 if func.name(Context::CPPSource).downcase == "set" + param.name(Context::CPPSource).downcase
-                  o<< "#{func.reference_var} = #{param.name(Context::Crystal)}"
+                  o << "#{func.reference_var} = #{param.name(Context::Crystal)}"
                 end
               end
             end
           end
           if !constructor?
-            o<< "#{LIB_NAME}.#{CFunction.new("initialize", parent: cls, type: nil, parameters: [] of CParameter).name(Context::CrystalLib)}(to_unsafe)"
+            o << "#{LIB_NAME}.#{CFunction.new("initialize", parent: cls, type: nil, parameters: [] of CParameter).name(Context::CrystalLib)}(to_unsafe)"
           end
         elsif cls.struct?
           cls.items.each do |item|
@@ -1276,7 +1292,7 @@ class CFunction < CItem
               typ = item.type.full_name(context)
               typ = "Void*" if item.type.pointer > 0
               typ += "[#{item.type.array}]" if item.type.array != 1
-              o<< "@#{item.name(context)} = uninitialized #{typ}"
+              o << "@#{item.name(context)} = uninitialized #{typ}"
             end
           end
         end
@@ -1284,9 +1300,9 @@ class CFunction < CItem
         (parameters - return_params).each do |param|
           name = param.name(Context::Crystal)
           if param.type.type.is_a?(CClass) && (param.type.type.as(CClass).class? && cls.any? { |item|
-            (item.is_a?(CFunction) && item.reference_var == name)
-          } || param.type.pointer > 0)
-            o<< "@_#{parent.not_nil!.full_name(Context::CrystalLib).not_nil!.downcase}_#{name} = #{name}"
+               (item.is_a?(CFunction) && item.reference_var == name)
+             } || param.type.pointer > 0)
+            o << "@_#{parent.not_nil!.full_name(Context::CrystalLib).not_nil!.downcase}_#{name} = #{name}"
           end
         end
       else
@@ -1295,16 +1311,16 @@ class CFunction < CItem
           if type.is_a? CClass
             type = type.full_name(context)
             if type == "Event"
-              o<< "#{LIB_NAME}.#{PREFIX}event_allocate(out #{param.name(context)})"
+              o << "#{LIB_NAME}.#{PREFIX}event_allocate(out #{param.name(context)})"
             else
               unless const_reference_getter?
                 if parameters.includes?(param)
-                  o<< "#{param.name(context)} = #{type}.new"
+                  o << "#{param.name(context)} = #{type}.new"
                 else
                   if param.type.type.as(CClass).class?
-                    o<< "#{param.name(context)} = #{type}.new"
+                    o << "#{param.name(context)} = #{type}.new"
                   else
-                    o<< "#{param.name(context)} = #{type}.allocate"
+                    o << "#{param.name(context)} = #{type}.allocate"
                   end
                 end
               end
@@ -1314,93 +1330,92 @@ class CFunction < CItem
       end
 
       conversions.each do |s|
-        o<< s
+        o << s
       end
 
       if parent.as?(CClass).try &.struct? && @name.try &.starts_with?("set_") && cr_args.size == 2
-        o<< "@#{setter_name.not_nil![0...-1]} = #{cr_args[-1]}#{" ? #{cr_args[-1]}.to_unsafe : Pointer(Void).null" if reference_setter?}"
+        o << "@#{setter_name.not_nil![0...-1]} = #{cr_args[-1]}#{" ? #{cr_args[-1]}.to_unsafe : Pointer(Void).null" if reference_setter?}"
       else
-        o<< "#{LIB_NAME}.#{name(Context::CrystalLib, parent: parent)}(#{cr_args.join(", ")})"
+        o << "#{LIB_NAME}.#{name(Context::CrystalLib, parent: parent)}(#{cr_args.join(", ")})"
         if destructor?
-          o<< "#{LIB_NAME}.#{CFunction.new("free", parent: parent, type: nil, parameters: [] of CParameter).name(Context::CrystalLib)}(@this)"
+          o << "#{LIB_NAME}.#{CFunction.new("free", parent: parent, type: nil, parameters: [] of CParameter).name(Context::CrystalLib)}(@this)"
         end
       end
       if return_params[-1]?.try &.type.type.full_name == "Event"
-        o<< "if result"
-        o<< "{% begin %}"
-        o<< "case event.as(LibC::Int*).value"
+        o << "if result"
+        o << "{% begin %}"
+        o << "case event.as(LibC::Int*).value"
         union_var = CType.all["Event"].as(CClass).union?.not_nil!
         enu = union_var.type.type.as(CEnum)
         members = enu.members[0...-1].map(&.name(context))
-        o<< "{% for m, i in %w[#{members.join(' ')}] %}"
-        o<< "when {{i}}"
-        o<< "(event.as(LibC::Int*) + 1).as(Event::{{m.id}}*).value"
-        o<< "{% end %}"
-        o<< "end .not_nil!"
-        o<< "{% end %}"
-        o<< "end"
+        o << "{% for m, i in %w[#{members.join(' ')}] %}"
+        o << "when {{i}}"
+        o << "(event.as(LibC::Int*) + 1).as(Event::{{m.id}}*).value"
+        o << "{% end %}"
+        o << "end .not_nil!"
+        o << "{% end %}"
+        o << "end"
         return_params.clear
       end
 
       if (constructor? || name(Context::Crystal) == "initialize") && cls && cls.abstract? && cls.class?
-        o<< "#{LIB_NAME}.#{CFunction.new("parent", parent: cls, type: nil, parameters: [] of CParameter).name(Context::CrystalLib)}(@this, self.as(Void*))"
+        o << "#{LIB_NAME}.#{CFunction.new("parent", parent: cls, type: nil, parameters: [] of CParameter).name(Context::CrystalLib)}(@this, self.as(Void*))"
       end
-
     elsif context.c?
       finish = (context.c_header? ? ";" : " {")
       prefix = context.c_header? ? "#{LIB_NAME.upcase}_API" : "void"
-      o<< "#{prefix} #{name(Context::CHeader, parent: parent)}(#{c_params.join(", ")})#{finish}"
+      o << "#{prefix} #{name(Context::CHeader, parent: parent)}(#{c_params.join(", ")})#{finish}"
       if context.cpp_source?
         cpp_call = if name(context).starts_with?("get_")
-          "#{cpp_obj}#{name(context)[4..-1]}"
-        elsif name(context).starts_with?("set_")
-          "#{cpp_obj}#{name(context)[4..-1]} = #{cpp_args.join(", ")}"
-        elsif operator_name == "[]="
-          "#{cpp_obj}operator[](#{cpp_args[0]}) = #{cpp_args[1]}"
-        elsif (operator_name || "").downcase.starts_with? "bool"
-          "(bool)#{cpp_obj.not_nil![0...-2]}"
-        elsif @name == "allocate"
-          "malloc(sizeof(#{"_" if parent.as(CClass).abstract? && parent.as(CClass).class?}#{parent.as(CClass).full_name(context)}))"
-        elsif @name == "free"
-          "free(self)"
-        elsif @name == "parent"
-          "#{cpp_obj}parent = #{cpp_args.join(", ")}"
-        elsif destructor? && parent.as?(CClass).try &.abstract?
-          "#{cpp_obj}~_#{name(context)[1..-1]}(#{cpp_args.join(", ")})"
-        else
-          "#{cpp_obj}#{name(context)}(#{cpp_args.join(", ")})"
-        end
+                     "#{cpp_obj}#{name(context)[4..-1]}"
+                   elsif name(context).starts_with?("set_")
+                     "#{cpp_obj}#{name(context)[4..-1]} = #{cpp_args.join(", ")}"
+                   elsif operator_name == "[]="
+                     "#{cpp_obj}operator[](#{cpp_args[0]}) = #{cpp_args[1]}"
+                   elsif (operator_name || "").downcase.starts_with? "bool"
+                     "(bool)#{cpp_obj.not_nil![0...-2]}"
+                   elsif @name == "allocate"
+                     "malloc(sizeof(#{"_" if parent.as(CClass).abstract? && parent.as(CClass).class?}#{parent.as(CClass).full_name(context)}))"
+                   elsif @name == "free"
+                     "free(self)"
+                   elsif @name == "parent"
+                     "#{cpp_obj}parent = #{cpp_args.join(", ")}"
+                   elsif destructor? && parent.as?(CClass).try &.abstract?
+                     "#{cpp_obj}~_#{name(context)[1..-1]}(#{cpp_args.join(", ")})"
+                   else
+                     "#{cpp_obj}#{name(context)}(#{cpp_args.join(", ")})"
+                   end
         if !return_params.empty?
           type = self.type || return_params[0].type
           if type.full_name(context) == "String"
-            o<< "static String str;"
-            o<< "str = #{cpp_call};"
+            o << "static String str;"
+            o << "str = #{cpp_call};"
             cpp_asgn = "*result = "
             cpp_call = "const_cast<uint32_t*>(str.getData())"
             type = CType.new(CNativeType.new("uint32_t"), pointer: 1, const: true)
           elsif type.full_name(context) == "std::string"
-            o<< "static std::string str;"
+            o << "static std::string str;"
             if self.type
-              o<< "str = #{cpp_call};"
+              o << "str = #{cpp_call};"
             else
               cpp_call = cpp_call.sub(/\b#{return_params[0].name(Context::CrystalLib)}\b/, "str")
-              o<< "#{cpp_call};"
+              o << "#{cpp_call};"
             end
             cpp_asgn = "*#{return_params[0].name(Context::CrystalLib)} = "
             cpp_call = "const_cast<char*>(str.c_str())"
             type = CType.new(CNativeType.new("char"), pointer: 1, const: true)
           elsif type.full_name(context) =~ /\bstd::vector<std::string>/
-            o<< "static std::vector<std::string> strs;"
-            o<< "static std::vector<char*> bufs;"
-            o<< "strs = #{cpp_call};"
-            o<< "bufs.resize(strs.size());"
-            o<< "for (std::size_t i = 0; i < strs.size(); ++i) bufs[i] = const_cast<char*>(strs[i].c_str());"
-            o<< "*result_size = bufs.size();"
+            o << "static std::vector<std::string> strs;"
+            o << "static std::vector<char*> bufs;"
+            o << "strs = #{cpp_call};"
+            o << "bufs.resize(strs.size());"
+            o << "for (std::size_t i = 0; i < strs.size(); ++i) bufs[i] = const_cast<char*>(strs[i].c_str());"
+            o << "*result_size = bufs.size();"
             cpp_asgn, cpp_call = "*result = ", "&bufs[0]"
           elsif type.full_name(context) =~ /\b(std::vector<.+>)/
-            o<< "static #{$1} objs;"
-            o<< "objs = const_cast<#{$1}&>(#{cpp_call});"
-            o<< "*result_size = objs.size();"
+            o << "static #{$1} objs;"
+            o << "objs = const_cast<#{$1}&>(#{cpp_call});"
+            o << "*result_size = objs.size();"
             cpp_asgn, cpp_call = "*result = ", "&objs[0]"
           elsif type.const? && type.pointer > 0
             cast = CType.new(type.type, reference: false, pointer: type.pointer, const: false)
@@ -1412,17 +1427,17 @@ class CFunction < CItem
             cpp_asgn = "*result = "
           end
         end
-        o<< "#{cpp_asgn}#{cpp_call};"
+        o << "#{cpp_asgn}#{cpp_call};"
       end
     elsif context.crystal_lib?
-      o<< "fun #{name(Context::CrystalLib, parent: parent)}(#{cl_params.join(", ")})"
+      o << "fun #{name(Context::CrystalLib, parent: parent)}(#{cl_params.join(", ")})"
     end
     if context.crystal?
       if operator_name == "<<"
-        o<< "self"
+        o << "self"
       end
       unless return_params.empty?
-        o<< "return " + return_params.map { |param|
+        o << "return " + return_params.map { |param|
           name = param.name(context)
           typ = param.type.type.full_name(Context::CPPSource)
           if typ == "String"
@@ -1442,41 +1457,40 @@ class CFunction < CItem
           else
             name
           end
-        } .join(", ")
+        }.join(", ")
       end
-      o<< "end"
+      o << "end"
 
       if name(Context::Crystal) =~ /^([a-z]+_(from_.+)|create|(open))$/
         full = $1
         short = $2? || $3? || "new"
         cls_name = cls.not_nil!.name(context).not_nil!
         obj_name = cls_name.underscore
-        o<< "# Shorthand for `#{obj_name} = #{cls_name}.new; #{obj_name}.#{full}(...); #{obj_name}`"
+        o << "# Shorthand for `#{obj_name} = #{cls_name}.new; #{obj_name}.#{full}(...); #{obj_name}`"
         if self.type.try &.type.full_name == "bool"
-          o<< "#"
-          o<< "# Raises `InitError` on failure"
+          o << "#"
+          o << "# Raises `InitError` on failure"
         end
-        o<< "def self.#{short}(*args, **kwargs) : self"
+        o << "def self.#{short}(*args, **kwargs) : self"
         args = cr_params.map &.split(" : ")[0]
         call = "obj.#{full}(*args, **kwargs)"
-        o<< "obj = new"
+        o << "obj = new"
         if self.type.try &.type.full_name == "bool"
-          o<< "if !#{call}"
-          o<< "raise InitError.new(\"#{cls_name}.#{full} failed\")"
-          o<< "end"
+          o << "if !#{call}"
+          o << "raise InitError.new(\"#{cls_name}.#{full} failed\")"
+          o << "end"
         else
-          o<< call
+          o << call
         end
-        o<< "obj"
-        o<< "end"
+        o << "obj"
+        o << "end"
       end
 
       if reference_var && !parent.as?(CClass).try &.module?
-        o<< "#{reference_var} : #{(reference_getter? || reference_setter?).not_nil!.full_name(Context::Crystal)}? = nil"
+        o << "#{reference_var} : #{(reference_getter? || reference_setter?).not_nil!.full_name(Context::Crystal)}? = nil"
       end
-
     elsif context.cpp_source?
-      o<< "}"
+      o << "}"
     end
     true
   end
@@ -1514,7 +1528,7 @@ class CVariable < CItem
         typ = type.type.is_a?(CNativeType) ? type.full_name(Context::CrystalLib) : type.full_name(context)
         typ = "Void*" if type.pointer > 0
         typ += "[#{type.array}]" if type.array != 1
-        o<< "@#{var_name} : #{typ}"
+        o << "@#{var_name} : #{typ}"
       end
     end
     return if var_only
@@ -1522,13 +1536,13 @@ class CVariable < CItem
     if parent.struct?
       if context.crystal?
         render_docs(o, qualname + "()")
-        o<< "def #{var_name} : #{type.full_name(context)}#{"?" if type.pointer > 0}"
+        o << "def #{var_name} : #{type.full_name(context)}#{"?" if type.pointer > 0}"
         name = var_name
         if type.pointer > 0
           name = "_#{parent.as(CClass).full_name(Context::CrystalLib).not_nil!.downcase}_#{var_name}"
         end
-        o<< "@#{name}"
-        o<< "end"
+        o << "@#{name}"
+        o << "end"
       end
     else
       CFunction.new("get_#{@name}",
@@ -1550,6 +1564,7 @@ class CModule < CNamespace
   @done_files = Set(String).new
 
   @@doc_diffs = {} of String => Array(String)
+
   def self.doc_diffs
     @@doc_diffs
   end
@@ -1579,60 +1594,61 @@ class CModule < CNamespace
   def render(context : Context, out o : Output)
     case context
     when .c_header?
-      o<< "#ifndef #{LIB_NAME.upcase}_#{name.upcase}_H"
-      o<< "#define #{LIB_NAME.upcase}_#{name.upcase}_H"
+      o << "#ifndef #{LIB_NAME.upcase}_#{name.upcase}_H"
+      o << "#define #{LIB_NAME.upcase}_#{name.upcase}_H"
       dependencies.each do |dep|
-        o<< "#include <#{LIB_NAME.downcase}/#{dep.downcase}.h>"
+        o << "#include <#{LIB_NAME.downcase}/#{dep.downcase}.h>"
       end
-      o<< "#{LIB_NAME.upcase}_API #{PREFIX}#{name.downcase}_version(int*, int*, int*);"
+      o << "#{LIB_NAME.upcase}_API #{PREFIX}#{name.downcase}_version(int*, int*, int*);"
     when .cpp_source?
-      o<< "#include <#{LIB_NAME.downcase}/#{name.downcase}.h>"
-      o<< "#include <SFML/#{name}.hpp>"
-      o<< "using namespace sf;"
-      #o<< "using namespace std;"
+      o << "#include <#{LIB_NAME.downcase}/#{name.downcase}.h>"
+      o << "#include <SFML/#{name}.hpp>"
+      o << "using namespace sf;"
+      # o<< "using namespace std;"
     when .crystal_lib?
-      o<< "require \"../config\""
+      o << "require \"../config\""
       dependencies.each do |dep|
         next if dep == "Config"
         if dep == "Config"
-
         else
-          o<< "require \"../#{dep.downcase}/lib\""
+          o << "require \"../#{dep.downcase}/lib\""
         end
       end
-      o<< "@[Link(ldflags: \"-L\#{__DIR__}/../../voidcsfml -l#{LIB_NAME.downcase}-#{name.downcase}\")]"
-      o<< "lib #{LIB_NAME}"
+      o << "@[Link(ldflags: \"-L\#{__DIR__}/../../voidcsfml -l#{LIB_NAME.downcase}-#{name.downcase}\")]"
+      o << "@[Link(\"sfml-#{name.downcase}\")]"
+      # o<< "@[Link(\"#{LIB_NAME.downcase}-#{name.downcase}\")]"
+      o << "lib #{LIB_NAME}"
     when .crystal?
-      o<< "require \"./lib\""
-      o<< "require \"../common\""
+      o << "require \"./lib\""
+      o << "require \"../common\""
       dependencies.each do |dep|
         next if dep == "Config"
-        o<< "require \"../#{dep.downcase}\""
+        o << "require \"../#{dep.downcase}\""
       end
-      o<< "module SF"
-      o<< "extend self"
+      o << "module SF"
+      o << "extend self"
     end
 
     each &.render(context, o)
 
     case context
     when .crystal?
-      o<< "#{LIB_NAME}.#{PREFIX}#{name.downcase}_version(out major, out minor, out patch)"
-      o<< %q(if SFML_VERSION != (ver = "#{major}.#{minor}.#{patch}"))
-      o<< %q(STDERR.puts "Warning: CrSFML was built for SFML #{SFML_VERSION}, found SFML #{ver}")
-      o<< %q(end)
-      o<< "end"
+      o << "#{LIB_NAME}.#{PREFIX}#{name.downcase}_version(out major, out minor, out patch)"
+      o << %q(if SFML_VERSION != (ver = "#{major}.#{minor}.#{patch}"))
+      o << %q(STDERR.puts "Warning: CrSFML was built for SFML #{SFML_VERSION}, found SFML #{ver}")
+      o << %q(end)
+      o << "end"
     when .crystal_lib?
-      o<< "fun #{PREFIX}#{name.downcase}_version(LibC::Int*, LibC::Int*, LibC::Int*)"
-      o<< "end"
+      o << "fun #{PREFIX}#{name.downcase}_version(LibC::Int*, LibC::Int*, LibC::Int*)"
+      o << "end"
     when .c_header?
-      o<< "#endif"
+      o << "#endif"
     when .cpp_source?
-      o<< "void #{PREFIX}#{name.downcase}_version(int* major, int* minor, int* patch) {"
-      o<< "*major = SFML_VERSION_MAJOR;"
-      o<< "*minor = SFML_VERSION_MINOR;"
-      o<< "*patch = SFML_VERSION_PATCH;"
-      o<< "}"
+      o << "void #{PREFIX}#{name.downcase}_version(int* major, int* minor, int* patch) {"
+      o << "*major = SFML_VERSION_MAJOR;"
+      o << "*minor = SFML_VERSION_MINOR;"
+      o << "*patch = SFML_VERSION_PATCH;"
+      o << "}"
     end
   end
 
@@ -1664,17 +1680,17 @@ class CModule < CNamespace
       end
 
       if case line
-      when /^#(ifdef\b|(el)?if [^!])/
-        preprocessor_stack.pop if $2?
-        preprocessor_stack.push false
-      when /^#(ifndef\b|(el)?if !)/
-        preprocessor_stack.pop if $2?
-        preprocessor_stack.push true
-      when /^#else$/
-        preprocessor_stack.push !preprocessor_stack.pop
-      when /^#end(if)?$/
-        preprocessor_stack.pop
-      end != nil
+         when /^#(ifdef\b|(el)?if [^!])/
+           preprocessor_stack.pop if $2?
+           preprocessor_stack.push false
+         when /^#(ifndef\b|(el)?if !)/
+           preprocessor_stack.pop if $2?
+           preprocessor_stack.push true
+         when /^#else$/
+           preprocessor_stack.push !preprocessor_stack.pop
+         when /^#end(if)?$/
+           preprocessor_stack.pop
+         end != nil
         next
       end
 
@@ -1683,7 +1699,7 @@ class CModule < CNamespace
         line = line.sub %r( +// .+), ""
       end
 
-      if line =~ /^[^\/]*[^\)],$/  # multiline function definition
+      if line =~ /^[^\/]*[^\)],$/ # multiline function definition
         buf = line + " "
         next
       else
@@ -1700,22 +1716,19 @@ class CModule < CNamespace
       if (enu = stack.last?).is_a? CEnum
         if line =~ %r(^(\w+)( *= *([^,/]+))?,?( +///< (.+))?$)
           member = CEnumMember.new($1, value: $3?,
-                                   parent: enu, docs: [$5?].compact)
+            parent: enu, docs: [$5?].compact)
           enu.add member
           next
         end
       end
 
       case line
-
       when %r(^#include <SFML/(#{@name}/\w+\.hpp)>$)
         process_file $1
       when %r(^#include <SFML/(\w+)(/\w+)?\.hpp>$)
         @dependencies |= [$1]
-
       when %r(^///( (.+))?$)
         docs_buffer << ($2? || "")
-
       when /^(class|struct) ((\w|(<.+?>))+);$/
         class_name = $2
         register_type CClass.new(class_name, visibility: Visibility::Private) unless CType.all.has_key? class_name
@@ -1731,14 +1744,12 @@ class CModule < CNamespace
         upcoming_namespace = cls
         first_class ||= cls
         visibilities[cls] = ($1 == "struct" ? Visibility::Public : Visibility::Private)
-
       when "private:"
         visibilities[parent.as CClass] = Visibility::Private
       when "protected:"
         visibilities[parent.as CClass] = Visibility::Protected
       when "public:"
         visibilities[parent.as CClass] = Visibility::Public
-
       when /^enum( (\w+))?$/
         name = $2?
         if !name && file_name.includes? "WindowStyle"
@@ -1748,7 +1759,7 @@ class CModule < CNamespace
         (parent || self) << enu
         register_type enu
         upcoming_namespace = enu
-
+      when /^typedef /
       when /^(virtual|static|explicit)? *(([^\(]+) )??(operator *.+?|~?\w+)\((.*)\)( const)?( = 0)?(;| *:( .+\{\})?)$/
         match = $~
         func_params = match[5].scan(/
@@ -1762,36 +1773,32 @@ class CModule < CNamespace
         /x).map_with_index { |param_m, param_i|
           if param_m[0].strip =~ /^(.+?)(\b(\w+)\b( = (.+))?)?$/
             CParameter.new(type: make_type($1, parent),
-                           name: $3? || "p#{param_i}",
-                           default: $5?)
-          end .not_nil!
+              name: $3? || "p#{param_i}",
+              default: $5?)
+          end.not_nil!
         }
         if match[3]?
           func_type = make_type(match[3], parent)
           func_type = nil if func_type.void?
         end
         func = CFunction.new(**common_info,
-                             type: func_type,
-                             name: match[4],
-                             parameters: func_params,
-                             static: match[1]? == "static",
-                             abstract: match[7]? != nil,
-                             const: match[6]? != nil)
+          type: func_type,
+          name: match[4],
+          parameters: func_params,
+          static: match[1]? == "static",
+          abstract: match[7]? != nil,
+          const: match[6]? != nil)
         if func.operator? && !parent.is_a? CClass
           parent = (func.parameters[0].type.type).as? CClass
           next if !parent
         end
         (parent || self) << func
-
-      when /^typedef /
-
       when %r(^([^\(\)\/;]+) ([a-z]\w*)(\[[0-9]+\])?;( +///< (.+))$)
         docs_buffer.clear
         var = CVariable.new(type: make_type("#{$1}#{$3?}", parent),
-                            name: $2, parent: parent,
-                            visibility: visibility, docs: [$5?].compact)
+          name: $2, parent: parent,
+          visibility: visibility, docs: [$5?].compact)
         (parent || self) << var
-
       when /\{$/
         docs_buffer.clear
         stack.push upcoming_namespace
@@ -1811,7 +1818,6 @@ class CModule < CNamespace
     end
   end
 end
-
 
 class Output
   TAB = " "*4
@@ -1833,10 +1839,10 @@ class Output
       {{@type}}::TAB
     {% end %}
     comment = if DEBUG
-      lineno ? "L#{lineno}" : nil
-    else
-      nil
-    end
+                lineno ? "L#{lineno}" : nil
+              else
+                nil
+              end
     transform line.strip, comment do |line|
       @file << tab*@indent << line << '\n'
     end
@@ -1853,6 +1859,7 @@ class Output
   def indent(n = 1)
     @indent = {@indent + n, 0}.max
   end
+
   def dedent(n = 1)
     @indent = {@indent - n, 0}.max
   end
@@ -1860,6 +1867,7 @@ class Output
   def pause
     @paused = true
   end
+
   def resume
     @paused = false
   end
@@ -1882,22 +1890,21 @@ class CrystalOutput < Output
   end
 end
 
-
 modules = %w[System Window Graphics Audio Network].map { |m| CModule.new(m) }
 
 modules.each do |mod|
   name = mod.name.downcase
   Context.values.each do |context|
     filename = case context
-    when .c_header?
-      "#{LIB_NAME.downcase}/include/#{LIB_NAME.downcase}/#{name}.h"
-    when .cpp_source?
-      "#{LIB_NAME.downcase}/src/#{LIB_NAME.downcase}/#{name}.cpp"
-    when .crystal?
-      "src/#{name}/obj.cr"
-    when .crystal_lib?
-      "src/#{name}/lib.cr"
-    end.not_nil!
+               when .c_header?
+                 "#{LIB_NAME.downcase}/include/#{LIB_NAME.downcase}/#{name}.h"
+               when .cpp_source?
+                 "#{LIB_NAME.downcase}/src/#{LIB_NAME.downcase}/#{name}.cpp"
+               when .crystal?
+                 "src/#{name}/obj.cr"
+               when .crystal_lib?
+                 "src/#{name}/lib.cr"
+               end.not_nil!
     Dir.mkdir_p File.dirname(filename)
     (context.cr? ? CrystalOutput : Output).write(filename) do |output|
       mod.render(context, output)
