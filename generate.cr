@@ -222,7 +222,7 @@ abstract class CItem
     parts.compact.reject(&.empty?).join("::")
   end
 
-  abstract def render(context : Context, out : Output)
+  abstract def render(context : Context, out o : Output)
 
   def render_docs(out o : Output, name : String)
     in_code = false

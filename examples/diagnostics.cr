@@ -122,9 +122,9 @@ class KeyboardView < View
 
     yaml = YAML.parse(File.read("resources/keyboard-layout.yaml"))
     y = margin.y * 3
-    yaml.each do |line|
+    yaml.as_a.each do |line|
       x = margin.x * 3
-      line.each do |item|
+      line.as_a.each do |item|
         w = h = 1
         key_id = nil
         key_text = ""
@@ -132,8 +132,8 @@ class KeyboardView < View
         first = true
 
         item.as_h.each do |key, value|
-          key = key.as String
-          value = value.as String
+          key = key.as_s
+          value = value.as_s
           if first
             first = false
             value = key if value.empty?

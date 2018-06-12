@@ -9,7 +9,7 @@ description: |
 
 license: zlib
 
-crystal: 0.23.1
+crystal: 0.25.0
 
 libraries:
   SFML: @SFML_VERSION_MAJOR@.@SFML_VERSION_MINOR@.@SFML_VERSION_PATCH@
