@@ -21,6 +21,7 @@ Examples
 - React to close and keyboard events
 - Use a `Texture` and a `Sprite`
     - Move, scale, rotate, draw
+- Elapsed time for physics, using `Clock`
 
 ### [snakes](snakes.cr)
 
@@ -33,12 +34,12 @@ Examples
 ### [transformable](transformable.cr)
 
 - Custom transformable drawable
-- `Clock`
+- Absolute time measurement with `Clock`
 
 ### [text_input](text_input.cr)
 - Unicode keyboard input
 - Text metric measurements
-- `Clock`
+- Periodic events with `Clock`
 - `BlendMode` (draw with inverted color)
 - Detecting features by SFML version
 
