@@ -67,13 +67,13 @@ This section defines two sets of step-by-step instructions to install *CrSFML* b
         - Convenient installation.
     - Disadvantages:
         - Global installation litters your system.
-        - Tied to a particular version of SFML (only SFML 2.4 right now).
+        - Tied to a particular version of SFML.
 
 ### Install SFML
 
 The first step is to install the [SFML][] library itself. There are detailed [official instructions][sfml-install] on how to install it manually, however, on many systems there are easier ways.
 
-SFML versions 2.4.x and 2.3.x are supported by *CrSFML*.
+SFML versions 2.3.x through 2.5.x are supported by *CrSFML*.
 
 #### Linux
 
