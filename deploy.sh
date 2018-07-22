@@ -67,9 +67,6 @@ pushd deploy
     # Replace README link with CrSFML
     find docs/ -type f -exec sed -i -r -e "s,<a.+>README</a>,$logo," {} \;
 
-    # Expand current node
-    find docs/ -type f -exec sed -i -r -e 's,parent current,parent current open,' {} \;
-
     # Redirect from / to /SF.html
     cat << EOF > docs/index.html
 <!DOCTYPE HTML>
@@ -88,20 +85,20 @@ pushd deploy
 EOF
 
     cat << EOF >> docs/css/style.css
-#types-list {
-    background: #2f610e;
+.sidebar {
+    background-color: #2f610e !important;
 }
-#types-list a {
+.sidebar a {
     color: #fff !important;
 }
-#types-list .current > a {
+.sidebar .current > a {
     font-weight: bold;
     font-weight: 600;
 }
-#types-list a:focus {
+.sidebar a:focus {
     outline: 1px solid #567e25;
 }
-.type-name {
+.type-name, code a {
     color: #2f610e !important;
 }
 .superclass-hierarchy .superclass a:hover, .other-type a:hover, .entry-summary .signature:hover, .entry-detail:target .signature {
@@ -109,7 +106,7 @@ EOF
     border-color: #567e25;
 }
 a, a:visited, a *, a:visited *, .kind {
-    color: #567e25 !important;
+    color: #567e25;
 }
 .superclass-hierarchy .superclass a, .other-type a, .entry-summary .signature, .entry-detail .signature {
     background: #f9fafc;
