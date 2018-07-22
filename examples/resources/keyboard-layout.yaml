@@ -103,7 +103,7 @@
   - RShift: 'Shift'
     w: 2.75
     x: 1.25
-  - Up: ↑
+  - Up: '↑'
     x: 1.25
   - Numpad1: '1  End'
   - Numpad2: '2  ↓'

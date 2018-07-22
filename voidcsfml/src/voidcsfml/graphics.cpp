@@ -106,6 +106,12 @@ void sfml_operator_mul_FPeFPe(void* left, void* right, void* result) {
 void sfml_operator_mul_FPeUU2(void* left, void* right, void* result) {
     *(Vector2f*)result = operator*(*(Transform*)left, *(Vector2f*)right);
 }
+void sfml_operator_eq_FPeFPe(void* left, void* right, unsigned char* result) {
+    *(bool*)result = operator==(*(Transform*)left, *(Transform*)right);
+}
+void sfml_operator_ne_FPeFPe(void* left, void* right, unsigned char* result) {
+    *(bool*)result = operator!=(*(Transform*)left, *(Transform*)right);
+}
 void sfml_transform_initialize_FPe(void* self, void* copy) {
     new(self) Transform(*(Transform*)copy);
 }
@@ -873,6 +879,12 @@ void sfml_texture_update_843(void* self, uint8_t* pixels) {
 void sfml_texture_update_843emSemSemSemS(void* self, uint8_t* pixels, unsigned int width, unsigned int height, unsigned int x, unsigned int y) {
     ((Texture*)self)->update((Uint8 const*)pixels, (unsigned int)width, (unsigned int)height, (unsigned int)x, (unsigned int)y);
 }
+void sfml_texture_update_DJb(void* self, void* texture) {
+    ((Texture*)self)->update(*(Texture*)texture);
+}
+void sfml_texture_update_DJbemSemS(void* self, void* texture, unsigned int x, unsigned int y) {
+    ((Texture*)self)->update(*(Texture*)texture, (unsigned int)x, (unsigned int)y);
+}
 void sfml_texture_update_dpt(void* self, void* image) {
     ((Texture*)self)->update(*(Image*)image);
 }
@@ -905,6 +917,9 @@ void sfml_texture_isrepeated(void* self, unsigned char* result) {
 }
 void sfml_texture_generatemipmap(void* self, unsigned char* result) {
     *(bool*)result = ((Texture*)self)->generateMipmap();
+}
+void sfml_texture_swap_zUT(void* self, void* right) {
+    ((Texture*)self)->swap(*(Texture*)right);
 }
 void sfml_texture_getnativehandle(void* self, unsigned int* result) {
     *(unsigned int*)result = ((Texture*)self)->getNativeHandle();
@@ -1220,6 +1235,15 @@ void sfml_rendertarget_mapcoordstopixel_UU2DDi(void* self, void* point, void* vi
 void sfml_rendertarget_draw_46svgvu9wmi4(void* self, void* vertices, size_t vertex_count, int type, void* states) {
     ((RenderTarget*)self)->draw((Vertex*)vertices, vertex_count, (PrimitiveType)type, *(RenderStates*)states);
 }
+void sfml_rendertarget_draw_U2Dmi4(void* self, void* vertex_buffer, void* states) {
+    ((RenderTarget*)self)->draw(*(VertexBuffer*)vertex_buffer, *(RenderStates*)states);
+}
+void sfml_rendertarget_draw_U2Dvgvvgvmi4(void* self, void* vertex_buffer, size_t first_vertex, size_t vertex_count, void* states) {
+    ((RenderTarget*)self)->draw(*(VertexBuffer*)vertex_buffer, (std::size_t)first_vertex, (std::size_t)vertex_count, *(RenderStates*)states);
+}
+void sfml_rendertarget_setactive_GZq(void* self, unsigned char active, unsigned char* result) {
+    *(bool*)result = ((RenderTarget*)self)->setActive(active != 0);
+}
 void sfml_rendertarget_pushglstates(void* self) {
     ((RenderTarget*)self)->pushGLStates();
 }
@@ -1243,6 +1267,12 @@ void sfml_rendertexture_finalize(void* self) {
 }
 void sfml_rendertexture_create_emSemSGZq(void* self, unsigned int width, unsigned int height, unsigned char depth_buffer, unsigned char* result) {
     *(bool*)result = ((RenderTexture*)self)->create((unsigned int)width, (unsigned int)height, depth_buffer != 0);
+}
+void sfml_rendertexture_create_emSemSFw4(void* self, unsigned int width, unsigned int height, void* settings, unsigned char* result) {
+    *(bool*)result = ((RenderTexture*)self)->create((unsigned int)width, (unsigned int)height, *(ContextSettings*)settings);
+}
+void sfml_rendertexture_getmaximumantialiasinglevel(unsigned int* result) {
+    *(unsigned int*)result = RenderTexture::getMaximumAntialiasingLevel();
 }
 void sfml_rendertexture_setsmooth_GZq(void* self, unsigned char smooth) {
     ((RenderTexture*)self)->setSmooth(smooth != 0);
@@ -1301,6 +1331,12 @@ void sfml_rendertexture_mapcoordstopixel_UU2DDi(void* self, void* point, void* v
 void sfml_rendertexture_draw_46svgvu9wmi4(void* self, void* vertices, size_t vertex_count, int type, void* states) {
     ((RenderTexture*)self)->draw((Vertex*)vertices, vertex_count, (PrimitiveType)type, *(RenderStates*)states);
 }
+void sfml_rendertexture_draw_U2Dmi4(void* self, void* vertex_buffer, void* states) {
+    ((RenderTexture*)self)->draw(*(VertexBuffer*)vertex_buffer, *(RenderStates*)states);
+}
+void sfml_rendertexture_draw_U2Dvgvvgvmi4(void* self, void* vertex_buffer, size_t first_vertex, size_t vertex_count, void* states) {
+    ((RenderTexture*)self)->draw(*(VertexBuffer*)vertex_buffer, (std::size_t)first_vertex, (std::size_t)vertex_count, *(RenderStates*)states);
+}
 void sfml_rendertexture_pushglstates(void* self) {
     ((RenderTexture*)self)->pushGLStates();
 }
@@ -1330,6 +1366,9 @@ void sfml_renderwindow_finalize(void* self) {
 }
 void sfml_renderwindow_getsize(void* self, void* result) {
     *(Vector2u*)result = ((RenderWindow*)self)->getSize();
+}
+void sfml_renderwindow_setactive_GZq(void* self, unsigned char active, unsigned char* result) {
+    *(bool*)result = ((RenderWindow*)self)->setActive(active != 0);
 }
 void sfml_renderwindow_capture(void* self, void* result) {
     *(Image*)result = ((RenderWindow*)self)->capture();
@@ -1382,6 +1421,9 @@ void sfml_renderwindow_setmousecursorvisible_GZq(void* self, unsigned char visib
 void sfml_renderwindow_setmousecursorgrabbed_GZq(void* self, unsigned char grabbed) {
     ((RenderWindow*)self)->setMouseCursorGrabbed(grabbed != 0);
 }
+void sfml_renderwindow_setmousecursor_Voc(void* self, void* cursor) {
+    ((RenderWindow*)self)->setMouseCursor(*(Cursor*)cursor);
+}
 void sfml_renderwindow_setkeyrepeatenabled_GZq(void* self, unsigned char enabled) {
     ((RenderWindow*)self)->setKeyRepeatEnabled(enabled != 0);
 }
@@ -1390,9 +1432,6 @@ void sfml_renderwindow_setframeratelimit_emS(void* self, unsigned int limit) {
 }
 void sfml_renderwindow_setjoystickthreshold_Bw9(void* self, float threshold) {
     ((RenderWindow*)self)->setJoystickThreshold((float)threshold);
-}
-void sfml_renderwindow_setactive_GZq(void* self, unsigned char active, unsigned char* result) {
-    *(bool*)result = ((RenderWindow*)self)->setActive(active != 0);
 }
 void sfml_renderwindow_requestfocus(void* self) {
     ((RenderWindow*)self)->requestFocus();
@@ -1435,6 +1474,12 @@ void sfml_renderwindow_mapcoordstopixel_UU2DDi(void* self, void* point, void* vi
 }
 void sfml_renderwindow_draw_46svgvu9wmi4(void* self, void* vertices, size_t vertex_count, int type, void* states) {
     ((RenderWindow*)self)->draw((Vertex*)vertices, vertex_count, (PrimitiveType)type, *(RenderStates*)states);
+}
+void sfml_renderwindow_draw_U2Dmi4(void* self, void* vertex_buffer, void* states) {
+    ((RenderWindow*)self)->draw(*(VertexBuffer*)vertex_buffer, *(RenderStates*)states);
+}
+void sfml_renderwindow_draw_U2Dvgvvgvmi4(void* self, void* vertex_buffer, size_t first_vertex, size_t vertex_count, void* states) {
+    ((RenderWindow*)self)->draw(*(VertexBuffer*)vertex_buffer, (std::size_t)first_vertex, (std::size_t)vertex_count, *(RenderStates*)states);
 }
 void sfml_renderwindow_pushglstates(void* self) {
     ((RenderWindow*)self)->pushGLStates();
@@ -1658,6 +1703,12 @@ void sfml_text_setfont_7CF(void* self, void* font) {
 void sfml_text_setcharactersize_emS(void* self, unsigned int size) {
     ((Text*)self)->setCharacterSize((unsigned int)size);
 }
+void sfml_text_setlinespacing_Bw9(void* self, float spacing_factor) {
+    ((Text*)self)->setLineSpacing((float)spacing_factor);
+}
+void sfml_text_setletterspacing_Bw9(void* self, float spacing_factor) {
+    ((Text*)self)->setLetterSpacing((float)spacing_factor);
+}
 void sfml_text_setstyle_saL(void* self, uint32_t style) {
     ((Text*)self)->setStyle((Uint32)style);
 }
@@ -1683,6 +1734,12 @@ void sfml_text_getfont(void* self, void** result) {
 }
 void sfml_text_getcharactersize(void* self, unsigned int* result) {
     *(unsigned int*)result = ((Text*)self)->getCharacterSize();
+}
+void sfml_text_getletterspacing(void* self, float* result) {
+    *(float*)result = ((Text*)self)->getLetterSpacing();
+}
+void sfml_text_getlinespacing(void* self, float* result) {
+    *(float*)result = ((Text*)self)->getLineSpacing();
 }
 void sfml_text_getstyle(void* self, uint32_t* result) {
     *(Uint32*)result = ((Text*)self)->getStyle();
@@ -1773,6 +1830,78 @@ void sfml_text_draw_Xk1RoT(void* self, void* target, void* states) {
 }
 void sfml_text_initialize_clM(void* self, void* copy) {
     new(self) Text(*(Text*)copy);
+}
+void sfml_vertexbuffer_allocate(void** result) {
+    *result = malloc(sizeof(VertexBuffer));
+}
+void sfml_vertexbuffer_free(void* self) {
+    free(self);
+}
+void sfml_vertexbuffer_initialize(void* self) {
+    new(self) VertexBuffer();
+}
+void sfml_vertexbuffer_initialize_u9w(void* self, int type) {
+    new(self) VertexBuffer((PrimitiveType)type);
+}
+void sfml_vertexbuffer_initialize_9vK(void* self, int usage) {
+    new(self) VertexBuffer((VertexBuffer::Usage)usage);
+}
+void sfml_vertexbuffer_initialize_u9w9vK(void* self, int type, int usage) {
+    new(self) VertexBuffer((PrimitiveType)type, (VertexBuffer::Usage)usage);
+}
+void sfml_vertexbuffer_finalize(void* self) {
+    ((VertexBuffer*)self)->~VertexBuffer();
+}
+void sfml_vertexbuffer_create_vgv(void* self, size_t vertex_count, unsigned char* result) {
+    *(bool*)result = ((VertexBuffer*)self)->create((std::size_t)vertex_count);
+}
+void sfml_vertexbuffer_getvertexcount(void* self, size_t* result) {
+    *(std::size_t*)result = ((VertexBuffer*)self)->getVertexCount();
+}
+void sfml_vertexbuffer_update_46s(void* self, void* vertices, unsigned char* result) {
+    *(bool*)result = ((VertexBuffer*)self)->update((Vertex*)vertices);
+}
+void sfml_vertexbuffer_update_46svgvemS(void* self, void* vertices, size_t vertex_count, unsigned int offset, unsigned char* result) {
+    *(bool*)result = ((VertexBuffer*)self)->update((Vertex*)vertices, vertex_count, (unsigned int)offset);
+}
+void sfml_vertexbuffer_update_U2D(void* self, void* vertex_buffer, unsigned char* result) {
+    *(bool*)result = ((VertexBuffer*)self)->update(*(VertexBuffer*)vertex_buffer);
+}
+void sfml_vertexbuffer_swap_8jC(void* self, void* right) {
+    ((VertexBuffer*)self)->swap(*(VertexBuffer*)right);
+}
+void sfml_vertexbuffer_getnativehandle(void* self, unsigned int* result) {
+    *(unsigned int*)result = ((VertexBuffer*)self)->getNativeHandle();
+}
+void sfml_vertexbuffer_setprimitivetype_u9w(void* self, int type) {
+    ((VertexBuffer*)self)->setPrimitiveType((PrimitiveType)type);
+}
+void sfml_vertexbuffer_getprimitivetype(void* self, int* result) {
+    *(PrimitiveType*)result = ((VertexBuffer*)self)->getPrimitiveType();
+}
+void sfml_vertexbuffer_setusage_9vK(void* self, int usage) {
+    ((VertexBuffer*)self)->setUsage((VertexBuffer::Usage)usage);
+}
+void sfml_vertexbuffer_getusage(void* self, int* result) {
+    *(VertexBuffer::Usage*)result = ((VertexBuffer*)self)->getUsage();
+}
+void sfml_vertexbuffer_bind_Kfe(void* vertex_buffer) {
+    VertexBuffer::bind((VertexBuffer*)vertex_buffer);
+}
+void sfml_vertexbuffer_isavailable(unsigned char* result) {
+    *(bool*)result = VertexBuffer::isAvailable();
+}
+void sfml_vertexbuffer_draw_kb9RoT(void* self, void* target, void* states) {
+    ((RenderTexture*)target)->draw(*(VertexBuffer*)self, *(RenderStates*)states);
+}
+void sfml_vertexbuffer_draw_fqURoT(void* self, void* target, void* states) {
+    ((RenderWindow*)target)->draw(*(VertexBuffer*)self, *(RenderStates*)states);
+}
+void sfml_vertexbuffer_draw_Xk1RoT(void* self, void* target, void* states) {
+    ((RenderTarget*)target)->draw(*(VertexBuffer*)self, *(RenderStates*)states);
+}
+void sfml_vertexbuffer_initialize_U2D(void* self, void* copy) {
+    new(self) VertexBuffer(*(VertexBuffer*)copy);
 }
 void sfml_graphics_version(int* major, int* minor, int* patch) {
     *major = SFML_VERSION_MAJOR;

@@ -36,7 +36,7 @@ The API of *CrSFML* (a library for Crystal) attempts to be similar to SFML (a C+
     - `x.getSomeProperty()` becomes `x.some_property`.
     - `x.isSomeProperty()`, `x.hasSomeProperty()` become `x.some_property?`.
     - `x.setSomeProperty(v)` becomes `x.some_property = v`.
-- Structs in Crystal are are always passed by copy, so modifying them can be problematic. For example, `my_struct.x = 7` is fine but `array_of_structs[2].x = 5` will not work. To work around this, copy the whole struct, modify it, then write it back. Better yet, avoid the need to modify structs (work with them like with immutable objects).
+- Structs in Crystal are always passed by copy, so modifying them can be problematic. For example, `my_struct.x = 7` is fine but `array_of_structs[2].x = 5` will not work. To work around this, copy the whole struct, modify it, then write it back. Better yet, avoid the need to modify structs (work with them like with immutable objects).
 - Member functions, such as `loadFromFile`, that are used for initialization, each have a corresponding shorthand class method (`from_file`) that raises `SF::InitError` on failure.
 - SFML sometimes uses *enum* values as bitmasks. You can combine them using the `|` operator.
 - *enum* members are exposed at class level, so instead of `SF::Keyboard::Code::Slash` you can use `SF::Keyboard::Slash`.
@@ -53,26 +53,27 @@ Note that using [Shards][] is not enough to install *CrSFML*.
 
 This section defines two sets of step-by-step instructions to install *CrSFML* but these are not the only ways to do it; they can even be mixed (see [VoidCSFML installation instructions](voidcsfml/README.md#installation) for an alternative look)
 
-- [Approach 1](#approach-1): Generate latest *CrSFML* and *VoidCSFML* source code; build and use them from a local directory
+- [Approach 1](#approach-1) **(recommended)**: Generate latest *CrSFML* and *VoidCSFML* source code; build and use them from a local directory
     - Advantages:
-        - The bindings can be fine-tuned to your system.
+        - This is the right setup if you wish to:
+             - Distribute your application with the libraries
+             - Contribute to *CrSFML*
         - Supports multiple recent [SFML versions](#install-sfml).
-        - This is the right setup if you wish to contribute to *CrSFML*.
     - Disadvantages:
         - Need to always provide full path to *VoidCSFML* libraries when running a program using *CrSFML*.
-        - Can't install *CrSFML* directly though [shards][].
+        - Can't install *CrSFML* directly through [shards][].
 - [Approach 2](#approach-2): Use pre-compiled sources; build *VoidCSFML* and install it globally; install a release of *CrSFML* through [shards][]
     - Advantages:
         - Convenient installation.
     - Disadvantages:
-        - Tied to a particular version of SFML (only SFML 2.4 right now).
-        - Less performant, because memory layout optimizations can't be cross-platform.
+        - Global installation litters your system.
+        - Tied to a particular version of SFML.
 
 ### Install SFML
 
 The first step is to install the [SFML][] library itself. There are detailed [official instructions][sfml-install] on how to install it manually, however, on many systems there are easier ways.
 
-SFML versions 2.4.x and 2.3.x are supported by *CrSFML*.
+SFML versions 2.3.x through 2.5.x are supported by *CrSFML*.
 
 #### Linux
 
@@ -117,7 +118,7 @@ cd crsfml
 cmake . && make
 ```
 
-> **Optional:** [out-of-source builds][] are also supported, but note that even the sources go to the build directory, so you would need perform all the following steps inside the build directory and not the root *crsfml* directory.
+> **Optional:** [out-of-source builds][] are also supported, but note that even the sources go to the build directory, so you would need to perform all the following steps inside the build directory and not the root *crsfml* directory.
 
 If ran successfully, this generates all the source files for *VoidCSFML* and *CrSFML*, and also compiles *VoidCSFML*.
 

@@ -1,6 +1,20 @@
 #include <voidcsfml/window.h>
 #include <SFML/Window.hpp>
 using namespace sf;
+void sfml_clipboard_allocate(void** result) {
+    *result = malloc(sizeof(Clipboard));
+}
+void sfml_clipboard_free(void* self) {
+    free(self);
+}
+void sfml_clipboard_getstring(uint32_t** result) {
+    static String str;
+    str = Clipboard::getString();
+    *result = const_cast<uint32_t*>(str.getData());
+}
+void sfml_clipboard_setstring_bQs(size_t text_size, uint32_t* text) {
+    Clipboard::setString(String::fromUtf32(text, text+text_size));
+}
 void sfml_glresource_allocate(void** result) {
     *result = malloc(sizeof(GlResource));
 }
@@ -64,8 +78,29 @@ void sfml_context_isextensionavailable_Yy6(char* name, unsigned char* result) {
 void sfml_context_getactivecontext(void** result) {
     *(Context**)result = const_cast<Context*>(Context::getActiveContext());
 }
+void sfml_context_getactivecontextid(uint64_t* result) {
+    *(Uint64*)result = Context::getActiveContextId();
+}
 void sfml_context_initialize_Fw4emSemS(void* self, void* settings, unsigned int width, unsigned int height) {
     new(self) Context(*(ContextSettings*)settings, (unsigned int)width, (unsigned int)height);
+}
+void sfml_cursor_allocate(void** result) {
+    *result = malloc(sizeof(Cursor));
+}
+void sfml_cursor_free(void* self) {
+    free(self);
+}
+void sfml_cursor_initialize(void* self) {
+    new(self) Cursor();
+}
+void sfml_cursor_finalize(void* self) {
+    ((Cursor*)self)->~Cursor();
+}
+void sfml_cursor_loadfrompixels_843t9zt9z(void* self, uint8_t* pixels, void* size, void* hotspot, unsigned char* result) {
+    *(bool*)result = ((Cursor*)self)->loadFromPixels((Uint8 const*)pixels, *(Vector2u*)size, *(Vector2u*)hotspot);
+}
+void sfml_cursor_loadfromsystem_yAZ(void* self, int type, unsigned char* result) {
+    *(bool*)result = ((Cursor*)self)->loadFromSystem((Cursor::Type)type);
 }
 void sfml_joystick_allocate(void** result) {
     *result = malloc(sizeof(Joystick));
@@ -563,6 +598,9 @@ void sfml_window_setmousecursorvisible_GZq(void* self, unsigned char visible) {
 }
 void sfml_window_setmousecursorgrabbed_GZq(void* self, unsigned char grabbed) {
     ((Window*)self)->setMouseCursorGrabbed(grabbed != 0);
+}
+void sfml_window_setmousecursor_Voc(void* self, void* cursor) {
+    ((Window*)self)->setMouseCursor(*(Cursor*)cursor);
 }
 void sfml_window_setkeyrepeatenabled_GZq(void* self, unsigned char enabled) {
     ((Window*)self)->setKeyRepeatEnabled(enabled != 0);

@@ -68,7 +68,7 @@ VOIDCSFML_API sfml_ftp_deletedirectory_zkC(void* self, size_t name_size, char* n
 VOIDCSFML_API sfml_ftp_renamefile_zkCzkC(void* self, size_t file_size, char* file, size_t new_name_size, char* new_name, void* result);
 VOIDCSFML_API sfml_ftp_deletefile_zkC(void* self, size_t name_size, char* name, void* result);
 VOIDCSFML_API sfml_ftp_download_zkCzkCJP8(void* self, size_t remote_file_size, char* remote_file, size_t local_path_size, char* local_path, int mode, void* result);
-VOIDCSFML_API sfml_ftp_upload_zkCzkCJP8(void* self, size_t local_file_size, char* local_file, size_t remote_path_size, char* remote_path, int mode, void* result);
+VOIDCSFML_API sfml_ftp_upload_zkCzkCJP8GZq(void* self, size_t local_file_size, char* local_file, size_t remote_path_size, char* remote_path, int mode, unsigned char append, void* result);
 VOIDCSFML_API sfml_ftp_sendcommand_zkCzkC(void* self, size_t command_size, char* command, size_t parameter_size, char* parameter, void* result);
 VOIDCSFML_API sfml_ipaddress_allocate(void** result);
 VOIDCSFML_API sfml_ipaddress_free(void* self);

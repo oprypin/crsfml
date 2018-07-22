@@ -598,6 +598,31 @@ module SF
       VoidCSFML.sfml_operator_mul_FPeUU2(to_unsafe, right, result)
       return result
     end
+    # Overload of binary operator == to compare two transforms
+    #
+    # Performs an element-wise comparison of the elements of the
+    # left transform with the elements of the right transform.
+    #
+    # * *left* - Left operand (the first transform)
+    # * *right* - Right operand (the second transform)
+    #
+    # *Returns:* true if the transforms are equal, false otherwise
+    def ==(right : Transform) : Bool
+      VoidCSFML.sfml_operator_eq_FPeFPe(to_unsafe, right, out result)
+      return result
+    end
+    # Overload of binary operator != to compare two transforms
+    #
+    # This call is equivalent to !(left == right).
+    #
+    # * *left* - Left operand (the first transform)
+    # * *right* - Right operand (the second transform)
+    #
+    # *Returns:* true if the transforms are not equal, false otherwise
+    def !=(right : Transform) : Bool
+      VoidCSFML.sfml_operator_ne_FPeFPe(to_unsafe, right, out result)
+      return result
+    end
     # :nodoc:
     def to_unsafe()
       pointerof(@matrix).as(Void*)
@@ -3290,6 +3315,39 @@ module SF
     def update(pixels : UInt8*, width : Int, height : Int, x : Int, y : Int)
       VoidCSFML.sfml_texture_update_843emSemSemSemS(to_unsafe, pixels, LibC::UInt.new(width), LibC::UInt.new(height), LibC::UInt.new(x), LibC::UInt.new(y))
     end
+    # Update a part of this texture from another texture
+    #
+    # Although the source texture can be smaller than this texture,
+    # this function is usually used for updating the whole texture.
+    # The other overload, which has (x, y) additional arguments,
+    # is more convenient for updating a sub-area of this texture.
+    #
+    # No additional check is performed on the size of the passed
+    # texture, passing a texture bigger than this texture
+    # will lead to an undefined behavior.
+    #
+    # This function does nothing if either texture was not
+    # previously created.
+    #
+    # * *texture* - Source texture to copy to this texture
+    def update(texture : Texture)
+      VoidCSFML.sfml_texture_update_DJb(to_unsafe, texture)
+    end
+    # Update a part of this texture from another texture
+    #
+    # No additional check is performed on the size of the texture,
+    # passing an invalid combination of texture size and offset
+    # will lead to an undefined behavior.
+    #
+    # This function does nothing if either texture was not
+    # previously created.
+    #
+    # * *texture* - Source texture to copy to this texture
+    # * *x* - X offset in this texture where to copy the source texture
+    # * *y* - Y offset in this texture where to copy the source texture
+    def update(texture : Texture, x : Int, y : Int)
+      VoidCSFML.sfml_texture_update_DJbemSemS(to_unsafe, texture, LibC::UInt.new(x), LibC::UInt.new(y))
+    end
     # Update the texture from an image
     #
     # Although the source image can be smaller than the texture,
@@ -3465,6 +3523,12 @@ module SF
     def generate_mipmap() : Bool
       VoidCSFML.sfml_texture_generatemipmap(to_unsafe, out result)
       return result
+    end
+    # Swap the contents of this texture with those of another
+    #
+    # * *right* - Instance to swap with
+    def swap(right : Texture)
+      VoidCSFML.sfml_texture_swap_zUT(to_unsafe, right)
     end
     # Get the underlying OpenGL handle of the texture.
     #
@@ -3653,7 +3717,7 @@ module SF
     #
     # The supported font formats are: TrueType, Type 1, CFF,
     # OpenType, SFNT, X11 PCF, Windows FNT, BDF, PFR and Type 42.
-    # Note that this function know nothing about the standard
+    # Note that this function knows nothing about the standard
     # fonts installed on the user's system, thus you can't
     # load them directly.
     #
@@ -4597,10 +4661,47 @@ module SF
     def draw(vertices : Array(Vertex) | Slice(Vertex), type : PrimitiveType, states : RenderStates = RenderStates::Default)
       VoidCSFML.sfml_rendertarget_draw_46svgvu9wmi4(to_unsafe, vertices, vertices.size, type, states)
     end
+    # Draw primitives defined by a vertex buffer
+    #
+    # * *vertex_buffer* - Vertex buffer
+    # * *states* - Render states to use for drawing
+    def draw(vertex_buffer : VertexBuffer, states : RenderStates = RenderStates::Default)
+      VoidCSFML.sfml_rendertarget_draw_U2Dmi4(to_unsafe, vertex_buffer, states)
+    end
+    # Draw primitives defined by a vertex buffer
+    #
+    # * *vertex_buffer* - Vertex buffer
+    # * *first_vertex* - Index of the first vertex to render
+    # * *vertex_count* - Number of vertices to render
+    # * *states* - Render states to use for drawing
+    def draw(vertex_buffer : VertexBuffer, first_vertex : Int, vertex_count : Int, states : RenderStates = RenderStates::Default)
+      VoidCSFML.sfml_rendertarget_draw_U2Dvgvvgvmi4(to_unsafe, vertex_buffer, LibC::SizeT.new(first_vertex), LibC::SizeT.new(vertex_count), states)
+    end
     # Return the size of the rendering region of the target
     #
     # *Returns:* Size in pixels
     abstract def size() : Vector2u
+    # Activate or deactivate the render target for rendering
+    #
+    # This function makes the render target's context current for
+    # future OpenGL rendering operations (so you shouldn't care
+    # about it if you're not doing direct OpenGL stuff).
+    # A render target's context is active only on the current thread,
+    # if you want to make it active on another thread you have
+    # to deactivate it on the previous thread first if it was active.
+    # Only one context can be current in a thread, so if you
+    # want to draw OpenGL geometry to another render target
+    # don't forget to activate it again. Activating a render
+    # target will automatically deactivate the previously active
+    # context (if any).
+    #
+    # * *active* - True to activate, false to deactivate
+    #
+    # *Returns:* True if operation was successful, false otherwise
+    def active=(active : Bool = true) : Bool
+      VoidCSFML.sfml_rendertarget_setactive_GZq(to_unsafe, active, out result)
+      return result
+    end
     # Save the current OpenGL render states and matrices
     #
     # This function can be used when you mix SFML drawing
@@ -4774,7 +4875,9 @@ module SF
     # * *depth_buffer* - Do you want this render-texture to have a depth buffer?
     #
     # *Returns:* True if creation has been successful
-    def create(width : Int, height : Int, depth_buffer : Bool = false) : Bool
+    #
+    # *Deprecated:* Use create(unsigned int, unsigned int, const ContextSettings&) instead.
+    def create(width : Int, height : Int, depth_buffer : Bool) : Bool
       VoidCSFML.sfml_rendertexture_create_emSemSGZq(to_unsafe, LibC::UInt.new(width), LibC::UInt.new(height), depth_buffer, out result)
       return result
     end
@@ -4787,6 +4890,42 @@ module SF
         raise InitError.new("RenderTexture.create failed")
       end
       obj
+    end
+    # Create the render-texture
+    #
+    # Before calling this function, the render-texture is in
+    # an invalid state, thus it is mandatory to call it before
+    # doing anything with the render-texture.
+    # The last parameter, *settings,* is useful if you want to enable
+    # multi-sampling or use the render-texture for OpenGL rendering that
+    # requires a depth or stencil buffer. Otherwise it is unnecessary, and
+    # you should leave this parameter at its default value.
+    #
+    # * *width* - Width of the render-texture
+    # * *height* - Height of the render-texture
+    # * *settings* - Additional settings for the underlying OpenGL texture and context
+    #
+    # *Returns:* True if creation has been successful
+    def create(width : Int, height : Int, settings : ContextSettings = ContextSettings.new()) : Bool
+      VoidCSFML.sfml_rendertexture_create_emSemSFw4(to_unsafe, LibC::UInt.new(width), LibC::UInt.new(height), settings, out result)
+      return result
+    end
+    # Shorthand for `render_texture = RenderTexture.new; render_texture.create(...); render_texture`
+    #
+    # Raises `InitError` on failure
+    def self.new(*args, **kwargs) : self
+      obj = new
+      if !obj.create(*args, **kwargs)
+        raise InitError.new("RenderTexture.create failed")
+      end
+      obj
+    end
+    # Get the maximum anti-aliasing level supported by the system
+    #
+    # *Returns:* The maximum anti-aliasing level supported by the system
+    def self.maximum_antialiasing_level() : Int32
+      VoidCSFML.sfml_rendertexture_getmaximumantialiasinglevel(out result)
+      return result.to_i
     end
     # Enable or disable texture smoothing
     #
@@ -4951,6 +5090,14 @@ module SF
     # :nodoc:
     def draw(vertices : Array(Vertex) | Slice(Vertex), type : PrimitiveType, states : RenderStates = RenderStates::Default)
       VoidCSFML.sfml_rendertexture_draw_46svgvu9wmi4(to_unsafe, vertices, vertices.size, type, states)
+    end
+    # :nodoc:
+    def draw(vertex_buffer : VertexBuffer, states : RenderStates = RenderStates::Default)
+      VoidCSFML.sfml_rendertexture_draw_U2Dmi4(to_unsafe, vertex_buffer, states)
+    end
+    # :nodoc:
+    def draw(vertex_buffer : VertexBuffer, first_vertex : Int, vertex_count : Int, states : RenderStates = RenderStates::Default)
+      VoidCSFML.sfml_rendertexture_draw_U2Dvgvvgvmi4(to_unsafe, vertex_buffer, LibC::SizeT.new(first_vertex), LibC::SizeT.new(vertex_count), states)
     end
     # :nodoc:
     def push_gl_states()
@@ -5139,6 +5286,23 @@ module SF
       VoidCSFML.sfml_renderwindow_getsize(to_unsafe, result)
       return result
     end
+    # Activate or deactivate the window as the current target
+    #        for OpenGL rendering
+    #
+    # A window is active only on the current thread, if you want to
+    # make it active on another thread you have to deactivate it
+    # on the previous thread first if it was active.
+    # Only one window can be active on a thread at a time, thus
+    # the window previously active (if any) automatically gets deactivated.
+    # This is not to be confused with request_focus().
+    #
+    # * *active* - True to activate, false to deactivate
+    #
+    # *Returns:* True if operation was successful, false otherwise
+    def active=(active : Bool = true) : Bool
+      VoidCSFML.sfml_renderwindow_setactive_GZq(to_unsafe, active, out result)
+      return result
+    end
     # Copy the current contents of the window to an image
     #
     # *Deprecated:*
@@ -5270,6 +5434,12 @@ module SF
       VoidCSFML.sfml_renderwindow_setmousecursorgrabbed_GZq(to_unsafe, grabbed)
     end
     # :nodoc:
+    def mouse_cursor=(cursor : Cursor)
+      @_renderwindow_mouse_cursor = cursor
+      VoidCSFML.sfml_renderwindow_setmousecursor_Voc(to_unsafe, cursor)
+    end
+    @_renderwindow_mouse_cursor : Cursor? = nil
+    # :nodoc:
     def key_repeat_enabled=(enabled : Bool)
       VoidCSFML.sfml_renderwindow_setkeyrepeatenabled_GZq(to_unsafe, enabled)
     end
@@ -5280,11 +5450,6 @@ module SF
     # :nodoc:
     def joystick_threshold=(threshold : Number)
       VoidCSFML.sfml_renderwindow_setjoystickthreshold_Bw9(to_unsafe, LibC::Float.new(threshold))
-    end
-    # :nodoc:
-    def active=(active : Bool = true) : Bool
-      VoidCSFML.sfml_renderwindow_setactive_GZq(to_unsafe, active, out result)
-      return result
     end
     # :nodoc:
     def request_focus()
@@ -5361,6 +5526,14 @@ module SF
     # :nodoc:
     def draw(vertices : Array(Vertex) | Slice(Vertex), type : PrimitiveType, states : RenderStates = RenderStates::Default)
       VoidCSFML.sfml_renderwindow_draw_46svgvu9wmi4(to_unsafe, vertices, vertices.size, type, states)
+    end
+    # :nodoc:
+    def draw(vertex_buffer : VertexBuffer, states : RenderStates = RenderStates::Default)
+      VoidCSFML.sfml_renderwindow_draw_U2Dmi4(to_unsafe, vertex_buffer, states)
+    end
+    # :nodoc:
+    def draw(vertex_buffer : VertexBuffer, first_vertex : Int, vertex_count : Int, states : RenderStates = RenderStates::Default)
+      VoidCSFML.sfml_renderwindow_draw_U2Dvgvvgvmi4(to_unsafe, vertex_buffer, LibC::SizeT.new(first_vertex), LibC::SizeT.new(vertex_count), states)
     end
     # :nodoc:
     def push_gl_states()
@@ -6211,8 +6384,9 @@ module SF
   # It inherits all the functions from `SF::Transformable:`
   # position, rotation, scale, origin. It also adds text-specific
   # properties such as the font to use, the character size,
-  # the font style (bold, italic, underlined, strike through), the
-  # global color and the text to display of course.
+  # the font style (bold, italic, underlined and strike through), the
+  # text color, the outline thickness, the outline color, the character
+  # spacing, the line spacing and the text to display of course.
   # It also provides convenience functions to calculate the
   # graphical size of the text, or to get the global position
   # of a given character.
@@ -6340,6 +6514,35 @@ module SF
     def character_size=(size : Int)
       VoidCSFML.sfml_text_setcharactersize_emS(to_unsafe, LibC::UInt.new(size))
     end
+    # Set the line spacing factor
+    #
+    # The default spacing between lines is defined by the font.
+    # This method enables you to set a factor for the spacing
+    # between lines. By default the line spacing factor is 1.
+    #
+    # * *spacing_factor* - New line spacing factor
+    #
+    # *See also:* `line_spacing`
+    def line_spacing=(spacing_factor : Number)
+      VoidCSFML.sfml_text_setlinespacing_Bw9(to_unsafe, LibC::Float.new(spacing_factor))
+    end
+    # Set the letter spacing factor
+    #
+    # The default spacing between letters is defined by the font.
+    # This factor doesn't directly apply to the existing
+    # spacing between each character, it rather adds a fixed
+    # space between them which is calculated from the font
+    # metrics and the character size.
+    # Note that factors below 1 (including negative numbers) bring
+    # characters closer to each other.
+    # By default the letter spacing factor is 1.
+    #
+    # * *spacing_factor* - New letter spacing factor
+    #
+    # *See also:* `letter_spacing`
+    def letter_spacing=(spacing_factor : Number)
+      VoidCSFML.sfml_text_setletterspacing_Bw9(to_unsafe, LibC::Float.new(spacing_factor))
+    end
     # Set the text's style
     #
     # You can pass a combination of one or more styles, for
@@ -6432,6 +6635,24 @@ module SF
     def character_size() : Int32
       VoidCSFML.sfml_text_getcharactersize(to_unsafe, out result)
       return result.to_i
+    end
+    # Get the size of the letter spacing factor
+    #
+    # *Returns:* Size of the letter spacing factor
+    #
+    # *See also:* `letter_spacing=`
+    def letter_spacing() : Float32
+      VoidCSFML.sfml_text_getletterspacing(to_unsafe, out result)
+      return result
+    end
+    # Get the size of the line spacing factor
+    #
+    # *Returns:* Size of the line spacing factor
+    #
+    # *See also:* `line_spacing=`
+    def line_spacing() : Float32
+      VoidCSFML.sfml_text_getlinespacing(to_unsafe, out result)
+      return result
     end
     # Get the text's style
     #
@@ -6647,6 +6868,335 @@ module SF
     def initialize(copy : Text)
       VoidCSFML.sfml_text_allocate(out @this)
       VoidCSFML.sfml_text_initialize_clM(to_unsafe, copy)
+    end
+    def dup() : self
+      return typeof(self).new(self)
+    end
+  end
+  # Vertex buffer storage for one or more 2D primitives
+  #
+  # `SF::VertexBuffer` is a simple wrapper around a dynamic
+  # buffer of vertices and a primitives type.
+  #
+  # Unlike `SF::VertexArray`, the vertex data is stored in
+  # graphics memory.
+  #
+  # In situations where a large amount of vertex data would
+  # have to be transferred from system memory to graphics memory
+  # every frame, using `SF::VertexBuffer` can help. By using a
+  # `SF::VertexBuffer`, data that has not been changed between frames
+  # does not have to be re-transferred from system to graphics
+  # memory as would be the case with `SF::VertexArray`. If data transfer
+  # is a bottleneck, this can lead to performance gains.
+  #
+  # Using `SF::VertexBuffer`, the user also has the ability to only modify
+  # a portion of the buffer in graphics memory. This way, a large buffer
+  # can be allocated at the start of the application and only the
+  # applicable portions of it need to be updated during the course of
+  # the application. This allows the user to take full control of data
+  # transfers between system and graphics memory if they need to.
+  #
+  # In special cases, the user can make use of multiple threads to update
+  # vertex data in multiple distinct regions of the buffer simultaneously.
+  # This might make sense when e.g. the position of multiple objects has to
+  # be recalculated very frequently. The computation load can be spread
+  # across multiple threads as long as there are no other data dependencies.
+  #
+  # Simultaneous updates to the vertex buffer are not guaranteed to be
+  # carried out by the driver in any specific order. Updating the same
+  # region of the buffer from multiple threads will not cause undefined
+  # behaviour, however the final state of the buffer will be unpredictable.
+  #
+  # Simultaneous updates of distinct non-overlapping regions of the buffer
+  # are also not guaranteed to complete in a specific order. However, in
+  # this case the user can make sure to synchronize the writer threads at
+  # well-defined points in their code. The driver will make sure that all
+  # pending data transfers complete before the vertex buffer is sourced
+  # by the rendering pipeline.
+  #
+  # It inherits `SF::Drawable`, but unlike other drawables it
+  # is not transformable.
+  #
+  # Example:
+  # ```c++
+  # sf::Vertex vertices[15];
+  # ...
+  # sf::VertexBuffer triangles(sf::Triangles);
+  # triangles.create(15);
+  # triangles.update(vertices);
+  # ...
+  # window.draw(triangles);
+  # ```
+  #
+  # *See also:* `SF::Vertex`, `SF::VertexArray`
+  class VertexBuffer
+    @this : Void*
+    # Usage specifiers
+    #
+    # If data is going to be updated once or more every frame,
+    # set the usage to Stream. If data is going to be set once
+    # and used for a long time without being modified, set the
+    # usage to Static. For everything else Dynamic should be a
+    # good compromise.
+    enum Usage
+      # Constantly changing data
+      Stream
+      # Occasionally changing data
+      Dynamic
+      # Rarely changing data
+      Static
+    end
+    Util.extract VertexBuffer::Usage
+    # Default constructor
+    #
+    # Creates an empty vertex buffer.
+    def initialize()
+      VoidCSFML.sfml_vertexbuffer_allocate(out @this)
+      VoidCSFML.sfml_vertexbuffer_initialize(to_unsafe)
+    end
+    # Construct a VertexBuffer with a specific PrimitiveType
+    #
+    # Creates an empty vertex buffer and sets its primitive type to \p type.
+    #
+    # * *type* - Type of primitive
+    def initialize(type : PrimitiveType)
+      VoidCSFML.sfml_vertexbuffer_allocate(out @this)
+      VoidCSFML.sfml_vertexbuffer_initialize_u9w(to_unsafe, type)
+    end
+    # Construct a VertexBuffer with a specific usage specifier
+    #
+    # Creates an empty vertex buffer and sets its usage to \p usage.
+    #
+    # * *usage* - Usage specifier
+    def initialize(usage : VertexBuffer::Usage)
+      VoidCSFML.sfml_vertexbuffer_allocate(out @this)
+      VoidCSFML.sfml_vertexbuffer_initialize_9vK(to_unsafe, usage)
+    end
+    # Construct a VertexBuffer with a specific PrimitiveType and usage specifier
+    #
+    # Creates an empty vertex buffer and sets its primitive type
+    # to \p type and usage to \p usage.
+    #
+    # * *type* - Type of primitive
+    # * *usage* - Usage specifier
+    def initialize(type : PrimitiveType, usage : VertexBuffer::Usage)
+      VoidCSFML.sfml_vertexbuffer_allocate(out @this)
+      VoidCSFML.sfml_vertexbuffer_initialize_u9w9vK(to_unsafe, type, usage)
+    end
+    # Destructor
+    def finalize()
+      VoidCSFML.sfml_vertexbuffer_finalize(to_unsafe)
+      VoidCSFML.sfml_vertexbuffer_free(@this)
+    end
+    # Create the vertex buffer
+    #
+    # Creates the vertex buffer and allocates enough graphics
+    # memory to hold \p vertex_count vertices. Any previously
+    # allocated memory is freed in the process.
+    #
+    # In order to deallocate previously allocated memory pass 0
+    # as \p vertex_count. Don't forget to recreate with a non-zero
+    # value when graphics memory should be allocated again.
+    #
+    # * *vertex_count* - Number of vertices worth of memory to allocate
+    #
+    # *Returns:* True if creation was successful
+    def create(vertex_count : Int) : Bool
+      VoidCSFML.sfml_vertexbuffer_create_vgv(to_unsafe, LibC::SizeT.new(vertex_count), out result)
+      return result
+    end
+    # Shorthand for `vertex_buffer = VertexBuffer.new; vertex_buffer.create(...); vertex_buffer`
+    #
+    # Raises `InitError` on failure
+    def self.new(*args, **kwargs) : self
+      obj = new
+      if !obj.create(*args, **kwargs)
+        raise InitError.new("VertexBuffer.create failed")
+      end
+      obj
+    end
+    # Return the vertex count
+    #
+    # *Returns:* Number of vertices in the vertex buffer
+    def vertex_count() : Int32
+      VoidCSFML.sfml_vertexbuffer_getvertexcount(to_unsafe, out result)
+      return result.to_i
+    end
+    # Update the whole buffer from an array of vertices
+    #
+    # The *vertex* array is assumed to have the same size as
+    # the *created* buffer.
+    #
+    # No additional check is performed on the size of the vertex
+    # array, passing invalid arguments will lead to undefined
+    # behavior.
+    #
+    # This function does nothing if *vertices* is null or if the
+    # buffer was not previously created.
+    #
+    # * *vertices* - Array of vertices to copy to the buffer
+    #
+    # *Returns:* True if the update was successful
+    def update(vertices : Vertex) : Bool
+      VoidCSFML.sfml_vertexbuffer_update_46s(to_unsafe, vertices, out result)
+      return result
+    end
+    # Update a part of the buffer from an array of vertices
+    #
+    # \p offset is specified as the number of vertices to skip
+    # from the beginning of the buffer.
+    #
+    # If \p offset is 0 and \p vertex_count is equal to the size of
+    # the currently created buffer, its whole contents are replaced.
+    #
+    # If \p offset is 0 and \p vertex_count is greater than the
+    # size of the currently created buffer, a new buffer is created
+    # containing the vertex data.
+    #
+    # If \p offset is 0 and \p vertex_count is less than the size of
+    # the currently created buffer, only the corresponding region
+    # is updated.
+    #
+    # If \p offset is not 0 and \p offset + \p vertex_count is greater
+    # than the size of the currently created buffer, the update fails.
+    #
+    # No additional check is performed on the size of the vertex
+    # array, passing invalid arguments will lead to undefined
+    # behavior.
+    #
+    # * *vertices* - Array of vertices to copy to the buffer
+    # * *vertex_count* - Number of vertices to copy
+    # * *offset* - Offset in the buffer to copy to
+    #
+    # *Returns:* True if the update was successful
+    def update(vertices : Array(Vertex) | Slice(Vertex), offset : Int) : Bool
+      VoidCSFML.sfml_vertexbuffer_update_46svgvemS(to_unsafe, vertices, vertices.size, LibC::UInt.new(offset), out result)
+      return result
+    end
+    # Copy the contents of another buffer into this buffer
+    #
+    # * *vertex_buffer* - Vertex buffer whose contents to copy into this vertex buffer
+    #
+    # *Returns:* True if the copy was successful
+    def update(vertex_buffer : VertexBuffer) : Bool
+      VoidCSFML.sfml_vertexbuffer_update_U2D(to_unsafe, vertex_buffer, out result)
+      return result
+    end
+    # Swap the contents of this vertex buffer with those of another
+    #
+    # * *right* - Instance to swap with
+    def swap(right : VertexBuffer)
+      VoidCSFML.sfml_vertexbuffer_swap_8jC(to_unsafe, right)
+    end
+    # Get the underlying OpenGL handle of the vertex buffer.
+    #
+    # You shouldn't need to use this function, unless you have
+    # very specific stuff to implement that SFML doesn't support,
+    # or implement a temporary workaround until a bug is fixed.
+    #
+    # *Returns:* OpenGL handle of the vertex buffer or 0 if not yet created
+    def native_handle() : Int32
+      VoidCSFML.sfml_vertexbuffer_getnativehandle(to_unsafe, out result)
+      return result.to_i
+    end
+    # Set the type of primitives to draw
+    #
+    # This function defines how the vertices must be interpreted
+    # when it's time to draw them.
+    #
+    # The default primitive type is `SF::Points`.
+    #
+    # * *type* - Type of primitive
+    def primitive_type=(type : PrimitiveType)
+      VoidCSFML.sfml_vertexbuffer_setprimitivetype_u9w(to_unsafe, type)
+    end
+    # Get the type of primitives drawn by the vertex buffer
+    #
+    # *Returns:* Primitive type
+    def primitive_type() : PrimitiveType
+      VoidCSFML.sfml_vertexbuffer_getprimitivetype(to_unsafe, out result)
+      return PrimitiveType.new(result)
+    end
+    # Set the usage specifier of this vertex buffer
+    #
+    # This function provides a hint about how this vertex buffer is
+    # going to be used in terms of data update frequency.
+    #
+    # After changing the usage specifier, the vertex buffer has
+    # to be updated with new data for the usage specifier to
+    # take effect.
+    #
+    # The default primitive type is `SF::VertexBuffer::Stream`.
+    #
+    # * *usage* - Usage specifier
+    def usage=(usage : VertexBuffer::Usage)
+      VoidCSFML.sfml_vertexbuffer_setusage_9vK(to_unsafe, usage)
+    end
+    # Get the usage specifier of this vertex buffer
+    #
+    # *Returns:* Usage specifier
+    def usage() : VertexBuffer::Usage
+      VoidCSFML.sfml_vertexbuffer_getusage(to_unsafe, out result)
+      return VertexBuffer::Usage.new(result)
+    end
+    # Bind a vertex buffer for rendering
+    #
+    # This function is not part of the graphics API, it mustn't be
+    # used when drawing SFML entities. It must be used only if you
+    # mix `SF::VertexBuffer` with OpenGL code.
+    #
+    # ```c++
+    # sf::VertexBuffer vb1, vb2;
+    # ...
+    # sf::VertexBuffer::bind(&vb1);
+    # // draw OpenGL stuff that use vb1...
+    # sf::VertexBuffer::bind(&vb2);
+    # // draw OpenGL stuff that use vb2...
+    # sf::VertexBuffer::bind(NULL);
+    # // draw OpenGL stuff that use no vertex buffer...
+    # ```
+    #
+    # * *vertex_buffer* - Pointer to the vertex buffer to bind, can be null to use no vertex buffer
+    def self.bind(vertex_buffer : VertexBuffer?)
+      VoidCSFML.sfml_vertexbuffer_bind_Kfe(vertex_buffer)
+    end
+    # Tell whether or not the system supports vertex buffers
+    #
+    # This function should always be called before using
+    # the vertex buffer features. If it returns false, then
+    # any attempt to use `SF::VertexBuffer` will fail.
+    #
+    # *Returns:* True if vertex buffers are supported, false otherwise
+    def self.available?() : Bool
+      VoidCSFML.sfml_vertexbuffer_isavailable(out result)
+      return result
+    end
+    include Drawable
+    include GlResource
+    # :nodoc:
+    def to_unsafe()
+      @this
+    end
+    # :nodoc:
+    def inspect(io)
+      to_s(io)
+    end
+    # :nodoc:
+    def draw(target : RenderTexture, states : RenderStates)
+      VoidCSFML.sfml_vertexbuffer_draw_kb9RoT(to_unsafe, target, states)
+    end
+    # :nodoc:
+    def draw(target : RenderWindow, states : RenderStates)
+      VoidCSFML.sfml_vertexbuffer_draw_fqURoT(to_unsafe, target, states)
+    end
+    # :nodoc:
+    def draw(target : RenderTarget, states : RenderStates)
+      VoidCSFML.sfml_vertexbuffer_draw_Xk1RoT(to_unsafe, target, states)
+    end
+    # :nodoc:
+    def initialize(copy : VertexBuffer)
+      VoidCSFML.sfml_vertexbuffer_allocate(out @this)
+      VoidCSFML.sfml_vertexbuffer_initialize_U2D(to_unsafe, copy)
     end
     def dup() : self
       return typeof(self).new(self)

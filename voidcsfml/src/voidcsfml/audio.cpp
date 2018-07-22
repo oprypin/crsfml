@@ -46,53 +46,87 @@ void sfml_alresource_allocate(void** result) {
 void sfml_alresource_free(void* self) {
     free(self);
 }
+void (*_sfml_soundsource_play_callback)(void*) = 0;
+void sfml_soundsource_play_callback(void (*callback)(void*)) {
+    _sfml_soundsource_play_callback = callback;
+}
+void (*_sfml_soundsource_pause_callback)(void*) = 0;
+void sfml_soundsource_pause_callback(void (*callback)(void*)) {
+    _sfml_soundsource_pause_callback = callback;
+}
+void (*_sfml_soundsource_stop_callback)(void*) = 0;
+void sfml_soundsource_stop_callback(void (*callback)(void*)) {
+    _sfml_soundsource_stop_callback = callback;
+}
+class _SoundSource : public sf::SoundSource {
+public:
+    void* parent;
+    virtual void play() {
+        _sfml_soundsource_play_callback(parent);
+    }
+    virtual void pause() {
+        _sfml_soundsource_pause_callback(parent);
+    }
+    virtual void stop() {
+        _sfml_soundsource_stop_callback(parent);
+    }
+};
+void sfml_soundsource_parent(void* self, void* parent) {
+    ((_SoundSource*)self)->parent = parent;
+}
 void sfml_soundsource_allocate(void** result) {
-    *result = malloc(sizeof(SoundSource));
+    *result = malloc(sizeof(_SoundSource));
 }
 void sfml_soundsource_free(void* self) {
     free(self);
 }
 void sfml_soundsource_finalize(void* self) {
-    ((SoundSource*)self)->~SoundSource();
+    ((_SoundSource*)self)->~_SoundSource();
 }
 void sfml_soundsource_setpitch_Bw9(void* self, float pitch) {
-    ((SoundSource*)self)->setPitch((float)pitch);
+    ((_SoundSource*)self)->setPitch((float)pitch);
 }
 void sfml_soundsource_setvolume_Bw9(void* self, float volume) {
-    ((SoundSource*)self)->setVolume((float)volume);
+    ((_SoundSource*)self)->setVolume((float)volume);
 }
 void sfml_soundsource_setposition_Bw9Bw9Bw9(void* self, float x, float y, float z) {
-    ((SoundSource*)self)->setPosition((float)x, (float)y, (float)z);
+    ((_SoundSource*)self)->setPosition((float)x, (float)y, (float)z);
 }
 void sfml_soundsource_setposition_NzM(void* self, void* position) {
-    ((SoundSource*)self)->setPosition(*(Vector3f*)position);
+    ((_SoundSource*)self)->setPosition(*(Vector3f*)position);
 }
 void sfml_soundsource_setrelativetolistener_GZq(void* self, unsigned char relative) {
-    ((SoundSource*)self)->setRelativeToListener(relative != 0);
+    ((_SoundSource*)self)->setRelativeToListener(relative != 0);
 }
 void sfml_soundsource_setmindistance_Bw9(void* self, float distance) {
-    ((SoundSource*)self)->setMinDistance((float)distance);
+    ((_SoundSource*)self)->setMinDistance((float)distance);
 }
 void sfml_soundsource_setattenuation_Bw9(void* self, float attenuation) {
-    ((SoundSource*)self)->setAttenuation((float)attenuation);
+    ((_SoundSource*)self)->setAttenuation((float)attenuation);
 }
 void sfml_soundsource_getpitch(void* self, float* result) {
-    *(float*)result = ((SoundSource*)self)->getPitch();
+    *(float*)result = ((_SoundSource*)self)->getPitch();
 }
 void sfml_soundsource_getvolume(void* self, float* result) {
-    *(float*)result = ((SoundSource*)self)->getVolume();
+    *(float*)result = ((_SoundSource*)self)->getVolume();
 }
 void sfml_soundsource_getposition(void* self, void* result) {
-    *(Vector3f*)result = ((SoundSource*)self)->getPosition();
+    *(Vector3f*)result = ((_SoundSource*)self)->getPosition();
 }
 void sfml_soundsource_isrelativetolistener(void* self, unsigned char* result) {
-    *(bool*)result = ((SoundSource*)self)->isRelativeToListener();
+    *(bool*)result = ((_SoundSource*)self)->isRelativeToListener();
 }
 void sfml_soundsource_getmindistance(void* self, float* result) {
-    *(float*)result = ((SoundSource*)self)->getMinDistance();
+    *(float*)result = ((_SoundSource*)self)->getMinDistance();
 }
 void sfml_soundsource_getattenuation(void* self, float* result) {
-    *(float*)result = ((SoundSource*)self)->getAttenuation();
+    *(float*)result = ((_SoundSource*)self)->getAttenuation();
+}
+void sfml_soundsource_getstatus(void* self, int* result) {
+    *(SoundSource::Status*)result = ((_SoundSource*)self)->getStatus();
+}
+void sfml_soundsource_initialize(void* self) {
+    new(self) _SoundSource();
 }
 void (*_sfml_soundstream_ongetdata_callback)(void*, int16_t**, size_t*, unsigned char*) = 0;
 void sfml_soundstream_ongetdata_callback(void (*callback)(void*, int16_t**, size_t*, unsigned char*)) {
@@ -101,6 +135,10 @@ void sfml_soundstream_ongetdata_callback(void (*callback)(void*, int16_t**, size
 void (*_sfml_soundstream_onseek_callback)(void*, void*) = 0;
 void sfml_soundstream_onseek_callback(void (*callback)(void*, void*)) {
     _sfml_soundstream_onseek_callback = callback;
+}
+void (*_sfml_soundstream_onloop_callback)(void*, int64_t*) = 0;
+void sfml_soundstream_onloop_callback(void (*callback)(void*, int64_t*)) {
+    _sfml_soundstream_onloop_callback = callback;
 }
 class _SoundStream : public sf::SoundStream {
 public:
@@ -113,6 +151,11 @@ public:
     }
     virtual void onSeek(Time timeOffset) {
         _sfml_soundstream_onseek_callback(parent, &timeOffset);
+    }
+    virtual Int64 onLoop() {
+        Int64 result;
+        _sfml_soundstream_onloop_callback(parent, (int64_t*)&result);
+        return result;
     }
 };
 void sfml_soundstream_parent(void* self, void* parent) {
@@ -162,6 +205,9 @@ void sfml_soundstream_initialize(void* self) {
 }
 void sfml_soundstream_initialize_emSemS(void* self, unsigned int channel_count, unsigned int sample_rate) {
     ((_SoundStream*)self)->initialize((unsigned int)channel_count, (unsigned int)sample_rate);
+}
+void sfml_soundstream_onloop(void* self, int64_t* result) {
+    *(Int64*)result = ((_SoundStream*)self)->onLoop();
 }
 void sfml_soundstream_setpitch_Bw9(void* self, float pitch) {
     ((_SoundStream*)self)->setPitch((float)pitch);
@@ -225,6 +271,12 @@ void sfml_music_openfromstream_PO0(void* self, void* stream, unsigned char* resu
 }
 void sfml_music_getduration(void* self, void* result) {
     *(Time*)result = ((Music*)self)->getDuration();
+}
+void sfml_music_getlooppoints(void* self, void* result) {
+    *(Music::TimeSpan*)result = ((Music*)self)->getLoopPoints();
+}
+void sfml_music_setlooppoints_TU3(void* self, void* time_points) {
+    ((Music*)self)->setLoopPoints(*(Music::TimeSpan*)time_points);
 }
 void sfml_music_play(void* self) {
     ((Music*)self)->play();

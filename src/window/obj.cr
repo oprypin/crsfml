@@ -3,6 +3,58 @@ require "../common"
 require "../system"
 module SF
   extend self
+  # Give access to the system clipboard
+  #
+  # `SF::Clipboard` provides an interface for getting and
+  # setting the contents of the system clipboard.
+  #
+  # Usage example:
+  # ```c++
+  # // get the clipboard content as a string
+  # sf::String string = sf::Clipboard::getString();
+  #
+  # // or use it in the event loop
+  # sf::Event event;
+  # while(window.pollEvent(event))
+  # {
+  #     if(event.type == sf::Event::Closed)
+  #         window.close();
+  #     if(event.type == sf::Event::KeyPressed)
+  #     {
+  #         // Using Ctrl + V to paste a string into SFML
+  #         if(event.key.control && event.key.code == sf::Keyboard::V)
+  #             string = sf::Clipboard::getString();
+  #     }
+  # }
+  #
+  # // set the clipboard to a string
+  # sf::Clipboard::setString("Hello World!");
+  # ```
+  #
+  # *See also:* `SF::String`, `SF::Event`
+  module Clipboard
+    # Get the content of the clipboard as string data
+    #
+    # This function returns the content of the clipboard
+    # as a string. If the clipboard does not contain string
+    # it returns an empty `SF::String` object.
+    #
+    # *Returns:* Clipboard contents as `SF::String` object
+    def self.string() : String
+      VoidCSFML.sfml_clipboard_getstring(out result)
+      return String.build { |io| while (v = result.value) != '\0'; io << v; result += 1; end }
+    end
+    # Set the content of the clipboard as string data
+    #
+    # This function sets the content of the clipboard as a
+    # string.
+    #
+    # * *text* - `SF::String` containing the data to be sent
+    # to the clipboard
+    def self.string=(text : String)
+      VoidCSFML.sfml_clipboard_setstring_bQs(text.size, text.chars)
+    end
+  end
   # Empty module that indicates the class requires an OpenGL context
   module GlResource
   end
@@ -252,9 +304,23 @@ module SF
     end
     # Get the currently active context
     #
+    # This function will only return `SF::Context` objects.
+    # Contexts created e.g. by RenderTargets or for internal
+    # use will not be returned by this function.
+    #
     # *Returns:* The currently active context or NULL if none is active
     def self.active_context() : Context?
       return @_context_active_context
+    end
+    # Get the currently active context's ID
+    #
+    # The context ID is used to identify contexts when
+    # managing unshareable OpenGL resources.
+    #
+    # *Returns:* The active context's ID or 0 if no context is currently active
+    def self.active_context_id() : UInt64
+      VoidCSFML.sfml_context_getactivecontextid(out result)
+      return result
     end
     # Construct a in-memory context
     #
@@ -273,6 +339,180 @@ module SF
       return @_context_active_context
     end
     include GlResource
+    include NonCopyable
+    # :nodoc:
+    def to_unsafe()
+      @this
+    end
+    # :nodoc:
+    def inspect(io)
+      to_s(io)
+    end
+  end
+  # Cursor defines the appearance of a system cursor
+  #
+  # *Warning:* Features related to Cursor are not supported on
+  #          iOS and Android.
+  #
+  # This class abstracts the operating system resources
+  # associated with either a native system cursor or a custom
+  # cursor.
+  #
+  # After loading the cursor the graphical appearance
+  # with either load_from_pixels() or load_from_system(), the
+  # cursor can be changed with `SF::Window::mouse_cursor=`().
+  #
+  # The behaviour is undefined if the cursor is destroyed while
+  # in use by the window.
+  #
+  # Usage example:
+  # ```c++
+  # sf::Window window;
+  #
+  # // ... create window as usual ...
+  #
+  # sf::Cursor cursor;
+  # if (cursor.loadFromSystem(sf::Cursor::Hand))
+  #     window.setMouseCursor(cursor);
+  # ```
+  #
+  # *See also:* `SF::`Window`::mouse_cursor=`
+  class Cursor
+    @this : Void*
+    # Enumeration of the native system cursor types
+    #
+    # Refer to the following table to determine which cursor
+    # is available on which platform.
+    #
+    #  Type                               | Linux | Mac OS X | Windows  |
+    # ------------------------------------|:-----:|:--------:|:--------:|
+    #  `SF::Cursor::Arrow`                  |  yes  |    yes   |   yes    |
+    #  `SF::Cursor::ArrowWait`              |  no   |    no    |   yes    |
+    #  `SF::Cursor::Wait`                   |  yes  |    no    |   yes    |
+    #  `SF::Cursor::Text`                   |  yes  |    yes   |   yes    |
+    #  `SF::Cursor::Hand`                   |  yes  |    yes   |   yes    |
+    #  `SF::Cursor::SizeHorizontal`         |  yes  |    yes   |   yes    |
+    #  `SF::Cursor::SizeVertical`           |  yes  |    yes   |   yes    |
+    #  `SF::Cursor::SizeTopLeftBottomRight` |  no   |    no    |   yes    |
+    #  `SF::Cursor::SizeBottomLeftTopRight` |  no   |    no    |   yes    |
+    #  `SF::Cursor::SizeAll`                |  yes  |    no    |   yes    |
+    #  `SF::Cursor::Cross`                  |  yes  |    yes   |   yes    |
+    #  `SF::Cursor::Help`                   |  yes  |    no    |   yes    |
+    #  `SF::Cursor::NotAllowed`             |  yes  |    yes   |   yes    |
+    enum Type
+      # Arrow cursor (default)
+      Arrow
+      # Busy arrow cursor
+      ArrowWait
+      # Busy cursor
+      Wait
+      # I-beam, cursor when hovering over a field allowing text entry
+      Text
+      # Pointing hand cursor
+      Hand
+      # Horizontal double arrow cursor
+      SizeHorizontal
+      # Vertical double arrow cursor
+      SizeVertical
+      # Double arrow cursor going from top-left to bottom-right
+      SizeTopLeftBottomRight
+      # Double arrow cursor going from bottom-left to top-right
+      SizeBottomLeftTopRight
+      # Combination of SizeHorizontal and SizeVertical
+      SizeAll
+      # Crosshair cursor
+      Cross
+      # Help cursor
+      Help
+      # Action not allowed cursor
+      NotAllowed
+    end
+    Util.extract Cursor::Type
+    # Default constructor
+    #
+    # This constructor doesn't actually create the cursor;
+    # initially the new instance is invalid and must not be
+    # used until either load_from_pixels() or load_from_system()
+    # is called and successfully created a cursor.
+    def initialize()
+      VoidCSFML.sfml_cursor_allocate(out @this)
+      VoidCSFML.sfml_cursor_initialize(to_unsafe)
+    end
+    # Destructor
+    #
+    # This destructor releases the system resources
+    # associated with this cursor, if any.
+    def finalize()
+      VoidCSFML.sfml_cursor_finalize(to_unsafe)
+      VoidCSFML.sfml_cursor_free(@this)
+    end
+    # Create a cursor with the provided image
+    #
+    # *pixels* must be an array of *width* by *height* pixels
+    # in 32-bit RGBA format. If not, this will cause undefined behavior.
+    #
+    # If *pixels* is null or either *width* or *height* are 0,
+    # the current cursor is left unchanged and the function will
+    # return false.
+    #
+    # In addition to specifying the pixel data, you can also
+    # specify the location of the hotspot of the cursor. The
+    # hotspot is the pixel coordinate within the cursor image
+    # which will be located exactly where the mouse pointer
+    # position is. Any mouse actions that are performed will
+    # return the window/screen location of the hotspot.
+    #
+    # *Warning:* On Unix, the pixels are mapped into a monochrome
+    #          bitmap: pixels with an alpha channel to 0 are
+    #          transparent, black if the RGB channel are close
+    #          to zero, and white otherwise.
+    #
+    # * *pixels* - Array of pixels of the image
+    # * *size* - Width and height of the image
+    # * *hotspot* - (x,y) location of the hotspot
+    # *Returns:* true if the cursor was successfully loaded;
+    #         false otherwise
+    def load_from_pixels(pixels : UInt8*, size : Vector2|Tuple, hotspot : Vector2|Tuple) : Bool
+      size = Vector2u.new(size[0].to_u32, size[1].to_u32)
+      hotspot = Vector2u.new(hotspot[0].to_u32, hotspot[1].to_u32)
+      VoidCSFML.sfml_cursor_loadfrompixels_843t9zt9z(to_unsafe, pixels, size, hotspot, out result)
+      return result
+    end
+    # Shorthand for `cursor = Cursor.new; cursor.load_from_pixels(...); cursor`
+    #
+    # Raises `InitError` on failure
+    def self.from_pixels(*args, **kwargs) : self
+      obj = new
+      if !obj.load_from_pixels(*args, **kwargs)
+        raise InitError.new("Cursor.load_from_pixels failed")
+      end
+      obj
+    end
+    # Create a native system cursor
+    #
+    # Refer to the list of cursor available on each system
+    # (see `SF::Cursor::Type`) to know whether a given cursor is
+    # expected to load successfully or is not supported by
+    # the operating system.
+    #
+    # * *type* - Native system cursor type
+    # *Returns:* true if and only if the corresponding cursor is
+    #         natively supported by the operating system;
+    #         false otherwise
+    def load_from_system(type : Cursor::Type) : Bool
+      VoidCSFML.sfml_cursor_loadfromsystem_yAZ(to_unsafe, type, out result)
+      return result
+    end
+    # Shorthand for `cursor = Cursor.new; cursor.load_from_system(...); cursor`
+    #
+    # Raises `InitError` on failure
+    def self.from_system(*args, **kwargs) : self
+      obj = new
+      if !obj.load_from_system(*args, **kwargs)
+        raise InitError.new("Cursor.load_from_system failed")
+      end
+      obj
+    end
     include NonCopyable
     # :nodoc:
     def to_unsafe()
@@ -618,7 +858,7 @@ module SF
       # The ] key
       RBracket
       # The ; key
-      SemiColon
+      Semicolon
       # The , key
       Comma
       # The . key
@@ -628,19 +868,19 @@ module SF
       # The / key
       Slash
       # The \ key
-      BackSlash
+      Backslash
       # The ~ key
       Tilde
       # The = key
       Equal
-      # The - key
-      Dash
+      # The - key (hyphen)
+      Hyphen
       # The Space key
       Space
-      # The Return key
-      Return
+      # The Enter/Return keys
+      Enter
       # The Backspace key
-      BackSpace
+      Backspace
       # The Tabulation key
       Tab
       # The Page up key
@@ -657,7 +897,7 @@ module SF
       Delete
       # The + key
       Add
-      # The - key
+      # The - key (minus, usually from numpad)
       Subtract
       # The * key
       Multiply
@@ -725,6 +965,16 @@ module SF
       Pause
       # Keep last -- the total number of keyboard keys
       KeyCount
+      # *Deprecated:* Use Hyphen instead
+      Dash = Hyphen
+      # *Deprecated:* Use Backspace instead
+      BackSpace = Backspace
+      # *Deprecated:* Use Backslash instead
+      BackSlash = Backslash
+      # *Deprecated:* Use Semicolon instead
+      SemiColon = Semicolon
+      # *Deprecated:* Use Enter instead
+      Return = Enter
     end
     Util.extract Keyboard::Key
     # Check if a key is pressed
@@ -975,7 +1225,7 @@ module SF
   # filled; all other members will have undefined values and must not
   # be read if the type of the event doesn't match. For example,
   # if you received a KeyPressed event, then you must read the
-  # event.key member, all other members such as event.MouseMove
+  # event.key member, all other members such as event.mouse_move
   # or event.text will have undefined values.
   #
   # Usage example:
@@ -1961,6 +2211,14 @@ module SF
   # structure which is passed as an optional argument when creating the
   # window.
   #
+  # On dual-graphics systems consisting of a low-power integrated GPU
+  # and a powerful discrete GPU, the driver picks which GPU will run an
+  # SFML application. In order to inform the driver that an SFML application
+  # can benefit from being run on the more powerful discrete GPU,
+  # #SFML_DEFINE_DISCRETE_GPU_PREFERENCE can be placed in a source file
+  # that is compiled and linked into the final application. The macro
+  # should be placed outside of any scopes in the global namespace.
+  #
   # Usage example:
   # ```
   # # Declare and create a new window
@@ -2294,6 +2552,25 @@ module SF
     def mouse_cursor_grabbed=(grabbed : Bool)
       VoidCSFML.sfml_window_setmousecursorgrabbed_GZq(to_unsafe, grabbed)
     end
+    # Set the displayed cursor to a native system cursor
+    #
+    # Upon window creation, the arrow cursor is used by default.
+    #
+    # *Warning:* The cursor must not be destroyed while in use by
+    #          the window.
+    #
+    # *Warning:* Features related to Cursor are not supported on
+    #          iOS and Android.
+    #
+    # * *cursor* - Native system cursor type to display
+    #
+    # *See also:* `SF::`Cursor`::load_from_system`
+    # *See also:* `SF::`Cursor`::load_from_pixels`
+    def mouse_cursor=(cursor : Cursor)
+      @_window_mouse_cursor = cursor
+      VoidCSFML.sfml_window_setmousecursor_Voc(to_unsafe, cursor)
+    end
+    @_window_mouse_cursor : Cursor? = nil
     # Enable or disable automatic key-repeat
     #
     # If key repeat is enabled, you will receive repeated

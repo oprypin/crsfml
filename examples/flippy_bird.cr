@@ -12,6 +12,8 @@ bird.origin = bird_texture.size / 2.0
 bird.scale = SF.vector2(2.5, 2.5)
 bird.position = SF.vector2(250, 300)
 
+clock = SF::Clock.new
+
 speed = 0.0
 
 while window.open?
@@ -23,14 +25,16 @@ while window.open?
       if event.code.escape?
         window.close()
       else
-        speed = -9.0
+        speed = -550.0
       end
     end
   end
 
-  speed += 0.3
-  bird.move SF.vector2(0.0, speed)
-  bird.rotation = {speed*8.0, 90.0}.min
+  elapsed_time = clock.restart.as_seconds
+
+  speed += elapsed_time * 1000
+  bird.move(0.0, speed * elapsed_time)
+  bird.rotation = {speed / 8, 90.0}.min
 
   window.clear SF::Color.new(112, 197, 206)
   window.draw bird

@@ -1,6 +1,6 @@
 module SF
-  VERSION = "2.4.10"
-  SFML_VERSION = "2.4.2"
+  VERSION = "2.5.0"
+  SFML_VERSION = "2.5.0"
 
   # Raised in shorthand class methods if initialization or resource loading fails
   class InitError < Exception
@@ -16,5 +16,3 @@ module SF
     end
   end
 end
-
-# :nodoc:

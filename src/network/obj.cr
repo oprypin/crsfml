@@ -231,7 +231,8 @@ module SF
     # In blocking mode, this function may take a while, especially
     # if the remote peer is not reachable. The last parameter allows
     # you to stop trying to connect after a given timeout.
-    # If the socket was previously connected, it is first disconnected.
+    # If the socket is already connected, the connection is
+    # forcibly disconnected before attempting to connect again.
     #
     # * *remote_address* - Address of the remote peer
     # * *remote_port* - Port of the remote peer
@@ -923,16 +924,20 @@ module SF
     # remote path is relative to the current directory of the
     # FTP server.
     #
+    # The append parameter controls whether the remote file is
+    # appended to or overwritten if it already exists.
+    #
     # * *local_file* - Path of the local file to upload
     # * *remote_path* - The directory in which to put the file on the server
     # * *mode* - Transfer mode
+    # * *append* - Pass true to append to or false to overwrite the remote file if it already exists
     #
     # *Returns:* Server response to the request
     #
     # *See also:* `download`
-    def upload(local_file : String, remote_path : String, mode : Ftp::TransferMode = Binary) : Ftp::Response
+    def upload(local_file : String, remote_path : String, mode : Ftp::TransferMode = Binary, append : Bool = false) : Ftp::Response
       result = Ftp::Response.new
-      VoidCSFML.sfml_ftp_upload_zkCzkCJP8(to_unsafe, local_file.bytesize, local_file, remote_path.bytesize, remote_path, mode, result)
+      VoidCSFML.sfml_ftp_upload_zkCzkCJP8GZq(to_unsafe, local_file.bytesize, local_file, remote_path.bytesize, remote_path, mode, append, result)
       return result
     end
     # Send a command to the FTP server
@@ -1729,101 +1734,123 @@ module SF
       VoidCSFML.sfml_packet_operator_bool(to_unsafe, out result)
       return result
     end
-    # Read data from the packet. The expected type corresponds to
-    # what was actually sent.
+    # Overload of operator &gt;&gt; to read data from the packet
     def read(type : Bool.class) : Bool
       VoidCSFML.sfml_packet_operator_shr_gRY(to_unsafe, out data)
       return data
     end
+    # Read data from the packet. The expected type corresponds to
+    # what was actually sent.
     def read(type : Int8.class) : Int8
       VoidCSFML.sfml_packet_operator_shr_0y9(to_unsafe, out data)
       return data
     end
+    # \overload
     def read(type : UInt8.class) : UInt8
       VoidCSFML.sfml_packet_operator_shr_8hc(to_unsafe, out data)
       return data
     end
+    # \overload
     def read(type : Int16.class) : Int16
       VoidCSFML.sfml_packet_operator_shr_4k3(to_unsafe, out data)
       return data
     end
+    # \overload
     def read(type : UInt16.class) : UInt16
       VoidCSFML.sfml_packet_operator_shr_Xag(to_unsafe, out data)
       return data
     end
+    # \overload
     def read(type : Int32.class) : Int32
       VoidCSFML.sfml_packet_operator_shr_NiZ(to_unsafe, out data)
       return data
     end
+    # \overload
     def read(type : UInt32.class) : UInt32
       VoidCSFML.sfml_packet_operator_shr_qTz(to_unsafe, out data)
       return data
     end
+    # \overload
     def read(type : Int64.class) : Int64
       VoidCSFML.sfml_packet_operator_shr_BuW(to_unsafe, out data)
       return data
     end
+    # \overload
     def read(type : UInt64.class) : UInt64
       VoidCSFML.sfml_packet_operator_shr_7H7(to_unsafe, out data)
       return data
     end
+    # \overload
     def read(type : Float32.class) : Float32
       VoidCSFML.sfml_packet_operator_shr_ATF(to_unsafe, out data)
       return data
     end
+    # \overload
     def read(type : Float64.class) : Float64
       VoidCSFML.sfml_packet_operator_shr_nIp(to_unsafe, out data)
       return data
     end
+    # \overload
     def read(type : String.class) : String
       VoidCSFML.sfml_packet_operator_shr_GHF(to_unsafe, out data)
       return String.new(data)
     end
-    # Write data into the packet
+    # Overload of operator &lt;&lt; to write data into the packet
     def write(data : Bool)
       VoidCSFML.sfml_packet_operator_shl_GZq(to_unsafe, data)
       self
     end
+    # Write data into the packet
     def write(data : Int8)
       VoidCSFML.sfml_packet_operator_shl_k6g(to_unsafe, data)
       self
     end
+    # \overload
     def write(data : UInt8)
       VoidCSFML.sfml_packet_operator_shl_9yU(to_unsafe, data)
       self
     end
+    # \overload
     def write(data : Int16)
       VoidCSFML.sfml_packet_operator_shl_yAA(to_unsafe, data)
       self
     end
+    # \overload
     def write(data : UInt16)
       VoidCSFML.sfml_packet_operator_shl_BtU(to_unsafe, data)
       self
     end
+    # \overload
     def write(data : Int32)
       VoidCSFML.sfml_packet_operator_shl_qe2(to_unsafe, data)
       self
     end
+    # \overload
     def write(data : UInt32)
       VoidCSFML.sfml_packet_operator_shl_saL(to_unsafe, data)
       self
     end
+    # \overload
     def write(data : Int64)
       VoidCSFML.sfml_packet_operator_shl_G4x(to_unsafe, data)
       self
     end
+    # \overload
     def write(data : UInt64)
       VoidCSFML.sfml_packet_operator_shl_Jvt(to_unsafe, data)
       self
     end
+    # \overload
     def write(data : Float32)
       VoidCSFML.sfml_packet_operator_shl_Bw9(to_unsafe, data)
       self
     end
+    # \overload
     def write(data : Float64)
       VoidCSFML.sfml_packet_operator_shl_mYt(to_unsafe, data)
       self
     end
+    # \overload
     def write(data : String)
       VoidCSFML.sfml_packet_operator_shl_zkC(to_unsafe, data.bytesize, data)
       self
@@ -2081,14 +2108,16 @@ module SF
       VoidCSFML.sfml_tcplistener_getlocalport(to_unsafe, out result)
       return result
     end
-    # Start listening for connections
+    # Start listening for incoming connection attempts
     #
-    # This functions makes the socket listen to the specified
-    # port, waiting for new connections.
-    # If the socket was previously listening to another port,
-    # it will be stopped first and bound to the new port.
+    # This function makes the socket start listening on the
+    # specified port, waiting for incoming connection attempts.
     #
-    # * *port* - Port to listen for new connections
+    # If the socket is already listening on a port when this
+    # function is called, it will stop listening on the old
+    # port before starting to listen on the new port.
+    #
+    # * *port* - Port to listen on for incoming connection attempts
     # * *address* - Address of the interface to listen on
     #
     # *Returns:* Status code
@@ -2248,6 +2277,11 @@ module SF
     # You can use the special value Socket::AnyPort to tell the
     # system to automatically pick an available port, and then
     # call local_port to retrieve the chosen port.
+    #
+    # Since the socket can only be bound to a single port at
+    # any given moment, if it is already bound when this
+    # function is called, it will be unbound from the previous
+    # port before being bound to the new one.
     #
     # * *port* - Port to bind the socket to
     # * *address* - Address of the interface to bind to

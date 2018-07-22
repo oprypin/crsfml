@@ -1,7 +1,12 @@
 require "../config"
 require "../system/lib"
+@[Link("sfml-window")]
 @[Link("voidcsfml-window")]
 lib VoidCSFML
+  fun sfml_clipboard_allocate(result : Void**)
+  fun sfml_clipboard_free(self : Void*)
+  fun sfml_clipboard_getstring(result : Char**)
+  fun sfml_clipboard_setstring_bQs(text_size : LibC::SizeT, text : Char*)
   fun sfml_glresource_allocate(result : Void**)
   fun sfml_glresource_free(self : Void*)
   fun sfml_contextsettings_allocate(result : Void**)
@@ -23,7 +28,14 @@ lib VoidCSFML
   fun sfml_context_getsettings(self : Void*, result : Void*)
   fun sfml_context_isextensionavailable_Yy6(name : LibC::Char*, result : Bool*)
   fun sfml_context_getactivecontext(result : Void**)
+  fun sfml_context_getactivecontextid(result : UInt64*)
   fun sfml_context_initialize_Fw4emSemS(self : Void*, settings : Void*, width : LibC::UInt, height : LibC::UInt)
+  fun sfml_cursor_allocate(result : Void**)
+  fun sfml_cursor_free(self : Void*)
+  fun sfml_cursor_initialize(self : Void*)
+  fun sfml_cursor_finalize(self : Void*)
+  fun sfml_cursor_loadfrompixels_843t9zt9z(self : Void*, pixels : UInt8*, size : Void*, hotspot : Void*, result : Bool*)
+  fun sfml_cursor_loadfromsystem_yAZ(self : Void*, type : LibC::Int, result : Bool*)
   fun sfml_joystick_allocate(result : Void**)
   fun sfml_joystick_free(self : Void*)
   fun sfml_joystick_identification_allocate(result : Void**)
@@ -188,6 +200,7 @@ lib VoidCSFML
   fun sfml_window_setverticalsyncenabled_GZq(self : Void*, enabled : Bool)
   fun sfml_window_setmousecursorvisible_GZq(self : Void*, visible : Bool)
   fun sfml_window_setmousecursorgrabbed_GZq(self : Void*, grabbed : Bool)
+  fun sfml_window_setmousecursor_Voc(self : Void*, cursor : Void*)
   fun sfml_window_setkeyrepeatenabled_GZq(self : Void*, enabled : Bool)
   fun sfml_window_setframeratelimit_emS(self : Void*, limit : LibC::UInt)
   fun sfml_window_setjoystickthreshold_Bw9(self : Void*, threshold : LibC::Float)

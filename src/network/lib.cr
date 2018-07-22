@@ -1,5 +1,6 @@
 require "../config"
 require "../system/lib"
+@[Link("sfml-network")]
 @[Link("voidcsfml-network")]
 lib VoidCSFML
   fun sfml_socket_allocate(result : Void**)
@@ -67,7 +68,7 @@ lib VoidCSFML
   fun sfml_ftp_renamefile_zkCzkC(self : Void*, file_size : LibC::SizeT, file : LibC::Char*, new_name_size : LibC::SizeT, new_name : LibC::Char*, result : Void*)
   fun sfml_ftp_deletefile_zkC(self : Void*, name_size : LibC::SizeT, name : LibC::Char*, result : Void*)
   fun sfml_ftp_download_zkCzkCJP8(self : Void*, remote_file_size : LibC::SizeT, remote_file : LibC::Char*, local_path_size : LibC::SizeT, local_path : LibC::Char*, mode : LibC::Int, result : Void*)
-  fun sfml_ftp_upload_zkCzkCJP8(self : Void*, local_file_size : LibC::SizeT, local_file : LibC::Char*, remote_path_size : LibC::SizeT, remote_path : LibC::Char*, mode : LibC::Int, result : Void*)
+  fun sfml_ftp_upload_zkCzkCJP8GZq(self : Void*, local_file_size : LibC::SizeT, local_file : LibC::Char*, remote_path_size : LibC::SizeT, remote_path : LibC::Char*, mode : LibC::Int, append : Bool, result : Void*)
   fun sfml_ftp_sendcommand_zkCzkC(self : Void*, command_size : LibC::SizeT, command : LibC::Char*, parameter_size : LibC::SizeT, parameter : LibC::Char*, result : Void*)
   fun sfml_ipaddress_allocate(result : Void**)
   fun sfml_ipaddress_free(self : Void*)

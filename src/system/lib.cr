@@ -1,4 +1,5 @@
 require "../config"
+@[Link("sfml-system")]
 @[Link("voidcsfml-system")]
 lib VoidCSFML
   fun sfml_time_allocate(result : Void**)

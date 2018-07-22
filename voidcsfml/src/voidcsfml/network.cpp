@@ -210,8 +210,8 @@ void sfml_ftp_deletefile_zkC(void* self, size_t name_size, char* name, void* res
 void sfml_ftp_download_zkCzkCJP8(void* self, size_t remote_file_size, char* remote_file, size_t local_path_size, char* local_path, int mode, void* result) {
     *(Ftp::Response*)result = ((Ftp*)self)->download(std::string(remote_file, remote_file_size), std::string(local_path, local_path_size), (Ftp::TransferMode)mode);
 }
-void sfml_ftp_upload_zkCzkCJP8(void* self, size_t local_file_size, char* local_file, size_t remote_path_size, char* remote_path, int mode, void* result) {
-    *(Ftp::Response*)result = ((Ftp*)self)->upload(std::string(local_file, local_file_size), std::string(remote_path, remote_path_size), (Ftp::TransferMode)mode);
+void sfml_ftp_upload_zkCzkCJP8GZq(void* self, size_t local_file_size, char* local_file, size_t remote_path_size, char* remote_path, int mode, unsigned char append, void* result) {
+    *(Ftp::Response*)result = ((Ftp*)self)->upload(std::string(local_file, local_file_size), std::string(remote_path, remote_path_size), (Ftp::TransferMode)mode, append != 0);
 }
 void sfml_ftp_sendcommand_zkCzkC(void* self, size_t command_size, char* command, size_t parameter_size, char* parameter, void* result) {
     *(Ftp::Response*)result = ((Ftp*)self)->sendCommand(std::string(command, command_size), std::string(parameter, parameter_size));

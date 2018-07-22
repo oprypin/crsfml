@@ -1,5 +1,6 @@
 require "../config"
 require "../system/lib"
+@[Link("sfml-audio")]
 @[Link("voidcsfml-audio")]
 lib VoidCSFML
   fun sfml_listener_allocate(result : Void**)
@@ -17,6 +18,10 @@ lib VoidCSFML
   fun sfml_listener_getupvector(result : Void*)
   fun sfml_alresource_allocate(result : Void**)
   fun sfml_alresource_free(self : Void*)
+  fun sfml_soundsource_play_callback(callback : (Void* ->))
+  fun sfml_soundsource_pause_callback(callback : (Void* ->))
+  fun sfml_soundsource_stop_callback(callback : (Void* ->))
+  fun sfml_soundsource_parent(self : Void*, parent : Void*)
   fun sfml_soundsource_allocate(result : Void**)
   fun sfml_soundsource_free(self : Void*)
   fun sfml_soundsource_finalize(self : Void*)
@@ -33,8 +38,11 @@ lib VoidCSFML
   fun sfml_soundsource_isrelativetolistener(self : Void*, result : Bool*)
   fun sfml_soundsource_getmindistance(self : Void*, result : LibC::Float*)
   fun sfml_soundsource_getattenuation(self : Void*, result : LibC::Float*)
+  fun sfml_soundsource_getstatus(self : Void*, result : LibC::Int*)
+  fun sfml_soundsource_initialize(self : Void*)
   fun sfml_soundstream_ongetdata_callback(callback : (Void*, Int16**, LibC::SizeT*, Bool* ->))
   fun sfml_soundstream_onseek_callback(callback : (Void*, Void* ->))
+  fun sfml_soundstream_onloop_callback(callback : (Void*, Int64* ->))
   fun sfml_soundstream_parent(self : Void*, parent : Void*)
   fun sfml_soundstream_allocate(result : Void**)
   fun sfml_soundstream_free(self : Void*)
@@ -51,6 +59,7 @@ lib VoidCSFML
   fun sfml_soundstream_getloop(self : Void*, result : Bool*)
   fun sfml_soundstream_initialize(self : Void*)
   fun sfml_soundstream_initialize_emSemS(self : Void*, channel_count : LibC::UInt, sample_rate : LibC::UInt)
+  fun sfml_soundstream_onloop(self : Void*, result : Int64*)
   fun sfml_soundstream_setpitch_Bw9(self : Void*, pitch : LibC::Float)
   fun sfml_soundstream_setvolume_Bw9(self : Void*, volume : LibC::Float)
   fun sfml_soundstream_setposition_Bw9Bw9Bw9(self : Void*, x : LibC::Float, y : LibC::Float, z : LibC::Float)
@@ -72,6 +81,8 @@ lib VoidCSFML
   fun sfml_music_openfrommemory_5h8vgv(self : Void*, data : UInt8*, size_in_bytes : LibC::SizeT, result : Bool*)
   fun sfml_music_openfromstream_PO0(self : Void*, stream : Void*, result : Bool*)
   fun sfml_music_getduration(self : Void*, result : Void*)
+  fun sfml_music_getlooppoints(self : Void*, result : Void*)
+  fun sfml_music_setlooppoints_TU3(self : Void*, time_points : Void*)
   fun sfml_music_play(self : Void*)
   fun sfml_music_pause(self : Void*)
   fun sfml_music_stop(self : Void*)

@@ -172,6 +172,15 @@ module SF
   # Empty module that indicates the class requires an OpenAL context
   module AlResource
   end
+  VoidCSFML.sfml_soundsource_play_callback(->(self : Void*) {
+    self.as(SoundSource).play()
+  })
+  VoidCSFML.sfml_soundsource_pause_callback(->(self : Void*) {
+    self.as(SoundSource).pause()
+  })
+  VoidCSFML.sfml_soundsource_stop_callback(->(self : Void*) {
+    self.as(SoundSource).stop()
+  })
   # Base class defining a sound's properties
   #
   # `SF::SoundSource` is not meant to be used directly, it
@@ -183,7 +192,7 @@ module SF
   # changed at any time with no impact on performances.
   #
   # *See also:* `SF::Sound`, `SF::SoundStream`
-  class SoundSource
+  abstract class SoundSource
     @this : Void*
     # Enumeration of the sound source states
     enum Status
@@ -353,12 +362,43 @@ module SF
       VoidCSFML.sfml_soundsource_getattenuation(to_unsafe, out result)
       return result
     end
+    # Start or resume playing the sound source
+    #
+    # This function starts the source if it was stopped, resumes
+    # it if it was paused, and restarts it from the beginning if
+    # it was already playing.
+    #
+    # *See also:* `pause`, `stop`
+    abstract def play()
+    # Pause the sound source
+    #
+    # This function pauses the source if it was playing,
+    # otherwise (source already paused or stopped) it has no effect.
+    #
+    # *See also:* `play`, `stop`
+    abstract def pause()
+    # Stop playing the sound source
+    #
+    # This function stops the source if it was playing or paused,
+    # and does nothing if it was already stopped.
+    # It also resets the playing position (unlike pause()).
+    #
+    # *See also:* `play`, `pause`
+    abstract def stop()
+    # Get the current status of the sound (stopped, paused, playing)
+    #
+    # *Returns:* Current status of the sound
+    def status() : SoundSource::Status
+      VoidCSFML.sfml_soundsource_getstatus(to_unsafe, out result)
+      return SoundSource::Status.new(result)
+    end
     # Default constructor
     #
     # This constructor is meant to be called by derived classes only.
     protected def initialize()
       VoidCSFML.sfml_soundsource_allocate(out @this)
       VoidCSFML.sfml_soundsource_initialize(to_unsafe)
+      VoidCSFML.sfml_soundsource_parent(@this, self.as(Void*))
     end
     include AlResource
     # :nodoc:
@@ -377,6 +417,10 @@ module SF
   })
   VoidCSFML.sfml_soundstream_onseek_callback(->(self : Void*, time_offset : Void*) {
     self.as(SoundStream).on_seek(time_offset.as(Time*).value)
+  })
+  VoidCSFML.sfml_soundstream_onloop_callback(->(self : Void*, result : Int64*) {
+    output = self.as(SoundStream).on_loop()
+    result.value = Int64.new(output)
   })
   # Abstract base class for streamed audio sources
   #
@@ -545,6 +589,8 @@ module SF
       VoidCSFML.sfml_soundstream_getloop(to_unsafe, out result)
       return result
     end
+    # "Invalid" end_seeks value, telling us to continue uninterrupted
+    NoLoop = -1
     # Default constructor
     #
     # This constructor is only meant to be called by derived classes.
@@ -592,6 +638,17 @@ module SF
     #
     # * *time_offset* - New playing position, relative to the beginning of the stream
     abstract def on_seek(time_offset : Time)
+    # Change the current playing position in the stream source to the beginning of the loop
+    #
+    # This function can be overridden by derived classes to
+    # allow implementation of custom loop points. Otherwise,
+    # it just calls on_seek(Time::Zero) and returns 0.
+    #
+    # *Returns:* The seek position after looping (or -1 if there's no loop)
+    def on_loop() : Int64
+      VoidCSFML.sfml_soundstream_onloop(to_unsafe, out result)
+      return result
+    end
     # :nodoc:
     def pitch=(pitch : Number)
       VoidCSFML.sfml_soundstream_setpitch_Bw9(to_unsafe, LibC::Float.new(pitch))
@@ -813,6 +870,43 @@ module SF
       VoidCSFML.sfml_music_getduration(to_unsafe, result)
       return result
     end
+    # Get the positions of the of the sound's looping sequence
+    #
+    # *Returns:* Loop Time position class.
+    #
+    # *Warning:* Since loop_points=() performs some adjustments on the
+    # provided values and rounds them to internal samples, a call to
+    # loop_points() is not guaranteed to return the same times passed
+    # into a previous call to loop_points=(). However, it is guaranteed
+    # to return times that will map to the valid internal samples of
+    # this Music if they are later passed to loop_points=().
+    #
+    # *See also:* `loop_points=`
+    def loop_points() : Music::TimeSpan
+      result = Music::TimeSpan.allocate
+      VoidCSFML.sfml_music_getlooppoints(to_unsafe, result)
+      return result
+    end
+    # Sets the beginning and end of the sound's looping sequence using `SF::Time`
+    #
+    # Loop points allow one to specify a pair of positions such that, when the music
+    # is enabled for looping, it will seamlessly seek to the beginning whenever it
+    # encounters the end. Valid ranges for time_points.offset and time_points.length are
+    # [0, Dur) and (0, Dur-offset] respectively, where Dur is the value returned by duration().
+    # Note that the EOF "loop point" from the end to the beginning of the stream is still honored,
+    # in case the caller seeks to a point after the end of the loop range. This function can be
+    # safely called at any point after a stream is opened, and will be applied to a playing sound
+    # without affecting the current playing offset.
+    #
+    # *Warning:* Setting the loop points while the stream's status is Paused
+    # will set its status to Stopped. The playing offset will be unaffected.
+    #
+    # * *time_points* - The definition of the loop. Can be any time points within the sound's length
+    #
+    # *See also:* `loop_points`
+    def loop_points=(time_points : Music::TimeSpan)
+      VoidCSFML.sfml_music_setlooppoints_TU3(to_unsafe, time_points)
+    end
     # Request a new chunk of audio samples from the stream source
     #
     # This function fills the chunk from the next samples
@@ -821,12 +915,23 @@ module SF
     # * *data* - Chunk of data to fill
     #
     # *Returns:* True to continue playback, false to stop
-    def on_get_data()
+    def on_get_data() : Slice(Int16)?
+      nil
     end
     # Change the current playing position in the stream source
     #
     # * *time_offset* - New playing position, from the beginning of the music
     def on_seek(time_offset : Time)
+    end
+    # Change the current playing position in the stream source to the loop offset
+    #
+    # This is called by the underlying SoundStream whenever it needs us to reset
+    # the seek position for a loop. We then determine whether we are looping on a
+    # loop point or the end-of-file, perform the seek, and return the new position.
+    #
+    # *Returns:* The seek position after looping (or -1 if there's no loop)
+    def on_loop() : Int64
+      Int64.zero
     end
     # :nodoc:
     def play()
@@ -1790,7 +1895,8 @@ module SF
     # Start capturing audio data
     #
     # *Returns:* True to start the capture, or false to abort it
-    def on_start()
+    def on_start() : Bool
+      false
     end
     # Process a new chunk of recorded samples
     #
@@ -1798,7 +1904,8 @@ module SF
     # * *sample_count* - Number of samples pointed by *samples*
     #
     # *Returns:* True to continue the capture, or false to stop it
-    def on_process_samples(samples : Array(Int16) | Slice(Int16))
+    def on_process_samples(samples : Array(Int16) | Slice(Int16)) : Bool
+      false
     end
     # Stop capturing audio data
     def on_stop()

@@ -3,6 +3,10 @@
 #include <voidcsfml/system.h>
 #include <voidcsfml/config.h>
 VOIDCSFML_API sfml_window_version(int*, int*, int*);
+VOIDCSFML_API sfml_clipboard_allocate(void** result);
+VOIDCSFML_API sfml_clipboard_free(void* self);
+VOIDCSFML_API sfml_clipboard_getstring(uint32_t** result);
+VOIDCSFML_API sfml_clipboard_setstring_bQs(size_t text_size, uint32_t* text);
 VOIDCSFML_API sfml_glresource_allocate(void** result);
 VOIDCSFML_API sfml_glresource_free(void* self);
 VOIDCSFML_API sfml_contextsettings_allocate(void** result);
@@ -24,7 +28,14 @@ VOIDCSFML_API sfml_context_setactive_GZq(void* self, unsigned char active, unsig
 VOIDCSFML_API sfml_context_getsettings(void* self, void* result);
 VOIDCSFML_API sfml_context_isextensionavailable_Yy6(char* name, unsigned char* result);
 VOIDCSFML_API sfml_context_getactivecontext(void** result);
+VOIDCSFML_API sfml_context_getactivecontextid(uint64_t* result);
 VOIDCSFML_API sfml_context_initialize_Fw4emSemS(void* self, void* settings, unsigned int width, unsigned int height);
+VOIDCSFML_API sfml_cursor_allocate(void** result);
+VOIDCSFML_API sfml_cursor_free(void* self);
+VOIDCSFML_API sfml_cursor_initialize(void* self);
+VOIDCSFML_API sfml_cursor_finalize(void* self);
+VOIDCSFML_API sfml_cursor_loadfrompixels_843t9zt9z(void* self, uint8_t* pixels, void* size, void* hotspot, unsigned char* result);
+VOIDCSFML_API sfml_cursor_loadfromsystem_yAZ(void* self, int type, unsigned char* result);
 VOIDCSFML_API sfml_joystick_allocate(void** result);
 VOIDCSFML_API sfml_joystick_free(void* self);
 VOIDCSFML_API sfml_joystick_identification_allocate(void** result);
@@ -189,6 +200,7 @@ VOIDCSFML_API sfml_window_setvisible_GZq(void* self, unsigned char visible);
 VOIDCSFML_API sfml_window_setverticalsyncenabled_GZq(void* self, unsigned char enabled);
 VOIDCSFML_API sfml_window_setmousecursorvisible_GZq(void* self, unsigned char visible);
 VOIDCSFML_API sfml_window_setmousecursorgrabbed_GZq(void* self, unsigned char grabbed);
+VOIDCSFML_API sfml_window_setmousecursor_Voc(void* self, void* cursor);
 VOIDCSFML_API sfml_window_setkeyrepeatenabled_GZq(void* self, unsigned char enabled);
 VOIDCSFML_API sfml_window_setframeratelimit_emS(void* self, unsigned int limit);
 VOIDCSFML_API sfml_window_setjoystickthreshold_Bw9(void* self, float threshold);

@@ -60,7 +60,7 @@ cmake . && make
 
 > **Optional:** [out-of-source builds][] are also supported.
 
-If ran successfully, this produces the libraries in the *voidcsfml/lib* folder.
+If ran successfully, this produces the libraries in the *voidcsfml* folder.
 
 If SFML can't be found, consult the [CMake options](#cmake-options) section.
 
@@ -75,7 +75,7 @@ sudo make install
 If you do not wish to install it, you must manually specify paths to it when using it. To use it with a C compiler, you must specify the full path to the include and lib folders, in addition to linking `-lvoidcsfml-system -lsfml-system` etc. To use it with a higher-level binding (like *CrSFML*), you just need to specify the paths for the linker. So, either provide these environment variables whenever using *VoidCSFML*, or permanently apply them to your current shell session for easier usage:
 
 ```bash
-export LIBRARY_PATH=/full/path/to/crsfml/voidcsfml/lib
+export LIBRARY_PATH=/full/path/to/crsfml/voidcsfml
 export LD_LIBRARY_PATH="$LIBRARY_PATH"
 ```
 
@@ -86,7 +86,7 @@ If *SFML* is installed in an unusual location, some additional work needs to be 
 On Mac, if SFML is installed through [Homebrew][], CMake must be run like this:
 
 ```bash
-sfml=/usr/local/Cellar/sfml/2.*
+sfml=(/usr/local/Cellar/sfml/2.*)
 cmake -DCMAKE_MODULE_PATH="$sfml/share/SFML/cmake/Modules" . && make
 ```
 
@@ -94,13 +94,13 @@ When SFML is built in a local folder, even more options are needed:
 
 ```bash
 sfml=/full/path/to/SFML
-cmake -DSFML_ROOT="$sfml" -DSFML_INCLUDE_DIR="$sfml/include" -DCMAKE_MODULE_PATH="$sfml/cmake/Modules" . && make
+cmake -DSFML_DIR="$sfml" -DSFML_ROOT="$sfml" -DSFML_INCLUDE_DIR="$sfml/include" -DCMAKE_MODULE_PATH="$sfml/cmake/Modules" . && make
 ```
 
 This also means that when using *VoidCSFML*, in addition to specifying the full path to its libs, you will also need to specify the full path to SFML's libs:
 
 ```bash
-export LD_LIBRARY_PATH="/full/path/to/crsfml/voidcsfml/lib:/full/path/to/SFML/lib"
+export LD_LIBRARY_PATH="/full/path/to/crsfml/voidcsfml:/full/path/to/SFML/lib"
 ```
 
 Usage
@@ -116,26 +116,32 @@ Here is a usage example (just to get an idea about what happens under the hood, 
 #include <voidcsfml/system.h>
 #include <voidcsfml/window.h>
 
-// Use the same "large enough" buffer everywhere just for demostration
-#define buf(name)  char name[1024]
-
 int main()
 {
-    buf(videomode);
+    void* videomode; sfml_videomode_allocate(&videomode);
     sfml_videomode_initialize_emSemSemS(videomode, 640, 480, 24);
 
-    buf(contextsettings);
+    uint32_t title[] = {'V','o','i','d','C','S','F','M','L'};
+
+    void* contextsettings; sfml_contextsettings_allocate(&contextsettings);
     sfml_contextsettings_initialize_emSemSemSemSemSemSGZq(contextsettings, 0, 0, 0, 1, 1, 0, 0);
 
-    buf(window);
-    uint32_t title[] = {'V','o','i','d','C','S','F','M','L'};
+    void* window; sfml_window_allocate(&window);
     sfml_window_initialize_wg0bQssaLFw4(window, videomode, 9, title, 7, contextsettings);
+
+    sfml_contextsettings_free(contextsettings);
+    sfml_videomode_free(videomode);
 
     sfml_window_display(window);
 
-    buf(time);
+    void* time; sfml_time_allocate(&time);
     sfml_seconds_Bw9(3, time);
     sfml_sleep_f4T(time);
+
+    sfml_time_free(time);
+
+    sfml_window_close(window);
+    sfml_window_finalize(window); sfml_window_free(window);
 
     return 0;
 }
