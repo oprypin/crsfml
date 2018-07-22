@@ -266,7 +266,7 @@
 --- SF::Packet#read(type)
 +++ SF::Packet#read(type)
 @@ -1 +1,2 @@
--Overloads of operator &gt;&gt; to read data from the packet
+-\overload
 +Read data from the packet. The expected type corresponds to
 +what was actually sent.
 --- SF::Packet#valid?()
@@ -302,7 +302,7 @@
 --- SF::Packet#write(data)
 +++ SF::Packet#write(data)
 @@ -1 +1 @@
--Overloads of operator &lt;&lt; to write data into the packet
+-\overload
 +Write data into the packet
 --- SF::SocketSelector
 +++ SF::SocketSelector

@@ -433,13 +433,6 @@
 -This function is similar to Texture::repeated=.
 +This function is similar to Texture.repeated=.
  This parameter is disabled by default.
---- SF::RenderTexture#smooth=(smooth)
-+++ SF::RenderTexture#smooth=(smooth)
-@@ -2,3 +2,3 @@
- 
--This function is similar to Texture::smooth=.
-+This function is similar to Texture.smooth=.
- This parameter is disabled by default.
 --- SF::CircleShape
 +++ SF::CircleShape
 @@ -7,10 +7,10 @@
@@ -460,6 +453,13 @@
 -window.draw(circle);
 +window.draw circle
  ```
+--- SF::RenderTexture#smooth=(smooth)
++++ SF::RenderTexture#smooth=(smooth)
+@@ -2,3 +2,3 @@
+ 
+-This function is similar to Texture::smooth=.
++This function is similar to Texture.smooth=.
+ This parameter is disabled by default.
 --- SF::RenderWindow
 +++ SF::RenderWindow
 @@ -12,3 +12,3 @@
@@ -681,7 +681,7 @@
  object being drawn (which cannot be known in advance).
 @@ -63,12 +59,6 @@
  To apply a shader to a drawable, you must pass it as an
--additional parameter to the \ref Window::draw() draw() function:
+-additional parameter to the \ref RenderWindow::draw function:
 -```c++
 -window.draw(sprite, &shader);
 +additional parameter to the `Window.draw` function:
@@ -879,7 +879,7 @@
  ```
 --- SF::Text
 +++ SF::Text
-@@ -33,15 +33,14 @@
+@@ -34,15 +34,14 @@
  Usage example:
 -```c++
 -// Declare and load a font
@@ -890,7 +890,7 @@
 -sf::Text text("hello", font);
 -text.setCharacterSize(30);
 -text.setStyle(sf::Text::Bold);
--text.setColor(sf::Color::Red);
+-text.setFillColor(sf::Color::Red);
 -
 -// Draw it
 -window.draw(text);

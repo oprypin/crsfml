@@ -1,24 +1,3 @@
---- SF::Context
-+++ SF::Context
-@@ -21,11 +21,10 @@
- void threadFunction(void*)
--{
--   sf::Context context;
--   // from now on, you have a valid context
-+   SF::Context context
-+   # from now on, you have a valid context
- 
--   // you can make OpenGL calls
--   glClear(GL_DEPTH_BUFFER_BIT);
--}
--// the context is automatically deactivated and destroyed
--// by the sf::Context destructor
-+   # you can make OpenGL calls
-+   glClear(GL_DEPTH_BUFFER_BIT)
-+end
-+# the context is automatically deactivated and destroyed
-+# by the SF::Context destructor
- ```
 --- SF::ContextSettings
 +++ SF::ContextSettings
 @@ -27,5 +27,5 @@
@@ -139,51 +118,6 @@
 +  # quit...
 +end
  ```
---- SF::Event
-+++ SF::Event
-@@ -4,3 +4,3 @@
- that just happened. Events are retrieved using the
--`SF::Window::poll_event` and `SF::Window::wait_event` functions.
-+`SF::Window.poll_event` and `SF::Window.wait_event` functions.
- 
-@@ -18,20 +18,22 @@
- Usage example:
--```c++
--sf::Event event;
--while (window.pollEvent(event))
--{
--    // Request for closing the window
--    if (event.type == sf::Event::Closed)
--        window.close();
-+```
-+while (event = window.poll_event())
-+  case event
-+  # Request for closing the window
-+  when SF::Event::Closed
-+    window.close()
- 
--    // The escape key was pressed
--    if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Escape))
--        window.close();
-+  # The escape key was pressed
-+  when SF::Event::KeyPressed
-+    if event.code == SF::Keyboard::Escape
-+      window.close()
-+    end
- 
--    // The window was resized
--    if (event.type == sf::Event::Resized)
--        doSomethingWithTheNewSize(event.size.width, event.size.height);
-+  # The window was resized
-+  case SF::Event::Resized
-+    do_something(event.width, event.height)
- 
--    // etc ...
--}
-+  # etc ...
-+  end
-+end
- ```
 --- SF::Mouse
 +++ SF::Mouse
 @@ -6,6 +6,6 @@
@@ -217,6 +151,27 @@
 -sf::Mouse::setPosition(sf::Vector2i(100, 200), window);
 +# set mouse position relative to a window
 +SF::Mouse.set_position(SF.vector2i(100, 200), window)
+ ```
+--- SF::Context
++++ SF::Context
+@@ -21,11 +21,10 @@
+ void threadFunction(void*)
+-{
+-   sf::Context context;
+-   // from now on, you have a valid context
++   SF::Context context
++   # from now on, you have a valid context
+ 
+-   // you can make OpenGL calls
+-   glClear(GL_DEPTH_BUFFER_BIT);
+-}
+-// the context is automatically deactivated and destroyed
+-// by the sf::Context destructor
++   # you can make OpenGL calls
++   glClear(GL_DEPTH_BUFFER_BIT)
++end
++# the context is automatically deactivated and destroyed
++# by the SF::Context destructor
  ```
 --- SF::Sensor
 +++ SF::Sensor
@@ -289,11 +244,6 @@
 +# get position of touch 1 relative to a window
 +relative_pos = SF::Touch.get_position(1, window)
  ```
---- SF::Event::JoystickButtonEvent#button()
-+++ SF::Event::JoystickButtonEvent#button()
-@@ -1 +1 @@
--Index of the button that has been pressed (in range [0 .. Joystick::ButtonCount - 1])
-+Index of the button that has been pressed (in range `0 ... Joystick::ButtonCount`)
 --- SF::VideoMode
 +++ SF::VideoMode
 @@ -25,16 +25,11 @@
@@ -323,7 +273,7 @@
  ```
 --- SF::Window
 +++ SF::Window
-@@ -25,29 +25,27 @@
+@@ -33,29 +33,27 @@
  Usage example:
 -```c++
 -// Declare and create a new window
@@ -378,11 +328,6 @@
 +  window.display()
 +end
  ```
---- SF::Event::JoystickButtonEvent#joystick_id()
-+++ SF::Event::JoystickButtonEvent#joystick_id()
-@@ -1 +1 @@
--Index of the joystick (in range [0 .. Joystick::Count - 1])
-+Index of the joystick (in range `0 ... Joystick::Count`)
 --- SF::Window#framerate_limit=(limit)
 +++ SF::Window#framerate_limit=(limit)
 @@ -6,3 +6,3 @@
@@ -426,6 +371,61 @@
 +  # process event...
 +end
  ```
+--- SF::Event
++++ SF::Event
+@@ -4,3 +4,3 @@
+ that just happened. Events are retrieved using the
+-`SF::Window::poll_event` and `SF::Window::wait_event` functions.
++`SF::Window.poll_event` and `SF::Window.wait_event` functions.
+ 
+@@ -18,20 +18,22 @@
+ Usage example:
+-```c++
+-sf::Event event;
+-while (window.pollEvent(event))
+-{
+-    // Request for closing the window
+-    if (event.type == sf::Event::Closed)
+-        window.close();
++```
++while (event = window.poll_event())
++  case event
++  # Request for closing the window
++  when SF::Event::Closed
++    window.close()
+ 
+-    // The escape key was pressed
+-    if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Escape))
+-        window.close();
++  # The escape key was pressed
++  when SF::Event::KeyPressed
++    if event.code == SF::Keyboard::Escape
++      window.close()
++    end
+ 
+-    // The window was resized
+-    if (event.type == sf::Event::Resized)
+-        doSomethingWithTheNewSize(event.size.width, event.size.height);
++  # The window was resized
++  case SF::Event::Resized
++    do_something(event.width, event.height)
+ 
+-    // etc ...
+-}
++  # etc ...
++  end
++end
+ ```
+--- SF::Event::JoystickButtonEvent#button()
++++ SF::Event::JoystickButtonEvent#button()
+@@ -1 +1 @@
+-Index of the button that has been pressed (in range [0 .. Joystick::ButtonCount - 1])
++Index of the button that has been pressed (in range `0 ... Joystick::ButtonCount`)
+--- SF::Event::JoystickButtonEvent#joystick_id()
++++ SF::Event::JoystickButtonEvent#joystick_id()
+@@ -1 +1 @@
+-Index of the joystick (in range [0 .. Joystick::Count - 1])
++Index of the joystick (in range `0 ... Joystick::Count`)
 --- SF::Event::JoystickConnectEvent#joystick_id()
 +++ SF::Event::JoystickConnectEvent#joystick_id()
 @@ -1 +1 @@
