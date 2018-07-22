@@ -65,13 +65,13 @@ pushd deploy
 '<img src="https://raw.githubusercontent.com/oprypin/crsfml/'"$sources_branch"'/logo.png" alt="CrSFML" style="width: 100%; max-width: 235px"/>'\
 '</a>'
     # Replace README link with CrSFML
-    find doc/ -type f -exec sed -i -r -e "s,<a.+>README</a>,$logo," {} \;
+    find docs/ -type f -exec sed -i -r -e "s,<a.+>README</a>,$logo," {} \;
 
     # Expand current node
-    find doc/ -type f -exec sed -i -r -e 's,parent current,parent current open,' {} \;
+    find docs/ -type f -exec sed -i -r -e 's,parent current,parent current open,' {} \;
 
     # Redirect from / to /SF.html
-    cat << EOF > doc/index.html
+    cat << EOF > docs/index.html
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -87,7 +87,7 @@ pushd deploy
 </html>
 EOF
 
-    cat << EOF >> doc/css/style.css
+    cat << EOF >> docs/css/style.css
 #types-list {
     background: #2f610e;
 }
@@ -130,13 +130,13 @@ EOF
     if [ -n "$git_uri" ]; then
         if [ -n "$new_tag" ]; then
             # Replace commit name with tag name in links
-            find doc -type f -exec sed -i -r -e "s,blob/$rev,blob/v$new_tag,g" {} \;
+            find docs -type f -exec sed -i -r -e "s,blob/$rev,blob/v$new_tag,g" {} \;
         fi
 
         git checkout "$docs_branch"
 
         rm -r api || true
-        mv doc api
+        mv docs api
 
         git add -A
         if git commit -m "Generate API documentation ($rev)"; then
