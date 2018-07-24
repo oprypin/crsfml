@@ -632,7 +632,7 @@ class CClass < CNamespace
   end
   def module? : Bool
     return true if MODULE_CLASSES.includes? self.full_name
-    none? { |item|
+    !empty? && none? { |item|
       item.is_a?(CFunction) && !item.static? || item.is_a?(CVariable) && item.visibility.public?
     }
   end
