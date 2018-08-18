@@ -504,7 +504,7 @@ class CClass < CNamespace
             func = CFunction.new(
               name: item.name(Context::CPPSource),
               type: item.type, parameters: item.parameters,
-              static: item.static?, abstract: item.abstract?,
+              static: item.static?, is_abstract: item.abstract?,
               visibility: item.visibility, parent: self, docs: [":nodoc:"]
             )
             func_name = func.name(Context::CrystalLib)
@@ -808,7 +808,8 @@ end
 
 class CFunction < CItem
   def initialize(name : String, @type : CType?, @parameters : Array(CParameter),
-                 @static : Bool = false, @abstract : Bool = false, @const : Bool = false, *args, **kwargs)
+                 @static : Bool = false, is_abstract : Bool = false, @const : Bool = false, *args, **kwargs)
+    @abstract = is_abstract
     super(name.gsub(/\b \B/, ""), *args, **kwargs)
   end
 
@@ -1785,7 +1786,7 @@ class CModule < CNamespace
                              name: match[4],
                              parameters: func_params,
                              static: match[1]? == "static",
-                             abstract: match[7]? != nil,
+                             is_abstract: match[7]? != nil,
                              const: match[6]? != nil)
         if func.operator? && !parent.is_a? CClass
           parent = (func.parameters[0].type.type).as? CClass
