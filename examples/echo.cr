@@ -8,7 +8,7 @@ class MySoundRecorder < SF::SoundRecorder
   def on_start()
     true
   end
-  def on_process_samples(samples)
+  def on_process_samples(samples) : Bool
     @mutex.lock
     @samples.concat(samples)
     @mutex.unlock
@@ -23,7 +23,7 @@ class MySoundStream < SF::SoundStream
     super(*args)
     @result = [] of Int16
   end
-  def on_get_data()
+  def on_get_data() : Slice(Int16)?
     while @samples.empty?
       SF.sleep(SF.seconds(0.05))
     end

@@ -5,17 +5,17 @@ class CustomShape < SF::Shape
     super()
     update()
   end
-  def point_count
+  def point_count : Int32
     3
   end
-  def get_point(i : Int)
+  def get_point(i : Int) : SF::Vector2f
     case i
     when 0
-      SF.vector2(100, 200)
+      SF.vector2f(100, 200)
     when 1
-      SF.vector2(200, 200)
+      SF.vector2f(200, 200)
     else
-      SF.vector2(200, 100)
+      SF.vector2f(200, 100)
     end
   end
 end
