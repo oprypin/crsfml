@@ -121,7 +121,7 @@ class Snake
     eye = SF::CircleShape.new(0.1)
     eye.position = head
     eye.fill_color = SF::Color.new(
-      @color.r / 3, @color.g / 3, @color.b / 3
+      (@color.r / 3).to_i, (@color.g / 3).to_i, (@color.b / 3).to_i
     )
 
     offset = SF.vector2(@direction.y, -@direction.x) / 4.0
@@ -181,10 +181,10 @@ end
 
 
 field = Field.new(SF.vector2(40, 40))
+center = SF.vector2((field.size.x / 2).to_i, (field.size.y / 2).to_i)
 
-
-field.add (snake1 = Snake.new(field, field.size / 2 - {5, 0}, random_color()))
-field.add (snake2 = Snake.new(field, field.size / 2 + {5, 0}, random_color()))
+field.add (snake1 = Snake.new(field, center - {5, 0}, random_color()))
+field.add (snake2 = Snake.new(field, center + {5, 0}, random_color()))
 
 scale = 20
 
