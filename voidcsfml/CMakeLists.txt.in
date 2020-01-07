@@ -187,8 +187,7 @@ macro(voidcsfml_add_library module)
 
     # link the target to its external dependencies (C++ SFML libraries)
     foreach(depend ${module} ${voidcsfml_add_library_DEPENDS})
-        string(TOUPPER "${depend}" depend)
-        target_link_libraries(${target} ${SFML_${depend}_LIBRARY} ${SFML_${depend}_DEPENDENCIES})
+        target_link_libraries(${target} sfml-${depend})
     endforeach()
 
     # build dylibs
