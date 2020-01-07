@@ -1,53 +1,72 @@
 language: crystal
-matrix:
-  include:
-    - env: SFML=2.3.2
-    - env: SFML=2.4.2
-    - env: SFML=2.5.0
-    - os: osx
+os:
+  - linux
+  - osx
+env:
+  - SFML=2.5.1
+jobs:
   fast_finish: true
-dist: trusty
+  include:
+    - env: SFML=2.4.2 CC=clang
+    - env: SFML=2.3.2 CC=clang
+
 addons:
-  apt:
-    packages: [
-      build-essential, cmake, git, libx11-dev, freeglut3-dev, libxcb-image0-dev, libudev-dev,
-      libjpeg8-dev, libopenal-dev, libsndfile1-dev, libfreetype6-dev, libxrandr-dev
-    ]
-before_install:
-  - |
-    if [ $TRAVIS_OS_NAME = osx ]; then
-        brew install sfml &&
-        sfml=(/usr/local/Cellar/sfml/2.*) && export sfml="$sfml"
-    else
-        curl -L "https://github.com/SFML/SFML/archive/$SFML.tar.gz" | tar -xz &&
-        cd SFML* &&
-        cmake . &&
-        make &&
-        export sfml="$(pwd)" &&
-        export {LD_,}LIBRARY_PATH="$sfml/lib" &&
-        cd ..
-    fi
+  apt_packages:
+    - cmake
+    - libflac-dev
+    - libfreetype6-dev
+    - libgl1-mesa-dev
+    - libopenal-dev
+    - libudev-dev
+    - libvorbis-dev
+    - libx11-dev
+    - libxrandr-dev
+    # Only for SFML 2.4:
+    - libjpeg-dev
+    # Only for SFML 2.3:
+    - freeglut3-dev
+    - libxcb-image0-dev
+
+install:
+  - wget "https://github.com/SFML/SFML/archive/${SFML}.zip" -O sfml.zip
+  - unzip sfml.zip
+  - mv "SFML-${SFML}" sfml
+  - sfml_src="$(pwd)/sfml"
+
+  - mkdir -p sfml-build
+  - pushd sfml-build
+  - cmake ../sfml
+  - cmake --build .
+  - sfml_build="$(pwd)"
+  - export {LD_,}LIBRARY_PATH="$(pwd)/lib"
+  - popd
+
 script:
+  - mkdir -p build
+  - pushd build
+  - cmake .. -DSFML_DIR="${sfml_build}" -DSFML_INCLUDE_DIR="${sfml_src}/include" -DCMAKE_MODULE_PATH="${sfml_src}/cmake/Modules" -DSFML_ROOT="${sfml_build}"
+  - cmake --build .
+  - export {LD_,}LIBRARY_PATH="$(pwd)/voidcsfml${LIBRARY_PATH:+:$LIBRARY_PATH}"
+  - crystal doc
+
+  - pushd examples
   - |
-    cmake -DSFML_DIR="$sfml" -DSFML_ROOT="$sfml" -DSFML_INCLUDE_DIR="$sfml/include" -DCMAKE_MODULE_PATH="$sfml/cmake/Modules" &&
-    make &&
-    export {LD_,}LIBRARY_PATH="$(pwd)/voidcsfml${LIBRARY_PATH:+:$LIBRARY_PATH}"
-  - |
-    crystal doc
-  - |
-    cd examples
     for example in *.cr; do
-        echo "Building $example"
-        crystal build "$example" || error=true
+        echo "Building ${example}"
+        crystal build "${example}" || error=true
     done
-    test -z $error
+    test -z ${error}
   - |
-    if [ $TRAVIS_OS_NAME = osx ]; then
+    if [ "${TRAVIS_OS_NAME}" != linux ]; then
         for example in flippy_bird gl shader simple text_input transformable; do
-            echo "Running $example"
-            ./$example & pid=$!
+            echo "Running ${example}"
+            "./${example}" & pid=$!
             sleep 3
-            kill $pid || error=true
+            kill "${pid}" || error=true
         done
+        test -z ${error}
     fi
-    test -z $error
+
+cache:
+  directories:
+    - sfml-build
