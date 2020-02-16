@@ -34,7 +34,11 @@ STRUCTS = %w[IntRect FloatRect Vector2i Vector2u Vector2f Vector3f Time Transfor
 
 
 enum Context
-  CHeader, CPPSource, Crystal, CrystalLib
+  CHeader
+  CPPSource
+  Crystal
+  CrystalLib
+
   def cr?
     crystal? || crystal_lib?
   end
@@ -47,7 +51,9 @@ enum Context
 end
 
 enum Visibility
-  Private, Protected, Public
+  Private
+  Protected
+  Public
 end
 
 
