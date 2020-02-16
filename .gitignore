@@ -1,8 +1,8 @@
 *
 
 !.gitignore
+!.gitattributes
 !*.yml
-/shard.yml
 !*.md
 !LICENSE
 !*.in
@@ -16,16 +16,14 @@
 !/voidcsfml/
 !/voidcsfml/include/
 !/voidcsfml/include/voidcsfml/
-!/voidcsfml/include/voidcsfml/config.h
+!/voidcsfml/include/voidcsfml/*.h
 !/voidcsfml/src/
 !/voidcsfml/src/voidcsfml/
+!/voidcsfml/src/voidcsfml/*.cpp
 
 !/src/
 !/src/*/
 !/src/**/*.cr
-/src/*/lib.cr
-/src/*/obj.cr
-/src/common.cr
 
 !/docs/
 !/docs/*.diff

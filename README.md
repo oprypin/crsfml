@@ -25,7 +25,7 @@ To quote the official site of SFML,
 
 Indeed, SFML is most often used to make video games. It provides features such as hardware-accelerated 2D graphics, handling keyboard, mouse and gamepad input, vector and matrix manipulation, managing windows (can also be used as a base for OpenGL drawing), working with multiple image formats, audio playback and recording, basic networking... Check out some [demos][] of *CrSFML* to see what it can do.
 
-*CrSFML* consists almost entirely of automatically generated code, based on SFML's header files. The *master* git branch contains the [generator program](generate.cr) and the small manually written source files. The generated source code can be viewed at the [sources][] branch.
+*CrSFML* consists almost entirely of automatically generated code, based on SFML's header files. [More details](CONTRIBUTING.md).
 
 ### Differences between SFML and CrSFML
 
@@ -223,7 +223,6 @@ Thanks to [Alan Willms][alanwillms] for translating [tutorials][] to Crystal.
 [api documentation]: http://oprypin.github.io/crsfml/api/
 [releases]: https://github.com/oprypin/crsfml/releases
 [demos]: https://github.com/oprypin/crsfml-examples
-[sources]: https://github.com/oprypin/crsfml/tree/sources
 
 [sfml]: http://www.sfml-dev.org/ "Simple and Fast Multimedia Library"
 [csfml]: http://www.sfml-dev.org/download/csfml/

@@ -8,7 +8,7 @@ Information
 
 *VoidCSFML* is a library that allows [SFML][] (a library written in C++) to be used with pure C. It is not meant to be human-friendly or be used directly in C code (though it's possible). *VoidCSFML* is just an intermediate step between SFML and a higher-level binding (in this case, to [Crystal][] programming language) which is used because it's much easier to interface with a C library than a C++ one.
 
-You can browse the [latest generated source code](https://github.com/oprypin/crsfml/tree/sources/voidcsfml) of *VoidCSFML*, but it comes almost entirely from a [generator program](https://github.com/oprypin/crsfml/blob/master/generate.cr), so contributions are accepted only in the *master* branch.
+The sources come almost entirely from a [generator program](https://github.com/oprypin/crsfml/blob/master/generate.cr), so contributions are accepted only there.
 
 Installation
 ------------
@@ -24,9 +24,9 @@ To generate the source code, a [Crystal][] compiler is required.
 
 For building, [CMake][] and a C++ compiler are required (to the best of the author's knowledge, *VoidCSFML* is compatible with C++03).
 
-### Obtaining the sources
+### Generating the sources
 
-Generating the sources is an **optional** step. If you are sure you have a matching version of SFML to the [pre-generated sources](https://github.com/oprypin/crsfml/tree/sources/voidcsfml) (usually latest), you can use these. In fact, you may already be looking at the generated sources, just check whether the *voidcsfml/src* folder is populated. For development it's usually best to [build whole CrSFML](#building-crsfml). But, for completeness' sake, here's how to generate the sources manually:
+(optional, because sources are already pre-generated in this directory)
 
 Go to *CrSFML*'s root folder and run [generate.cr](https://github.com/oprypin/crsfml/blob/master/generate.cr):
 
@@ -52,7 +52,7 @@ If SFML can't be found, consult the [CMake options](#cmake-options) section.
 
 ### Building VoidCSFML
 
-If you have generated the sources manually or downloaded pre-generated sources, you can go to the *voidcsfml* folder and run:
+If you have generated the sources (or relying on the pre-generated sources), you can go to the *voidcsfml* folder and run:
 
 ```bash
 cmake . && make

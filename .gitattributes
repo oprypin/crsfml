@@ -1,0 +1,10 @@
+voidcsfml/include/voidcsfml/*.h linguist-generated
+voidcsfml/include/voidcsfml/config.h -linguist-generated
+voidcsfml/src/voidcsfml/*.cpp linguist-generated
+voidcsfml/CMakeLists.txt linguist-generated
+
+src/*/lib.cr linguist-generated
+src/*/obj.cr linguist-generated
+src/common.cr linguist-generated
+
+shard.yml linguist-generated

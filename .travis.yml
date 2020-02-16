@@ -45,6 +45,7 @@ script:
   - mkdir -p build
   - pushd build
   - cmake .. -DSFML_DIR="${sfml_build}" -DSFML_INCLUDE_DIR="${sfml_src}/include" -DCMAKE_MODULE_PATH="${sfml_src}/cmake/Modules" -DSFML_ROOT="${sfml_build}"
+  - touch ../generate.cr
   - cmake --build .
   - export {LD_,}LIBRARY_PATH="$(pwd)/voidcsfml${LIBRARY_PATH:+:$LIBRARY_PATH}"
   - crystal doc
