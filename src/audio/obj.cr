@@ -1096,6 +1096,7 @@ module SF
     # * *buffer* - Sound buffer containing the audio data to play with the sound
     def initialize(buffer : SoundBuffer)
       VoidCSFML.sfml_sound_allocate(out @this)
+      @_sound_buffer = buffer
       VoidCSFML.sfml_sound_initialize_mWu(to_unsafe, buffer)
     end
     # Destructor
@@ -1144,8 +1145,10 @@ module SF
     #
     # *See also:* `buffer`
     def buffer=(buffer : SoundBuffer)
+      @_sound_buffer = buffer
       VoidCSFML.sfml_sound_setbuffer_mWu(to_unsafe, buffer)
     end
+    @_sound_buffer : SoundBuffer? = nil
     # Set whether or not the sound should loop after reaching the end
     #
     # If set, the sound will restart from beginning after
@@ -1176,9 +1179,7 @@ module SF
     #
     # *Returns:* Sound buffer attached to the sound (can be NULL)
     def buffer() : SoundBuffer?
-      result = SoundBuffer.allocate
-      VoidCSFML.sfml_sound_getbuffer(to_unsafe, result)
-      return result
+      return @_sound_buffer
     end
     # Tell whether or not the sound is in loop mode
     #
@@ -1214,6 +1215,10 @@ module SF
     # the sound from using a dead buffer.
     def reset_buffer()
       VoidCSFML.sfml_sound_resetbuffer(to_unsafe)
+    end
+    # :nodoc:
+    def buffer() : SoundBuffer?
+      return @_sound_buffer
     end
     # :nodoc:
     def pitch=(pitch : Number)

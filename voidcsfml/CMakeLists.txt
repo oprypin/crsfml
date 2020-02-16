@@ -187,8 +187,7 @@ macro(voidcsfml_add_library module)
 
     # link the target to its external dependencies (C++ SFML libraries)
     foreach(depend ${module} ${voidcsfml_add_library_DEPENDS})
-        string(TOUPPER "${depend}" depend)
-        target_link_libraries(${target} ${SFML_${depend}_LIBRARY} ${SFML_${depend}_DEPENDENCIES})
+        target_link_libraries(${target} sfml-${depend})
     endforeach()
 
     # build dylibs
@@ -236,9 +235,9 @@ list(APPEND CMAKE_MODULE_PATH "/usr/local/opt/sfml/share/SFML/cmake/Modules") # 
 find_package(SFML 2.5
     COMPONENTS system window graphics audio network REQUIRED
 )
-if(NOT "2.5.0" STREQUAL "${SFML_VERSION_MAJOR}.${SFML_VERSION_MINOR}.${SFML_VERSION_PATCH}")
+if(NOT "2.5.1" STREQUAL "${SFML_VERSION_MAJOR}.${SFML_VERSION_MINOR}.${SFML_VERSION_PATCH}")
     message(WARNING
-        "Expecting SFML 2.5.0, "
+        "Expecting SFML 2.5.1, "
         "found SFML ${SFML_VERSION_MAJOR}.${SFML_VERSION_MINOR}.${SFML_VERSION_PATCH}"
     )
 endif()

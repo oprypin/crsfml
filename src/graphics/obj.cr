@@ -733,7 +733,7 @@ module SF
     # Construct a default set of render states with a custom shader
     #
     # * *shader* - Shader to use
-    def initialize(shader : Shader)
+    def initialize(shader : Shader?)
       @blend_mode = uninitialized BlendMode
       @transform = uninitialized Transform
       @texture = uninitialized Void*
@@ -747,7 +747,7 @@ module SF
     # * *transform* - Transform to use
     # * *texture* - Texture to use
     # * *shader* - Shader to use
-    def initialize(blend_mode : BlendMode, transform : Transform, texture : Texture?, shader : Shader)
+    def initialize(blend_mode : BlendMode, transform : Transform, texture : Texture?, shader : Shader?)
       @blend_mode = uninitialized BlendMode
       @transform = uninitialized Transform
       @texture = uninitialized Void*
@@ -787,7 +787,7 @@ module SF
     def shader : Shader?
       @_renderstates_shader
     end
-    def shader=(shader : Shader)
+    def shader=(shader : Shader?)
       @_renderstates_shader = shader
       @shader = shader ? shader.to_unsafe : Pointer(Void).null
     end

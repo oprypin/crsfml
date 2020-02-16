@@ -8,6 +8,11 @@ module SF
   # `SF::Clipboard` provides an interface for getting and
   # setting the contents of the system clipboard.
   #
+  # It is important to note that due to limitations on some
+  # operating systems, setting the clipboard contents is
+  # only guaranteed to work if there is currently an open
+  # window for which events are being handled.
+  #
   # Usage example:
   # ```c++
   # // get the clipboard content as a string
@@ -24,11 +29,12 @@ module SF
   #         // Using Ctrl + V to paste a string into SFML
   #         if(event.key.control && event.key.code == sf::Keyboard::V)
   #             string = sf::Clipboard::getString();
+  #
+  #         // Using Ctrl + C to copy a string out of SFML
+  #         if(event.key.control && event.key.code == sf::Keyboard::C)
+  #             sf::Clipboard::setString("Hello World!");
   #     }
   # }
-  #
-  # // set the clipboard to a string
-  # sf::Clipboard::setString("Hello World!");
   # ```
   #
   # *See also:* `SF::String`, `SF::Event`
@@ -48,6 +54,11 @@ module SF
     #
     # This function sets the content of the clipboard as a
     # string.
+    #
+    # *Warning:* Due to limitations on some operating systems,
+    #          setting the clipboard contents is only
+    #          guaranteed to work if there is currently an
+    #          open window for which events are being handled.
     #
     # * *text* - `SF::String` containing the data to be sent
     # to the clipboard
@@ -393,12 +404,15 @@ module SF
     #  `SF::Cursor::Hand`                   |  yes  |    yes   |   yes    |
     #  `SF::Cursor::SizeHorizontal`         |  yes  |    yes   |   yes    |
     #  `SF::Cursor::SizeVertical`           |  yes  |    yes   |   yes    |
-    #  `SF::Cursor::SizeTopLeftBottomRight` |  no   |    no    |   yes    |
-    #  `SF::Cursor::SizeBottomLeftTopRight` |  no   |    no    |   yes    |
+    #  `SF::Cursor::SizeTopLeftBottomRight` |  no   |    yes*  |   yes    |
+    #  `SF::Cursor::SizeBottomLeftTopRight` |  no   |    yes*  |   yes    |
     #  `SF::Cursor::SizeAll`                |  yes  |    no    |   yes    |
     #  `SF::Cursor::Cross`                  |  yes  |    yes   |   yes    |
-    #  `SF::Cursor::Help`                   |  yes  |    no    |   yes    |
+    #  `SF::Cursor::Help`                   |  yes  |    yes*  |   yes    |
     #  `SF::Cursor::NotAllowed`             |  yes  |    yes   |   yes    |
+    #
+    #  * These cursor types are undocumented so may not
+    #    be available on all versions, but have been tested on 10.13
     enum Type
       # Arrow cursor (default)
       Arrow

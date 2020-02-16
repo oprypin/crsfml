@@ -133,17 +133,16 @@ class KeyboardView < View
 
         item.as_h.each do |key, value|
           key = key.as_s
-          value = value.as_s
           if first
             first = false
-            value = key if value.empty?
+            value = (value.raw || key).as(String)
             key_id = SF::Keyboard::Key.parse?(key)
-            key_text = value.gsub("  ", "\n")
+            key_text = value.to_s.gsub("  ", "\n")
             if h == 1 && !key_text.includes?('\n')
               key_text += '\n'
             end
           else
-            value = value.to_f
+            value = value.raw.as(Number)
             case key
               when "w"; w = value
               when "h"; h = value
@@ -416,7 +415,12 @@ class DiagnosticsApplication < SF::RenderWindow
 
             @buttons.each do |btn, cls|
               if btn.global_bounds.contains? coord
-                @view = cls.new(self) rescue btn.fill_color = Color::DARK_RED
+                begin
+                  @view = cls.new(self)
+                rescue e
+                  btn.fill_color = Color::DARK_RED
+                  puts e.inspect_with_backtrace
+                end
               end
             end
           end
