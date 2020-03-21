@@ -6,8 +6,8 @@
 !*.md
 !LICENSE
 !*.in
+!CMakeLists.txt
 
-!/CMakeLists.txt
 !/generate.cr
 !/save_docs.cr
 !/logo.png

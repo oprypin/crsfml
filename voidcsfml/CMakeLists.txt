@@ -232,15 +232,7 @@ list(APPEND CMAKE_MODULE_PATH "/usr/share/SFML/cmake/Modules")
 list(APPEND CMAKE_MODULE_PATH "/usr/local/share/SFML/cmake/Modules")
 list(APPEND CMAKE_MODULE_PATH "/usr/local/opt/sfml/share/SFML/cmake/Modules") # Homebrew
 
-find_package(SFML 2.5
-    COMPONENTS system window graphics audio network REQUIRED
-)
-if(NOT "2.5.1" STREQUAL "${SFML_VERSION_MAJOR}.${SFML_VERSION_MINOR}.${SFML_VERSION_PATCH}")
-    message(WARNING
-        "Expecting SFML 2.5.1, "
-        "found SFML ${SFML_VERSION_MAJOR}.${SFML_VERSION_MINOR}.${SFML_VERSION_PATCH}"
-    )
-endif()
+find_package(SFML 2.3 COMPONENTS system window graphics audio network REQUIRED)
 include_directories(${SFML_INCLUDE_DIR})
 
 
