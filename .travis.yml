@@ -50,6 +50,8 @@ script:
   - export {LD_,}LIBRARY_PATH="$(pwd)/voidcsfml${LIBRARY_PATH:+:$LIBRARY_PATH}"
   - crystal doc
 
+  - [[ ${SFML} < 2.5 ]] || crystal generate.cr "${sfml_src}/include" && git diff --exit-code
+
   - pushd examples
   - |
     for example in *.cr; do
