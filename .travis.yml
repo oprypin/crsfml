@@ -31,26 +31,20 @@ install:
   - wget "https://github.com/SFML/SFML/archive/${SFML}.zip" -O sfml.zip
   - unzip sfml.zip
   - mv "SFML-${SFML}" sfml
-  - sfml_src="$(pwd)/sfml"
-
-  - mkdir -p sfml-build
-  - pushd sfml-build
-  - cmake ../sfml
+  - pushd sfml
+  - cmake .
   - cmake --build .
-  - sfml_build="$(pwd)"
+  - export SFML_INCLUDE_DIR="$(pwd)/include"
   - export {LD_,}LIBRARY_PATH="$(pwd)/lib"
   - popd
 
 script:
-  - mkdir -p build
-  - pushd build
-  - cmake .. -DSFML_DIR="${sfml_build}" -DSFML_INCLUDE_DIR="${sfml_src}/include" -DCMAKE_MODULE_PATH="${sfml_src}/cmake/Modules" -DSFML_ROOT="${sfml_build}"
-  - touch ../generate.cr
-  - cmake --build .
-  - export {LD_,}LIBRARY_PATH="$(pwd)/voidcsfml${LIBRARY_PATH:+:$LIBRARY_PATH}"
-  - crystal doc
+  - touch generate.cr
+  - make
+  - |
+    [[ ${SFML} < 2.5 ]] || git diff --exit-code
 
-  - [[ ${SFML} < 2.5 ]] || crystal generate.cr "${sfml_src}/include" && git diff --exit-code
+  - crystal doc
 
   - pushd examples
   - |
