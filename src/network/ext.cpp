@@ -1,6 +1,7 @@
-#include <voidcsfml/network.h>
 #include <SFML/Network.hpp>
+#include <SFML/System.hpp>
 using namespace sf;
+extern "C" {
 void sfml_socket_allocate(void** result) {
     *result = malloc(sizeof(Socket));
 }
@@ -567,4 +568,5 @@ void sfml_network_version(int* major, int* minor, int* patch) {
     *major = SFML_VERSION_MAJOR;
     *minor = SFML_VERSION_MINOR;
     *patch = SFML_VERSION_PATCH;
+}
 }

@@ -1,6 +1,8 @@
-#include <voidcsfml/graphics.h>
 #include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/System.hpp>
 using namespace sf;
+extern "C" {
 void sfml_blendmode_allocate(void** result) {
     *result = malloc(sizeof(BlendMode));
 }
@@ -1358,7 +1360,7 @@ void sfml_renderwindow_initialize(void* self) {
 void sfml_renderwindow_initialize_wg0bQssaLFw4(void* self, void* mode, size_t title_size, uint32_t* title, uint32_t style, void* settings) {
     new(self) RenderWindow(*(VideoMode*)mode, String::fromUtf32(title, title+title_size), (Uint32)style, *(ContextSettings*)settings);
 }
-void sfml_renderwindow_initialize_rLQFw4(void* self, SFMLWindowHandle handle, void* settings) {
+void sfml_renderwindow_initialize_rLQFw4(void* self, WindowHandle handle, void* settings) {
     new(self) RenderWindow((WindowHandle)handle, *(ContextSettings*)settings);
 }
 void sfml_renderwindow_finalize(void* self) {
@@ -1376,7 +1378,7 @@ void sfml_renderwindow_capture(void* self, void* result) {
 void sfml_renderwindow_create_wg0bQssaLFw4(void* self, void* mode, size_t title_size, uint32_t* title, uint32_t style, void* settings) {
     ((RenderWindow*)self)->create(*(VideoMode*)mode, String::fromUtf32(title, title+title_size), (Uint32)style, *(ContextSettings*)settings);
 }
-void sfml_renderwindow_create_rLQFw4(void* self, SFMLWindowHandle handle, void* settings) {
+void sfml_renderwindow_create_rLQFw4(void* self, WindowHandle handle, void* settings) {
     ((RenderWindow*)self)->create((WindowHandle)handle, *(ContextSettings*)settings);
 }
 void sfml_renderwindow_close(void* self) {
@@ -1442,7 +1444,7 @@ void sfml_renderwindow_hasfocus(void* self, unsigned char* result) {
 void sfml_renderwindow_display(void* self) {
     ((RenderWindow*)self)->display();
 }
-void sfml_renderwindow_getsystemhandle(void* self, SFMLWindowHandle* result) {
+void sfml_renderwindow_getsystemhandle(void* self, WindowHandle* result) {
     *(WindowHandle*)result = ((RenderWindow*)self)->getSystemHandle();
 }
 void sfml_renderwindow_clear_QVe(void* self, void* color) {
@@ -1907,4 +1909,5 @@ void sfml_graphics_version(int* major, int* minor, int* patch) {
     *major = SFML_VERSION_MAJOR;
     *minor = SFML_VERSION_MINOR;
     *patch = SFML_VERSION_PATCH;
+}
 }

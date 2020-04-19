@@ -1,8 +1,11 @@
 require "../config"
 require "../window/lib"
 require "../system/lib"
+{% unless flag?(:win32) %}
+@[Link("stdc++")]
+{% end %}
 @[Link("sfml-graphics")]
-@[Link("voidcsfml-graphics")]
+@[Link(ldflags: "#{__DIR__}/ext.o")]
 lib VoidCSFML
   fun sfml_blendmode_allocate(result : Void**)
   fun sfml_blendmode_free(self : Void*)

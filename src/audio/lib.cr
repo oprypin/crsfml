@@ -1,7 +1,10 @@
 require "../config"
 require "../system/lib"
+{% unless flag?(:win32) %}
+@[Link("stdc++")]
+{% end %}
 @[Link("sfml-audio")]
-@[Link("voidcsfml-audio")]
+@[Link(ldflags: "#{__DIR__}/ext.o")]
 lib VoidCSFML
   fun sfml_listener_allocate(result : Void**)
   fun sfml_listener_free(self : Void*)

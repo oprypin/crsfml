@@ -1,7 +1,10 @@
 require "../config"
 require "../system/lib"
+{% unless flag?(:win32) %}
+@[Link("stdc++")]
+{% end %}
 @[Link("sfml-window")]
-@[Link("voidcsfml-window")]
+@[Link(ldflags: "#{__DIR__}/ext.o")]
 lib VoidCSFML
   fun sfml_clipboard_allocate(result : Void**)
   fun sfml_clipboard_free(self : Void*)

@@ -1,7 +1,10 @@
 require "../config"
 require "../system/lib"
+{% unless flag?(:win32) %}
+@[Link("stdc++")]
+{% end %}
 @[Link("sfml-network")]
-@[Link("voidcsfml-network")]
+@[Link(ldflags: "#{__DIR__}/ext.o")]
 lib VoidCSFML
   fun sfml_socket_allocate(result : Void**)
   fun sfml_socket_free(self : Void*)

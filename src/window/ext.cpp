@@ -1,6 +1,7 @@
-#include <voidcsfml/window.h>
 #include <SFML/Window.hpp>
+#include <SFML/System.hpp>
 using namespace sf;
+extern "C" {
 void sfml_clipboard_allocate(void** result) {
     *result = malloc(sizeof(Clipboard));
 }
@@ -542,7 +543,7 @@ void sfml_window_initialize(void* self) {
 void sfml_window_initialize_wg0bQssaLFw4(void* self, void* mode, size_t title_size, uint32_t* title, uint32_t style, void* settings) {
     new(self) Window(*(VideoMode*)mode, String::fromUtf32(title, title+title_size), (Uint32)style, *(ContextSettings*)settings);
 }
-void sfml_window_initialize_rLQFw4(void* self, SFMLWindowHandle handle, void* settings) {
+void sfml_window_initialize_rLQFw4(void* self, WindowHandle handle, void* settings) {
     new(self) Window((WindowHandle)handle, *(ContextSettings*)settings);
 }
 void sfml_window_finalize(void* self) {
@@ -551,7 +552,7 @@ void sfml_window_finalize(void* self) {
 void sfml_window_create_wg0bQssaLFw4(void* self, void* mode, size_t title_size, uint32_t* title, uint32_t style, void* settings) {
     ((Window*)self)->create(*(VideoMode*)mode, String::fromUtf32(title, title+title_size), (Uint32)style, *(ContextSettings*)settings);
 }
-void sfml_window_create_rLQFw4(void* self, SFMLWindowHandle handle, void* settings) {
+void sfml_window_create_rLQFw4(void* self, WindowHandle handle, void* settings) {
     ((Window*)self)->create((WindowHandle)handle, *(ContextSettings*)settings);
 }
 void sfml_window_close(void* self) {
@@ -623,11 +624,12 @@ void sfml_window_hasfocus(void* self, unsigned char* result) {
 void sfml_window_display(void* self) {
     ((Window*)self)->display();
 }
-void sfml_window_getsystemhandle(void* self, SFMLWindowHandle* result) {
+void sfml_window_getsystemhandle(void* self, WindowHandle* result) {
     *(WindowHandle*)result = ((Window*)self)->getSystemHandle();
 }
 void sfml_window_version(int* major, int* minor, int* patch) {
     *major = SFML_VERSION_MAJOR;
     *minor = SFML_VERSION_MINOR;
     *patch = SFML_VERSION_PATCH;
+}
 }

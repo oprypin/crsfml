@@ -1,6 +1,9 @@
 require "../config"
+{% unless flag?(:win32) %}
+@[Link("stdc++")]
+{% end %}
 @[Link("sfml-system")]
-@[Link("voidcsfml-system")]
+@[Link(ldflags: "#{__DIR__}/ext.o")]
 lib VoidCSFML
   fun sfml_time_allocate(result : Void**)
   fun sfml_time_free(self : Void*)

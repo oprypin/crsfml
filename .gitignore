@@ -5,25 +5,16 @@
 !*.yml
 !*.md
 !LICENSE
-!*.in
-!CMakeLists.txt
 
 !/generate.cr
 !/save_docs.cr
 !/logo.png
 !/*.sh
 
-!/voidcsfml/
-!/voidcsfml/include/
-!/voidcsfml/include/voidcsfml/
-!/voidcsfml/include/voidcsfml/*.h
-!/voidcsfml/src/
-!/voidcsfml/src/voidcsfml/
-!/voidcsfml/src/voidcsfml/*.cpp
-
 !/src/
 !/src/*/
 !/src/**/*.cr
+!/src/**/*.cpp
 
 !/docs/
 !/docs/*.diff

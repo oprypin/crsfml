@@ -1,6 +1,7 @@
-#include <voidcsfml/audio.h>
 #include <SFML/Audio.hpp>
+#include <SFML/System.hpp>
 using namespace sf;
+extern "C" {
 void sfml_listener_allocate(void** result) {
     *result = malloc(sizeof(Listener));
 }
@@ -629,4 +630,5 @@ void sfml_audio_version(int* major, int* minor, int* patch) {
     *major = SFML_VERSION_MAJOR;
     *minor = SFML_VERSION_MINOR;
     *patch = SFML_VERSION_PATCH;
+}
 }

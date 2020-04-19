@@ -720,8 +720,6 @@ class CNativeType
       cr_type = cl_type = "Bool"
     when "void"
       cr_type = cl_type = "Void"
-    when "WindowHandle"
-      return "SFMLWindowHandle" if context.c_header?
     end
     case context
     when .crystal?
@@ -1592,18 +1590,13 @@ class CModule < CNamespace
 
   def render(context : Context, out o : Output)
     case context
-    when .c_header?
-      o<< "#ifndef #{LIB_NAME.upcase}_#{name.upcase}_H"
-      o<< "#define #{LIB_NAME.upcase}_#{name.upcase}_H"
-      dependencies.each do |dep|
-        o<< "#include <#{LIB_NAME.downcase}/#{dep.downcase}.h>"
-      end
-      o<< "#{LIB_NAME.upcase}_API #{PREFIX}#{name.downcase}_version(int*, int*, int*);"
     when .cpp_source?
-      o<< "#include <#{LIB_NAME.downcase}/#{name.downcase}.h>"
       o<< "#include <SFML/#{name}.hpp>"
+      dependencies.each do |dep|
+        o<< "#include <SFML/#{dep}.hpp>"
+      end
       o<< "using namespace sf;"
-      #o<< "using namespace std;"
+      o<< "extern \"C\" {"
     when .crystal_lib?
       o<< "require \"../config\""
       dependencies.each do |dep|
@@ -1614,8 +1607,11 @@ class CModule < CNamespace
           o<< "require \"../#{dep.downcase}/lib\""
         end
       end
+      o<< "\{% unless flag?(:win32) %}"
+      o<< "@[Link(\"stdc++\")]"
+      o<< "\{% end %}"
       o<< "@[Link(\"sfml-#{name.downcase}\")]"
-      o<< "@[Link(\"#{LIB_NAME.downcase}-#{name.downcase}\")]"
+      o<< %q(@[Link(ldflags: "#{__DIR__}/ext.o")])
       o<< "lib #{LIB_NAME}"
     when .crystal?
       o<< "require \"./lib\""
@@ -1647,6 +1643,7 @@ class CModule < CNamespace
       o<< "*major = SFML_VERSION_MAJOR;"
       o<< "*minor = SFML_VERSION_MINOR;"
       o<< "*patch = SFML_VERSION_PATCH;"
+      o<< "}"
       o<< "}"
     end
   end
@@ -1726,7 +1723,7 @@ class CModule < CNamespace
       when %r(^#include <SFML/(#{@name}/\w+\.hpp)>$)
         process_file $1
       when %r(^#include <SFML/(\w+)(/\w+)?\.hpp>$)
-        @dependencies |= [$1]
+        @dependencies |= [$1] unless $1 == "Config"
 
       when %r(^///( (.+))?$)
         docs_buffer << ($2? || "")
@@ -1862,7 +1859,7 @@ class Output
     dedent if line.starts_with?('}') || line.ends_with?(':')
     comment = " "*{119 - line.size - TAB.size*@indent, 0}.max + " // " + comment if comment
     yield "#{line}#{comment}"
-    indent if line.ends_with?('{') || line.ends_with?(':')
+    indent if line.ends_with?('{') && !line.starts_with?("extern ") || line.ends_with?(':')
   end
 
   def indent(n = 1)
@@ -1905,9 +1902,9 @@ modules.each do |mod|
   Context.values.each do |context|
     filename = case context
     when .c_header?
-      "#{LIB_NAME.downcase}/include/#{LIB_NAME.downcase}/#{name}.h"
+      next
     when .cpp_source?
-      "#{LIB_NAME.downcase}/src/#{LIB_NAME.downcase}/#{name}.cpp"
+      "src/#{name}/ext.cpp"
     when .crystal?
       "src/#{name}/obj.cr"
     when .crystal_lib?

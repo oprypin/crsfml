@@ -1,6 +1,6 @@
-#include <voidcsfml/system.h>
 #include <SFML/System.hpp>
 using namespace sf;
+extern "C" {
 void sfml_time_allocate(void** result) {
     *result = malloc(sizeof(Time));
 }
@@ -264,4 +264,5 @@ void sfml_system_version(int* major, int* minor, int* patch) {
     *major = SFML_VERSION_MAJOR;
     *minor = SFML_VERSION_MINOR;
     *patch = SFML_VERSION_PATCH;
+}
 }
