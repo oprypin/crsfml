@@ -336,9 +336,9 @@ class CClass < CNamespace
           cpp_params << "#{param.type.full_name} #{param.name(Context::CPPSource)}" unless param == return_param
           if param.type.type.is_a?(CClass)
             if param.type.type.full_name == "SoundStream::Chunk" && param.type.reference?
-              c_params << "int16_t**" << "size_t*"
+              c_params << "Int16**" << "std::size_t*"
               cl_params << "#{param.name(Context::CrystalLib)} : Int16**" << "#{param.name(Context::CrystalLib)}_size : LibC::SizeT*"
-              cpp_args << "(int16_t**)&#{param.name(Context::CPPSource)}.samples" << "&#{param.name(Context::CPPSource)}.sampleCount"
+              cpp_args << "(Int16**)&#{param.name(Context::CPPSource)}.samples" << "&#{param.name(Context::CPPSource)}.sampleCount"
             else
               c_params << "void*"
               cl_params << "#{param.name(Context::CrystalLib)} : Void*"
@@ -651,7 +651,7 @@ class CNativeType
       cl_type = "LibC::Char*"
       cr_type = "String"
     when "String"
-      c_type = "uint32_t*"
+      c_type = "Uint32*"
       cl_type = "Char*"
     when /\bstd::vector<(.+)>/
       if $1 == "std::string"
@@ -664,20 +664,19 @@ class CNativeType
         cr_type = "Array(#{$1})"
       end
     when "std::size_t"
-      c_type = "size_t"
+      c_type = "std::size_t"
       cl_type = cr_type = "LibC::SizeT"
     when /^(unsigned )?(int|short)$/
       u = "U" if $1?
       cl_type = "LibC::#{u}#{$2.capitalize}"
       cr_type = "#{u}" + {"int" => "Int32", "short" => "Int16"}[$2]
     when /^(Int|Uint)[0-9]+$/
-      c_type = "#{c_type.downcase}_t"
       cl_type = cr_type = cl_type.sub("int", "Int")
     when "float", "double", "char"
       cl_type = "LibC::#{cl_type.capitalize}"
       cr_type = {"float" => "Float32", "double" => "Float64", "char" => "UInt8"}[c_type]
     when "bool"
-      c_type = "unsigned char"
+      c_type = "Int8"
       cr_type = cl_type = "Bool"
     when "void"
       cr_type = cl_type = "Void"
@@ -1000,14 +999,14 @@ class CFunction < CItem
       case type.full_name(Context::CPPSource)
       when "std::string"
         unless return_params.includes? param
-          c_params << "size_t #{param.name(Context::CrystalLib)}_size"
+          c_params << "std::size_t #{param.name(Context::CrystalLib)}_size"
           cl_params << "#{param.name(Context::CrystalLib)}_size : LibC::SizeT"
           cr_arg = "#{cr_arg}.bytesize, #{cr_arg}"
           cpp_arg = "std::string(#{cpp_arg}, #{cpp_arg}_size)"
         end
       when "String"
         unless return_params.includes? param
-          c_params << "size_t #{param.name(Context::CrystalLib)}_size"
+          c_params << "std::size_t #{param.name(Context::CrystalLib)}_size"
           cl_params << "#{param.name(Context::CrystalLib)}_size : LibC::SizeT"
           cr_arg = "#{cr_arg}.size, #{cr_arg}.chars"
           cpp_arg = "String::fromUtf32(#{cpp_arg}, #{cpp_arg}+#{cpp_arg}_size)"
@@ -1338,7 +1337,7 @@ class CFunction < CItem
             o<< "static String str;"
             o<< "str = #{cpp_call};"
             cpp_asgn = "*result = "
-            cpp_call = "const_cast<uint32_t*>(str.getData())"
+            cpp_call = "const_cast<Uint32*>(str.getData())"
           elsif type.full_name(context) == "std::string"
             o<< "static std::string str;"
             if self.type
