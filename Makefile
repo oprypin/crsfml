@@ -5,14 +5,14 @@ shellquote = '$(subst ','"'"',$1)'
 
 modules := system window graphics audio network
 
-crystal_files := $(foreach module,$(modules),src/$(module)/obj.cr src/$(module)/lib.cr)
+crystal_files := $(foreach module,$(modules),src/$(module)/obj.cr src/$(module)/lib.cr) src/version.cr
 cpp_files := $(foreach module,$(modules),src/$(module)/ext.cpp)
 obj_files := $(cpp_files:.cpp=.o)
 
 .PHONY: all
 all: $(crystal_files) $(obj_files)
 
-$(crystal_files) $(cpp_files): generate.cr $(foreach module,$(modules),docs/$(module).diff)
+$(crystal_files) $(cpp_files): generate.cr shard.yml $(foreach module,$(modules),docs/$(module).diff)
 	$(CRYSTAL) run generate.cr -- $(call shellquote,$(SFML_INCLUDE_DIR))
 
 %.o: %.cpp

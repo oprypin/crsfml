@@ -1,7 +1,6 @@
-module SF
-  VERSION = "2.5.0"
-  SFML_VERSION = "2.5.1"
+require "./version"
 
+module SF
   # Raised in shorthand class methods if initialization or resource loading fails
   class InitError < Exception
   end
@@ -15,4 +14,12 @@ module SF
       {% end %}
     end
   end
+end
+
+lib VoidCSFML
+  {% if flag?(:windows) || flag?(:macosx) %}
+    type WindowHandle = Void*
+  {% else %}
+    type WindowHandle = LibC::ULong
+  {% end %}
 end

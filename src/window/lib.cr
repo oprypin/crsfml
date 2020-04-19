@@ -1,4 +1,4 @@
-require "../config"
+require "../common"
 require "../system/lib"
 {% unless flag?(:win32) %}
 @[Link("stdc++")]

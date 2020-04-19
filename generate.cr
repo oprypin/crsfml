@@ -1543,7 +1543,7 @@ class CModule < CNamespace
       o<< "using namespace sf;"
       o<< "extern \"C\" {"
     elsif context.crystal_lib?
-      o<< "require \"../config\""
+      o<< "require \"../common\""
       dependencies.each do |dep|
         o<< "require \"../#{dep.downcase}/lib\""
       end
@@ -1830,4 +1830,24 @@ unless CModule.doc_diffs.empty?
   CModule.doc_diffs.each_key do |name|
     STDERR.puts name
   end
+end
+
+sfml_version = Hash(String, String).new
+File.each_line(File.join(SFML_PATH, "Config.hpp")) do |line|
+  if line =~ /^#define +SFML_VERSION_(\w+) +(\d+)$/
+    sfml_version[$1] = $2
+  end
+end
+
+crsfml_version = File.each_line(File.join(File.dirname(__FILE__), "shard.yml")) do |line|
+  if line =~ /^version: +([\d.]+)$/
+    break $1
+  end
+end .not_nil!
+
+CrystalOutput.write("src/version.cr") do |o|
+  o<< "module SF"
+  o<< "VERSION = #{crsfml_version.inspect}"
+  o<< "SFML_VERSION = \"#{sfml_version["MAJOR"]}.#{sfml_version["MINOR"]}.#{sfml_version["PATCH"]}\""
+  o<< "end"
 end

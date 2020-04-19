@@ -1,4 +1,4 @@
-require "../config"
+require "../common"
 require "../window/lib"
 require "../system/lib"
 {% unless flag?(:win32) %}
