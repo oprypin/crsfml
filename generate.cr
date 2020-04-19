@@ -268,9 +268,19 @@ abstract class CItem
 end
 
 abstract class CNamespace < CItem
+  include Enumerable(CItem)
+
   getter items = [] of CItem
 
-  forward_missing_to @items
+  def each
+    items.each do |x|
+      yield x
+    end
+  end
+
+  def <<(item : CItem)
+    @items << item
+  end
 end
 
 
@@ -671,6 +681,7 @@ class CNativeType
       cr_type = cl_type = "Bool"
     when "void"
       cr_type = cl_type = "Void"
+    else
     end
     case context
     when .crystal?
@@ -828,6 +839,8 @@ class CFunction < CItem
       name[3..-1] + "?"
     when .starts_with? "has_"
       name[4..-1] + "?"
+    else
+      nil
     end
   end
 
@@ -1188,6 +1201,7 @@ class CFunction < CItem
             o<< "false"
           when .starts_with? "Int"
             o<< "#{ret_types[0]}.zero"
+          else
           end
         end
         o<< "end"
@@ -1522,15 +1536,14 @@ class CModule < CNamespace
   end
 
   def render(context : Context, out o : Output)
-    case context
-    when .cpp_source?
+    if context.cpp_source?
       o<< "#include <SFML/#{name}.hpp>"
       dependencies.each do |dep|
         o<< "#include <SFML/#{dep}.hpp>"
       end
       o<< "using namespace sf;"
       o<< "extern \"C\" {"
-    when .crystal_lib?
+    elsif context.crystal_lib?
       o<< "require \"../config\""
       dependencies.each do |dep|
         o<< "require \"../#{dep.downcase}/lib\""
@@ -1541,7 +1554,7 @@ class CModule < CNamespace
       o<< "@[Link(\"sfml-#{name.downcase}\")]"
       o<< %q(@[Link(ldflags: "#{__DIR__}/ext.o")])
       o<< "lib #{LIB_NAME}"
-    when .crystal?
+    elsif context.crystal?
       o<< "require \"./lib\""
       o<< "require \"../common\""
       dependencies.each do |dep|
@@ -1553,17 +1566,16 @@ class CModule < CNamespace
 
     each &.render(context, o)
 
-    case context
-    when .crystal?
+    if context.crystal?
       o<< "#{LIB_NAME}.#{PREFIX}#{name.downcase}_version(out major, out minor, out patch)"
       o<< %q(if SFML_VERSION != (ver = "#{major}.#{minor}.#{patch}"))
       o<< %q(STDERR.puts "Warning: CrSFML was built for SFML #{SFML_VERSION}, found SFML #{ver}")
       o<< %q(end)
       o<< "end"
-    when .crystal_lib?
+    elsif context.crystal_lib?
       o<< "fun #{PREFIX}#{name.downcase}_version(LibC::Int*, LibC::Int*, LibC::Int*)"
       o<< "end"
-    when .cpp_source?
+    elsif context.cpp_source?
       o<< "void #{PREFIX}#{name.downcase}_version(int* major, int* minor, int* patch) {"
       o<< "*major = SFML_VERSION_MAJOR;"
       o<< "*minor = SFML_VERSION_MINOR;"
@@ -1716,6 +1728,7 @@ class CModule < CNamespace
       when /^\}/
         docs_buffer.clear
         stack.pop
+      else
       end
 
       prev_line = line
