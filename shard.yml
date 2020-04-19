@@ -7,6 +7,9 @@ authors:
 description: |
   Crystal bindings to SFML multimedia/game library
 
+scripts:
+  postinstall: make
+
 license: zlib
 
 crystal: 0.25.1

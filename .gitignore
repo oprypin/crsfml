@@ -5,11 +5,13 @@
 !*.yml
 !*.md
 !LICENSE
+!Makefile
 
 !/generate.cr
 !/save_docs.cr
 !/logo.png
 !/*.sh
+!/*.cmd
 
 !/src/
 !/src/*/
