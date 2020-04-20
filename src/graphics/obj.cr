@@ -5369,12 +5369,14 @@ module SF
       VoidCSFML.sfml_renderwindow_pollevent_YJW(to_unsafe, event, out result)
       if result
         {% begin %}
-        case event.as(LibC::Int*).value
+        case (event_id = event.as(LibC::Int*)).value
           {% for m, i in %w[Closed Resized LostFocus GainedFocus TextEntered KeyPressed KeyReleased MouseWheelMoved MouseWheelScrolled MouseButtonPressed MouseButtonReleased MouseMoved MouseEntered MouseLeft JoystickButtonPressed JoystickButtonReleased JoystickMoved JoystickConnected JoystickDisconnected TouchBegan TouchMoved TouchEnded SensorChanged] %}
         when {{i}}
-          (event.as(LibC::Int*) + 1).as(Event::{{m.id}}*).value
+          (event_id + 1).as(Event::{{m.id}}*).value
           {% end %}
-        end .not_nil!
+        else
+          raise "Unknown SFML event ID #{event_id.value}"
+        end
         {% end %}
       end
     end
@@ -5384,12 +5386,14 @@ module SF
       VoidCSFML.sfml_renderwindow_waitevent_YJW(to_unsafe, event, out result)
       if result
         {% begin %}
-        case event.as(LibC::Int*).value
+        case (event_id = event.as(LibC::Int*)).value
           {% for m, i in %w[Closed Resized LostFocus GainedFocus TextEntered KeyPressed KeyReleased MouseWheelMoved MouseWheelScrolled MouseButtonPressed MouseButtonReleased MouseMoved MouseEntered MouseLeft JoystickButtonPressed JoystickButtonReleased JoystickMoved JoystickConnected JoystickDisconnected TouchBegan TouchMoved TouchEnded SensorChanged] %}
         when {{i}}
-          (event.as(LibC::Int*) + 1).as(Event::{{m.id}}*).value
+          (event_id + 1).as(Event::{{m.id}}*).value
           {% end %}
-        end .not_nil!
+        else
+          raise "Unknown SFML event ID #{event_id.value}"
+        end
         {% end %}
       end
     end

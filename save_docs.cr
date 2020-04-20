@@ -106,6 +106,7 @@ source_pairs.each do |mod, files|
           diff.puts $1
         when /^[\+\- ]/
           diff.print line
+        else
         end
       end
     end

@@ -378,7 +378,7 @@
 -`SF::Window::poll_event` and `SF::Window::wait_event` functions.
 +`SF::Window.poll_event` and `SF::Window.wait_event` functions.
  
-@@ -18,20 +18,22 @@
+@@ -18,20 +18,23 @@
  Usage example:
 -```c++
 -sf::Event event;
@@ -407,12 +407,13 @@
 -    if (event.type == sf::Event::Resized)
 -        doSomethingWithTheNewSize(event.size.width, event.size.height);
 +  # The window was resized
-+  case SF::Event::Resized
++  when SF::Event::Resized
 +    do_something(event.width, event.height)
  
 -    // etc ...
 -}
 +  # etc ...
++  else
 +  end
 +end
  ```

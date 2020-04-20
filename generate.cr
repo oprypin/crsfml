@@ -1291,15 +1291,17 @@ class CFunction < CItem
       if return_params[-1]?.try &.type.type.full_name == "Event"
         o<< "if result"
         o<< "{% begin %}"
-        o<< "case event.as(LibC::Int*).value"
+        o<< "case (event_id = event.as(LibC::Int*)).value"
         union_var = CType.all["Event"].as(CClass).union?.not_nil!
         enu = union_var.type.type.as(CEnum)
         members = enu.members[0...-1].map(&.name(context))
         o<< "{% for m, i in %w[#{members.join(' ')}] %}"
         o<< "when {{i}}"
-        o<< "(event.as(LibC::Int*) + 1).as(Event::{{m.id}}*).value"
+        o<< "(event_id + 1).as(Event::{{m.id}}*).value"
         o<< "{% end %}"
-        o<< "end .not_nil!"
+        o<< "else"
+        o<< "raise \"Unknown SFML event ID \#{event_id.value}\""
+        o<< "end"
         o<< "{% end %}"
         o<< "end"
         return_params.clear
@@ -1796,7 +1798,7 @@ class CrystalOutput < Output
     dedent if line =~ /^(end|else|elsif|when)\b|^\}/
     comment = " "*{118 - line.size - TAB.size*@indent, 0}.max + "  # " + comment if comment
     yield "#{line}#{comment}"
-    if line =~ /^(module|(abstract +)?(class|struct)|union|((private |protected +)?(def|macro))|lib|enum|case|if|unless|when) [^:]|^[^#]+(\b(begin|do)|\{)$/
+    if line =~ /^((module|(abstract +)?(class|struct)|union|((private |protected +)?(def|macro))|lib|enum|case|if|elsif|unless|when) [^:].*|else|[^#]+(\b(begin|do)|\{))$/
       indent unless line.starts_with? '#'
     end
   end

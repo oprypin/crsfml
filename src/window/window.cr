@@ -22,6 +22,7 @@ module SF
             {% seen << member_snake %}
           {% end %}
         {% end %}
+        else nil
         end
       {% end %}
     end
