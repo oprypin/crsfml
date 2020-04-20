@@ -42,8 +42,7 @@ clock = SF::Clock.new()
 
 while window.open?
   while event = window.poll_event()
-    case event
-    when SF::Event::Closed
+    if event.is_a? SF::Event::Closed
       window.close()
     end
   end

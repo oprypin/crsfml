@@ -26,9 +26,10 @@ abstract class View
   def input(event : SF::Event) : Bool
     case event
     when SF::Event::KeyPressed, SF::Event::MouseButtonPressed
-      return false
+      false
+    else
+      true
     end
-    true
   end
 end
 
@@ -45,7 +46,6 @@ class MouseView < View
     case event
     when SF::Event::KeyPressed
       @window.mouse_cursor_visible = true
-      return false
     when SF::Event::MouseWheelScrolled
       case event.wheel
       when SF::Mouse::HorizontalWheel
@@ -53,8 +53,9 @@ class MouseView < View
       else
         @wheel_delta.y += event.delta
       end
+    else
+      true
     end
-    true
   end
 
   def frame()
@@ -148,6 +149,7 @@ class KeyboardView < View
               when "h"; h = value
               when "x"; x += value
               when "y"; y += value
+              else
             end
           end
         end
@@ -180,6 +182,7 @@ class KeyboardView < View
       @key_to_button[event.code]?.try &.outline_thickness = @outline_thickness * 2
     when SF::Event::Resized
       rescale()
+    else
     end
     @typing.input(event)
     true
@@ -219,9 +222,10 @@ class ControllerView < View
   def input(event)
     case event
     when SF::Event::KeyPressed, SF::Event::MouseButtonPressed
-      return false
+      false
+    else
+      true
     end
-    true
   end
 
   def frame()

@@ -210,23 +210,24 @@ while window.open?
       window.close()
     elsif event.is_a? SF::Event::KeyPressed
       case event.code
-        when .a?
-          snake1.turn Left
-        when .w?
-          snake1.turn Up
-        when .d?
-          snake1.turn Right
-        when .s?
-          snake1.turn Down
+      when .a?
+        snake1.turn Left
+      when .w?
+        snake1.turn Up
+      when .d?
+        snake1.turn Right
+      when .s?
+        snake1.turn Down
 
-        when .left?
-          snake2.turn Left
-        when .up?
-          snake2.turn Up
-        when .right?
-          snake2.turn Right
-        when .down?
-          snake2.turn Down
+      when .left?
+        snake2.turn Left
+      when .up?
+        snake2.turn Up
+      when .right?
+        snake2.turn Right
+      when .down?
+        snake2.turn Down
+      else
       end
     end
   end

@@ -300,6 +300,7 @@ class TypingWidget < SF::Transformable
         paste() if event.control
       when SF::Keyboard::A
         select_all() if event.control
+      else
       end
     when SF::Event::TextEntered
       if event.unicode >= ' '.ord && event.unicode != 0x7f  # control chars and delete
@@ -313,6 +314,7 @@ class TypingWidget < SF::Transformable
       update_cursor()
     when SF::Event::MouseMoved
       click(event.x - position.x, event.y - position.y) if SF::Mouse.button_pressed?(SF::Mouse::Left)
+    else
     end
   end
 
