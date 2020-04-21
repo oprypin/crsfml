@@ -215,7 +215,7 @@ class ControllerView < View
   def initialize(@window : SF::RenderWindow)
     @js = (0...SF::Joystick::Count).find { |js|
       SF::Joystick.connected?(js)
-    } .not_nil!
+    } || raise "Couldn't detect any joystick"
     @text = SF::Text.new(SF::Joystick.get_identification(@js).name, FONT, 24)
   end
 
@@ -383,6 +383,7 @@ class DiagnosticsApplication < SF::RenderWindow
     {% end %}
 
     @version_text = SF::Text.new("SFML v#{SF::SFML_VERSION}\nCrSFML v#{SF::VERSION}", FONT, 20)
+    rescale()
 
     self.framerate_limit = 60
   end
