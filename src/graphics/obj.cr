@@ -105,7 +105,7 @@ module SF
       @alpha_src_factor = uninitialized BlendMode::Factor
       @alpha_dst_factor = uninitialized BlendMode::Factor
       @alpha_equation = uninitialized BlendMode::Equation
-      VoidCSFML.sfml_blendmode_initialize(to_unsafe)
+      SFMLExt.sfml_blendmode_initialize(to_unsafe)
     end
     # Construct the blend mode given the factors and equation.
     #
@@ -122,7 +122,7 @@ module SF
       @alpha_src_factor = uninitialized BlendMode::Factor
       @alpha_dst_factor = uninitialized BlendMode::Factor
       @alpha_equation = uninitialized BlendMode::Equation
-      VoidCSFML.sfml_blendmode_initialize_8xr8xrBw1(to_unsafe, source_factor, destination_factor, blend_equation)
+      SFMLExt.sfml_blendmode_initialize_8xr8xrBw1(to_unsafe, source_factor, destination_factor, blend_equation)
     end
     # Construct the blend mode given the factors and equation.
     #
@@ -139,7 +139,7 @@ module SF
       @alpha_src_factor = uninitialized BlendMode::Factor
       @alpha_dst_factor = uninitialized BlendMode::Factor
       @alpha_equation = uninitialized BlendMode::Equation
-      VoidCSFML.sfml_blendmode_initialize_8xr8xrBw18xr8xrBw1(to_unsafe, color_source_factor, color_destination_factor, color_blend_equation, alpha_source_factor, alpha_destination_factor, alpha_blend_equation)
+      SFMLExt.sfml_blendmode_initialize_8xr8xrBw18xr8xrBw1(to_unsafe, color_source_factor, color_destination_factor, color_blend_equation, alpha_source_factor, alpha_destination_factor, alpha_blend_equation)
     end
     @color_src_factor : BlendMode::Factor
     # Source blending factor for the color channels
@@ -196,7 +196,7 @@ module SF
     #
     # *Returns:* True if blending modes are equal, false if they are different
     def ==(right : BlendMode) : Bool
-      VoidCSFML.sfml_operator_eq_PG5PG5(to_unsafe, right, out result)
+      SFMLExt.sfml_operator_eq_PG5PG5(to_unsafe, right, out result)
       return result
     end
     # Overload of the != operator
@@ -206,7 +206,7 @@ module SF
     #
     # *Returns:* True if blending modes are different, false if they are equal
     def !=(right : BlendMode) : Bool
-      VoidCSFML.sfml_operator_ne_PG5PG5(to_unsafe, right, out result)
+      SFMLExt.sfml_operator_ne_PG5PG5(to_unsafe, right, out result)
       return result
     end
     # :nodoc:
@@ -221,7 +221,7 @@ module SF
       @alpha_src_factor = uninitialized BlendMode::Factor
       @alpha_dst_factor = uninitialized BlendMode::Factor
       @alpha_equation = uninitialized BlendMode::Equation
-      VoidCSFML.sfml_blendmode_initialize_PG5(to_unsafe, copy)
+      SFMLExt.sfml_blendmode_initialize_PG5(to_unsafe, copy)
     end
     def dup() : self
       return typeof(self).new(self)
@@ -269,7 +269,7 @@ module SF
     # Creates an identity transform (a transform that does nothing).
     def initialize()
       @matrix = uninitialized Float32[16]
-      VoidCSFML.sfml_transform_initialize(to_unsafe)
+      SFMLExt.sfml_transform_initialize(to_unsafe)
     end
     # Construct a transform from a 3x3 matrix
     #
@@ -284,7 +284,7 @@ module SF
     # * *a22* - Element (2, 2) of the matrix
     def initialize(a00 : Number, a01 : Number, a02 : Number, a10 : Number, a11 : Number, a12 : Number, a20 : Number, a21 : Number, a22 : Number)
       @matrix = uninitialized Float32[16]
-      VoidCSFML.sfml_transform_initialize_Bw9Bw9Bw9Bw9Bw9Bw9Bw9Bw9Bw9(to_unsafe, LibC::Float.new(a00), LibC::Float.new(a01), LibC::Float.new(a02), LibC::Float.new(a10), LibC::Float.new(a11), LibC::Float.new(a12), LibC::Float.new(a20), LibC::Float.new(a21), LibC::Float.new(a22))
+      SFMLExt.sfml_transform_initialize_Bw9Bw9Bw9Bw9Bw9Bw9Bw9Bw9Bw9(to_unsafe, LibC::Float.new(a00), LibC::Float.new(a01), LibC::Float.new(a02), LibC::Float.new(a10), LibC::Float.new(a11), LibC::Float.new(a12), LibC::Float.new(a20), LibC::Float.new(a21), LibC::Float.new(a22))
     end
     # Return the transform as a 4x4 matrix
     #
@@ -299,7 +299,7 @@ module SF
     #
     # *Returns:* Pointer to a 4x4 matrix
     def matrix() : Float32*
-      VoidCSFML.sfml_transform_getmatrix(to_unsafe, out result)
+      SFMLExt.sfml_transform_getmatrix(to_unsafe, out result)
       return result
     end
     # Return the inverse of the transform
@@ -310,7 +310,7 @@ module SF
     # *Returns:* A new transform which is the inverse of self
     def inverse() : Transform
       result = Transform.allocate
-      VoidCSFML.sfml_transform_getinverse(to_unsafe, result)
+      SFMLExt.sfml_transform_getinverse(to_unsafe, result)
       return result
     end
     # Transform a 2D point
@@ -321,7 +321,7 @@ module SF
     # *Returns:* Transformed point
     def transform_point(x : Number, y : Number) : Vector2f
       result = Vector2f.allocate
-      VoidCSFML.sfml_transform_transformpoint_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y), result)
+      SFMLExt.sfml_transform_transformpoint_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y), result)
       return result
     end
     # Transform a 2D point
@@ -332,7 +332,7 @@ module SF
     def transform_point(point : Vector2|Tuple) : Vector2f
       result = Vector2f.allocate
       point = Vector2f.new(point[0].to_f32, point[1].to_f32)
-      VoidCSFML.sfml_transform_transformpoint_UU2(to_unsafe, point, result)
+      SFMLExt.sfml_transform_transformpoint_UU2(to_unsafe, point, result)
       return result
     end
     # Transform a rectangle
@@ -348,7 +348,7 @@ module SF
     # *Returns:* Transformed rectangle
     def transform_rect(rectangle : FloatRect) : FloatRect
       result = FloatRect.allocate
-      VoidCSFML.sfml_transform_transformrect_WPZ(to_unsafe, rectangle, result)
+      SFMLExt.sfml_transform_transformrect_WPZ(to_unsafe, rectangle, result)
       return result
     end
     # Combine the current transform with another one
@@ -362,7 +362,7 @@ module SF
     # *Returns:* Reference to *this
     def combine(transform : Transform) : Transform
       result = Transform.allocate
-      VoidCSFML.sfml_transform_combine_FPe(to_unsafe, transform, result)
+      SFMLExt.sfml_transform_combine_FPe(to_unsafe, transform, result)
       return result
     end
     # Combine the current transform with a translation
@@ -382,7 +382,7 @@ module SF
     # *See also:* `rotate`, `scale`
     def translate(x : Number, y : Number) : Transform
       result = Transform.allocate
-      VoidCSFML.sfml_transform_translate_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y), result)
+      SFMLExt.sfml_transform_translate_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y), result)
       return result
     end
     # Combine the current transform with a translation
@@ -402,7 +402,7 @@ module SF
     def translate(offset : Vector2|Tuple) : Transform
       result = Transform.allocate
       offset = Vector2f.new(offset[0].to_f32, offset[1].to_f32)
-      VoidCSFML.sfml_transform_translate_UU2(to_unsafe, offset, result)
+      SFMLExt.sfml_transform_translate_UU2(to_unsafe, offset, result)
       return result
     end
     # Combine the current transform with a rotation
@@ -421,7 +421,7 @@ module SF
     # *See also:* `translate`, `scale`
     def rotate(angle : Number) : Transform
       result = Transform.allocate
-      VoidCSFML.sfml_transform_rotate_Bw9(to_unsafe, LibC::Float.new(angle), result)
+      SFMLExt.sfml_transform_rotate_Bw9(to_unsafe, LibC::Float.new(angle), result)
       return result
     end
     # Combine the current transform with a rotation
@@ -447,7 +447,7 @@ module SF
     # *See also:* `translate`, `scale`
     def rotate(angle : Number, center_x : Number, center_y : Number) : Transform
       result = Transform.allocate
-      VoidCSFML.sfml_transform_rotate_Bw9Bw9Bw9(to_unsafe, LibC::Float.new(angle), LibC::Float.new(center_x), LibC::Float.new(center_y), result)
+      SFMLExt.sfml_transform_rotate_Bw9Bw9Bw9(to_unsafe, LibC::Float.new(angle), LibC::Float.new(center_x), LibC::Float.new(center_y), result)
       return result
     end
     # Combine the current transform with a rotation
@@ -473,7 +473,7 @@ module SF
     def rotate(angle : Number, center : Vector2|Tuple) : Transform
       result = Transform.allocate
       center = Vector2f.new(center[0].to_f32, center[1].to_f32)
-      VoidCSFML.sfml_transform_rotate_Bw9UU2(to_unsafe, LibC::Float.new(angle), center, result)
+      SFMLExt.sfml_transform_rotate_Bw9UU2(to_unsafe, LibC::Float.new(angle), center, result)
       return result
     end
     # Combine the current transform with a scaling
@@ -493,7 +493,7 @@ module SF
     # *See also:* `translate`, `rotate`
     def scale(scale_x : Number, scale_y : Number) : Transform
       result = Transform.allocate
-      VoidCSFML.sfml_transform_scale_Bw9Bw9(to_unsafe, LibC::Float.new(scale_x), LibC::Float.new(scale_y), result)
+      SFMLExt.sfml_transform_scale_Bw9Bw9(to_unsafe, LibC::Float.new(scale_x), LibC::Float.new(scale_y), result)
       return result
     end
     # Combine the current transform with a scaling
@@ -520,7 +520,7 @@ module SF
     # *See also:* `translate`, `rotate`
     def scale(scale_x : Number, scale_y : Number, center_x : Number, center_y : Number) : Transform
       result = Transform.allocate
-      VoidCSFML.sfml_transform_scale_Bw9Bw9Bw9Bw9(to_unsafe, LibC::Float.new(scale_x), LibC::Float.new(scale_y), LibC::Float.new(center_x), LibC::Float.new(center_y), result)
+      SFMLExt.sfml_transform_scale_Bw9Bw9Bw9Bw9(to_unsafe, LibC::Float.new(scale_x), LibC::Float.new(scale_y), LibC::Float.new(center_x), LibC::Float.new(center_y), result)
       return result
     end
     # Combine the current transform with a scaling
@@ -540,7 +540,7 @@ module SF
     def scale(factors : Vector2|Tuple) : Transform
       result = Transform.allocate
       factors = Vector2f.new(factors[0].to_f32, factors[1].to_f32)
-      VoidCSFML.sfml_transform_scale_UU2(to_unsafe, factors, result)
+      SFMLExt.sfml_transform_scale_UU2(to_unsafe, factors, result)
       return result
     end
     # Combine the current transform with a scaling
@@ -567,7 +567,7 @@ module SF
       result = Transform.allocate
       factors = Vector2f.new(factors[0].to_f32, factors[1].to_f32)
       center = Vector2f.new(center[0].to_f32, center[1].to_f32)
-      VoidCSFML.sfml_transform_scale_UU2UU2(to_unsafe, factors, center, result)
+      SFMLExt.sfml_transform_scale_UU2UU2(to_unsafe, factors, center, result)
       return result
     end
     @matrix : LibC::Float[16]
@@ -581,7 +581,7 @@ module SF
     # *Returns:* New combined transform
     def *(right : Transform) : Transform
       result = Transform.allocate
-      VoidCSFML.sfml_operator_mul_FPeFPe(to_unsafe, right, result)
+      SFMLExt.sfml_operator_mul_FPeFPe(to_unsafe, right, result)
       return result
     end
     # Overload of binary operator * to transform a point
@@ -595,7 +595,7 @@ module SF
     def *(right : Vector2|Tuple) : Vector2f
       result = Vector2f.allocate
       right = Vector2f.new(right[0].to_f32, right[1].to_f32)
-      VoidCSFML.sfml_operator_mul_FPeUU2(to_unsafe, right, result)
+      SFMLExt.sfml_operator_mul_FPeUU2(to_unsafe, right, result)
       return result
     end
     # Overload of binary operator == to compare two transforms
@@ -608,7 +608,7 @@ module SF
     #
     # *Returns:* true if the transforms are equal, false otherwise
     def ==(right : Transform) : Bool
-      VoidCSFML.sfml_operator_eq_FPeFPe(to_unsafe, right, out result)
+      SFMLExt.sfml_operator_eq_FPeFPe(to_unsafe, right, out result)
       return result
     end
     # Overload of binary operator != to compare two transforms
@@ -620,7 +620,7 @@ module SF
     #
     # *Returns:* true if the transforms are not equal, false otherwise
     def !=(right : Transform) : Bool
-      VoidCSFML.sfml_operator_ne_FPeFPe(to_unsafe, right, out result)
+      SFMLExt.sfml_operator_ne_FPeFPe(to_unsafe, right, out result)
       return result
     end
     # :nodoc:
@@ -630,7 +630,7 @@ module SF
     # :nodoc:
     def initialize(copy : Transform)
       @matrix = uninitialized Float32[16]
-      VoidCSFML.sfml_transform_initialize_FPe(to_unsafe, copy)
+      SFMLExt.sfml_transform_initialize_FPe(to_unsafe, copy)
     end
     def dup() : self
       return typeof(self).new(self)
@@ -697,7 +697,7 @@ module SF
       @transform = uninitialized Transform
       @texture = uninitialized Void*
       @shader = uninitialized Void*
-      VoidCSFML.sfml_renderstates_initialize(to_unsafe)
+      SFMLExt.sfml_renderstates_initialize(to_unsafe)
     end
     # Construct a default set of render states with a custom blend mode
     #
@@ -707,7 +707,7 @@ module SF
       @transform = uninitialized Transform
       @texture = uninitialized Void*
       @shader = uninitialized Void*
-      VoidCSFML.sfml_renderstates_initialize_PG5(to_unsafe, blend_mode)
+      SFMLExt.sfml_renderstates_initialize_PG5(to_unsafe, blend_mode)
     end
     # Construct a default set of render states with a custom transform
     #
@@ -717,7 +717,7 @@ module SF
       @transform = uninitialized Transform
       @texture = uninitialized Void*
       @shader = uninitialized Void*
-      VoidCSFML.sfml_renderstates_initialize_FPe(to_unsafe, transform)
+      SFMLExt.sfml_renderstates_initialize_FPe(to_unsafe, transform)
     end
     # Construct a default set of render states with a custom texture
     #
@@ -728,7 +728,7 @@ module SF
       @texture = uninitialized Void*
       @shader = uninitialized Void*
       @_renderstates_texture = texture
-      VoidCSFML.sfml_renderstates_initialize_MXd(to_unsafe, texture)
+      SFMLExt.sfml_renderstates_initialize_MXd(to_unsafe, texture)
     end
     # Construct a default set of render states with a custom shader
     #
@@ -739,7 +739,7 @@ module SF
       @texture = uninitialized Void*
       @shader = uninitialized Void*
       @_renderstates_shader = shader
-      VoidCSFML.sfml_renderstates_initialize_8P6(to_unsafe, shader)
+      SFMLExt.sfml_renderstates_initialize_8P6(to_unsafe, shader)
     end
     # Construct a set of render states with all its attributes
     #
@@ -754,7 +754,7 @@ module SF
       @shader = uninitialized Void*
       @_renderstates_texture = texture
       @_renderstates_shader = shader
-      VoidCSFML.sfml_renderstates_initialize_PG5FPeMXd8P6(to_unsafe, blend_mode, transform, texture, shader)
+      SFMLExt.sfml_renderstates_initialize_PG5FPeMXd8P6(to_unsafe, blend_mode, transform, texture, shader)
     end
     @blend_mode : BlendMode
     # Blending mode
@@ -802,7 +802,7 @@ module SF
       @transform = uninitialized Transform
       @texture = uninitialized Void*
       @shader = uninitialized Void*
-      VoidCSFML.sfml_renderstates_initialize_mi4(to_unsafe, copy)
+      SFMLExt.sfml_renderstates_initialize_mi4(to_unsafe, copy)
     end
     def dup() : self
       return typeof(self).new(self)
@@ -932,13 +932,13 @@ module SF
     @this : Void*
     # Default constructor
     def initialize()
-      VoidCSFML.sfml_transformable_allocate(out @this)
-      VoidCSFML.sfml_transformable_initialize(to_unsafe)
+      SFMLExt.sfml_transformable_allocate(out @this)
+      SFMLExt.sfml_transformable_initialize(to_unsafe)
     end
     # Virtual destructor
     def finalize()
-      VoidCSFML.sfml_transformable_finalize(to_unsafe)
-      VoidCSFML.sfml_transformable_free(@this)
+      SFMLExt.sfml_transformable_finalize(to_unsafe)
+      SFMLExt.sfml_transformable_free(@this)
     end
     # set the position of the object
     #
@@ -951,7 +951,7 @@ module SF
     #
     # *See also:* `move`, `position`
     def set_position(x : Number, y : Number)
-      VoidCSFML.sfml_transformable_setposition_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y))
+      SFMLExt.sfml_transformable_setposition_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y))
     end
     # set the position of the object
     #
@@ -964,7 +964,7 @@ module SF
     # *See also:* `move`, `position`
     def position=(position : Vector2|Tuple)
       position = Vector2f.new(position[0].to_f32, position[1].to_f32)
-      VoidCSFML.sfml_transformable_setposition_UU2(to_unsafe, position)
+      SFMLExt.sfml_transformable_setposition_UU2(to_unsafe, position)
     end
     # set the orientation of the object
     #
@@ -976,7 +976,7 @@ module SF
     #
     # *See also:* `rotate`, `rotation`
     def rotation=(angle : Number)
-      VoidCSFML.sfml_transformable_setrotation_Bw9(to_unsafe, LibC::Float.new(angle))
+      SFMLExt.sfml_transformable_setrotation_Bw9(to_unsafe, LibC::Float.new(angle))
     end
     # set the scale factors of the object
     #
@@ -989,7 +989,7 @@ module SF
     #
     # *See also:* `scale`, `scale`
     def set_scale(factor_x : Number, factor_y : Number)
-      VoidCSFML.sfml_transformable_setscale_Bw9Bw9(to_unsafe, LibC::Float.new(factor_x), LibC::Float.new(factor_y))
+      SFMLExt.sfml_transformable_setscale_Bw9Bw9(to_unsafe, LibC::Float.new(factor_x), LibC::Float.new(factor_y))
     end
     # set the scale factors of the object
     #
@@ -1002,7 +1002,7 @@ module SF
     # *See also:* `scale`, `scale`
     def scale=(factors : Vector2|Tuple)
       factors = Vector2f.new(factors[0].to_f32, factors[1].to_f32)
-      VoidCSFML.sfml_transformable_setscale_UU2(to_unsafe, factors)
+      SFMLExt.sfml_transformable_setscale_UU2(to_unsafe, factors)
     end
     # set the local origin of the object
     #
@@ -1018,7 +1018,7 @@ module SF
     #
     # *See also:* `origin`
     def set_origin(x : Number, y : Number)
-      VoidCSFML.sfml_transformable_setorigin_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y))
+      SFMLExt.sfml_transformable_setorigin_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y))
     end
     # set the local origin of the object
     #
@@ -1034,7 +1034,7 @@ module SF
     # *See also:* `origin`
     def origin=(origin : Vector2|Tuple)
       origin = Vector2f.new(origin[0].to_f32, origin[1].to_f32)
-      VoidCSFML.sfml_transformable_setorigin_UU2(to_unsafe, origin)
+      SFMLExt.sfml_transformable_setorigin_UU2(to_unsafe, origin)
     end
     # get the position of the object
     #
@@ -1043,7 +1043,7 @@ module SF
     # *See also:* `position=`
     def position() : Vector2f
       result = Vector2f.allocate
-      VoidCSFML.sfml_transformable_getposition(to_unsafe, result)
+      SFMLExt.sfml_transformable_getposition(to_unsafe, result)
       return result
     end
     # get the orientation of the object
@@ -1054,7 +1054,7 @@ module SF
     #
     # *See also:* `rotation=`
     def rotation() : Float32
-      VoidCSFML.sfml_transformable_getrotation(to_unsafe, out result)
+      SFMLExt.sfml_transformable_getrotation(to_unsafe, out result)
       return result
     end
     # get the current scale of the object
@@ -1064,7 +1064,7 @@ module SF
     # *See also:* `scale=`
     def scale() : Vector2f
       result = Vector2f.allocate
-      VoidCSFML.sfml_transformable_getscale(to_unsafe, result)
+      SFMLExt.sfml_transformable_getscale(to_unsafe, result)
       return result
     end
     # get the local origin of the object
@@ -1074,7 +1074,7 @@ module SF
     # *See also:* `origin=`
     def origin() : Vector2f
       result = Vector2f.allocate
-      VoidCSFML.sfml_transformable_getorigin(to_unsafe, result)
+      SFMLExt.sfml_transformable_getorigin(to_unsafe, result)
       return result
     end
     # Move the object by a given offset
@@ -1092,7 +1092,7 @@ module SF
     #
     # *See also:* `position=`
     def move(offset_x : Number, offset_y : Number)
-      VoidCSFML.sfml_transformable_move_Bw9Bw9(to_unsafe, LibC::Float.new(offset_x), LibC::Float.new(offset_y))
+      SFMLExt.sfml_transformable_move_Bw9Bw9(to_unsafe, LibC::Float.new(offset_x), LibC::Float.new(offset_y))
     end
     # Move the object by a given offset
     #
@@ -1108,7 +1108,7 @@ module SF
     # *See also:* `position=`
     def move(offset : Vector2|Tuple)
       offset = Vector2f.new(offset[0].to_f32, offset[1].to_f32)
-      VoidCSFML.sfml_transformable_move_UU2(to_unsafe, offset)
+      SFMLExt.sfml_transformable_move_UU2(to_unsafe, offset)
     end
     # Rotate the object
     #
@@ -1121,7 +1121,7 @@ module SF
     #
     # * *angle* - Angle of rotation, in degrees
     def rotate(angle : Number)
-      VoidCSFML.sfml_transformable_rotate_Bw9(to_unsafe, LibC::Float.new(angle))
+      SFMLExt.sfml_transformable_rotate_Bw9(to_unsafe, LibC::Float.new(angle))
     end
     # Scale the object
     #
@@ -1138,7 +1138,7 @@ module SF
     #
     # *See also:* `scale=`
     def scale(factor_x : Number, factor_y : Number)
-      VoidCSFML.sfml_transformable_scale_Bw9Bw9(to_unsafe, LibC::Float.new(factor_x), LibC::Float.new(factor_y))
+      SFMLExt.sfml_transformable_scale_Bw9Bw9(to_unsafe, LibC::Float.new(factor_x), LibC::Float.new(factor_y))
     end
     # Scale the object
     #
@@ -1155,7 +1155,7 @@ module SF
     # *See also:* `scale=`
     def scale(factor : Vector2|Tuple)
       factor = Vector2f.new(factor[0].to_f32, factor[1].to_f32)
-      VoidCSFML.sfml_transformable_scale_UU2(to_unsafe, factor)
+      SFMLExt.sfml_transformable_scale_UU2(to_unsafe, factor)
     end
     # get the combined transform of the object
     #
@@ -1164,7 +1164,7 @@ module SF
     # *See also:* `inverse_transform`
     def transform() : Transform
       result = Transform.allocate
-      VoidCSFML.sfml_transformable_gettransform(to_unsafe, result)
+      SFMLExt.sfml_transformable_gettransform(to_unsafe, result)
       return result
     end
     # get the inverse of the combined transform of the object
@@ -1174,7 +1174,7 @@ module SF
     # *See also:* `transform`
     def inverse_transform() : Transform
       result = Transform.allocate
-      VoidCSFML.sfml_transformable_getinversetransform(to_unsafe, result)
+      SFMLExt.sfml_transformable_getinversetransform(to_unsafe, result)
       return result
     end
     # :nodoc:
@@ -1187,8 +1187,8 @@ module SF
     end
     # :nodoc:
     def initialize(copy : Transformable)
-      VoidCSFML.sfml_transformable_allocate(out @this)
-      VoidCSFML.sfml_transformable_initialize_dkg(to_unsafe, copy)
+      SFMLExt.sfml_transformable_allocate(out @this)
+      SFMLExt.sfml_transformable_initialize_dkg(to_unsafe, copy)
     end
     def dup() : self
       return typeof(self).new(self)
@@ -1247,7 +1247,7 @@ module SF
       @g = uninitialized UInt8
       @b = uninitialized UInt8
       @a = uninitialized UInt8
-      VoidCSFML.sfml_color_initialize(to_unsafe)
+      SFMLExt.sfml_color_initialize(to_unsafe)
     end
     # Construct the color from its 4 RGBA components
     #
@@ -1260,7 +1260,7 @@ module SF
       @g = uninitialized UInt8
       @b = uninitialized UInt8
       @a = uninitialized UInt8
-      VoidCSFML.sfml_color_initialize_9yU9yU9yU9yU(to_unsafe, UInt8.new(red), UInt8.new(green), UInt8.new(blue), UInt8.new(alpha))
+      SFMLExt.sfml_color_initialize_9yU9yU9yU9yU(to_unsafe, UInt8.new(red), UInt8.new(green), UInt8.new(blue), UInt8.new(alpha))
     end
     # Construct the color from 32-bit unsigned integer
     #
@@ -1270,13 +1270,13 @@ module SF
       @g = uninitialized UInt8
       @b = uninitialized UInt8
       @a = uninitialized UInt8
-      VoidCSFML.sfml_color_initialize_saL(to_unsafe, UInt32.new(color))
+      SFMLExt.sfml_color_initialize_saL(to_unsafe, UInt32.new(color))
     end
     # Retrieve the color as a 32-bit unsigned integer
     #
     # *Returns:* Color represented as a 32-bit unsigned integer
     def to_integer() : UInt32
-      VoidCSFML.sfml_color_tointeger(to_unsafe, out result)
+      SFMLExt.sfml_color_tointeger(to_unsafe, out result)
       return result
     end
     @r : UInt8
@@ -1320,7 +1320,7 @@ module SF
     #
     # *Returns:* True if colors are equal, false if they are different
     def ==(right : Color) : Bool
-      VoidCSFML.sfml_operator_eq_QVeQVe(to_unsafe, right, out result)
+      SFMLExt.sfml_operator_eq_QVeQVe(to_unsafe, right, out result)
       return result
     end
     # Overload of the != operator
@@ -1332,7 +1332,7 @@ module SF
     #
     # *Returns:* True if colors are different, false if they are equal
     def !=(right : Color) : Bool
-      VoidCSFML.sfml_operator_ne_QVeQVe(to_unsafe, right, out result)
+      SFMLExt.sfml_operator_ne_QVeQVe(to_unsafe, right, out result)
       return result
     end
     # Overload of the binary + operator
@@ -1346,7 +1346,7 @@ module SF
     # *Returns:* Result of *left* + *right*
     def +(right : Color) : Color
       result = Color.allocate
-      VoidCSFML.sfml_operator_add_QVeQVe(to_unsafe, right, result)
+      SFMLExt.sfml_operator_add_QVeQVe(to_unsafe, right, result)
       return result
     end
     # Overload of the binary - operator
@@ -1360,7 +1360,7 @@ module SF
     # *Returns:* Result of *left* - *right*
     def -(right : Color) : Color
       result = Color.allocate
-      VoidCSFML.sfml_operator_sub_QVeQVe(to_unsafe, right, result)
+      SFMLExt.sfml_operator_sub_QVeQVe(to_unsafe, right, result)
       return result
     end
     # Overload of the binary * operator
@@ -1376,7 +1376,7 @@ module SF
     # *Returns:* Result of *left* * *right*
     def *(right : Color) : Color
       result = Color.allocate
-      VoidCSFML.sfml_operator_mul_QVeQVe(to_unsafe, right, result)
+      SFMLExt.sfml_operator_mul_QVeQVe(to_unsafe, right, result)
       return result
     end
     # :nodoc:
@@ -1389,7 +1389,7 @@ module SF
       @g = uninitialized UInt8
       @b = uninitialized UInt8
       @a = uninitialized UInt8
-      VoidCSFML.sfml_color_initialize_QVe(to_unsafe, copy)
+      SFMLExt.sfml_color_initialize_QVe(to_unsafe, copy)
     end
     def dup() : self
       return typeof(self).new(self)
@@ -1440,7 +1440,7 @@ module SF
       @position = uninitialized Vector2f
       @color = uninitialized Color
       @tex_coords = uninitialized Vector2f
-      VoidCSFML.sfml_vertex_initialize(to_unsafe)
+      SFMLExt.sfml_vertex_initialize(to_unsafe)
     end
     # Construct the vertex from its position
     #
@@ -1452,7 +1452,7 @@ module SF
       @color = uninitialized Color
       @tex_coords = uninitialized Vector2f
       position = Vector2f.new(position[0].to_f32, position[1].to_f32)
-      VoidCSFML.sfml_vertex_initialize_UU2(to_unsafe, position)
+      SFMLExt.sfml_vertex_initialize_UU2(to_unsafe, position)
     end
     # Construct the vertex from its position and color
     #
@@ -1465,7 +1465,7 @@ module SF
       @color = uninitialized Color
       @tex_coords = uninitialized Vector2f
       position = Vector2f.new(position[0].to_f32, position[1].to_f32)
-      VoidCSFML.sfml_vertex_initialize_UU2QVe(to_unsafe, position, color)
+      SFMLExt.sfml_vertex_initialize_UU2QVe(to_unsafe, position, color)
     end
     # Construct the vertex from its position and texture coordinates
     #
@@ -1479,7 +1479,7 @@ module SF
       @tex_coords = uninitialized Vector2f
       position = Vector2f.new(position[0].to_f32, position[1].to_f32)
       tex_coords = Vector2f.new(tex_coords[0].to_f32, tex_coords[1].to_f32)
-      VoidCSFML.sfml_vertex_initialize_UU2UU2(to_unsafe, position, tex_coords)
+      SFMLExt.sfml_vertex_initialize_UU2UU2(to_unsafe, position, tex_coords)
     end
     # Construct the vertex from its position, color and texture coordinates
     #
@@ -1492,7 +1492,7 @@ module SF
       @tex_coords = uninitialized Vector2f
       position = Vector2f.new(position[0].to_f32, position[1].to_f32)
       tex_coords = Vector2f.new(tex_coords[0].to_f32, tex_coords[1].to_f32)
-      VoidCSFML.sfml_vertex_initialize_UU2QVeUU2(to_unsafe, position, color, tex_coords)
+      SFMLExt.sfml_vertex_initialize_UU2QVeUU2(to_unsafe, position, color, tex_coords)
     end
     @position : Vector2f
     # 2D position of the vertex
@@ -1529,7 +1529,7 @@ module SF
       @position = uninitialized Vector2f
       @color = uninitialized Color
       @tex_coords = uninitialized Vector2f
-      VoidCSFML.sfml_vertex_initialize_Y3J(to_unsafe, copy)
+      SFMLExt.sfml_vertex_initialize_Y3J(to_unsafe, copy)
     end
     def dup() : self
       return typeof(self).new(self)
@@ -1586,29 +1586,29 @@ module SF
   class VertexArray
     @this : Void*
     def finalize()
-      VoidCSFML.sfml_vertexarray_finalize(to_unsafe)
-      VoidCSFML.sfml_vertexarray_free(@this)
+      SFMLExt.sfml_vertexarray_finalize(to_unsafe)
+      SFMLExt.sfml_vertexarray_free(@this)
     end
     # Default constructor
     #
     # Creates an empty vertex array.
     def initialize()
-      VoidCSFML.sfml_vertexarray_allocate(out @this)
-      VoidCSFML.sfml_vertexarray_initialize(to_unsafe)
+      SFMLExt.sfml_vertexarray_allocate(out @this)
+      SFMLExt.sfml_vertexarray_initialize(to_unsafe)
     end
     # Construct the vertex array with a type and an initial number of vertices
     #
     # * *type* - Type of primitives
     # * *vertex_count* - Initial number of vertices in the array
     def initialize(type : PrimitiveType, vertex_count : Int = 0)
-      VoidCSFML.sfml_vertexarray_allocate(out @this)
-      VoidCSFML.sfml_vertexarray_initialize_u9wvgv(to_unsafe, type, LibC::SizeT.new(vertex_count))
+      SFMLExt.sfml_vertexarray_allocate(out @this)
+      SFMLExt.sfml_vertexarray_initialize_u9wvgv(to_unsafe, type, LibC::SizeT.new(vertex_count))
     end
     # Return the vertex count
     #
     # *Returns:* Number of vertices in the array
     def vertex_count() : Int32
-      VoidCSFML.sfml_vertexarray_getvertexcount(to_unsafe, out result)
+      SFMLExt.sfml_vertexarray_getvertexcount(to_unsafe, out result)
       return result.to_i
     end
     # Set the vertex by its index
@@ -1620,7 +1620,7 @@ module SF
     #
     # *See also:* `vertex_count`
     def []=(index : Int, value : Vertex)
-      VoidCSFML.sfml_vertexarray_operator_indexset_vgvRos(to_unsafe, LibC::SizeT.new(index), value)
+      SFMLExt.sfml_vertexarray_operator_indexset_vgvRos(to_unsafe, LibC::SizeT.new(index), value)
     end
     # Get the vertex by its index
     #
@@ -1634,7 +1634,7 @@ module SF
     # *See also:* `vertex_count`
     def [](index : Int) : Vertex
       result = Vertex.allocate
-      VoidCSFML.sfml_vertexarray_operator_index_vgv(to_unsafe, LibC::SizeT.new(index), result)
+      SFMLExt.sfml_vertexarray_operator_index_vgv(to_unsafe, LibC::SizeT.new(index), result)
       return result
     end
     # Clear the vertex array
@@ -1644,7 +1644,7 @@ module SF
     # adding new vertices after clearing doesn't involve
     # reallocating all the memory.
     def clear()
-      VoidCSFML.sfml_vertexarray_clear(to_unsafe)
+      SFMLExt.sfml_vertexarray_clear(to_unsafe)
     end
     # Resize the vertex array
     #
@@ -1656,13 +1656,13 @@ module SF
     #
     # * *vertex_count* - New size of the array (number of vertices)
     def resize(vertex_count : Int)
-      VoidCSFML.sfml_vertexarray_resize_vgv(to_unsafe, LibC::SizeT.new(vertex_count))
+      SFMLExt.sfml_vertexarray_resize_vgv(to_unsafe, LibC::SizeT.new(vertex_count))
     end
     # Add a vertex to the array
     #
     # * *vertex* - Vertex to add
     def append(vertex : Vertex)
-      VoidCSFML.sfml_vertexarray_append_Y3J(to_unsafe, vertex)
+      SFMLExt.sfml_vertexarray_append_Y3J(to_unsafe, vertex)
     end
     # Set the type of primitives to draw
     #
@@ -1676,13 +1676,13 @@ module SF
     #
     # * *type* - Type of primitive
     def primitive_type=(type : PrimitiveType)
-      VoidCSFML.sfml_vertexarray_setprimitivetype_u9w(to_unsafe, type)
+      SFMLExt.sfml_vertexarray_setprimitivetype_u9w(to_unsafe, type)
     end
     # Get the type of primitives drawn by the vertex array
     #
     # *Returns:* Primitive type
     def primitive_type() : PrimitiveType
-      VoidCSFML.sfml_vertexarray_getprimitivetype(to_unsafe, out result)
+      SFMLExt.sfml_vertexarray_getprimitivetype(to_unsafe, out result)
       return PrimitiveType.new(result)
     end
     # Compute the bounding rectangle of the vertex array
@@ -1693,7 +1693,7 @@ module SF
     # *Returns:* Bounding rectangle of the vertex array
     def bounds() : FloatRect
       result = FloatRect.allocate
-      VoidCSFML.sfml_vertexarray_getbounds(to_unsafe, result)
+      SFMLExt.sfml_vertexarray_getbounds(to_unsafe, result)
       return result
     end
     include Drawable
@@ -1707,30 +1707,30 @@ module SF
     end
     # :nodoc:
     def draw(target : RenderTexture, states : RenderStates)
-      VoidCSFML.sfml_vertexarray_draw_kb9RoT(to_unsafe, target, states)
+      SFMLExt.sfml_vertexarray_draw_kb9RoT(to_unsafe, target, states)
     end
     # :nodoc:
     def draw(target : RenderWindow, states : RenderStates)
-      VoidCSFML.sfml_vertexarray_draw_fqURoT(to_unsafe, target, states)
+      SFMLExt.sfml_vertexarray_draw_fqURoT(to_unsafe, target, states)
     end
     # :nodoc:
     def draw(target : RenderTarget, states : RenderStates)
-      VoidCSFML.sfml_vertexarray_draw_Xk1RoT(to_unsafe, target, states)
+      SFMLExt.sfml_vertexarray_draw_Xk1RoT(to_unsafe, target, states)
     end
     # :nodoc:
     def initialize(copy : VertexArray)
-      VoidCSFML.sfml_vertexarray_allocate(out @this)
-      VoidCSFML.sfml_vertexarray_initialize_EXB(to_unsafe, copy)
+      SFMLExt.sfml_vertexarray_allocate(out @this)
+      SFMLExt.sfml_vertexarray_initialize_EXB(to_unsafe, copy)
     end
     def dup() : self
       return typeof(self).new(self)
     end
   end
-  VoidCSFML.sfml_shape_getpointcount_callback(->(self : Void*, result : LibC::SizeT*) {
+  SFMLExt.sfml_shape_getpointcount_callback(->(self : Void*, result : LibC::SizeT*) {
     output = self.as(Shape).point_count()
     result.value = LibC::SizeT.new(output)
   })
-  VoidCSFML.sfml_shape_getpoint_callback(->(self : Void*, index : LibC::SizeT, result : Void*) {
+  SFMLExt.sfml_shape_getpoint_callback(->(self : Void*, index : LibC::SizeT, result : Void*) {
     output = self.as(Shape).get_point(index)
     result.as(Vector2f*).value = Vector2f.new(output[0].to_f32, output[1].to_f32)
   })
@@ -1765,8 +1765,8 @@ module SF
     @this : Void*
     # Virtual destructor
     def finalize()
-      VoidCSFML.sfml_shape_finalize(to_unsafe)
-      VoidCSFML.sfml_shape_free(@this)
+      SFMLExt.sfml_shape_finalize(to_unsafe)
+      SFMLExt.sfml_shape_free(@this)
     end
     # Change the source texture of the shape
     #
@@ -1787,7 +1787,7 @@ module SF
     # *See also:* `texture`, `texture_rect=`
     def set_texture(texture : Texture?, reset_rect : Bool = false)
       @_shape_texture = texture
-      VoidCSFML.sfml_shape_settexture_MXdGZq(to_unsafe, texture, reset_rect)
+      SFMLExt.sfml_shape_settexture_MXdGZq(to_unsafe, texture, reset_rect)
     end
     @_shape_texture : Texture? = nil
     # Set the sub-rectangle of the texture that the shape will display
@@ -1800,7 +1800,7 @@ module SF
     #
     # *See also:* `texture_rect`, `texture=`
     def texture_rect=(rect : IntRect)
-      VoidCSFML.sfml_shape_settexturerect_2k1(to_unsafe, rect)
+      SFMLExt.sfml_shape_settexturerect_2k1(to_unsafe, rect)
     end
     # Set the fill color of the shape
     #
@@ -1815,7 +1815,7 @@ module SF
     #
     # *See also:* `fill_color`, `outline_color=`
     def fill_color=(color : Color)
-      VoidCSFML.sfml_shape_setfillcolor_QVe(to_unsafe, color)
+      SFMLExt.sfml_shape_setfillcolor_QVe(to_unsafe, color)
     end
     # Set the outline color of the shape
     #
@@ -1825,7 +1825,7 @@ module SF
     #
     # *See also:* `outline_color`, `fill_color=`
     def outline_color=(color : Color)
-      VoidCSFML.sfml_shape_setoutlinecolor_QVe(to_unsafe, color)
+      SFMLExt.sfml_shape_setoutlinecolor_QVe(to_unsafe, color)
     end
     # Set the thickness of the shape's outline
     #
@@ -1838,7 +1838,7 @@ module SF
     #
     # *See also:* `outline_thickness`
     def outline_thickness=(thickness : Number)
-      VoidCSFML.sfml_shape_setoutlinethickness_Bw9(to_unsafe, LibC::Float.new(thickness))
+      SFMLExt.sfml_shape_setoutlinethickness_Bw9(to_unsafe, LibC::Float.new(thickness))
     end
     # Get the source texture of the shape
     #
@@ -1859,7 +1859,7 @@ module SF
     # *See also:* `texture_rect=`
     def texture_rect() : IntRect
       result = IntRect.allocate
-      VoidCSFML.sfml_shape_gettexturerect(to_unsafe, result)
+      SFMLExt.sfml_shape_gettexturerect(to_unsafe, result)
       return result
     end
     # Get the fill color of the shape
@@ -1869,7 +1869,7 @@ module SF
     # *See also:* `fill_color=`
     def fill_color() : Color
       result = Color.allocate
-      VoidCSFML.sfml_shape_getfillcolor(to_unsafe, result)
+      SFMLExt.sfml_shape_getfillcolor(to_unsafe, result)
       return result
     end
     # Get the outline color of the shape
@@ -1879,7 +1879,7 @@ module SF
     # *See also:* `outline_color=`
     def outline_color() : Color
       result = Color.allocate
-      VoidCSFML.sfml_shape_getoutlinecolor(to_unsafe, result)
+      SFMLExt.sfml_shape_getoutlinecolor(to_unsafe, result)
       return result
     end
     # Get the outline thickness of the shape
@@ -1888,7 +1888,7 @@ module SF
     #
     # *See also:* `outline_thickness=`
     def outline_thickness() : Float32
-      VoidCSFML.sfml_shape_getoutlinethickness(to_unsafe, out result)
+      SFMLExt.sfml_shape_getoutlinethickness(to_unsafe, out result)
       return result
     end
     # Get the total number of points of the shape
@@ -1921,7 +1921,7 @@ module SF
     # *Returns:* Local bounding rectangle of the entity
     def local_bounds() : FloatRect
       result = FloatRect.allocate
-      VoidCSFML.sfml_shape_getlocalbounds(to_unsafe, result)
+      SFMLExt.sfml_shape_getlocalbounds(to_unsafe, result)
       return result
     end
     # Get the global (non-minimal) bounding rectangle of the entity
@@ -1942,14 +1942,14 @@ module SF
     # *Returns:* Global bounding rectangle of the entity
     def global_bounds() : FloatRect
       result = FloatRect.allocate
-      VoidCSFML.sfml_shape_getglobalbounds(to_unsafe, result)
+      SFMLExt.sfml_shape_getglobalbounds(to_unsafe, result)
       return result
     end
     # Default constructor
     protected def initialize()
-      VoidCSFML.sfml_shape_allocate(out @this)
-      VoidCSFML.sfml_shape_initialize(to_unsafe)
-      VoidCSFML.sfml_shape_parent(@this, self.as(Void*))
+      SFMLExt.sfml_shape_allocate(out @this)
+      SFMLExt.sfml_shape_initialize(to_unsafe)
+      SFMLExt.sfml_shape_parent(@this, self.as(Void*))
     end
     # Recompute the internal geometry of the shape
     #
@@ -1957,7 +1957,7 @@ module SF
     # the shape's points change (i.e. the result of either
     # `point_count` or `get_point` is different).
     def update()
-      VoidCSFML.sfml_shape_update(to_unsafe)
+      SFMLExt.sfml_shape_update(to_unsafe)
     end
     # :nodoc:
     def texture() : Texture?
@@ -1965,90 +1965,90 @@ module SF
     end
     # :nodoc:
     def set_position(x : Number, y : Number)
-      VoidCSFML.sfml_shape_setposition_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y))
+      SFMLExt.sfml_shape_setposition_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y))
     end
     # :nodoc:
     def position=(position : Vector2|Tuple)
       position = Vector2f.new(position[0].to_f32, position[1].to_f32)
-      VoidCSFML.sfml_shape_setposition_UU2(to_unsafe, position)
+      SFMLExt.sfml_shape_setposition_UU2(to_unsafe, position)
     end
     # :nodoc:
     def rotation=(angle : Number)
-      VoidCSFML.sfml_shape_setrotation_Bw9(to_unsafe, LibC::Float.new(angle))
+      SFMLExt.sfml_shape_setrotation_Bw9(to_unsafe, LibC::Float.new(angle))
     end
     # :nodoc:
     def set_scale(factor_x : Number, factor_y : Number)
-      VoidCSFML.sfml_shape_setscale_Bw9Bw9(to_unsafe, LibC::Float.new(factor_x), LibC::Float.new(factor_y))
+      SFMLExt.sfml_shape_setscale_Bw9Bw9(to_unsafe, LibC::Float.new(factor_x), LibC::Float.new(factor_y))
     end
     # :nodoc:
     def scale=(factors : Vector2|Tuple)
       factors = Vector2f.new(factors[0].to_f32, factors[1].to_f32)
-      VoidCSFML.sfml_shape_setscale_UU2(to_unsafe, factors)
+      SFMLExt.sfml_shape_setscale_UU2(to_unsafe, factors)
     end
     # :nodoc:
     def set_origin(x : Number, y : Number)
-      VoidCSFML.sfml_shape_setorigin_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y))
+      SFMLExt.sfml_shape_setorigin_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y))
     end
     # :nodoc:
     def origin=(origin : Vector2|Tuple)
       origin = Vector2f.new(origin[0].to_f32, origin[1].to_f32)
-      VoidCSFML.sfml_shape_setorigin_UU2(to_unsafe, origin)
+      SFMLExt.sfml_shape_setorigin_UU2(to_unsafe, origin)
     end
     # :nodoc:
     def position() : Vector2f
       result = Vector2f.allocate
-      VoidCSFML.sfml_shape_getposition(to_unsafe, result)
+      SFMLExt.sfml_shape_getposition(to_unsafe, result)
       return result
     end
     # :nodoc:
     def rotation() : Float32
-      VoidCSFML.sfml_shape_getrotation(to_unsafe, out result)
+      SFMLExt.sfml_shape_getrotation(to_unsafe, out result)
       return result
     end
     # :nodoc:
     def scale() : Vector2f
       result = Vector2f.allocate
-      VoidCSFML.sfml_shape_getscale(to_unsafe, result)
+      SFMLExt.sfml_shape_getscale(to_unsafe, result)
       return result
     end
     # :nodoc:
     def origin() : Vector2f
       result = Vector2f.allocate
-      VoidCSFML.sfml_shape_getorigin(to_unsafe, result)
+      SFMLExt.sfml_shape_getorigin(to_unsafe, result)
       return result
     end
     # :nodoc:
     def move(offset_x : Number, offset_y : Number)
-      VoidCSFML.sfml_shape_move_Bw9Bw9(to_unsafe, LibC::Float.new(offset_x), LibC::Float.new(offset_y))
+      SFMLExt.sfml_shape_move_Bw9Bw9(to_unsafe, LibC::Float.new(offset_x), LibC::Float.new(offset_y))
     end
     # :nodoc:
     def move(offset : Vector2|Tuple)
       offset = Vector2f.new(offset[0].to_f32, offset[1].to_f32)
-      VoidCSFML.sfml_shape_move_UU2(to_unsafe, offset)
+      SFMLExt.sfml_shape_move_UU2(to_unsafe, offset)
     end
     # :nodoc:
     def rotate(angle : Number)
-      VoidCSFML.sfml_shape_rotate_Bw9(to_unsafe, LibC::Float.new(angle))
+      SFMLExt.sfml_shape_rotate_Bw9(to_unsafe, LibC::Float.new(angle))
     end
     # :nodoc:
     def scale(factor_x : Number, factor_y : Number)
-      VoidCSFML.sfml_shape_scale_Bw9Bw9(to_unsafe, LibC::Float.new(factor_x), LibC::Float.new(factor_y))
+      SFMLExt.sfml_shape_scale_Bw9Bw9(to_unsafe, LibC::Float.new(factor_x), LibC::Float.new(factor_y))
     end
     # :nodoc:
     def scale(factor : Vector2|Tuple)
       factor = Vector2f.new(factor[0].to_f32, factor[1].to_f32)
-      VoidCSFML.sfml_shape_scale_UU2(to_unsafe, factor)
+      SFMLExt.sfml_shape_scale_UU2(to_unsafe, factor)
     end
     # :nodoc:
     def transform() : Transform
       result = Transform.allocate
-      VoidCSFML.sfml_shape_gettransform(to_unsafe, result)
+      SFMLExt.sfml_shape_gettransform(to_unsafe, result)
       return result
     end
     # :nodoc:
     def inverse_transform() : Transform
       result = Transform.allocate
-      VoidCSFML.sfml_shape_getinversetransform(to_unsafe, result)
+      SFMLExt.sfml_shape_getinversetransform(to_unsafe, result)
       return result
     end
     include Drawable
@@ -2062,21 +2062,21 @@ module SF
     end
     # :nodoc:
     def draw(target : RenderTexture, states : RenderStates)
-      VoidCSFML.sfml_shape_draw_kb9RoT(to_unsafe, target, states)
+      SFMLExt.sfml_shape_draw_kb9RoT(to_unsafe, target, states)
     end
     # :nodoc:
     def draw(target : RenderWindow, states : RenderStates)
-      VoidCSFML.sfml_shape_draw_fqURoT(to_unsafe, target, states)
+      SFMLExt.sfml_shape_draw_fqURoT(to_unsafe, target, states)
     end
     # :nodoc:
     def draw(target : RenderTarget, states : RenderStates)
-      VoidCSFML.sfml_shape_draw_Xk1RoT(to_unsafe, target, states)
+      SFMLExt.sfml_shape_draw_Xk1RoT(to_unsafe, target, states)
     end
     # :nodoc:
     def initialize(copy : Shape)
-      VoidCSFML.sfml_shape_allocate(out @this)
-      VoidCSFML.sfml_shape_initialize_r5K(to_unsafe, copy)
-      VoidCSFML.sfml_shape_parent(@this, self.as(Void*))
+      SFMLExt.sfml_shape_allocate(out @this)
+      SFMLExt.sfml_shape_initialize_r5K(to_unsafe, copy)
+      SFMLExt.sfml_shape_parent(@this, self.as(Void*))
     end
     def dup() : self
       return typeof(self).new(self)
@@ -2112,16 +2112,16 @@ module SF
   class CircleShape < Shape
     @this : Void*
     def finalize()
-      VoidCSFML.sfml_circleshape_finalize(to_unsafe)
-      VoidCSFML.sfml_circleshape_free(@this)
+      SFMLExt.sfml_circleshape_finalize(to_unsafe)
+      SFMLExt.sfml_circleshape_free(@this)
     end
     # Default constructor
     #
     # * *radius* - Radius of the circle
     # * *point_count* - Number of points composing the circle
     def initialize(radius : Number = 0, point_count : Int = 30)
-      VoidCSFML.sfml_circleshape_allocate(out @this)
-      VoidCSFML.sfml_circleshape_initialize_Bw9vgv(to_unsafe, LibC::Float.new(radius), LibC::SizeT.new(point_count))
+      SFMLExt.sfml_circleshape_allocate(out @this)
+      SFMLExt.sfml_circleshape_initialize_Bw9vgv(to_unsafe, LibC::Float.new(radius), LibC::SizeT.new(point_count))
     end
     # Set the radius of the circle
     #
@@ -2129,7 +2129,7 @@ module SF
     #
     # *See also:* `radius`
     def radius=(radius : Number)
-      VoidCSFML.sfml_circleshape_setradius_Bw9(to_unsafe, LibC::Float.new(radius))
+      SFMLExt.sfml_circleshape_setradius_Bw9(to_unsafe, LibC::Float.new(radius))
     end
     # Get the radius of the circle
     #
@@ -2137,7 +2137,7 @@ module SF
     #
     # *See also:* `radius=`
     def radius() : Float32
-      VoidCSFML.sfml_circleshape_getradius(to_unsafe, out result)
+      SFMLExt.sfml_circleshape_getradius(to_unsafe, out result)
       return result
     end
     # Set the number of points of the circle
@@ -2146,7 +2146,7 @@ module SF
     #
     # *See also:* `point_count`
     def point_count=(count : Int)
-      VoidCSFML.sfml_circleshape_setpointcount_vgv(to_unsafe, LibC::SizeT.new(count))
+      SFMLExt.sfml_circleshape_setpointcount_vgv(to_unsafe, LibC::SizeT.new(count))
     end
     # Get the number of points of the circle
     #
@@ -2154,7 +2154,7 @@ module SF
     #
     # *See also:* `point_count=`
     def point_count() : Int32
-      VoidCSFML.sfml_circleshape_getpointcount(to_unsafe, out result)
+      SFMLExt.sfml_circleshape_getpointcount(to_unsafe, out result)
       return result.to_i
     end
     # Get a point of the circle
@@ -2169,30 +2169,30 @@ module SF
     # *Returns:* index-th point of the shape
     def get_point(index : Int) : Vector2f
       result = Vector2f.allocate
-      VoidCSFML.sfml_circleshape_getpoint_vgv(to_unsafe, LibC::SizeT.new(index), result)
+      SFMLExt.sfml_circleshape_getpoint_vgv(to_unsafe, LibC::SizeT.new(index), result)
       return result
     end
     # :nodoc:
     def set_texture(texture : Texture?, reset_rect : Bool = false)
       @_circleshape_texture = texture
-      VoidCSFML.sfml_circleshape_settexture_MXdGZq(to_unsafe, texture, reset_rect)
+      SFMLExt.sfml_circleshape_settexture_MXdGZq(to_unsafe, texture, reset_rect)
     end
     @_circleshape_texture : Texture? = nil
     # :nodoc:
     def texture_rect=(rect : IntRect)
-      VoidCSFML.sfml_circleshape_settexturerect_2k1(to_unsafe, rect)
+      SFMLExt.sfml_circleshape_settexturerect_2k1(to_unsafe, rect)
     end
     # :nodoc:
     def fill_color=(color : Color)
-      VoidCSFML.sfml_circleshape_setfillcolor_QVe(to_unsafe, color)
+      SFMLExt.sfml_circleshape_setfillcolor_QVe(to_unsafe, color)
     end
     # :nodoc:
     def outline_color=(color : Color)
-      VoidCSFML.sfml_circleshape_setoutlinecolor_QVe(to_unsafe, color)
+      SFMLExt.sfml_circleshape_setoutlinecolor_QVe(to_unsafe, color)
     end
     # :nodoc:
     def outline_thickness=(thickness : Number)
-      VoidCSFML.sfml_circleshape_setoutlinethickness_Bw9(to_unsafe, LibC::Float.new(thickness))
+      SFMLExt.sfml_circleshape_setoutlinethickness_Bw9(to_unsafe, LibC::Float.new(thickness))
     end
     # :nodoc:
     def texture() : Texture?
@@ -2201,124 +2201,124 @@ module SF
     # :nodoc:
     def texture_rect() : IntRect
       result = IntRect.allocate
-      VoidCSFML.sfml_circleshape_gettexturerect(to_unsafe, result)
+      SFMLExt.sfml_circleshape_gettexturerect(to_unsafe, result)
       return result
     end
     # :nodoc:
     def fill_color() : Color
       result = Color.allocate
-      VoidCSFML.sfml_circleshape_getfillcolor(to_unsafe, result)
+      SFMLExt.sfml_circleshape_getfillcolor(to_unsafe, result)
       return result
     end
     # :nodoc:
     def outline_color() : Color
       result = Color.allocate
-      VoidCSFML.sfml_circleshape_getoutlinecolor(to_unsafe, result)
+      SFMLExt.sfml_circleshape_getoutlinecolor(to_unsafe, result)
       return result
     end
     # :nodoc:
     def outline_thickness() : Float32
-      VoidCSFML.sfml_circleshape_getoutlinethickness(to_unsafe, out result)
+      SFMLExt.sfml_circleshape_getoutlinethickness(to_unsafe, out result)
       return result
     end
     # :nodoc:
     def local_bounds() : FloatRect
       result = FloatRect.allocate
-      VoidCSFML.sfml_circleshape_getlocalbounds(to_unsafe, result)
+      SFMLExt.sfml_circleshape_getlocalbounds(to_unsafe, result)
       return result
     end
     # :nodoc:
     def global_bounds() : FloatRect
       result = FloatRect.allocate
-      VoidCSFML.sfml_circleshape_getglobalbounds(to_unsafe, result)
+      SFMLExt.sfml_circleshape_getglobalbounds(to_unsafe, result)
       return result
     end
     # :nodoc:
     def set_position(x : Number, y : Number)
-      VoidCSFML.sfml_circleshape_setposition_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y))
+      SFMLExt.sfml_circleshape_setposition_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y))
     end
     # :nodoc:
     def position=(position : Vector2|Tuple)
       position = Vector2f.new(position[0].to_f32, position[1].to_f32)
-      VoidCSFML.sfml_circleshape_setposition_UU2(to_unsafe, position)
+      SFMLExt.sfml_circleshape_setposition_UU2(to_unsafe, position)
     end
     # :nodoc:
     def rotation=(angle : Number)
-      VoidCSFML.sfml_circleshape_setrotation_Bw9(to_unsafe, LibC::Float.new(angle))
+      SFMLExt.sfml_circleshape_setrotation_Bw9(to_unsafe, LibC::Float.new(angle))
     end
     # :nodoc:
     def set_scale(factor_x : Number, factor_y : Number)
-      VoidCSFML.sfml_circleshape_setscale_Bw9Bw9(to_unsafe, LibC::Float.new(factor_x), LibC::Float.new(factor_y))
+      SFMLExt.sfml_circleshape_setscale_Bw9Bw9(to_unsafe, LibC::Float.new(factor_x), LibC::Float.new(factor_y))
     end
     # :nodoc:
     def scale=(factors : Vector2|Tuple)
       factors = Vector2f.new(factors[0].to_f32, factors[1].to_f32)
-      VoidCSFML.sfml_circleshape_setscale_UU2(to_unsafe, factors)
+      SFMLExt.sfml_circleshape_setscale_UU2(to_unsafe, factors)
     end
     # :nodoc:
     def set_origin(x : Number, y : Number)
-      VoidCSFML.sfml_circleshape_setorigin_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y))
+      SFMLExt.sfml_circleshape_setorigin_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y))
     end
     # :nodoc:
     def origin=(origin : Vector2|Tuple)
       origin = Vector2f.new(origin[0].to_f32, origin[1].to_f32)
-      VoidCSFML.sfml_circleshape_setorigin_UU2(to_unsafe, origin)
+      SFMLExt.sfml_circleshape_setorigin_UU2(to_unsafe, origin)
     end
     # :nodoc:
     def position() : Vector2f
       result = Vector2f.allocate
-      VoidCSFML.sfml_circleshape_getposition(to_unsafe, result)
+      SFMLExt.sfml_circleshape_getposition(to_unsafe, result)
       return result
     end
     # :nodoc:
     def rotation() : Float32
-      VoidCSFML.sfml_circleshape_getrotation(to_unsafe, out result)
+      SFMLExt.sfml_circleshape_getrotation(to_unsafe, out result)
       return result
     end
     # :nodoc:
     def scale() : Vector2f
       result = Vector2f.allocate
-      VoidCSFML.sfml_circleshape_getscale(to_unsafe, result)
+      SFMLExt.sfml_circleshape_getscale(to_unsafe, result)
       return result
     end
     # :nodoc:
     def origin() : Vector2f
       result = Vector2f.allocate
-      VoidCSFML.sfml_circleshape_getorigin(to_unsafe, result)
+      SFMLExt.sfml_circleshape_getorigin(to_unsafe, result)
       return result
     end
     # :nodoc:
     def move(offset_x : Number, offset_y : Number)
-      VoidCSFML.sfml_circleshape_move_Bw9Bw9(to_unsafe, LibC::Float.new(offset_x), LibC::Float.new(offset_y))
+      SFMLExt.sfml_circleshape_move_Bw9Bw9(to_unsafe, LibC::Float.new(offset_x), LibC::Float.new(offset_y))
     end
     # :nodoc:
     def move(offset : Vector2|Tuple)
       offset = Vector2f.new(offset[0].to_f32, offset[1].to_f32)
-      VoidCSFML.sfml_circleshape_move_UU2(to_unsafe, offset)
+      SFMLExt.sfml_circleshape_move_UU2(to_unsafe, offset)
     end
     # :nodoc:
     def rotate(angle : Number)
-      VoidCSFML.sfml_circleshape_rotate_Bw9(to_unsafe, LibC::Float.new(angle))
+      SFMLExt.sfml_circleshape_rotate_Bw9(to_unsafe, LibC::Float.new(angle))
     end
     # :nodoc:
     def scale(factor_x : Number, factor_y : Number)
-      VoidCSFML.sfml_circleshape_scale_Bw9Bw9(to_unsafe, LibC::Float.new(factor_x), LibC::Float.new(factor_y))
+      SFMLExt.sfml_circleshape_scale_Bw9Bw9(to_unsafe, LibC::Float.new(factor_x), LibC::Float.new(factor_y))
     end
     # :nodoc:
     def scale(factor : Vector2|Tuple)
       factor = Vector2f.new(factor[0].to_f32, factor[1].to_f32)
-      VoidCSFML.sfml_circleshape_scale_UU2(to_unsafe, factor)
+      SFMLExt.sfml_circleshape_scale_UU2(to_unsafe, factor)
     end
     # :nodoc:
     def transform() : Transform
       result = Transform.allocate
-      VoidCSFML.sfml_circleshape_gettransform(to_unsafe, result)
+      SFMLExt.sfml_circleshape_gettransform(to_unsafe, result)
       return result
     end
     # :nodoc:
     def inverse_transform() : Transform
       result = Transform.allocate
-      VoidCSFML.sfml_circleshape_getinversetransform(to_unsafe, result)
+      SFMLExt.sfml_circleshape_getinversetransform(to_unsafe, result)
       return result
     end
     # :nodoc:
@@ -2331,20 +2331,20 @@ module SF
     end
     # :nodoc:
     def draw(target : RenderTexture, states : RenderStates)
-      VoidCSFML.sfml_circleshape_draw_kb9RoT(to_unsafe, target, states)
+      SFMLExt.sfml_circleshape_draw_kb9RoT(to_unsafe, target, states)
     end
     # :nodoc:
     def draw(target : RenderWindow, states : RenderStates)
-      VoidCSFML.sfml_circleshape_draw_fqURoT(to_unsafe, target, states)
+      SFMLExt.sfml_circleshape_draw_fqURoT(to_unsafe, target, states)
     end
     # :nodoc:
     def draw(target : RenderTarget, states : RenderStates)
-      VoidCSFML.sfml_circleshape_draw_Xk1RoT(to_unsafe, target, states)
+      SFMLExt.sfml_circleshape_draw_Xk1RoT(to_unsafe, target, states)
     end
     # :nodoc:
     def initialize(copy : CircleShape)
-      VoidCSFML.sfml_circleshape_allocate(out @this)
-      VoidCSFML.sfml_circleshape_initialize_Ii7(to_unsafe, copy)
+      SFMLExt.sfml_circleshape_allocate(out @this)
+      SFMLExt.sfml_circleshape_initialize_Ii7(to_unsafe, copy)
     end
     def dup() : self
       return typeof(self).new(self)
@@ -2379,15 +2379,15 @@ module SF
   class ConvexShape < Shape
     @this : Void*
     def finalize()
-      VoidCSFML.sfml_convexshape_finalize(to_unsafe)
-      VoidCSFML.sfml_convexshape_free(@this)
+      SFMLExt.sfml_convexshape_finalize(to_unsafe)
+      SFMLExt.sfml_convexshape_free(@this)
     end
     # Default constructor
     #
     # * *point_count* - Number of points of the polygon
     def initialize(point_count : Int = 0)
-      VoidCSFML.sfml_convexshape_allocate(out @this)
-      VoidCSFML.sfml_convexshape_initialize_vgv(to_unsafe, LibC::SizeT.new(point_count))
+      SFMLExt.sfml_convexshape_allocate(out @this)
+      SFMLExt.sfml_convexshape_initialize_vgv(to_unsafe, LibC::SizeT.new(point_count))
     end
     # Set the number of points of the polygon
     #
@@ -2397,7 +2397,7 @@ module SF
     #
     # *See also:* `point_count`
     def point_count=(count : Int)
-      VoidCSFML.sfml_convexshape_setpointcount_vgv(to_unsafe, LibC::SizeT.new(count))
+      SFMLExt.sfml_convexshape_setpointcount_vgv(to_unsafe, LibC::SizeT.new(count))
     end
     # Get the number of points of the polygon
     #
@@ -2405,7 +2405,7 @@ module SF
     #
     # *See also:* `point_count=`
     def point_count() : Int32
-      VoidCSFML.sfml_convexshape_getpointcount(to_unsafe, out result)
+      SFMLExt.sfml_convexshape_getpointcount(to_unsafe, out result)
       return result.to_i
     end
     # Set the position of a point
@@ -2422,7 +2422,7 @@ module SF
     # *See also:* `point`
     def set_point(index : Int, point : Vector2|Tuple)
       point = Vector2f.new(point[0].to_f32, point[1].to_f32)
-      VoidCSFML.sfml_convexshape_setpoint_vgvUU2(to_unsafe, LibC::SizeT.new(index), point)
+      SFMLExt.sfml_convexshape_setpoint_vgvUU2(to_unsafe, LibC::SizeT.new(index), point)
     end
     # Get the position of a point
     #
@@ -2438,30 +2438,30 @@ module SF
     # *See also:* `point=`
     def get_point(index : Int) : Vector2f
       result = Vector2f.allocate
-      VoidCSFML.sfml_convexshape_getpoint_vgv(to_unsafe, LibC::SizeT.new(index), result)
+      SFMLExt.sfml_convexshape_getpoint_vgv(to_unsafe, LibC::SizeT.new(index), result)
       return result
     end
     # :nodoc:
     def set_texture(texture : Texture?, reset_rect : Bool = false)
       @_convexshape_texture = texture
-      VoidCSFML.sfml_convexshape_settexture_MXdGZq(to_unsafe, texture, reset_rect)
+      SFMLExt.sfml_convexshape_settexture_MXdGZq(to_unsafe, texture, reset_rect)
     end
     @_convexshape_texture : Texture? = nil
     # :nodoc:
     def texture_rect=(rect : IntRect)
-      VoidCSFML.sfml_convexshape_settexturerect_2k1(to_unsafe, rect)
+      SFMLExt.sfml_convexshape_settexturerect_2k1(to_unsafe, rect)
     end
     # :nodoc:
     def fill_color=(color : Color)
-      VoidCSFML.sfml_convexshape_setfillcolor_QVe(to_unsafe, color)
+      SFMLExt.sfml_convexshape_setfillcolor_QVe(to_unsafe, color)
     end
     # :nodoc:
     def outline_color=(color : Color)
-      VoidCSFML.sfml_convexshape_setoutlinecolor_QVe(to_unsafe, color)
+      SFMLExt.sfml_convexshape_setoutlinecolor_QVe(to_unsafe, color)
     end
     # :nodoc:
     def outline_thickness=(thickness : Number)
-      VoidCSFML.sfml_convexshape_setoutlinethickness_Bw9(to_unsafe, LibC::Float.new(thickness))
+      SFMLExt.sfml_convexshape_setoutlinethickness_Bw9(to_unsafe, LibC::Float.new(thickness))
     end
     # :nodoc:
     def texture() : Texture?
@@ -2470,124 +2470,124 @@ module SF
     # :nodoc:
     def texture_rect() : IntRect
       result = IntRect.allocate
-      VoidCSFML.sfml_convexshape_gettexturerect(to_unsafe, result)
+      SFMLExt.sfml_convexshape_gettexturerect(to_unsafe, result)
       return result
     end
     # :nodoc:
     def fill_color() : Color
       result = Color.allocate
-      VoidCSFML.sfml_convexshape_getfillcolor(to_unsafe, result)
+      SFMLExt.sfml_convexshape_getfillcolor(to_unsafe, result)
       return result
     end
     # :nodoc:
     def outline_color() : Color
       result = Color.allocate
-      VoidCSFML.sfml_convexshape_getoutlinecolor(to_unsafe, result)
+      SFMLExt.sfml_convexshape_getoutlinecolor(to_unsafe, result)
       return result
     end
     # :nodoc:
     def outline_thickness() : Float32
-      VoidCSFML.sfml_convexshape_getoutlinethickness(to_unsafe, out result)
+      SFMLExt.sfml_convexshape_getoutlinethickness(to_unsafe, out result)
       return result
     end
     # :nodoc:
     def local_bounds() : FloatRect
       result = FloatRect.allocate
-      VoidCSFML.sfml_convexshape_getlocalbounds(to_unsafe, result)
+      SFMLExt.sfml_convexshape_getlocalbounds(to_unsafe, result)
       return result
     end
     # :nodoc:
     def global_bounds() : FloatRect
       result = FloatRect.allocate
-      VoidCSFML.sfml_convexshape_getglobalbounds(to_unsafe, result)
+      SFMLExt.sfml_convexshape_getglobalbounds(to_unsafe, result)
       return result
     end
     # :nodoc:
     def set_position(x : Number, y : Number)
-      VoidCSFML.sfml_convexshape_setposition_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y))
+      SFMLExt.sfml_convexshape_setposition_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y))
     end
     # :nodoc:
     def position=(position : Vector2|Tuple)
       position = Vector2f.new(position[0].to_f32, position[1].to_f32)
-      VoidCSFML.sfml_convexshape_setposition_UU2(to_unsafe, position)
+      SFMLExt.sfml_convexshape_setposition_UU2(to_unsafe, position)
     end
     # :nodoc:
     def rotation=(angle : Number)
-      VoidCSFML.sfml_convexshape_setrotation_Bw9(to_unsafe, LibC::Float.new(angle))
+      SFMLExt.sfml_convexshape_setrotation_Bw9(to_unsafe, LibC::Float.new(angle))
     end
     # :nodoc:
     def set_scale(factor_x : Number, factor_y : Number)
-      VoidCSFML.sfml_convexshape_setscale_Bw9Bw9(to_unsafe, LibC::Float.new(factor_x), LibC::Float.new(factor_y))
+      SFMLExt.sfml_convexshape_setscale_Bw9Bw9(to_unsafe, LibC::Float.new(factor_x), LibC::Float.new(factor_y))
     end
     # :nodoc:
     def scale=(factors : Vector2|Tuple)
       factors = Vector2f.new(factors[0].to_f32, factors[1].to_f32)
-      VoidCSFML.sfml_convexshape_setscale_UU2(to_unsafe, factors)
+      SFMLExt.sfml_convexshape_setscale_UU2(to_unsafe, factors)
     end
     # :nodoc:
     def set_origin(x : Number, y : Number)
-      VoidCSFML.sfml_convexshape_setorigin_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y))
+      SFMLExt.sfml_convexshape_setorigin_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y))
     end
     # :nodoc:
     def origin=(origin : Vector2|Tuple)
       origin = Vector2f.new(origin[0].to_f32, origin[1].to_f32)
-      VoidCSFML.sfml_convexshape_setorigin_UU2(to_unsafe, origin)
+      SFMLExt.sfml_convexshape_setorigin_UU2(to_unsafe, origin)
     end
     # :nodoc:
     def position() : Vector2f
       result = Vector2f.allocate
-      VoidCSFML.sfml_convexshape_getposition(to_unsafe, result)
+      SFMLExt.sfml_convexshape_getposition(to_unsafe, result)
       return result
     end
     # :nodoc:
     def rotation() : Float32
-      VoidCSFML.sfml_convexshape_getrotation(to_unsafe, out result)
+      SFMLExt.sfml_convexshape_getrotation(to_unsafe, out result)
       return result
     end
     # :nodoc:
     def scale() : Vector2f
       result = Vector2f.allocate
-      VoidCSFML.sfml_convexshape_getscale(to_unsafe, result)
+      SFMLExt.sfml_convexshape_getscale(to_unsafe, result)
       return result
     end
     # :nodoc:
     def origin() : Vector2f
       result = Vector2f.allocate
-      VoidCSFML.sfml_convexshape_getorigin(to_unsafe, result)
+      SFMLExt.sfml_convexshape_getorigin(to_unsafe, result)
       return result
     end
     # :nodoc:
     def move(offset_x : Number, offset_y : Number)
-      VoidCSFML.sfml_convexshape_move_Bw9Bw9(to_unsafe, LibC::Float.new(offset_x), LibC::Float.new(offset_y))
+      SFMLExt.sfml_convexshape_move_Bw9Bw9(to_unsafe, LibC::Float.new(offset_x), LibC::Float.new(offset_y))
     end
     # :nodoc:
     def move(offset : Vector2|Tuple)
       offset = Vector2f.new(offset[0].to_f32, offset[1].to_f32)
-      VoidCSFML.sfml_convexshape_move_UU2(to_unsafe, offset)
+      SFMLExt.sfml_convexshape_move_UU2(to_unsafe, offset)
     end
     # :nodoc:
     def rotate(angle : Number)
-      VoidCSFML.sfml_convexshape_rotate_Bw9(to_unsafe, LibC::Float.new(angle))
+      SFMLExt.sfml_convexshape_rotate_Bw9(to_unsafe, LibC::Float.new(angle))
     end
     # :nodoc:
     def scale(factor_x : Number, factor_y : Number)
-      VoidCSFML.sfml_convexshape_scale_Bw9Bw9(to_unsafe, LibC::Float.new(factor_x), LibC::Float.new(factor_y))
+      SFMLExt.sfml_convexshape_scale_Bw9Bw9(to_unsafe, LibC::Float.new(factor_x), LibC::Float.new(factor_y))
     end
     # :nodoc:
     def scale(factor : Vector2|Tuple)
       factor = Vector2f.new(factor[0].to_f32, factor[1].to_f32)
-      VoidCSFML.sfml_convexshape_scale_UU2(to_unsafe, factor)
+      SFMLExt.sfml_convexshape_scale_UU2(to_unsafe, factor)
     end
     # :nodoc:
     def transform() : Transform
       result = Transform.allocate
-      VoidCSFML.sfml_convexshape_gettransform(to_unsafe, result)
+      SFMLExt.sfml_convexshape_gettransform(to_unsafe, result)
       return result
     end
     # :nodoc:
     def inverse_transform() : Transform
       result = Transform.allocate
-      VoidCSFML.sfml_convexshape_getinversetransform(to_unsafe, result)
+      SFMLExt.sfml_convexshape_getinversetransform(to_unsafe, result)
       return result
     end
     # :nodoc:
@@ -2600,20 +2600,20 @@ module SF
     end
     # :nodoc:
     def draw(target : RenderTexture, states : RenderStates)
-      VoidCSFML.sfml_convexshape_draw_kb9RoT(to_unsafe, target, states)
+      SFMLExt.sfml_convexshape_draw_kb9RoT(to_unsafe, target, states)
     end
     # :nodoc:
     def draw(target : RenderWindow, states : RenderStates)
-      VoidCSFML.sfml_convexshape_draw_fqURoT(to_unsafe, target, states)
+      SFMLExt.sfml_convexshape_draw_fqURoT(to_unsafe, target, states)
     end
     # :nodoc:
     def draw(target : RenderTarget, states : RenderStates)
-      VoidCSFML.sfml_convexshape_draw_Xk1RoT(to_unsafe, target, states)
+      SFMLExt.sfml_convexshape_draw_Xk1RoT(to_unsafe, target, states)
     end
     # :nodoc:
     def initialize(copy : ConvexShape)
-      VoidCSFML.sfml_convexshape_allocate(out @this)
-      VoidCSFML.sfml_convexshape_initialize_Ydx(to_unsafe, copy)
+      SFMLExt.sfml_convexshape_allocate(out @this)
+      SFMLExt.sfml_convexshape_initialize_Ydx(to_unsafe, copy)
     end
     def dup() : self
       return typeof(self).new(self)
@@ -2639,7 +2639,7 @@ module SF
       @advance = uninitialized Float32
       @bounds = uninitialized FloatRect
       @texture_rect = uninitialized IntRect
-      VoidCSFML.sfml_glyph_initialize(to_unsafe)
+      SFMLExt.sfml_glyph_initialize(to_unsafe)
     end
     @advance : LibC::Float
     # Offset to move horizontally to the next character
@@ -2674,7 +2674,7 @@ module SF
       @advance = uninitialized Float32
       @bounds = uninitialized FloatRect
       @texture_rect = uninitialized IntRect
-      VoidCSFML.sfml_glyph_initialize_UlF(to_unsafe, copy)
+      SFMLExt.sfml_glyph_initialize_UlF(to_unsafe, copy)
     end
     def dup() : self
       return typeof(self).new(self)
@@ -2727,13 +2727,13 @@ module SF
     #
     # Creates an empty image.
     def initialize()
-      VoidCSFML.sfml_image_allocate(out @this)
-      VoidCSFML.sfml_image_initialize(to_unsafe)
+      SFMLExt.sfml_image_allocate(out @this)
+      SFMLExt.sfml_image_initialize(to_unsafe)
     end
     # Destructor
     def finalize()
-      VoidCSFML.sfml_image_finalize(to_unsafe)
-      VoidCSFML.sfml_image_free(@this)
+      SFMLExt.sfml_image_finalize(to_unsafe)
+      SFMLExt.sfml_image_free(@this)
     end
     # Create the image and fill it with a unique color
     #
@@ -2741,7 +2741,7 @@ module SF
     # * *height* - Height of the image
     # * *color* - Fill color
     def create(width : Int, height : Int, color : Color = Color.new(0, 0, 0))
-      VoidCSFML.sfml_image_create_emSemSQVe(to_unsafe, LibC::UInt.new(width), LibC::UInt.new(height), color)
+      SFMLExt.sfml_image_create_emSemSQVe(to_unsafe, LibC::UInt.new(width), LibC::UInt.new(height), color)
     end
     # Shorthand for `image = Image.new; image.create(...); image`
     def self.new(*args, **kwargs) : self
@@ -2760,7 +2760,7 @@ module SF
     # * *height* - Height of the image
     # * *pixels* - Array of pixels to copy to the image
     def create(width : Int, height : Int, pixels : UInt8*)
-      VoidCSFML.sfml_image_create_emSemS843(to_unsafe, LibC::UInt.new(width), LibC::UInt.new(height), pixels)
+      SFMLExt.sfml_image_create_emSemS843(to_unsafe, LibC::UInt.new(width), LibC::UInt.new(height), pixels)
     end
     # Shorthand for `image = Image.new; image.create(...); image`
     def self.new(*args, **kwargs) : self
@@ -2781,7 +2781,7 @@ module SF
     #
     # *See also:* `load_from_memory`, `load_from_stream`, `save_to_file`
     def load_from_file(filename : String) : Bool
-      VoidCSFML.sfml_image_loadfromfile_zkC(to_unsafe, filename.bytesize, filename, out result)
+      SFMLExt.sfml_image_loadfromfile_zkC(to_unsafe, filename.bytesize, filename, out result)
       return result
     end
     # Shorthand for `image = Image.new; image.load_from_file(...); image`
@@ -2807,7 +2807,7 @@ module SF
     #
     # *See also:* `load_from_file`, `load_from_stream`
     def load_from_memory(data : Slice) : Bool
-      VoidCSFML.sfml_image_loadfrommemory_5h8vgv(to_unsafe, data, data.bytesize, out result)
+      SFMLExt.sfml_image_loadfrommemory_5h8vgv(to_unsafe, data, data.bytesize, out result)
       return result
     end
     # Shorthand for `image = Image.new; image.load_from_memory(...); image`
@@ -2833,7 +2833,7 @@ module SF
     #
     # *See also:* `load_from_file`, `load_from_memory`
     def load_from_stream(stream : InputStream) : Bool
-      VoidCSFML.sfml_image_loadfromstream_PO0(to_unsafe, stream, out result)
+      SFMLExt.sfml_image_loadfromstream_PO0(to_unsafe, stream, out result)
       return result
     end
     # Shorthand for `image = Image.new; image.load_from_stream(...); image`
@@ -2859,7 +2859,7 @@ module SF
     #
     # *See also:* `create`, `load_from_file`, `load_from_memory`
     def save_to_file(filename : String) : Bool
-      VoidCSFML.sfml_image_savetofile_zkC(to_unsafe, filename.bytesize, filename, out result)
+      SFMLExt.sfml_image_savetofile_zkC(to_unsafe, filename.bytesize, filename, out result)
       return result
     end
     # Return the size (width and height) of the image
@@ -2867,7 +2867,7 @@ module SF
     # *Returns:* Size of the image, in pixels
     def size() : Vector2u
       result = Vector2u.allocate
-      VoidCSFML.sfml_image_getsize(to_unsafe, result)
+      SFMLExt.sfml_image_getsize(to_unsafe, result)
       return result
     end
     # Create a transparency mask from a specified color-key
@@ -2879,7 +2879,7 @@ module SF
     # * *color* - Color to make transparent
     # * *alpha* - Alpha value to assign to transparent pixels
     def create_mask_from_color(color : Color, alpha : Int = 0)
-      VoidCSFML.sfml_image_createmaskfromcolor_QVe9yU(to_unsafe, color, UInt8.new(alpha))
+      SFMLExt.sfml_image_createmaskfromcolor_QVe9yU(to_unsafe, color, UInt8.new(alpha))
     end
     # Copy pixels from another image onto this one
     #
@@ -2899,7 +2899,7 @@ module SF
     # * *source_rect* - Sub-rectangle of the source image to copy
     # * *apply_alpha* - Should the copy take into account the source transparency?
     def copy(source : Image, dest_x : Int, dest_y : Int, source_rect : IntRect = IntRect.new(0, 0, 0, 0), apply_alpha : Bool = false)
-      VoidCSFML.sfml_image_copy_dptemSemS2k1GZq(to_unsafe, source, LibC::UInt.new(dest_x), LibC::UInt.new(dest_y), source_rect, apply_alpha)
+      SFMLExt.sfml_image_copy_dptemSemS2k1GZq(to_unsafe, source, LibC::UInt.new(dest_x), LibC::UInt.new(dest_y), source_rect, apply_alpha)
     end
     # Change the color of a pixel
     #
@@ -2913,7 +2913,7 @@ module SF
     #
     # *See also:* `pixel`
     def set_pixel(x : Int, y : Int, color : Color)
-      VoidCSFML.sfml_image_setpixel_emSemSQVe(to_unsafe, LibC::UInt.new(x), LibC::UInt.new(y), color)
+      SFMLExt.sfml_image_setpixel_emSemSQVe(to_unsafe, LibC::UInt.new(x), LibC::UInt.new(y), color)
     end
     # Get the color of a pixel
     #
@@ -2929,7 +2929,7 @@ module SF
     # *See also:* `pixel=`
     def get_pixel(x : Int, y : Int) : Color
       result = Color.allocate
-      VoidCSFML.sfml_image_getpixel_emSemS(to_unsafe, LibC::UInt.new(x), LibC::UInt.new(y), result)
+      SFMLExt.sfml_image_getpixel_emSemS(to_unsafe, LibC::UInt.new(x), LibC::UInt.new(y), result)
       return result
     end
     # Get a read-only pointer to the array of pixels
@@ -2943,16 +2943,16 @@ module SF
     #
     # *Returns:* Read-only pointer to the array of pixels
     def pixels_ptr() : UInt8*
-      VoidCSFML.sfml_image_getpixelsptr(to_unsafe, out result)
+      SFMLExt.sfml_image_getpixelsptr(to_unsafe, out result)
       return result
     end
     # Flip the image horizontally (left &lt;-&gt; right)
     def flip_horizontally()
-      VoidCSFML.sfml_image_fliphorizontally(to_unsafe)
+      SFMLExt.sfml_image_fliphorizontally(to_unsafe)
     end
     # Flip the image vertically (top &lt;-&gt; bottom)
     def flip_vertically()
-      VoidCSFML.sfml_image_flipvertically(to_unsafe)
+      SFMLExt.sfml_image_flipvertically(to_unsafe)
     end
     # :nodoc:
     def to_unsafe()
@@ -2964,8 +2964,8 @@ module SF
     end
     # :nodoc:
     def initialize(copy : Image)
-      VoidCSFML.sfml_image_allocate(out @this)
-      VoidCSFML.sfml_image_initialize_dpt(to_unsafe, copy)
+      SFMLExt.sfml_image_allocate(out @this)
+      SFMLExt.sfml_image_initialize_dpt(to_unsafe, copy)
     end
     def dup() : self
       return typeof(self).new(self)
@@ -3073,13 +3073,13 @@ module SF
     #
     # Creates an empty texture.
     def initialize()
-      VoidCSFML.sfml_texture_allocate(out @this)
-      VoidCSFML.sfml_texture_initialize(to_unsafe)
+      SFMLExt.sfml_texture_allocate(out @this)
+      SFMLExt.sfml_texture_initialize(to_unsafe)
     end
     # Destructor
     def finalize()
-      VoidCSFML.sfml_texture_finalize(to_unsafe)
-      VoidCSFML.sfml_texture_free(@this)
+      SFMLExt.sfml_texture_finalize(to_unsafe)
+      SFMLExt.sfml_texture_free(@this)
     end
     # Create the texture
     #
@@ -3090,7 +3090,7 @@ module SF
     #
     # *Returns:* True if creation was successful
     def create(width : Int, height : Int) : Bool
-      VoidCSFML.sfml_texture_create_emSemS(to_unsafe, LibC::UInt.new(width), LibC::UInt.new(height), out result)
+      SFMLExt.sfml_texture_create_emSemS(to_unsafe, LibC::UInt.new(width), LibC::UInt.new(height), out result)
       return result
     end
     # Shorthand for `texture = Texture.new; texture.create(...); texture`
@@ -3130,7 +3130,7 @@ module SF
     #
     # *See also:* `load_from_memory`, `load_from_stream`, `load_from_image`
     def load_from_file(filename : String, area : IntRect = IntRect.new()) : Bool
-      VoidCSFML.sfml_texture_loadfromfile_zkC2k1(to_unsafe, filename.bytesize, filename, area, out result)
+      SFMLExt.sfml_texture_loadfromfile_zkC2k1(to_unsafe, filename.bytesize, filename, area, out result)
       return result
     end
     # Shorthand for `texture = Texture.new; texture.load_from_file(...); texture`
@@ -3170,7 +3170,7 @@ module SF
     #
     # *See also:* `load_from_file`, `load_from_stream`, `load_from_image`
     def load_from_memory(data : Slice, area : IntRect = IntRect.new()) : Bool
-      VoidCSFML.sfml_texture_loadfrommemory_5h8vgv2k1(to_unsafe, data, data.bytesize, area, out result)
+      SFMLExt.sfml_texture_loadfrommemory_5h8vgv2k1(to_unsafe, data, data.bytesize, area, out result)
       return result
     end
     # Shorthand for `texture = Texture.new; texture.load_from_memory(...); texture`
@@ -3210,7 +3210,7 @@ module SF
     #
     # *See also:* `load_from_file`, `load_from_memory`, `load_from_image`
     def load_from_stream(stream : InputStream, area : IntRect = IntRect.new()) : Bool
-      VoidCSFML.sfml_texture_loadfromstream_PO02k1(to_unsafe, stream, area, out result)
+      SFMLExt.sfml_texture_loadfromstream_PO02k1(to_unsafe, stream, area, out result)
       return result
     end
     # Shorthand for `texture = Texture.new; texture.load_from_stream(...); texture`
@@ -3243,7 +3243,7 @@ module SF
     #
     # *See also:* `load_from_file`, `load_from_memory`
     def load_from_image(image : Image, area : IntRect = IntRect.new()) : Bool
-      VoidCSFML.sfml_texture_loadfromimage_dpt2k1(to_unsafe, image, area, out result)
+      SFMLExt.sfml_texture_loadfromimage_dpt2k1(to_unsafe, image, area, out result)
       return result
     end
     # Shorthand for `texture = Texture.new; texture.load_from_image(...); texture`
@@ -3261,7 +3261,7 @@ module SF
     # *Returns:* Size in pixels
     def size() : Vector2u
       result = Vector2u.allocate
-      VoidCSFML.sfml_texture_getsize(to_unsafe, result)
+      SFMLExt.sfml_texture_getsize(to_unsafe, result)
       return result
     end
     # Copy the texture pixels to an image
@@ -3276,7 +3276,7 @@ module SF
     # *See also:* `load_from_image`
     def copy_to_image() : Image
       result = Image.new
-      VoidCSFML.sfml_texture_copytoimage(to_unsafe, result)
+      SFMLExt.sfml_texture_copytoimage(to_unsafe, result)
       return result
     end
     # Update the whole texture from an array of pixels
@@ -3293,7 +3293,7 @@ module SF
     #
     # * *pixels* - Array of pixels to copy to the texture
     def update(pixels : UInt8*)
-      VoidCSFML.sfml_texture_update_843(to_unsafe, pixels)
+      SFMLExt.sfml_texture_update_843(to_unsafe, pixels)
     end
     # Update a part of the texture from an array of pixels
     #
@@ -3313,7 +3313,7 @@ module SF
     # * *x* - X offset in the texture where to copy the source pixels
     # * *y* - Y offset in the texture where to copy the source pixels
     def update(pixels : UInt8*, width : Int, height : Int, x : Int, y : Int)
-      VoidCSFML.sfml_texture_update_843emSemSemSemS(to_unsafe, pixels, LibC::UInt.new(width), LibC::UInt.new(height), LibC::UInt.new(x), LibC::UInt.new(y))
+      SFMLExt.sfml_texture_update_843emSemSemSemS(to_unsafe, pixels, LibC::UInt.new(width), LibC::UInt.new(height), LibC::UInt.new(x), LibC::UInt.new(y))
     end
     # Update a part of this texture from another texture
     #
@@ -3331,7 +3331,7 @@ module SF
     #
     # * *texture* - Source texture to copy to this texture
     def update(texture : Texture)
-      VoidCSFML.sfml_texture_update_DJb(to_unsafe, texture)
+      SFMLExt.sfml_texture_update_DJb(to_unsafe, texture)
     end
     # Update a part of this texture from another texture
     #
@@ -3346,7 +3346,7 @@ module SF
     # * *x* - X offset in this texture where to copy the source texture
     # * *y* - Y offset in this texture where to copy the source texture
     def update(texture : Texture, x : Int, y : Int)
-      VoidCSFML.sfml_texture_update_DJbemSemS(to_unsafe, texture, LibC::UInt.new(x), LibC::UInt.new(y))
+      SFMLExt.sfml_texture_update_DJbemSemS(to_unsafe, texture, LibC::UInt.new(x), LibC::UInt.new(y))
     end
     # Update the texture from an image
     #
@@ -3364,7 +3364,7 @@ module SF
     #
     # * *image* - Image to copy to the texture
     def update(image : Image)
-      VoidCSFML.sfml_texture_update_dpt(to_unsafe, image)
+      SFMLExt.sfml_texture_update_dpt(to_unsafe, image)
     end
     # Update a part of the texture from an image
     #
@@ -3379,7 +3379,7 @@ module SF
     # * *x* - X offset in the texture where to copy the source image
     # * *y* - Y offset in the texture where to copy the source image
     def update(image : Image, x : Int, y : Int)
-      VoidCSFML.sfml_texture_update_dptemSemS(to_unsafe, image, LibC::UInt.new(x), LibC::UInt.new(y))
+      SFMLExt.sfml_texture_update_dptemSemS(to_unsafe, image, LibC::UInt.new(x), LibC::UInt.new(y))
     end
     # Update the texture from the contents of a window
     #
@@ -3397,7 +3397,7 @@ module SF
     #
     # * *window* - Window to copy to the texture
     def update(window : Window)
-      VoidCSFML.sfml_texture_update_JRh(to_unsafe, window)
+      SFMLExt.sfml_texture_update_JRh(to_unsafe, window)
     end
     # Update a part of the texture from the contents of a window
     #
@@ -3412,7 +3412,7 @@ module SF
     # * *x* - X offset in the texture where to copy the source window
     # * *y* - Y offset in the texture where to copy the source window
     def update(window : Window, x : Int, y : Int)
-      VoidCSFML.sfml_texture_update_JRhemSemS(to_unsafe, window, LibC::UInt.new(x), LibC::UInt.new(y))
+      SFMLExt.sfml_texture_update_JRhemSemS(to_unsafe, window, LibC::UInt.new(x), LibC::UInt.new(y))
     end
     # Enable or disable the smooth filter
     #
@@ -3426,7 +3426,7 @@ module SF
     #
     # *See also:* `smooth?`
     def smooth=(smooth : Bool)
-      VoidCSFML.sfml_texture_setsmooth_GZq(to_unsafe, smooth)
+      SFMLExt.sfml_texture_setsmooth_GZq(to_unsafe, smooth)
     end
     # Tell whether the smooth filter is enabled or not
     #
@@ -3434,7 +3434,7 @@ module SF
     #
     # *See also:* `smooth=`
     def smooth?() : Bool
-      VoidCSFML.sfml_texture_issmooth(to_unsafe, out result)
+      SFMLExt.sfml_texture_issmooth(to_unsafe, out result)
       return result
     end
     # Enable or disable conversion from sRGB
@@ -3458,7 +3458,7 @@ module SF
     #
     # *See also:* `srgb?`
     def srgb=(s_rgb : Bool)
-      VoidCSFML.sfml_texture_setsrgb_GZq(to_unsafe, s_rgb)
+      SFMLExt.sfml_texture_setsrgb_GZq(to_unsafe, s_rgb)
     end
     # Tell whether the texture source is converted from sRGB or not
     #
@@ -3466,7 +3466,7 @@ module SF
     #
     # *See also:* `srgb=`
     def srgb?() : Bool
-      VoidCSFML.sfml_texture_issrgb(to_unsafe, out result)
+      SFMLExt.sfml_texture_issrgb(to_unsafe, out result)
       return result
     end
     # Enable or disable repeating
@@ -3489,7 +3489,7 @@ module SF
     #
     # *See also:* `repeated?`
     def repeated=(repeated : Bool)
-      VoidCSFML.sfml_texture_setrepeated_GZq(to_unsafe, repeated)
+      SFMLExt.sfml_texture_setrepeated_GZq(to_unsafe, repeated)
     end
     # Tell whether the texture is repeated or not
     #
@@ -3497,7 +3497,7 @@ module SF
     #
     # *See also:* `repeated=`
     def repeated?() : Bool
-      VoidCSFML.sfml_texture_isrepeated(to_unsafe, out result)
+      SFMLExt.sfml_texture_isrepeated(to_unsafe, out result)
       return result
     end
     # Generate a mipmap using the current texture data
@@ -3521,14 +3521,14 @@ module SF
     #
     # *Returns:* True if mipmap generation was successful, false if unsuccessful
     def generate_mipmap() : Bool
-      VoidCSFML.sfml_texture_generatemipmap(to_unsafe, out result)
+      SFMLExt.sfml_texture_generatemipmap(to_unsafe, out result)
       return result
     end
     # Swap the contents of this texture with those of another
     #
     # * *right* - Instance to swap with
     def swap(right : Texture)
-      VoidCSFML.sfml_texture_swap_zUT(to_unsafe, right)
+      SFMLExt.sfml_texture_swap_zUT(to_unsafe, right)
     end
     # Get the underlying OpenGL handle of the texture.
     #
@@ -3538,7 +3538,7 @@ module SF
     #
     # *Returns:* OpenGL handle of the texture or 0 if not yet created
     def native_handle() : Int32
-      VoidCSFML.sfml_texture_getnativehandle(to_unsafe, out result)
+      SFMLExt.sfml_texture_getnativehandle(to_unsafe, out result)
       return result.to_i
     end
     # Bind a texture for rendering
@@ -3571,7 +3571,7 @@ module SF
     # * *texture* - Pointer to the texture to bind, can be null to use no texture
     # * *coordinate_type* - Type of texture coordinates to use
     def self.bind(texture : Texture?, coordinate_type : Texture::CoordinateType = Normalized)
-      VoidCSFML.sfml_texture_bind_MXdK9j(texture, coordinate_type)
+      SFMLExt.sfml_texture_bind_MXdK9j(texture, coordinate_type)
     end
     # Get the maximum texture size allowed
     #
@@ -3581,7 +3581,7 @@ module SF
     #
     # *Returns:* Maximum size allowed for textures, in pixels
     def self.maximum_size() : Int32
-      VoidCSFML.sfml_texture_getmaximumsize(out result)
+      SFMLExt.sfml_texture_getmaximumsize(out result)
       return result.to_i
     end
     include GlResource
@@ -3595,8 +3595,8 @@ module SF
     end
     # :nodoc:
     def initialize(copy : Texture)
-      VoidCSFML.sfml_texture_allocate(out @this)
-      VoidCSFML.sfml_texture_initialize_DJb(to_unsafe, copy)
+      SFMLExt.sfml_texture_allocate(out @this)
+      SFMLExt.sfml_texture_initialize_DJb(to_unsafe, copy)
     end
     def dup() : self
       return typeof(self).new(self)
@@ -3667,20 +3667,20 @@ module SF
     class Info
       @this : Void*
       def initialize()
-        VoidCSFML.sfml_font_info_allocate(out @this)
-        VoidCSFML.sfml_font_info_initialize(to_unsafe)
+        SFMLExt.sfml_font_info_allocate(out @this)
+        SFMLExt.sfml_font_info_initialize(to_unsafe)
       end
       def finalize()
-        VoidCSFML.sfml_font_info_finalize(to_unsafe)
-        VoidCSFML.sfml_font_info_free(@this)
+        SFMLExt.sfml_font_info_finalize(to_unsafe)
+        SFMLExt.sfml_font_info_free(@this)
       end
       # The font family
       def family() : String
-        VoidCSFML.sfml_font_info_getfamily(to_unsafe, out result)
+        SFMLExt.sfml_font_info_getfamily(to_unsafe, out result)
         return String.new(result)
       end
       def family=(family : String)
-        VoidCSFML.sfml_font_info_setfamily_Fzm(to_unsafe, family.bytesize, family)
+        SFMLExt.sfml_font_info_setfamily_Fzm(to_unsafe, family.bytesize, family)
       end
       # :nodoc:
       def to_unsafe()
@@ -3692,8 +3692,8 @@ module SF
       end
       # :nodoc:
       def initialize(copy : Font::Info)
-        VoidCSFML.sfml_font_info_allocate(out @this)
-        VoidCSFML.sfml_font_info_initialize_HPc(to_unsafe, copy)
+        SFMLExt.sfml_font_info_allocate(out @this)
+        SFMLExt.sfml_font_info_initialize_HPc(to_unsafe, copy)
       end
       def dup() : self
         return typeof(self).new(self)
@@ -3703,15 +3703,15 @@ module SF
     #
     # This constructor defines an empty font
     def initialize()
-      VoidCSFML.sfml_font_allocate(out @this)
-      VoidCSFML.sfml_font_initialize(to_unsafe)
+      SFMLExt.sfml_font_allocate(out @this)
+      SFMLExt.sfml_font_initialize(to_unsafe)
     end
     # Destructor
     #
     # Cleans up all the internal resources used by the font
     def finalize()
-      VoidCSFML.sfml_font_finalize(to_unsafe)
-      VoidCSFML.sfml_font_free(@this)
+      SFMLExt.sfml_font_finalize(to_unsafe)
+      SFMLExt.sfml_font_free(@this)
     end
     # Load the font from a file
     #
@@ -3731,7 +3731,7 @@ module SF
     #
     # *See also:* `load_from_memory`, `load_from_stream`
     def load_from_file(filename : String) : Bool
-      VoidCSFML.sfml_font_loadfromfile_zkC(to_unsafe, filename.bytesize, filename, out result)
+      SFMLExt.sfml_font_loadfromfile_zkC(to_unsafe, filename.bytesize, filename, out result)
       return result
     end
     # Shorthand for `font = Font.new; font.load_from_file(...); font`
@@ -3760,7 +3760,7 @@ module SF
     #
     # *See also:* `load_from_file`, `load_from_stream`
     def load_from_memory(data : Slice) : Bool
-      VoidCSFML.sfml_font_loadfrommemory_5h8vgv(to_unsafe, data, data.bytesize, out result)
+      SFMLExt.sfml_font_loadfrommemory_5h8vgv(to_unsafe, data, data.bytesize, out result)
       return result
     end
     # Shorthand for `font = Font.new; font.load_from_memory(...); font`
@@ -3791,7 +3791,7 @@ module SF
     #
     # *See also:* `load_from_file`, `load_from_memory`
     def load_from_stream(stream : InputStream) : Bool
-      VoidCSFML.sfml_font_loadfromstream_PO0(to_unsafe, stream, out result)
+      SFMLExt.sfml_font_loadfromstream_PO0(to_unsafe, stream, out result)
       return result
     end
     # Shorthand for `font = Font.new; font.load_from_stream(...); font`
@@ -3808,7 +3808,7 @@ module SF
     #
     # *Returns:* A structure that holds the font information
     def info() : Font::Info
-      VoidCSFML.sfml_font_getinfo(to_unsafe, out result)
+      SFMLExt.sfml_font_getinfo(to_unsafe, out result)
       return Font::Info::Reference.new(result, self)
     end
     # Retrieve a glyph of the font
@@ -3828,7 +3828,7 @@ module SF
     # *Returns:* The glyph corresponding to *code_point* and *character_size*
     def get_glyph(code_point : Int, character_size : Int, bold : Bool, outline_thickness : Number = 0) : Glyph
       result = Glyph.allocate
-      VoidCSFML.sfml_font_getglyph_saLemSGZqBw9(to_unsafe, UInt32.new(code_point), LibC::UInt.new(character_size), bold, LibC::Float.new(outline_thickness), result)
+      SFMLExt.sfml_font_getglyph_saLemSGZqBw9(to_unsafe, UInt32.new(code_point), LibC::UInt.new(character_size), bold, LibC::Float.new(outline_thickness), result)
       return result
     end
     # Get the kerning offset of two glyphs
@@ -3845,7 +3845,7 @@ module SF
     #
     # *Returns:* Kerning value for *first* and *second,* in pixels
     def get_kerning(first : Int, second : Int, character_size : Int) : Float32
-      VoidCSFML.sfml_font_getkerning_saLsaLemS(to_unsafe, UInt32.new(first), UInt32.new(second), LibC::UInt.new(character_size), out result)
+      SFMLExt.sfml_font_getkerning_saLsaLemS(to_unsafe, UInt32.new(first), UInt32.new(second), LibC::UInt.new(character_size), out result)
       return result
     end
     # Get the line spacing
@@ -3857,7 +3857,7 @@ module SF
     #
     # *Returns:* Line spacing, in pixels
     def get_line_spacing(character_size : Int) : Float32
-      VoidCSFML.sfml_font_getlinespacing_emS(to_unsafe, LibC::UInt.new(character_size), out result)
+      SFMLExt.sfml_font_getlinespacing_emS(to_unsafe, LibC::UInt.new(character_size), out result)
       return result
     end
     # Get the position of the underline
@@ -3871,7 +3871,7 @@ module SF
     #
     # *See also:* `underline_thickness`
     def get_underline_position(character_size : Int) : Float32
-      VoidCSFML.sfml_font_getunderlineposition_emS(to_unsafe, LibC::UInt.new(character_size), out result)
+      SFMLExt.sfml_font_getunderlineposition_emS(to_unsafe, LibC::UInt.new(character_size), out result)
       return result
     end
     # Get the thickness of the underline
@@ -3884,7 +3884,7 @@ module SF
     #
     # *See also:* `underline_position`
     def get_underline_thickness(character_size : Int) : Float32
-      VoidCSFML.sfml_font_getunderlinethickness_emS(to_unsafe, LibC::UInt.new(character_size), out result)
+      SFMLExt.sfml_font_getunderlinethickness_emS(to_unsafe, LibC::UInt.new(character_size), out result)
       return result
     end
     # Retrieve the texture containing the loaded glyphs of a certain size
@@ -3897,7 +3897,7 @@ module SF
     #
     # *Returns:* Texture containing the glyphs of the requested size
     def get_texture(character_size : Int) : Texture
-      VoidCSFML.sfml_font_gettexture_emS(to_unsafe, LibC::UInt.new(character_size), out result)
+      SFMLExt.sfml_font_gettexture_emS(to_unsafe, LibC::UInt.new(character_size), out result)
       return Texture::Reference.new(result, self)
     end
     # :nodoc:
@@ -3910,8 +3910,8 @@ module SF
     end
     # :nodoc:
     def initialize(copy : Font)
-      VoidCSFML.sfml_font_allocate(out @this)
-      VoidCSFML.sfml_font_initialize_7CF(to_unsafe, copy)
+      SFMLExt.sfml_font_allocate(out @this)
+      SFMLExt.sfml_font_initialize_7CF(to_unsafe, copy)
     end
     def dup() : self
       return typeof(self).new(self)
@@ -3958,16 +3958,16 @@ module SF
   class RectangleShape < Shape
     @this : Void*
     def finalize()
-      VoidCSFML.sfml_rectangleshape_finalize(to_unsafe)
-      VoidCSFML.sfml_rectangleshape_free(@this)
+      SFMLExt.sfml_rectangleshape_finalize(to_unsafe)
+      SFMLExt.sfml_rectangleshape_free(@this)
     end
     # Default constructor
     #
     # * *size* - Size of the rectangle
     def initialize(size : Vector2|Tuple = Vector2.new(0, 0))
-      VoidCSFML.sfml_rectangleshape_allocate(out @this)
+      SFMLExt.sfml_rectangleshape_allocate(out @this)
       size = Vector2f.new(size[0].to_f32, size[1].to_f32)
-      VoidCSFML.sfml_rectangleshape_initialize_UU2(to_unsafe, size)
+      SFMLExt.sfml_rectangleshape_initialize_UU2(to_unsafe, size)
     end
     # Set the size of the rectangle
     #
@@ -3976,7 +3976,7 @@ module SF
     # *See also:* `size`
     def size=(size : Vector2|Tuple)
       size = Vector2f.new(size[0].to_f32, size[1].to_f32)
-      VoidCSFML.sfml_rectangleshape_setsize_UU2(to_unsafe, size)
+      SFMLExt.sfml_rectangleshape_setsize_UU2(to_unsafe, size)
     end
     # Get the size of the rectangle
     #
@@ -3985,7 +3985,7 @@ module SF
     # *See also:* `size=`
     def size() : Vector2f
       result = Vector2f.allocate
-      VoidCSFML.sfml_rectangleshape_getsize(to_unsafe, result)
+      SFMLExt.sfml_rectangleshape_getsize(to_unsafe, result)
       return result
     end
     # Get the number of points defining the shape
@@ -3993,7 +3993,7 @@ module SF
     # *Returns:* Number of points of the shape. For rectangle
     #         shapes, this number is always 4.
     def point_count() : Int32
-      VoidCSFML.sfml_rectangleshape_getpointcount(to_unsafe, out result)
+      SFMLExt.sfml_rectangleshape_getpointcount(to_unsafe, out result)
       return result.to_i
     end
     # Get a point of the rectangle
@@ -4008,30 +4008,30 @@ module SF
     # *Returns:* index-th point of the shape
     def get_point(index : Int) : Vector2f
       result = Vector2f.allocate
-      VoidCSFML.sfml_rectangleshape_getpoint_vgv(to_unsafe, LibC::SizeT.new(index), result)
+      SFMLExt.sfml_rectangleshape_getpoint_vgv(to_unsafe, LibC::SizeT.new(index), result)
       return result
     end
     # :nodoc:
     def set_texture(texture : Texture?, reset_rect : Bool = false)
       @_rectangleshape_texture = texture
-      VoidCSFML.sfml_rectangleshape_settexture_MXdGZq(to_unsafe, texture, reset_rect)
+      SFMLExt.sfml_rectangleshape_settexture_MXdGZq(to_unsafe, texture, reset_rect)
     end
     @_rectangleshape_texture : Texture? = nil
     # :nodoc:
     def texture_rect=(rect : IntRect)
-      VoidCSFML.sfml_rectangleshape_settexturerect_2k1(to_unsafe, rect)
+      SFMLExt.sfml_rectangleshape_settexturerect_2k1(to_unsafe, rect)
     end
     # :nodoc:
     def fill_color=(color : Color)
-      VoidCSFML.sfml_rectangleshape_setfillcolor_QVe(to_unsafe, color)
+      SFMLExt.sfml_rectangleshape_setfillcolor_QVe(to_unsafe, color)
     end
     # :nodoc:
     def outline_color=(color : Color)
-      VoidCSFML.sfml_rectangleshape_setoutlinecolor_QVe(to_unsafe, color)
+      SFMLExt.sfml_rectangleshape_setoutlinecolor_QVe(to_unsafe, color)
     end
     # :nodoc:
     def outline_thickness=(thickness : Number)
-      VoidCSFML.sfml_rectangleshape_setoutlinethickness_Bw9(to_unsafe, LibC::Float.new(thickness))
+      SFMLExt.sfml_rectangleshape_setoutlinethickness_Bw9(to_unsafe, LibC::Float.new(thickness))
     end
     # :nodoc:
     def texture() : Texture?
@@ -4040,124 +4040,124 @@ module SF
     # :nodoc:
     def texture_rect() : IntRect
       result = IntRect.allocate
-      VoidCSFML.sfml_rectangleshape_gettexturerect(to_unsafe, result)
+      SFMLExt.sfml_rectangleshape_gettexturerect(to_unsafe, result)
       return result
     end
     # :nodoc:
     def fill_color() : Color
       result = Color.allocate
-      VoidCSFML.sfml_rectangleshape_getfillcolor(to_unsafe, result)
+      SFMLExt.sfml_rectangleshape_getfillcolor(to_unsafe, result)
       return result
     end
     # :nodoc:
     def outline_color() : Color
       result = Color.allocate
-      VoidCSFML.sfml_rectangleshape_getoutlinecolor(to_unsafe, result)
+      SFMLExt.sfml_rectangleshape_getoutlinecolor(to_unsafe, result)
       return result
     end
     # :nodoc:
     def outline_thickness() : Float32
-      VoidCSFML.sfml_rectangleshape_getoutlinethickness(to_unsafe, out result)
+      SFMLExt.sfml_rectangleshape_getoutlinethickness(to_unsafe, out result)
       return result
     end
     # :nodoc:
     def local_bounds() : FloatRect
       result = FloatRect.allocate
-      VoidCSFML.sfml_rectangleshape_getlocalbounds(to_unsafe, result)
+      SFMLExt.sfml_rectangleshape_getlocalbounds(to_unsafe, result)
       return result
     end
     # :nodoc:
     def global_bounds() : FloatRect
       result = FloatRect.allocate
-      VoidCSFML.sfml_rectangleshape_getglobalbounds(to_unsafe, result)
+      SFMLExt.sfml_rectangleshape_getglobalbounds(to_unsafe, result)
       return result
     end
     # :nodoc:
     def set_position(x : Number, y : Number)
-      VoidCSFML.sfml_rectangleshape_setposition_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y))
+      SFMLExt.sfml_rectangleshape_setposition_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y))
     end
     # :nodoc:
     def position=(position : Vector2|Tuple)
       position = Vector2f.new(position[0].to_f32, position[1].to_f32)
-      VoidCSFML.sfml_rectangleshape_setposition_UU2(to_unsafe, position)
+      SFMLExt.sfml_rectangleshape_setposition_UU2(to_unsafe, position)
     end
     # :nodoc:
     def rotation=(angle : Number)
-      VoidCSFML.sfml_rectangleshape_setrotation_Bw9(to_unsafe, LibC::Float.new(angle))
+      SFMLExt.sfml_rectangleshape_setrotation_Bw9(to_unsafe, LibC::Float.new(angle))
     end
     # :nodoc:
     def set_scale(factor_x : Number, factor_y : Number)
-      VoidCSFML.sfml_rectangleshape_setscale_Bw9Bw9(to_unsafe, LibC::Float.new(factor_x), LibC::Float.new(factor_y))
+      SFMLExt.sfml_rectangleshape_setscale_Bw9Bw9(to_unsafe, LibC::Float.new(factor_x), LibC::Float.new(factor_y))
     end
     # :nodoc:
     def scale=(factors : Vector2|Tuple)
       factors = Vector2f.new(factors[0].to_f32, factors[1].to_f32)
-      VoidCSFML.sfml_rectangleshape_setscale_UU2(to_unsafe, factors)
+      SFMLExt.sfml_rectangleshape_setscale_UU2(to_unsafe, factors)
     end
     # :nodoc:
     def set_origin(x : Number, y : Number)
-      VoidCSFML.sfml_rectangleshape_setorigin_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y))
+      SFMLExt.sfml_rectangleshape_setorigin_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y))
     end
     # :nodoc:
     def origin=(origin : Vector2|Tuple)
       origin = Vector2f.new(origin[0].to_f32, origin[1].to_f32)
-      VoidCSFML.sfml_rectangleshape_setorigin_UU2(to_unsafe, origin)
+      SFMLExt.sfml_rectangleshape_setorigin_UU2(to_unsafe, origin)
     end
     # :nodoc:
     def position() : Vector2f
       result = Vector2f.allocate
-      VoidCSFML.sfml_rectangleshape_getposition(to_unsafe, result)
+      SFMLExt.sfml_rectangleshape_getposition(to_unsafe, result)
       return result
     end
     # :nodoc:
     def rotation() : Float32
-      VoidCSFML.sfml_rectangleshape_getrotation(to_unsafe, out result)
+      SFMLExt.sfml_rectangleshape_getrotation(to_unsafe, out result)
       return result
     end
     # :nodoc:
     def scale() : Vector2f
       result = Vector2f.allocate
-      VoidCSFML.sfml_rectangleshape_getscale(to_unsafe, result)
+      SFMLExt.sfml_rectangleshape_getscale(to_unsafe, result)
       return result
     end
     # :nodoc:
     def origin() : Vector2f
       result = Vector2f.allocate
-      VoidCSFML.sfml_rectangleshape_getorigin(to_unsafe, result)
+      SFMLExt.sfml_rectangleshape_getorigin(to_unsafe, result)
       return result
     end
     # :nodoc:
     def move(offset_x : Number, offset_y : Number)
-      VoidCSFML.sfml_rectangleshape_move_Bw9Bw9(to_unsafe, LibC::Float.new(offset_x), LibC::Float.new(offset_y))
+      SFMLExt.sfml_rectangleshape_move_Bw9Bw9(to_unsafe, LibC::Float.new(offset_x), LibC::Float.new(offset_y))
     end
     # :nodoc:
     def move(offset : Vector2|Tuple)
       offset = Vector2f.new(offset[0].to_f32, offset[1].to_f32)
-      VoidCSFML.sfml_rectangleshape_move_UU2(to_unsafe, offset)
+      SFMLExt.sfml_rectangleshape_move_UU2(to_unsafe, offset)
     end
     # :nodoc:
     def rotate(angle : Number)
-      VoidCSFML.sfml_rectangleshape_rotate_Bw9(to_unsafe, LibC::Float.new(angle))
+      SFMLExt.sfml_rectangleshape_rotate_Bw9(to_unsafe, LibC::Float.new(angle))
     end
     # :nodoc:
     def scale(factor_x : Number, factor_y : Number)
-      VoidCSFML.sfml_rectangleshape_scale_Bw9Bw9(to_unsafe, LibC::Float.new(factor_x), LibC::Float.new(factor_y))
+      SFMLExt.sfml_rectangleshape_scale_Bw9Bw9(to_unsafe, LibC::Float.new(factor_x), LibC::Float.new(factor_y))
     end
     # :nodoc:
     def scale(factor : Vector2|Tuple)
       factor = Vector2f.new(factor[0].to_f32, factor[1].to_f32)
-      VoidCSFML.sfml_rectangleshape_scale_UU2(to_unsafe, factor)
+      SFMLExt.sfml_rectangleshape_scale_UU2(to_unsafe, factor)
     end
     # :nodoc:
     def transform() : Transform
       result = Transform.allocate
-      VoidCSFML.sfml_rectangleshape_gettransform(to_unsafe, result)
+      SFMLExt.sfml_rectangleshape_gettransform(to_unsafe, result)
       return result
     end
     # :nodoc:
     def inverse_transform() : Transform
       result = Transform.allocate
-      VoidCSFML.sfml_rectangleshape_getinversetransform(to_unsafe, result)
+      SFMLExt.sfml_rectangleshape_getinversetransform(to_unsafe, result)
       return result
     end
     # :nodoc:
@@ -4170,20 +4170,20 @@ module SF
     end
     # :nodoc:
     def draw(target : RenderTexture, states : RenderStates)
-      VoidCSFML.sfml_rectangleshape_draw_kb9RoT(to_unsafe, target, states)
+      SFMLExt.sfml_rectangleshape_draw_kb9RoT(to_unsafe, target, states)
     end
     # :nodoc:
     def draw(target : RenderWindow, states : RenderStates)
-      VoidCSFML.sfml_rectangleshape_draw_fqURoT(to_unsafe, target, states)
+      SFMLExt.sfml_rectangleshape_draw_fqURoT(to_unsafe, target, states)
     end
     # :nodoc:
     def draw(target : RenderTarget, states : RenderStates)
-      VoidCSFML.sfml_rectangleshape_draw_Xk1RoT(to_unsafe, target, states)
+      SFMLExt.sfml_rectangleshape_draw_Xk1RoT(to_unsafe, target, states)
     end
     # :nodoc:
     def initialize(copy : RectangleShape)
-      VoidCSFML.sfml_rectangleshape_allocate(out @this)
-      VoidCSFML.sfml_rectangleshape_initialize_wlj(to_unsafe, copy)
+      SFMLExt.sfml_rectangleshape_allocate(out @this)
+      SFMLExt.sfml_rectangleshape_initialize_wlj(to_unsafe, copy)
     end
     def dup() : self
       return typeof(self).new(self)
@@ -4244,32 +4244,32 @@ module SF
   class View
     @this : Void*
     def finalize()
-      VoidCSFML.sfml_view_finalize(to_unsafe)
-      VoidCSFML.sfml_view_free(@this)
+      SFMLExt.sfml_view_finalize(to_unsafe)
+      SFMLExt.sfml_view_free(@this)
     end
     # Default constructor
     #
     # This constructor creates a default view of (0, 0, 1000, 1000)
     def initialize()
-      VoidCSFML.sfml_view_allocate(out @this)
-      VoidCSFML.sfml_view_initialize(to_unsafe)
+      SFMLExt.sfml_view_allocate(out @this)
+      SFMLExt.sfml_view_initialize(to_unsafe)
     end
     # Construct the view from a rectangle
     #
     # * *rectangle* - Rectangle defining the zone to display
     def initialize(rectangle : FloatRect)
-      VoidCSFML.sfml_view_allocate(out @this)
-      VoidCSFML.sfml_view_initialize_WPZ(to_unsafe, rectangle)
+      SFMLExt.sfml_view_allocate(out @this)
+      SFMLExt.sfml_view_initialize_WPZ(to_unsafe, rectangle)
     end
     # Construct the view from its center and size
     #
     # * *center* - Center of the zone to display
     # * *size* - Size of zone to display
     def initialize(center : Vector2|Tuple, size : Vector2|Tuple)
-      VoidCSFML.sfml_view_allocate(out @this)
+      SFMLExt.sfml_view_allocate(out @this)
       center = Vector2f.new(center[0].to_f32, center[1].to_f32)
       size = Vector2f.new(size[0].to_f32, size[1].to_f32)
-      VoidCSFML.sfml_view_initialize_UU2UU2(to_unsafe, center, size)
+      SFMLExt.sfml_view_initialize_UU2UU2(to_unsafe, center, size)
     end
     # Set the center of the view
     #
@@ -4278,7 +4278,7 @@ module SF
     #
     # *See also:* `size=`, `center`
     def set_center(x : Number, y : Number)
-      VoidCSFML.sfml_view_setcenter_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y))
+      SFMLExt.sfml_view_setcenter_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y))
     end
     # Set the center of the view
     #
@@ -4287,7 +4287,7 @@ module SF
     # *See also:* `size=`, `center`
     def center=(center : Vector2|Tuple)
       center = Vector2f.new(center[0].to_f32, center[1].to_f32)
-      VoidCSFML.sfml_view_setcenter_UU2(to_unsafe, center)
+      SFMLExt.sfml_view_setcenter_UU2(to_unsafe, center)
     end
     # Set the size of the view
     #
@@ -4296,7 +4296,7 @@ module SF
     #
     # *See also:* `center=`, `center`
     def set_size(width : Number, height : Number)
-      VoidCSFML.sfml_view_setsize_Bw9Bw9(to_unsafe, LibC::Float.new(width), LibC::Float.new(height))
+      SFMLExt.sfml_view_setsize_Bw9Bw9(to_unsafe, LibC::Float.new(width), LibC::Float.new(height))
     end
     # Set the size of the view
     #
@@ -4305,7 +4305,7 @@ module SF
     # *See also:* `center=`, `center`
     def size=(size : Vector2|Tuple)
       size = Vector2f.new(size[0].to_f32, size[1].to_f32)
-      VoidCSFML.sfml_view_setsize_UU2(to_unsafe, size)
+      SFMLExt.sfml_view_setsize_UU2(to_unsafe, size)
     end
     # Set the orientation of the view
     #
@@ -4315,7 +4315,7 @@ module SF
     #
     # *See also:* `rotation`
     def rotation=(angle : Number)
-      VoidCSFML.sfml_view_setrotation_Bw9(to_unsafe, LibC::Float.new(angle))
+      SFMLExt.sfml_view_setrotation_Bw9(to_unsafe, LibC::Float.new(angle))
     end
     # Set the target viewport
     #
@@ -4330,7 +4330,7 @@ module SF
     #
     # *See also:* `viewport`
     def viewport=(viewport : FloatRect)
-      VoidCSFML.sfml_view_setviewport_WPZ(to_unsafe, viewport)
+      SFMLExt.sfml_view_setviewport_WPZ(to_unsafe, viewport)
     end
     # Reset the view to the given rectangle
     #
@@ -4340,7 +4340,7 @@ module SF
     #
     # *See also:* `center=`, `size=`, `rotation=`
     def reset(rectangle : FloatRect)
-      VoidCSFML.sfml_view_reset_WPZ(to_unsafe, rectangle)
+      SFMLExt.sfml_view_reset_WPZ(to_unsafe, rectangle)
     end
     # Get the center of the view
     #
@@ -4349,7 +4349,7 @@ module SF
     # *See also:* `size`, `center=`
     def center() : Vector2f
       result = Vector2f.allocate
-      VoidCSFML.sfml_view_getcenter(to_unsafe, result)
+      SFMLExt.sfml_view_getcenter(to_unsafe, result)
       return result
     end
     # Get the size of the view
@@ -4359,7 +4359,7 @@ module SF
     # *See also:* `center`, `size=`
     def size() : Vector2f
       result = Vector2f.allocate
-      VoidCSFML.sfml_view_getsize(to_unsafe, result)
+      SFMLExt.sfml_view_getsize(to_unsafe, result)
       return result
     end
     # Get the current orientation of the view
@@ -4368,7 +4368,7 @@ module SF
     #
     # *See also:* `rotation=`
     def rotation() : Float32
-      VoidCSFML.sfml_view_getrotation(to_unsafe, out result)
+      SFMLExt.sfml_view_getrotation(to_unsafe, out result)
       return result
     end
     # Get the target viewport rectangle of the view
@@ -4378,7 +4378,7 @@ module SF
     # *See also:* `viewport=`
     def viewport() : FloatRect
       result = FloatRect.allocate
-      VoidCSFML.sfml_view_getviewport(to_unsafe, result)
+      SFMLExt.sfml_view_getviewport(to_unsafe, result)
       return result
     end
     # Move the view relatively to its current position
@@ -4388,7 +4388,7 @@ module SF
     #
     # *See also:* `center=`, `rotate`, `zoom`
     def move(offset_x : Number, offset_y : Number)
-      VoidCSFML.sfml_view_move_Bw9Bw9(to_unsafe, LibC::Float.new(offset_x), LibC::Float.new(offset_y))
+      SFMLExt.sfml_view_move_Bw9Bw9(to_unsafe, LibC::Float.new(offset_x), LibC::Float.new(offset_y))
     end
     # Move the view relatively to its current position
     #
@@ -4397,7 +4397,7 @@ module SF
     # *See also:* `center=`, `rotate`, `zoom`
     def move(offset : Vector2|Tuple)
       offset = Vector2f.new(offset[0].to_f32, offset[1].to_f32)
-      VoidCSFML.sfml_view_move_UU2(to_unsafe, offset)
+      SFMLExt.sfml_view_move_UU2(to_unsafe, offset)
     end
     # Rotate the view relatively to its current orientation
     #
@@ -4405,7 +4405,7 @@ module SF
     #
     # *See also:* `rotation=`, `move`, `zoom`
     def rotate(angle : Number)
-      VoidCSFML.sfml_view_rotate_Bw9(to_unsafe, LibC::Float.new(angle))
+      SFMLExt.sfml_view_rotate_Bw9(to_unsafe, LibC::Float.new(angle))
     end
     # Resize the view rectangle relatively to its current size
     #
@@ -4420,7 +4420,7 @@ module SF
     #
     # *See also:* `size=`, `move`, `rotate`
     def zoom(factor : Number)
-      VoidCSFML.sfml_view_zoom_Bw9(to_unsafe, LibC::Float.new(factor))
+      SFMLExt.sfml_view_zoom_Bw9(to_unsafe, LibC::Float.new(factor))
     end
     # Get the projection transform of the view
     #
@@ -4431,7 +4431,7 @@ module SF
     # *See also:* `inverse_transform`
     def transform() : Transform
       result = Transform.allocate
-      VoidCSFML.sfml_view_gettransform(to_unsafe, result)
+      SFMLExt.sfml_view_gettransform(to_unsafe, result)
       return result
     end
     # Get the inverse projection transform of the view
@@ -4443,7 +4443,7 @@ module SF
     # *See also:* `transform`
     def inverse_transform() : Transform
       result = Transform.allocate
-      VoidCSFML.sfml_view_getinversetransform(to_unsafe, result)
+      SFMLExt.sfml_view_getinversetransform(to_unsafe, result)
       return result
     end
     # :nodoc:
@@ -4456,8 +4456,8 @@ module SF
     end
     # :nodoc:
     def initialize(copy : View)
-      VoidCSFML.sfml_view_allocate(out @this)
-      VoidCSFML.sfml_view_initialize_DDi(to_unsafe, copy)
+      SFMLExt.sfml_view_allocate(out @this)
+      SFMLExt.sfml_view_initialize_DDi(to_unsafe, copy)
     end
     def dup() : self
       return typeof(self).new(self)
@@ -4492,7 +4492,7 @@ module SF
     #
     # * *color* - Fill color to use to clear the render target
     def clear(color : Color = Color.new(0, 0, 0, 255))
-      VoidCSFML.sfml_rendertarget_clear_QVe(to_unsafe, color)
+      SFMLExt.sfml_rendertarget_clear_QVe(to_unsafe, color)
     end
     # Change the current active view
     #
@@ -4512,7 +4512,7 @@ module SF
     # *See also:* `view`, `default_view`
     def view=(view : View)
       @_rendertarget_view = view
-      VoidCSFML.sfml_rendertarget_setview_DDi(to_unsafe, view)
+      SFMLExt.sfml_rendertarget_setview_DDi(to_unsafe, view)
     end
     # Get the view currently in use in the render target
     #
@@ -4520,7 +4520,7 @@ module SF
     #
     # *See also:* `view=`, `default_view`
     def view() : View
-      VoidCSFML.sfml_rendertarget_getview(to_unsafe, out result)
+      SFMLExt.sfml_rendertarget_getview(to_unsafe, out result)
       return View::Reference.new(result, self)
     end
     # Get the default view of the render target
@@ -4532,7 +4532,7 @@ module SF
     #
     # *See also:* `view=`, `view`
     def default_view() : View
-      VoidCSFML.sfml_rendertarget_getdefaultview(to_unsafe, out result)
+      SFMLExt.sfml_rendertarget_getdefaultview(to_unsafe, out result)
       return View::Reference.new(result, self)
     end
     # Get the viewport of a view, applied to this render target
@@ -4547,7 +4547,7 @@ module SF
     # *Returns:* Viewport rectangle, expressed in pixels
     def get_viewport(view : View) : IntRect
       result = IntRect.allocate
-      VoidCSFML.sfml_rendertarget_getviewport_DDi(to_unsafe, view, result)
+      SFMLExt.sfml_rendertarget_getviewport_DDi(to_unsafe, view, result)
       return result
     end
     # Convert a point from target coordinates to world
@@ -4568,7 +4568,7 @@ module SF
     def map_pixel_to_coords(point : Vector2|Tuple) : Vector2f
       result = Vector2f.allocate
       point = Vector2i.new(point[0].to_i32, point[1].to_i32)
-      VoidCSFML.sfml_rendertarget_mappixeltocoords_ufV(to_unsafe, point, result)
+      SFMLExt.sfml_rendertarget_mappixeltocoords_ufV(to_unsafe, point, result)
       return result
     end
     # Convert a point from target coordinates to world coordinates
@@ -4600,7 +4600,7 @@ module SF
     def map_pixel_to_coords(point : Vector2|Tuple, view : View) : Vector2f
       result = Vector2f.allocate
       point = Vector2i.new(point[0].to_i32, point[1].to_i32)
-      VoidCSFML.sfml_rendertarget_mappixeltocoords_ufVDDi(to_unsafe, point, view, result)
+      SFMLExt.sfml_rendertarget_mappixeltocoords_ufVDDi(to_unsafe, point, view, result)
       return result
     end
     # Convert a point from world coordinates to target
@@ -4621,7 +4621,7 @@ module SF
     def map_coords_to_pixel(point : Vector2|Tuple) : Vector2i
       result = Vector2i.allocate
       point = Vector2f.new(point[0].to_f32, point[1].to_f32)
-      VoidCSFML.sfml_rendertarget_mapcoordstopixel_UU2(to_unsafe, point, result)
+      SFMLExt.sfml_rendertarget_mapcoordstopixel_UU2(to_unsafe, point, result)
       return result
     end
     # Convert a point from world coordinates to target coordinates
@@ -4649,7 +4649,7 @@ module SF
     def map_coords_to_pixel(point : Vector2|Tuple, view : View) : Vector2i
       result = Vector2i.allocate
       point = Vector2f.new(point[0].to_f32, point[1].to_f32)
-      VoidCSFML.sfml_rendertarget_mapcoordstopixel_UU2DDi(to_unsafe, point, view, result)
+      SFMLExt.sfml_rendertarget_mapcoordstopixel_UU2DDi(to_unsafe, point, view, result)
       return result
     end
     # Draw primitives defined by an array of vertices
@@ -4659,14 +4659,14 @@ module SF
     # * *type* - Type of primitives to draw
     # * *states* - Render states to use for drawing
     def draw(vertices : Array(Vertex) | Slice(Vertex), type : PrimitiveType, states : RenderStates = RenderStates::Default)
-      VoidCSFML.sfml_rendertarget_draw_46svgvu9wmi4(to_unsafe, vertices, vertices.size, type, states)
+      SFMLExt.sfml_rendertarget_draw_46svgvu9wmi4(to_unsafe, vertices, vertices.size, type, states)
     end
     # Draw primitives defined by a vertex buffer
     #
     # * *vertex_buffer* - Vertex buffer
     # * *states* - Render states to use for drawing
     def draw(vertex_buffer : VertexBuffer, states : RenderStates = RenderStates::Default)
-      VoidCSFML.sfml_rendertarget_draw_U2Dmi4(to_unsafe, vertex_buffer, states)
+      SFMLExt.sfml_rendertarget_draw_U2Dmi4(to_unsafe, vertex_buffer, states)
     end
     # Draw primitives defined by a vertex buffer
     #
@@ -4675,7 +4675,7 @@ module SF
     # * *vertex_count* - Number of vertices to render
     # * *states* - Render states to use for drawing
     def draw(vertex_buffer : VertexBuffer, first_vertex : Int, vertex_count : Int, states : RenderStates = RenderStates::Default)
-      VoidCSFML.sfml_rendertarget_draw_U2Dvgvvgvmi4(to_unsafe, vertex_buffer, LibC::SizeT.new(first_vertex), LibC::SizeT.new(vertex_count), states)
+      SFMLExt.sfml_rendertarget_draw_U2Dvgvvgvmi4(to_unsafe, vertex_buffer, LibC::SizeT.new(first_vertex), LibC::SizeT.new(vertex_count), states)
     end
     # Return the size of the rendering region of the target
     #
@@ -4699,7 +4699,7 @@ module SF
     #
     # *Returns:* True if operation was successful, false otherwise
     def active=(active : Bool = true) : Bool
-      VoidCSFML.sfml_rendertarget_setactive_GZq(to_unsafe, active, out result)
+      SFMLExt.sfml_rendertarget_setactive_GZq(to_unsafe, active, out result)
       return result
     end
     # Save the current OpenGL render states and matrices
@@ -4732,7 +4732,7 @@ module SF
     #
     # *See also:* `pop_gl_states`
     def push_gl_states()
-      VoidCSFML.sfml_rendertarget_pushglstates(to_unsafe)
+      SFMLExt.sfml_rendertarget_pushglstates(to_unsafe)
     end
     # Restore the previously saved OpenGL render states and matrices
     #
@@ -4741,7 +4741,7 @@ module SF
     #
     # *See also:* `push_gl_states`
     def pop_gl_states()
-      VoidCSFML.sfml_rendertarget_popglstates(to_unsafe)
+      SFMLExt.sfml_rendertarget_popglstates(to_unsafe)
     end
     # Reset the internal OpenGL states so that the target is ready for drawing
     #
@@ -4762,7 +4762,7 @@ module SF
     # # OpenGL code here...
     # ```
     def reset_gl_states()
-      VoidCSFML.sfml_rendertarget_resetglstates(to_unsafe)
+      SFMLExt.sfml_rendertarget_resetglstates(to_unsafe)
     end
     include NonCopyable
   end
@@ -4852,13 +4852,13 @@ module SF
     #
     # *See also:* `create`
     def initialize()
-      VoidCSFML.sfml_rendertexture_allocate(out @this)
-      VoidCSFML.sfml_rendertexture_initialize(to_unsafe)
+      SFMLExt.sfml_rendertexture_allocate(out @this)
+      SFMLExt.sfml_rendertexture_initialize(to_unsafe)
     end
     # Destructor
     def finalize()
-      VoidCSFML.sfml_rendertexture_finalize(to_unsafe)
-      VoidCSFML.sfml_rendertexture_free(@this)
+      SFMLExt.sfml_rendertexture_finalize(to_unsafe)
+      SFMLExt.sfml_rendertexture_free(@this)
     end
     # Create the render-texture
     #
@@ -4878,7 +4878,7 @@ module SF
     #
     # *Deprecated:* Use create(unsigned int, unsigned int, const ContextSettings&) instead.
     def create(width : Int, height : Int, depth_buffer : Bool) : Bool
-      VoidCSFML.sfml_rendertexture_create_emSemSGZq(to_unsafe, LibC::UInt.new(width), LibC::UInt.new(height), depth_buffer, out result)
+      SFMLExt.sfml_rendertexture_create_emSemSGZq(to_unsafe, LibC::UInt.new(width), LibC::UInt.new(height), depth_buffer, out result)
       return result
     end
     # Shorthand for `render_texture = RenderTexture.new; render_texture.create(...); render_texture`
@@ -4907,7 +4907,7 @@ module SF
     #
     # *Returns:* True if creation has been successful
     def create(width : Int, height : Int, settings : ContextSettings = ContextSettings.new()) : Bool
-      VoidCSFML.sfml_rendertexture_create_emSemSFw4(to_unsafe, LibC::UInt.new(width), LibC::UInt.new(height), settings, out result)
+      SFMLExt.sfml_rendertexture_create_emSemSFw4(to_unsafe, LibC::UInt.new(width), LibC::UInt.new(height), settings, out result)
       return result
     end
     # Shorthand for `render_texture = RenderTexture.new; render_texture.create(...); render_texture`
@@ -4924,7 +4924,7 @@ module SF
     #
     # *Returns:* The maximum anti-aliasing level supported by the system
     def self.maximum_antialiasing_level() : Int32
-      VoidCSFML.sfml_rendertexture_getmaximumantialiasinglevel(out result)
+      SFMLExt.sfml_rendertexture_getmaximumantialiasinglevel(out result)
       return result.to_i
     end
     # Enable or disable texture smoothing
@@ -4936,7 +4936,7 @@ module SF
     #
     # *See also:* `smooth?`
     def smooth=(smooth : Bool)
-      VoidCSFML.sfml_rendertexture_setsmooth_GZq(to_unsafe, smooth)
+      SFMLExt.sfml_rendertexture_setsmooth_GZq(to_unsafe, smooth)
     end
     # Tell whether the smooth filtering is enabled or not
     #
@@ -4944,7 +4944,7 @@ module SF
     #
     # *See also:* `smooth=`
     def smooth?() : Bool
-      VoidCSFML.sfml_rendertexture_issmooth(to_unsafe, out result)
+      SFMLExt.sfml_rendertexture_issmooth(to_unsafe, out result)
       return result
     end
     # Enable or disable texture repeating
@@ -4956,7 +4956,7 @@ module SF
     #
     # *See also:* `repeated?`
     def repeated=(repeated : Bool)
-      VoidCSFML.sfml_rendertexture_setrepeated_GZq(to_unsafe, repeated)
+      SFMLExt.sfml_rendertexture_setrepeated_GZq(to_unsafe, repeated)
     end
     # Tell whether the texture is repeated or not
     #
@@ -4964,7 +4964,7 @@ module SF
     #
     # *See also:* `repeated=`
     def repeated?() : Bool
-      VoidCSFML.sfml_rendertexture_isrepeated(to_unsafe, out result)
+      SFMLExt.sfml_rendertexture_isrepeated(to_unsafe, out result)
       return result
     end
     # Generate a mipmap using the current texture data
@@ -4979,7 +4979,7 @@ module SF
     #
     # *Returns:* True if mipmap generation was successful, false if unsuccessful
     def generate_mipmap() : Bool
-      VoidCSFML.sfml_rendertexture_generatemipmap(to_unsafe, out result)
+      SFMLExt.sfml_rendertexture_generatemipmap(to_unsafe, out result)
       return result
     end
     # Activate or deactivate the render-texture for rendering
@@ -4995,7 +4995,7 @@ module SF
     #
     # *Returns:* True if operation was successful, false otherwise
     def active=(active : Bool = true) : Bool
-      VoidCSFML.sfml_rendertexture_setactive_GZq(to_unsafe, active, out result)
+      SFMLExt.sfml_rendertexture_setactive_GZq(to_unsafe, active, out result)
       return result
     end
     # Update the contents of the target texture
@@ -5005,7 +5005,7 @@ module SF
     # function is mandatory at the end of rendering. Not calling
     # it may leave the texture in an undefined state.
     def display()
-      VoidCSFML.sfml_rendertexture_display(to_unsafe)
+      SFMLExt.sfml_rendertexture_display(to_unsafe)
     end
     # Return the size of the rendering region of the texture
     #
@@ -5015,7 +5015,7 @@ module SF
     # *Returns:* Size in pixels
     def size() : Vector2u
       result = Vector2u.allocate
-      VoidCSFML.sfml_rendertexture_getsize(to_unsafe, result)
+      SFMLExt.sfml_rendertexture_getsize(to_unsafe, result)
       return result
     end
     # Get a read-only reference to the target texture
@@ -5030,86 +5030,86 @@ module SF
     #
     # *Returns:* Const reference to the texture
     def texture() : Texture
-      VoidCSFML.sfml_rendertexture_gettexture(to_unsafe, out result)
+      SFMLExt.sfml_rendertexture_gettexture(to_unsafe, out result)
       return Texture::Reference.new(result, self)
     end
     # :nodoc:
     def clear(color : Color = Color.new(0, 0, 0, 255))
-      VoidCSFML.sfml_rendertexture_clear_QVe(to_unsafe, color)
+      SFMLExt.sfml_rendertexture_clear_QVe(to_unsafe, color)
     end
     # :nodoc:
     def view=(view : View)
       @_rendertexture_view = view
-      VoidCSFML.sfml_rendertexture_setview_DDi(to_unsafe, view)
+      SFMLExt.sfml_rendertexture_setview_DDi(to_unsafe, view)
     end
     @_rendertexture_view : View? = nil
     # :nodoc:
     def view() : View
-      VoidCSFML.sfml_rendertexture_getview(to_unsafe, out result)
+      SFMLExt.sfml_rendertexture_getview(to_unsafe, out result)
       return View::Reference.new(result, self)
     end
     # :nodoc:
     def default_view() : View
-      VoidCSFML.sfml_rendertexture_getdefaultview(to_unsafe, out result)
+      SFMLExt.sfml_rendertexture_getdefaultview(to_unsafe, out result)
       return View::Reference.new(result, self)
     end
     # :nodoc:
     def get_viewport(view : View) : IntRect
       result = IntRect.allocate
-      VoidCSFML.sfml_rendertexture_getviewport_DDi(to_unsafe, view, result)
+      SFMLExt.sfml_rendertexture_getviewport_DDi(to_unsafe, view, result)
       return result
     end
     # :nodoc:
     def map_pixel_to_coords(point : Vector2|Tuple) : Vector2f
       result = Vector2f.allocate
       point = Vector2i.new(point[0].to_i32, point[1].to_i32)
-      VoidCSFML.sfml_rendertexture_mappixeltocoords_ufV(to_unsafe, point, result)
+      SFMLExt.sfml_rendertexture_mappixeltocoords_ufV(to_unsafe, point, result)
       return result
     end
     # :nodoc:
     def map_pixel_to_coords(point : Vector2|Tuple, view : View) : Vector2f
       result = Vector2f.allocate
       point = Vector2i.new(point[0].to_i32, point[1].to_i32)
-      VoidCSFML.sfml_rendertexture_mappixeltocoords_ufVDDi(to_unsafe, point, view, result)
+      SFMLExt.sfml_rendertexture_mappixeltocoords_ufVDDi(to_unsafe, point, view, result)
       return result
     end
     # :nodoc:
     def map_coords_to_pixel(point : Vector2|Tuple) : Vector2i
       result = Vector2i.allocate
       point = Vector2f.new(point[0].to_f32, point[1].to_f32)
-      VoidCSFML.sfml_rendertexture_mapcoordstopixel_UU2(to_unsafe, point, result)
+      SFMLExt.sfml_rendertexture_mapcoordstopixel_UU2(to_unsafe, point, result)
       return result
     end
     # :nodoc:
     def map_coords_to_pixel(point : Vector2|Tuple, view : View) : Vector2i
       result = Vector2i.allocate
       point = Vector2f.new(point[0].to_f32, point[1].to_f32)
-      VoidCSFML.sfml_rendertexture_mapcoordstopixel_UU2DDi(to_unsafe, point, view, result)
+      SFMLExt.sfml_rendertexture_mapcoordstopixel_UU2DDi(to_unsafe, point, view, result)
       return result
     end
     # :nodoc:
     def draw(vertices : Array(Vertex) | Slice(Vertex), type : PrimitiveType, states : RenderStates = RenderStates::Default)
-      VoidCSFML.sfml_rendertexture_draw_46svgvu9wmi4(to_unsafe, vertices, vertices.size, type, states)
+      SFMLExt.sfml_rendertexture_draw_46svgvu9wmi4(to_unsafe, vertices, vertices.size, type, states)
     end
     # :nodoc:
     def draw(vertex_buffer : VertexBuffer, states : RenderStates = RenderStates::Default)
-      VoidCSFML.sfml_rendertexture_draw_U2Dmi4(to_unsafe, vertex_buffer, states)
+      SFMLExt.sfml_rendertexture_draw_U2Dmi4(to_unsafe, vertex_buffer, states)
     end
     # :nodoc:
     def draw(vertex_buffer : VertexBuffer, first_vertex : Int, vertex_count : Int, states : RenderStates = RenderStates::Default)
-      VoidCSFML.sfml_rendertexture_draw_U2Dvgvvgvmi4(to_unsafe, vertex_buffer, LibC::SizeT.new(first_vertex), LibC::SizeT.new(vertex_count), states)
+      SFMLExt.sfml_rendertexture_draw_U2Dvgvvgvmi4(to_unsafe, vertex_buffer, LibC::SizeT.new(first_vertex), LibC::SizeT.new(vertex_count), states)
     end
     # :nodoc:
     def push_gl_states()
-      VoidCSFML.sfml_rendertexture_pushglstates(to_unsafe)
+      SFMLExt.sfml_rendertexture_pushglstates(to_unsafe)
     end
     # :nodoc:
     def pop_gl_states()
-      VoidCSFML.sfml_rendertexture_popglstates(to_unsafe)
+      SFMLExt.sfml_rendertexture_popglstates(to_unsafe)
     end
     # :nodoc:
     def reset_gl_states()
-      VoidCSFML.sfml_rendertexture_resetglstates(to_unsafe)
+      SFMLExt.sfml_rendertexture_resetglstates(to_unsafe)
     end
     include RenderTarget
     # :nodoc:
@@ -5228,8 +5228,8 @@ module SF
     # This constructor doesn't actually create the window,
     # use the other constructors or call create() to do so.
     def initialize()
-      VoidCSFML.sfml_renderwindow_allocate(out @this)
-      VoidCSFML.sfml_renderwindow_initialize(to_unsafe)
+      SFMLExt.sfml_renderwindow_allocate(out @this)
+      SFMLExt.sfml_renderwindow_initialize(to_unsafe)
     end
     # Construct a new window
     #
@@ -5248,8 +5248,8 @@ module SF
     # * *style* - Window style, a bitwise OR combination of `SF::Style` enumerators
     # * *settings* - Additional settings for the underlying OpenGL context
     def initialize(mode : VideoMode, title : String, style : Style = Style::Default, settings : ContextSettings = ContextSettings.new())
-      VoidCSFML.sfml_renderwindow_allocate(out @this)
-      VoidCSFML.sfml_renderwindow_initialize_wg0bQssaLFw4(to_unsafe, mode, title.size, title.chars, style, settings)
+      SFMLExt.sfml_renderwindow_allocate(out @this)
+      SFMLExt.sfml_renderwindow_initialize_wg0bQssaLFw4(to_unsafe, mode, title.size, title.chars, style, settings)
     end
     # Construct the window from an existing control
     #
@@ -5265,15 +5265,15 @@ module SF
     #                 Windows, *%window* on Linux/FreeBSD, *ns_window* on OS X)
     # * *settings* - Additional settings for the underlying OpenGL context
     def initialize(handle : WindowHandle, settings : ContextSettings = ContextSettings.new())
-      VoidCSFML.sfml_renderwindow_allocate(out @this)
-      VoidCSFML.sfml_renderwindow_initialize_rLQFw4(to_unsafe, handle, settings)
+      SFMLExt.sfml_renderwindow_allocate(out @this)
+      SFMLExt.sfml_renderwindow_initialize_rLQFw4(to_unsafe, handle, settings)
     end
     # Destructor
     #
     # Closes the window and frees all the resources attached to it.
     def finalize()
-      VoidCSFML.sfml_renderwindow_finalize(to_unsafe)
-      VoidCSFML.sfml_renderwindow_free(@this)
+      SFMLExt.sfml_renderwindow_finalize(to_unsafe)
+      SFMLExt.sfml_renderwindow_free(@this)
     end
     # Get the size of the rendering region of the window
     #
@@ -5283,7 +5283,7 @@ module SF
     # *Returns:* Size in pixels
     def size() : Vector2u
       result = Vector2u.allocate
-      VoidCSFML.sfml_renderwindow_getsize(to_unsafe, result)
+      SFMLExt.sfml_renderwindow_getsize(to_unsafe, result)
       return result
     end
     # Activate or deactivate the window as the current target
@@ -5300,7 +5300,7 @@ module SF
     #
     # *Returns:* True if operation was successful, false otherwise
     def active=(active : Bool = true) : Bool
-      VoidCSFML.sfml_renderwindow_setactive_GZq(to_unsafe, active, out result)
+      SFMLExt.sfml_renderwindow_setactive_GZq(to_unsafe, active, out result)
       return result
     end
     # Copy the current contents of the window to an image
@@ -5325,12 +5325,12 @@ module SF
     # *Returns:* Image containing the captured contents
     def capture() : Image
       result = Image.new
-      VoidCSFML.sfml_renderwindow_capture(to_unsafe, result)
+      SFMLExt.sfml_renderwindow_capture(to_unsafe, result)
       return result
     end
     # :nodoc:
     def create(mode : VideoMode, title : String, style : Style = Style::Default, settings : ContextSettings = ContextSettings.new())
-      VoidCSFML.sfml_renderwindow_create_wg0bQssaLFw4(to_unsafe, mode, title.size, title.chars, style, settings)
+      SFMLExt.sfml_renderwindow_create_wg0bQssaLFw4(to_unsafe, mode, title.size, title.chars, style, settings)
     end
     # Shorthand for `render_window = RenderWindow.new; render_window.create(...); render_window`
     def self.new(*args, **kwargs) : self
@@ -5340,7 +5340,7 @@ module SF
     end
     # :nodoc:
     def create(handle : WindowHandle, settings : ContextSettings = ContextSettings.new())
-      VoidCSFML.sfml_renderwindow_create_rLQFw4(to_unsafe, handle, settings)
+      SFMLExt.sfml_renderwindow_create_rLQFw4(to_unsafe, handle, settings)
     end
     # Shorthand for `render_window = RenderWindow.new; render_window.create(...); render_window`
     def self.new(*args, **kwargs) : self
@@ -5350,23 +5350,23 @@ module SF
     end
     # :nodoc:
     def close()
-      VoidCSFML.sfml_renderwindow_close(to_unsafe)
+      SFMLExt.sfml_renderwindow_close(to_unsafe)
     end
     # :nodoc:
     def open?() : Bool
-      VoidCSFML.sfml_renderwindow_isopen(to_unsafe, out result)
+      SFMLExt.sfml_renderwindow_isopen(to_unsafe, out result)
       return result
     end
     # :nodoc:
     def settings() : ContextSettings
       result = ContextSettings.allocate
-      VoidCSFML.sfml_renderwindow_getsettings(to_unsafe, result)
+      SFMLExt.sfml_renderwindow_getsettings(to_unsafe, result)
       return result
     end
     # :nodoc:
     def poll_event() : Event?
-      VoidCSFML.sfml_event_allocate(out event)
-      VoidCSFML.sfml_renderwindow_pollevent_YJW(to_unsafe, event, out result)
+      SFMLExt.sfml_event_allocate(out event)
+      SFMLExt.sfml_renderwindow_pollevent_YJW(to_unsafe, event, out result)
       if result
         {% begin %}
         case (event_id = event.as(LibC::Int*)).value
@@ -5382,8 +5382,8 @@ module SF
     end
     # :nodoc:
     def wait_event() : Event?
-      VoidCSFML.sfml_event_allocate(out event)
-      VoidCSFML.sfml_renderwindow_waitevent_YJW(to_unsafe, event, out result)
+      SFMLExt.sfml_event_allocate(out event)
+      SFMLExt.sfml_renderwindow_waitevent_YJW(to_unsafe, event, out result)
       if result
         {% begin %}
         case (event_id = event.as(LibC::Int*)).value
@@ -5400,156 +5400,156 @@ module SF
     # :nodoc:
     def position() : Vector2i
       result = Vector2i.allocate
-      VoidCSFML.sfml_renderwindow_getposition(to_unsafe, result)
+      SFMLExt.sfml_renderwindow_getposition(to_unsafe, result)
       return result
     end
     # :nodoc:
     def position=(position : Vector2|Tuple)
       position = Vector2i.new(position[0].to_i32, position[1].to_i32)
-      VoidCSFML.sfml_renderwindow_setposition_ufV(to_unsafe, position)
+      SFMLExt.sfml_renderwindow_setposition_ufV(to_unsafe, position)
     end
     # :nodoc:
     def size=(size : Vector2|Tuple)
       size = Vector2u.new(size[0].to_u32, size[1].to_u32)
-      VoidCSFML.sfml_renderwindow_setsize_DXO(to_unsafe, size)
+      SFMLExt.sfml_renderwindow_setsize_DXO(to_unsafe, size)
     end
     # :nodoc:
     def title=(title : String)
-      VoidCSFML.sfml_renderwindow_settitle_bQs(to_unsafe, title.size, title.chars)
+      SFMLExt.sfml_renderwindow_settitle_bQs(to_unsafe, title.size, title.chars)
     end
     # :nodoc:
     def set_icon(width : Int, height : Int, pixels : UInt8*)
-      VoidCSFML.sfml_renderwindow_seticon_emSemS843(to_unsafe, LibC::UInt.new(width), LibC::UInt.new(height), pixels)
+      SFMLExt.sfml_renderwindow_seticon_emSemS843(to_unsafe, LibC::UInt.new(width), LibC::UInt.new(height), pixels)
     end
     # :nodoc:
     def visible=(visible : Bool)
-      VoidCSFML.sfml_renderwindow_setvisible_GZq(to_unsafe, visible)
+      SFMLExt.sfml_renderwindow_setvisible_GZq(to_unsafe, visible)
     end
     # :nodoc:
     def vertical_sync_enabled=(enabled : Bool)
-      VoidCSFML.sfml_renderwindow_setverticalsyncenabled_GZq(to_unsafe, enabled)
+      SFMLExt.sfml_renderwindow_setverticalsyncenabled_GZq(to_unsafe, enabled)
     end
     # :nodoc:
     def mouse_cursor_visible=(visible : Bool)
-      VoidCSFML.sfml_renderwindow_setmousecursorvisible_GZq(to_unsafe, visible)
+      SFMLExt.sfml_renderwindow_setmousecursorvisible_GZq(to_unsafe, visible)
     end
     # :nodoc:
     def mouse_cursor_grabbed=(grabbed : Bool)
-      VoidCSFML.sfml_renderwindow_setmousecursorgrabbed_GZq(to_unsafe, grabbed)
+      SFMLExt.sfml_renderwindow_setmousecursorgrabbed_GZq(to_unsafe, grabbed)
     end
     # :nodoc:
     def mouse_cursor=(cursor : Cursor)
       @_renderwindow_mouse_cursor = cursor
-      VoidCSFML.sfml_renderwindow_setmousecursor_Voc(to_unsafe, cursor)
+      SFMLExt.sfml_renderwindow_setmousecursor_Voc(to_unsafe, cursor)
     end
     @_renderwindow_mouse_cursor : Cursor? = nil
     # :nodoc:
     def key_repeat_enabled=(enabled : Bool)
-      VoidCSFML.sfml_renderwindow_setkeyrepeatenabled_GZq(to_unsafe, enabled)
+      SFMLExt.sfml_renderwindow_setkeyrepeatenabled_GZq(to_unsafe, enabled)
     end
     # :nodoc:
     def framerate_limit=(limit : Int)
-      VoidCSFML.sfml_renderwindow_setframeratelimit_emS(to_unsafe, LibC::UInt.new(limit))
+      SFMLExt.sfml_renderwindow_setframeratelimit_emS(to_unsafe, LibC::UInt.new(limit))
     end
     # :nodoc:
     def joystick_threshold=(threshold : Number)
-      VoidCSFML.sfml_renderwindow_setjoystickthreshold_Bw9(to_unsafe, LibC::Float.new(threshold))
+      SFMLExt.sfml_renderwindow_setjoystickthreshold_Bw9(to_unsafe, LibC::Float.new(threshold))
     end
     # :nodoc:
     def request_focus()
-      VoidCSFML.sfml_renderwindow_requestfocus(to_unsafe)
+      SFMLExt.sfml_renderwindow_requestfocus(to_unsafe)
     end
     # :nodoc:
     def focus?() : Bool
-      VoidCSFML.sfml_renderwindow_hasfocus(to_unsafe, out result)
+      SFMLExt.sfml_renderwindow_hasfocus(to_unsafe, out result)
       return result
     end
     # :nodoc:
     def display()
-      VoidCSFML.sfml_renderwindow_display(to_unsafe)
+      SFMLExt.sfml_renderwindow_display(to_unsafe)
     end
     # :nodoc:
     def system_handle() : WindowHandle
-      VoidCSFML.sfml_renderwindow_getsystemhandle(to_unsafe, out result)
+      SFMLExt.sfml_renderwindow_getsystemhandle(to_unsafe, out result)
       return result
     end
     # :nodoc:
     def clear(color : Color = Color.new(0, 0, 0, 255))
-      VoidCSFML.sfml_renderwindow_clear_QVe(to_unsafe, color)
+      SFMLExt.sfml_renderwindow_clear_QVe(to_unsafe, color)
     end
     # :nodoc:
     def view=(view : View)
       @_renderwindow_view = view
-      VoidCSFML.sfml_renderwindow_setview_DDi(to_unsafe, view)
+      SFMLExt.sfml_renderwindow_setview_DDi(to_unsafe, view)
     end
     @_renderwindow_view : View? = nil
     # :nodoc:
     def view() : View
-      VoidCSFML.sfml_renderwindow_getview(to_unsafe, out result)
+      SFMLExt.sfml_renderwindow_getview(to_unsafe, out result)
       return View::Reference.new(result, self)
     end
     # :nodoc:
     def default_view() : View
-      VoidCSFML.sfml_renderwindow_getdefaultview(to_unsafe, out result)
+      SFMLExt.sfml_renderwindow_getdefaultview(to_unsafe, out result)
       return View::Reference.new(result, self)
     end
     # :nodoc:
     def get_viewport(view : View) : IntRect
       result = IntRect.allocate
-      VoidCSFML.sfml_renderwindow_getviewport_DDi(to_unsafe, view, result)
+      SFMLExt.sfml_renderwindow_getviewport_DDi(to_unsafe, view, result)
       return result
     end
     # :nodoc:
     def map_pixel_to_coords(point : Vector2|Tuple) : Vector2f
       result = Vector2f.allocate
       point = Vector2i.new(point[0].to_i32, point[1].to_i32)
-      VoidCSFML.sfml_renderwindow_mappixeltocoords_ufV(to_unsafe, point, result)
+      SFMLExt.sfml_renderwindow_mappixeltocoords_ufV(to_unsafe, point, result)
       return result
     end
     # :nodoc:
     def map_pixel_to_coords(point : Vector2|Tuple, view : View) : Vector2f
       result = Vector2f.allocate
       point = Vector2i.new(point[0].to_i32, point[1].to_i32)
-      VoidCSFML.sfml_renderwindow_mappixeltocoords_ufVDDi(to_unsafe, point, view, result)
+      SFMLExt.sfml_renderwindow_mappixeltocoords_ufVDDi(to_unsafe, point, view, result)
       return result
     end
     # :nodoc:
     def map_coords_to_pixel(point : Vector2|Tuple) : Vector2i
       result = Vector2i.allocate
       point = Vector2f.new(point[0].to_f32, point[1].to_f32)
-      VoidCSFML.sfml_renderwindow_mapcoordstopixel_UU2(to_unsafe, point, result)
+      SFMLExt.sfml_renderwindow_mapcoordstopixel_UU2(to_unsafe, point, result)
       return result
     end
     # :nodoc:
     def map_coords_to_pixel(point : Vector2|Tuple, view : View) : Vector2i
       result = Vector2i.allocate
       point = Vector2f.new(point[0].to_f32, point[1].to_f32)
-      VoidCSFML.sfml_renderwindow_mapcoordstopixel_UU2DDi(to_unsafe, point, view, result)
+      SFMLExt.sfml_renderwindow_mapcoordstopixel_UU2DDi(to_unsafe, point, view, result)
       return result
     end
     # :nodoc:
     def draw(vertices : Array(Vertex) | Slice(Vertex), type : PrimitiveType, states : RenderStates = RenderStates::Default)
-      VoidCSFML.sfml_renderwindow_draw_46svgvu9wmi4(to_unsafe, vertices, vertices.size, type, states)
+      SFMLExt.sfml_renderwindow_draw_46svgvu9wmi4(to_unsafe, vertices, vertices.size, type, states)
     end
     # :nodoc:
     def draw(vertex_buffer : VertexBuffer, states : RenderStates = RenderStates::Default)
-      VoidCSFML.sfml_renderwindow_draw_U2Dmi4(to_unsafe, vertex_buffer, states)
+      SFMLExt.sfml_renderwindow_draw_U2Dmi4(to_unsafe, vertex_buffer, states)
     end
     # :nodoc:
     def draw(vertex_buffer : VertexBuffer, first_vertex : Int, vertex_count : Int, states : RenderStates = RenderStates::Default)
-      VoidCSFML.sfml_renderwindow_draw_U2Dvgvvgvmi4(to_unsafe, vertex_buffer, LibC::SizeT.new(first_vertex), LibC::SizeT.new(vertex_count), states)
+      SFMLExt.sfml_renderwindow_draw_U2Dvgvvgvmi4(to_unsafe, vertex_buffer, LibC::SizeT.new(first_vertex), LibC::SizeT.new(vertex_count), states)
     end
     # :nodoc:
     def push_gl_states()
-      VoidCSFML.sfml_renderwindow_pushglstates(to_unsafe)
+      SFMLExt.sfml_renderwindow_pushglstates(to_unsafe)
     end
     # :nodoc:
     def pop_gl_states()
-      VoidCSFML.sfml_renderwindow_popglstates(to_unsafe)
+      SFMLExt.sfml_renderwindow_popglstates(to_unsafe)
     end
     # :nodoc:
     def reset_gl_states()
-      VoidCSFML.sfml_renderwindow_resetglstates(to_unsafe)
+      SFMLExt.sfml_renderwindow_resetglstates(to_unsafe)
     end
     include RenderTarget
     # :nodoc:
@@ -5676,13 +5676,13 @@ module SF
     #
     # This constructor creates an invalid shader.
     def initialize()
-      VoidCSFML.sfml_shader_allocate(out @this)
-      VoidCSFML.sfml_shader_initialize(to_unsafe)
+      SFMLExt.sfml_shader_allocate(out @this)
+      SFMLExt.sfml_shader_initialize(to_unsafe)
     end
     # Destructor
     def finalize()
-      VoidCSFML.sfml_shader_finalize(to_unsafe)
-      VoidCSFML.sfml_shader_free(@this)
+      SFMLExt.sfml_shader_finalize(to_unsafe)
+      SFMLExt.sfml_shader_free(@this)
     end
     # Load the vertex, geometry or fragment shader from a file
     #
@@ -5701,7 +5701,7 @@ module SF
     #
     # *See also:* `load_from_memory`, `load_from_stream`
     def load_from_file(filename : String, type : Shader::Type) : Bool
-      VoidCSFML.sfml_shader_loadfromfile_zkCqL0(to_unsafe, filename.bytesize, filename, type, out result)
+      SFMLExt.sfml_shader_loadfromfile_zkCqL0(to_unsafe, filename.bytesize, filename, type, out result)
       return result
     end
     # Shorthand for `shader = Shader.new; shader.load_from_file(...); shader`
@@ -5731,7 +5731,7 @@ module SF
     #
     # *See also:* `load_from_memory`, `load_from_stream`
     def load_from_file(vertex_shader_filename : String, fragment_shader_filename : String) : Bool
-      VoidCSFML.sfml_shader_loadfromfile_zkCzkC(to_unsafe, vertex_shader_filename.bytesize, vertex_shader_filename, fragment_shader_filename.bytesize, fragment_shader_filename, out result)
+      SFMLExt.sfml_shader_loadfromfile_zkCzkC(to_unsafe, vertex_shader_filename.bytesize, vertex_shader_filename, fragment_shader_filename.bytesize, fragment_shader_filename, out result)
       return result
     end
     # Shorthand for `shader = Shader.new; shader.load_from_file(...); shader`
@@ -5762,7 +5762,7 @@ module SF
     #
     # *See also:* `load_from_memory`, `load_from_stream`
     def load_from_file(vertex_shader_filename : String, geometry_shader_filename : String, fragment_shader_filename : String) : Bool
-      VoidCSFML.sfml_shader_loadfromfile_zkCzkCzkC(to_unsafe, vertex_shader_filename.bytesize, vertex_shader_filename, geometry_shader_filename.bytesize, geometry_shader_filename, fragment_shader_filename.bytesize, fragment_shader_filename, out result)
+      SFMLExt.sfml_shader_loadfromfile_zkCzkCzkC(to_unsafe, vertex_shader_filename.bytesize, vertex_shader_filename, geometry_shader_filename.bytesize, geometry_shader_filename, fragment_shader_filename.bytesize, fragment_shader_filename, out result)
       return result
     end
     # Shorthand for `shader = Shader.new; shader.load_from_file(...); shader`
@@ -5791,7 +5791,7 @@ module SF
     #
     # *See also:* `load_from_file`, `load_from_stream`
     def load_from_memory(shader : String, type : Shader::Type) : Bool
-      VoidCSFML.sfml_shader_loadfrommemory_zkCqL0(to_unsafe, shader.bytesize, shader, type, out result)
+      SFMLExt.sfml_shader_loadfrommemory_zkCqL0(to_unsafe, shader.bytesize, shader, type, out result)
       return result
     end
     # Shorthand for `shader = Shader.new; shader.load_from_memory(...); shader`
@@ -5821,7 +5821,7 @@ module SF
     #
     # *See also:* `load_from_file`, `load_from_stream`
     def load_from_memory(vertex_shader : String, fragment_shader : String) : Bool
-      VoidCSFML.sfml_shader_loadfrommemory_zkCzkC(to_unsafe, vertex_shader.bytesize, vertex_shader, fragment_shader.bytesize, fragment_shader, out result)
+      SFMLExt.sfml_shader_loadfrommemory_zkCzkC(to_unsafe, vertex_shader.bytesize, vertex_shader, fragment_shader.bytesize, fragment_shader, out result)
       return result
     end
     # Shorthand for `shader = Shader.new; shader.load_from_memory(...); shader`
@@ -5852,7 +5852,7 @@ module SF
     #
     # *See also:* `load_from_file`, `load_from_stream`
     def load_from_memory(vertex_shader : String, geometry_shader : String, fragment_shader : String) : Bool
-      VoidCSFML.sfml_shader_loadfrommemory_zkCzkCzkC(to_unsafe, vertex_shader.bytesize, vertex_shader, geometry_shader.bytesize, geometry_shader, fragment_shader.bytesize, fragment_shader, out result)
+      SFMLExt.sfml_shader_loadfrommemory_zkCzkCzkC(to_unsafe, vertex_shader.bytesize, vertex_shader, geometry_shader.bytesize, geometry_shader, fragment_shader.bytesize, fragment_shader, out result)
       return result
     end
     # Shorthand for `shader = Shader.new; shader.load_from_memory(...); shader`
@@ -5881,7 +5881,7 @@ module SF
     #
     # *See also:* `load_from_file`, `load_from_memory`
     def load_from_stream(stream : InputStream, type : Shader::Type) : Bool
-      VoidCSFML.sfml_shader_loadfromstream_PO0qL0(to_unsafe, stream, type, out result)
+      SFMLExt.sfml_shader_loadfromstream_PO0qL0(to_unsafe, stream, type, out result)
       return result
     end
     # Shorthand for `shader = Shader.new; shader.load_from_stream(...); shader`
@@ -5911,7 +5911,7 @@ module SF
     #
     # *See also:* `load_from_file`, `load_from_memory`
     def load_from_stream(vertex_shader_stream : InputStream, fragment_shader_stream : InputStream) : Bool
-      VoidCSFML.sfml_shader_loadfromstream_PO0PO0(to_unsafe, vertex_shader_stream, fragment_shader_stream, out result)
+      SFMLExt.sfml_shader_loadfromstream_PO0PO0(to_unsafe, vertex_shader_stream, fragment_shader_stream, out result)
       return result
     end
     # Shorthand for `shader = Shader.new; shader.load_from_stream(...); shader`
@@ -5942,7 +5942,7 @@ module SF
     #
     # *See also:* `load_from_file`, `load_from_memory`
     def load_from_stream(vertex_shader_stream : InputStream, geometry_shader_stream : InputStream, fragment_shader_stream : InputStream) : Bool
-      VoidCSFML.sfml_shader_loadfromstream_PO0PO0PO0(to_unsafe, vertex_shader_stream, geometry_shader_stream, fragment_shader_stream, out result)
+      SFMLExt.sfml_shader_loadfromstream_PO0PO0PO0(to_unsafe, vertex_shader_stream, geometry_shader_stream, fragment_shader_stream, out result)
       return result
     end
     # Shorthand for `shader = Shader.new; shader.load_from_stream(...); shader`
@@ -5957,46 +5957,46 @@ module SF
     end
     # Change a float parameter of the shader
     def set_parameter(name : String, x : Number)
-      VoidCSFML.sfml_shader_setparameter_zkCBw9(to_unsafe, name.bytesize, name, LibC::Float.new(x))
+      SFMLExt.sfml_shader_setparameter_zkCBw9(to_unsafe, name.bytesize, name, LibC::Float.new(x))
     end
     # Change a 2-components vector parameter of the shader
     def set_parameter(name : String, x : Number, y : Number)
-      VoidCSFML.sfml_shader_setparameter_zkCBw9Bw9(to_unsafe, name.bytesize, name, LibC::Float.new(x), LibC::Float.new(y))
+      SFMLExt.sfml_shader_setparameter_zkCBw9Bw9(to_unsafe, name.bytesize, name, LibC::Float.new(x), LibC::Float.new(y))
     end
     # Change a 3-components vector parameter of the shader
     def set_parameter(name : String, x : Number, y : Number, z : Number)
-      VoidCSFML.sfml_shader_setparameter_zkCBw9Bw9Bw9(to_unsafe, name.bytesize, name, LibC::Float.new(x), LibC::Float.new(y), LibC::Float.new(z))
+      SFMLExt.sfml_shader_setparameter_zkCBw9Bw9Bw9(to_unsafe, name.bytesize, name, LibC::Float.new(x), LibC::Float.new(y), LibC::Float.new(z))
     end
     # Change a 4-components vector parameter of the shader
     def set_parameter(name : String, x : Number, y : Number, z : Number, w : Number)
-      VoidCSFML.sfml_shader_setparameter_zkCBw9Bw9Bw9Bw9(to_unsafe, name.bytesize, name, LibC::Float.new(x), LibC::Float.new(y), LibC::Float.new(z), LibC::Float.new(w))
+      SFMLExt.sfml_shader_setparameter_zkCBw9Bw9Bw9Bw9(to_unsafe, name.bytesize, name, LibC::Float.new(x), LibC::Float.new(y), LibC::Float.new(z), LibC::Float.new(w))
     end
     # Change a 2-components vector parameter of the shader
     #
     # *Deprecated:* Use uniform=(const std::string&, const Glsl::Vec2&) instead.
     def set_parameter(name : String, vector : Vector2|Tuple)
       vector = Vector2f.new(vector[0].to_f32, vector[1].to_f32)
-      VoidCSFML.sfml_shader_setparameter_zkCUU2(to_unsafe, name.bytesize, name, vector)
+      SFMLExt.sfml_shader_setparameter_zkCUU2(to_unsafe, name.bytesize, name, vector)
     end
     # Change a 3-components vector parameter of the shader
     def set_parameter(name : String, vector : Vector3f)
-      VoidCSFML.sfml_shader_setparameter_zkCNzM(to_unsafe, name.bytesize, name, vector)
+      SFMLExt.sfml_shader_setparameter_zkCNzM(to_unsafe, name.bytesize, name, vector)
     end
     # Change a color parameter of the shader
     def set_parameter(name : String, color : Color)
-      VoidCSFML.sfml_shader_setparameter_zkCQVe(to_unsafe, name.bytesize, name, color)
+      SFMLExt.sfml_shader_setparameter_zkCQVe(to_unsafe, name.bytesize, name, color)
     end
     # Change a matrix parameter of the shader
     def set_parameter(name : String, transform : Transform)
-      VoidCSFML.sfml_shader_setparameter_zkCFPe(to_unsafe, name.bytesize, name, transform)
+      SFMLExt.sfml_shader_setparameter_zkCFPe(to_unsafe, name.bytesize, name, transform)
     end
     # Change a texture parameter of the shader
     def set_parameter(name : String, texture : Texture)
-      VoidCSFML.sfml_shader_setparameter_zkCDJb(to_unsafe, name.bytesize, name, texture)
+      SFMLExt.sfml_shader_setparameter_zkCDJb(to_unsafe, name.bytesize, name, texture)
     end
     # Change a texture parameter of the shader
     def set_parameter(name : String, p1 : CurrentTextureType)
-      VoidCSFML.sfml_shader_setparameter_zkCLcV(to_unsafe, name.bytesize, name)
+      SFMLExt.sfml_shader_setparameter_zkCLcV(to_unsafe, name.bytesize, name)
     end
     # Get the underlying OpenGL handle of the shader.
     #
@@ -6006,7 +6006,7 @@ module SF
     #
     # *Returns:* OpenGL handle of the shader or 0 if not yet loaded
     def native_handle() : Int32
-      VoidCSFML.sfml_shader_getnativehandle(to_unsafe, out result)
+      SFMLExt.sfml_shader_getnativehandle(to_unsafe, out result)
       return result.to_i
     end
     # Bind a shader for rendering
@@ -6029,7 +6029,7 @@ module SF
     #
     # * *shader* - Shader to bind, can be null to use no shader
     def self.bind(shader : Shader?)
-      VoidCSFML.sfml_shader_bind_8P6(shader)
+      SFMLExt.sfml_shader_bind_8P6(shader)
     end
     # Tell whether or not the system supports shaders
     #
@@ -6039,7 +6039,7 @@ module SF
     #
     # *Returns:* True if shaders are supported, false otherwise
     def self.available?() : Bool
-      VoidCSFML.sfml_shader_isavailable(out result)
+      SFMLExt.sfml_shader_isavailable(out result)
       return result
     end
     # Tell whether or not the system supports geometry shaders
@@ -6057,7 +6057,7 @@ module SF
     #
     # *Returns:* True if geometry shaders are supported, false otherwise
     def self.geometry_available?() : Bool
-      VoidCSFML.sfml_shader_isgeometryavailable(out result)
+      SFMLExt.sfml_shader_isgeometryavailable(out result)
       return result
     end
     include GlResource
@@ -6121,15 +6121,15 @@ module SF
   class Sprite < Transformable
     @this : Void*
     def finalize()
-      VoidCSFML.sfml_sprite_finalize(to_unsafe)
-      VoidCSFML.sfml_sprite_free(@this)
+      SFMLExt.sfml_sprite_finalize(to_unsafe)
+      SFMLExt.sfml_sprite_free(@this)
     end
     # Default constructor
     #
     # Creates an empty sprite with no source texture.
     def initialize()
-      VoidCSFML.sfml_sprite_allocate(out @this)
-      VoidCSFML.sfml_sprite_initialize(to_unsafe)
+      SFMLExt.sfml_sprite_allocate(out @this)
+      SFMLExt.sfml_sprite_initialize(to_unsafe)
     end
     # Construct the sprite from a source texture
     #
@@ -6137,9 +6137,9 @@ module SF
     #
     # *See also:* `texture=`
     def initialize(texture : Texture)
-      VoidCSFML.sfml_sprite_allocate(out @this)
+      SFMLExt.sfml_sprite_allocate(out @this)
       @_sprite_texture = texture
-      VoidCSFML.sfml_sprite_initialize_DJb(to_unsafe, texture)
+      SFMLExt.sfml_sprite_initialize_DJb(to_unsafe, texture)
     end
     # Construct the sprite from a sub-rectangle of a source texture
     #
@@ -6148,9 +6148,9 @@ module SF
     #
     # *See also:* `texture=`, `texture_rect=`
     def initialize(texture : Texture, rectangle : IntRect)
-      VoidCSFML.sfml_sprite_allocate(out @this)
+      SFMLExt.sfml_sprite_allocate(out @this)
       @_sprite_texture = texture
-      VoidCSFML.sfml_sprite_initialize_DJb2k1(to_unsafe, texture, rectangle)
+      SFMLExt.sfml_sprite_initialize_DJb2k1(to_unsafe, texture, rectangle)
     end
     # Change the source texture of the sprite
     #
@@ -6170,7 +6170,7 @@ module SF
     # *See also:* `texture`, `texture_rect=`
     def set_texture(texture : Texture, reset_rect : Bool = false)
       @_sprite_texture = texture
-      VoidCSFML.sfml_sprite_settexture_DJbGZq(to_unsafe, texture, reset_rect)
+      SFMLExt.sfml_sprite_settexture_DJbGZq(to_unsafe, texture, reset_rect)
     end
     @_sprite_texture : Texture? = nil
     # Set the sub-rectangle of the texture that the sprite will display
@@ -6183,7 +6183,7 @@ module SF
     #
     # *See also:* `texture_rect`, `texture=`
     def texture_rect=(rectangle : IntRect)
-      VoidCSFML.sfml_sprite_settexturerect_2k1(to_unsafe, rectangle)
+      SFMLExt.sfml_sprite_settexturerect_2k1(to_unsafe, rectangle)
     end
     # Set the global color of the sprite
     #
@@ -6196,7 +6196,7 @@ module SF
     #
     # *See also:* `color`
     def color=(color : Color)
-      VoidCSFML.sfml_sprite_setcolor_QVe(to_unsafe, color)
+      SFMLExt.sfml_sprite_setcolor_QVe(to_unsafe, color)
     end
     # Get the source texture of the sprite
     #
@@ -6217,7 +6217,7 @@ module SF
     # *See also:* `texture_rect=`
     def texture_rect() : IntRect
       result = IntRect.allocate
-      VoidCSFML.sfml_sprite_gettexturerect(to_unsafe, result)
+      SFMLExt.sfml_sprite_gettexturerect(to_unsafe, result)
       return result
     end
     # Get the global color of the sprite
@@ -6227,7 +6227,7 @@ module SF
     # *See also:* `color=`
     def color() : Color
       result = Color.allocate
-      VoidCSFML.sfml_sprite_getcolor(to_unsafe, result)
+      SFMLExt.sfml_sprite_getcolor(to_unsafe, result)
       return result
     end
     # Get the local bounding rectangle of the entity
@@ -6241,7 +6241,7 @@ module SF
     # *Returns:* Local bounding rectangle of the entity
     def local_bounds() : FloatRect
       result = FloatRect.allocate
-      VoidCSFML.sfml_sprite_getlocalbounds(to_unsafe, result)
+      SFMLExt.sfml_sprite_getlocalbounds(to_unsafe, result)
       return result
     end
     # Get the global bounding rectangle of the entity
@@ -6255,7 +6255,7 @@ module SF
     # *Returns:* Global bounding rectangle of the entity
     def global_bounds() : FloatRect
       result = FloatRect.allocate
-      VoidCSFML.sfml_sprite_getglobalbounds(to_unsafe, result)
+      SFMLExt.sfml_sprite_getglobalbounds(to_unsafe, result)
       return result
     end
     # :nodoc:
@@ -6264,90 +6264,90 @@ module SF
     end
     # :nodoc:
     def set_position(x : Number, y : Number)
-      VoidCSFML.sfml_sprite_setposition_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y))
+      SFMLExt.sfml_sprite_setposition_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y))
     end
     # :nodoc:
     def position=(position : Vector2|Tuple)
       position = Vector2f.new(position[0].to_f32, position[1].to_f32)
-      VoidCSFML.sfml_sprite_setposition_UU2(to_unsafe, position)
+      SFMLExt.sfml_sprite_setposition_UU2(to_unsafe, position)
     end
     # :nodoc:
     def rotation=(angle : Number)
-      VoidCSFML.sfml_sprite_setrotation_Bw9(to_unsafe, LibC::Float.new(angle))
+      SFMLExt.sfml_sprite_setrotation_Bw9(to_unsafe, LibC::Float.new(angle))
     end
     # :nodoc:
     def set_scale(factor_x : Number, factor_y : Number)
-      VoidCSFML.sfml_sprite_setscale_Bw9Bw9(to_unsafe, LibC::Float.new(factor_x), LibC::Float.new(factor_y))
+      SFMLExt.sfml_sprite_setscale_Bw9Bw9(to_unsafe, LibC::Float.new(factor_x), LibC::Float.new(factor_y))
     end
     # :nodoc:
     def scale=(factors : Vector2|Tuple)
       factors = Vector2f.new(factors[0].to_f32, factors[1].to_f32)
-      VoidCSFML.sfml_sprite_setscale_UU2(to_unsafe, factors)
+      SFMLExt.sfml_sprite_setscale_UU2(to_unsafe, factors)
     end
     # :nodoc:
     def set_origin(x : Number, y : Number)
-      VoidCSFML.sfml_sprite_setorigin_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y))
+      SFMLExt.sfml_sprite_setorigin_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y))
     end
     # :nodoc:
     def origin=(origin : Vector2|Tuple)
       origin = Vector2f.new(origin[0].to_f32, origin[1].to_f32)
-      VoidCSFML.sfml_sprite_setorigin_UU2(to_unsafe, origin)
+      SFMLExt.sfml_sprite_setorigin_UU2(to_unsafe, origin)
     end
     # :nodoc:
     def position() : Vector2f
       result = Vector2f.allocate
-      VoidCSFML.sfml_sprite_getposition(to_unsafe, result)
+      SFMLExt.sfml_sprite_getposition(to_unsafe, result)
       return result
     end
     # :nodoc:
     def rotation() : Float32
-      VoidCSFML.sfml_sprite_getrotation(to_unsafe, out result)
+      SFMLExt.sfml_sprite_getrotation(to_unsafe, out result)
       return result
     end
     # :nodoc:
     def scale() : Vector2f
       result = Vector2f.allocate
-      VoidCSFML.sfml_sprite_getscale(to_unsafe, result)
+      SFMLExt.sfml_sprite_getscale(to_unsafe, result)
       return result
     end
     # :nodoc:
     def origin() : Vector2f
       result = Vector2f.allocate
-      VoidCSFML.sfml_sprite_getorigin(to_unsafe, result)
+      SFMLExt.sfml_sprite_getorigin(to_unsafe, result)
       return result
     end
     # :nodoc:
     def move(offset_x : Number, offset_y : Number)
-      VoidCSFML.sfml_sprite_move_Bw9Bw9(to_unsafe, LibC::Float.new(offset_x), LibC::Float.new(offset_y))
+      SFMLExt.sfml_sprite_move_Bw9Bw9(to_unsafe, LibC::Float.new(offset_x), LibC::Float.new(offset_y))
     end
     # :nodoc:
     def move(offset : Vector2|Tuple)
       offset = Vector2f.new(offset[0].to_f32, offset[1].to_f32)
-      VoidCSFML.sfml_sprite_move_UU2(to_unsafe, offset)
+      SFMLExt.sfml_sprite_move_UU2(to_unsafe, offset)
     end
     # :nodoc:
     def rotate(angle : Number)
-      VoidCSFML.sfml_sprite_rotate_Bw9(to_unsafe, LibC::Float.new(angle))
+      SFMLExt.sfml_sprite_rotate_Bw9(to_unsafe, LibC::Float.new(angle))
     end
     # :nodoc:
     def scale(factor_x : Number, factor_y : Number)
-      VoidCSFML.sfml_sprite_scale_Bw9Bw9(to_unsafe, LibC::Float.new(factor_x), LibC::Float.new(factor_y))
+      SFMLExt.sfml_sprite_scale_Bw9Bw9(to_unsafe, LibC::Float.new(factor_x), LibC::Float.new(factor_y))
     end
     # :nodoc:
     def scale(factor : Vector2|Tuple)
       factor = Vector2f.new(factor[0].to_f32, factor[1].to_f32)
-      VoidCSFML.sfml_sprite_scale_UU2(to_unsafe, factor)
+      SFMLExt.sfml_sprite_scale_UU2(to_unsafe, factor)
     end
     # :nodoc:
     def transform() : Transform
       result = Transform.allocate
-      VoidCSFML.sfml_sprite_gettransform(to_unsafe, result)
+      SFMLExt.sfml_sprite_gettransform(to_unsafe, result)
       return result
     end
     # :nodoc:
     def inverse_transform() : Transform
       result = Transform.allocate
-      VoidCSFML.sfml_sprite_getinversetransform(to_unsafe, result)
+      SFMLExt.sfml_sprite_getinversetransform(to_unsafe, result)
       return result
     end
     include Drawable
@@ -6361,20 +6361,20 @@ module SF
     end
     # :nodoc:
     def draw(target : RenderTexture, states : RenderStates)
-      VoidCSFML.sfml_sprite_draw_kb9RoT(to_unsafe, target, states)
+      SFMLExt.sfml_sprite_draw_kb9RoT(to_unsafe, target, states)
     end
     # :nodoc:
     def draw(target : RenderWindow, states : RenderStates)
-      VoidCSFML.sfml_sprite_draw_fqURoT(to_unsafe, target, states)
+      SFMLExt.sfml_sprite_draw_fqURoT(to_unsafe, target, states)
     end
     # :nodoc:
     def draw(target : RenderTarget, states : RenderStates)
-      VoidCSFML.sfml_sprite_draw_Xk1RoT(to_unsafe, target, states)
+      SFMLExt.sfml_sprite_draw_Xk1RoT(to_unsafe, target, states)
     end
     # :nodoc:
     def initialize(copy : Sprite)
-      VoidCSFML.sfml_sprite_allocate(out @this)
-      VoidCSFML.sfml_sprite_initialize_8xu(to_unsafe, copy)
+      SFMLExt.sfml_sprite_allocate(out @this)
+      SFMLExt.sfml_sprite_initialize_8xu(to_unsafe, copy)
     end
     def dup() : self
       return typeof(self).new(self)
@@ -6432,8 +6432,8 @@ module SF
   class Text < Transformable
     @this : Void*
     def finalize()
-      VoidCSFML.sfml_text_finalize(to_unsafe)
-      VoidCSFML.sfml_text_free(@this)
+      SFMLExt.sfml_text_finalize(to_unsafe)
+      SFMLExt.sfml_text_free(@this)
     end
     # Enumeration of the string drawing styles
     @[Flags]
@@ -6454,8 +6454,8 @@ module SF
     #
     # Creates an empty text.
     def initialize()
-      VoidCSFML.sfml_text_allocate(out @this)
-      VoidCSFML.sfml_text_initialize(to_unsafe)
+      SFMLExt.sfml_text_allocate(out @this)
+      SFMLExt.sfml_text_initialize(to_unsafe)
     end
     # Construct the text from a string, font and size
     #
@@ -6470,9 +6470,9 @@ module SF
     # * *font* - Font used to draw the string
     # * *character_size* - Base size of characters, in pixels
     def initialize(string : String, font : Font, character_size : Int = 30)
-      VoidCSFML.sfml_text_allocate(out @this)
+      SFMLExt.sfml_text_allocate(out @this)
       @_text_font = font
-      VoidCSFML.sfml_text_initialize_bQs7CFemS(to_unsafe, string.size, string.chars, font, LibC::UInt.new(character_size))
+      SFMLExt.sfml_text_initialize_bQs7CFemS(to_unsafe, string.size, string.chars, font, LibC::UInt.new(character_size))
     end
     # Set the text's string
     #
@@ -6482,7 +6482,7 @@ module SF
     #
     # *See also:* `string`
     def string=(string : String)
-      VoidCSFML.sfml_text_setstring_bQs(to_unsafe, string.size, string.chars)
+      SFMLExt.sfml_text_setstring_bQs(to_unsafe, string.size, string.chars)
     end
     # Set the text's font
     #
@@ -6498,7 +6498,7 @@ module SF
     # *See also:* `font`
     def font=(font : Font)
       @_text_font = font
-      VoidCSFML.sfml_text_setfont_7CF(to_unsafe, font)
+      SFMLExt.sfml_text_setfont_7CF(to_unsafe, font)
     end
     @_text_font : Font? = nil
     # Set the character size
@@ -6516,7 +6516,7 @@ module SF
     #
     # *See also:* `character_size`
     def character_size=(size : Int)
-      VoidCSFML.sfml_text_setcharactersize_emS(to_unsafe, LibC::UInt.new(size))
+      SFMLExt.sfml_text_setcharactersize_emS(to_unsafe, LibC::UInt.new(size))
     end
     # Set the line spacing factor
     #
@@ -6528,7 +6528,7 @@ module SF
     #
     # *See also:* `line_spacing`
     def line_spacing=(spacing_factor : Number)
-      VoidCSFML.sfml_text_setlinespacing_Bw9(to_unsafe, LibC::Float.new(spacing_factor))
+      SFMLExt.sfml_text_setlinespacing_Bw9(to_unsafe, LibC::Float.new(spacing_factor))
     end
     # Set the letter spacing factor
     #
@@ -6545,7 +6545,7 @@ module SF
     #
     # *See also:* `letter_spacing`
     def letter_spacing=(spacing_factor : Number)
-      VoidCSFML.sfml_text_setletterspacing_Bw9(to_unsafe, LibC::Float.new(spacing_factor))
+      SFMLExt.sfml_text_setletterspacing_Bw9(to_unsafe, LibC::Float.new(spacing_factor))
     end
     # Set the text's style
     #
@@ -6557,7 +6557,7 @@ module SF
     #
     # *See also:* `style`
     def style=(style : Text::Style)
-      VoidCSFML.sfml_text_setstyle_saL(to_unsafe, style)
+      SFMLExt.sfml_text_setstyle_saL(to_unsafe, style)
     end
     # Set the fill color of the text
     #
@@ -6573,7 +6573,7 @@ module SF
     # of a single global color.
     # Use fill_color=() or outline_color=() instead.
     def color=(color : Color)
-      VoidCSFML.sfml_text_setcolor_QVe(to_unsafe, color)
+      SFMLExt.sfml_text_setcolor_QVe(to_unsafe, color)
     end
     # Set the fill color of the text
     #
@@ -6585,7 +6585,7 @@ module SF
     #
     # *See also:* `fill_color`
     def fill_color=(color : Color)
-      VoidCSFML.sfml_text_setfillcolor_QVe(to_unsafe, color)
+      SFMLExt.sfml_text_setfillcolor_QVe(to_unsafe, color)
     end
     # Set the outline color of the text
     #
@@ -6595,7 +6595,7 @@ module SF
     #
     # *See also:* `outline_color`
     def outline_color=(color : Color)
-      VoidCSFML.sfml_text_setoutlinecolor_QVe(to_unsafe, color)
+      SFMLExt.sfml_text_setoutlinecolor_QVe(to_unsafe, color)
     end
     # Set the thickness of the text's outline
     #
@@ -6608,7 +6608,7 @@ module SF
     #
     # *See also:* `outline_thickness`
     def outline_thickness=(thickness : Number)
-      VoidCSFML.sfml_text_setoutlinethickness_Bw9(to_unsafe, LibC::Float.new(thickness))
+      SFMLExt.sfml_text_setoutlinethickness_Bw9(to_unsafe, LibC::Float.new(thickness))
     end
     # Get the text's string
     #
@@ -6616,7 +6616,7 @@ module SF
     #
     # *See also:* `string=`
     def string() : String
-      VoidCSFML.sfml_text_getstring(to_unsafe, out result)
+      SFMLExt.sfml_text_getstring(to_unsafe, out result)
       return String.build { |io| while (v = result.value) != '\0'; io << v; result += 1; end }
     end
     # Get the text's font
@@ -6637,7 +6637,7 @@ module SF
     #
     # *See also:* `character_size=`
     def character_size() : Int32
-      VoidCSFML.sfml_text_getcharactersize(to_unsafe, out result)
+      SFMLExt.sfml_text_getcharactersize(to_unsafe, out result)
       return result.to_i
     end
     # Get the size of the letter spacing factor
@@ -6646,7 +6646,7 @@ module SF
     #
     # *See also:* `letter_spacing=`
     def letter_spacing() : Float32
-      VoidCSFML.sfml_text_getletterspacing(to_unsafe, out result)
+      SFMLExt.sfml_text_getletterspacing(to_unsafe, out result)
       return result
     end
     # Get the size of the line spacing factor
@@ -6655,7 +6655,7 @@ module SF
     #
     # *See also:* `line_spacing=`
     def line_spacing() : Float32
-      VoidCSFML.sfml_text_getlinespacing(to_unsafe, out result)
+      SFMLExt.sfml_text_getlinespacing(to_unsafe, out result)
       return result
     end
     # Get the text's style
@@ -6664,7 +6664,7 @@ module SF
     #
     # *See also:* `style=`
     def style() : UInt32
-      VoidCSFML.sfml_text_getstyle(to_unsafe, out result)
+      SFMLExt.sfml_text_getstyle(to_unsafe, out result)
       return result
     end
     # Get the fill color of the text
@@ -6678,7 +6678,7 @@ module SF
     # Use fill_color() or outline_color() instead.
     def color() : Color
       result = Color.allocate
-      VoidCSFML.sfml_text_getcolor(to_unsafe, result)
+      SFMLExt.sfml_text_getcolor(to_unsafe, result)
       return result
     end
     # Get the fill color of the text
@@ -6688,7 +6688,7 @@ module SF
     # *See also:* `fill_color=`
     def fill_color() : Color
       result = Color.allocate
-      VoidCSFML.sfml_text_getfillcolor(to_unsafe, result)
+      SFMLExt.sfml_text_getfillcolor(to_unsafe, result)
       return result
     end
     # Get the outline color of the text
@@ -6698,7 +6698,7 @@ module SF
     # *See also:* `outline_color=`
     def outline_color() : Color
       result = Color.allocate
-      VoidCSFML.sfml_text_getoutlinecolor(to_unsafe, result)
+      SFMLExt.sfml_text_getoutlinecolor(to_unsafe, result)
       return result
     end
     # Get the outline thickness of the text
@@ -6707,7 +6707,7 @@ module SF
     #
     # *See also:* `outline_thickness=`
     def outline_thickness() : Float32
-      VoidCSFML.sfml_text_getoutlinethickness(to_unsafe, out result)
+      SFMLExt.sfml_text_getoutlinethickness(to_unsafe, out result)
       return result
     end
     # Return the position of the *index-th* character
@@ -6724,7 +6724,7 @@ module SF
     # *Returns:* Position of the character
     def find_character_pos(index : Int) : Vector2f
       result = Vector2f.allocate
-      VoidCSFML.sfml_text_findcharacterpos_vgv(to_unsafe, LibC::SizeT.new(index), result)
+      SFMLExt.sfml_text_findcharacterpos_vgv(to_unsafe, LibC::SizeT.new(index), result)
       return result
     end
     # Get the local bounding rectangle of the entity
@@ -6738,7 +6738,7 @@ module SF
     # *Returns:* Local bounding rectangle of the entity
     def local_bounds() : FloatRect
       result = FloatRect.allocate
-      VoidCSFML.sfml_text_getlocalbounds(to_unsafe, result)
+      SFMLExt.sfml_text_getlocalbounds(to_unsafe, result)
       return result
     end
     # Get the global bounding rectangle of the entity
@@ -6752,7 +6752,7 @@ module SF
     # *Returns:* Global bounding rectangle of the entity
     def global_bounds() : FloatRect
       result = FloatRect.allocate
-      VoidCSFML.sfml_text_getglobalbounds(to_unsafe, result)
+      SFMLExt.sfml_text_getglobalbounds(to_unsafe, result)
       return result
     end
     # :nodoc:
@@ -6761,90 +6761,90 @@ module SF
     end
     # :nodoc:
     def set_position(x : Number, y : Number)
-      VoidCSFML.sfml_text_setposition_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y))
+      SFMLExt.sfml_text_setposition_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y))
     end
     # :nodoc:
     def position=(position : Vector2|Tuple)
       position = Vector2f.new(position[0].to_f32, position[1].to_f32)
-      VoidCSFML.sfml_text_setposition_UU2(to_unsafe, position)
+      SFMLExt.sfml_text_setposition_UU2(to_unsafe, position)
     end
     # :nodoc:
     def rotation=(angle : Number)
-      VoidCSFML.sfml_text_setrotation_Bw9(to_unsafe, LibC::Float.new(angle))
+      SFMLExt.sfml_text_setrotation_Bw9(to_unsafe, LibC::Float.new(angle))
     end
     # :nodoc:
     def set_scale(factor_x : Number, factor_y : Number)
-      VoidCSFML.sfml_text_setscale_Bw9Bw9(to_unsafe, LibC::Float.new(factor_x), LibC::Float.new(factor_y))
+      SFMLExt.sfml_text_setscale_Bw9Bw9(to_unsafe, LibC::Float.new(factor_x), LibC::Float.new(factor_y))
     end
     # :nodoc:
     def scale=(factors : Vector2|Tuple)
       factors = Vector2f.new(factors[0].to_f32, factors[1].to_f32)
-      VoidCSFML.sfml_text_setscale_UU2(to_unsafe, factors)
+      SFMLExt.sfml_text_setscale_UU2(to_unsafe, factors)
     end
     # :nodoc:
     def set_origin(x : Number, y : Number)
-      VoidCSFML.sfml_text_setorigin_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y))
+      SFMLExt.sfml_text_setorigin_Bw9Bw9(to_unsafe, LibC::Float.new(x), LibC::Float.new(y))
     end
     # :nodoc:
     def origin=(origin : Vector2|Tuple)
       origin = Vector2f.new(origin[0].to_f32, origin[1].to_f32)
-      VoidCSFML.sfml_text_setorigin_UU2(to_unsafe, origin)
+      SFMLExt.sfml_text_setorigin_UU2(to_unsafe, origin)
     end
     # :nodoc:
     def position() : Vector2f
       result = Vector2f.allocate
-      VoidCSFML.sfml_text_getposition(to_unsafe, result)
+      SFMLExt.sfml_text_getposition(to_unsafe, result)
       return result
     end
     # :nodoc:
     def rotation() : Float32
-      VoidCSFML.sfml_text_getrotation(to_unsafe, out result)
+      SFMLExt.sfml_text_getrotation(to_unsafe, out result)
       return result
     end
     # :nodoc:
     def scale() : Vector2f
       result = Vector2f.allocate
-      VoidCSFML.sfml_text_getscale(to_unsafe, result)
+      SFMLExt.sfml_text_getscale(to_unsafe, result)
       return result
     end
     # :nodoc:
     def origin() : Vector2f
       result = Vector2f.allocate
-      VoidCSFML.sfml_text_getorigin(to_unsafe, result)
+      SFMLExt.sfml_text_getorigin(to_unsafe, result)
       return result
     end
     # :nodoc:
     def move(offset_x : Number, offset_y : Number)
-      VoidCSFML.sfml_text_move_Bw9Bw9(to_unsafe, LibC::Float.new(offset_x), LibC::Float.new(offset_y))
+      SFMLExt.sfml_text_move_Bw9Bw9(to_unsafe, LibC::Float.new(offset_x), LibC::Float.new(offset_y))
     end
     # :nodoc:
     def move(offset : Vector2|Tuple)
       offset = Vector2f.new(offset[0].to_f32, offset[1].to_f32)
-      VoidCSFML.sfml_text_move_UU2(to_unsafe, offset)
+      SFMLExt.sfml_text_move_UU2(to_unsafe, offset)
     end
     # :nodoc:
     def rotate(angle : Number)
-      VoidCSFML.sfml_text_rotate_Bw9(to_unsafe, LibC::Float.new(angle))
+      SFMLExt.sfml_text_rotate_Bw9(to_unsafe, LibC::Float.new(angle))
     end
     # :nodoc:
     def scale(factor_x : Number, factor_y : Number)
-      VoidCSFML.sfml_text_scale_Bw9Bw9(to_unsafe, LibC::Float.new(factor_x), LibC::Float.new(factor_y))
+      SFMLExt.sfml_text_scale_Bw9Bw9(to_unsafe, LibC::Float.new(factor_x), LibC::Float.new(factor_y))
     end
     # :nodoc:
     def scale(factor : Vector2|Tuple)
       factor = Vector2f.new(factor[0].to_f32, factor[1].to_f32)
-      VoidCSFML.sfml_text_scale_UU2(to_unsafe, factor)
+      SFMLExt.sfml_text_scale_UU2(to_unsafe, factor)
     end
     # :nodoc:
     def transform() : Transform
       result = Transform.allocate
-      VoidCSFML.sfml_text_gettransform(to_unsafe, result)
+      SFMLExt.sfml_text_gettransform(to_unsafe, result)
       return result
     end
     # :nodoc:
     def inverse_transform() : Transform
       result = Transform.allocate
-      VoidCSFML.sfml_text_getinversetransform(to_unsafe, result)
+      SFMLExt.sfml_text_getinversetransform(to_unsafe, result)
       return result
     end
     include Drawable
@@ -6858,20 +6858,20 @@ module SF
     end
     # :nodoc:
     def draw(target : RenderTexture, states : RenderStates)
-      VoidCSFML.sfml_text_draw_kb9RoT(to_unsafe, target, states)
+      SFMLExt.sfml_text_draw_kb9RoT(to_unsafe, target, states)
     end
     # :nodoc:
     def draw(target : RenderWindow, states : RenderStates)
-      VoidCSFML.sfml_text_draw_fqURoT(to_unsafe, target, states)
+      SFMLExt.sfml_text_draw_fqURoT(to_unsafe, target, states)
     end
     # :nodoc:
     def draw(target : RenderTarget, states : RenderStates)
-      VoidCSFML.sfml_text_draw_Xk1RoT(to_unsafe, target, states)
+      SFMLExt.sfml_text_draw_Xk1RoT(to_unsafe, target, states)
     end
     # :nodoc:
     def initialize(copy : Text)
-      VoidCSFML.sfml_text_allocate(out @this)
-      VoidCSFML.sfml_text_initialize_clM(to_unsafe, copy)
+      SFMLExt.sfml_text_allocate(out @this)
+      SFMLExt.sfml_text_initialize_clM(to_unsafe, copy)
     end
     def dup() : self
       return typeof(self).new(self)
@@ -6955,8 +6955,8 @@ module SF
     #
     # Creates an empty vertex buffer.
     def initialize()
-      VoidCSFML.sfml_vertexbuffer_allocate(out @this)
-      VoidCSFML.sfml_vertexbuffer_initialize(to_unsafe)
+      SFMLExt.sfml_vertexbuffer_allocate(out @this)
+      SFMLExt.sfml_vertexbuffer_initialize(to_unsafe)
     end
     # Construct a VertexBuffer with a specific PrimitiveType
     #
@@ -6964,8 +6964,8 @@ module SF
     #
     # * *type* - Type of primitive
     def initialize(type : PrimitiveType)
-      VoidCSFML.sfml_vertexbuffer_allocate(out @this)
-      VoidCSFML.sfml_vertexbuffer_initialize_u9w(to_unsafe, type)
+      SFMLExt.sfml_vertexbuffer_allocate(out @this)
+      SFMLExt.sfml_vertexbuffer_initialize_u9w(to_unsafe, type)
     end
     # Construct a VertexBuffer with a specific usage specifier
     #
@@ -6973,8 +6973,8 @@ module SF
     #
     # * *usage* - Usage specifier
     def initialize(usage : VertexBuffer::Usage)
-      VoidCSFML.sfml_vertexbuffer_allocate(out @this)
-      VoidCSFML.sfml_vertexbuffer_initialize_9vK(to_unsafe, usage)
+      SFMLExt.sfml_vertexbuffer_allocate(out @this)
+      SFMLExt.sfml_vertexbuffer_initialize_9vK(to_unsafe, usage)
     end
     # Construct a VertexBuffer with a specific PrimitiveType and usage specifier
     #
@@ -6984,13 +6984,13 @@ module SF
     # * *type* - Type of primitive
     # * *usage* - Usage specifier
     def initialize(type : PrimitiveType, usage : VertexBuffer::Usage)
-      VoidCSFML.sfml_vertexbuffer_allocate(out @this)
-      VoidCSFML.sfml_vertexbuffer_initialize_u9w9vK(to_unsafe, type, usage)
+      SFMLExt.sfml_vertexbuffer_allocate(out @this)
+      SFMLExt.sfml_vertexbuffer_initialize_u9w9vK(to_unsafe, type, usage)
     end
     # Destructor
     def finalize()
-      VoidCSFML.sfml_vertexbuffer_finalize(to_unsafe)
-      VoidCSFML.sfml_vertexbuffer_free(@this)
+      SFMLExt.sfml_vertexbuffer_finalize(to_unsafe)
+      SFMLExt.sfml_vertexbuffer_free(@this)
     end
     # Create the vertex buffer
     #
@@ -7006,7 +7006,7 @@ module SF
     #
     # *Returns:* True if creation was successful
     def create(vertex_count : Int) : Bool
-      VoidCSFML.sfml_vertexbuffer_create_vgv(to_unsafe, LibC::SizeT.new(vertex_count), out result)
+      SFMLExt.sfml_vertexbuffer_create_vgv(to_unsafe, LibC::SizeT.new(vertex_count), out result)
       return result
     end
     # Shorthand for `vertex_buffer = VertexBuffer.new; vertex_buffer.create(...); vertex_buffer`
@@ -7023,7 +7023,7 @@ module SF
     #
     # *Returns:* Number of vertices in the vertex buffer
     def vertex_count() : Int32
-      VoidCSFML.sfml_vertexbuffer_getvertexcount(to_unsafe, out result)
+      SFMLExt.sfml_vertexbuffer_getvertexcount(to_unsafe, out result)
       return result.to_i
     end
     # Update the whole buffer from an array of vertices
@@ -7042,7 +7042,7 @@ module SF
     #
     # *Returns:* True if the update was successful
     def update(vertices : Vertex) : Bool
-      VoidCSFML.sfml_vertexbuffer_update_46s(to_unsafe, vertices, out result)
+      SFMLExt.sfml_vertexbuffer_update_46s(to_unsafe, vertices, out result)
       return result
     end
     # Update a part of the buffer from an array of vertices
@@ -7074,7 +7074,7 @@ module SF
     #
     # *Returns:* True if the update was successful
     def update(vertices : Array(Vertex) | Slice(Vertex), offset : Int) : Bool
-      VoidCSFML.sfml_vertexbuffer_update_46svgvemS(to_unsafe, vertices, vertices.size, LibC::UInt.new(offset), out result)
+      SFMLExt.sfml_vertexbuffer_update_46svgvemS(to_unsafe, vertices, vertices.size, LibC::UInt.new(offset), out result)
       return result
     end
     # Copy the contents of another buffer into this buffer
@@ -7083,14 +7083,14 @@ module SF
     #
     # *Returns:* True if the copy was successful
     def update(vertex_buffer : VertexBuffer) : Bool
-      VoidCSFML.sfml_vertexbuffer_update_U2D(to_unsafe, vertex_buffer, out result)
+      SFMLExt.sfml_vertexbuffer_update_U2D(to_unsafe, vertex_buffer, out result)
       return result
     end
     # Swap the contents of this vertex buffer with those of another
     #
     # * *right* - Instance to swap with
     def swap(right : VertexBuffer)
-      VoidCSFML.sfml_vertexbuffer_swap_8jC(to_unsafe, right)
+      SFMLExt.sfml_vertexbuffer_swap_8jC(to_unsafe, right)
     end
     # Get the underlying OpenGL handle of the vertex buffer.
     #
@@ -7100,7 +7100,7 @@ module SF
     #
     # *Returns:* OpenGL handle of the vertex buffer or 0 if not yet created
     def native_handle() : Int32
-      VoidCSFML.sfml_vertexbuffer_getnativehandle(to_unsafe, out result)
+      SFMLExt.sfml_vertexbuffer_getnativehandle(to_unsafe, out result)
       return result.to_i
     end
     # Set the type of primitives to draw
@@ -7112,13 +7112,13 @@ module SF
     #
     # * *type* - Type of primitive
     def primitive_type=(type : PrimitiveType)
-      VoidCSFML.sfml_vertexbuffer_setprimitivetype_u9w(to_unsafe, type)
+      SFMLExt.sfml_vertexbuffer_setprimitivetype_u9w(to_unsafe, type)
     end
     # Get the type of primitives drawn by the vertex buffer
     #
     # *Returns:* Primitive type
     def primitive_type() : PrimitiveType
-      VoidCSFML.sfml_vertexbuffer_getprimitivetype(to_unsafe, out result)
+      SFMLExt.sfml_vertexbuffer_getprimitivetype(to_unsafe, out result)
       return PrimitiveType.new(result)
     end
     # Set the usage specifier of this vertex buffer
@@ -7134,13 +7134,13 @@ module SF
     #
     # * *usage* - Usage specifier
     def usage=(usage : VertexBuffer::Usage)
-      VoidCSFML.sfml_vertexbuffer_setusage_9vK(to_unsafe, usage)
+      SFMLExt.sfml_vertexbuffer_setusage_9vK(to_unsafe, usage)
     end
     # Get the usage specifier of this vertex buffer
     #
     # *Returns:* Usage specifier
     def usage() : VertexBuffer::Usage
-      VoidCSFML.sfml_vertexbuffer_getusage(to_unsafe, out result)
+      SFMLExt.sfml_vertexbuffer_getusage(to_unsafe, out result)
       return VertexBuffer::Usage.new(result)
     end
     # Bind a vertex buffer for rendering
@@ -7162,7 +7162,7 @@ module SF
     #
     # * *vertex_buffer* - Pointer to the vertex buffer to bind, can be null to use no vertex buffer
     def self.bind(vertex_buffer : VertexBuffer?)
-      VoidCSFML.sfml_vertexbuffer_bind_Kfe(vertex_buffer)
+      SFMLExt.sfml_vertexbuffer_bind_Kfe(vertex_buffer)
     end
     # Tell whether or not the system supports vertex buffers
     #
@@ -7172,7 +7172,7 @@ module SF
     #
     # *Returns:* True if vertex buffers are supported, false otherwise
     def self.available?() : Bool
-      VoidCSFML.sfml_vertexbuffer_isavailable(out result)
+      SFMLExt.sfml_vertexbuffer_isavailable(out result)
       return result
     end
     include Drawable
@@ -7187,26 +7187,26 @@ module SF
     end
     # :nodoc:
     def draw(target : RenderTexture, states : RenderStates)
-      VoidCSFML.sfml_vertexbuffer_draw_kb9RoT(to_unsafe, target, states)
+      SFMLExt.sfml_vertexbuffer_draw_kb9RoT(to_unsafe, target, states)
     end
     # :nodoc:
     def draw(target : RenderWindow, states : RenderStates)
-      VoidCSFML.sfml_vertexbuffer_draw_fqURoT(to_unsafe, target, states)
+      SFMLExt.sfml_vertexbuffer_draw_fqURoT(to_unsafe, target, states)
     end
     # :nodoc:
     def draw(target : RenderTarget, states : RenderStates)
-      VoidCSFML.sfml_vertexbuffer_draw_Xk1RoT(to_unsafe, target, states)
+      SFMLExt.sfml_vertexbuffer_draw_Xk1RoT(to_unsafe, target, states)
     end
     # :nodoc:
     def initialize(copy : VertexBuffer)
-      VoidCSFML.sfml_vertexbuffer_allocate(out @this)
-      VoidCSFML.sfml_vertexbuffer_initialize_U2D(to_unsafe, copy)
+      SFMLExt.sfml_vertexbuffer_allocate(out @this)
+      SFMLExt.sfml_vertexbuffer_initialize_U2D(to_unsafe, copy)
     end
     def dup() : self
       return typeof(self).new(self)
     end
   end
-  VoidCSFML.sfml_graphics_version(out major, out minor, out patch)
+  SFMLExt.sfml_graphics_version(out major, out minor, out patch)
   if SFML_VERSION != (ver = "#{major}.#{minor}.#{patch}")
     STDERR.puts "Warning: CrSFML was built for SFML #{SFML_VERSION}, found SFML #{ver}"
   end

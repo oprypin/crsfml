@@ -4,7 +4,7 @@ require "../common"
 {% end %}
 @[Link("sfml-system")]
 @[Link(ldflags: "#{__DIR__}/ext.o")]
-lib VoidCSFML
+lib SFMLExt
   fun sfml_time_allocate(result : Void**)
   fun sfml_time_free(self : Void*)
   fun sfml_time_initialize(self : Void*)

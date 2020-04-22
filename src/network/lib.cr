@@ -5,7 +5,7 @@ require "../system/lib"
 {% end %}
 @[Link("sfml-network")]
 @[Link(ldflags: "#{__DIR__}/ext.o")]
-lib VoidCSFML
+lib SFMLExt
   fun sfml_socket_allocate(result : Void**)
   fun sfml_socket_free(self : Void*)
   fun sfml_socket_finalize(self : Void*)

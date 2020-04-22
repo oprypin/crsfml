@@ -5,7 +5,7 @@ require "../system/lib"
 {% end %}
 @[Link("sfml-audio")]
 @[Link(ldflags: "#{__DIR__}/ext.o")]
-lib VoidCSFML
+lib SFMLExt
   fun sfml_listener_allocate(result : Void**)
   fun sfml_listener_free(self : Void*)
   fun sfml_listener_setglobalvolume_Bw9(volume : LibC::Float)

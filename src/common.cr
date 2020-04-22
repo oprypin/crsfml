@@ -16,7 +16,7 @@ module SF
   end
 end
 
-lib VoidCSFML
+lib SFMLExt
   {% if flag?(:windows) || flag?(:macosx) %}
     type WindowHandle = Void*
   {% else %}

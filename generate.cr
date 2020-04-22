@@ -19,7 +19,7 @@
 require "digest/sha1"
 
 
-LIB_NAME = "VoidCSFML"
+LIB_NAME = "SFMLExt"
 PREFIX = "sfml_"
 
 DEBUG = ARGV.delete("--debug")

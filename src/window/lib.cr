@@ -5,7 +5,7 @@ require "../system/lib"
 {% end %}
 @[Link("sfml-window")]
 @[Link(ldflags: "#{__DIR__}/ext.o")]
-lib VoidCSFML
+lib SFMLExt
   fun sfml_clipboard_allocate(result : Void**)
   fun sfml_clipboard_free(self : Void*)
   fun sfml_clipboard_getstring(result : Char**)

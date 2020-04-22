@@ -6,7 +6,7 @@ require "../system/lib"
 {% end %}
 @[Link("sfml-graphics")]
 @[Link(ldflags: "#{__DIR__}/ext.o")]
-lib VoidCSFML
+lib SFMLExt
   fun sfml_blendmode_allocate(result : Void**)
   fun sfml_blendmode_free(self : Void*)
   fun sfml_blendmode_initialize(self : Void*)

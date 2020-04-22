@@ -2,7 +2,7 @@ require "./lib"
 
 module SF
   # A low-level window handle type, specific to each platform.
-  alias WindowHandle = VoidCSFML::WindowHandle
+  alias WindowHandle = SFMLExt::WindowHandle
 end
 
 require "./obj"
