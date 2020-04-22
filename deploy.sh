@@ -3,41 +3,31 @@
 git_uri="$1"
 
 set -o errexit
-shopt -s globstar
+set -x
 
 # Change to script's directory
 cd "$(dirname "$0")"
 
-if [ ! -d gh-pages ]; then
-    # Clone the specified repository or just make a folder for the results
-    if [ -n "$git_uri" ]; then
-        git clone -b gh-pages -- "$git_uri" gh-pages
-    else
-        mkdir gh-pages
-    fi
+if [ -n "$git_uri" ]; then
+    git clone -b gh-pages -- "$git_uri" gh-pages
 fi
 
 # Get current git commit's hash
-rev="$(git rev-parse HEAD)"
+rev_hash="$(git rev-parse HEAD)"
+new_tag="$(git tag --points-at HEAD)"
+rev="${new_tag:-$rev_hash}"
 
-# If version changes in the shard file, make a corresponding tag
-new_tag="$(git diff -- shard.yml | grep -P -o "(?<=\+version: )[0-9\.]+$")" || true
-
-if [ -n "$new_tag" ]; then
-    git tag "v$new_tag"
-fi
-
-crystal doc
+${CRYSTAL:-crystal} docs --output=api
 
 logo=\
-'<a href="https://github.com/oprypin/crsfml#readme" style="padding: 3px 5px 2px; text-align: center">'\
-'<img src="https://raw.githubusercontent.com/oprypin/crsfml/'"$sources_branch"'/logo.png" alt="CrSFML" style="width: 100%; max-width: 235px"/>'\
+'<a href="https://github.com/oprypin/crsfml#readme" style="padding: 3px 5px 2px; text-align: center; display: block">'\
+'<img src="https://raw.githubusercontent.com/oprypin/crsfml/'"$rev"'/logo.png" alt="CrSFML" style="width: 100%; max-width: 235px"/>'\
 '</a>'
 # Replace README link with CrSFML
-find docs/ -type f -exec sed -i -r -e "s,<a.+>README</a>,$logo," {} \;
+find api/ -type f -exec sed -i -r -e "/div class.+(project-summary|repository-links)/i $logo" {} \;
 
 # Redirect from / to /SF.html
-cat << EOF > docs/index.html
+cat << EOF > api/index.html
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -53,59 +43,48 @@ cat << EOF > docs/index.html
 </html>
 EOF
 
-cat << EOF >> docs/css/style.css
-.sidebar {
-    background-color: #2f610e !important;
-}
-.sidebar a {
-    color: #fff !important;
+sed -i \
+-e 's/#47266E\b/#222/gI' \
+-e 's/#2E1052\b/#2f610e/gI' \
+-e 's/#263F6C\b/#2f610e/gI' \
+-e 's/#112750\b/#2f610e/gI' \
+-e 's/#624288\b/#567e25/gI' \
+-e 's/#D1B7F1\b/#567e25/gI' \
+-e 's/#D5CAE3\b/#eaf5db/gI' \
+-e 's/#866BA6\b/#fff/gI' \
+-e 's/#6a5a7d\b/#fff/gI' \
+-e 's/#F8F4FD\b/#fff/gI' \
+api/css/style.css
+
+sed -i -e 's/scrollSidebarToOpenType();//' api/js/doc.js
+
+cat << EOF >> api/css/style.css
+.project-summary, .repository-links {
+    display: none;
 }
 .sidebar .current > a {
     font-weight: bold;
     font-weight: 600;
 }
-.sidebar a:focus {
-    outline: 1px solid #567e25;
+.sidebar a:hover {
+    text-decoration: underline;
 }
-.type-name, code a {
-    color: #2f610e !important;
-}
-.superclass-hierarchy .superclass a:hover, .other-type a:hover, .entry-summary .signature:hover, .entry-detail:target .signature {
-    background: #eaf5db;
-    border-color: #567e25;
-}
-a, a:visited, a *, a:visited *, .kind {
+.kind {
     color: #567e25;
-}
-.superclass-hierarchy .superclass a, .other-type a, .entry-summary .signature, .entry-detail .signature {
-    background: #f9fafc;
-    color: #222 !important;
-    border-color: #dee4f0;
-}
-.tooltip span {
-    background: #eaf5db !important;
-    color: #222 !important;
-}
-pre {
-    padding: 2px 7px;
-    border: 1px solid #ccc;
-    color: #111;
 }
 EOF
 
-if [ -n "$new_tag" ]; then
-    # Replace commit name with tag name in links
-    find docs -type f -exec sed -i -r -e "s,blob/$rev,blob/v$new_tag,g" {} \;
-fi
-
-pushd gh-pages
+# Replace commit name with tag name in links
+find api -type f -exec sed -i -r -e "s,blob/$actual_rev,blob/$rev,g" {} \;
 
 if [ -n "$git_uri" ]; then
+    pushd gh-pages
+
     git config user.name 'Robot'
     git config user.email '<>'
 
     rm -r api || true
-    mv ../docs api
+    mv ../api .
 
     git add -A
     if git commit -m "Generate API documentation ($rev)"; then
