@@ -4,7 +4,6 @@
 !.gitattributes
 !*.yml
 !*.md
-!LICENSE
 !Makefile
 
 !/generate.cr

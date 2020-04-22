@@ -9,13 +9,13 @@ Contributing code
 
 *CrSFML* consists mostly of automatically generated code. The generator program ([*generate.cr*](generate.cr)), the static parts of *CrSFML* and the build files (CMake) are the main components to edit.
 
-In addition to these, each SFML "module" has 4 files generated for it:
+In addition to these, each SFML "module" has 3 files generated for it:
 
 - *src/__module__/ext.cpp* (C++) - functions that interact with C++ SFML objects but expose a pure C interface
 - *src/__module__/lib.cr* (Crystal) - definition of the header file for Crystal
 - *src/__module__/obj.cr* (Crystal) - object-oriented wrappers
-<!-- -->
-- *src/__module__/__module__.cr* files are tiny additions that can't be automatically generated, but they serve as the entry point for each module.
+
+*src/__module__/__module__.cr* files are tiny additions that can't be automatically generated, but they serve as the entry point for each module.
 
 Most of the changes to *CrSFML* will happen within one file, [*generate.cr*](generate.cr). It is indeed a very complicated and messy program. The main idea is to parse SFML's header files with... regular expressions (yes, I'm very happy with this decision, it works out nicely due to the extreme quality and consistency of SFML), form an object-based model of the constructs, and use them to render 3 files per module (as seen above).
 

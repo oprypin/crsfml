@@ -29,7 +29,7 @@ Indeed, SFML is most often used to make video games. It provides features such a
 
 ### Differences between SFML and CrSFML
 
-The API of *CrSFML* (a library for Crystal) attempts to be similar to SFML (a C++ library), but some general changes are present:
+The [API of *CrSFML*][api documentation] (a library for Crystal) attempts to be similar to SFML (a C++ library), but some general changes are present:
 
 - Methods are renamed to `snake_case`.
 - Getter, setter methods are changed:
@@ -49,7 +49,9 @@ The API of *CrSFML* (a library for Crystal) attempts to be similar to SFML (a C+
 Installation
 ------------
 
-Create a _shard.yml_ file in your project's folder (or add to it) with the following contents:
+First, [install SFML](#install-sfml).
+
+Then create a _shard.yml_ file in your project's folder (or add to it) with the following contents:
 
 ```yaml
 name: awesome-game
@@ -66,40 +68,40 @@ Resolve dependencies with [Shards]:
 shards install
 ```
 
-During installation this will invoke `make` to build the C++ wrappers as object files.
+During installation this will invoke `make` to build the C++ wrappers as object files. If that fails, see [Custom SFML location](#custom-sfml-location).
+
+Try running an example:
+
+```bash
+cp lib/crsfml/examples/snakes.cr .
+crystal snakes.cr
+```
+
+Now you're ready for the **[tutorials]**!
+
+##### Windows
+
+Crystal does not officially support Windows, but CrSFML supports it and is perfectly usable already. See [a video detailing the full setup][windows-setup].
 
 ### Prerequisites
 
 The C++ wrappers require a C++ compiler (C++03 will do).
 
-[SFML] must be [installed](#install-sfml), with the version that matches `SFML_VERSION` in _src/common.cr_ (usually latest). If it doesn't, no need to look for an older release of *CrSFML*, just [re-generate the sources](#generating-sources) for your version.
+#### Install SFML
 
-- Linux note: if you're installing SFML from your distribution's package manager, make sure it is not some old version.
-- Mac note: SFML can be installed through [Homebrew].
+[SFML] must be installed, with the version that matches `SFML_VERSION` in [src/version.cr](src/version.cr) (usually latest). If it doesn't, no need to look for an older release of *CrSFML*, just [re-generate the sources](#generating-sources) for your version. SFML versions 2.3.x through 2.5.x are supported by *CrSFML*.
 
-If SFML is not installed in a global/default location, see [Custom SFML location](#custom-sfml-location)
+There are detailed [official instructions][sfml-install] on how to install SFML manually, but on many systems there are easier ways.
 
-### Install SFML
+If SFML is not installed in a global/default location, see [Custom SFML location](#custom-sfml-location).
 
-The first step is to install the [SFML] library itself. There are detailed [official instructions][sfml-install] on how to install it manually, however, on many systems there are easier ways.
-
-SFML versions 2.3.x through 2.5.x are supported by *CrSFML*.
-
-#### Linux
+##### Linux
 
 Many Linux-based systems provide SFML through their package manager. Make sure to install the *-dev* packages if there is such a separation in your Linux distribution of choice.
 
 Note that most often the packages provided by Linux distributions are outdated. If you're installing an older version of SFML (not recommended), make sure that it's still [supported by *CrSFML*](#install-sfml). You will need to [re-generate the sources](#generating-sources).
 
-Building SFML from source is as simple as downloading the source code and running:
-
-```bash
-cmake .
-cmake --build
-sudo make install  # optional!
-```
-
-#### Mac
+##### Mac
 
 The easiest way to install SFML on macOS is through the [Homebrew] package manager:
 
@@ -108,13 +110,59 @@ brew update
 brew install sfml
 ```
 
-It can also be installed by copying binaries, as described in [official instructions][sfml-install], or by building from source in the same way as [on Linux](#linux).
+It can also be installed by copying binaries, as described in [official instructions][sfml-install].
+
+##### Windows
+
+Downloading [the official binaries][sfml-download] ("Visual C++ 15 (2017) - 64-bit") will do. Check out [the video on how to set things up on Windows][windows-setup].
+
+##### From source
+
+Building SFML from source is as simple as downloading the source code and running:
+
+```bash
+cmake .
+cmake --build .
+sudo make install  # optional!
+```
+
+In some cases the dependencies are bundled with SFML, otherwise see the [official build instructions][sfml-build].
+
+### Custom SFML location
+
+If SFML's headers and libraries are not in a path where the compiler would look by default (and the defaults usually work only on Linux), additional steps are needed.
+
+First, before building the extensions (`make`) or generating sources, you need to configure the include path:
+
+```bash
+export SFML_INCLUDE_DIR=/full/path/to/sfml/include
+```
+Windows equivalent:
+```cmd
+set INCLUDE=%INCLUDE%;C:\path\to\sfml\include
+```
+
+Setting these variables beforehand can also fix `shards install`.
+
+Then, whenever using *CrSFML*, you need to configure the path to SFML libraries so the linker can find them. To apply these for the current shell session, run:
+
+```bash
+export LIBRARY_PATH=/full/path/to/sfml/lib     # Used during linking
+export LD_LIBRARY_PATH=/full/path/to/sfml/lib  # Used when running an executable
+```
+Windows equivalent:
+```cmd
+set LIB=%LIB%;c:\path\to\sfml\lib
+set PATH=%PATH%;c:\path\to\sfml\bin
+```
+
+CrSFML's top-level scripts also need the include path to work. E.g. `crystal generate.cr -- /full/path/to/sfml/include`.
 
 ### Generating sources
 
 CrSFML's sources come almost entirely from a [generator program](generate.cr). They are based on a particular version of SFML. But as sources for the latest version are already bundled, usually you don't need to do this. [More details](CONTRIBUTING.md).
 
-As this is out of scope for [Shards], let's download the repository separately.
+As this is out of scope for [Shards], let's download the repository separately (then use CrSFML [without Shards](#crsfml-without-shards)).
 
 ```bash
 git clone https://github.com/oprypin/crsfml
@@ -130,59 +178,16 @@ make
 
 If run successfully, this generates all the source files and also compiles the C++ wrapper.
 
-If SFML can't be found, see the next section.
+### CrSFML without Shards
 
-#### Custom SFML location
-
-If SFML's headers and libraries are not in a path where the compiler would look by default, additional steps are needed.
-
-First, before building the extensions, you need to configure the path
+It's also possible to use *CrSFML* outside of Shards, as with any library. One option is to directly create a symbolic link to *CrSFML* in your project's *lib* folder.
 
 ```bash
-export SFML_INCLUDE_DIR=/full/path/to/sfml/include
-```
-Windows equivalent:
-```cmd
-set INCLUDE=%INCLUDE%;C:\path\to\sfml\include
-```
-
-Then, whenever using *CrSFML*, you need to configure the path to SFML libraries so the linker can find them. To apply these for the current shell session, run:
-
-```bash
-export LIBRARY_PATH=/full/path/to/sfml/lib     # Used during linking
-export LD_LIBRARY_PATH=/full/path/to/sfml/lib  # Used when running an executable
-```
-Windows equivalent:
-```cmd
-set LIB=%LIB%;c:\path\to\sfml\lib
-set PATH=%PATH%;c:\path\to\sfml\bin
-```
-
-Now try running an example:
-
-```bash
-cd examples
-crystal snakes.cr
-```
-
-#### Make CrSFML available to your project
-
-Create a symbolic link to *CrSFML* in your project's *lib* folder.
-
-```bash
-cd ~/my-project
 mkdir lib
-ln -s /full/path/to/crsfml/src lib/crsfml
+ln -s /full/path/to/crsfml lib/crsfml
 ```
 
-Try using it:
-
-```bash
-echo 'require "crsfml"' >> awesome_game.cr
-crystal awesome_game.cr
-```
-
-Now you're ready for the [tutorials]!
+Another option is to `export CRYSTAL_PATH=/full/path/to` a directory that contains the *crsfml* directory.
 
 
 Credits
@@ -190,7 +195,7 @@ Credits
 
 *CrSFML* was made by [Oleh Prypin][oprypin].
 
-*CrSFML* is [licensed](LICENSE) under the terms and conditions of the *zlib/libpng* license.
+*CrSFML* is [licensed](LICENSE.md) under the terms and conditions of the *zlib/libpng* license.
 
 This library uses and is based on [SFML][sfml-authors].
 
@@ -200,9 +205,11 @@ Thanks to [Alan Willms][alanwillms] for translating [tutorials] to Crystal.
 About the SFML wrapper
 ----------------------
 
-The C++ → C wrapper's external interface consists entirely of simple functions that accept only native types (such as `float`, `uint32_t`, `char*`) and untyped pointers (`void*`). The function names consist of the original SFML class name, the function name itself, and a base62 hash of the parameter types. The user of the library is expected to know the size of the buffers needed for each object, because VoidCSFML does not allocate memory for them. Initialization is done in a buffer supplied by the user. Return types are never used; instead, the output is done into a pointer (which is usually the last argument of the function), but, as usual, the memory allocation is the caller's job. The first argument of each function is a pointer to the receiver object (if applicable).
+The C++ → C wrapper's external interface consists entirely of simple functions that accept only native types (such as `float`, `uint32_t`, `char*`) and untyped pointers (`void*`). The untyped pointers are never exposed to the user, only to other auto-generated parts of the code. The function names consist of the original SFML class name, the function name itself, and a base62 hash of the parameter types. Return types are never used; instead, the output is done into a pointer (which is usually the last argument of the function), but, as usual, the memory allocation is the caller's job. The first argument of each function is a pointer to the receiver object (if applicable).
 
 Abstract classes are implemented by exposing a collection of global callback variables, which must be set by the user if they want to use the corresponding class. The callback's first argument is the object, and some arguments are pointers that need to be assigned to inside the callback implementation (because return values are not used).
+
+Compilation of the C++ extensions is based only on SFML's header files, these are made into object files, and all the linking is deferred to the final linker invocation done by Crystal.
 
 ### Why not CSFML?
 
@@ -217,19 +224,22 @@ Instead of that, the C++ → C wrapper passes the bare SFML data types directly 
 Not to forget that the wrapper is made automatically, so it can be quickly updated to any SFML release and prevents human error that could happen when implementing CSFML.
 
 
-[tutorials]: http://oprypin.github.io/crsfml/tutorials/
-[api documentation]: http://oprypin.github.io/crsfml/api/
-[releases]: https://github.com/oprypin/crsfml/releases
+[tutorials]: https://oprypin.github.io/crsfml/tutorials/
+[api documentation]: https://oprypin.github.io/crsfml/api/
 [demos]: https://github.com/oprypin/crsfml-examples
 
-[sfml]: http://www.sfml-dev.org/ "Simple and Fast Multimedia Library"
+[windows-setup]: https://pryp.in/blog/28/running-crystal-natively-on-windows-building-videogame-examples.html
+
+[sfml]: https://www.sfml-dev.org/ "Simple and Fast Multimedia Library"
 [csfml]: https://github.com/SFML/CSFML
 [sfml-authors]: https://github.com/SFML/SFML#readme
-[sfml-install]: http://www.sfml-dev.org/tutorials/
+[sfml-download]: https://www.sfml-dev.org/download.php
+[sfml-install]: https://www.sfml-dev.org/tutorials/
+[sfml-build]: https://www.sfml-dev.org/tutorials/2.5/compile-with-cmake.php
 
-[homebrew]: http://brew.sh/
+[homebrew]: https://brew.sh/
 
-[crystal]: http://crystal-lang.org/
+[crystal]: https://crystal-lang.org/
 [shards]: https://github.com/crystal-lang/shards
 
 [oprypin]: https://github.com/oprypin
