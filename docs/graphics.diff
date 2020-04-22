@@ -602,7 +602,7 @@
 --- SF::RenderWindow#capture()
 +++ SF::RenderWindow#capture()
 @@ -3,10 +3,8 @@
- *Deprecated:*
+ DEPRECATED:
 -Use a `SF::Texture` and its `SF::Texture::update`(const Window&)
 -function and copy its contents into an `SF::Image` instead.
 -```c++
@@ -774,55 +774,55 @@
 @@ -1,3 +1 @@
  Change a color parameter of the shader
 -
--*Deprecated:* Use uniform=(const std::string&, const Glsl::Vec4&) instead.
+-DEPRECATED: Use uniform=(const std::string&, const Glsl::Vec4&) instead.
 --- SF::Shader#set_parameter(name,p1)
 +++ SF::Shader#set_parameter(name,p1)
 @@ -1,3 +1 @@
  Change a texture parameter of the shader
 -
--*Deprecated:* Use uniform=(const std::string&, CurrentTextureType) instead.
+-DEPRECATED: Use uniform=(const std::string&, CurrentTextureType) instead.
 --- SF::Shader#set_parameter(name,texture)
 +++ SF::Shader#set_parameter(name,texture)
 @@ -1,3 +1 @@
  Change a texture parameter of the shader
 -
--*Deprecated:* Use uniform=(const std::string&, const Texture&) instead.
+-DEPRECATED: Use uniform=(const std::string&, const Texture&) instead.
 --- SF::Shader#set_parameter(name,transform)
 +++ SF::Shader#set_parameter(name,transform)
 @@ -1,3 +1 @@
  Change a matrix parameter of the shader
 -
--*Deprecated:* Use uniform=(const std::string&, const Glsl::Mat4&) instead.
+-DEPRECATED: Use uniform=(const std::string&, const Glsl::Mat4&) instead.
 --- SF::Shader#set_parameter(name,vector)
 +++ SF::Shader#set_parameter(name,vector)
 @@ -1,3 +1 @@
  Change a 3-components vector parameter of the shader
 -
--*Deprecated:* Use uniform=(const std::string&, const Glsl::Vec3&) instead.
+-DEPRECATED: Use uniform=(const std::string&, const Glsl::Vec3&) instead.
 --- SF::Shader#set_parameter(name,x)
 +++ SF::Shader#set_parameter(name,x)
 @@ -1,3 +1 @@
  Change a float parameter of the shader
 -
--*Deprecated:* Use uniform=(const std::string&, float) instead.
+-DEPRECATED: Use uniform=(const std::string&, float) instead.
 --- SF::Shader#set_parameter(name,x,y)
 +++ SF::Shader#set_parameter(name,x,y)
 @@ -1,3 +1 @@
  Change a 2-components vector parameter of the shader
 -
--*Deprecated:* Use uniform=(const std::string&, const Glsl::Vec2&) instead.
+-DEPRECATED: Use uniform=(const std::string&, const Glsl::Vec2&) instead.
 --- SF::Shader#set_parameter(name,x,y,z)
 +++ SF::Shader#set_parameter(name,x,y,z)
 @@ -1,3 +1 @@
  Change a 3-components vector parameter of the shader
 -
--*Deprecated:* Use uniform=(const std::string&, const Glsl::Vec3&) instead.
+-DEPRECATED: Use uniform=(const std::string&, const Glsl::Vec3&) instead.
 --- SF::Shader#set_parameter(name,x,y,z,w)
 +++ SF::Shader#set_parameter(name,x,y,z,w)
 @@ -1,3 +1 @@
  Change a 4-components vector parameter of the shader
 -
--*Deprecated:* Use uniform=(const std::string&, const Glsl::Vec4&) instead.
+-DEPRECATED: Use uniform=(const std::string&, const Glsl::Vec4&) instead.
 --- SF::Shape
 +++ SF::Shape
 @@ -23,4 +23,4 @@

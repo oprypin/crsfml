@@ -979,15 +979,15 @@ module SF
       Pause
       # Keep last -- the total number of keyboard keys
       KeyCount
-      # *Deprecated:* Use Hyphen instead
+      # DEPRECATED: Use Hyphen instead
       Dash = Hyphen
-      # *Deprecated:* Use Backspace instead
+      # DEPRECATED: Use Backspace instead
       BackSpace = Backspace
-      # *Deprecated:* Use Backslash instead
+      # DEPRECATED: Use Backslash instead
       BackSlash = Backslash
-      # *Deprecated:* Use Semicolon instead
+      # DEPRECATED: Use Semicolon instead
       SemiColon = Semicolon
-      # *Deprecated:* Use Enter instead
+      # DEPRECATED: Use Enter instead
       Return = Enter
     end
     Util.extract Keyboard::Key
@@ -1497,7 +1497,7 @@ module SF
     end
     # Mouse wheel events parameters (MouseWheelMoved)
     #
-    # *Deprecated:* This event is deprecated and potentially inaccurate.
+    # DEPRECATED: This event is deprecated and potentially inaccurate.
     #             Use MouseWheelScrollEvent instead.
     abstract struct MouseWheelEvent < Event
       def initialize()

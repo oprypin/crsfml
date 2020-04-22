@@ -1555,11 +1555,11 @@ module SF
     TriangleFan
     # List of individual quads (deprecated, don't work with OpenGL ES)
     Quads
-    # *Deprecated:* Use LineStrip instead
+    # DEPRECATED: Use LineStrip instead
     LinesStrip = LineStrip
-    # *Deprecated:* Use TriangleStrip instead
+    # DEPRECATED: Use TriangleStrip instead
     TrianglesStrip = TriangleStrip
-    # *Deprecated:* Use TriangleFan instead
+    # DEPRECATED: Use TriangleFan instead
     TrianglesFan = TriangleFan
   end
   Util.extract PrimitiveType
@@ -4876,7 +4876,7 @@ module SF
     #
     # *Returns:* True if creation has been successful
     #
-    # *Deprecated:* Use create(unsigned int, unsigned int, const ContextSettings&) instead.
+    # DEPRECATED: Use create(unsigned int, unsigned int, const ContextSettings&) instead.
     def create(width : Int, height : Int, depth_buffer : Bool) : Bool
       SFMLExt.sfml_rendertexture_create_emSemSGZq(to_unsafe, LibC::UInt.new(width), LibC::UInt.new(height), depth_buffer, out result)
       return result
@@ -5305,7 +5305,7 @@ module SF
     end
     # Copy the current contents of the window to an image
     #
-    # *Deprecated:*
+    # DEPRECATED:
     # Use a `SF::Texture` and its `SF::Texture#update(window)`
     # method and copy its contents into an `SF::Image` instead.
     # ```
@@ -5973,7 +5973,7 @@ module SF
     end
     # Change a 2-components vector parameter of the shader
     #
-    # *Deprecated:* Use uniform=(const std::string&, const Glsl::Vec2&) instead.
+    # DEPRECATED: Use uniform=(const std::string&, const Glsl::Vec2&) instead.
     def set_parameter(name : String, vector : Vector2|Tuple)
       vector = Vector2f.new(vector[0].to_f32, vector[1].to_f32)
       SFMLExt.sfml_shader_setparameter_zkCUU2(to_unsafe, name.bytesize, name, vector)
@@ -6569,7 +6569,7 @@ module SF
     #
     # *See also:* `fill_color`
     #
-    # *Deprecated:* There is now fill and outline colors instead
+    # DEPRECATED: There is now fill and outline colors instead
     # of a single global color.
     # Use fill_color=() or outline_color=() instead.
     def color=(color : Color)
@@ -6673,7 +6673,7 @@ module SF
     #
     # *See also:* `fill_color=`
     #
-    # *Deprecated:* There is now fill and outline colors instead
+    # DEPRECATED: There is now fill and outline colors instead
     # of a single global color.
     # Use fill_color() or outline_color() instead.
     def color() : Color
