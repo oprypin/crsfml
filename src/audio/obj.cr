@@ -4,7 +4,7 @@ require "../system"
 module SF
   extend self
   # The audio listener is the point in the scene
-  #        from where all the sounds are heard
+  # from where all the sounds are heard
   #
   # The audio listener defines the global properties of the
   # audio environment, it defines where and how sounds and musics
@@ -335,7 +335,7 @@ module SF
       return result
     end
     # Tell whether the sound's position is relative to the
-    #        listener or is absolute
+    # listener or is absolute
     #
     # *Returns:* True if the position is relative, false if it's absolute
     #
@@ -1744,7 +1744,7 @@ module SF
     # 16-bit stereo are supported.
     #
     # * *channel_count* - Number of channels. Currently only
-    #                     mono (1) and stereo (2) are supported.
+    # mono (1) and stereo (2) are supported.
     #
     # *See also:* `channel_count`
     def channel_count=(channel_count : Int)
@@ -1842,7 +1842,7 @@ module SF
     end
   end
   # Specialized SoundRecorder which stores the captured
-  #        audio data into a sound buffer
+  # audio data into a sound buffer
   #
   # `SF::SoundBufferRecorder` allows to access a recorded sound
   # through a `SF::SoundBuffer`, so that it can be played, saved

@@ -162,7 +162,7 @@
 +++ SF::NonCopyable
 @@ -1,29 +1 @@
 -Utility class that makes any derived
--       class non-copyable
+-class non-copyable
 -
 -This class makes its instances non-copyable, by explicitly
 -disabling its copy constructor and its assignment operator.

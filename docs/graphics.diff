@@ -49,7 +49,7 @@
 +++ SF::Drawable
 @@ -1,13 +1,13 @@
 -Abstract base class for objects that can be drawn
--       to a render target
+-to a render target
 +Abstract module for objects that can be drawn
 +to a render target
  
@@ -703,9 +703,9 @@
  * draw everything to a `SF::RenderTexture`, then draw it to
 @@ -94,3 +83,3 @@
  * draw everything directly to the main target, then use
--  `SF::Texture::update`(Window&) to copy its contents to a texture
-+  `SF::Texture::update(window)` to copy its contents to a texture
-   and draw it to the main target using the shader
+-`SF::Texture::update`(Window&) to copy its contents to a texture
++`SF::Texture::update(window)` to copy its contents to a texture
+ and draw it to the main target using the shader
 @@ -105,8 +94,6 @@
  custom OpenGL geometry.
 -```c++

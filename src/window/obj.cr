@@ -56,9 +56,9 @@ module SF
     # string.
     #
     # *Warning:* Due to limitations on some operating systems,
-    #          setting the clipboard contents is only
-    #          guaranteed to work if there is currently an
-    #          open window for which events are being handled.
+    # setting the clipboard contents is only
+    # guaranteed to work if there is currently an
+    # open window for which events are being handled.
     #
     # * *text* - `SF::String` containing the data to be sent
     # to the clipboard
@@ -70,7 +70,7 @@ module SF
   module GlResource
   end
   # Structure defining the settings of the OpenGL
-  #        context attached to a window
+  # context attached to a window
   #
   # ContextSettings allows to define several advanced settings
   # of the OpenGL context attached to a window. All these
@@ -363,7 +363,7 @@ module SF
   # Cursor defines the appearance of a system cursor
   #
   # *Warning:* Features related to Cursor are not supported on
-  #          iOS and Android.
+  # iOS and Android.
   #
   # This class abstracts the operating system resources
   # associated with either a native system cursor or a custom
@@ -477,15 +477,15 @@ module SF
     # return the window/screen location of the hotspot.
     #
     # *Warning:* On Unix, the pixels are mapped into a monochrome
-    #          bitmap: pixels with an alpha channel to 0 are
-    #          transparent, black if the RGB channel are close
-    #          to zero, and white otherwise.
+    # bitmap: pixels with an alpha channel to 0 are
+    # transparent, black if the RGB channel are close
+    # to zero, and white otherwise.
     #
     # * *pixels* - Array of pixels of the image
     # * *size* - Width and height of the image
     # * *hotspot* - (x,y) location of the hotspot
     # *Returns:* true if the cursor was successfully loaded;
-    #         false otherwise
+    # false otherwise
     def load_from_pixels(pixels : UInt8*, size : Vector2|Tuple, hotspot : Vector2|Tuple) : Bool
       size = Vector2u.new(size[0].to_u32, size[1].to_u32)
       hotspot = Vector2u.new(hotspot[0].to_u32, hotspot[1].to_u32)
@@ -511,8 +511,8 @@ module SF
     #
     # * *type* - Native system cursor type
     # *Returns:* true if and only if the corresponding cursor is
-    #         natively supported by the operating system;
-    #         false otherwise
+    # natively supported by the operating system;
+    # false otherwise
     def load_from_system(type : Cursor::Type) : Bool
       SFMLExt.sfml_cursor_loadfromsystem_yAZ(to_unsafe, type, out result)
       return result
@@ -1445,7 +1445,7 @@ module SF
       end
     end
     # Mouse buttons events parameters
-    #        (MouseButtonPressed, MouseButtonReleased)
+    # (MouseButtonPressed, MouseButtonReleased)
     abstract struct MouseButtonEvent < Event
       def initialize()
         @button = uninitialized Mouse::Button
@@ -1498,7 +1498,7 @@ module SF
     # Mouse wheel events parameters (MouseWheelMoved)
     #
     # DEPRECATED: This event is deprecated and potentially inaccurate.
-    #             Use MouseWheelScrollEvent instead.
+    # Use MouseWheelScrollEvent instead.
     abstract struct MouseWheelEvent < Event
       def initialize()
         @delta = uninitialized Int32
@@ -1610,7 +1610,7 @@ module SF
       end
     end
     # Joystick connection events parameters
-    #        (JoystickConnected, JoystickDisconnected)
+    # (JoystickConnected, JoystickDisconnected)
     abstract struct JoystickConnectEvent < Event
       def initialize()
         @joystick_id = uninitialized UInt32
@@ -1689,7 +1689,7 @@ module SF
       end
     end
     # Joystick buttons events parameters
-    #        (JoystickButtonPressed, JoystickButtonReleased)
+    # (JoystickButtonPressed, JoystickButtonReleased)
     abstract struct JoystickButtonEvent < Event
       def initialize()
         @joystick_id = uninitialized UInt32
@@ -2524,8 +2524,8 @@ module SF
     # * *width* - Icon's width, in pixels
     # * *height* - Icon's height, in pixels
     # * *pixels* - Pointer to the array of pixels in memory. The
-    #               pixels are copied, so you need not keep the
-    #               source alive after calling this function.
+    # pixels are copied, so you need not keep the
+    # source alive after calling this function.
     #
     # *See also:* `title=`
     def set_icon(width : Int, height : Int, pixels : UInt8*)
@@ -2576,10 +2576,10 @@ module SF
     # Upon window creation, the arrow cursor is used by default.
     #
     # *Warning:* The cursor must not be destroyed while in use by
-    #          the window.
+    # the window.
     #
     # *Warning:* Features related to Cursor are not supported on
-    #          iOS and Android.
+    # iOS and Android.
     #
     # * *cursor* - Native system cursor type to display
     #
@@ -2629,7 +2629,7 @@ module SF
       SFMLExt.sfml_window_setjoystickthreshold_Bw9(to_unsafe, LibC::Float.new(threshold))
     end
     # Activate or deactivate the window as the current target
-    #        for OpenGL rendering
+    # for OpenGL rendering
     #
     # A window is active only on the current thread, if you want to
     # make it active on another thread you have to deactivate it
@@ -2646,7 +2646,7 @@ module SF
       return result
     end
     # Request the current window to be made the active
-    #        foreground window
+    # foreground window
     #
     # At any given time, only one window may have the input focus
     # to receive input events such as keystrokes or mouse events.

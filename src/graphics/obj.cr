@@ -3991,7 +3991,7 @@ module SF
     # Get the number of points defining the shape
     #
     # *Returns:* Number of points of the shape. For rectangle
-    #         shapes, this number is always 4.
+    # shapes, this number is always 4.
     def point_count() : Int32
       SFMLExt.sfml_rectangleshape_getpointcount(to_unsafe, out result)
       return result.to_i
@@ -4551,7 +4551,7 @@ module SF
       return result
     end
     # Convert a point from target coordinates to world
-    #        coordinates, using the current view
+    # coordinates, using the current view
     #
     # This function is an overload of the map_pixel_to_coords
     # function that implicitly uses the current view.
@@ -4604,7 +4604,7 @@ module SF
       return result
     end
     # Convert a point from world coordinates to target
-    #        coordinates, using the current view
+    # coordinates, using the current view
     #
     # This function is an overload of the map_coords_to_pixel
     # function that implicitly uses the current view.
@@ -5262,7 +5262,7 @@ module SF
     # parameters for a regular usage of the graphics module.
     #
     # * *handle* - Platform-specific handle of the control (*hwnd* on
-    #                 Windows, *%window* on Linux/FreeBSD, *ns_window* on OS X)
+    # Windows, *%window* on Linux/FreeBSD, *ns_window* on OS X)
     # * *settings* - Additional settings for the underlying OpenGL context
     def initialize(handle : WindowHandle, settings : ContextSettings = ContextSettings.new())
       SFMLExt.sfml_renderwindow_allocate(out @this)
@@ -5287,7 +5287,7 @@ module SF
       return result
     end
     # Activate or deactivate the window as the current target
-    #        for OpenGL rendering
+    # for OpenGL rendering
     #
     # A window is active only on the current thread, if you want to
     # make it active on another thread you have to deactivate it
@@ -5642,10 +5642,10 @@ module SF
   # Shaders can also be used to apply global post-effects to the
   # current contents of the target. This can be done in two different ways:
   # * draw everything to a `SF::RenderTexture`, then draw it to
-  #   the main target using the shader
+  # the main target using the shader
   # * draw everything directly to the main target, then use
-  #   `SF::Texture::update(window)` to copy its contents to a texture
-  #   and draw it to the main target using the shader
+  # `SF::Texture::update(window)` to copy its contents to a texture
+  # and draw it to the main target using the shader
   #
   # The first technique is more optimized because it doesn't involve
   # retrieving the target's pixels to system memory, but the
@@ -6072,7 +6072,7 @@ module SF
     end
   end
   # Drawable representation of a texture, with its
-  #        own transformations, color, etc.
+  # own transformations, color, etc.
   #
   # `SF::Sprite` is a drawable class that allows to easily display
   # a texture (or a part of it) on a render target.

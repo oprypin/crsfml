@@ -684,7 +684,7 @@ module SF
     end
   end
   # Blocks concurrent access to shared resources
-  #        from multiple threads
+  # from multiple threads
   #
   # Mutex stands for "MUTual EXclusion". A mutex is a
   # synchronization object, used when multiple threads are involved.

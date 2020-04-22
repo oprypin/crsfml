@@ -217,6 +217,7 @@ abstract class CItem
 
   def render_docs(out o : Output, name : String)
     in_code = false
+    in_annot = false
     while @docs[-1]? == ""
       @docs.pop
     end
@@ -231,6 +232,13 @@ abstract class CItem
           line = "```"
         end
         unless in_code
+          if line.starts_with? "\\"
+            in_annot = true
+          elsif !line.starts_with? "    "
+            in_annot = false
+          end
+          line = line.lstrip if in_annot
+
           line = line.sub /^\\brief\b */, ""
           line = line.sub /^\\li\b */, "* "
           line = line.sub /^    \b/, "  "

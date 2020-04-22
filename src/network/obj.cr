@@ -215,7 +215,7 @@ module SF
       return result
     end
     # Get the port of the connected peer to which
-    #        the socket is connected
+    # the socket is connected
     #
     # If the socket is not connected, this function returns 0.
     #
@@ -645,7 +645,7 @@ module SF
       end
     end
     # Specialization of FTP response returning a
-    #        filename listing
+    # filename listing
     class ListingResponse < Response
       @this : Void*
       def finalize()
@@ -1561,7 +1561,7 @@ module SF
     end
   end
   # Utility class to build blocks of data to transfer
-  #        over the network
+  # over the network
   #
   # Packets provide a safe and easy way to serialize data,
   # in order to send it over the network using sockets
@@ -1697,7 +1697,7 @@ module SF
       return result.to_i
     end
     # Tell if the reading position has reached the
-    #        end of the packet
+    # end of the packet
     #
     # This function is useful to know if there is some data
     # left to be read, without actually reading it.
