@@ -17,7 +17,7 @@ Documentation
 Introduction
 ------------
 
-*CrSFML* is a library that allows SFML to be used with the Crystal programming language. [SFML] is a library written in C++, so *CrSFML* also needs to ship thin [C bindings to SFML](#about-the-sfml-wrapper).
+*CrSFML* is a library that allows SFML to be used with the Crystal programming language. [SFML] is a library written in C++, so *CrSFML* also needs to ship thin [C bindings to SFML](#the-c-wrapper).
 
 To quote the official site of SFML,
 
@@ -25,25 +25,7 @@ To quote the official site of SFML,
 
 Indeed, SFML is most often used to make video games. It provides features such as hardware-accelerated 2D graphics, handling keyboard, mouse and gamepad input, vector and matrix manipulation, managing windows (can also be used as a base for OpenGL drawing), working with multiple image formats, audio playback and recording, basic networking... Check out some [demos] of *CrSFML* to see what it can do.
 
-*CrSFML* consists almost entirely of automatically generated code, based on SFML's header files. [More details](CONTRIBUTING.md).
-
-### Differences between SFML and CrSFML
-
-The [API of *CrSFML*][api documentation] (a library for Crystal) attempts to be similar to SFML (a C++ library), but some general changes are present:
-
-- Methods are renamed to `snake_case`.
-- Getter, setter methods are changed:
-    - `x.getSomeProperty()` becomes `x.some_property`.
-    - `x.isSomeProperty()`, `x.hasSomeProperty()` become `x.some_property?`.
-    - `x.setSomeProperty(v)` becomes `x.some_property = v`.
-- Structs in Crystal are always passed by copy, so modifying them can be problematic. For example, `my_struct.x = 7` is fine but `array_of_structs[2].x = 5` will not work. To work around this, copy the whole struct, modify it, then write it back. Better yet, avoid the need to modify structs (work with them like with immutable objects).
-- Member functions, such as `loadFromFile`, that are used for initialization, each have a corresponding shorthand class method (`from_file`) that raises `SF::InitError` on failure.
-- SFML sometimes uses *enum* values as bitmasks. You can combine them using the `|` operator.
-- *enum* members are exposed at class level, so instead of `SF::Keyboard::Code::Slash` you can use `SF::Keyboard::Slash`.
-- SFML sometimes requires that an instance must remain alive as long as it is attached to the object. For example, a textured shape will cause errors if the texture object is destroyed. *CrSFML* prevents this problem by keeping a reference to the object.
-- The `Event` *union* and `EventType` *enum* are represented as a class hierarchy. Instead of `ev.type == SF::Event::Resized` use `ev.is_a?(SF::Event::Resized)`; instead of `ev.size.width` use `ev.width`.
-- Instead of subclassing `Drawable`, include the `Drawable` module with an abstract `draw` method.
-- Most of the [API documentation] is taken directly from SFML, so don't be surprised if it talks in C++ terms.
+*CrSFML* consists almost entirely of automatically generated code, based on SFML's header files. Read more about [generated code](CONTRIBUTING.md) and [API differences between SFML and CrSFML](#api-differences-between-sfml-and-crsfml).
 
 
 Installation
@@ -190,28 +172,36 @@ ln -s /full/path/to/crsfml lib/crsfml
 Another option is to `export CRYSTAL_PATH=/full/path/to` a directory that contains the *crsfml* directory.
 
 
-Credits
--------
+CrSFML as bindings to SFML
+--------------------------
 
-*CrSFML* was made by [Oleh Prypin][oprypin].
+### API differences between SFML and CrSFML
 
-*CrSFML* is [licensed](LICENSE.md) under the terms and conditions of the *zlib/libpng* license.
+The [API of *CrSFML*][api documentation] (a library for Crystal) attempts to be similar to SFML (a C++ library), but some general changes are present:
 
-This library uses and is based on [SFML][sfml-authors].
+- Methods are renamed to `snake_case`.
+- Getter, setter methods are changed:
+    - `x.getSomeProperty()` becomes `x.some_property`.
+    - `x.isSomeProperty()`, `x.hasSomeProperty()` become `x.some_property?`.
+    - `x.setSomeProperty(v)` becomes `x.some_property = v`.
+- Structs in Crystal are always passed by copy, so modifying them can be problematic. For example, `my_struct.x = 7` is fine but `array_of_structs[2].x = 5` will not work. To work around this, copy the whole struct, modify it, then write it back. Better yet, avoid the need to modify structs (work with them like with immutable objects).
+- Member functions, such as `loadFromFile`, that are used for initialization, each have a corresponding shorthand class method (`from_file`) that raises `SF::InitError` on failure.
+- SFML sometimes uses *enum* values as bitmasks. You can combine them using the `|` operator.
+- *enum* members are exposed at class level, so instead of `SF::Keyboard::Code::Slash` you can use `SF::Keyboard::Slash`.
+- SFML sometimes requires that an instance must remain alive as long as it is attached to the object. For example, a textured shape will cause errors if the texture object is destroyed. *CrSFML* prevents this problem by keeping a reference to the object.
+- The `Event` *union* and `EventType` *enum* are represented as a class hierarchy. Instead of `ev.type == SF::Event::Resized` use `ev.is_a?(SF::Event::Resized)`; instead of `ev.size.width` use `ev.width`.
+- Instead of subclassing `Drawable`, include the `Drawable` module with an abstract `draw` method.
+- Most of the [API documentation] is taken directly from SFML, so don't be surprised if it talks in C++ terms.
 
-Thanks to [Alan Willms][alanwillms] for translating [tutorials] to Crystal.
+### The C++ wrapper
 
-
-About the SFML wrapper
-----------------------
-
-The C++ → C wrapper's external interface consists entirely of simple functions that accept only native types (such as `float`, `uint32_t`, `char*`) and untyped pointers (`void*`). The untyped pointers are never exposed to the user, only to other auto-generated parts of the code. The function names consist of the original SFML class name, the function name itself, and a base62 hash of the parameter types. Return types are never used; instead, the output is done into a pointer (which is usually the last argument of the function), but, as usual, the memory allocation is the caller's job. The first argument of each function is a pointer to the receiver object (if applicable).
+The interface of the C++ → C wrapper (which Crystal ultimately binds to) consists entirely of simple functions that accept only native types (such as `float`, `uint32_t`, `char*`) and untyped pointers (`void*`). The untyped pointers are never exposed to the user, only to other auto-generated parts of the code. The function names consist of the original SFML class name, the function name itself, and a base62 hash of the parameter types. Return types are never used; instead, the output is done into a pointer (which is usually the last argument of the function), but, as usual, the memory allocation is the caller's job. The first argument of each function is a pointer to the receiver object (if applicable).
 
 Abstract classes are implemented by exposing a collection of global callback variables, which must be set by the user if they want to use the corresponding class. The callback's first argument is the object, and some arguments are pointers that need to be assigned to inside the callback implementation (because return values are not used).
 
 Compilation of the C++ extensions is based only on SFML's header files, these are made into object files, and all the linking is deferred to the final linker invocation done by Crystal.
 
-### Why not CSFML?
+#### Why not CSFML?
 
 [CSFML] is a great library that allows SFML to be used with C. It goes to great lengths to be human-friendly and does a good job of converting C++ idioms to C idioms. In the past *CrSFML* used to be based on it, but after a while it became apparent that the advantages of CSFML's nice interface are also disadvantages when constructing (especially auto-generated) bindings that attempt to look as close to the real SFML as possible.
 
@@ -222,6 +212,18 @@ There are many aspects that prevent an efficient implementation from the standpo
 Instead of that, the C++ → C wrapper passes the bare SFML data types directly through untyped pointers, and relies on the higher-level binding to deal safely with them. In case of structs the data layout is mirrored, in case of classes the pointers remain completely opaque.
 
 Not to forget that the wrapper is made automatically, so it can be quickly updated to any SFML release and prevents human error that could happen when implementing CSFML.
+
+
+Credits
+-------
+
+*CrSFML* was made by [Oleh Prypin][oprypin].
+
+*CrSFML* is [licensed](LICENSE.md) under the terms and conditions of the *zlib/libpng* license.
+
+This library uses and is based on [SFML][sfml-authors].
+
+Thanks to [Alan Willms][alanwillms] for translating [tutorials] to Crystal.
 
 
 [tutorials]: https://oprypin.github.io/crsfml/tutorials/
