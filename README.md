@@ -1,23 +1,23 @@
 # ![CrSFML](logo.png)
 
-#### [Crystal] bindings to [Simple and Fast Multimedia Library][sfml].
+#### [Crystal][] bindings to [Simple and Fast Multimedia Library][sfml].
 
 Documentation
 -------------
 
 - **[Installation](#installation)**
 
-- **[Tutorials]**
+- **[Tutorials][]**
 
-- **[API Documentation]**
+- **[API Documentation][]**
 
-- **[Examples](examples)** / **[Demos]**
+- **[Examples](examples)** / **[Demos][]**
 
 
 Introduction
 ------------
 
-*CrSFML* is a library that allows SFML to be used with the Crystal programming language. [SFML] is a library written in C++, so *CrSFML* also needs to ship thin [C bindings to SFML](#the-c-wrapper).
+*CrSFML* is a library that allows SFML to be used with the Crystal programming language. [SFML][] is a library written in C++, so *CrSFML* also needs to ship thin [C bindings to SFML](#the-c-wrapper).
 
 To quote the official site of SFML,
 
@@ -44,7 +44,7 @@ dependencies:
     github: oprypin/crsfml
 ```
 
-Resolve dependencies with [Shards]:
+Resolve dependencies with [Shards][]:
 
 ```bash
 shards install
@@ -71,7 +71,7 @@ The C++ wrappers require a C++ compiler (C++03 will do).
 
 #### Install SFML
 
-[SFML] must be installed, with the version that matches `SFML_VERSION` in [src/version.cr](src/version.cr) (usually latest). If it doesn't, no need to look for an older release of *CrSFML*, just [re-generate the sources](#generating-sources) for your version. SFML versions 2.3.x through 2.5.x are supported by *CrSFML*.
+[SFML][] must be installed, with the version that matches `SFML_VERSION` in [src/version.cr](src/version.cr) (usually latest). If it doesn't, no need to look for an older release of *CrSFML*, just [re-generate the sources](#generating-sources) for your version. SFML versions 2.3.x through 2.5.x are supported by *CrSFML*.
 
 There are detailed [official instructions][sfml-install] on how to install SFML manually, but on many systems there are easier ways.
 
@@ -85,7 +85,7 @@ Note that most often the packages provided by Linux distributions are outdated. 
 
 ##### Mac
 
-The easiest way to install SFML on macOS is through the [Homebrew] package manager:
+The easiest way to install SFML on macOS is through the [Homebrew][] package manager:
 
 ```bash
 brew update
@@ -144,7 +144,7 @@ CrSFML's top-level scripts also need the include path to work. E.g. `crystal gen
 
 CrSFML's sources come almost entirely from a [generator program](generate.cr). They are based on a particular version of SFML. But as sources for the latest version are already bundled, usually you don't need to do this. [More details](CONTRIBUTING.md).
 
-As this is out of scope for [Shards], let's download the repository separately (then use CrSFML [without Shards](#crsfml-without-shards)).
+As this is out of scope for [Shards][], let's download the repository separately (then use CrSFML [without Shards](#crsfml-without-shards)).
 
 ```bash
 git clone https://github.com/oprypin/crsfml
@@ -203,7 +203,7 @@ Compilation of the C++ extensions is based only on SFML's header files, these ar
 
 #### Why not CSFML?
 
-[CSFML] is a great library that allows SFML to be used with C. It goes to great lengths to be human-friendly and does a good job of converting C++ idioms to C idioms. In the past *CrSFML* used to be based on it, but after a while it became apparent that the advantages of CSFML's nice interface are also disadvantages when constructing (especially auto-generated) bindings that attempt to look as close to the real SFML as possible.
+[CSFML][] is a great library that allows SFML to be used with C. It goes to great lengths to be human-friendly and does a good job of converting C++ idioms to C idioms. In the past *CrSFML* used to be based on it, but after a while it became apparent that the advantages of CSFML's nice interface are also disadvantages when constructing (especially auto-generated) bindings that attempt to look as close to the real SFML as possible.
 
 Many details about functions' signatures are lost, as well as function overloads. Names of data types had to be simplified (not namespaced). And many other such small things that bring the frustration of having to reconstruct the details of the original SFML interface based on the simplified CSFML interface.
 
