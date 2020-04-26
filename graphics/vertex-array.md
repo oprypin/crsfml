@@ -157,7 +157,7 @@ entity = MyEntity.new
 window.draw(entity) # internally calls entity.draw
 ```
 
-Subclassing the [Transformable]({{book.api}}/Transformable.html) class automatically adds the same transformation methods to your class as other CrSFML classes (`position=`, `rotation=`, `move`, `scale`, ...). You can learn more about this in the tutorial on [transforming entities](graphics-transform.md "Transforming entities tutorial").
+Subclassing the [Transformable]({{book.api}}/Transformable.html) class automatically adds the same transformation methods to your class as other CrSFML classes (`position=`, `rotation=`, `move`, `scale`, ...). You can learn more about this in the tutorial on [transforming entities](transform.md "Transforming entities tutorial").
 
 Using these two features and a vertex array (in this example we'll also add a texture), here is what a typical CrSFML-like graphical class would look like:
 

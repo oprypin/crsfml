@@ -1,28 +1,29 @@
 #!/bin/bash
 
-set -o errexit
+# Usage: ./deploy.sh origin
 
-rev="$(git rev-parse --short HEAD)"
+set -e
 
-git clone "$1" -b gh-pages gh-pages/
+cd "$(dirname "$0")"
 
-cd gh-pages
+dest_branch='gh-pages'
+dest_repo="$(pwd)/.$dest_branch"
+dest_dir="$dest_repo/tutorials"
 
-rm -rf tutorials
-mv ../_book tutorials
+set -x
 
-git config user.name 'Robot'
-git config user.email '<>'
+test -d "$dest_repo" || git worktree add "$dest_repo" "$dest_branch"
 
-git add -A tutorials
+rev="$(git rev-parse HEAD)"
 
-for f in tutorials/*.html; do
-    # See if there are any changes not related to "generator" or "revision"
-    (git diff --staged "$f" | tail -n +5 | grep -E '^[+\-]' |
-    grep -vE '<meta name="generator"|data-revision="') || unchanged+=("$f")
+mkdocs build -d "$dest_dir"
+rm "$dest_dir"/sitemap.*
+
+pushd "$dest_repo"
+git add -A "$dest_dir"
+git diff --staged --quiet && exit
+git -c user.name='Robot' -c user.email='<>' commit -m "Generate tutorials ($rev)"
+for remote in "$@"; do
+    git push "$remote" "$dest_branch"
 done
-# Unstage files that changed only generation date
-[ -n "$unchanged" ] && git reset -- "${unchanged[@]}"
-
-git commit -m "Generate tutorials ($rev)"
-git push origin gh-pages >/dev/null 2>&1
+popd
