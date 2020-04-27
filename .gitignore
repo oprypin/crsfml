@@ -27,3 +27,8 @@
 !/examples/resources/**
 !/examples/lib/
 !/examples/lib/*
+
+!/.github/
+!/.github/workflows/
+!/.github/workflows/*.yml.jinja
+!/.github/workflows/generate.py

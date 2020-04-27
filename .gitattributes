@@ -1,3 +1,4 @@
 src/*/lib.cr linguist-generated
 src/*/obj.cr linguist-generated
 src/*/ext.cpp linguist-generated
+.github/workflows/ci.yml linguist-generated

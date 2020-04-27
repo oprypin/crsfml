@@ -1,0 +1,16 @@
+name: Validate CI config
+on:
+  push:
+    paths: ['.github/**']
+  pull_request:
+    paths: ['.github/**']
+jobs:
+  build:
+    name: Validate config
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v1
+      - run: pip install jinja2 pyyaml
+      - run: python .github/workflows/generate.py
+      - run: git diff --exit-code
