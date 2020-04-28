@@ -9,6 +9,7 @@ theme:
   highlightjs: false
 
 extra_css:
+  - codehilite.css
   - style.css
 
 markdown_extensions:

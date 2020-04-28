@@ -17,6 +17,7 @@ test -d "$dest_repo" || git worktree add "$dest_repo" "$dest_branch"
 rev="$(git rev-parse HEAD)"
 
 mkdocs build -d "$dest_dir"
+pygmentize -f html -S default -a '.codehilite' >"$dest_dir/codehilite.css"
 rm "$dest_dir"/sitemap.*
 
 pushd "$dest_repo"

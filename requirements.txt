@@ -2,3 +2,4 @@ git+https://github.com/mkdocs/mkdocs@1ad6a91e3ff04a7f61b3bf376dbca84c5169279a
 mkdocs-markdownextradata-plugin==0.1.3
 git+https://github.com/oprypin/mkdocs-same-dir
 git+https://github.com/oprypin/mkdocs-literate-nav
+Pygments
