@@ -9,7 +9,7 @@
 !/generate.cr
 !/save_docs.cr
 !/logo.png
-!/*.sh
+!*.sh
 !/*.cmd
 
 !/src/
