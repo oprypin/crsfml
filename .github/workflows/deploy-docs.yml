@@ -1,0 +1,20 @@
+name: Deploy docs
+on:
+  push:
+    branches: [master]
+jobs:
+  build:
+    name: Deploy docs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Crystal
+        run: sudo snap install crystal --classic
+      - name: Download source
+        uses: actions/checkout@v2
+      - name: Download gh-pages
+        uses: actions/checkout@v2
+        with:
+          ref: gh-pages
+          path: .gh-pages
+      - name: Generate and deploy to gh-pages
+        run: docs/deploy.sh origin
