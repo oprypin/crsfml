@@ -43,6 +43,9 @@ cat << EOF > "$dest_dir/index.html"
 </html>
 EOF
 
+# Remove broken auto-scroll feature.
+sed -i -e '/scrollSidebarToOpenType();/d' "$dest_dir/js/doc.js"
+
 # Replace color scheme
 sed -i \
 -e 's/#47266E\b/#222/gI' \
