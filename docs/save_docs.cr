@@ -55,19 +55,17 @@ def get_docs(file)
 end
 
 
-Dir.glob("docs/*.diff").each do |file|
+Dir.glob(File.join(__DIR__, "*.diff")).each do |file|
   File.delete(file)
 end
 
-current = Dir.current
 tmp = `mktemp -d`.strip
 Dir.cd(tmp)
-require "./generate"
-Dir.cd(current)
+require "../generate"
 
 source_pairs = {} of String => Array(String)
 
-{tmp, Dir.exists?("build") ? File.join(current, "build", "**") : File.join(current, "**")}.each_with_index do |dir, i|
+{tmp, File.join(__DIR__, "..")}.each_with_index do |dir, i|
   glob = File.join(dir, "src", "*", "obj.cr")
   Dir.glob(glob).each do |file|
     mod = file.split(File::SEPARATOR)[-2]
@@ -78,8 +76,6 @@ source_pairs = {} of String => Array(String)
     end
   end
 end
-
-Dir.cd(tmp)
 
 source_pairs.each do |mod, files|
   Dir.mkdir("a")
@@ -97,7 +93,7 @@ source_pairs.each do |mod, files|
   end
 
   Process.run("git", %w[diff -U1 --minimal --text --no-index --no-prefix --no-renames a b]) do |pr|
-    File.open(File.join(current, "docs", "#{mod}.diff"), "w") do |diff|
+    File.open(File.join(__DIR__, "#{mod}.diff"), "w") do |diff|
       pr.output.each_line(chomp: false) do |line|
         case line.chomp
         when /^(---|\+\+\+) [ab]\/(\d+)$/

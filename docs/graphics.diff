@@ -49,9 +49,8 @@
 +++ SF::Drawable
 @@ -1,13 +1,13 @@
 -Abstract base class for objects that can be drawn
--to a render target
 +Abstract module for objects that can be drawn
-+to a render target
+ to a render target
  
 -`SF::Drawable` is a very simple base class that allows objects
 +`SF::Drawable` is a very simple module that allows objects
