@@ -1,0 +1,241 @@
+name: CI
+
+on: [push, pull_request]
+
+<% ubuntu, mac, windows = "Ubuntu", "macOS", "Windows" %>
+<% latest_sfml = "2.5.1" %>
+<% homebrew = "Homebrew" %>
+<% config = {os_ver: nil, sfml: latest_sfml, crystal: "latest", crystal_repo: false, docker: nil, sfml_apt: false} %>
+<% matrix = [
+  config.merge(os: ubuntu, os_ver: "18.04", crystal_repo: true),
+  config.merge(docker: "crystallang/crystal:0.25.1", os: ubuntu, os_ver: "16.04", sfml_apt: true, sfml: "2.3.2", crystal: "0.25.1"),
+  config.merge(os: mac, crystal: homebrew),
+  config.merge(os: mac, sfml: homebrew, crystal: homebrew),
+  config.merge(os: windows),
+] %>
+<% all = {ubuntu, mac, windows} %>
+<% examples = {
+  "simple" => all,
+  "flippy_bird" => all,
+  "snakes" => {ubuntu, windows},
+  "transformable" => all,
+  "text_input" => all,
+  "diagnostics" => {ubuntu},
+  "sound_capture" => Tuple.new,
+  "shader" => all,
+  "shapes" => {ubuntu, windows},
+  "gl" => {ubuntu, mac},
+  "echo" => Tuple.new,
+} %>
+
+jobs:
+<% matrix.each_with_index(1) do |m, m_i| %>
+  job<%= m_i %>:
+    name: '<%= m[:os] %><%= " #{m[:os_ver]}" if m[:os_ver] %>: SFML <%= m[:sfml] %>, Crystal <%= m[:crystal] %>'
+  <% if m[:os] == windows %>
+    needs: job1
+  <% end %>
+    runs-on: <%= m[:os].downcase %>-<%= m[:os_ver] || "latest" %>
+  <% if m[:docker] %>
+    container: <%= m[:docker] %>
+  <% end %>
+    steps:
+  <% if m[:os] == windows %>
+      - name: Enable Developer Command Prompt
+        uses: ilammy/msvc-dev-cmd@1eed9c12159dd2d2f8804980fbba1abe36ff77d2
+  <% end %>
+      - name: Download CrSFML source
+        uses: actions/checkout@v2
+  <% run_examples = m[:sfml].in?(latest_sfml, homebrew) %>
+  <% if m[:os] == ubuntu %>
+    <% if m[:sfml_apt] %>
+      <% pkgs = %w[libsfml-dev] %>
+    <% else %>
+      <% pkgs = %w[cmake libflac-dev libfreetype6-dev libgl1-mesa-dev libopenal-dev libudev-dev libvorbis-dev libx11-dev libxrandr-dev] %>
+    <% end %>
+    <% if run_examples %>
+      <% pkgs += %w[xvfb libyaml-dev] %>
+    <% end %>
+    <% if m[:crystal_repo] %>
+      <% pkgs += %w[crystal] %>
+      - name: Add Crystal repository
+        run: |
+          curl -sL "https://keybase.io/crystal/pgp_keys.asc" | sudo apt-key add -
+          echo "deb https://dist.crystal-lang.org/apt crystal main" | sudo tee /etc/apt/sources.list.d/crystal.list
+    <% end %>
+      - name: Install packages
+        run: |
+          <% if !m[:docker] %>sudo <% end %>apt-get -q update
+          <% if !m[:docker] %>sudo <% end %>apt-get -qy install <%= pkgs.sort.join(" ") %>
+  <% end %>
+  <% if m[:os] == mac %>
+      - name: Install packages
+        run: brew install crystal \
+        <% if m[:sfml] == homebrew %>sfml<% else %>flac freetype jpeg libogg libvorbis<% end %>
+  <% end %>
+  <% if m[:sfml] != homebrew && !m[:sfml_apt] %>
+      - name: Cache SFML
+        id: cache-sfml
+        uses: actions/cache@v1
+        with:
+          path: sfml
+          key: sfml-<%= m[:sfml].gsub(".", "_") %>-<%= m[:os].downcase %>-v4
+      - name: Download SFML source
+        if: steps.cache-sfml.outputs.cache-hit != 'true'
+        uses: actions/checkout@v2
+        with:
+          repository: SFML/SFML
+          ref: <%= m[:sfml] %>
+          path: sfml<% if m[:os] == windows %>-src<% end %>
+      - name: Build SFML
+        if: steps.cache-sfml.outputs.cache-hit != 'true'
+        working-directory: ./sfml<% if m[:os] == windows %>-src<% end %>
+        run: |
+          cmake . -DCMAKE_INSTALL_PREFIX="$(pwd)/../sfml" \
+          <% if m[:os] != windows %>-DCMAKE_BUILD_TYPE=Release<% end %>
+          cmake --build . \
+          <% if m[:os] == windows %>--target install --config Release<% end %>
+  <% end %>
+  <% if m[:os] == windows %>
+      - name: Set up environment
+        run: |
+          echo "::set-env name=PATH::$(pwd)\sfml\bin;${env:PATH}"
+          echo "::set-env name=LIB::$(pwd)\sfml\lib;${env:LIB}"
+          echo "::set-env name=INCLUDE::$(pwd)\sfml\include;${env:INCLUDE}"
+  <% elsif m[:sfml] == homebrew %>
+    <% sfml_include_dir = %(/usr/local/include) %>
+  <% elsif !m[:sfml_apt] %>
+    <% sfml_include_dir = %("$GITHUB_WORKSPACE/sfml/include") %>
+    <% library_path = %("$GITHUB_WORKSPACE/sfml/lib") %>
+  <% end %>
+      - name: Build CrSFML
+        run: |
+  <% if m[:os] == windows %>
+          .\make
+  <% else %>
+          touch generate.cr
+          <% if sfml_include_dir %>SFML_INCLUDE_DIR=<%= sfml_include_dir %><% end %> \
+          make
+  <% end %>
+  <% if m[:os] == windows %>
+      - name: Cache libraries
+        id: cache-libs
+        uses: actions/cache@v1
+        with:
+          path: libs
+          key: win-libs
+      - name: Download libgc
+        if: steps.cache-libs.outputs.cache-hit != 'true'
+        uses: actions/checkout@v2
+        with:
+          repository: ivmai/bdwgc
+          ref: 2fd48a92b8bff3afb64b3528ad78b63f033f0436  # master @ 2020-02-13
+          path: bdwgc
+      - name: Download libatomic_ops
+        if: steps.cache-libs.outputs.cache-hit != 'true'
+        uses: actions/checkout@v2
+        with:
+          repository: ivmai/libatomic_ops
+          ref: v7.6.10
+          path: bdwgc/libatomic_ops
+      - name: Build libgc
+        if: steps.cache-libs.outputs.cache-hit != 'true'
+        working-directory: ./bdwgc
+        run: |
+          cmake . -DBUILD_SHARED_LIBS=OFF -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded
+          cmake --build . --config Release
+      - name: Download libpcre
+        if: steps.cache-libs.outputs.cache-hit != 'true'
+        run: |
+          iwr https://ftp.pcre.org/pub/pcre/pcre-8.43.zip -OutFile pcre.zip
+          Expand-Archive pcre.zip -DestinationPath .
+          mv pcre* pcre
+      - name: Build libpcre
+        if: steps.cache-libs.outputs.cache-hit != 'true'
+        working-directory: ./pcre
+        run: |
+          cmake . -DBUILD_SHARED_LIBS=OFF -DPCRE_SUPPORT_UNICODE_PROPERTIES=ON -DPCRE_SUPPORT_JIT=ON -DPCRE_STATIC_RUNTIME=ON
+          cmake --build . --config Release
+      - name: Gather libraries
+        if: steps.cache-libs.outputs.cache-hit != 'true'
+        run: |
+          mkdir libs
+          mv pcre/Release/pcre.lib libs/
+          mv bdwgc/Release/gc.lib libs/
+      - name: Download compiled objects
+        uses: actions/download-artifact@v1
+        with:
+          name: objs
+    <% examples.each do |example, run| %>
+      <% if run.includes?(m[:os]) %>
+      - name: Link the executable "<%= example %>"
+        run: cl objs\<%= example %>.o /Feexamples\<%= example %> libs\pcre.lib libs\gc.lib \
+        <% %w[system window graphics audio network].reverse!.each do |m| %> src\<%= m %>\ext.o sfml-<%= m %>.lib <% end %> \
+        advapi32.lib libcmt.lib legacy_stdio_definitions.lib
+      <% end %>
+    <% end %>
+  <% else %>
+    <% if m[:sfml] == latest_sfml %>
+      - name: Validate freshness of generated files
+        run: |
+          git diff --exit-code
+    <% end %>
+      - name: Generate docs
+        run: crystal doc
+    <% examples.each_key do |example| %>
+      - name: Build example "<%= example %>"
+        working-directory: ./examples
+        run: <% if library_path %>LIBRARY_PATH=<%= library_path %><% end %> \
+             crystal build <%= example %>.cr
+    <% end %>
+  <% end %>
+  <% if m == matrix[0] %>
+      - name: Cross-compile examples for Windows
+        working-directory: ./examples
+        run: |
+    <% examples.each do |example, run| %>
+      <% if run.includes?(windows) %>
+          crystal build --cross-compile --target x86_64-pc-windows-msvc <%= example %>.cr
+      <% end %>
+    <% end %>
+      - name: Gather compiled objects
+        run: |
+          mkdir objs
+          mv examples/*.o objs/
+      - name: Upload compiled objects
+        uses: actions/upload-artifact@v1
+        with:
+          name: objs
+          path: objs
+  <% end %>
+  <% if run_examples %>
+    <% if m[:os] == ubuntu %>
+      - name: Start virtual display
+        run: |
+          Xvfb :99 -screen 0 1024x768x24 +extension GLX &
+    <% end %>
+    <% examples.each do |example, run| %>
+      <% if run.includes?(m[:os]) %>
+      - name: Run example "<%= example %>"
+        working-directory: ./examples
+        run: |
+        <% if m[:os] == windows %>
+          $proc = start <%= example %>.exe -NoNewWindow -PassThru
+          sleep 3
+          Get-Process -Id $proc.Id
+          kill $proc
+        <% else %>
+          <% if library_path %>LD_LIBRARY_PATH=<%= library_path %><% end %> \
+          DISPLAY=:99.0 ./<%= example %> & pid=$!
+          sleep 3
+          kill $pid
+        <% end %>
+      <% end %>
+    <% end %>
+    <% if m[:os] == ubuntu %>
+      - name: Stop virtual display
+        run: killall Xvfb
+        if: always()
+    <% end %>
+  <% end %>
+<% end %>

@@ -30,5 +30,5 @@
 
 !/.github/
 !/.github/workflows/
-!/.github/workflows/*.yml.jinja
-!/.github/workflows/generate.py
+!/.github/workflows/*.yml.ecr
+!/.github/workflows/generate.cr

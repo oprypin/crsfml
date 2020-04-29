@@ -6,11 +6,18 @@ on:
     paths: ['.github/**']
 jobs:
   build:
-    name: Validate config
+    name: Validate CI config
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v1
-      - run: pip install jinja2 pyyaml
-      - run: python .github/workflows/generate.py
-      - run: git diff --exit-code
+      - name: Add Crystal repository
+        run: |
+          curl -sL "https://keybase.io/crystal/pgp_keys.asc" | sudo apt-key add -
+          echo "deb https://dist.crystal-lang.org/apt crystal main" | sudo tee /etc/apt/sources.list.d/crystal.list
+      - name: Install packages
+        run: sudo apt-get -q update; sudo apt-get -qy install crystal libyaml-dev
+      - name: Download sources
+        uses: actions/checkout@v2
+      - name: Generate config
+        run: crystal run .github/workflows/generate.cr
+      - name: Validate freshness
+        run: git diff --exit-code
