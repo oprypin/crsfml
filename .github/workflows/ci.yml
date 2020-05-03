@@ -34,13 +34,12 @@ jobs:
         run: |
           cmake . -DCMAKE_INSTALL_PREFIX="$(pwd)/../sfml" -DCMAKE_BUILD_TYPE=Release
           cmake --build .
+      - name: Re-generate sources
+        run: crystal generate.cr "$GITHUB_WORKSPACE/sfml/include"
       - name: Build CrSFML
-        run: |
-          touch generate.cr
-          SFML_INCLUDE_DIR="$GITHUB_WORKSPACE/sfml/include" make
+        run: SFML_INCLUDE_DIR="$GITHUB_WORKSPACE/sfml/include" make
       - name: Validate freshness of generated files
-        run: |
-          git diff --exit-code
+        run: git diff --exit-code
       - name: Generate docs
         run: crystal doc
       - name: Build example "simple"
@@ -76,28 +75,8 @@ jobs:
       - name: Build example "echo"
         working-directory: ./examples
         run: LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" crystal build echo.cr
-      - name: Cross-compile examples for Windows
-        working-directory: ./examples
-        run: |
-          crystal build --cross-compile --target x86_64-pc-windows-msvc simple.cr
-          crystal build --cross-compile --target x86_64-pc-windows-msvc flippy_bird.cr
-          crystal build --cross-compile --target x86_64-pc-windows-msvc snakes.cr
-          crystal build --cross-compile --target x86_64-pc-windows-msvc transformable.cr
-          crystal build --cross-compile --target x86_64-pc-windows-msvc text_input.cr
-          crystal build --cross-compile --target x86_64-pc-windows-msvc shader.cr
-          crystal build --cross-compile --target x86_64-pc-windows-msvc shapes.cr
-      - name: Gather compiled objects
-        run: |
-          mkdir objs
-          mv examples/*.o objs/
-      - name: Upload compiled objects
-        uses: actions/upload-artifact@v1
-        with:
-          name: objs
-          path: objs
       - name: Start virtual display
-        run: |
-          Xvfb :99 -screen 0 1024x768x24 +extension GLX &
+        run: Xvfb :99 -screen 0 1024x768x24 +extension GLX &
       - name: Run example "simple"
         working-directory: ./examples
         run: |
@@ -166,10 +145,10 @@ jobs:
         run: |
           apt-get -q update
           apt-get -qy install libsfml-dev
+      - name: Re-generate sources
+        run: crystal generate.cr
       - name: Build CrSFML
-        run: |
-          touch generate.cr
-          make
+        run: make
       - name: Generate docs
         run: crystal doc
       - name: Build example "simple"
@@ -232,13 +211,12 @@ jobs:
         run: |
           cmake . -DCMAKE_INSTALL_PREFIX="$(pwd)/../sfml" -DCMAKE_BUILD_TYPE=Release
           cmake --build .
+      - name: Re-generate sources
+        run: crystal generate.cr "$GITHUB_WORKSPACE/sfml/include"
       - name: Build CrSFML
-        run: |
-          touch generate.cr
-          SFML_INCLUDE_DIR="$GITHUB_WORKSPACE/sfml/include" make
+        run: SFML_INCLUDE_DIR="$GITHUB_WORKSPACE/sfml/include" make
       - name: Validate freshness of generated files
-        run: |
-          git diff --exit-code
+        run: git diff --exit-code
       - name: Generate docs
         run: crystal doc
       - name: Build example "simple"
@@ -318,10 +296,10 @@ jobs:
         uses: actions/checkout@v2
       - name: Install packages
         run: brew install crystal sfml
+      - name: Re-generate sources
+        run: crystal generate.cr /usr/local/include
       - name: Build CrSFML
-        run: |
-          touch generate.cr
-          SFML_INCLUDE_DIR=/usr/local/include make
+        run: SFML_INCLUDE_DIR=/usr/local/include make
       - name: Generate docs
         run: crystal doc
       - name: Build example "simple"
@@ -394,12 +372,11 @@ jobs:
           sleep 3
           kill $pid
   job5:
-    name: 'Windows: SFML 2.5.1, Crystal latest'
-    needs: job1
+    name: 'Windows: SFML 2.5.1, Crystal nightly'
     runs-on: windows-latest
     steps:
-      - name: Enable Developer Command Prompt
-        uses: ilammy/msvc-dev-cmd@1eed9c12159dd2d2f8804980fbba1abe36ff77d2
+      - name: Install Crystal
+        uses: oprypin/install-crystal@v1
       - name: Download CrSFML source
         uses: actions/checkout@v2
       - name: Cache SFML
@@ -426,71 +403,48 @@ jobs:
           echo "::set-env name=PATH::$(pwd)\sfml\bin;${env:PATH}"
           echo "::set-env name=LIB::$(pwd)\sfml\lib;${env:LIB}"
           echo "::set-env name=INCLUDE::$(pwd)\sfml\include;${env:INCLUDE}"
+          echo "::set-env name=CRYSTAL_PATH::$(pwd)\..;${env:CRYSTAL_PATH}"
+      - name: Re-generate sources
+        run: crystal generate.cr "${env:GITHUB_WORKSPACE}\sfml\include"
       - name: Build CrSFML
-        run: |
-          .\make
-      - name: Cache libraries
-        id: cache-libs
-        uses: actions/cache@v1
-        with:
-          path: libs
-          key: win-libs
-      - name: Download libgc
-        if: steps.cache-libs.outputs.cache-hit != 'true'
-        uses: actions/checkout@v2
-        with:
-          repository: ivmai/bdwgc
-          ref: 2fd48a92b8bff3afb64b3528ad78b63f033f0436 # master @ 2020-02-13
-          path: bdwgc
-      - name: Download libatomic_ops
-        if: steps.cache-libs.outputs.cache-hit != 'true'
-        uses: actions/checkout@v2
-        with:
-          repository: ivmai/libatomic_ops
-          ref: v7.6.10
-          path: bdwgc/libatomic_ops
-      - name: Build libgc
-        if: steps.cache-libs.outputs.cache-hit != 'true'
-        working-directory: ./bdwgc
-        run: |
-          cmake . -DBUILD_SHARED_LIBS=OFF -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded
-          cmake --build . --config Release
-      - name: Download libpcre
-        if: steps.cache-libs.outputs.cache-hit != 'true'
-        run: |
-          iwr https://ftp.pcre.org/pub/pcre/pcre-8.43.zip -OutFile pcre.zip
-          Expand-Archive pcre.zip -DestinationPath .
-          mv pcre* pcre
-      - name: Build libpcre
-        if: steps.cache-libs.outputs.cache-hit != 'true'
-        working-directory: ./pcre
-        run: |
-          cmake . -DBUILD_SHARED_LIBS=OFF -DPCRE_SUPPORT_UNICODE_PROPERTIES=ON -DPCRE_SUPPORT_JIT=ON -DPCRE_STATIC_RUNTIME=ON
-          cmake --build . --config Release
-      - name: Gather libraries
-        if: steps.cache-libs.outputs.cache-hit != 'true'
-        run: |
-          mkdir libs
-          mv pcre/Release/pcre.lib libs/
-          mv bdwgc/Release/gc.lib libs/
-      - name: Download compiled objects
-        uses: actions/download-artifact@v1
-        with:
-          name: objs
-      - name: Link the executable "simple"
-        run: cl objs\simple.o /Feexamples\simple libs\pcre.lib libs\gc.lib src\network\ext.o sfml-network.lib src\audio\ext.o sfml-audio.lib src\graphics\ext.o sfml-graphics.lib src\window\ext.o sfml-window.lib src\system\ext.o sfml-system.lib advapi32.lib libcmt.lib legacy_stdio_definitions.lib
-      - name: Link the executable "flippy_bird"
-        run: cl objs\flippy_bird.o /Feexamples\flippy_bird libs\pcre.lib libs\gc.lib src\network\ext.o sfml-network.lib src\audio\ext.o sfml-audio.lib src\graphics\ext.o sfml-graphics.lib src\window\ext.o sfml-window.lib src\system\ext.o sfml-system.lib advapi32.lib libcmt.lib legacy_stdio_definitions.lib
-      - name: Link the executable "snakes"
-        run: cl objs\snakes.o /Feexamples\snakes libs\pcre.lib libs\gc.lib src\network\ext.o sfml-network.lib src\audio\ext.o sfml-audio.lib src\graphics\ext.o sfml-graphics.lib src\window\ext.o sfml-window.lib src\system\ext.o sfml-system.lib advapi32.lib libcmt.lib legacy_stdio_definitions.lib
-      - name: Link the executable "transformable"
-        run: cl objs\transformable.o /Feexamples\transformable libs\pcre.lib libs\gc.lib src\network\ext.o sfml-network.lib src\audio\ext.o sfml-audio.lib src\graphics\ext.o sfml-graphics.lib src\window\ext.o sfml-window.lib src\system\ext.o sfml-system.lib advapi32.lib libcmt.lib legacy_stdio_definitions.lib
-      - name: Link the executable "text_input"
-        run: cl objs\text_input.o /Feexamples\text_input libs\pcre.lib libs\gc.lib src\network\ext.o sfml-network.lib src\audio\ext.o sfml-audio.lib src\graphics\ext.o sfml-graphics.lib src\window\ext.o sfml-window.lib src\system\ext.o sfml-system.lib advapi32.lib libcmt.lib legacy_stdio_definitions.lib
-      - name: Link the executable "shader"
-        run: cl objs\shader.o /Feexamples\shader libs\pcre.lib libs\gc.lib src\network\ext.o sfml-network.lib src\audio\ext.o sfml-audio.lib src\graphics\ext.o sfml-graphics.lib src\window\ext.o sfml-window.lib src\system\ext.o sfml-system.lib advapi32.lib libcmt.lib legacy_stdio_definitions.lib
-      - name: Link the executable "shapes"
-        run: cl objs\shapes.o /Feexamples\shapes libs\pcre.lib libs\gc.lib src\network\ext.o sfml-network.lib src\audio\ext.o sfml-audio.lib src\graphics\ext.o sfml-graphics.lib src\window\ext.o sfml-window.lib src\system\ext.o sfml-system.lib advapi32.lib libcmt.lib legacy_stdio_definitions.lib
+        run: .\make
+      - name: Validate freshness of generated files
+        run: git diff --exit-code
+      - name: Generate docs
+        run: crystal doc
+      - name: Build example "simple"
+        working-directory: ./examples
+        run: crystal build simple.cr
+      - name: Build example "flippy_bird"
+        working-directory: ./examples
+        run: crystal build flippy_bird.cr
+      - name: Build example "snakes"
+        working-directory: ./examples
+        run: crystal build snakes.cr
+      - name: Build example "transformable"
+        working-directory: ./examples
+        run: crystal build transformable.cr
+      - name: Build example "text_input"
+        working-directory: ./examples
+        run: crystal build text_input.cr
+      - name: Build example "diagnostics"
+        working-directory: ./examples
+        run: crystal build diagnostics.cr
+      - name: Build example "sound_capture"
+        working-directory: ./examples
+        run: crystal build sound_capture.cr
+      - name: Build example "shader"
+        working-directory: ./examples
+        run: crystal build shader.cr
+      - name: Build example "shapes"
+        working-directory: ./examples
+        run: crystal build shapes.cr
+      - name: Build example "gl"
+        working-directory: ./examples
+        run: crystal build gl.cr
+      - name: Build example "echo"
+        working-directory: ./examples
+        run: crystal build echo.cr
       - name: Run example "simple"
         working-directory: ./examples
         run: |
@@ -526,6 +480,13 @@ jobs:
           sleep 3
           Get-Process -Id $proc.Id
           kill $proc
+      - name: Run example "diagnostics"
+        working-directory: ./examples
+        run: |
+          $proc = start diagnostics.exe -NoNewWindow -PassThru
+          sleep 3
+          Get-Process -Id $proc.Id
+          kill $proc
       - name: Run example "shader"
         working-directory: ./examples
         run: |
@@ -537,6 +498,13 @@ jobs:
         working-directory: ./examples
         run: |
           $proc = start shapes.exe -NoNewWindow -PassThru
+          sleep 3
+          Get-Process -Id $proc.Id
+          kill $proc
+      - name: Run example "gl"
+        working-directory: ./examples
+        run: |
+          $proc = start gl.exe -NoNewWindow -PassThru
           sleep 3
           Get-Process -Id $proc.Id
           kill $proc
