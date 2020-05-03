@@ -1531,7 +1531,7 @@ class CModule < CNamespace
         if line.starts_with?("+++ SF::") || line.starts_with?("--- SF::")
           @@doc_diffs[line[8..-1].chomp] = diff = [] of String
         else
-          diff << line
+          diff << line.chomp + "\n"
         end
       end
     rescue
