@@ -1,3 +1,5 @@
+#!/usr/bin/env crystal
+
 require "ecr"
 require "yaml"
 

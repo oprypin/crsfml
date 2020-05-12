@@ -1,15 +1,20 @@
 name: CI
 
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+    branches: [master]
+  schedule:
+    - cron: '0 6 * * 6'
 
 <% ubuntu, mac, windows = "Ubuntu", "macOS", "Windows" %>
 <% latest_sfml = "2.5.1" %>
 <% homebrew = "Homebrew" %>
-<% config = {os_ver: nil, sfml: latest_sfml, crystal: "latest", crystal_repo: false, docker: nil, sfml_apt: false} %>
+<% config = {os_ver: nil, sfml: latest_sfml, crystal: "latest", docker: nil, sfml_apt: false} %>
 <% matrix = [
-  config.merge(os: ubuntu, os_ver: "18.04", crystal_repo: true),
+  config.merge(os: ubuntu, os_ver: "18.04", crystal: "nightly"),
   config.merge(docker: "crystallang/crystal:0.25.1", os: ubuntu, os_ver: "16.04", sfml_apt: true, sfml: "2.3.2", crystal: "0.25.1"),
-  config.merge(os: mac, crystal: homebrew),
+  config.merge(os: mac),
   config.merge(os: mac, sfml: homebrew, crystal: homebrew),
   config.merge(os: windows, crystal: "nightly"),
 ] %>
@@ -37,10 +42,6 @@ jobs:
     container: <%= m[:docker] %>
   <% end %>
     steps:
-  <% if m[:os] == windows %>
-      - name: Install Crystal
-        uses: oprypin/install-crystal@v1
-  <% end %>
       - name: Download CrSFML source
         uses: actions/checkout@v2
   <% run_examples = m[:sfml].in?(latest_sfml, homebrew) %>
@@ -51,14 +52,7 @@ jobs:
       <% pkgs = %w[cmake libflac-dev libfreetype6-dev libgl1-mesa-dev libopenal-dev libudev-dev libvorbis-dev libx11-dev libxrandr-dev] %>
     <% end %>
     <% if run_examples %>
-      <% pkgs += %w[xvfb libyaml-dev] %>
-    <% end %>
-    <% if m[:crystal_repo] %>
-      <% pkgs += %w[crystal] %>
-      - name: Add Crystal repository
-        run: |
-          curl -sL "https://keybase.io/crystal/pgp_keys.asc" | sudo apt-key add -
-          echo "deb https://dist.crystal-lang.org/apt crystal main" | sudo tee /etc/apt/sources.list.d/crystal.list
+      <% pkgs += %w[xvfb] %>
     <% end %>
       - name: Install packages
         run: |
@@ -67,8 +61,15 @@ jobs:
   <% end %>
   <% if m[:os] == mac %>
       - name: Install packages
-        run: brew install crystal \
+        run: brew install \
+        <% if m[:crystal] == homebrew %>crystal<% end %> \
         <% if m[:sfml] == homebrew %>sfml<% else %>flac freetype jpeg libogg libvorbis<% end %>
+  <% end %>
+  <% if !m[:docker] && m[:crystal] != homebrew %>
+      - name: Install Crystal
+        uses: oprypin/install-crystal@v1
+        with:
+          crystal: <%= m[:crystal] %>
   <% end %>
   <% if m[:sfml] != homebrew && !m[:sfml_apt] %>
       - name: Cache SFML
@@ -88,8 +89,8 @@ jobs:
         if: steps.cache-sfml.outputs.cache-hit != 'true'
         working-directory: ./sfml<% if m[:os] == windows %>-src<% end %>
         run: |
-          cmake . -DCMAKE_INSTALL_PREFIX="$(pwd)/../sfml" \
-          <% if m[:os] != windows %>-DCMAKE_BUILD_TYPE=Release<% end %>
+          cmake . \
+          <% if m[:os] == windows %>-DCMAKE_INSTALL_PREFIX="$(pwd)/../sfml"<% else %>-DCMAKE_BUILD_TYPE=Release<% end %>
           cmake --build . \
           <% if m[:os] == windows %>--target install --config Release<% end %>
   <% end %>

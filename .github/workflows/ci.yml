@@ -1,20 +1,25 @@
 name: CI
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+    branches: [master]
+  schedule:
+    - cron: '0 6 * * 6'
 jobs:
   job1:
-    name: 'Ubuntu 18.04: SFML 2.5.1, Crystal latest'
+    name: 'Ubuntu 18.04: SFML 2.5.1, Crystal nightly'
     runs-on: ubuntu-18.04
     steps:
       - name: Download CrSFML source
         uses: actions/checkout@v2
-      - name: Add Crystal repository
-        run: |
-          curl -sL "https://keybase.io/crystal/pgp_keys.asc" | sudo apt-key add -
-          echo "deb https://dist.crystal-lang.org/apt crystal main" | sudo tee /etc/apt/sources.list.d/crystal.list
       - name: Install packages
         run: |
           sudo apt-get -q update
-          sudo apt-get -qy install cmake crystal libflac-dev libfreetype6-dev libgl1-mesa-dev libopenal-dev libudev-dev libvorbis-dev libx11-dev libxrandr-dev libyaml-dev xvfb
+          sudo apt-get -qy install cmake libflac-dev libfreetype6-dev libgl1-mesa-dev libopenal-dev libudev-dev libvorbis-dev libx11-dev libxrandr-dev xvfb
+      - name: Install Crystal
+        uses: oprypin/install-crystal@v1
+        with:
+          crystal: nightly
       - name: Cache SFML
         id: cache-sfml
         uses: actions/cache@v1
@@ -32,7 +37,7 @@ jobs:
         if: steps.cache-sfml.outputs.cache-hit != 'true'
         working-directory: ./sfml
         run: |
-          cmake . -DCMAKE_INSTALL_PREFIX="$(pwd)/../sfml" -DCMAKE_BUILD_TYPE=Release
+          cmake . -DCMAKE_BUILD_TYPE=Release
           cmake --build .
       - name: Re-generate sources
         run: crystal generate.cr "$GITHUB_WORKSPACE/sfml/include"
@@ -185,13 +190,17 @@ jobs:
         working-directory: ./examples
         run: crystal build echo.cr
   job3:
-    name: 'macOS: SFML 2.5.1, Crystal Homebrew'
+    name: 'macOS: SFML 2.5.1, Crystal latest'
     runs-on: macos-latest
     steps:
       - name: Download CrSFML source
         uses: actions/checkout@v2
       - name: Install packages
-        run: brew install crystal flac freetype jpeg libogg libvorbis
+        run: brew install flac freetype jpeg libogg libvorbis
+      - name: Install Crystal
+        uses: oprypin/install-crystal@v1
+        with:
+          crystal: latest
       - name: Cache SFML
         id: cache-sfml
         uses: actions/cache@v1
@@ -209,7 +218,7 @@ jobs:
         if: steps.cache-sfml.outputs.cache-hit != 'true'
         working-directory: ./sfml
         run: |
-          cmake . -DCMAKE_INSTALL_PREFIX="$(pwd)/../sfml" -DCMAKE_BUILD_TYPE=Release
+          cmake . -DCMAKE_BUILD_TYPE=Release
           cmake --build .
       - name: Re-generate sources
         run: crystal generate.cr "$GITHUB_WORKSPACE/sfml/include"
@@ -375,10 +384,12 @@ jobs:
     name: 'Windows: SFML 2.5.1, Crystal nightly'
     runs-on: windows-latest
     steps:
-      - name: Install Crystal
-        uses: oprypin/install-crystal@v1
       - name: Download CrSFML source
         uses: actions/checkout@v2
+      - name: Install Crystal
+        uses: oprypin/install-crystal@v1
+        with:
+          crystal: nightly
       - name: Cache SFML
         id: cache-sfml
         uses: actions/cache@v1
