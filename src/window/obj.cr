@@ -1261,7 +1261,6 @@ module SF
   #     do_something(event.width, event.height)
   #
   #   # etc ...
-  #   else
   #   end
   # end
   # ```

@@ -378,7 +378,7 @@
 -`SF::Window::poll_event` and `SF::Window::wait_event` functions.
 +`SF::Window.poll_event` and `SF::Window.wait_event` functions.
  
-@@ -18,20 +18,23 @@
+@@ -18,20 +18,22 @@
  Usage example:
 -```c++
 -sf::Event event;
@@ -413,7 +413,6 @@
 -    // etc ...
 -}
 +  # etc ...
-+  else
 +  end
 +end
  ```

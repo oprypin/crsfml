@@ -27,7 +27,6 @@ while window.open?
       else
         speed = -550.0
       end
-    else
     end
   end
 

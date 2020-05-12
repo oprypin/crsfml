@@ -74,7 +74,6 @@ while window.open?
       window.close
     when SF::Event::MouseButtonPressed, SF::Event::KeyPressed
       scenes.rotate!
-    else
     end
   end
 

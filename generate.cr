@@ -688,7 +688,6 @@ class CNativeType
       cr_type = cl_type = "Bool"
     when "void"
       cr_type = cl_type = "Void"
-    else
     end
     case context
     when .crystal?
@@ -1208,7 +1207,6 @@ class CFunction < CItem
             o<< "false"
           when .starts_with? "Int"
             o<< "#{ret_types[0]}.zero"
-          else
           end
         end
         o<< "end"
@@ -1545,14 +1543,15 @@ class CModule < CNamespace
   end
 
   def render(context : Context, out o : Output)
-    if context.cpp_source?
+    case context
+    when .cpp_source?
       o<< "#include <SFML/#{name}.hpp>"
       dependencies.each do |dep|
         o<< "#include <SFML/#{dep}.hpp>"
       end
       o<< "using namespace sf;"
       o<< "extern \"C\" {"
-    elsif context.crystal_lib?
+    when .crystal_lib?
       o<< "require \"../common\""
       dependencies.each do |dep|
         o<< "require \"../#{dep.downcase}/lib\""
@@ -1563,7 +1562,7 @@ class CModule < CNamespace
       o<< "@[Link(\"sfml-#{name.downcase}\")]"
       o<< %q(@[Link(ldflags: "#{__DIR__}/ext.o")])
       o<< "lib #{LIB_NAME}"
-    elsif context.crystal?
+    when .crystal?
       o<< "require \"./lib\""
       o<< "require \"../common\""
       dependencies.each do |dep|
@@ -1575,16 +1574,17 @@ class CModule < CNamespace
 
     each &.render(context, o)
 
-    if context.crystal?
+    case context
+    when .crystal?
       o<< "#{LIB_NAME}.#{PREFIX}#{name.downcase}_version(out major, out minor, out patch)"
       o<< %q(if SFML_VERSION != (ver = "#{major}.#{minor}.#{patch}"))
       o<< %q(STDERR.puts "Warning: CrSFML was built for SFML #{SFML_VERSION}, found SFML #{ver}")
       o<< %q(end)
       o<< "end"
-    elsif context.crystal_lib?
+    when .crystal_lib?
       o<< "fun #{PREFIX}#{name.downcase}_version(LibC::Int*, LibC::Int*, LibC::Int*)"
       o<< "end"
-    elsif context.cpp_source?
+    when    .cpp_source?
       o<< "void #{PREFIX}#{name.downcase}_version(int* major, int* minor, int* patch) {"
       o<< "*major = SFML_VERSION_MAJOR;"
       o<< "*minor = SFML_VERSION_MINOR;"
@@ -1737,7 +1737,6 @@ class CModule < CNamespace
       when /^\}/
         docs_buffer.clear
         stack.pop
-      else
       end
 
       prev_line = line

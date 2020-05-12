@@ -227,7 +227,6 @@ while window.open?
         snake2.turn Right
       when .down?
         snake2.turn Down
-      else
       end
     end
   end
