@@ -3,18 +3,15 @@ on:
   push:
     paths: ['.github/**']
   pull_request:
+    branches: [master]
     paths: ['.github/**']
 jobs:
   build:
     name: Validate CI config
     runs-on: ubuntu-latest
     steps:
-      - name: Add Crystal repository
-        run: |
-          curl -sL "https://keybase.io/crystal/pgp_keys.asc" | sudo apt-key add -
-          echo "deb https://dist.crystal-lang.org/apt crystal main" | sudo tee /etc/apt/sources.list.d/crystal.list
-      - name: Install packages
-        run: sudo apt-get -q update; sudo apt-get -qy install crystal libyaml-dev
+      - name: Install Crystal
+        uses: oprypin/install-crystal@v1
       - name: Download sources
         uses: actions/checkout@v2
       - name: Generate config
