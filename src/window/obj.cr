@@ -233,8 +233,8 @@ module SF
       @s_rgb_capable = uninitialized Bool
       SFMLExt.sfml_contextsettings_initialize_Fw4(to_unsafe, copy)
     end
-    def dup() : self
-      return typeof(self).new(self)
+    def dup() : ContextSettings
+      return ContextSettings.new(self)
     end
   end
   # Class holding a valid drawing context
@@ -662,8 +662,8 @@ module SF
         SFMLExt.sfml_joystick_identification_allocate(out @this)
         SFMLExt.sfml_joystick_identification_initialize_ISj(to_unsafe, copy)
       end
-      def dup() : self
-        return typeof(self).new(self)
+      def dup() : Identification
+        return Identification.new(self)
       end
     end
     # Check if a joystick is connected
@@ -1300,8 +1300,8 @@ module SF
         @height = uninitialized UInt32
         SFMLExt.sfml_event_sizeevent_initialize_isq(to_unsafe, copy)
       end
-      def dup() : self
-        return typeof(self).new(self)
+      def dup() : SizeEvent
+        return SizeEvent.new(self)
       end
     end
     # Keyboard event parameters (KeyPressed, KeyReleased)
@@ -1372,8 +1372,8 @@ module SF
         @system = uninitialized Bool
         SFMLExt.sfml_event_keyevent_initialize_wJ8(to_unsafe, copy)
       end
-      def dup() : self
-        return typeof(self).new(self)
+      def dup() : KeyEvent
+        return KeyEvent.new(self)
       end
     end
     # Text event parameters (TextEntered)
@@ -1400,8 +1400,8 @@ module SF
         @unicode = uninitialized UInt32
         SFMLExt.sfml_event_textevent_initialize_uku(to_unsafe, copy)
       end
-      def dup() : self
-        return typeof(self).new(self)
+      def dup() : TextEvent
+        return TextEvent.new(self)
       end
     end
     # Mouse move event parameters (MouseMoved)
@@ -1439,8 +1439,8 @@ module SF
         @y = uninitialized Int32
         SFMLExt.sfml_event_mousemoveevent_initialize_1i3(to_unsafe, copy)
       end
-      def dup() : self
-        return typeof(self).new(self)
+      def dup() : MouseMoveEvent
+        return MouseMoveEvent.new(self)
       end
     end
     # Mouse buttons events parameters
@@ -1490,8 +1490,8 @@ module SF
         @y = uninitialized Int32
         SFMLExt.sfml_event_mousebuttonevent_initialize_Tjo(to_unsafe, copy)
       end
-      def dup() : self
-        return typeof(self).new(self)
+      def dup() : MouseButtonEvent
+        return MouseButtonEvent.new(self)
       end
     end
     # Mouse wheel events parameters (MouseWheelMoved)
@@ -1543,8 +1543,8 @@ module SF
         @y = uninitialized Int32
         SFMLExt.sfml_event_mousewheelevent_initialize_Wk7(to_unsafe, copy)
       end
-      def dup() : self
-        return typeof(self).new(self)
+      def dup() : MouseWheelEvent
+        return MouseWheelEvent.new(self)
       end
     end
     # Mouse wheel events parameters (MouseWheelScrolled)
@@ -1604,8 +1604,8 @@ module SF
         @y = uninitialized Int32
         SFMLExt.sfml_event_mousewheelscrollevent_initialize_Am0(to_unsafe, copy)
       end
-      def dup() : self
-        return typeof(self).new(self)
+      def dup() : MouseWheelScrollEvent
+        return MouseWheelScrollEvent.new(self)
       end
     end
     # Joystick connection events parameters
@@ -1633,8 +1633,8 @@ module SF
         @joystick_id = uninitialized UInt32
         SFMLExt.sfml_event_joystickconnectevent_initialize_rYL(to_unsafe, copy)
       end
-      def dup() : self
-        return typeof(self).new(self)
+      def dup() : JoystickConnectEvent
+        return JoystickConnectEvent.new(self)
       end
     end
     # Joystick axis move event parameters (JoystickMoved)
@@ -1683,8 +1683,8 @@ module SF
         @position = uninitialized Float32
         SFMLExt.sfml_event_joystickmoveevent_initialize_S8f(to_unsafe, copy)
       end
-      def dup() : self
-        return typeof(self).new(self)
+      def dup() : JoystickMoveEvent
+        return JoystickMoveEvent.new(self)
       end
     end
     # Joystick buttons events parameters
@@ -1723,8 +1723,8 @@ module SF
         @button = uninitialized UInt32
         SFMLExt.sfml_event_joystickbuttonevent_initialize_V0a(to_unsafe, copy)
       end
-      def dup() : self
-        return typeof(self).new(self)
+      def dup() : JoystickButtonEvent
+        return JoystickButtonEvent.new(self)
       end
     end
     # Touch events parameters (TouchBegan, TouchMoved, TouchEnded)
@@ -1773,8 +1773,8 @@ module SF
         @y = uninitialized Int32
         SFMLExt.sfml_event_touchevent_initialize_1F1(to_unsafe, copy)
       end
-      def dup() : self
-        return typeof(self).new(self)
+      def dup() : TouchEvent
+        return TouchEvent.new(self)
       end
     end
     # Sensor event parameters (SensorChanged)
@@ -1834,8 +1834,8 @@ module SF
         @z = uninitialized Float32
         SFMLExt.sfml_event_sensorevent_initialize_0L9(to_unsafe, copy)
       end
-      def dup() : self
-        return typeof(self).new(self)
+      def dup() : SensorEvent
+        return SensorEvent.new(self)
       end
     end
     # The window requested to be closed (no data)
@@ -1910,9 +1910,6 @@ module SF
     # :nodoc:
     def to_unsafe()
       pointerof(@type).as(Void*)
-    end
-    def dup() : self
-      return typeof(self).new(self)
     end
   end
   # Give access to the real-time state of the touches
@@ -2183,8 +2180,8 @@ module SF
       @bits_per_pixel = uninitialized UInt32
       SFMLExt.sfml_videomode_initialize_asW(to_unsafe, copy)
     end
-    def dup() : self
-      return typeof(self).new(self)
+    def dup() : VideoMode
+      return VideoMode.new(self)
     end
   end
   # Enumeration of the window styles

@@ -152,9 +152,6 @@ void sfml_inputstream_finalize(void* self) {
 void sfml_inputstream_free(void* self) {
     free(self);
 }
-void sfml_inputstream_initialize_mua(void* self, void* copy) {
-    new(self) _InputStream(*(_InputStream*)copy);
-}
 void sfml_noncopyable_allocate(void** result) {
     *result = malloc(sizeof(NonCopyable));
 }

@@ -506,9 +506,6 @@ void sfml_shape_draw_fqURoT(void* self, void* target, void* states) {
 void sfml_shape_draw_Xk1RoT(void* self, void* target, void* states) {
     ((RenderTarget*)target)->draw(*(_Shape*)self, *(RenderStates*)states);
 }
-void sfml_shape_initialize_r5K(void* self, void* copy) {
-    new(self) _Shape(*(_Shape*)copy);
-}
 void sfml_circleshape_allocate(void** result) {
     *result = malloc(sizeof(CircleShape));
 }

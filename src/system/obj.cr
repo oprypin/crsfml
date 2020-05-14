@@ -245,8 +245,8 @@ module SF
       @microseconds = uninitialized Int64
       SFMLExt.sfml_time_initialize_PxG(to_unsafe, copy)
     end
-    def dup() : self
-      return typeof(self).new(self)
+    def dup() : Time
+      return Time.new(self)
     end
   end
   # Construct a time value from a number of seconds
@@ -358,8 +358,8 @@ module SF
       SFMLExt.sfml_clock_allocate(out @this)
       SFMLExt.sfml_clock_initialize_LuC(to_unsafe, copy)
     end
-    def dup() : self
-      return typeof(self).new(self)
+    def dup() : Clock
+      return Clock.new(self)
     end
   end
   SFMLExt.sfml_inputstream_read_callback(->(self : Void*, data : Void*, size : Int64, result : Int64*) {
@@ -463,15 +463,6 @@ module SF
     # :nodoc:
     def inspect(io)
       to_s(io)
-    end
-    # :nodoc:
-    def initialize(copy : InputStream)
-      SFMLExt.sfml_inputstream_allocate(out @this)
-      SFMLExt.sfml_inputstream_initialize_mua(to_unsafe, copy)
-      SFMLExt.sfml_inputstream_parent(@this, self.as(Void*))
-    end
-    def dup() : self
-      return typeof(self).new(self)
     end
   end
   # Empty module that indicates the objects of the class can't be copied
@@ -679,8 +670,8 @@ module SF
       SFMLExt.sfml_memoryinputstream_allocate(out @this)
       SFMLExt.sfml_memoryinputstream_initialize_kYd(to_unsafe, copy)
     end
-    def dup() : self
-      return typeof(self).new(self)
+    def dup() : MemoryInputStream
+      return MemoryInputStream.new(self)
     end
   end
   # Blocks concurrent access to shared resources

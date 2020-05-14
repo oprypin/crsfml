@@ -572,14 +572,14 @@ class CClass < CNamespace
       end
     end
 
-    unless has_module?("NonCopyable") || has_module?("RenderTarget") || has_module?("AlResource") || module?
+    unless has_module?("NonCopyable") || has_module?("RenderTarget") || has_module?("AlResource") || module? || abstract?
       CFunction.new(@name.not_nil!, type: nil,
         parameters: [CParameter.new("copy", CType.new(self, reference: true, const: true))],
         visibility: Visibility::Public, parent: self, docs: [":nodoc:"]
       ).render(context, o)
       if context.crystal?
-        o<< "def dup() : self"
-        o<< "return typeof(self).new(self)"
+        o<< "def dup() : #{name(Context::Crystal)}"
+        o<< "return #{name(Context::Crystal)}.new(self)"
         o<< "end"
       end
     end

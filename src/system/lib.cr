@@ -46,7 +46,6 @@ lib SFMLExt
   fun sfml_inputstream_initialize(self : Void*)
   fun sfml_inputstream_finalize(self : Void*)
   fun sfml_inputstream_free(self : Void*)
-  fun sfml_inputstream_initialize_mua(self : Void*, copy : Void*)
   fun sfml_noncopyable_allocate(result : Void**)
   fun sfml_noncopyable_free(self : Void*)
   fun sfml_fileinputstream_allocate(result : Void**)

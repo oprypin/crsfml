@@ -587,8 +587,8 @@ module SF
         SFMLExt.sfml_ftp_response_allocate(out @this)
         SFMLExt.sfml_ftp_response_initialize_lXv(to_unsafe, copy)
       end
-      def dup() : self
-        return typeof(self).new(self)
+      def dup() : Response
+        return Response.new(self)
       end
     end
     # Specialization of FTP response returning a directory
@@ -640,8 +640,8 @@ module SF
         SFMLExt.sfml_ftp_directoryresponse_allocate(out @this)
         SFMLExt.sfml_ftp_directoryresponse_initialize_Zyp(to_unsafe, copy)
       end
-      def dup() : self
-        return typeof(self).new(self)
+      def dup() : DirectoryResponse
+        return DirectoryResponse.new(self)
       end
     end
     # Specialization of FTP response returning a
@@ -695,8 +695,8 @@ module SF
         SFMLExt.sfml_ftp_listingresponse_allocate(out @this)
         SFMLExt.sfml_ftp_listingresponse_initialize_2ho(to_unsafe, copy)
       end
-      def dup() : self
-        return typeof(self).new(self)
+      def dup() : ListingResponse
+        return ListingResponse.new(self)
       end
     end
     # Destructor
@@ -1197,8 +1197,8 @@ module SF
       @valid = uninitialized Bool
       SFMLExt.sfml_ipaddress_initialize_BfE(to_unsafe, copy)
     end
-    def dup() : self
-      return typeof(self).new(self)
+    def dup() : IpAddress
+      return IpAddress.new(self)
     end
   end
   # A HTTP client
@@ -1354,8 +1354,8 @@ module SF
         SFMLExt.sfml_http_request_allocate(out @this)
         SFMLExt.sfml_http_request_initialize_Jat(to_unsafe, copy)
       end
-      def dup() : self
-        return typeof(self).new(self)
+      def dup() : Request
+        return Request.new(self)
       end
     end
     # Define a HTTP response
@@ -1491,8 +1491,8 @@ module SF
         SFMLExt.sfml_http_response_allocate(out @this)
         SFMLExt.sfml_http_response_initialize_N50(to_unsafe, copy)
       end
-      def dup() : self
-        return typeof(self).new(self)
+      def dup() : Response
+        return Response.new(self)
       end
     end
     # Default constructor
@@ -1868,8 +1868,8 @@ module SF
       SFMLExt.sfml_packet_allocate(out @this)
       SFMLExt.sfml_packet_initialize_54U(to_unsafe, copy)
     end
-    def dup() : self
-      return typeof(self).new(self)
+    def dup() : Packet
+      return Packet.new(self)
     end
   end
   # Multiplexer that allows to read from multiple sockets
@@ -2041,8 +2041,8 @@ module SF
       SFMLExt.sfml_socketselector_allocate(out @this)
       SFMLExt.sfml_socketselector_initialize_fWq(to_unsafe, copy)
     end
-    def dup() : self
-      return typeof(self).new(self)
+    def dup() : SocketSelector
+      return SocketSelector.new(self)
     end
   end
   # Socket that listens to new TCP connections

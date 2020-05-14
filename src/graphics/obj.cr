@@ -223,8 +223,8 @@ module SF
       @alpha_equation = uninitialized BlendMode::Equation
       SFMLExt.sfml_blendmode_initialize_PG5(to_unsafe, copy)
     end
-    def dup() : self
-      return typeof(self).new(self)
+    def dup() : BlendMode
+      return BlendMode.new(self)
     end
   end
   # Define a 3x3 transform matrix
@@ -632,8 +632,8 @@ module SF
       @matrix = uninitialized Float32[16]
       SFMLExt.sfml_transform_initialize_FPe(to_unsafe, copy)
     end
-    def dup() : self
-      return typeof(self).new(self)
+    def dup() : Transform
+      return Transform.new(self)
     end
   end
   # Define the states used for drawing to a RenderTarget
@@ -804,8 +804,8 @@ module SF
       @shader = uninitialized Void*
       SFMLExt.sfml_renderstates_initialize_mi4(to_unsafe, copy)
     end
-    def dup() : self
-      return typeof(self).new(self)
+    def dup() : RenderStates
+      return RenderStates.new(self)
     end
   end
   # Abstract module for objects that can be drawn
@@ -1190,8 +1190,8 @@ module SF
       SFMLExt.sfml_transformable_allocate(out @this)
       SFMLExt.sfml_transformable_initialize_dkg(to_unsafe, copy)
     end
-    def dup() : self
-      return typeof(self).new(self)
+    def dup() : Transformable
+      return Transformable.new(self)
     end
   end
   # Utility struct for manipulating RGBA colors
@@ -1391,8 +1391,8 @@ module SF
       @a = uninitialized UInt8
       SFMLExt.sfml_color_initialize_QVe(to_unsafe, copy)
     end
-    def dup() : self
-      return typeof(self).new(self)
+    def dup() : Color
+      return Color.new(self)
     end
   end
   # Define a point with color and texture coordinates
@@ -1531,8 +1531,8 @@ module SF
       @tex_coords = uninitialized Vector2f
       SFMLExt.sfml_vertex_initialize_Y3J(to_unsafe, copy)
     end
-    def dup() : self
-      return typeof(self).new(self)
+    def dup() : Vertex
+      return Vertex.new(self)
     end
   end
   # Types of primitives that a `SF::VertexArray` can render
@@ -1722,8 +1722,8 @@ module SF
       SFMLExt.sfml_vertexarray_allocate(out @this)
       SFMLExt.sfml_vertexarray_initialize_EXB(to_unsafe, copy)
     end
-    def dup() : self
-      return typeof(self).new(self)
+    def dup() : VertexArray
+      return VertexArray.new(self)
     end
   end
   SFMLExt.sfml_shape_getpointcount_callback(->(self : Void*, result : LibC::SizeT*) {
@@ -2072,15 +2072,6 @@ module SF
     def draw(target : RenderTarget, states : RenderStates)
       SFMLExt.sfml_shape_draw_Xk1RoT(to_unsafe, target, states)
     end
-    # :nodoc:
-    def initialize(copy : Shape)
-      SFMLExt.sfml_shape_allocate(out @this)
-      SFMLExt.sfml_shape_initialize_r5K(to_unsafe, copy)
-      SFMLExt.sfml_shape_parent(@this, self.as(Void*))
-    end
-    def dup() : self
-      return typeof(self).new(self)
-    end
   end
   # Specialized shape representing a circle
   #
@@ -2346,8 +2337,8 @@ module SF
       SFMLExt.sfml_circleshape_allocate(out @this)
       SFMLExt.sfml_circleshape_initialize_Ii7(to_unsafe, copy)
     end
-    def dup() : self
-      return typeof(self).new(self)
+    def dup() : CircleShape
+      return CircleShape.new(self)
     end
   end
   # Specialized shape representing a convex polygon
@@ -2615,8 +2606,8 @@ module SF
       SFMLExt.sfml_convexshape_allocate(out @this)
       SFMLExt.sfml_convexshape_initialize_Ydx(to_unsafe, copy)
     end
-    def dup() : self
-      return typeof(self).new(self)
+    def dup() : ConvexShape
+      return ConvexShape.new(self)
     end
   end
   # Structure describing a glyph
@@ -2676,8 +2667,8 @@ module SF
       @texture_rect = uninitialized IntRect
       SFMLExt.sfml_glyph_initialize_UlF(to_unsafe, copy)
     end
-    def dup() : self
-      return typeof(self).new(self)
+    def dup() : Glyph
+      return Glyph.new(self)
     end
   end
   # Class for loading, manipulating and saving images
@@ -2967,8 +2958,8 @@ module SF
       SFMLExt.sfml_image_allocate(out @this)
       SFMLExt.sfml_image_initialize_dpt(to_unsafe, copy)
     end
-    def dup() : self
-      return typeof(self).new(self)
+    def dup() : Image
+      return Image.new(self)
     end
   end
   # Image living on the graphics card that can be used for drawing
@@ -3598,8 +3589,8 @@ module SF
       SFMLExt.sfml_texture_allocate(out @this)
       SFMLExt.sfml_texture_initialize_DJb(to_unsafe, copy)
     end
-    def dup() : self
-      return typeof(self).new(self)
+    def dup() : Texture
+      return Texture.new(self)
     end
   end
   # Class for loading and manipulating character fonts
@@ -3695,8 +3686,8 @@ module SF
         SFMLExt.sfml_font_info_allocate(out @this)
         SFMLExt.sfml_font_info_initialize_HPc(to_unsafe, copy)
       end
-      def dup() : self
-        return typeof(self).new(self)
+      def dup() : Info
+        return Info.new(self)
       end
     end
     # Default constructor
@@ -3913,8 +3904,8 @@ module SF
       SFMLExt.sfml_font_allocate(out @this)
       SFMLExt.sfml_font_initialize_7CF(to_unsafe, copy)
     end
-    def dup() : self
-      return typeof(self).new(self)
+    def dup() : Font
+      return Font.new(self)
     end
   end
   # :nodoc:
@@ -4185,8 +4176,8 @@ module SF
       SFMLExt.sfml_rectangleshape_allocate(out @this)
       SFMLExt.sfml_rectangleshape_initialize_wlj(to_unsafe, copy)
     end
-    def dup() : self
-      return typeof(self).new(self)
+    def dup() : RectangleShape
+      return RectangleShape.new(self)
     end
   end
   # 2D camera that defines what region is shown on screen
@@ -4459,8 +4450,8 @@ module SF
       SFMLExt.sfml_view_allocate(out @this)
       SFMLExt.sfml_view_initialize_DDi(to_unsafe, copy)
     end
-    def dup() : self
-      return typeof(self).new(self)
+    def dup() : View
+      return View.new(self)
     end
   end
   # Base module for all render targets (window, texture, ...)
@@ -6376,8 +6367,8 @@ module SF
       SFMLExt.sfml_sprite_allocate(out @this)
       SFMLExt.sfml_sprite_initialize_8xu(to_unsafe, copy)
     end
-    def dup() : self
-      return typeof(self).new(self)
+    def dup() : Sprite
+      return Sprite.new(self)
     end
   end
   # Graphical text that can be drawn to a render target
@@ -6873,8 +6864,8 @@ module SF
       SFMLExt.sfml_text_allocate(out @this)
       SFMLExt.sfml_text_initialize_clM(to_unsafe, copy)
     end
-    def dup() : self
-      return typeof(self).new(self)
+    def dup() : Text
+      return Text.new(self)
     end
   end
   # Vertex buffer storage for one or more 2D primitives
@@ -7202,8 +7193,8 @@ module SF
       SFMLExt.sfml_vertexbuffer_allocate(out @this)
       SFMLExt.sfml_vertexbuffer_initialize_U2D(to_unsafe, copy)
     end
-    def dup() : self
-      return typeof(self).new(self)
+    def dup() : VertexBuffer
+      return VertexBuffer.new(self)
     end
   end
   SFMLExt.sfml_graphics_version(out major, out minor, out patch)

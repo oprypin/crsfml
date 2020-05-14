@@ -169,7 +169,6 @@ lib SFMLExt
   fun sfml_shape_draw_kb9RoT(self : Void*, target : Void*, states : Void*)
   fun sfml_shape_draw_fqURoT(self : Void*, target : Void*, states : Void*)
   fun sfml_shape_draw_Xk1RoT(self : Void*, target : Void*, states : Void*)
-  fun sfml_shape_initialize_r5K(self : Void*, copy : Void*)
   fun sfml_circleshape_allocate(result : Void**)
   fun sfml_circleshape_finalize(self : Void*)
   fun sfml_circleshape_free(self : Void*)
