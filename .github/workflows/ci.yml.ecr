@@ -35,6 +35,7 @@ on:
 
 jobs:
 <% matrix.each_with_index(1) do |m, m_i| %>
+  <% build_env = run_env = "" %>
   job<%= m_i %>:
     name: '<%= m[:os] %><%= " #{m[:os_ver]}" if m[:os_ver] %>: SFML <%= m[:sfml] %>, Crystal <%= m[:crystal] %>'
     runs-on: <%= m[:os].downcase %>-<%= m[:os_ver] || "latest" %>
@@ -44,15 +45,11 @@ jobs:
     steps:
       - name: Download CrSFML source
         uses: actions/checkout@v2
-  <% run_examples = m[:sfml].in?(latest_sfml, homebrew) %>
   <% if m[:os] == ubuntu %>
     <% if m[:sfml_apt] %>
-      <% pkgs = %w[libsfml-dev] %>
+      <% pkgs = %w[libsfml-dev xvfb] %>
     <% else %>
-      <% pkgs = %w[cmake libflac-dev libfreetype6-dev libgl1-mesa-dev libopenal-dev libudev-dev libvorbis-dev libx11-dev libxrandr-dev] %>
-    <% end %>
-    <% if run_examples %>
-      <% pkgs += %w[xvfb] %>
+      <% pkgs = %w[cmake libflac-dev libfreetype6-dev libgl1-mesa-dev libopenal-dev libudev-dev libvorbis-dev libx11-dev libxrandr-dev xvfb] %>
     <% end %>
       - name: Install packages
         run: |
@@ -106,7 +103,8 @@ jobs:
     <% sfml_include_dir = %(/usr/local/include) %>
   <% elsif !m[:sfml_apt] %>
     <% sfml_include_dir = %("$GITHUB_WORKSPACE/sfml/include") %>
-    <% library_path = %("$GITHUB_WORKSPACE/sfml/lib") %>
+    <% build_env += %(LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" ) %>
+    <% run_env += %(LD_LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" ) %>
   <% end %>
       - name: Re-generate sources
         run: crystal generate.cr <%= sfml_include_dir %>
@@ -124,17 +122,21 @@ jobs:
   <% end %>
       - name: Generate docs
         run: crystal doc
+  <% if m[:os] == ubuntu %>
+      - name: Start virtual display
+        run: Xvfb :99 -screen 0 1024x768x24 +extension GLX &
+    <% run_env += "DISPLAY=:99.0 " %>
+  <% end %>
+  <% if m[:os] != mac || run_env.empty? %>
+      - name: Run tests
+        run: <%= build_env %><%= run_env %>crystal spec
+  <% end %>
   <% examples.each_key do |example| %>
       - name: Build example "<%= example %>"
         working-directory: ./examples
-        run: <% if library_path %>LIBRARY_PATH=<%= library_path %><% end %> \
-              crystal build <%= example %>.cr
+        run: <%= build_env %>crystal build <%= example %>.cr
   <% end %>
-  <% if run_examples %>
-    <% if m[:os] == ubuntu %>
-      - name: Start virtual display
-        run: Xvfb :99 -screen 0 1024x768x24 +extension GLX &
-    <% end %>
+  <% if m[:sfml].in?(latest_sfml, homebrew) %>
     <% examples.each do |example, run| %>
       <% if run.includes?(m[:os]) %>
       - name: Run example "<%= example %>"
@@ -146,8 +148,7 @@ jobs:
           Get-Process -Id $proc.Id
           kill $proc
         <% else %>
-          <% if library_path %>LD_LIBRARY_PATH=<%= library_path %><% end %> \
-          DISPLAY=:99.0 ./<%= example %> & pid=$!
+          <%= run_env %>./<%= example %> & pid=$!
           sleep 3
           kill $pid
         <% end %>

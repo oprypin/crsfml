@@ -47,6 +47,10 @@ jobs:
         run: git diff --exit-code
       - name: Generate docs
         run: crystal doc
+      - name: Start virtual display
+        run: Xvfb :99 -screen 0 1024x768x24 +extension GLX &
+      - name: Run tests
+        run: LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" LD_LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" DISPLAY=:99.0 crystal spec
       - name: Build example "simple"
         working-directory: ./examples
         run: LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" crystal build simple.cr
@@ -80,8 +84,6 @@ jobs:
       - name: Build example "echo"
         working-directory: ./examples
         run: LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" crystal build echo.cr
-      - name: Start virtual display
-        run: Xvfb :99 -screen 0 1024x768x24 +extension GLX &
       - name: Run example "simple"
         working-directory: ./examples
         run: |
@@ -149,13 +151,17 @@ jobs:
       - name: Install packages
         run: |
           apt-get -q update
-          apt-get -qy install libsfml-dev
+          apt-get -qy install libsfml-dev xvfb
       - name: Re-generate sources
         run: crystal generate.cr
       - name: Build CrSFML
         run: make
       - name: Generate docs
         run: crystal doc
+      - name: Start virtual display
+        run: Xvfb :99 -screen 0 1024x768x24 +extension GLX &
+      - name: Run tests
+        run: DISPLAY=:99.0 crystal spec
       - name: Build example "simple"
         working-directory: ./examples
         run: crystal build simple.cr
@@ -264,37 +270,37 @@ jobs:
       - name: Run example "simple"
         working-directory: ./examples
         run: |
-          LD_LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" DISPLAY=:99.0 ./simple & pid=$!
+          LD_LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" ./simple & pid=$!
           sleep 3
           kill $pid
       - name: Run example "flippy_bird"
         working-directory: ./examples
         run: |
-          LD_LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" DISPLAY=:99.0 ./flippy_bird & pid=$!
+          LD_LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" ./flippy_bird & pid=$!
           sleep 3
           kill $pid
       - name: Run example "transformable"
         working-directory: ./examples
         run: |
-          LD_LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" DISPLAY=:99.0 ./transformable & pid=$!
+          LD_LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" ./transformable & pid=$!
           sleep 3
           kill $pid
       - name: Run example "text_input"
         working-directory: ./examples
         run: |
-          LD_LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" DISPLAY=:99.0 ./text_input & pid=$!
+          LD_LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" ./text_input & pid=$!
           sleep 3
           kill $pid
       - name: Run example "shader"
         working-directory: ./examples
         run: |
-          LD_LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" DISPLAY=:99.0 ./shader & pid=$!
+          LD_LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" ./shader & pid=$!
           sleep 3
           kill $pid
       - name: Run example "gl"
         working-directory: ./examples
         run: |
-          LD_LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" DISPLAY=:99.0 ./gl & pid=$!
+          LD_LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" ./gl & pid=$!
           sleep 3
           kill $pid
   job4:
@@ -311,6 +317,8 @@ jobs:
         run: SFML_INCLUDE_DIR=/usr/local/include make
       - name: Generate docs
         run: crystal doc
+      - name: Run tests
+        run: crystal spec
       - name: Build example "simple"
         working-directory: ./examples
         run: crystal build simple.cr
@@ -347,37 +355,37 @@ jobs:
       - name: Run example "simple"
         working-directory: ./examples
         run: |
-          DISPLAY=:99.0 ./simple & pid=$!
+          ./simple & pid=$!
           sleep 3
           kill $pid
       - name: Run example "flippy_bird"
         working-directory: ./examples
         run: |
-          DISPLAY=:99.0 ./flippy_bird & pid=$!
+          ./flippy_bird & pid=$!
           sleep 3
           kill $pid
       - name: Run example "transformable"
         working-directory: ./examples
         run: |
-          DISPLAY=:99.0 ./transformable & pid=$!
+          ./transformable & pid=$!
           sleep 3
           kill $pid
       - name: Run example "text_input"
         working-directory: ./examples
         run: |
-          DISPLAY=:99.0 ./text_input & pid=$!
+          ./text_input & pid=$!
           sleep 3
           kill $pid
       - name: Run example "shader"
         working-directory: ./examples
         run: |
-          DISPLAY=:99.0 ./shader & pid=$!
+          ./shader & pid=$!
           sleep 3
           kill $pid
       - name: Run example "gl"
         working-directory: ./examples
         run: |
-          DISPLAY=:99.0 ./gl & pid=$!
+          ./gl & pid=$!
           sleep 3
           kill $pid
   job5:
@@ -423,6 +431,8 @@ jobs:
         run: git diff --exit-code
       - name: Generate docs
         run: crystal doc
+      - name: Run tests
+        run: crystal spec
       - name: Build example "simple"
         working-directory: ./examples
         run: crystal build simple.cr

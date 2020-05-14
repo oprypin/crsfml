@@ -16,6 +16,9 @@
 !/src/**/*.cr
 !/src/**/*.cpp
 
+!/spec/
+!/spec/**/*.cr
+
 !/docs/
 !/docs/*.cr
 !/docs/*.diff
