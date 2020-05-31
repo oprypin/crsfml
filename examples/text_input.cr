@@ -53,8 +53,6 @@ class TypingWidget < SF::Transformable
   # Get the *i*th line
   private def line(i = @y) : String
     @lines[i].string
-  rescue IndexError
-    ""
   end
 
   # Replace the current line
@@ -261,11 +259,12 @@ class TypingWidget < SF::Transformable
   # Go to the row *y*, preserving the current horizontal cursor position
   def go_line(@y)
     # Find the cursor position in this line that is the closest to the previous one
-    results = {} of Int32 => Float32
-    (0..line.size).bsearch { |x|
-      (results[x] = cursor_pos(x)) >= @last_cur_pos
-    }
-    @x, @cur_pos = results.min_by { |(x, cur_pos)| (cur_pos - @last_cur_pos).abs }
+    @x = (0..line.size).bsearch { |x|
+      cursor_pos(x) > @last_cur_pos
+    } || line.size
+    if (cursor_pos(@x - 1) - @last_cur_pos).abs < (cursor_pos(@x) - @last_cur_pos).abs
+      @x -= 1
+    end
     update_cursor(selecting?, reset_last: false)
   end
 
