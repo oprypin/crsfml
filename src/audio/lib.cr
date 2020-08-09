@@ -4,7 +4,11 @@ require "../system/lib"
 @[Link("stdc++")]
 {% end %}
 @[Link("sfml-audio")]
+{% if flag?(:win32) %}
+@[Link(ldflags: "#{__DIR__}\\ext.obj")]
+{% else %}
 @[Link(ldflags: "#{__DIR__}/ext.o")]
+{% end %}
 lib SFMLExt
   fun sfml_listener_allocate(result : Void**)
   fun sfml_listener_free(self : Void*)

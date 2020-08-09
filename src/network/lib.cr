@@ -4,7 +4,11 @@ require "../system/lib"
 @[Link("stdc++")]
 {% end %}
 @[Link("sfml-network")]
+{% if flag?(:win32) %}
+@[Link(ldflags: "#{__DIR__}\\ext.obj")]
+{% else %}
 @[Link(ldflags: "#{__DIR__}/ext.o")]
+{% end %}
 lib SFMLExt
   fun sfml_socket_allocate(result : Void**)
   fun sfml_socket_free(self : Void*)
