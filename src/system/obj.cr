@@ -564,10 +564,6 @@ module SF
     end
     include NonCopyable
     # :nodoc:
-    def to_unsafe()
-      @this
-    end
-    # :nodoc:
     def inspect(io)
       to_s(io)
     end
@@ -656,10 +652,6 @@ module SF
     def size() : Int64
       SFMLExt.sfml_memoryinputstream_getsize(to_unsafe, out result)
       return result
-    end
-    # :nodoc:
-    def to_unsafe()
-      @this
     end
     # :nodoc:
     def inspect(io)

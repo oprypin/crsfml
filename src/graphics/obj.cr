@@ -2053,10 +2053,6 @@ module SF
     end
     include Drawable
     # :nodoc:
-    def to_unsafe()
-      @this
-    end
-    # :nodoc:
     def inspect(io)
       to_s(io)
     end
@@ -2311,10 +2307,6 @@ module SF
       result = Transform.allocate
       SFMLExt.sfml_circleshape_getinversetransform(to_unsafe, result)
       return result
-    end
-    # :nodoc:
-    def to_unsafe()
-      @this
     end
     # :nodoc:
     def inspect(io)
@@ -2580,10 +2572,6 @@ module SF
       result = Transform.allocate
       SFMLExt.sfml_convexshape_getinversetransform(to_unsafe, result)
       return result
-    end
-    # :nodoc:
-    def to_unsafe()
-      @this
     end
     # :nodoc:
     def inspect(io)
@@ -4152,10 +4140,6 @@ module SF
       return result
     end
     # :nodoc:
-    def to_unsafe()
-      @this
-    end
-    # :nodoc:
     def inspect(io)
       to_s(io)
     end
@@ -5359,16 +5343,56 @@ module SF
       SFMLExt.sfml_event_allocate(out event)
       SFMLExt.sfml_renderwindow_pollevent_YJW(to_unsafe, event, out result)
       if result
-        {% begin %}
-        case (event_id = event.as(LibC::Int*)).value
-          {% for m, i in %w[Closed Resized LostFocus GainedFocus TextEntered KeyPressed KeyReleased MouseWheelMoved MouseWheelScrolled MouseButtonPressed MouseButtonReleased MouseMoved MouseEntered MouseLeft JoystickButtonPressed JoystickButtonReleased JoystickMoved JoystickConnected JoystickDisconnected TouchBegan TouchMoved TouchEnded SensorChanged] %}
-        when {{i}}
-          (event_id + 1).as(Event::{{m.id}}*).value
-          {% end %}
+        case (event_id = event.as(Event::EventType*).value)
+        when .closed?
+          event.as(Event::Closed*).value
+        when .resized?
+          event.as(Event::Resized*).value
+        when .lost_focus?
+          event.as(Event::LostFocus*).value
+        when .gained_focus?
+          event.as(Event::GainedFocus*).value
+        when .text_entered?
+          event.as(Event::TextEntered*).value
+        when .key_pressed?
+          event.as(Event::KeyPressed*).value
+        when .key_released?
+          event.as(Event::KeyReleased*).value
+        when .mouse_wheel_moved?
+          event.as(Event::MouseWheelMoved*).value
+        when .mouse_wheel_scrolled?
+          event.as(Event::MouseWheelScrolled*).value
+        when .mouse_button_pressed?
+          event.as(Event::MouseButtonPressed*).value
+        when .mouse_button_released?
+          event.as(Event::MouseButtonReleased*).value
+        when .mouse_moved?
+          event.as(Event::MouseMoved*).value
+        when .mouse_entered?
+          event.as(Event::MouseEntered*).value
+        when .mouse_left?
+          event.as(Event::MouseLeft*).value
+        when .joystick_button_pressed?
+          event.as(Event::JoystickButtonPressed*).value
+        when .joystick_button_released?
+          event.as(Event::JoystickButtonReleased*).value
+        when .joystick_moved?
+          event.as(Event::JoystickMoved*).value
+        when .joystick_connected?
+          event.as(Event::JoystickConnected*).value
+        when .joystick_disconnected?
+          event.as(Event::JoystickDisconnected*).value
+        when .touch_began?
+          event.as(Event::TouchBegan*).value
+        when .touch_moved?
+          event.as(Event::TouchMoved*).value
+        when .touch_ended?
+          event.as(Event::TouchEnded*).value
+        when .sensor_changed?
+          event.as(Event::SensorChanged*).value
         else
           raise "Unknown SFML event ID #{event_id.value}"
         end
-        {% end %}
       end
     end
     # :nodoc:
@@ -5376,16 +5400,56 @@ module SF
       SFMLExt.sfml_event_allocate(out event)
       SFMLExt.sfml_renderwindow_waitevent_YJW(to_unsafe, event, out result)
       if result
-        {% begin %}
-        case (event_id = event.as(LibC::Int*)).value
-          {% for m, i in %w[Closed Resized LostFocus GainedFocus TextEntered KeyPressed KeyReleased MouseWheelMoved MouseWheelScrolled MouseButtonPressed MouseButtonReleased MouseMoved MouseEntered MouseLeft JoystickButtonPressed JoystickButtonReleased JoystickMoved JoystickConnected JoystickDisconnected TouchBegan TouchMoved TouchEnded SensorChanged] %}
-        when {{i}}
-          (event_id + 1).as(Event::{{m.id}}*).value
-          {% end %}
+        case (event_id = event.as(Event::EventType*).value)
+        when .closed?
+          event.as(Event::Closed*).value
+        when .resized?
+          event.as(Event::Resized*).value
+        when .lost_focus?
+          event.as(Event::LostFocus*).value
+        when .gained_focus?
+          event.as(Event::GainedFocus*).value
+        when .text_entered?
+          event.as(Event::TextEntered*).value
+        when .key_pressed?
+          event.as(Event::KeyPressed*).value
+        when .key_released?
+          event.as(Event::KeyReleased*).value
+        when .mouse_wheel_moved?
+          event.as(Event::MouseWheelMoved*).value
+        when .mouse_wheel_scrolled?
+          event.as(Event::MouseWheelScrolled*).value
+        when .mouse_button_pressed?
+          event.as(Event::MouseButtonPressed*).value
+        when .mouse_button_released?
+          event.as(Event::MouseButtonReleased*).value
+        when .mouse_moved?
+          event.as(Event::MouseMoved*).value
+        when .mouse_entered?
+          event.as(Event::MouseEntered*).value
+        when .mouse_left?
+          event.as(Event::MouseLeft*).value
+        when .joystick_button_pressed?
+          event.as(Event::JoystickButtonPressed*).value
+        when .joystick_button_released?
+          event.as(Event::JoystickButtonReleased*).value
+        when .joystick_moved?
+          event.as(Event::JoystickMoved*).value
+        when .joystick_connected?
+          event.as(Event::JoystickConnected*).value
+        when .joystick_disconnected?
+          event.as(Event::JoystickDisconnected*).value
+        when .touch_began?
+          event.as(Event::TouchBegan*).value
+        when .touch_moved?
+          event.as(Event::TouchMoved*).value
+        when .touch_ended?
+          event.as(Event::TouchEnded*).value
+        when .sensor_changed?
+          event.as(Event::SensorChanged*).value
         else
           raise "Unknown SFML event ID #{event_id.value}"
         end
-        {% end %}
       end
     end
     # :nodoc:
@@ -5543,10 +5607,6 @@ module SF
       SFMLExt.sfml_renderwindow_resetglstates(to_unsafe)
     end
     include RenderTarget
-    # :nodoc:
-    def to_unsafe()
-      @this
-    end
     # :nodoc:
     def inspect(io)
       to_s(io)
@@ -6343,10 +6403,6 @@ module SF
     end
     include Drawable
     # :nodoc:
-    def to_unsafe()
-      @this
-    end
-    # :nodoc:
     def inspect(io)
       to_s(io)
     end
@@ -6839,10 +6895,6 @@ module SF
       return result
     end
     include Drawable
-    # :nodoc:
-    def to_unsafe()
-      @this
-    end
     # :nodoc:
     def inspect(io)
       to_s(io)

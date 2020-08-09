@@ -345,10 +345,6 @@ module SF
       return result
     end
     # :nodoc:
-    def to_unsafe()
-      @this
-    end
-    # :nodoc:
     def inspect(io)
       to_s(io)
     end
@@ -628,10 +624,6 @@ module SF
         return String.new(result)
       end
       # :nodoc:
-      def to_unsafe()
-        @this
-      end
-      # :nodoc:
       def inspect(io)
         to_s(io)
       end
@@ -681,10 +673,6 @@ module SF
       def message() : String
         SFMLExt.sfml_ftp_listingresponse_getmessage(to_unsafe, out result)
         return String.new(result)
-      end
-      # :nodoc:
-      def to_unsafe()
-        @this
       end
       # :nodoc:
       def inspect(io)
@@ -2160,10 +2148,6 @@ module SF
       return result
     end
     # :nodoc:
-    def to_unsafe()
-      @this
-    end
-    # :nodoc:
     def inspect(io)
       to_s(io)
     end
@@ -2388,10 +2372,6 @@ module SF
     def blocking?() : Bool
       SFMLExt.sfml_udpsocket_isblocking(to_unsafe, out result)
       return result
-    end
-    # :nodoc:
-    def to_unsafe()
-      @this
     end
     # :nodoc:
     def inspect(io)

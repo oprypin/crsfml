@@ -475,8 +475,17 @@ class CClass < CNamespace
     done_functions = Set(String).new
     union_var = union?
     each do |item|
-      next if union_var
       if item.is_a? CVariable
+        if union_var
+          if context.crystal?
+            o<< "@_#{item.name(context)} = uninitialized #{item.type.name(context)}"
+            o<< "# :nodoc:"
+            o<< "def to_unsafe()"
+            o<< "pointerof(@_#{item.name(context)})"
+            o<< "end"
+          end
+          break
+        end
         item.render(context, o, var_only: true)
       end
     end
@@ -484,7 +493,6 @@ class CClass < CNamespace
     each do |item|
       if union_var
         next if item.is_a?(CVariable)
-        next if item == union_var.type.type
       end
       next unless item.render(context, o)
       if item.is_a? CFunction
@@ -528,6 +536,7 @@ class CClass < CNamespace
           end
           member.render_docs(o, qualname + "::" + member.name(Context::Crystal))
           o<< "struct #{member.name(context)} < #{inh}"
+          o<< "@_#{union_var.name(context)} = #{member.full_name(context)}"
           o<< "end"
         end
       end
@@ -536,7 +545,7 @@ class CClass < CNamespace
         o<< "include #{mod}"
       end
 
-      unless module?
+      unless module? || inh
         o<< "# :nodoc:"
         o<< "def to_unsafe()"
         if struct?
@@ -740,8 +749,12 @@ class CEnum < CNamespace
 
   def render(context : Context, out o : Output)
     return if visibility.private?
+    union_enum = (parent.as?(CClass).try &.union?)
     if context.crystal?
       if @name
+        if union_enum
+          o<< "# :nodoc:"
+        end
         render_docs(o, qualname)
         if members.map(&.value).compact.any?(&.includes? "<<")
           o<< "@[Flags]"
@@ -755,7 +768,7 @@ class CEnum < CNamespace
       end
       if @name
         o<< "end"
-        unless full_name == "Style"
+        unless full_name == "Style" || union_enum
           o<< "Util.extract #{full_name(context)}"
         end
       end
@@ -1295,20 +1308,16 @@ class CFunction < CItem
         end
       end
       if return_params[-1]?.try &.type.type.full_name == "Event"
-        o<< "if result"
-        o<< "{% begin %}"
-        o<< "case (event_id = event.as(LibC::Int*)).value"
         union_var = CType.all["Event"].as(CClass).union?.not_nil!
-        enu = union_var.type.type.as(CEnum)
-        members = enu.members[0...-1].map(&.name(context))
-        o<< "{% for m, i in %w[#{members.join(' ')}] %}"
-        o<< "when {{i}}"
-        o<< "(event_id + 1).as(Event::{{m.id}}*).value"
-        o<< "{% end %}"
+        o<< "if result"
+        o<< "case (event_id = event.as(#{union_var.type.full_name(context)}*).value)"
+        union_var.type.type.as(CEnum).members[0...-1].each do |m|
+          o<< "when .#{m.name(context).underscore}?"
+          o<< "event.as(Event::#{m.name(context)}*).value"
+        end
         o<< "else"
         o<< "raise \"Unknown SFML event ID \#{event_id.value}\""
         o<< "end"
-        o<< "{% end %}"
         o<< "end"
         return_params.clear
       end
@@ -1809,7 +1818,7 @@ class CrystalOutput < Output
     dedent if line =~ /^(end|else|elsif|when)\b|^\}/
     comment = " "*{118 - line.size - TAB.size*@indent, 0}.max + "  # " + comment if comment
     yield "#{line}#{comment}"
-    if line =~ /^((module|(abstract +)?(class|struct)|union|((private |protected +)?(def|macro))|lib|enum|case|if|elsif|unless|when) [^:].*|else|[^#]+(\b(begin|do)|\{))$/
+    if line =~ /^((module|(abstract +)?(class|struct)|union|((private |protected +)?(def|macro|enum))|lib|case|if|elsif|unless|when) [^:].*|else|[^#]+(\b(begin|do)|\{))$/
       indent unless line.starts_with? '#'
     end
   end

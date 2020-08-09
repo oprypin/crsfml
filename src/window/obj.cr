@@ -1265,6 +1265,11 @@ module SF
   # end
   # ```
   abstract struct Event
+    @_type = uninitialized EventType
+    # :nodoc:
+    def to_unsafe()
+      pointerof(@_type)
+    end
     # Size events parameters (Resized)
     abstract struct SizeEvent < Event
       def initialize()
@@ -1289,10 +1294,6 @@ module SF
       end
       def height=(height : Int)
         @height = LibC::UInt.new(height)
-      end
-      # :nodoc:
-      def to_unsafe()
-        pointerof(@width).as(Void*)
       end
       # :nodoc:
       def initialize(copy : Event::SizeEvent)
@@ -1360,10 +1361,6 @@ module SF
         @system = system
       end
       # :nodoc:
-      def to_unsafe()
-        pointerof(@code).as(Void*)
-      end
-      # :nodoc:
       def initialize(copy : Event::KeyEvent)
         @code = uninitialized Keyboard::Key
         @alt = uninitialized Bool
@@ -1390,10 +1387,6 @@ module SF
       end
       def unicode=(unicode : Int)
         @unicode = UInt32.new(unicode)
-      end
-      # :nodoc:
-      def to_unsafe()
-        pointerof(@unicode).as(Void*)
       end
       # :nodoc:
       def initialize(copy : Event::TextEvent)
@@ -1428,10 +1421,6 @@ module SF
       end
       def y=(y : Int)
         @y = LibC::Int.new(y)
-      end
-      # :nodoc:
-      def to_unsafe()
-        pointerof(@x).as(Void*)
       end
       # :nodoc:
       def initialize(copy : Event::MouseMoveEvent)
@@ -1478,10 +1467,6 @@ module SF
       end
       def y=(y : Int)
         @y = LibC::Int.new(y)
-      end
-      # :nodoc:
-      def to_unsafe()
-        pointerof(@button).as(Void*)
       end
       # :nodoc:
       def initialize(copy : Event::MouseButtonEvent)
@@ -1531,10 +1516,6 @@ module SF
       end
       def y=(y : Int)
         @y = LibC::Int.new(y)
-      end
-      # :nodoc:
-      def to_unsafe()
-        pointerof(@delta).as(Void*)
       end
       # :nodoc:
       def initialize(copy : Event::MouseWheelEvent)
@@ -1593,10 +1574,6 @@ module SF
         @y = LibC::Int.new(y)
       end
       # :nodoc:
-      def to_unsafe()
-        pointerof(@wheel).as(Void*)
-      end
-      # :nodoc:
       def initialize(copy : Event::MouseWheelScrollEvent)
         @wheel = uninitialized Mouse::Wheel
         @delta = uninitialized Float32
@@ -1623,10 +1600,6 @@ module SF
       end
       def joystick_id=(joystick_id : Int)
         @joystick_id = LibC::UInt.new(joystick_id)
-      end
-      # :nodoc:
-      def to_unsafe()
-        pointerof(@joystick_id).as(Void*)
       end
       # :nodoc:
       def initialize(copy : Event::JoystickConnectEvent)
@@ -1673,10 +1646,6 @@ module SF
         @position = LibC::Float.new(position)
       end
       # :nodoc:
-      def to_unsafe()
-        pointerof(@joystick_id).as(Void*)
-      end
-      # :nodoc:
       def initialize(copy : Event::JoystickMoveEvent)
         @joystick_id = uninitialized UInt32
         @axis = uninitialized Joystick::Axis
@@ -1712,10 +1681,6 @@ module SF
       end
       def button=(button : Int)
         @button = LibC::UInt.new(button)
-      end
-      # :nodoc:
-      def to_unsafe()
-        pointerof(@joystick_id).as(Void*)
       end
       # :nodoc:
       def initialize(copy : Event::JoystickButtonEvent)
@@ -1761,10 +1726,6 @@ module SF
       end
       def y=(y : Int)
         @y = LibC::Int.new(y)
-      end
-      # :nodoc:
-      def to_unsafe()
-        pointerof(@finger).as(Void*)
       end
       # :nodoc:
       def initialize(copy : Event::TouchEvent)
@@ -1823,10 +1784,6 @@ module SF
         @z = LibC::Float.new(z)
       end
       # :nodoc:
-      def to_unsafe()
-        pointerof(@type).as(Void*)
-      end
-      # :nodoc:
       def initialize(copy : Event::SensorEvent)
         @type = uninitialized Sensor::Type
         @x = uninitialized Float32
@@ -1838,78 +1795,149 @@ module SF
         return SensorEvent.new(self)
       end
     end
+    # :nodoc:
+    # Enumeration of the different types of events
+    enum EventType
+      # The window requested to be closed (no data)
+      Closed
+      # The window was resized (data in event.size)
+      Resized
+      # The window lost the focus (no data)
+      LostFocus
+      # The window gained the focus (no data)
+      GainedFocus
+      # A character was entered (data in event.text)
+      TextEntered
+      # A key was pressed (data in event.key)
+      KeyPressed
+      # A key was released (data in event.key)
+      KeyReleased
+      # The mouse wheel was scrolled (data in event.mouse_wheel) (deprecated)
+      MouseWheelMoved
+      # The mouse wheel was scrolled (data in event.mouse_wheel_scroll)
+      MouseWheelScrolled
+      # A mouse button was pressed (data in event.mouse_button)
+      MouseButtonPressed
+      # A mouse button was released (data in event.mouse_button)
+      MouseButtonReleased
+      # The mouse cursor moved (data in event.mouse_move)
+      MouseMoved
+      # The mouse cursor entered the area of the window (no data)
+      MouseEntered
+      # The mouse cursor left the area of the window (no data)
+      MouseLeft
+      # A joystick button was pressed (data in event.joystick_button)
+      JoystickButtonPressed
+      # A joystick button was released (data in event.joystick_button)
+      JoystickButtonReleased
+      # The joystick moved along an axis (data in event.joystick_move)
+      JoystickMoved
+      # A joystick was connected (data in event.joystick_connect)
+      JoystickConnected
+      # A joystick was disconnected (data in event.joystick_connect)
+      JoystickDisconnected
+      # A touch event began (data in event.touch)
+      TouchBegan
+      # A touch moved (data in event.touch)
+      TouchMoved
+      # A touch event ended (data in event.touch)
+      TouchEnded
+      # A sensor value changed (data in event.sensor)
+      SensorChanged
+      # Keep last -- the total number of event types
+      Count
+    end
     # The window requested to be closed (no data)
     struct Closed < Event
+      @_type = Event::EventType::Closed
     end
     # The window was resized (data in event.size)
     struct Resized < SizeEvent
+      @_type = Event::EventType::Resized
     end
     # The window lost the focus (no data)
     struct LostFocus < Event
+      @_type = Event::EventType::LostFocus
     end
     # The window gained the focus (no data)
     struct GainedFocus < Event
+      @_type = Event::EventType::GainedFocus
     end
     # A character was entered (data in event.text)
     struct TextEntered < TextEvent
+      @_type = Event::EventType::TextEntered
     end
     # A key was pressed (data in event.key)
     struct KeyPressed < KeyEvent
+      @_type = Event::EventType::KeyPressed
     end
     # A key was released (data in event.key)
     struct KeyReleased < KeyEvent
+      @_type = Event::EventType::KeyReleased
     end
     # The mouse wheel was scrolled (data in event.mouse_wheel) (deprecated)
     struct MouseWheelMoved < MouseWheelEvent
+      @_type = Event::EventType::MouseWheelMoved
     end
     # The mouse wheel was scrolled (data in event.mouse_wheel_scroll)
     struct MouseWheelScrolled < MouseWheelScrollEvent
+      @_type = Event::EventType::MouseWheelScrolled
     end
     # A mouse button was pressed (data in event.mouse_button)
     struct MouseButtonPressed < MouseButtonEvent
+      @_type = Event::EventType::MouseButtonPressed
     end
     # A mouse button was released (data in event.mouse_button)
     struct MouseButtonReleased < MouseButtonEvent
+      @_type = Event::EventType::MouseButtonReleased
     end
     # The mouse cursor moved (data in event.mouse_move)
     struct MouseMoved < MouseMoveEvent
+      @_type = Event::EventType::MouseMoved
     end
     # The mouse cursor entered the area of the window (no data)
     struct MouseEntered < Event
+      @_type = Event::EventType::MouseEntered
     end
     # The mouse cursor left the area of the window (no data)
     struct MouseLeft < Event
+      @_type = Event::EventType::MouseLeft
     end
     # A joystick button was pressed (data in event.joystick_button)
     struct JoystickButtonPressed < JoystickButtonEvent
+      @_type = Event::EventType::JoystickButtonPressed
     end
     # A joystick button was released (data in event.joystick_button)
     struct JoystickButtonReleased < JoystickButtonEvent
+      @_type = Event::EventType::JoystickButtonReleased
     end
     # The joystick moved along an axis (data in event.joystick_move)
     struct JoystickMoved < JoystickMoveEvent
+      @_type = Event::EventType::JoystickMoved
     end
     # A joystick was connected (data in event.joystick_connect)
     struct JoystickConnected < JoystickConnectEvent
+      @_type = Event::EventType::JoystickConnected
     end
     # A joystick was disconnected (data in event.joystick_connect)
     struct JoystickDisconnected < JoystickConnectEvent
+      @_type = Event::EventType::JoystickDisconnected
     end
     # A touch event began (data in event.touch)
     struct TouchBegan < TouchEvent
+      @_type = Event::EventType::TouchBegan
     end
     # A touch moved (data in event.touch)
     struct TouchMoved < TouchEvent
+      @_type = Event::EventType::TouchMoved
     end
     # A touch event ended (data in event.touch)
     struct TouchEnded < TouchEvent
+      @_type = Event::EventType::TouchEnded
     end
     # A sensor value changed (data in event.sensor)
     struct SensorChanged < SensorEvent
-    end
-    # :nodoc:
-    def to_unsafe()
-      pointerof(@type).as(Void*)
+      @_type = Event::EventType::SensorChanged
     end
   end
   # Give access to the real-time state of the touches
@@ -2409,16 +2437,56 @@ module SF
       SFMLExt.sfml_event_allocate(out event)
       SFMLExt.sfml_window_pollevent_YJW(to_unsafe, event, out result)
       if result
-        {% begin %}
-        case (event_id = event.as(LibC::Int*)).value
-          {% for m, i in %w[Closed Resized LostFocus GainedFocus TextEntered KeyPressed KeyReleased MouseWheelMoved MouseWheelScrolled MouseButtonPressed MouseButtonReleased MouseMoved MouseEntered MouseLeft JoystickButtonPressed JoystickButtonReleased JoystickMoved JoystickConnected JoystickDisconnected TouchBegan TouchMoved TouchEnded SensorChanged] %}
-        when {{i}}
-          (event_id + 1).as(Event::{{m.id}}*).value
-          {% end %}
+        case (event_id = event.as(Event::EventType*).value)
+        when .closed?
+          event.as(Event::Closed*).value
+        when .resized?
+          event.as(Event::Resized*).value
+        when .lost_focus?
+          event.as(Event::LostFocus*).value
+        when .gained_focus?
+          event.as(Event::GainedFocus*).value
+        when .text_entered?
+          event.as(Event::TextEntered*).value
+        when .key_pressed?
+          event.as(Event::KeyPressed*).value
+        when .key_released?
+          event.as(Event::KeyReleased*).value
+        when .mouse_wheel_moved?
+          event.as(Event::MouseWheelMoved*).value
+        when .mouse_wheel_scrolled?
+          event.as(Event::MouseWheelScrolled*).value
+        when .mouse_button_pressed?
+          event.as(Event::MouseButtonPressed*).value
+        when .mouse_button_released?
+          event.as(Event::MouseButtonReleased*).value
+        when .mouse_moved?
+          event.as(Event::MouseMoved*).value
+        when .mouse_entered?
+          event.as(Event::MouseEntered*).value
+        when .mouse_left?
+          event.as(Event::MouseLeft*).value
+        when .joystick_button_pressed?
+          event.as(Event::JoystickButtonPressed*).value
+        when .joystick_button_released?
+          event.as(Event::JoystickButtonReleased*).value
+        when .joystick_moved?
+          event.as(Event::JoystickMoved*).value
+        when .joystick_connected?
+          event.as(Event::JoystickConnected*).value
+        when .joystick_disconnected?
+          event.as(Event::JoystickDisconnected*).value
+        when .touch_began?
+          event.as(Event::TouchBegan*).value
+        when .touch_moved?
+          event.as(Event::TouchMoved*).value
+        when .touch_ended?
+          event.as(Event::TouchEnded*).value
+        when .sensor_changed?
+          event.as(Event::SensorChanged*).value
         else
           raise "Unknown SFML event ID #{event_id.value}"
         end
-        {% end %}
       end
     end
     # Wait for an event and return it
@@ -2445,16 +2513,56 @@ module SF
       SFMLExt.sfml_event_allocate(out event)
       SFMLExt.sfml_window_waitevent_YJW(to_unsafe, event, out result)
       if result
-        {% begin %}
-        case (event_id = event.as(LibC::Int*)).value
-          {% for m, i in %w[Closed Resized LostFocus GainedFocus TextEntered KeyPressed KeyReleased MouseWheelMoved MouseWheelScrolled MouseButtonPressed MouseButtonReleased MouseMoved MouseEntered MouseLeft JoystickButtonPressed JoystickButtonReleased JoystickMoved JoystickConnected JoystickDisconnected TouchBegan TouchMoved TouchEnded SensorChanged] %}
-        when {{i}}
-          (event_id + 1).as(Event::{{m.id}}*).value
-          {% end %}
+        case (event_id = event.as(Event::EventType*).value)
+        when .closed?
+          event.as(Event::Closed*).value
+        when .resized?
+          event.as(Event::Resized*).value
+        when .lost_focus?
+          event.as(Event::LostFocus*).value
+        when .gained_focus?
+          event.as(Event::GainedFocus*).value
+        when .text_entered?
+          event.as(Event::TextEntered*).value
+        when .key_pressed?
+          event.as(Event::KeyPressed*).value
+        when .key_released?
+          event.as(Event::KeyReleased*).value
+        when .mouse_wheel_moved?
+          event.as(Event::MouseWheelMoved*).value
+        when .mouse_wheel_scrolled?
+          event.as(Event::MouseWheelScrolled*).value
+        when .mouse_button_pressed?
+          event.as(Event::MouseButtonPressed*).value
+        when .mouse_button_released?
+          event.as(Event::MouseButtonReleased*).value
+        when .mouse_moved?
+          event.as(Event::MouseMoved*).value
+        when .mouse_entered?
+          event.as(Event::MouseEntered*).value
+        when .mouse_left?
+          event.as(Event::MouseLeft*).value
+        when .joystick_button_pressed?
+          event.as(Event::JoystickButtonPressed*).value
+        when .joystick_button_released?
+          event.as(Event::JoystickButtonReleased*).value
+        when .joystick_moved?
+          event.as(Event::JoystickMoved*).value
+        when .joystick_connected?
+          event.as(Event::JoystickConnected*).value
+        when .joystick_disconnected?
+          event.as(Event::JoystickDisconnected*).value
+        when .touch_began?
+          event.as(Event::TouchBegan*).value
+        when .touch_moved?
+          event.as(Event::TouchMoved*).value
+        when .touch_ended?
+          event.as(Event::TouchEnded*).value
+        when .sensor_changed?
+          event.as(Event::SensorChanged*).value
         else
           raise "Unknown SFML event ID #{event_id.value}"
         end
-        {% end %}
       end
     end
     # Get the position of the window

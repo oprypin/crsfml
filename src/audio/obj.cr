@@ -709,10 +709,6 @@ module SF
       return result
     end
     # :nodoc:
-    def to_unsafe()
-      @this
-    end
-    # :nodoc:
     def inspect(io)
       to_s(io)
     end
@@ -1045,10 +1041,6 @@ module SF
       return result
     end
     # :nodoc:
-    def to_unsafe()
-      @this
-    end
-    # :nodoc:
     def inspect(io)
       to_s(io)
     end
@@ -1278,10 +1270,6 @@ module SF
     def attenuation() : Float32
       SFMLExt.sfml_sound_getattenuation(to_unsafe, out result)
       return result
-    end
-    # :nodoc:
-    def to_unsafe()
-      @this
     end
     # :nodoc:
     def inspect(io)
@@ -1965,10 +1953,6 @@ module SF
     end
     # :nodoc:
     def processing_interval=(interval : Time)
-    end
-    # :nodoc:
-    def to_unsafe()
-      @this
     end
     # :nodoc:
     def inspect(io)
