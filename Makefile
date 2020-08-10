@@ -12,11 +12,13 @@ obj_files := $(cpp_files:.cpp=.o)
 .PHONY: all
 all: $(crystal_files) $(obj_files)
 
-$(crystal_files) $(cpp_files): generate.cr shard.yml $(foreach module,$(modules),docs/$(module).diff)
+.INTERMEDIATE: sources
+$(crystal_files) $(cpp_files): sources ;
+sources: generate.cr shard.yml $(foreach module,$(modules),docs/$(module).diff)
 	$(CRYSTAL) run generate.cr -- $(call shellquote,$(SFML_INCLUDE_DIR))
 
 %.o: %.cpp
-	$(CXX) -c -o $@ -Wno-deprecated-declarations -I $(call shellquote,$(SFML_INCLUDE_DIR)) $(CXXFLAGS) $<
+	$(CXX) -Wno-deprecated-declarations -I $(call shellquote,$(SFML_INCLUDE_DIR)) $(CXXFLAGS) -o $@ -c $<
 
 .PHONY: clean
 clean:

@@ -114,7 +114,7 @@ jobs:
           .\make
   <% else -%>
           <% if sfml_include_dir %>SFML_INCLUDE_DIR=<%= sfml_include_dir %><% end %> \
-          make
+          make -j
   <% end %>
   <% if m[:sfml] == latest_sfml %>
       - name: Validate freshness of generated files

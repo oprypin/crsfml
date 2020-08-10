@@ -42,7 +42,7 @@ jobs:
       - name: Re-generate sources
         run: crystal generate.cr "$GITHUB_WORKSPACE/sfml/include"
       - name: Build CrSFML
-        run: SFML_INCLUDE_DIR="$GITHUB_WORKSPACE/sfml/include" make
+        run: SFML_INCLUDE_DIR="$GITHUB_WORKSPACE/sfml/include" make -j
       - name: Validate freshness of generated files
         run: git diff --exit-code
       - name: Generate docs
@@ -155,7 +155,7 @@ jobs:
       - name: Re-generate sources
         run: crystal generate.cr
       - name: Build CrSFML
-        run: make
+        run: make -j
       - name: Generate docs
         run: crystal doc
       - name: Start virtual display
@@ -229,7 +229,7 @@ jobs:
       - name: Re-generate sources
         run: crystal generate.cr "$GITHUB_WORKSPACE/sfml/include"
       - name: Build CrSFML
-        run: SFML_INCLUDE_DIR="$GITHUB_WORKSPACE/sfml/include" make
+        run: SFML_INCLUDE_DIR="$GITHUB_WORKSPACE/sfml/include" make -j
       - name: Validate freshness of generated files
         run: git diff --exit-code
       - name: Generate docs
@@ -314,7 +314,7 @@ jobs:
       - name: Re-generate sources
         run: crystal generate.cr /usr/local/include
       - name: Build CrSFML
-        run: SFML_INCLUDE_DIR=/usr/local/include make
+        run: SFML_INCLUDE_DIR=/usr/local/include make -j
       - name: Generate docs
         run: crystal doc
       - name: Run tests
