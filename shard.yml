@@ -12,4 +12,4 @@ scripts:
 
 license: zlib
 
-crystal: 0.25.1
+crystal: '>= 0.25.1'
