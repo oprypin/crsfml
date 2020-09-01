@@ -42,7 +42,7 @@ version: 0.1.0
 dependencies:
   crsfml:
     github: oprypin/crsfml
-    version: ~> 2.5.1
+    version: ~> 2.5.2
 ```
 
 Resolve dependencies with [Shards][]:
