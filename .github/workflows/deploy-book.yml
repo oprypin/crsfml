@@ -18,12 +18,12 @@ jobs:
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
           restore-keys: ${{ runner.os }}-pip-
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r tutorials/requirements.txt
       - name: Build site
-        run: ./build.sh
+        run: tutorials/build.sh
       - name: Deploy to gh-pages
         if: github.event_name == 'push' && github.ref == 'refs/heads/tutorials'
         uses: oprypin/push-to-gh-pages@v3
         with:
-          publish_dir: site
+          publish_dir: tutorials/site
           destination_dir: tutorials
