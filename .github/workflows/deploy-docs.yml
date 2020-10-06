@@ -1,7 +1,12 @@
 name: Deploy docs
+
 on:
   push:
+  pull_request:
     branches: [master]
+  schedule:
+    - cron: '0 6 * * 6'
+
 jobs:
   build:
     name: Deploy docs
@@ -11,10 +16,11 @@ jobs:
         uses: oprypin/install-crystal@v1
       - name: Download source
         uses: actions/checkout@v2
-      - name: Download gh-pages
-        uses: actions/checkout@v2
+      - name: Generate API docs
+        run: docs/build.sh
+      - name: Deploy to gh-pages
+        if: github.event_name == 'push' && github.ref == 'refs/heads/gh-ci'
+        uses: oprypin/push-to-gh-pages@v3
         with:
-          ref: gh-pages
-          path: .gh-pages
-      - name: Generate and deploy to gh-pages
-        run: docs/deploy.sh origin
+          publish_dir: api
+          destination_dir: api
