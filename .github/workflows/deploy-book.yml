@@ -19,10 +19,11 @@ jobs:
           restore-keys: ${{ runner.os }}-pip-
       - name: Install dependencies
         run: pip install -r requirements.txt
-      - name: Download gh-pages
-        uses: actions/checkout@v2
+      - name: Build site
+        run: ./build.sh
+      - name: Deploy to gh-pages
+        if: github.event_name == 'push' && github.ref == 'refs/heads/tutorials'
+        uses: oprypin/push-to-gh-pages@v3
         with:
-          ref: gh-pages
-          path: .gh-pages
-      - name: Build and deploy to gh-pages
-        run: ./deploy.sh origin
+          publish_dir: site
+          destination_dir: tutorials
