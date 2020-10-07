@@ -32,3 +32,4 @@ jobs:
         with:
           publish_dir: tutorials/site
           destination_dir: tutorials
+          commit_message: 'Generate tutorials: '

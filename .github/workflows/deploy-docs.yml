@@ -24,3 +24,4 @@ jobs:
         with:
           publish_dir: api
           destination_dir: api
+          commit_message: 'Generate API documentation: '
