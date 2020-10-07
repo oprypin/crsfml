@@ -1,7 +1,9 @@
 name: CI
 on:
   push:
+    paths-ignore: ['tutorials/**', '*.md']
   pull_request:
+    paths-ignore: ['tutorials/**', '*.md']
     branches: [master]
   schedule:
     - cron: '0 6 * * 6'

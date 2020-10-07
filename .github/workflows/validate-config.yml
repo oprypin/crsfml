@@ -3,8 +3,8 @@ on:
   push:
     paths: ['.github/**']
   pull_request:
-    branches: [master]
     paths: ['.github/**']
+    branches: [master]
 jobs:
   build:
     name: Validate CI config

@@ -1,8 +1,10 @@
 name: CI
 
 on:
-  push:
-  pull_request:
+  <% %w[push pull_request].each do |ev| %>
+  <%= ev %>:
+    paths-ignore: ['tutorials/**', '*.md']
+  <% end %>
     branches: [master]
   schedule:
     - cron: '0 6 * * 6'
