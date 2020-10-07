@@ -2,7 +2,7 @@ site_name: CrSFML Tutorials
 use_directory_urls: false
 docs_dir: .
 repo_url: https://github.com/oprypin/crsfml/
-edit_uri: blob/tutorials/
+edit_uri: blob/master/tutorials/
 
 theme:
   name: readthedocs

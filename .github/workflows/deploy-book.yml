@@ -22,7 +22,7 @@ jobs:
       - name: Build site
         run: tutorials/build.sh
       - name: Deploy to gh-pages
-        if: github.event_name == 'push' && github.ref == 'refs/heads/tutorials'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         uses: oprypin/push-to-gh-pages@v3
         with:
           publish_dir: tutorials/site
