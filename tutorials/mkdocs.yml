@@ -1,0 +1,30 @@
+site_name: CrSFML Tutorials
+use_directory_urls: false
+docs_dir: .
+repo_url: https://github.com/oprypin/crsfml/
+edit_uri: blob/tutorials/
+
+theme:
+  name: readthedocs
+  highlightjs: false
+
+extra_css:
+  - codehilite.css
+  - style.css
+
+markdown_extensions:
+  - codehilite:
+      guess_lang: false
+
+plugins:
+  - search
+  - markdownextradata
+  - same-dir
+  - literate-nav:
+      nav_file: README.md
+
+extra:
+  book:
+    api: http://oprypin.github.io/crsfml/api/SF
+    examples: https://github.com/oprypin/crsfml/tree/master/examples
+    examples2: https://github.com/oprypin/crsfml-examples/tree/master
