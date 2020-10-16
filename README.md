@@ -122,7 +122,7 @@ export SFML_INCLUDE_DIR=/full/path/to/sfml/include
 ```
 Windows equivalent:
 ```cmd
-set INCLUDE=%INCLUDE%;C:\path\to\sfml\include
+set INCLUDE=C:\path\to\sfml\include;%INCLUDE%
 ```
 
 Setting these variables beforehand can also fix `shards install`.
@@ -135,8 +135,8 @@ export LD_LIBRARY_PATH=/full/path/to/sfml/lib  # Used when running an executable
 ```
 Windows equivalent:
 ```cmd
-set LIB=%LIB%;c:\path\to\sfml\lib
-set PATH=%PATH%;c:\path\to\sfml\bin
+set LIB=c:\path\to\sfml\lib;%LIB%
+set PATH=c:\path\to\sfml\bin;%PATH%
 ```
 
 CrSFML's top-level scripts also need the include path to work. E.g. `crystal generate.cr -- /full/path/to/sfml/include`.
