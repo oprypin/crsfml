@@ -1,10 +1,10 @@
 # Text and fonts
 
-Relevant example: **[typing]({{book.examples}}/typing.cr)**
+Relevant example: **[typing](https://github.com/oprypin/crsfml/tree/master/examples/typing.cr)**
 
 ## Loading a font
 
-Before drawing any text, you need to have an available font, just like any other program that prints text. Fonts are encapsulated in the [Font]({{book.api}}/Font.html) class, which provides three main features: loading a font, getting glyphs (i.e. visual characters) from it, and reading its attributes. In a typical program, you'll only have to make use of the first feature, loading the font, so let's focus on that first.
+Before drawing any text, you need to have an available font, just like any other program that prints text. Fonts are encapsulated in the [SF::Font][] class, which provides three main features: loading a font, getting glyphs (i.e. visual characters) from it, and reading its attributes. In a typical program, you'll only have to make use of the first feature, loading the font, so let's focus on that first.
 
 The most common way of loading a font is from a file on disk, which is done with the `from_file` class method.
 
@@ -24,7 +24,7 @@ That's all you need to do. Once your font is loaded, you can start drawing text.
 
 ## Drawing text
 
-To draw text, you will be using the [Text]({{book.api}}/Text.html) class. It's very simple to use:
+To draw text, you will be using the [SF::Text][] class. It's very simple to use:
 
 ```crystal
 text = SF::Text.new
@@ -52,11 +52,11 @@ window.draw(text)
 
 ![](images/text-draw.png)
 
-Text can also be transformed: They have a position, an orientation and a scale. The methods involved are the same as for the [Sprite]({{book.api}}/Sprite.html) class and other CrSFML entities. They are explained in the [Transforming entities](transform.md "'Transforming entities' tutorial") tutorial.
+Text can also be transformed: They have a position, an orientation and a scale. The methods involved are the same as for the [SF::Sprite][] class and other CrSFML entities. They are explained in the [Transforming entities](transform.md "'Transforming entities' tutorial") tutorial.
 
 ## Making your own text class
 
-If [Text]({{book.api}}/Text.html) is too limited, or if you want to do something else with pre-rendered glyphs, [Font]({{book.api}}/Font.html) provides everything that you need.
+If [SF::Text][] is too limited, or if you want to do something else with pre-rendered glyphs, [SF::Font][] provides everything that you need.
 
 You can retrieve the texture which contains all the pre-rendered glyphs of a certain size:
 
@@ -74,7 +74,7 @@ glyph = font.get_glyph(character, character_size, bold)
 
 `character` is the character, the glyph of which you want to get. You must also specify the character size, and whether you want the bold or the regular version of the glyph.
 
-The [Glyph]({{book.api}}/Glyph.html) structure contains three members:
+The [SF::Glyph][] structure contains three members:
 
 * `texture_rect` contains the texture coordinates of the glyph within the texture
 * `bounds` contains the bounding rectangle of the glyph, which helps position it relative to the baseline of the text

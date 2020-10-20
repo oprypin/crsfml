@@ -1,12 +1,12 @@
 # Position, rotation, scale: Transforming entities
 
-Relevant example: **[transformable]({{book.examples}}/transformable.cr)**
+Relevant example: **[transformable](https://github.com/oprypin/crsfml/tree/master/examples/transformable.cr)**
 
 ## Transforming CrSFML entities
 
-All CrSFML classes (sprites, text, shapes) use the same interface for transformations: [Transformable]({{book.api}}/Transformable.html). This base class provides a simple API to move, rotate and scale your entities. It doesn't provide maximum flexibility, but instead defines an interface which is easy to understand and to use, and which covers 99% of all use cases -- for the remaining 1%, see the last chapters.
+All CrSFML classes (sprites, text, shapes) use the same interface for transformations: [SF::Transformable][]. This base class provides a simple API to move, rotate and scale your entities. It doesn't provide maximum flexibility, but instead defines an interface which is easy to understand and to use, and which covers 99% of all use cases -- for the remaining 1%, see the last chapters.
 
-[Transformable]({{book.api}}/Transformable.html) (and all its derived classes) defines four properties: **position**, **rotation**, **scale** and **origin**. They all have their respective getters and setters. These transformation components are all independent of one another: If you want to change the orientation of the entity, you just have to set its rotation property, you don't have to care about the current position and scale.
+[SF::Transformable][] (and all its derived classes) defines four properties: **position**, **rotation**, **scale** and **origin**. They all have their respective getters and setters. These transformation components are all independent of one another: If you want to change the orientation of the entity, you just have to set its rotation property, you don't have to care about the current position and scale.
 
 ### Position
 
@@ -91,7 +91,7 @@ Note that changing the origin also changes where the entity is drawn on screen, 
 
 ## Transforming your own classes
 
-[Transformable]({{book.api}}/Transformable.html) is not only made for CrSFML classes, it can also be a base (or a member) of your own classes.
+[SF::Transformable][] is not only made for CrSFML classes, it can also be a base (or a member) of your own classes.
 
 ```crystal
 class MyGraphicalEntity < SF::Transformable
@@ -103,15 +103,15 @@ entity.rotation = 110
 entity.scale = SF.vector2(0.5, 0.2)
 ```
 
-To retrieve the final transform of the entity (commonly needed when drawing it), call the `transform` method. This method returns a [Transform]({{book.api}}/Transform.html) object. See below for an explanation about it, and how to use it to transform an SFML entity.
+To retrieve the final transform of the entity (commonly needed when drawing it), call the `transform` method. This method returns a [SF::Transform][] object. See below for an explanation about it, and how to use it to transform an SFML entity.
 
-If you don't need/want the complete set of methods provided by the [Transformable]({{book.api}}/Transformable.html) interface, don't hesitate to simply use it as a member instead and provide your own methods on top of it. It is not abstract, so it is possible to instantiate it instead of only being able to use it as a base class.
+If you don't need/want the complete set of methods provided by the [SF::Transformable][] interface, don't hesitate to simply use it as a member instead and provide your own methods on top of it. It is not abstract, so it is possible to instantiate it instead of only being able to use it as a base class.
 
 ## Custom transforms
 
-The [Transformable]({{book.api}}/Transformable.html) class is easy to use, but it is also limited. Some users might need more flexibility. They might need to specify a final transformation as a custom combination of individual transformations. For these users, a lower-level class is available: [Transform]({{book.api}}/Transform.html). It is nothing more than a 3x3 matrix, so it can represent any transformation in 2D space.
+The [SF::Transformable][] class is easy to use, but it is also limited. Some users might need more flexibility. They might need to specify a final transformation as a custom combination of individual transformations. For these users, a lower-level class is available: [SF::Transform][]. It is nothing more than a 3x3 matrix, so it can represent any transformation in 2D space.
 
-There are many ways to construct a [Transform]({{book.api}}/Transform.html):
+There are many ways to construct a [SF::Transform][]:
 
 * by using the predefined methods for the most common transformations (translation, rotation, scale)
 * by combining two transforms
@@ -152,7 +152,7 @@ states.transform = transform
 window.draw(entity, states)
 ```
 
-If your entity is a [Transformable]({{book.api}}/Transformable.html) (sprite, text, shape), which contains its own internal transform, both the internal and the passed transform are combined to produce the final transform.
+If your entity is a [SF::Transformable][] (sprite, text, shape), which contains its own internal transform, both the internal and the passed transform are combined to produce the final transform.
 
 ## Bounding boxes
 

@@ -72,7 +72,7 @@ window.draw(shape)
 
 ### Rectangles
 
-To draw rectangles, you can use the [RectangleShape]({{book.api}}/RectangleShape.html) class. It has a single attribute: The size of the rectangle.
+To draw rectangles, you can use the [SF::RectangleShape][] class. It has a single attribute: The size of the rectangle.
 
 ```crystal
 # define a 120x50 rectangle
@@ -86,9 +86,9 @@ rectangle.size = SF.vector2(100, 100)
 
 ### Circles
 
-Relevant example: **[snakes]({{book.examples}}/snakes.cr)**
+Relevant example: **[snakes](https://github.com/oprypin/crsfml/tree/master/examples/snakes.cr)**
 
-Circles are represented by the [CircleShape]({{book.api}}/CircleShape.html) class. It has two attributes: The radius and the number of sides. The number of sides is an optional attribute, it allows you to adjust the "quality" of the circle: Circles have to be approximated by polygons with many sides (the graphics card is unable to draw a perfect circle directly), and this attribute defines how many sides your circle approximation will have. If you draw small circles, you'll probably only need a few sides. If you draw big circles, or zoom on regular circles, you'll most likely need more sides.
+Circles are represented by the [SF::CircleShape][] class. It has two attributes: The radius and the number of sides. The number of sides is an optional attribute, it allows you to adjust the "quality" of the circle: Circles have to be approximated by polygons with many sides (the graphics card is unable to draw a perfect circle directly), and this attribute defines how many sides your circle approximation will have. If you draw small circles, you'll probably only need a few sides. If you draw big circles, or zoom on regular circles, you'll most likely need more sides.
 
 ```crystal
 # define a circle with radius = 200
@@ -105,7 +105,7 @@ circle.point_count = 100
 
 ### Regular polygons
 
-There's no dedicated class for regular polygons, in fact you can represent a regular polygon with any number of sides using the [CircleShape]({{book.api}}/CircleShape.html) class: Since circles are approximated by polygons with many sides, you just have to play with the number of sides to get the desired polygons. A [CircleShape]({{book.api}}/CircleShape.html) with 3 points is a triangle, with 4 points it's a square, etc.
+There's no dedicated class for regular polygons, in fact you can represent a regular polygon with any number of sides using the [SF::CircleShape][] class: Since circles are approximated by polygons with many sides, you just have to play with the number of sides to get the desired polygons. A [SF::CircleShape][] with 3 points is a triangle, with 4 points it's a square, etc.
 
 ```crystal
 # define a triangle
@@ -122,9 +122,9 @@ octagon = SF::CircleShape.new(80, 8)
 
 ### Convex shapes
 
-Relevant example: **[rounded_rectangle]({{book.examples2}}/2048/rounded_rectangle.cr)**
+Relevant example: **[rounded_rectangle](https://github.com/oprypin/crsfml-examples/tree/master/2048/rounded_rectangle.cr)**
 
-The [ConvexShape]({{book.api}}/ConvexShape.html) class is the ultimate shape class: It allows you to define any *convex* shape. SFML is unable to draw concave shapes. If you need to draw a concave shape, you'll have to split it into multiple convex polygons.
+The [SF::ConvexShape][] class is the ultimate shape class: It allows you to define any *convex* shape. SFML is unable to draw concave shapes. If you need to draw a concave shape, you'll have to split it into multiple convex polygons.
 
 To construct a convex shape, you must first set the number of points it should have and then define the points.
 
@@ -147,7 +147,7 @@ The order in which you define the points is very important. They must *all* be d
 
 ![A convex shape](images/shape-convex.png)
 
-Although the name of [ConvexShape]({{book.api}}/ConvexShape.html) implies that it should only be used to represent convex shapes, its requirements are a little more relaxed. In fact, the only requirement that your shape must meet is that if you went ahead and drew lines from its *center of gravity* to all of its points, these lines must be drawn in the same order. You are not allowed to "jump behind a previous line". Internally, convex shapes are automatically constructed using [triangle fans](http://en.wikipedia.org/wiki/Triangle_fan "Go to Wikipedia's article about triangle fans"), so if your shape is representable by a triangle fan, you can use [ConvexShape]({{book.api}}/ConvexShape.html). With this relaxed definition, you can draw stars using [ConvexShape]({{book.api}}/ConvexShape.html) for example.
+Although the name of [SF::ConvexShape][] implies that it should only be used to represent convex shapes, its requirements are a little more relaxed. In fact, the only requirement that your shape must meet is that if you went ahead and drew lines from its *center of gravity* to all of its points, these lines must be drawn in the same order. You are not allowed to "jump behind a previous line". Internally, convex shapes are automatically constructed using [triangle fans](http://en.wikipedia.org/wiki/Triangle_fan "Go to Wikipedia's article about triangle fans"), so if your shape is representable by a triangle fan, you can use [SF::ConvexShape][]. With this relaxed definition, you can draw stars using [SF::ConvexShape][] for example.
 
 ### Lines
 
@@ -179,9 +179,9 @@ To learn more about vertices and primitives, you can read the tutorial on [verte
 
 ## Custom shape types
 
-Relevant example: **[shapes]({{book.examples}}/shapes.cr)**
+Relevant example: **[shapes](https://github.com/oprypin/crsfml/tree/master/examples/shapes.cr)**
 
-You can extend the set of shape classes with your own shape types. To do so, you must derive from [Shape]({{book.api}}/Shape.html) and override two methods:
+You can extend the set of shape classes with your own shape types. To do so, you must derive from [SF::Shape][] and override two methods:
 
 * `point_count`: return the number of points in the shape
 * `get_point`: return a point of the shape
@@ -221,7 +221,7 @@ end
 
 ## Antialiased shapes
 
-Relevant example: **[snakes]({{book.examples}}/snakes.cr)**
+Relevant example: **[snakes](https://github.com/oprypin/crsfml/tree/master/examples/snakes.cr)**
 
 There's no option to anti-alias a single shape. To get anti-aliased shapes (i.e. shapes with smoothed edges), you have to enable anti-aliasing globally when you create the window, with the corresponding attribute of the structure.
 

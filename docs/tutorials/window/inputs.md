@@ -1,6 +1,6 @@
 # Keyboard, mouse and joystick
 
-Relevant example: **[diagnostics]({{book.examples}}/diagnostics.cr)**
+Relevant example: **[diagnostics](https://github.com/oprypin/crsfml/tree/master/examples/diagnostics.cr)**
 
 ## Introduction
 
@@ -8,7 +8,7 @@ This tutorial explains how to access global input devices: keyboard, mouse and j
 
 ## Keyboard
 
-The class that provides access to the keyboard state is [Keyboard]({{book.api}}/Keyboard.html). It only contains one class method, `key_pressed?`, which checks the current state of a key (pressed or released). It is a class method, so you don't need to instantiate [Keyboard]({{book.api}}/Keyboard.html) to use it.
+The class that provides access to the keyboard state is [SF::Keyboard][]. It only contains one class method, `key_pressed?`, which checks the current state of a key (pressed or released). It is a class method, so you don't need to instantiate [SF::Keyboard][] to use it.
 
 This class method directly reads the keyboard state, ignoring the focus state of your window. This means that `key_pressed?` may return true even if your window is inactive.
 
@@ -25,7 +25,7 @@ Depending on your operating system and keyboard layout, some key codes might be 
 
 ## Mouse
 
-The class that provides access to the mouse state is [Mouse]({{book.api}}/Mouse.html). Like its friend [Keyboard]({{book.api}}/Keyboard.html), [Mouse]({{book.api}}/Mouse.html) only contains class methods and is not meant to be instantiated (SFML only handles a single mouse for the time being).
+The class that provides access to the mouse state is [SF::Mouse][]. Like its friend [SF::Keyboard][], [SF::Mouse][] only contains class methods and is not meant to be instantiated (SFML only handles a single mouse for the time being).
 
 You can check if buttons are pressed:
 
@@ -62,9 +62,9 @@ There is no function for reading the current state of the mouse wheel. Since the
 
 ## Joystick
 
-The class that provides access to the joysticks' states is [Joystick]({{book.api}}/Joystick.html). Like the other classes in this tutorial, it only contains class methods.
+The class that provides access to the joysticks' states is [SF::Joystick][]. Like the other classes in this tutorial, it only contains class methods.
 
-Joysticks are identified by their index (0 to 7, since SFML supports up to 8 joysticks). Therefore, the first argument of every class method of [Joystick]({{book.api}}/Joystick.html) is the index of the joystick that you want to query.
+Joysticks are identified by their index (0 to 7, since SFML supports up to 8 joysticks). Therefore, the first argument of every class method of [SF::Joystick][] is the index of the joystick that you want to query.
 
 You can check whether a joystick is connected or not:
 

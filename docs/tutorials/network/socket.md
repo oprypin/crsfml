@@ -27,7 +27,7 @@ Oh, and one last thing: since UDP is not connection-based, it allows broadcastin
 
 As you can guess, this part is specific to TCP sockets. There are two sides to a connection: the one that waits for the incoming connection (let's call it the server), and the one that triggers it (let's call it the client).
 
-On client side, things are simple: the user just needs to have a [TcpSocket]({{book.api}}/TcpSocket.html) and call its `connect` method to start the connection attempt.
+On client side, things are simple: the user just needs to have a [SF::TcpSocket][] and call its `connect` method to start the connection attempt.
 
 ```crystal
 require "crsfml/network"
@@ -39,7 +39,7 @@ unless status == SF::Socket::Done
 end
 ```
 
-The first argument is the address of the host to connect to. It is an [IpAddress]({{book.api}}/IpAddress.html), which can represent any valid address: a URL, an IP address, or a network host name. See its documentation for more details.
+The first argument is the address of the host to connect to. It is an [SF::IpAddress][], which can represent any valid address: a URL, an IP address, or a network host name. See its documentation for more details.
 
 The second argument is the port to connect to on the remote machine. The connection will succeed only if the server is accepting connections on that port.
 
@@ -52,7 +52,7 @@ You can change this behavior and make all methods non-blocking by using the `blo
 
 On the server side, a few more things have to be done. Multiple sockets are required: One that listens for incoming connections, and one for each connected client.
 
-To listen for connections, you must use the special [TcpListener]({{book.api}}/TcpListener.html) class. Its only role is to wait for incoming connection attempts on a given port, it can't send or receive data.
+To listen for connections, you must use the special [SF::TcpListener][] class. Its only role is to wait for incoming connection attempts on a given port, it can't send or receive data.
 
 ```crystal
 listener = SF::TcpListener.new
@@ -95,7 +95,7 @@ UDP sockets that send data don't need to do anything before sending.
 
 ## Sending and receiving data
 
-Sending and receiving data is done in the same way for both types of sockets. The only difference is that UDP has two extra arguments: the address and port of the sender/recipient. There are two different methods for each operation: the low-level one, that sends/receives a raw array of bytes, and the higher-level one, which uses the [Packet]({{book.api}}/Packet.html) class. See the [tutorial on packets](packet.md "Tutorial on packets") for more details about this class. In this tutorial, we'll only explain the low-level methods.
+Sending and receiving data is done in the same way for both types of sockets. The only difference is that UDP has two extra arguments: the address and port of the sender/recipient. There are two different methods for each operation: the low-level one, that sends/receives a raw array of bytes, and the higher-level one, which uses the [SF::Packet][] class. See the [tutorial on packets](packet.md "Tutorial on packets") for more details about this class. In this tutorial, we'll only explain the low-level methods.
 
 To send data, you must call the `send` method with a pointer to the data that you want to send, and the number of bytes to send.
 
@@ -150,9 +150,9 @@ These methods are low-level, and you should use them only if you have a very goo
 
 ## Blocking on a group of sockets
 
-Blocking on a single socket can quickly become annoying, because you will most likely have to handle more than one client. You most likely don't want socket A to block your program while socket B has received something that could be processed. What you would like is to block on multiple sockets at once, i.e. waiting until *any of them* has received something. This is possible with socket selectors, represented by the [SocketSelector]({{book.api}}/SocketSelector.html) class.
+Blocking on a single socket can quickly become annoying, because you will most likely have to handle more than one client. You most likely don't want socket A to block your program while socket B has received something that could be processed. What you would like is to block on multiple sockets at once, i.e. waiting until *any of them* has received something. This is possible with socket selectors, represented by the [SF::SocketSelector][] class.
 
-A selector can monitor all types of sockets: [TcpSocket]({{book.api}}/TcpSocket.html), [UdpSocket]({{book.api}}/UdpSocket.html), and [TcpListener]({{book.api}}/TcpListener.html). To add a socket to a selector, use its `add` method:
+A selector can monitor all types of sockets: [SF::TcpSocket][], [SF::UdpSocket][], and [SF::TcpListener][]. To add a socket to a selector, use its `add` method:
 
 ```crystal
 socket = SF::TcpSocket.new
@@ -173,7 +173,7 @@ else
 end
 ```
 
-If the `wait` method returns `true`, it means that one or more socket(s) have received something, and you can safely call `receive` on the socket(s) with pending data without having them block. If the socket is a [TcpListener]({{book.api}}/TcpListener.html), it means that an incoming connection is ready to be accepted and that you can call its `accept` method without having it block.
+If the `wait` method returns `true`, it means that one or more socket(s) have received something, and you can safely call `receive` on the socket(s) with pending data without having them block. If the socket is a [SF::TcpListener][], it means that an incoming connection is ready to be accepted and that you can call its `accept` method without having it block.
 
 Since the selector is not a socket container, it cannot return the sockets that are ready to receive. Instead, you must test each candidate socket with the `ready?` method:
 
@@ -188,7 +188,7 @@ if selector.wait SF.seconds(10)
 end
 ```
 
-You can have a look at the API documentation of the [SocketSelector]({{book.api}}/SocketSelector.html) class for a working example of how to use a selector to handle connections and messages from multiple clients.
+You can have a look at the API documentation of the [SF::SocketSelector][] class for a working example of how to use a selector to handle connections and messages from multiple clients.
 
 As a bonus, the timeout capability of `Selector#wait` allows you to implement a receive-with-timeout method, which is not directly available in the socket classes, very easily:
 

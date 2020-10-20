@@ -1,6 +1,6 @@
 # Sprites and textures
 
-Relevant example: **[flippy_bird]({{book.examples}}/flippy_bird.cr)**
+Relevant example: **[flippy_bird](https://github.com/oprypin/crsfml/tree/master/examples/flippy_bird.cr)**
 
 ## Vocabulary
 
@@ -16,7 +16,7 @@ Ok, that was short but if you really don't understand what sprites and textures 
 
 ## Loading a texture
 
-Before creating any sprite, we need a valid texture. The class that encapsulates textures in CrSFML is, unsurprisingly, [Texture]({{book.api}}/Texture.html). Since the only role of a texture is to be loaded and mapped to graphical entities, almost all its methods are about loading and updating it.
+Before creating any sprite, we need a valid texture. The class that encapsulates textures in CrSFML is, unsurprisingly, [SF::Texture][]. Since the only role of a texture is to be loaded and mapped to graphical entities, almost all its methods are about loading and updating it.
 
 The most common way of loading a texture is from an image file on disk, which is done with the `from_file` class method.
 
@@ -26,7 +26,7 @@ texture = SF::Texture.from_file("image.png")
 
 The `from_file` class method can sometimes fail with no obvious reason. First, check the error message that SFML prints to the standard output (check the console). If the message is unable to open file, make sure that the *working directory* (which is the directory that any file path will be interpreted relative to) is what you think it is.
 
-You can also load an image file from memory (`from_memory`), from a [custom input stream](../system/stream.md "Input streams tutorial") (`from_stream`), or from an image that has already been loaded (`from_image`). The latter loads the texture from an [Image]({{book.api}}/Image.html), which is a utility class that helps store and manipulate image data (modify pixels, create transparency channel, etc.). The pixels of an [Image]({{book.api}}/Image.html) stay in system memory, which ensures that operations on them will be as fast as possible, in contrast to the pixels of a texture which reside in video memory and are therefore slow to retrieve or update but very fast to draw.
+You can also load an image file from memory (`from_memory`), from a [custom input stream](../system/stream.md "Input streams tutorial") (`from_stream`), or from an image that has already been loaded (`from_image`). The latter loads the texture from an [SF::Image][], which is a utility class that helps store and manipulate image data (modify pixels, create transparency channel, etc.). The pixels of an [SF::Image][] stay in system memory, which ensures that operations on them will be as fast as possible, in contrast to the pixels of a texture which reside in video memory and are therefore slow to retrieve or update but very fast to draw.
 
 SFML supports most common image file formats. The full list is available in the API documentation.
 
@@ -37,7 +37,7 @@ All these loading class methods have an optional argument, which can be used if 
 texture = SF::Texture.from_file("image.png", SF.int_rect(10, 10, 32, 32))
 ```
 
-The [IntRect]({{book.api}}/IntRect) class is a simple utility type that represents a rectangle. Its constructor takes the coordinates of the top-left corner, and the size of the rectangle.
+The [SF::IntRect][] class is a simple utility type that represents a rectangle. Its constructor takes the coordinates of the top-left corner, and the size of the rectangle.
 
 If you don't want to load a texture from an image, but instead want to update it directly from an array of pixels, you can create it empty and update it later:
 
@@ -151,9 +151,9 @@ Try to keep this in mind when you create your animation sheets or your tilesets:
 
 ## Using SF::Texture with OpenGL code
 
-If you're using OpenGL rather than the graphics entities of CrSFML, you can still use [Texture]({{book.api}}/Texture.html) as a wrapper around an OpenGL texture object and use it along with the rest of your OpenGL code.
+If you're using OpenGL rather than the graphics entities of CrSFML, you can still use [SF::Texture][] as a wrapper around an OpenGL texture object and use it along with the rest of your OpenGL code.
 
-To bind a [Texture]({{book.api}}/Texture.html) for drawing (basically `glBindTexture`), you call the `bind` class method:
+To bind a [SF::Texture][] for drawing (basically `glBindTexture`), you call the `bind` class method:
 
 ```crystal
 texture = ...

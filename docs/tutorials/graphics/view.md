@@ -10,7 +10,7 @@ To summarize, views are what you need if you want to scroll, rotate or zoom your
 
 ## Defining what the view views
 
-The class which encapsulates views in SFML is [View]({{book.api}}/View.html). It can be constructed directly with a definition of the area to view:
+The class which encapsulates views in SFML is [SF::View][]. It can be constructed directly with a definition of the area to view:
 
 ```crystal
 # create a view with the rectangular area of the 2D world to show
@@ -120,7 +120,7 @@ minimap_view.viewport = SF.float_rect(0.75, 0, 0.25, 0.25)
 
 ## Using a view
 
-To draw something using a view, you must draw it after calling the `view=` method of the target to which you are drawing ([RenderWindow]({{book.api}}/RenderWindow.html) or [RenderTexture]({{book.api}}/RenderTexture.html)).
+To draw something using a view, you must draw it after calling the `view=` method of the target to which you are drawing ([SF::RenderWindow][] or [SF::RenderTexture][]).
 
 ```crystal
 # let's define a view

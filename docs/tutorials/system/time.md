@@ -2,13 +2,13 @@
 
 ## Time in SFML
 
-Unlike many other libraries where time is a number of milliseconds, or a decimal number of seconds, SFML doesn't impose any specific unit or type for time values. Instead it leaves this choice to the user through a flexible class: [Time]({{book.api}}/Time.html). All SFML classes and functions that manipulate time values use this class.
+Unlike many other libraries where time is a number of milliseconds, or a decimal number of seconds, SFML doesn't impose any specific unit or type for time values. Instead it leaves this choice to the user through a flexible class: [SF::Time][]. All SFML classes and functions that manipulate time values use this class.
 
-[Time]({{book.api}}/Time.html) represents a time period (in other words, the time that elapses between two events). It is *not* a date-time class which would represent the current year/month/day/hour/minute/second as a timestamp, it's just a value that represents a certain amount of time, and how to interpret it depends on the context where it is used.
+[SF::Time][] represents a time period (in other words, the time that elapses between two events). It is *not* a date-time class which would represent the current year/month/day/hour/minute/second as a timestamp, it's just a value that represents a certain amount of time, and how to interpret it depends on the context where it is used.
 
 ## Converting time
 
-A [Time]({{book.api}}/Time.html) value can be constructed from different source units: seconds, milliseconds and microseconds. There is a (non-member) function to turn each of them into a [Time]({{book.api}}/Time.html):
+A [SF::Time][] value can be constructed from different source units: seconds, milliseconds and microseconds. There is a (non-member) function to turn each of them into a [SF::Time][]:
 
 ```crystal
 t1 = SF.microseconds(10000)
@@ -18,7 +18,7 @@ t3 = SF.seconds(0.01)
 
 Note that these three times are all equal.
 
-Similarly, a [Time]({{book.api}}/Time.html) can be converted back to either seconds, milliseconds or microseconds:
+Similarly, a [SF::Time][] can be converted back to either seconds, milliseconds or microseconds:
 
 ```crystal
 time = ...
@@ -30,7 +30,7 @@ seconds = time.as_seconds
 
 ## Playing with time values
 
-[Time]({{book.api}}/Time.html) is just an amount of time, so it supports arithmetic operations such as addition, subtraction, comparison, etc. Times can also be negative.
+[SF::Time][] is just an amount of time, so it supports arithmetic operations such as addition, subtraction, comparison, etc. Times can also be negative.
 
 ```crystal
 t1 = ...
@@ -44,11 +44,11 @@ b2 = (t3 > t4)
 
 ## Measuring time
 
-Relevant example: **[transformable]({{book.examples}}/transformable.cr)**
+Relevant example: **[transformable](https://github.com/oprypin/crsfml/tree/master/examples/transformable.cr)**
 
 Now that we've seen how to manipulate time values with CrSFML, let's see how to do something that almost every program needs: measuring the time elapsed.
 
-CrSFML has a very simple class for measuring time: [Clock]({{book.api}}/Clock.html). It only has two methods: `elapsed_time`, to retrieve the time elapsed since the clock started, and `restart`, to restart the clock.
+CrSFML has a very simple class for measuring time: [SF::Clock][]. It only has two methods: `elapsed_time`, to retrieve the time elapsed since the clock started, and `restart`, to restart the clock.
 
 ```crystal
 clock = SF::Clock.new # Starts the clock

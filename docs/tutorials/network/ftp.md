@@ -12,9 +12,9 @@ If you want to know more about the FTP protocol, the [Wikipedia article](http://
 
 ## The FTP client class
 
-The class provided by CrSFML is [Ftp]({{book.api}}/Ftp.html) (surprising, isn't it?). It's a client, which means that it can connect to an FTP server, send commands to it and upload or download files.
+The class provided by CrSFML is [SF::Ftp][] (surprising, isn't it?). It's a client, which means that it can connect to an FTP server, send commands to it and upload or download files.
 
-Every method of the [Ftp]({{book.api}}/Ftp.html) class wraps an FTP command, and returns a standard FTP response. An FTP response contains a status code (similar to HTTP status codes but not identical), and a message that informs the user of what happened. FTP responses are encapsulated in the [Ftp::Response]({{book.api}}/Ftp/Response.html) class.
+Every method of the [SF::Ftp][] class wraps an FTP command, and returns a standard FTP response. An FTP response contains a status code (similar to HTTP status codes but not identical), and a message that informs the user of what happened. FTP responses are encapsulated in the [SF::Ftp::Response][] class.
 
 ```crystal
 ftp = SF::Ftp.new
@@ -62,7 +62,7 @@ ip_address = SF::IpAddress.new("ftp.myserver.org")
 ftp.connect(ip_address)
 ```
 
-The server address can be any valid [IpAddress]({{book.api}}/IpAddress.html): A URL, an IP address, a network name, ...
+The server address can be any valid [SF::IpAddress][]: A URL, an IP address, a network name, ...
 
 The standard port for FTP is 21. If, for some reason, your server uses a different port, you can specify it as an additional argument:
 
@@ -92,7 +92,7 @@ ftp.login
 
 ## FTP commands
 
-Here is a short description of all the commands available in the [Ftp]({{book.api}}/Ftp.html) class. Remember one thing: All these commands are performed relative to the *current working directory*, exactly as if you were executing file or directory commands in a console on your operating system.
+Here is a short description of all the commands available in the [SF::Ftp][] class. Remember one thing: All these commands are performed relative to the *current working directory*, exactly as if you were executing file or directory commands in a console on your operating system.
 
 Getting the current working directory:
 
@@ -104,7 +104,7 @@ if response.ok?
 end
 ```
 
-[Ftp::DirectoryResponse]({{book.api}}/Ftp/DirectoryResponse.html) is a specialized [Ftp::Response]({{book.api}}/Ftp/Response.html) that also contains the requested directory.
+[SF::Ftp::DirectoryResponse][] is a specialized [SF::Ftp::Response][] that also contains the requested directory.
 
 Getting the list of directories and files contained in the current directory:
 
@@ -122,7 +122,7 @@ end
 response = ftp.get_directory_listing("subfolder")
 ```
 
-[Ftp::ListingResponse]({{book.api}}/Ftp/ListingResponse.html) is a specialized [Ftp::Response]({{book.api}}/Ftp/Response.html) that also contains the requested directory/file names.
+[SF::Ftp::ListingResponse][] is a specialized [SF::Ftp::Response][] that also contains the requested directory/file names.
 
 Changing the current directory:
 

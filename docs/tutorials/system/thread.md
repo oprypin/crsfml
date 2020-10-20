@@ -16,7 +16,7 @@ Please make sure you know what you're doing before choosing SFML threads.
 
 ## Creating a thread with CrSFML
 
-Enough talk, let's see some code. The class that makes it possible to create threads in CrSFML is [Thread]({{book.api}}/Thread.html), and here is what it looks like in action:
+Enough talk, let's see some code. The class that makes it possible to create threads in CrSFML is [SF::Thread][], and here is what it looks like in action:
 
 ```crystal
 require "crsfml/system"
@@ -64,11 +64,11 @@ I'm thread number one
 I'm the main thread
 ```
 
-The entry point of the thread, ie. the function that will be run when the thread is started, must be passed to the constructor of [Thread]({{book.api}}/Thread.html). [Thread]({{book.api}}/Thread.html) can accept any kind of [procs](http://crystal-lang.org/docs/syntax_and_semantics/literals/proc.html) without parameters.
+The entry point of the thread, ie. the function that will be run when the thread is started, must be passed to the constructor of [SF::Thread][]. [SF::Thread][] can accept any kind of [procs](http://crystal-lang.org/docs/syntax_and_semantics/literals/proc.html) without parameters.
 
 ## Starting threads
 
-Once you've created a [Thread]({{book.api}}/Thread.html) instance, you must start it with the `launch` method.
+Once you've created a [SF::Thread][] instance, you must start it with the `launch` method.
 
 ```crystal
 thread = SF::Thread.new(->func)
@@ -93,11 +93,11 @@ thread.launch()
 thread.wait()
 ```
 
-The `wait` method is also implicitly called by the destructor of [Thread]({{book.api}}/Thread.html), so that a thread cannot remain alive (and out of control) after its owner [Thread]({{book.api}}/Thread.html) instance is destroyed. Keep this in mind when you manage your threads (see the last section of this tutorial).
+The `wait` method is also implicitly called by the destructor of [SF::Thread][], so that a thread cannot remain alive (and out of control) after its owner [SF::Thread][] instance is destroyed. Keep this in mind when you manage your threads (see the last section of this tutorial).
 
 ## Pausing threads
 
-There's no method in [Thread]({{book.api}}/Thread.html) that allows another thread to pause it, the only way to pause a thread is to do it from the code that it runs. In other words, you can only pause the current thread. To do so, you can call the `SF.sleep` function, as demonstrated in the first example.
+There's no method in [SF::Thread][] that allows another thread to pause it, the only way to pause a thread is to do it from the code that it runs. In other words, you can only pause the current thread. To do so, you can call the `SF.sleep` function, as demonstrated in the first example.
 
 `SF.sleep` has one argument, which is the time to sleep. This duration can be given with any unit/precision, as seen in the [time tutorial](time.md "Time tutorial").
 Note that you can make any thread sleep with this function, even the main one.
@@ -207,7 +207,7 @@ foo.main
 
 ## Common mistakes
 
-One thing that is often overlooked by programmers is that a thread cannot live without its corresponding [Thread]({{book.api}}/Thread.html) instance.  
+One thing that is often overlooked by programmers is that a thread cannot live without its corresponding [SF::Thread][] instance.  
 The following code is often seen:
 
 ```crystal
@@ -225,6 +225,6 @@ start_thread()
 
 Programmers who write this kind of code expect the `start_thread` function to start a thread that will live on its own and be destroyed when the threaded function ends. This is not what happens. The threaded function appears to block the main thread, as if the thread wasn't working.
 
-What is the cause of this? The [Thread]({{book.api}}/Thread.html) instance is local to the `start_thread()` function and is therefore destroyed, when the function returns. The finalizer of [Thread]({{book.api}}/Thread.html) is invoked, which calls `wait()` as we've learned above, and the result is that the main thread blocks and waits for the threaded function to be finished instead of continuing to run in parallel.
+What is the cause of this? The [SF::Thread][] instance is local to the `start_thread()` function and is therefore destroyed, when the function returns. The finalizer of [SF::Thread][] is invoked, which calls `wait()` as we've learned above, and the result is that the main thread blocks and waits for the threaded function to be finished instead of continuing to run in parallel.
 
-So don't forget: You must manage your [Thread]({{book.api}}/Thread.html) instance so that it lives as long as the threaded function is supposed to run.
+So don't forget: You must manage your [SF::Thread][] instance so that it lives as long as the threaded function is supposed to run.

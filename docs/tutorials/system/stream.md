@@ -4,13 +4,13 @@
 
 SFML has several resource classes: images, fonts, sounds, etc. In most programs, these resources will be loaded from files, with the help of their `from_file` class method. In a few other situations, resources will be packed directly into the executable or in a big data file, and loaded from memory with `from_memory`. These methods cover *almost* all the possible use cases -- but not all.
 
-Sometimes you want to load files from unusual places, such as a compressed/encrypted archive, or a remote network location for example. For these special situations, CrSFML provides a third loading method: `from_stream`. This method reads data using an abstract [InputStream]({{book.api}}/InputStream.html) interface, which allows you to provide your own implementation of a stream class that works with SFML.
+Sometimes you want to load files from unusual places, such as a compressed/encrypted archive, or a remote network location for example. For these special situations, CrSFML provides a third loading method: `from_stream`. This method reads data using an abstract [SF::InputStream][] interface, which allows you to provide your own implementation of a stream class that works with SFML.
 
 In this tutorial you'll learn how to write and use your own derived input stream.
 
 ## InputStream
 
-The [InputStream]({{book.api}}/InputStream.html) class declares four virtual methods:
+The [SF::InputStream][] class declares four virtual methods:
 
 ```crystal
 abstract class InputStream
@@ -55,15 +55,15 @@ stream = SF::MemoryInputStream.open(string.to_slice)
 texture = SF::Texture.from_stream(stream)
 ```
 
-Note that the examples above are redundant, because `from_file` can be used instead. The real use cases are if you want to implement custom loading of resources. Option 1: read from file, extract into memory, use [MemoryInputStream]({{book.api}}/MemoryInputStream.html). Option 2: implement a custom stream that reads and extracts on the fly.
+Note that the examples above are redundant, because `from_file` can be used instead. The real use cases are if you want to implement custom loading of resources. Option 1: read from file, extract into memory, use [SF::MemoryInputStream][]. Option 2: implement a custom stream that reads and extracts on the fly.
 
 ## Examples
 
-If you need a demonstration that helps you focus on how the code works, and not get lost in implementation details, you could take a look at the implementation of [FileInputStream]({{book.api}}/FileInputStream.html) or [MemoryInputStream]({{book.api}}/MemoryInputStream.html).
+If you need a demonstration that helps you focus on how the code works, and not get lost in implementation details, you could take a look at the implementation of [SF::FileInputStream][] or [SF::MemoryInputStream][].
 
 ## Common mistakes
 
-Some resource classes are not loaded completely after `from_stream` has been called. Instead, they continue to read from their data source as long as they are used. This is the case for [Music]({{book.api}}/Music.html), which streams audio samples as they are played, and for [Font]({{book.api}}/Font.html), which loads glyphs on the fly depending on the text that is displayed.
+Some resource classes are not loaded completely after `from_stream` has been called. Instead, they continue to read from their data source as long as they are used. This is the case for [SF::Music][], which streams audio samples as they are played, and for [SF::Font][], which loads glyphs on the fly depending on the text that is displayed.
 
 As a consequence, the stream instance that you used to load a music or a font, as well as its data source, must remain alive as long as the resource uses it. If it is destroyed while still being used, it results in undefined behavior (can be a crash, corrupt data, or nothing visible).
 

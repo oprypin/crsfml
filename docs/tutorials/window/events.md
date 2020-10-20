@@ -6,7 +6,7 @@ This tutorial is a detailed list of window events. It describes them, and shows 
 
 ## The SF::Event type
 
-Before dealing with events, it is important to understand what the [Event]({{book.api}}/Event.html) type is, and how to correctly use it. [Event]({{book.api}}/Event.html) (unlike in SFML, where it is a *union*) is just an abstract struct, and all the events are its subclasses. Many events have some data associated with them, so it is important to let the compiler know which exactly type of event is being inspected (using `is_a?`, `as`, `case`/`when`), otherwise none of the members will be accessible.
+Before dealing with events, it is important to understand what the [SF::Event][] type is, and how to correctly use it. [SF::Event][] (unlike in SFML, where it is a *union*) is just an abstract struct, and all the events are its subclasses. Many events have some data associated with them, so it is important to let the compiler know which exactly type of event is being inspected (using `is_a?`, `as`, `case`/`when`), otherwise none of the members will be accessible.
 
 Here is the hierarchy: level 1 is the `Event` abstract struct itself, level 2 are abstract structs that add some members, and level 3 are concrete event types. The point of this is that that some events, while different (level 3), have exactly the same kind of information associated with them (level 2).
 
@@ -49,7 +49,7 @@ Event
    └─╴SensorChanged
 ```
 
-[Event]({{book.api}}/Event.html) instances are filled by the `poll_event` (or `wait_event`) method of the [Window]({{book.api}}/Window.html) class. Only these two methods can produce valid events.
+[SF::Event][] instances are filled by the `poll_event` (or `wait_event`) method of the [SF::Window][] class. Only these two methods can produce valid events.
 
 To be clear, here is what a typical event loop looks like:
 
@@ -73,13 +73,13 @@ Alright, now we can see what events SFML supports, what they mean and how to use
 
 ## The Closed event
 
-Relevant example: **[simple]({{book.examples}}/simple.cr)**
+Relevant example: **[simple](https://github.com/oprypin/crsfml/tree/master/examples/simple.cr)**
 
 The `SF::Event::Closed` event is triggered when the user wants to close the window, through any of the possible methods the window manager provides ("close" button, keyboard shortcut, etc.). This event only represents a close request, the window is not yet closed when the event is received.
 
 Typical code will just call `window.close` in reaction to this event, to actually close the window. However, you may also want to do something else first, like saving the current application state or asking the user what to do. If you don't do anything, the window remains open.
 
-There's no member associated with this event in the [Event]({{book.api}}/Event.html) union.
+There's no member associated with this event in the [SF::Event][] union.
 
 ```crystal
 if event.is_a? SF::Event::Closed
@@ -89,7 +89,7 @@ end
 
 ## The Resized event
 
-Relevant example: **[gl]({{book.examples}}/gl.cr)**
+Relevant example: **[gl](https://github.com/oprypin/crsfml/tree/master/examples/gl.cr)**
 
 The `SF::Event::Resized` event is triggered when the window is resized, either through user action or programmatically by calling `window.size=`.
 
@@ -110,7 +110,7 @@ The `SF::Event::LostFocus` and `SF::Event::GainedFocus` events are triggered whe
 
 This event can be used e.g. if you want to pause your game when the window is inactive.
 
-There's no member associated with these events in the [Event]({{book.api}}/Event.html) union.
+There's no member associated with these events in the [SF::Event][] union.
 
 ```crystal
 if event.is_a? SF::Event::LostFocus
@@ -124,7 +124,7 @@ end
 
 ## The TextEntered event
 
-Relevant example: **[typing]({{book.examples}}/typing.cr)**
+Relevant example: **[typing](https://github.com/oprypin/crsfml/tree/master/examples/typing.cr)**
 
 The `SF::Event::TextEntered` event is triggered when a character is typed. This must not be confused with the `KeyPressed` event: `TextEntered` interprets the user input and produces the appropriate printable character. For example, pressing '^' then 'e' on a French keyboard will produce two `KeyPressed` events, but a single `TextEntered` event containing the 'ê' character. It works with all the input methods provided by the operating system, even the most specific or complex ones.
 
@@ -146,7 +146,7 @@ Many programmers use the `KeyPressed` event to get user input, and start to impl
 
 ## The KeyPressed and KeyReleased events
 
-Relevant example: **[snakes]({{book.examples}}/snakes.cr)**
+Relevant example: **[snakes](https://github.com/oprypin/crsfml/tree/master/examples/snakes.cr)**
 
 The `SF::Event::KeyPressed` and `SF::Event::KeyReleased` events are triggered when a keyboard key is pressed/released.
 
@@ -155,7 +155,7 @@ If a key is held, multiple `KeyPressed` events will be generated, at the default
 This event is the one to use if you want to trigger an action exactly once when a key is pressed or released, like making a character jump with space, or exiting something with escape.
 
 Sometimes, people try to react to `KeyPressed` events directly to implement smooth movement. Doing so will *not* produce the expected effect, because when you hold a key you only get a few events (remember, the repeat delay). To achieve smooth movement with events, you must use a boolean that you set on `KeyPressed` and clear on `KeyReleased`; you can then move (independently of events) as long as the boolean is set.  
-The other (easier) solution to produce smooth movement is to use real-time keyboard input with [Keyboard]({{book.api}}/Keyboard.html) (see the [dedicated tutorial](inputs.md "Real-time inputs tutorial")).
+The other (easier) solution to produce smooth movement is to use real-time keyboard input with [SF::Keyboard][] (see the [dedicated tutorial](inputs.md "Real-time inputs tutorial")).
 
 The data associated with these events is the code of the pressed/released key, as well as the current state of the modifier keys (alt, control, shift, system).
 
@@ -179,7 +179,7 @@ The `SF::Event::MouseWheelMoved` event is **deprecated** since SFML 2.3, use the
 
 ## The MouseWheelScrolled event
 
-Relevant example: **[diagnostics]({{book.examples}}/diagnostics.cr)**
+Relevant example: **[diagnostics](https://github.com/oprypin/crsfml/tree/master/examples/diagnostics.cr)**
 
 The `SF::Event::MouseWheelScrolled` event is triggered when a mouse wheel moves up or down, but also laterally if the mouse supports it.
 
@@ -203,7 +203,7 @@ end
 
 ## The MouseButtonPressed and MouseButtonReleased events
 
-Relevant example: **[diagnostics]({{book.examples}}/diagnostics.cr)**
+Relevant example: **[diagnostics](https://github.com/oprypin/crsfml/tree/master/examples/diagnostics.cr)**
 
 The `SF::Event::MouseButtonPressed` and `SF::Event::MouseButtonReleased` events are triggered when a mouse button is pressed/released.
 

@@ -1,12 +1,12 @@
 # Recording audio
 
-Relevant example: **[sound_capture]({{book.examples}}/sound_capture.cr)**
+Relevant example: **[sound_capture](https://github.com/oprypin/crsfml/tree/master/examples/sound_capture.cr)**
 
 ## Recording to a sound buffer
 
-The most common use for captured audio data is for it to be saved to a sound buffer ([SoundBuffer]({{book.api}}/SoundBuffer.html)) so that it can either be played or saved to a file.
+The most common use for captured audio data is for it to be saved to a sound buffer ([SF::SoundBuffer][]) so that it can either be played or saved to a file.
 
-This can be achieved with the very simple interface of the [SoundBufferRecorder]({{book.api}}/SoundBufferRecorder.html) class:
+This can be achieved with the very simple interface of the [SF::SoundBufferRecorder][] class:
 
 ```crystal
 # first check if an input audio device is available on the system
@@ -30,7 +30,7 @@ recorder.stop
 buffer = recorder.buffer
 ```
 
-The `SoundBufferRecorder.available?` class method checks if audio recording is supported by the system. It if returns `false`, you won't be able to use the [SoundBufferRecorder]({{book.api}}/SoundBufferRecorder.html) class at all.
+The `SoundBufferRecorder.available?` class method checks if audio recording is supported by the system. It if returns `false`, you won't be able to use the [SF::SoundBufferRecorder][] class at all.
 
 The `start` and `stop` methods are self-explanatory. The capture runs in its own thread, which means that you can do whatever you want between start and stop. After the end of the capture, the recorded audio data is available in a sound buffer that you can get with the `buffer` method.
 
@@ -92,7 +92,7 @@ end
 
 If storing the captured data in a sound buffer is not what you want, you can write your own recorder. Doing so will allow you to process the audio data while it is captured, (almost) directly from the recording device. This way you can, for example, stream the captured audio over the network, perform real-time analysis on it, etc.
 
-To write your own recorder, you must inherit from the [SoundRecorder]({{book.api}}/SoundRecorder.html) abstract base class. In fact, [SoundBufferRecorder]({{book.api}}/SoundBufferRecorder.html) is just a built-in specialization of this class.
+To write your own recorder, you must inherit from the [SF::SoundRecorder][] abstract base class. In fact, [SF::SoundBufferRecorder][] is just a built-in specialization of this class.
 
 You only have a single virtual function to override in your derived class: `onProcessSamples`. It is called every time a new chunk of audio samples is captured, so this is where you implement your specific stuff.
 
@@ -127,7 +127,7 @@ class MyRecorder < SF::SoundRecorder
 end
 ```
 
-The `available?`/`start`/`stop` functions are defined in the [SoundRecorder]({{book.api}}/SoundRecorder.html) base, and thus inherited in every derived classes. This means that you can use any recorder class exactly the same way as the [SoundBufferRecorder]({{book.api}}/SoundBufferRecorder.html) class above.
+The `available?`/`start`/`stop` functions are defined in the [SF::SoundRecorder][] base, and thus inherited in every derived classes. This means that you can use any recorder class exactly the same way as the [SF::SoundBufferRecorder][] class above.
 
 ```crystal
 unless MyRecorder.available?

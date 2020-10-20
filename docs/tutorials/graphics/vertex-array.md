@@ -16,7 +16,7 @@ Now you understand why we always talk about vertex arrays, and not vertices alon
 
 ## A simple vertex array
 
-Let's have a look at the [Vertex]({{book.api}}/Vertex.html) class now. It's simply a container which contains three public members and no functions besides its constructors. These constructors allow you to construct vertices from the set of attributes you care about -- you don't always need to color or texture your entity.
+Let's have a look at the [SF::Vertex][] class now. It's simply a container which contains three public members and no functions besides its constructors. These constructors allow you to construct vertices from the set of attributes you care about -- you don't always need to color or texture your entity.
 
 ```crystal
 # create a new vertex
@@ -38,7 +38,7 @@ vertex.tex_coords = SF.vector2f(100, 100)
 vertex = SF::Vertex.new({10, 50}, SF::Color::Red, {100, 100})
 ```
 
-Now, let's define a primitive. Remember, a primitive consists of several vertices, therefore we need a vertex array. CrSFML provides a simple wrapper for this: [VertexArray]({{book.api}}/VertexArray.html). It provides the semantics of an array, and also stores the type of primitive its vertices define.
+Now, let's define a primitive. Remember, a primitive consists of several vertices, therefore we need a vertex array. CrSFML provides a simple wrapper for this: [SF::VertexArray][]. It provides the semantics of an array, and also stores the type of primitive its vertices define.
 
 ```crystal
 # create an array of 3 vertices that define a triangle primitive
@@ -62,7 +62,7 @@ window.draw(triangle)
 
 You can see that the vertices' color is interpolated to fill the primitive. This is a nice way of creating gradients.
 
-Note that you don't have to use the [VertexArray]({{book.api}}/VertexArray.html) class. It's just defined for convenience, it's nothing more than an array along with a `SF::PrimitiveType`. If you need more flexibility, or a normal (or static) array, you can use your own storage. You must then use the overload of the `draw` function which takes an array of vertices and the primitive type.
+Note that you don't have to use the [SF::VertexArray][] class. It's just defined for convenience, it's nothing more than an array along with a `SF::PrimitiveType`. If you need more flexibility, or a normal (or static) array, you can use your own storage. You must then use the overload of the `draw` function which takes an array of vertices and the primitive type.
 
 ```crystal
 vertices = [
@@ -107,7 +107,7 @@ quad.append SF::Vertex.new({ 10, 110}, tex_coords: { 0, 50})
 
 Texture coordinates are defined in *pixels* (just like the `texture_rect` of sprites and shapes). They are *not* normalized (between 0 and 1), as people who are used to OpenGL programming might expect.
 
-Vertex arrays are low-level entities, they only deal with geometry and do not store additional attributes like a texture. To draw a vertex array with a texture, you must pass it directly to the `draw` method, through a [RenderStates]({{book.api}}/RenderStates.html) object:
+Vertex arrays are low-level entities, they only deal with geometry and do not store additional attributes like a texture. To draw a vertex array with a texture, you must pass it directly to the `draw` method, through a [SF::RenderStates][] object:
 
 ```crystal
 vertices = ... # SF::VertexArray
@@ -137,13 +137,13 @@ states.transform = transform
 window.draw(vertices, states)
 ```
 
-To know more about transformations and the [Transform]({{book.api}}/Transform.html) class, you can read the tutorial on [transforming entities](transform.md "Transforming entities tutorial").
+To know more about transformations and the [SF::Transform][] class, you can read the tutorial on [transforming entities](transform.md "Transforming entities tutorial").
 
 ## Creating an SFML-like entity
 
-Now that you know how to define your own textured/colored/transformed entity, wouldn't it be nice to wrap it in an SFML-style class? Fortunately, SFML makes this easy for you by providing the [Drawable]({{book.api}}/Drawable.html) module and [Transformable]({{book.api}}/Transformable.html) base class. These two classes are the base of the built-in SFML entities Sprite, Text and Shape.
+Now that you know how to define your own textured/colored/transformed entity, wouldn't it be nice to wrap it in an SFML-style class? Fortunately, SFML makes this easy for you by providing the [SF::Drawable][] module and [SF::Transformable][] base class. These two classes are the base of the built-in SFML entities Sprite, Text and Shape.
 
-[Drawable]({{book.api}}/Drawable.html) is an interface: it declares a single abstract method. Including sf::Drawable allows you to draw instances of your class the same way as SFML classes:
+[SF::Drawable][] is an interface: it declares a single abstract method. Including sf::Drawable allows you to draw instances of your class the same way as SFML classes:
 
 ```crystal
 class MyEntity
@@ -157,7 +157,7 @@ entity = MyEntity.new
 window.draw(entity) # internally calls entity.draw
 ```
 
-Subclassing the [Transformable]({{book.api}}/Transformable.html) class automatically adds the same transformation methods to your class as other CrSFML classes (`position=`, `rotation=`, `move`, `scale`, ...). You can learn more about this in the tutorial on [transforming entities](transform.md "Transforming entities tutorial").
+Subclassing the [SF::Transformable][] class automatically adds the same transformation methods to your class as other CrSFML classes (`position=`, `rotation=`, `move`, `scale`, ...). You can learn more about this in the tutorial on [transforming entities](transform.md "Transforming entities tutorial").
 
 Using these two features and a vertex array (in this example we'll also add a texture), here is what a typical CrSFML-like graphical class would look like:
 
@@ -197,7 +197,7 @@ window.draw(entity)
 
 ## Example: tile map
 
-Relevant example: **[minesweeper]({{book.examples2}}/minesweeper)**
+Relevant example: **[minesweeper](https://github.com/oprypin/crsfml-examples/tree/master/minesweeper)**
 
 With what we've seen above, let's create a class that encapsulates a tile map. The whole map will be contained in a single vertex array, therefore it will be super fast to draw. Note that we can apply this strategy only if the whole tile set can fit into a single texture. Otherwise, we would have to use at least one vertex array per texture.
 

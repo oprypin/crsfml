@@ -1,6 +1,6 @@
 # Opening and managing an SFML window
 
-Relevant example: **[simple]({{book.examples}}/simple.cr)**
+Relevant example: **[simple](https://github.com/oprypin/crsfml/tree/master/examples/simple.cr)**
 
 ## Introduction
 
@@ -8,7 +8,7 @@ This tutorial only explains how to open and manage a window. Drawing stuff is be
 
 ## Opening a window
 
-Windows in CrSFML are defined by the [Window]({{book.api}}/Window.html) class. A window can be created and opened directly upon construction:
+Windows in CrSFML are defined by the [SF::Window][] class. A window can be created and opened directly upon construction:
 
 ```crystal
 require "crsfml"
@@ -19,7 +19,7 @@ window = SF::RenderWindow.new(SF::VideoMode.new(800, 600), "My window")
 ```
 
 The first argument, the *video mode*, defines the size of the window (the inner size, without the title bar and borders). Here, we create a window with a size of 800x600 pixels.
-The [VideoMode]({{book.api}}/VideoMode.html) class has some interesting class methods to get the desktop resolution, or the list of valid video modes for fullscreen mode. Don't hesitate to have a look at its documentation.
+The [SF::VideoMode][] class has some interesting class methods to get the desktop resolution, or the list of valid video modes for fullscreen mode. Don't hesitate to have a look at its documentation.
 
 The second argument is simply the title of the window.
 
@@ -91,7 +91,7 @@ After the window has been closed, the main loop exits and the program terminates
 
 At this point, you probably noticed that we haven't talked about *drawing something* to the window yet. As stated in the introduction, this is not the job of the sfml-window module, and you'll have to jump to the sfml-graphics tutorials if you want to draw things such as sprites, text or shapes.
 
-To draw stuff, you can also use OpenGL directly and totally ignore the sfml-graphics module. [Window]({{book.api}}/Window.html) internally creates an OpenGL context and is ready to accept your OpenGL calls. You can learn more about that in the [corresponding tutorial](opengl.md "OpenGL tutorial").
+To draw stuff, you can also use OpenGL directly and totally ignore the sfml-graphics module. [SF::Window][] internally creates an OpenGL context and is ready to accept your OpenGL calls. You can learn more about that in the [corresponding tutorial](opengl.md "OpenGL tutorial").
 
 Don't expect to see anything interesting in this window: you may see a uniform color (black or white), or the last contents of the previous application that used OpenGL, or... something else.
 
@@ -117,9 +117,9 @@ height = size.y
 ...
 ```
 
-You can refer to the API documentation for a complete list of [Window]({{book.api}}/Window.html)'s methods.
+You can refer to the API documentation for a complete list of [SF::Window][]'s methods.
 
-In case you really need advanced features for your window, you can create one (or even a full GUI) with another library, and embed SFML into it. To do so, you can use the other constructor of [Window]({{book.api}}/Window.html) which takes the OS-specific handle of an existing window. In this case, SFML will create a drawing context inside the given window and catch all its events without interfering with the parent window management.
+In case you really need advanced features for your window, you can create one (or even a full GUI) with another library, and embed SFML into it. To do so, you can use the other constructor of [SF::Window][] which takes the OS-specific handle of an existing window. In this case, SFML will create a drawing context inside the given window and catch all its events without interfering with the parent window management.
 
 ```crystal
 handle = ... # specific to what you're doing and the library you're using
@@ -156,7 +156,7 @@ In other situations, you may also want your application to run at a given framer
 window.framerate_limit = 60 # call it once, after creating the window
 ```
 
-Unlike `vertical_sync_enabled=`, this feature is implemented by SFML itself, using a combination of [Clock]({{book.api}}/Clock.html) and `SF.sleep`. An important consequence is that it is not 100% reliable, especially for high framerates: `SF.sleep`'s resolution depends on the underlying operating system and hardware, and can be as high as 10 or 15 milliseconds. Don't rely on this feature to implement precise timing.
+Unlike `vertical_sync_enabled=`, this feature is implemented by SFML itself, using a combination of [SF::Clock][] and `SF.sleep`. An important consequence is that it is not 100% reliable, especially for high framerates: `SF.sleep`'s resolution depends on the underlying operating system and hardware, and can be as high as 10 or 15 milliseconds. Don't rely on this feature to implement precise timing.
 
 Never use both `vertical_sync_enabled` and `framerate_limit` at the same time! They would badly mix and make things worse.
 

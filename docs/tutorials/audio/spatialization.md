@@ -17,7 +17,7 @@ Spatialization is disabled for sounds with more channels, since they already exp
 
 All the sounds and music in your audio environment will be heard by a single actor: the *listener*. What is output from your speakers is determined by what the listener hears.
 
-The class which defines the listener's properties is [Listener]({{book.api}}/Listener.html). Since the listener is unique in the environment, this class only contains class methods and is not meant to be instantiated.
+The class which defines the listener's properties is [SF::Listener][]. Since the listener is unique in the environment, this class only contains class methods and is not meant to be instantiated.
 
 First, you can set the listener's position in the scene:
 

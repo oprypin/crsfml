@@ -13,7 +13,7 @@ You may of course face other problems with network programming, but these are th
 
 ## Packets
 
-The two problems (endianness and message boundaries) are solved by using a specific class to pack your data: [Packet]({{book.api}}/Packet.html). As a bonus, it provides a much nicer interface than plain old byte arrays.
+The two problems (endianness and message boundaries) are solved by using a specific class to pack your data: [SF::Packet][]. As a bonus, it provides a much nicer interface than plain old byte arrays.
 
 ```crystal
 # on sending side
@@ -44,7 +44,7 @@ unless packet.valid?
 end
 ```
 
-Sending and receiving packets is as easy as sending/receiving an array of bytes: sockets have `send` and `receive` methods that directly accept a [Packet]({{book.api}}/Packet.html).
+Sending and receiving packets is as easy as sending/receiving an array of bytes: sockets have `send` and `receive` methods that directly accept a [SF::Packet][].
 
 ```crystal
 # with a TCP socket
@@ -62,11 +62,11 @@ packet = SF::Packet.new
 status, sender_address, sender_port = udp_socket.receive(packet)
 ```
 
-Packets solve the "message boundaries" problem, which means that when you send a packet on a TCP socket, you receive the exact same packet on the other end, it cannot contain less bytes, or bytes from the next packet that you send. However, it has a slight drawback: To preserve message boundaries, [Packet]({{book.api}}/Packet.html) has to send some extra bytes along with your data, which implies that you can only receive them with a [Packet]({{book.api}}/Packet.html) if you want them to be properly decoded. Simply put, you can't send an SFML packet to a non-SFML packet recipient, it has to use an SFML packet for receiving too. Note that this applies to TCP only, UDP is fine since the protocol itself preserves message boundaries.
+Packets solve the "message boundaries" problem, which means that when you send a packet on a TCP socket, you receive the exact same packet on the other end, it cannot contain less bytes, or bytes from the next packet that you send. However, it has a slight drawback: To preserve message boundaries, [SF::Packet][] has to send some extra bytes along with your data, which implies that you can only receive them with a [SF::Packet][] if you want them to be properly decoded. Simply put, you can't send an SFML packet to a non-SFML packet recipient, it has to use an SFML packet for receiving too. Note that this applies to TCP only, UDP is fine since the protocol itself preserves message boundaries.
 
 ## Extending packets to handle user types
 
-Packets have overloads of their methods for the most common primitive types and the most common standard types, but what about your own classes? It is easy to subclass or reopen [Packet]({{book.api}}/Packet.html) and add your own overloads.
+Packets have overloads of their methods for the most common primitive types and the most common standard types, but what about your own classes? It is easy to subclass or reopen [SF::Packet][] and add your own overloads.
 
 ```crystal
 record Character, age : UInt8, name : String, weight : Float32

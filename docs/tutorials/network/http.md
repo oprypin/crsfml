@@ -1,6 +1,6 @@
 # Web requests with HTTP
 
-Relevant example: **[shader]({{book.examples}}/shader.cr)**
+Relevant example: **[shader](https://github.com/oprypin/crsfml/tree/master/examples/shader.cr)**
 
 ## Introduction
 
@@ -12,7 +12,7 @@ For basic interaction between your program and an HTTP server, it should be enou
 
 ## SF::Http
 
-To communicate with an HTTP server you must use the [Http]({{book.api}}/Http.html) class.
+To communicate with an HTTP server you must use the [SF::Http][] class.
 
 ```crystal
 http = SF::Http.new
@@ -24,7 +24,7 @@ http = SF::Http.new("http://example.org/")
 
 Note that setting the host doesn't trigger any connection. A temporary connection is created for each request.
 
-The only other method in [Http]({{book.api}}/Http.html), sends requests. This is basically all that the class does.
+The only other method in [SF::Http][], sends requests. This is basically all that the class does.
 
 ```crystal
 request = SF::Http::Request.new
@@ -34,7 +34,7 @@ response = http.send_request(request)
 
 ## Requests
 
-An HTTP request, represented by the [Http::Request]({{book.api}}/Http/Request.html) class, contains the following information:
+An HTTP request, represented by the [SF::Http::Request][] class, contains the following information:
 
 * The method: POST (send content), GET (retrieve a resource), HEAD (retrieve a resource header, without its body)
 * The URI: the address of the resource (page, image, ...) to get/post, relative to the root directory
@@ -58,7 +58,7 @@ SFML automatically fills mandatory header fields, such as "Host", "Content-Lengt
 
 ## Responses
 
-If the [Http]({{book.api}}/Http.html) class could successfully connect to the host and send the request, a response is sent back and returned to the user, encapsulated in an instance of the [Http::Response]({{book.api}}/Http/Response.html) class. Responses contain the following members:
+If the [SF::Http][] class could successfully connect to the host and send the request, a response is sent back and returned to the user, encapsulated in an instance of the [SF::Http::Response][] class. Responses contain the following members:
 
 * A status code which precisely indicates how the server processed the request (OK, redirected, not found, etc.)
 * The HTTP version of the server

@@ -1,6 +1,6 @@
 # Using OpenGL in an SFML window
 
-Relevant examples: **[gl]({{book.examples}}/gl.cr)**, **[cube]({{book.examples2}}/cube)**
+Relevant examples: **[gl](https://github.com/oprypin/crsfml/tree/master/examples/gl.cr)**, **[cube](https://github.com/oprypin/crsfml-examples/tree/master/cube)**
 
 ## Introduction
 
@@ -30,7 +30,7 @@ GL.enable(GL::TEXTURE_2D)
 ...
 ```
 
-In case you think it is *too* automatic, [Window]({{book.api}}/Window.html)'s constructor has an extra argument that allows you to change the settings of the underlying OpenGL context. This argument is an instance of the structure, it provides access to the following settings:
+In case you think it is *too* automatic, [SF::Window][]'s constructor has an extra argument that allows you to change the settings of the underlying OpenGL context. This argument is an instance of the structure, it provides access to the following settings:
 
 * `depth_bits` is the number of bits per pixel to use for the depth buffer (0 to disable it)
 * `stencil_bits` is the number of bits per pixel to use for the stencil buffer (0 to disable it)
@@ -144,7 +144,7 @@ Another thing to know is that all the OpenGL contexts created by SFML share thei
 
 This tutorial was about mixing OpenGL with sfml-window, which is fairly easy since it's the only purpose of this module. Mixing with the graphics module is a little more complicated: sfml-graphics uses OpenGL too, so extra care must be taken so that SFML and user states don't conflict with each other.
 
-If you don't know the graphics module yet, all you have to know is that the [Window]({{book.api}}/Window.html) class is replaced with [RenderWindow]({{book.api}}/RenderWindow.html), which inherits all its methods and adds features to draw SFML specific entities.
+If you don't know the graphics module yet, all you have to know is that the [SF::Window][] class is replaced with [SF::RenderWindow][], which inherits all its methods and adds features to draw SFML specific entities.
 
 The only way to avoid conflicts between SFML and your own OpenGL states, is to save/restore them every time you switch from OpenGL to SFML.
 

@@ -23,7 +23,6 @@ markdown_extensions:
 
 plugins:
   - search
-  - markdownextradata
   - gen-files:
       scripts:
         - tools/gen_doc_files.py
@@ -32,9 +31,3 @@ plugins:
       watch: [src]
   - literate-nav
   - section-index
-
-extra:
-  book:
-    api: http://oprypin.github.io/crsfml/api/SF
-    examples: https://github.com/oprypin/crsfml/tree/master/examples
-    examples2: https://github.com/oprypin/crsfml-examples/tree/master

@@ -8,9 +8,9 @@ Fortunately, CrSFML provides a graphics module which will help you draw 2D entit
 
 ## The drawing window
 
-To draw the entities provided by the graphics module, you must use a specialized window class: [RenderWindow]({{book.api}}/RenderWindow.html). This class is derived from [Window]({{book.api}}/Window.html), and inherits all its methods. Everything that you've learnt about [Window]({{book.api}}/Window.html) (creation, event handling, controlling the framerate, mixing with OpenGL, etc.) is applicable to [RenderWindow]({{book.api}}/RenderWindow.html) as well.
+To draw the entities provided by the graphics module, you must use a specialized window class: [SF::RenderWindow][]. This class is derived from [SF::Window][], and inherits all its methods. Everything that you've learnt about [SF::Window][] (creation, event handling, controlling the framerate, mixing with OpenGL, etc.) is applicable to [SF::RenderWindow][] as well.
 
-On top of that, [RenderWindow]({{book.api}}/RenderWindow.html) adds high-level methods to help you draw things easily. In this tutorial we'll focus on two of these methods: `clear` and `draw`. They are as simple as their name implies: `clear` clears the whole window with the chosen color, and `draw` draws whatever object you pass to it.
+On top of that, [SF::RenderWindow][] adds high-level methods to help you draw things easily. In this tutorial we'll focus on two of these methods: `clear` and `draw`. They are as simple as their name implies: `clear` clears the whole window with the chosen color, and `draw` draws whatever object you pass to it.
 
 Here is what a typical main loop looks like with a render window:
 
@@ -63,7 +63,7 @@ Although they share some common properties, each of these entities come with the
 
 ## Off-screen drawing
 
-SFML also provides a way to draw to a texture instead of directly to a window. To do so, use a [RenderTexture]({{book.api}}/RenderTexture.html) instead of a [RenderWindow]({{book.api}}/RenderWindow.html). It has the same methods for drawing, inherited from their common base: [RenderTarget]({{book.api}}/RenderTarget.html).
+SFML also provides a way to draw to a texture instead of directly to a window. To do so, use a [SF::RenderTexture][] instead of a [SF::RenderWindow][]. It has the same methods for drawing, inherited from their common base: [SF::RenderTarget][].
 
 ```crystal
 # create a 500x500 render-texture
@@ -82,9 +82,9 @@ sprite = SF::Sprite.new(texture)
 window.draw(sprite)
 ```
 
-The `texture` method returns a read-only texture, which means that you can only use it, not modify it. If you need to modify it before using it, you can copy it to your own [Texture]({{book.api}}/Texture.html) instance and modify that instead.
+The `texture` method returns a read-only texture, which means that you can only use it, not modify it. If you need to modify it before using it, you can copy it to your own [SF::Texture][] instance and modify that instead.
 
-[RenderTexture]({{book.api}}/RenderTexture.html) also has the same methods as [RenderWindow]({{book.api}}/RenderWindow.html) for handling views and OpenGL (see the corresponding tutorials for more details). If you use OpenGL to draw to the render-texture, you can request creation of a depth buffer by using the third optional argument of the constructor.
+[SF::RenderTexture][] also has the same methods as [SF::RenderWindow][] for handling views and OpenGL (see the corresponding tutorials for more details). If you use OpenGL to draw to the render-texture, you can request creation of a depth buffer by using the third optional argument of the constructor.
 
 ```crystal
 SF::RenderTexture.new(500, 500, true) # enable depth buffer

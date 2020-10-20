@@ -1,6 +1,6 @@
 # Adding special effects with shaders
 
-Relevant example: **[shader]({{book.examples}}/shader.cr)**
+Relevant example: **[shader](https://github.com/oprypin/crsfml/tree/master/examples/shader.cr)**
 
 ## Introduction
 
@@ -16,7 +16,7 @@ This tutorial will only focus on the CrSFML specific part: Loading and applying 
 
 ## Loading shaders
 
-In CrSFML, shaders are represented by the [Shader]({{book.api}}/Shader.html) class. It handles both the vertex and fragment shaders: A [Shader]({{book.api}}/Shader.html) object is a combination of both (or only one, if the other is not provided).
+In CrSFML, shaders are represented by the [SF::Shader][] class. It handles both the vertex and fragment shaders: A [SF::Shader][] object is a combination of both (or only one, if the other is not provided).
 
 Even though shaders have become commonplace, there are still old graphics cards that might not support them. The first thing you should do in your program is check if shaders are available on the system:
 
@@ -26,7 +26,7 @@ if !SF::Shader.available?
 end
 ```
 
-Any attempt to use the [Shader]({{book.api}}/Shader.html) class will fail if `SF::Shader.available?` returns `false`.
+Any attempt to use the [SF::Shader][] class will fail if `SF::Shader.available?` returns `false`.
 
 The most common way of loading a shader is from a file on disk, which is done with the `from_file` class method.
 
@@ -97,7 +97,7 @@ void main()
 }
 ```
 
-Uniforms can be set by the Crystal program, using the various overloads of the `set_parameter` method in the [Shader]({{book.api}}/Shader.html) class.
+Uniforms can be set by the Crystal program, using the various overloads of the `set_parameter` method in the [SF::Shader][] class.
 
 ```crystal
 shader.set_parameter("my_var", 5.0)
@@ -123,7 +123,7 @@ You won't learn how to write GLSL shaders here, but it is essential that you kno
 
 ### Vertex shader
 
-SFML has a fixed vertex format which is described by the [Vertex]({{book.api}}/Vertex.html) structure. A SFML vertex contains a 2D position, a color, and 2D texture coordinates. This is the exact input that you will get in the vertex shader, stored in the built-in `gl_Vertex`, `gl_Color` and `gl_MultiTexCoord0` variables (you don't need to declare them).
+SFML has a fixed vertex format which is described by the [SF::Vertex][] structure. A SFML vertex contains a 2D position, a color, and 2D texture coordinates. This is the exact input that you will get in the vertex shader, stored in the built-in `gl_Vertex`, `gl_Color` and `gl_MultiTexCoord0` variables (you don't need to declare them).
 
 ```glsl
 void main()
@@ -171,9 +171,9 @@ If you want to see nice examples of shaders in action, you can have a look at th
 
 ## Using a SF::Shader with OpenGL code
 
-If you're using OpenGL rather than the graphics entities of SFML, you can still use [Shader]({{book.api}}/Shader.html) as a wrapper around an OpenGL program object and use it within your OpenGL code.
+If you're using OpenGL rather than the graphics entities of SFML, you can still use [SF::Shader][] as a wrapper around an OpenGL program object and use it within your OpenGL code.
 
-To activate a [Shader]({{book.api}}/Shader.html) for drawing (the equivalent of `glUseProgram`), you have to call the `bind` class method:
+To activate a [SF::Shader][] for drawing (the equivalent of `glUseProgram`), you have to call the `bind` class method:
 
 ```crystal
 shader = SF::Shader.new
