@@ -421,10 +421,10 @@ jobs:
           cmake --build . --target install --config Release
       - name: Set up environment
         run: |
-          echo "::set-env name=PATH::$(pwd)\sfml\bin;${env:PATH}"
-          echo "::set-env name=LIB::$(pwd)\sfml\lib;${env:LIB}"
-          echo "::set-env name=INCLUDE::$(pwd)\sfml\include;${env:INCLUDE}"
-          echo "::set-env name=CRYSTAL_PATH::$(pwd)\..;${env:CRYSTAL_PATH}"
+          echo "PATH=$(pwd)\sfml\bin;${env:PATH}" >>${env:GITHUB_ENV}
+          echo "LIB=$(pwd)\sfml\lib;${env:LIB}" >>${env:GITHUB_ENV}
+          echo "INCLUDE=$(pwd)\sfml\include;${env:INCLUDE}" >>${env:GITHUB_ENV}
+          echo "CRYSTAL_PATH=$(pwd)\..;${env:CRYSTAL_PATH}" >>${env:GITHUB_ENV}
       - name: Re-generate sources
         run: crystal generate.cr "${env:GITHUB_WORKSPACE}\sfml\include"
       - name: Build CrSFML
