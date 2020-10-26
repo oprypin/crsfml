@@ -1,714 +1,2229 @@
---- SF::Ftp
-+++ SF::Ftp
-@@ -30,38 +30,44 @@
- Usage example:
--```c++
--// Create a new FTP client
--sf::Ftp ftp;
-+```
-+# Create a new FTP client
-+ftp = SF::Ftp.new
- 
--// Connect to the server
--sf::Ftp::Response response = ftp.connect("ftp://ftp.myserver.com");
--if (response.isOk())
--    std::cout << "Connected" << std::endl;
-+# Connect to the server
-+response = ftp.connect("ftp://ftp.myserver.com")
-+if response.ok?
-+  puts "Connected"
-+end
- 
--// Log in
--response = ftp.login("laurent", "dF6Zm89D");
--if (response.isOk())
--    std::cout << "Logged in" << std::endl;
-+# Log in
-+response = ftp.login("laurent", "dF6Zm89D")
-+if response.ok?
-+  puts "Logged in"
-+end
- 
--// Print the working directory
--sf::Ftp::DirectoryResponse directory = ftp.getWorkingDirectory();
--if (directory.isOk())
--    std::cout << "Working directory: " << directory.getDirectory() << std::endl;
-+# Print the working directory
-+directory = ftp.working_directory()
-+if directory.ok?
-+  puts "Working directory: #{directory.directory}"
-+end
- 
--// Create a new directory
--response = ftp.createDirectory("files");
--if (response.isOk())
--    std::cout << "Created new directory" << std::endl;
-+# Create a new directory
-+response = ftp.create_directory "files"
-+if response.ok?
-+  puts "Created new directory"
-+end
- 
--// Upload a file to this new directory
--response = ftp.upload("local-path/file.txt", "files", sf::Ftp::Ascii);
--if (response.isOk())
--    std::cout << "File uploaded" << std::endl;
-+# Upload a file to this new directory
-+response = ftp.upload("local-path/file.txt", "files", SF::Ftp::Ascii)
-+if response.ok?)
-+  puts "File uploaded"
-+end
- 
--// Send specific commands (here: FEAT to list supported FTP features)
--response = ftp.sendCommand("FEAT");
--if (response.isOk())
--    std::cout << "Feature list:\n" << response.getMessage() << std::endl;
-+# Send specific commands (here: FEAT to list supported FTP features)
-+response = ftp.send_command "FEAT"
-+if response.ok?
-+  puts "Feature list:\n#{response.message}"
-+end
- 
--// Disconnect from the server (optional)
--ftp.disconnect();
-+# Disconnect from the server
-+ftp.disconnect()
- ```
---- SF::IpAddress
-+++ SF::IpAddress
-@@ -8,13 +8,13 @@
- Usage example:
--```c++
--sf::IpAddress a0;                                     // an invalid address
--sf::IpAddress a1 = sf::IpAddress::None;               // an invalid address (same as a0)
--sf::IpAddress a2("127.0.0.1");                        // the local host address
--sf::IpAddress a3 = sf::IpAddress::Broadcast;          // the broadcast address
--sf::IpAddress a4(192, 168, 1, 56);                    // a local address
--sf::IpAddress a5("my_computer");                      // a local address created from a network name
--sf::IpAddress a6("89.54.1.169");                      // a distant address
--sf::IpAddress a7("www.google.com");                   // a distant address created from a network name
--sf::IpAddress a8 = sf::IpAddress::getLocalAddress();  // my address on the local network
--sf::IpAddress a9 = sf::IpAddress::getPublicAddress(); // my address on the internet
-+```
-+a0 = SF::IpAddress.new                    # an invalid address
-+a1 = SF::IpAddress::None                  # an invalid address (same as a0)
-+a2 = SF::IpAddress.new("127.0.0.1")       # the local host address
-+a3 = SF::IpAddress::Broadcast             # the broadcast address
-+a4 = SF::IpAddress.new(192, 168, 1, 56)   # a local address
-+a5 = SF::IpAddress.new("my_computer")     # a local address created from a network name
-+a6 = SF::IpAddress.new("89.54.1.169")     # a distant address
-+a7 = SF::IpAddress.new("www.google.com")  # a distant address created from a network name
-+a8 = SF::IpAddress.local_address          # my address on the local network
-+a9 = SF::IpAddress.get_public_address()   # my address on the internet
- ```
---- SF::IpAddress#initialize(address)
-+++ SF::IpAddress#initialize(address)
-@@ -5,3 +5,3 @@
- purposes, and only if you got that representation from
--IpAddress::to_integer().
-+IpAddress.to_integer().
- 
---- SF::Packet
-+++ SF::Packet
-@@ -12,23 +12,22 @@
- 
--The `SF::Packet` class provides both input and output modes.
--It is designed to follow the behavior of standard C++ streams,
--using operators &gt;&gt; and &lt;&lt; to extract and insert data.
-+The `SF::Packet` class provides both input and output, using `read`
-+and `write` methods.
- 
--It is recommended to use only fixed-size types (like `SF::Int32`, etc.),
-+It is recommended to use only fixed-size types (like `Int32`, etc.),
- to avoid possible differences between the sender and the receiver.
--Indeed, the native C++ types may have different sizes on two platforms
--and your data may be corrupted if that happens.
- 
- Usage example:
--```c++
--sf::Uint32 x = 24;
--std::string s = "hello";
--double d = 5.89;
-+```
-+x = 24u32
-+s = "hello"
-+d = 5.89
- 
--// Group the variables to send into a packet
--sf::Packet packet;
--packet << x << s << d;
-+# Group the variables to send into a packet
-+packet = SF::Packet.new
-+packet.write x
-+packet.write s
-+packet.write d
- 
--// Send it over the network (socket is a valid sf::TcpSocket)
--socket.send(packet);
-+# Send it over the network (socket is a valid SF::TcpSocket)
-+socket.send packet
- 
-@@ -36,78 +35,43 @@
- 
--// Receive the packet at the other end
--sf::Packet packet;
--socket.receive(packet);
--
--// Extract the variables contained in the packet
--sf::Uint32 x;
--std::string s;
--double d;
--if (packet >> x >> s >> d)
--{
--    // Data extracted successfully...
--}
-+# Receive the packet at the other end
-+packet = SF::Packet.new
-+socket.receive(packet)
-+
-+# Extract the variables contained in the packet
-+x = packet.read UInt32
-+s = packet.read String
-+d = packet.read Float64
-+if packet.valid?
-+  # Data extracted successfully...
-+end
- ```
- 
--Packets have built-in operator &gt;&gt; and &lt;&lt; overloads for
--standard types:
--* bool
--* fixed-size integer types (`SF::Int8/16/32`, `SF::Uint8/16/32`)
--* floating point numbers (float, double)
--* string types (char*, wchar_t*, std::string, std::wstring, `SF::String`)
-+Packets have overloads of `read` and `write` methods for standard types:
- 
--Like standard streams, it is also possible to define your own
--overloads of operators &gt;&gt; and &lt;&lt; in order to handle your
--custom types.
-+* Bool
-+* Fixed-size integer types (`Int8/16/32/64`, `UInt8/16/32/64`)
-+* Floating point numbers (`Float32/64`)
-+* `String`
- 
--```c++
--struct MyStruct
--{
--    float       number;
--    sf::Int8    integer;
--    std::string str;
--};
--
--sf::Packet& operator <<(sf::Packet& packet, const MyStruct& m)
--{
--    return packet << m.number << m.integer << m.str;
--}
--
--sf::Packet& operator >>(sf::Packet& packet, MyStruct& m)
--{
--    return packet >> m.number >> m.integer >> m.str;
--}
--```
-+Like standard streams, it is also possible to define your own overloads
-+of these methods in order to handle your custom types.
- 
--Packets also provide an extra feature that allows to apply
--custom transformations to the data before it is sent,
--and after it is received. This is typically used to
--handle automatic compression or encryption of the data.
--This is achieved by inheriting from `SF::Packet`, and overriding
--the on_send and on_receive functions.
--
--Here is an example:
--```c++
--class ZipPacket : public sf::Packet
--{
--    virtual const void* onSend(std::size_t& size)
--    {
--        const void* srcData = getData();
--        std::size_t srcSize = getDataSize();
--
--        return MySuperZipFunction(srcData, srcSize, &size);
--    }
--
--    virtual void onReceive(const void* data, std::size_t size)
--    {
--        std::size_t dstSize;
--        const void* dstData = MySuperUnzipFunction(data, size, &dstSize);
--
--        append(dstData, dstSize);
--    }
--};
--
--// Use like regular packets:
--ZipPacket packet;
--packet << x << s << d;
--...
-+```
-+struct MyStruct
-+  number : Float32
-+  integer : Int8
-+  str : String
-+end
-+
-+class SF::Packet
-+  def write(m : MyStruct)
-+    write m.number
-+    write m.integer
-+    write m.str
-+  end
-+
-+  def read(type : MyStruct.class) : MyStruct
-+    MyStruct.new(packet.read(Float32), packet.read(Int8), packet.read(String))
-+  end
-+end
- ```
---- SF::Packet#read(type)
-+++ SF::Packet#read(type)
-@@ -1 +1,2 @@
--\overload
-+Read data from the packet. The expected type corresponds to
-+what was actually sent.
---- SF::Packet#valid?()
-+++ SF::Packet#valid?()
-@@ -11,22 +11,8 @@
- Usage example:
--```c++
--float x;
--packet >> x;
--if (packet)
--{
--   // ok, x was extracted successfully
--}
--
--// -- or --
--
--float x;
--if (packet >> x)
--{
--   // ok, x was extracted successfully
--}
- ```
--
--Don't focus on the return type, it's equivalent to bool but
--it disallows unwanted implicit conversions to integer or
--pointer types.
-+x = packet.read(Float32)
-+if packet.valid?
-+   # ok, x was extracted successfully
-+end
-+```
- 
---- SF::Packet#write(data)
-+++ SF::Packet#write(data)
-@@ -1 +1 @@
--\overload
-+Write data into the packet
---- SF::SocketSelector
-+++ SF::SocketSelector
-@@ -28,61 +28,46 @@
- Usage example:
--```c++
--// Create a socket to listen to new connections
--sf::TcpListener listener;
--listener.listen(55001);
-+```
-+# Create a socket to listen to new connections
-+listener = SF::TcpListener.new
-+listener.listen(55001)
- 
--// Create a list to store the future clients
--std::list<sf::TcpSocket*> clients;
-+# Create an array to store the future clients
-+clients = [] of SF::TcpSocket
- 
--// Create a selector
--sf::SocketSelector selector;
-+# Create a selector
-+selector = SF::SocketSelector.new
- 
--// Add the listener to the selector
--selector.add(listener);
-+# Add the listener to the selector
-+selector.add listener
- 
--// Endless loop that waits for new connections
--while (running)
--{
--    // Make the selector wait for data on any socket
--    if (selector.wait())
--    {
--        // Test the listener
--        if (selector.isReady(listener))
--        {
--            // The listener is ready: there is a pending connection
--            sf::TcpSocket* client = new sf::TcpSocket;
--            if (listener.accept(*client) == sf::Socket::Done)
--            {
--                // Add the new client to the clients list
--                clients.push_back(client);
-+# Endless loop that waits for new connections
-+while running
-+  # Make the selector wait for data on any socket
-+  if selector.wait()
-+    # Test the listener
-+    if selector.ready?(listener)
-+      # The listener is ready: there is a pending connection
-+      client = SF::TcpSocket.new
-+      if listener.accept(client) == SF::Socket::Done
-+        # Add the new client to the clients list
-+        clients << client
- 
--                // Add the new client to the selector so that we will
--                // be notified when he sends something
--                selector.add(*client);
--            }
--            else
--            {
--                // Error, we won't get a new connection, delete the socket
--                delete client;
--            }
--        }
--        else
--        {
--            // The listener socket is not ready, test all other sockets (the clients)
--            for (std::list<sf::TcpSocket*>::iterator it = clients.begin(); it != clients.end(); ++it)
--            {
--                sf::TcpSocket& client = **it;
--                if (selector.isReady(client))
--                {
--                    // The client has sent some data, we can receive it
--                    sf::Packet packet;
--                    if (client.receive(packet) == sf::Socket::Done)
--                    {
--                        ...
--                    }
--                }
--            }
--        }
--    }
--}
-+        # Add the new client to the selector so that we will
-+        # be notified when he sends something
-+        selector.add client
-+      end
-+    else
-+      # The listener socket is not ready, test all other sockets (the clients)
-+      clients.each do |client|
-+        if selector.ready?(client)
-+          # The client has sent some data, we can receive it
-+          packet = SF::Packet.new
-+          if client.receive(packet) == SF::Socket::Done
-+              ...
-+          end
-+        end
-+      end
-+    end
-+  end
-+end
- ```
---- SF::TcpListener
-+++ SF::TcpListener
-@@ -22,19 +22,17 @@
- Usage example:
--```c++
--// Create a listener socket and make it wait for new
--// connections on port 55001
--sf::TcpListener listener;
--listener.listen(55001);
-+```
-+# Create a listener socket and make it wait for new
-+# connections on port 55001
-+listener = SF::TcpListener.new
-+listener.listen(55001)
- 
--// Endless loop that waits for new connections
--while (running)
--{
--    sf::TcpSocket client;
--    if (listener.accept(client) == sf::Socket::Done)
--    {
--        // A new client just connected!
--        std::cout << "New connection received from " << client.getRemoteAddress() << std::endl;
--        doSomethingWith(client);
--    }
--}
-+# Endless loop that waits for new connections
-+while running
-+  client = SF::TcpSocket.new
-+  if listener.accept(client) == SF::Socket::Done
-+    # A new client just connected!
-+    puts "New connection received from #{client.remote_address}"
-+    do_something_with client
-+  end
-+end
- ```
---- SF::TcpSocket
-+++ SF::TcpSocket
-@@ -33,39 +33,37 @@
- Usage example:
--```c++
--// ----- The client -----
--
--// Create a socket and connect it to 192.168.1.50 on port 55001
--sf::TcpSocket socket;
--socket.connect("192.168.1.50", 55001);
--
--// Send a message to the connected host
--std::string message = "Hi, I am a client";
--socket.send(message.c_str(), message.size() + 1);
--
--// Receive an answer from the server
--char buffer[1024];
--std::size_t received = 0;
--socket.receive(buffer, sizeof(buffer), received);
--std::cout << "The server said: " << buffer << std::endl;
--
--// ----- The server -----
--
--// Create a listener to wait for incoming connections on port 55001
--sf::TcpListener listener;
--listener.listen(55001);
--
--// Wait for a connection
--sf::TcpSocket socket;
--listener.accept(socket);
--std::cout << "New client connected: " << socket.getRemoteAddress() << std::endl;
--
--// Receive a message from the client
--char buffer[1024];
--std::size_t received = 0;
--socket.receive(buffer, sizeof(buffer), received);
--std::cout << "The client said: " << buffer << std::endl;
--
--// Send an answer
--std::string message = "Welcome, client";
--socket.send(message.c_str(), message.size() + 1);
-+```
-+# ----- The client -----
-+
-+# Create a socket and connect it to 192.168.1.50 on port 55001
-+socket = SF::TcpSocket.new
-+socket.connect("192.168.1.50", 55001)
-+
-+# Send a message to the connected host
-+message = "Hi, I am a client"
-+socket.send(message.to_slice)
-+
-+# Receive an answer from the server
-+buffer = Slice(UInt8).new(1024)
-+status, received = socket.receive(buffer)
-+puts "The server said: #{buffer}"
-+
-+# ----- The server -----
-+
-+# Create a listener to wait for incoming connections on port 55001
-+listener = SF::TcpListener.new
-+listener.listen(55001)
-+
-+# Wait for a connection
-+socket = SF::TcpSocket.new
-+listener.accept(socket)
-+puts "New client connected: #{socket.remote_address}"
-+
-+# Receive a message from the client
-+buffer = Slice(UInt8).new(1024)
-+status, received = socket.receive(buffer)
-+puts "The client said: #{buffer}"
-+
-+# Send an answer
-+message = "Welcome, client"
-+socket.send(message.to_slice)
- ```
---- SF::TcpSocket#receive(data)
-+++ SF::TcpSocket#receive(data)
-@@ -6,7 +6,7 @@
- 
--* *data* - Pointer to the array to fill with the received bytes
--* *size* - Maximum number of bytes that can be received
--* *received* - This variable is filled with the actual number of bytes received
-+* *data* - The slice to fill with the received bytes
- 
--*Returns:* Status code
-+*Returns:*
-+* Status code
-+* The actual number of bytes received
- 
---- SF::TcpSocket#send(data)
-+++ SF::TcpSocket#send(data)
-@@ -4,7 +4,7 @@
- 
--* *data* - Pointer to the sequence of bytes to send
--* *size* - Number of bytes to send
--* *sent* - The number of bytes sent will be written here
-+* *data* - Slice containing the bytes to send
- 
--*Returns:* Status code
-+*Returns:*
-+* Status code
-+* The number of bytes sent
- 
---- SF::UdpSocket
-+++ SF::UdpSocket
-@@ -44,38 +44,32 @@
- Usage example:
--```c++
--// ----- The client -----
--
--// Create a socket and bind it to the port 55001
--sf::UdpSocket socket;
--socket.bind(55001);
--
--// Send a message to 192.168.1.50 on port 55002
--std::string message = "Hi, I am " + sf::IpAddress::getLocalAddress().toString();
--socket.send(message.c_str(), message.size() + 1, "192.168.1.50", 55002);
--
--// Receive an answer (most likely from 192.168.1.50, but could be anyone else)
--char buffer[1024];
--std::size_t received = 0;
--sf::IpAddress sender;
--unsigned short port;
--socket.receive(buffer, sizeof(buffer), received, sender, port);
--std::cout << sender.ToString() << " said: " << buffer << std::endl;
--
--// ----- The server -----
--
--// Create a socket and bind it to the port 55002
--sf::UdpSocket socket;
--socket.bind(55002);
--
--// Receive a message from anyone
--char buffer[1024];
--std::size_t received = 0;
--sf::IpAddress sender;
--unsigned short port;
--socket.receive(buffer, sizeof(buffer), received, sender, port);
--std::cout << sender.ToString() << " said: " << buffer << std::endl;
--
--// Send an answer
--std::string message = "Welcome " + sender.toString();
--socket.send(message.c_str(), message.size() + 1, sender, port);
-+```
-+# ----- The client -----
-+
-+# Create a socket and bind it to the port 55001
-+socket = SF::UdpSocket.new
-+socket.bind(55001)
-+
-+# Send a message to 192.168.1.50 on port 55002
-+message = "Hi, I am #{SF::IpAddress.local_address}"
-+socket.send(message.to_slice, "192.168.1.50", 55002)
-+
-+# Receive an answer (most likely from 192.168.1.50, but could be anyone else)
-+buffer = Slice(UInt8).new(1024)
-+status, received, sender, port = socket.receive(buffer)
-+puts "#{sender} said: #{buffer}"
-+
-+# ----- The server -----
-+
-+# Create a socket and bind it to the port 55002
-+socket = SF::UdpSocket.new
-+socket.bind(55002)
-+
-+# Receive a message from anyone
-+buffer = Slice(UInt8).new(1024)
-+status, received, sender, port = socket.receive(buffer)
-+puts "#{sender} said: #{buffer}"
-+
-+# Send an answer
-+message = "Welcome #{sender}"
-+socket.send(message.to_slice, sender, port)
- ```
---- SF::UdpSocket#receive(data)
-+++ SF::UdpSocket#receive(data)
-@@ -9,9 +9,9 @@
- 
--* *data* - Pointer to the array to fill with the received bytes
--* *size* - Maximum number of bytes that can be received
--* *received* - This variable is filled with the actual number of bytes received
--* *remote_address* - Address of the peer that sent the data
--* *remote_port* - Port of the peer that sent the data
-+* *data* - The slice to fill with the received bytes
- 
--*Returns:* Status code
-+*Returns:*
-+* Status code
-+* The actual number of bytes received
-+* Address of the peer that sent the data
-+* Port of the peer that sent the data
- 
---- SF::UdpSocket#receive(packet)
-+++ SF::UdpSocket#receive(packet)
-@@ -6,6 +6,7 @@
- * *packet* - Packet to fill with the received data
--* *remote_address* - Address of the peer that sent the data
--* *remote_port* - Port of the peer that sent the data
- 
--*Returns:* Status code
-+*Returns:*
-+* Status code
-+* Address of the peer that sent the data
-+* Port of the peer that sent the data
- 
---- SF::UdpSocket#send(data,remote_address,remote_port)
-+++ SF::UdpSocket#send(data,remote_address,remote_port)
-@@ -2,8 +2,7 @@
- 
--Make sure that *size* is not greater than
--UdpSocket::MaxDatagramSize, otherwise this function will
-+Make sure that *data* size is not greater than
-+`UdpSocket::MaxDatagramSize`, otherwise this function will
- fail and no data will be sent.
- 
--* *data* - Pointer to the sequence of bytes to send
--* *size* - Number of bytes to send
-+* *data* - Slice containing the sequence of bytes to send
- * *remote_address* - Address of the receiver
---- SF::Ftp#send_command(command,parameter)
-+++ SF::Ftp#send_command(command,parameter)
-@@ -7,3 +7,3 @@
- in *parameter.* If the server returns information, you
--can extract it from the response using Response::message().
-+can extract it from the response using Response.message().
- 
---- SF::Http
-+++ SF::Http
-@@ -31,25 +31,19 @@
- Usage example:
--```c++
--// Create a new HTTP client
--sf::Http http;
--
--// We'll work on http://www.sfml-dev.org
--http.setHost("http://www.sfml-dev.org");
-+```
-+# Create a new HTTP client
-+http = SF::Http.new("http://www.sfml-dev.org")
- 
--// Prepare a request to get the 'features.php' page
--sf::Http::Request request("features.php");
-+# Prepare a request to get the 'features.php' page
-+request = SF::Http::Request.new("features.php")
- 
--// Send the request
--sf::Http::Response response = http.sendRequest(request);
-+# Send the request
-+response = http.send_request request
- 
--// Check the status code and display the result
--sf::Http::Response::Status status = response.getStatus();
--if (status == sf::Http::Response::Ok)
--{
--    std::cout << response.getBody() << std::endl;
--}
-+# Check the status code and display the result
-+SF::Http::Response::Status status = response.getStatus()
-+if response.status == SF::Http::Response::Ok
-+    puts response.body
- else
--{
--    std::cout << "Error " << status << std::endl;
--}
-+    puts "Error #{response.status}"
-+end
- ```
+# SF::Ftp
+
+A FTP client
+
+`SF::Ftp` is a very simple FTP client that allows you
+to communicate with a FTP server. The FTP protocol allows
+you to manipulate a remote file system (list files,
+upload, download, create, remove, ...).
+
+Using the FTP client consists of 4 parts:
+* Connecting to the FTP server
+* Logging in (either as a registered user or anonymously)
+* Sending commands to the server
+* Disconnecting (this part can be done implicitly by the destructor)
+
+Every command returns a FTP response, which contains the
+status code as well as a message from the server. Some
+commands such as working_directory() and directory_listing()
+return additional data, and use a class derived from
+`SF::Ftp::Response` to provide this data. The most often used
+commands are directly provided as member functions, but it is
+also possible to use specific commands with the send_command() function.
+
+Note that response statuses &gt;= 1000 are not part of the FTP standard,
+they are generated by SFML when an internal error occurs.
+
+All commands, especially upload and download, may take some
+time to complete. This is important to know if you don't want
+to block your application while the server is completing
+the task.
+
+Usage example:
+```
+# Create a new FTP client
+ftp = SF::Ftp.new
+
+# Connect to the server
+response = ftp.connect("ftp://ftp.myserver.com")
+if response.ok?
+  puts "Connected"
+end
+
+# Log in
+response = ftp.login("laurent", "dF6Zm89D")
+if response.ok?
+  puts "Logged in"
+end
+
+# Print the working directory
+directory = ftp.working_directory()
+if directory.ok?
+  puts "Working directory: #{directory.directory}"
+end
+
+# Create a new directory
+response = ftp.create_directory "files"
+if response.ok?
+  puts "Created new directory"
+end
+
+# Upload a file to this new directory
+response = ftp.upload("local-path/file.txt", "files", SF::Ftp::Ascii)
+if response.ok?)
+  puts "File uploaded"
+end
+
+# Send specific commands (here: FEAT to list supported FTP features)
+response = ftp.send_command "FEAT"
+if response.ok?
+  puts "Feature list:\n#{response.message}"
+end
+
+# Disconnect from the server
+ftp.disconnect()
+```
+
+## SF::Ftp::DirectoryResponse
+
+Specialization of FTP response returning a directory
+
+### SF::Ftp::DirectoryResponse#directory()
+
+Get the directory returned in the response
+
+*Returns:* Directory name
+
+### SF::Ftp::DirectoryResponse#initialize(copy)
+
+:nodoc:
+
+### SF::Ftp::DirectoryResponse#initialize(response)
+
+Default constructor
+
+* *response* - Source response
+
+### SF::Ftp::DirectoryResponse#message()
+
+:nodoc:
+
+### SF::Ftp::DirectoryResponse#ok?()
+
+:nodoc:
+
+### SF::Ftp::DirectoryResponse#status()
+
+:nodoc:
+
+## SF::Ftp::ListingResponse
+
+Specialization of FTP response returning a
+filename listing
+
+### SF::Ftp::ListingResponse#initialize(copy)
+
+:nodoc:
+
+### SF::Ftp::ListingResponse#initialize(response,data)
+
+Default constructor
+
+* *response* - Source response
+* *data* - Data containing the raw listing
+
+### SF::Ftp::ListingResponse#listing()
+
+Return the array of directory/file names
+
+*Returns:* Array containing the requested listing
+
+### SF::Ftp::ListingResponse#message()
+
+:nodoc:
+
+### SF::Ftp::ListingResponse#ok?()
+
+:nodoc:
+
+### SF::Ftp::ListingResponse#status()
+
+:nodoc:
+
+## SF::Ftp::Response
+
+Define a FTP response
+
+### SF::Ftp::Response::Status
+
+Status codes possibly returned by a FTP response
+
+#### SF::Ftp::Response::Status::BadCommandSequence
+
+Bad sequence of commands
+
+#### SF::Ftp::Response::Status::ClosingConnection
+
+Service closing control connection
+
+#### SF::Ftp::Response::Status::ClosingDataConnection
+
+Closing data connection, requested file action successful
+
+#### SF::Ftp::Response::Status::CommandNotImplemented
+
+Command not implemented
+
+#### SF::Ftp::Response::Status::CommandUnknown
+
+Syntax error, command unrecognized
+
+#### SF::Ftp::Response::Status::ConnectionClosed
+
+Not part of the FTP standard, generated by SFML when the low-level socket connection is unexpectedly closed
+
+#### SF::Ftp::Response::Status::ConnectionFailed
+
+Not part of the FTP standard, generated by SFML when the low-level socket connection with the server fails
+
+#### SF::Ftp::Response::Status::DataConnectionAlreadyOpened
+
+Data connection already opened, transfer starting
+
+#### SF::Ftp::Response::Status::DataConnectionOpened
+
+Data connection open, no transfer in progress
+
+#### SF::Ftp::Response::Status::DataConnectionUnavailable
+
+Can't open data connection
+
+#### SF::Ftp::Response::Status::DirectoryOk
+
+PATHNAME created
+
+#### SF::Ftp::Response::Status::DirectoryStatus
+
+Directory status
+
+#### SF::Ftp::Response::Status::EnteringPassiveMode
+
+Entering passive mode
+
+#### SF::Ftp::Response::Status::FileActionAborted
+
+Requested file action not taken
+
+#### SF::Ftp::Response::Status::FileActionOk
+
+Requested file action ok
+
+#### SF::Ftp::Response::Status::FileStatus
+
+File status
+
+#### SF::Ftp::Response::Status::FileUnavailable
+
+Requested action not taken, file unavailable
+
+#### SF::Ftp::Response::Status::FilenameNotAllowed
+
+Requested action not taken, file name not allowed
+
+#### SF::Ftp::Response::Status::HelpMessage
+
+Help message
+
+#### SF::Ftp::Response::Status::InsufficientStorageSpace
+
+Requested action not taken; insufficient storage space in system, file unavailable
+
+#### SF::Ftp::Response::Status::InvalidFile
+
+Not part of the FTP standard, generated by SFML when a local file cannot be read or written
+
+#### SF::Ftp::Response::Status::InvalidResponse
+
+Not part of the FTP standard, generated by SFML when a received response cannot be parsed
+
+#### SF::Ftp::Response::Status::LocalError
+
+Requested action aborted, local error in processing
+
+#### SF::Ftp::Response::Status::LoggedIn
+
+User logged in, proceed. Logged out if appropriate
+
+#### SF::Ftp::Response::Status::NeedAccountToLogIn
+
+Need account for login
+
+#### SF::Ftp::Response::Status::NeedAccountToStore
+
+Need account for storing files
+
+#### SF::Ftp::Response::Status::NeedInformation
+
+Requested file action pending further information
+
+#### SF::Ftp::Response::Status::NeedPassword
+
+User name ok, need password
+
+#### SF::Ftp::Response::Status::NotEnoughMemory
+
+Requested file action aborted, exceeded storage allocation
+
+#### SF::Ftp::Response::Status::NotLoggedIn
+
+Not logged in
+
+#### SF::Ftp::Response::Status::Ok
+
+Command ok
+
+#### SF::Ftp::Response::Status::OpeningDataConnection
+
+File status ok, about to open data connection
+
+#### SF::Ftp::Response::Status::PageTypeUnknown
+
+Requested action aborted, page type unknown
+
+#### SF::Ftp::Response::Status::ParameterNotImplemented
+
+Command not implemented for that parameter
+
+#### SF::Ftp::Response::Status::ParametersUnknown
+
+Syntax error in parameters or arguments
+
+#### SF::Ftp::Response::Status::PointlessCommand
+
+Command not implemented
+
+#### SF::Ftp::Response::Status::RestartMarkerReply
+
+Restart marker reply
+
+#### SF::Ftp::Response::Status::ServiceReady
+
+Service ready for new user
+
+#### SF::Ftp::Response::Status::ServiceReadySoon
+
+Service ready in N minutes
+
+#### SF::Ftp::Response::Status::ServiceUnavailable
+
+Service not available, closing control connection
+
+#### SF::Ftp::Response::Status::SystemStatus
+
+System status, or system help reply
+
+#### SF::Ftp::Response::Status::SystemType
+
+NAME system type, where NAME is an official system name from the list in the Assigned Numbers document
+
+#### SF::Ftp::Response::Status::TransferAborted
+
+Connection closed, transfer aborted
+
+### SF::Ftp::Response#initialize(code,message)
+
+Default constructor
+
+This constructor is used by the FTP client to build
+the response.
+
+* *code* - Response status code
+* *message* - Response message
+
+### SF::Ftp::Response#initialize(copy)
+
+:nodoc:
+
+### SF::Ftp::Response#message()
+
+Get the full message contained in the response
+
+*Returns:* The response message
+
+### SF::Ftp::Response#ok?()
+
+Check if the status code means a success
+
+This function is defined for convenience, it is
+equivalent to testing if the status code is &lt; 400.
+
+*Returns:* True if the status is a success, false if it is a failure
+
+### SF::Ftp::Response#status()
+
+Get the status code of the response
+
+*Returns:* Status code
+
+## SF::Ftp::TransferMode
+
+Enumeration of transfer modes
+
+### SF::Ftp::TransferMode::Ascii
+
+Text mode using ASCII encoding
+
+### SF::Ftp::TransferMode::Binary
+
+Binary mode (file is transfered as a sequence of bytes)
+
+### SF::Ftp::TransferMode::Ebcdic
+
+Text mode using EBCDIC encoding
+
+## SF::Ftp#change_directory(directory)
+
+Change the current working directory
+
+The new directory must be relative to the current one.
+
+* *directory* - New working directory
+
+*Returns:* Server response to the request
+
+*See also:* `working_directory`, `directory_listing`, `parent_directory`
+
+## SF::Ftp#connect(server,port,timeout)
+
+Connect to the specified FTP server
+
+The port has a default value of 21, which is the standard
+port used by the FTP protocol. You shouldn't use a different
+value, unless you really know what you do.
+This function tries to connect to the server so it may take
+a while to complete, especially if the server is not
+reachable. To avoid blocking your application for too long,
+you can use a timeout. The default value, Time::Zero, means that the
+system timeout will be used (which is usually pretty long).
+
+* *server* - Name or address of the FTP server to connect to
+* *port* - Port used for the connection
+* *timeout* - Maximum time to wait
+
+*Returns:* Server response to the request
+
+*See also:* `disconnect`
+
+## SF::Ftp#create_directory(name)
+
+Create a new directory
+
+The new directory is created as a child of the current
+working directory.
+
+* *name* - Name of the directory to create
+
+*Returns:* Server response to the request
+
+*See also:* `delete_directory`
+
+## SF::Ftp#delete_directory(name)
+
+Remove an existing directory
+
+The directory to remove must be relative to the
+current working directory.
+Use this function with caution, the directory will
+be removed permanently!
+
+* *name* - Name of the directory to remove
+
+*Returns:* Server response to the request
+
+*See also:* `create_directory`
+
+## SF::Ftp#delete_file(name)
+
+Remove an existing file
+
+The file name must be relative to the current working
+directory.
+Use this function with caution, the file will be
+removed permanently!
+
+* *name* - File to remove
+
+*Returns:* Server response to the request
+
+*See also:* `rename_file`
+
+## SF::Ftp#disconnect()
+
+Close the connection with the server
+
+*Returns:* Server response to the request
+
+*See also:* `connect`
+
+## SF::Ftp#download(remote_file,local_path,mode)
+
+Download a file from the server
+
+The filename of the distant file is relative to the
+current working directory of the server, and the local
+destination path is relative to the current directory
+of your application.
+If a file with the same filename as the distant file
+already exists in the local destination path, it will
+be overwritten.
+
+* *remote_file* - Filename of the distant file to download
+* *local_path* - The directory in which to put the file on the local computer
+* *mode* - Transfer mode
+
+*Returns:* Server response to the request
+
+*See also:* `upload`
+
+## SF::Ftp#finalize()
+
+Destructor
+
+Automatically closes the connection with the server if
+it is still opened.
+
+## SF::Ftp#get_directory_listing(directory)
+
+Get the contents of the given directory
+
+This function retrieves the sub-directories and files
+contained in the given directory. It is not recursive.
+The *directory* parameter is relative to the current
+working directory.
+
+* *directory* - Directory to list
+
+*Returns:* Server response to the request
+
+*See also:* `working_directory`, `change_directory`, `parent_directory`
+
+## SF::Ftp#keep_alive()
+
+Send a null command to keep the connection alive
+
+This command is useful because the server may close the
+connection automatically if no command is sent.
+
+*Returns:* Server response to the request
+
+## SF::Ftp#login()
+
+Log in using an anonymous account
+
+Logging in is mandatory after connecting to the server.
+Users that are not logged in cannot perform any operation.
+
+*Returns:* Server response to the request
+
+## SF::Ftp#login(name,password)
+
+Log in using a username and a password
+
+Logging in is mandatory after connecting to the server.
+Users that are not logged in cannot perform any operation.
+
+* *name* - User name
+* *password* - Password
+
+*Returns:* Server response to the request
+
+## SF::Ftp#parent_directory()
+
+Go to the parent directory of the current one
+
+*Returns:* Server response to the request
+
+*See also:* `working_directory`, `directory_listing`, `change_directory`
+
+## SF::Ftp#rename_file(file,new_name)
+
+Rename an existing file
+
+The filenames must be relative to the current working
+directory.
+
+* *file* - File to rename
+* *new_name* - New name of the file
+
+*Returns:* Server response to the request
+
+*See also:* `delete_file`
+
+## SF::Ftp#send_command(command,parameter)
+
+Send a command to the FTP server
+
+While the most often used commands are provided as member
+functions in the `SF::Ftp` class, this method can be used
+to send any FTP command to the server. If the command
+requires one or more parameters, they can be specified
+in *parameter.* If the server returns information, you
+can extract it from the response using Response.message().
+
+* *command* - Command to send
+* *parameter* - Command parameter
+
+*Returns:* Server response to the request
+
+## SF::Ftp#upload(local_file,remote_path,mode,append)
+
+Upload a file to the server
+
+The name of the local file is relative to the current
+working directory of your application, and the
+remote path is relative to the current directory of the
+FTP server.
+
+The append parameter controls whether the remote file is
+appended to or overwritten if it already exists.
+
+* *local_file* - Path of the local file to upload
+* *remote_path* - The directory in which to put the file on the server
+* *mode* - Transfer mode
+* *append* - Pass true to append to or false to overwrite the remote file if it already exists
+
+*Returns:* Server response to the request
+
+*See also:* `download`
+
+## SF::Ftp#working_directory()
+
+Get the current working directory
+
+The working directory is the root path for subsequent
+operations involving directories and/or filenames.
+
+*Returns:* Server response to the request
+
+*See also:* `directory_listing`, `change_directory`, `parent_directory`
+
+# SF::Http
+
+A HTTP client
+
+`SF::Http` is a very simple HTTP client that allows you
+to communicate with a web server. You can retrieve
+web pages, send data to an interactive resource,
+download a remote file, etc. The HTTPS protocol is
+not supported.
+
+The HTTP client is split into 3 classes:
+* `SF::Http::Request`
+* `SF::Http::Response`
+* `SF::Http`
+
+`SF::Http::Request` builds the request that will be
+sent to the server. A request is made of:
+* a method (what you want to do)
+* a target URI (usually the name of the web page or file)
+* one or more header fields (options that you can pass to the server)
+* an optional body (for POST requests)
+
+`SF::Http::Response` parse the response from the web server
+and provides getters to read them. The response contains:
+* a status code
+* header fields (that may be answers to the ones that you requested)
+* a body, which contains the contents of the requested resource
+
+`SF::Http` provides a simple function, SendRequest, to send a
+`SF::Http::Request` and return the corresponding `SF::Http::Response`
+from the server.
+
+Usage example:
+```
+# Create a new HTTP client
+http = SF::Http.new("http://www.sfml-dev.org")
+
+# Prepare a request to get the 'features.php' page
+request = SF::Http::Request.new("features.php")
+
+# Send the request
+response = http.send_request request
+
+# Check the status code and display the result
+SF::Http::Response::Status status = response.getStatus()
+if response.status == SF::Http::Response::Ok
+    puts response.body
+else
+    puts "Error #{response.status}"
+end
+```
+
+## SF::Http::Request
+
+Define a HTTP request
+
+### SF::Http::Request::Method
+
+Enumerate the available HTTP methods for a request
+
+#### SF::Http::Request::Method::Delete
+
+Request in delete mode, useful for a REST API
+
+#### SF::Http::Request::Method::Get
+
+Request in get mode, standard method to retrieve a page
+
+#### SF::Http::Request::Method::Head
+
+Request a page's header only
+
+#### SF::Http::Request::Method::Post
+
+Request in post mode, usually to send data to a page
+
+#### SF::Http::Request::Method::Put
+
+Request in put mode, useful for a REST API
+
+### SF::Http::Request#body=(body)
+
+Set the body of the request
+
+The body of a request is optional and only makes sense
+for POST requests. It is ignored for all other methods.
+The body is empty by default.
+
+* *body* - Content of the body
+
+### SF::Http::Request#initialize(copy)
+
+:nodoc:
+
+### SF::Http::Request#initialize(uri,method,body)
+
+Default constructor
+
+This constructor creates a GET request, with the root
+URI ("/") and an empty body.
+
+* *uri* - Target URI
+* *method* - Method to use for the request
+* *body* - Content of the request's body
+
+### SF::Http::Request#method=(method)
+
+Set the request method
+
+See the Method enumeration for a complete list of all
+the availale methods.
+The method is Http::Request::Get by default.
+
+* *method* - Method to use for the request
+
+### SF::Http::Request#set_field(field,value)
+
+Set the value of a field
+
+The field is created if it doesn't exist. The name of
+the field is case-insensitive.
+By default, a request doesn't contain any field (but the
+mandatory fields are added later by the HTTP client when
+sending the request).
+
+* *field* - Name of the field to set
+* *value* - Value of the field
+
+### SF::Http::Request#set_http_version(major,minor)
+
+Set the HTTP version for the request
+
+The HTTP version is 1.0 by default.
+
+* *major* - Major HTTP version number
+* *minor* - Minor HTTP version number
+
+### SF::Http::Request#uri=(uri)
+
+Set the requested URI
+
+The URI is the resource (usually a web page or a file)
+that you want to get or post.
+The URI is "/" (the root page) by default.
+
+* *uri* - URI to request, relative to the host
+
+## SF::Http::Response
+
+Define a HTTP response
+
+### SF::Http::Response::Status
+
+Enumerate all the valid status codes for a response
+
+#### SF::Http::Response::Status::Accepted
+
+The request has been accepted, but will be processed later by the server
+
+#### SF::Http::Response::Status::BadGateway
+
+The gateway server has received an error from the source server
+
+#### SF::Http::Response::Status::BadRequest
+
+The server couldn't understand the request (syntax error)
+
+#### SF::Http::Response::Status::ConnectionFailed
+
+Connection with server failed
+
+#### SF::Http::Response::Status::Created
+
+The resource has successfully been created
+
+#### SF::Http::Response::Status::Forbidden
+
+The requested page cannot be accessed at all, even with authentication
+
+#### SF::Http::Response::Status::GatewayTimeout
+
+The gateway server couldn't receive a response from the source server
+
+#### SF::Http::Response::Status::InternalServerError
+
+The server encountered an unexpected error
+
+#### SF::Http::Response::Status::InvalidResponse
+
+Response is not a valid HTTP one
+
+#### SF::Http::Response::Status::MovedPermanently
+
+The requested page has permanently moved to a new location
+
+#### SF::Http::Response::Status::MovedTemporarily
+
+The requested page has temporarily moved to a new location
+
+#### SF::Http::Response::Status::MultipleChoices
+
+The requested page can be accessed from several locations
+
+#### SF::Http::Response::Status::NoContent
+
+The server didn't send any data in return
+
+#### SF::Http::Response::Status::NotFound
+
+The requested page doesn't exist
+
+#### SF::Http::Response::Status::NotImplemented
+
+The server doesn't implement a requested feature
+
+#### SF::Http::Response::Status::NotModified
+
+For conditional requests, means the requested page hasn't changed and doesn't need to be refreshed
+
+#### SF::Http::Response::Status::Ok
+
+Most common code returned when operation was successful
+
+#### SF::Http::Response::Status::PartialContent
+
+The server has sent a part of the resource, as a response to a partial GET request
+
+#### SF::Http::Response::Status::RangeNotSatisfiable
+
+The server can't satisfy the partial GET request (with a "Range" header field)
+
+#### SF::Http::Response::Status::ResetContent
+
+The server informs the client that it should clear the view (form) that caused the request to be sent
+
+#### SF::Http::Response::Status::ServiceNotAvailable
+
+The server is temporarily unavailable (overloaded, in maintenance, ...)
+
+#### SF::Http::Response::Status::Unauthorized
+
+The requested page needs an authentication to be accessed
+
+#### SF::Http::Response::Status::VersionNotSupported
+
+The server doesn't support the requested HTTP version
+
+### SF::Http::Response#body()
+
+Get the body of the response
+
+The body of a response may contain:
+* the requested page (for GET requests)
+* a response from the server (for POST requests)
+* nothing (for HEAD requests)
+* an error message (in case of an error)
+
+*Returns:* The response body
+
+### SF::Http::Response#get_field(field)
+
+Get the value of a field
+
+If the field *field* is not found in the response header,
+the empty string is returned. This function uses
+case-insensitive comparisons.
+
+* *field* - Name of the field to get
+
+*Returns:* Value of the field, or empty string if not found
+
+### SF::Http::Response#initialize()
+
+Default constructor
+
+Constructs an empty response.
+
+### SF::Http::Response#initialize(copy)
+
+:nodoc:
+
+### SF::Http::Response#major_http_version()
+
+Get the major HTTP version number of the response
+
+*Returns:* Major HTTP version number
+
+*See also:* `minor_http_version`
+
+### SF::Http::Response#minor_http_version()
+
+Get the minor HTTP version number of the response
+
+*Returns:* Minor HTTP version number
+
+*See also:* `major_http_version`
+
+### SF::Http::Response#status()
+
+Get the response status code
+
+The status code should be the first thing to be checked
+after receiving a response, it defines whether it is a
+success, a failure or anything else (see the Status
+enumeration).
+
+*Returns:* Status code of the response
+
+## SF::Http#initialize()
+
+Default constructor
+
+## SF::Http#initialize(host,port)
+
+Construct the HTTP client with the target host
+
+This is equivalent to calling host=(host, port).
+The port has a default value of 0, which means that the
+HTTP client will use the right port according to the
+protocol used (80 for HTTP). You should leave it like
+this unless you really need a port other than the
+standard one, or use an unknown protocol.
+
+* *host* - Web server to connect to
+* *port* - Port to use for connection
+
+## SF::Http#send_request(request,timeout)
+
+Send a HTTP request and return the server's response.
+
+You must have a valid host before sending a request (see host=).
+Any missing mandatory header field in the request will be added
+with an appropriate value.
+Warning: this function waits for the server's response and may
+not return instantly; use a thread if you don't want to block your
+application, or use a timeout to limit the time to wait. A value
+of Time::Zero means that the client will use the system default timeout
+(which is usually pretty long).
+
+* *request* - Request to send
+* *timeout* - Maximum time to wait
+
+*Returns:* Server's response
+
+## SF::Http#set_host(host,port)
+
+Set the target host
+
+This function just stores the host address and port, it
+doesn't actually connect to it until you send a request.
+The port has a default value of 0, which means that the
+HTTP client will use the right port according to the
+protocol used (80 for HTTP). You should leave it like
+this unless you really need a port other than the
+standard one, or use an unknown protocol.
+
+* *host* - Web server to connect to
+* *port* - Port to use for connection
+
+# SF::IpAddress
+
+Encapsulate an IPv4 network address
+
+`SF::IpAddress` is a utility class for manipulating network
+addresses. It provides a set a implicit constructors and
+conversion functions to easily build or transform an IP
+address from/to various representations.
+
+Usage example:
+```
+a0 = SF::IpAddress.new                    # an invalid address
+a1 = SF::IpAddress::None                  # an invalid address (same as a0)
+a2 = SF::IpAddress.new("127.0.0.1")       # the local host address
+a3 = SF::IpAddress::Broadcast             # the broadcast address
+a4 = SF::IpAddress.new(192, 168, 1, 56)   # a local address
+a5 = SF::IpAddress.new("my_computer")     # a local address created from a network name
+a6 = SF::IpAddress.new("89.54.1.169")     # a distant address
+a7 = SF::IpAddress.new("www.google.com")  # a distant address created from a network name
+a8 = SF::IpAddress.local_address          # my address on the local network
+a9 = SF::IpAddress.get_public_address()   # my address on the internet
+```
+
+Note that `SF::IpAddress` currently doesn't support IPv6
+nor other types of network addresses.
+
+## SF::IpAddress.get_public_address(timeout)
+
+Get the computer's public address
+
+The public address is the address of the computer from the
+internet point of view, i.e. something like 89.54.1.169.
+It is necessary for communications over the world wide web.
+The only way to get a public address is to ask it to a
+distant website; as a consequence, this function depends on
+both your network connection and the server, and may be
+very slow. You should use it as few as possible. Because
+this function depends on the network connection and on a distant
+server, you may use a time limit if you don't want your program
+to be possibly stuck waiting in case there is a problem; this
+limit is deactivated by default.
+
+* *timeout* - Maximum time to wait
+
+*Returns:* Public IP address of the computer
+
+*See also:* `local_address`
+
+## SF::IpAddress#initialize()
+
+Default constructor
+
+This constructor creates an empty (invalid) address
+
+## SF::IpAddress#initialize(address)
+
+Construct the address from a string
+
+Here *address* can be either a decimal address
+(ex: "192.168.1.56") or a network name (ex: "localhost").
+
+* *address* - IP address or network name
+
+## SF::IpAddress#initialize(address)
+
+Construct the address from a string
+
+Here *address* can be either a decimal address
+(ex: "192.168.1.56") or a network name (ex: "localhost").
+This is equivalent to the constructor taking a std::string
+parameter, it is defined for convenience so that the
+implicit conversions from literal strings to IpAddress work.
+
+* *address* - IP address or network name
+
+## SF::IpAddress#initialize(address)
+
+Construct the address from a 32-bits integer
+
+This constructor uses the internal representation of
+the address directly. It should be used for optimization
+purposes, and only if you got that representation from
+IpAddress.to_integer().
+
+* *address* - 4 bytes of the address packed into a 32-bits integer
+
+*See also:* `to_integer`
+
+## SF::IpAddress#initialize(byte0,byte1,byte2,byte3)
+
+Construct the address from 4 bytes
+
+Calling IpAddress(a, b, c, d) is equivalent to calling
+IpAddress("a.b.c.d"), but safer as it doesn't have to
+parse a string to get the address components.
+
+* *byte0* - First byte of the address
+* *byte1* - Second byte of the address
+* *byte2* - Third byte of the address
+* *byte3* - Fourth byte of the address
+
+## SF::IpAddress#initialize(copy)
+
+:nodoc:
+
+## SF::IpAddress.local_address()
+
+Get the computer's local address
+
+The local address is the address of the computer from the
+LAN point of view, i.e. something like 192.168.1.56. It is
+meaningful only for communications over the local network.
+Unlike public_address, this function is fast and may be
+used safely anywhere.
+
+*Returns:* Local IP address of the computer
+
+*See also:* `public_address`
+
+## SF::IpAddress#==(right)
+
+Overload of == operator to compare two IP addresses
+
+* *left* - Left operand (a IP address)
+* *right* - Right operand (a IP address)
+
+*Returns:* True if both addresses are equal
+
+## SF::IpAddress#!=(right)
+
+Overload of != operator to compare two IP addresses
+
+* *left* - Left operand (a IP address)
+* *right* - Right operand (a IP address)
+
+*Returns:* True if both addresses are different
+
+## SF::IpAddress#<(right)
+
+Overload of &lt; operator to compare two IP addresses
+
+* *left* - Left operand (a IP address)
+* *right* - Right operand (a IP address)
+
+*Returns:* True if *left* is lesser than *right*
+
+## SF::IpAddress#>(right)
+
+Overload of &gt; operator to compare two IP addresses
+
+* *left* - Left operand (a IP address)
+* *right* - Right operand (a IP address)
+
+*Returns:* True if *left* is greater than *right*
+
+## SF::IpAddress#<=(right)
+
+Overload of &lt;= operator to compare two IP addresses
+
+* *left* - Left operand (a IP address)
+* *right* - Right operand (a IP address)
+
+*Returns:* True if *left* is lesser or equal than *right*
+
+## SF::IpAddress#>=(right)
+
+Overload of &gt;= operator to compare two IP addresses
+
+* *left* - Left operand (a IP address)
+* *right* - Right operand (a IP address)
+
+*Returns:* True if *left* is greater or equal than *right*
+
+## SF::IpAddress#to_integer()
+
+Get an integer representation of the address
+
+The returned number is the internal representation of the
+address, and should be used for optimization purposes only
+(like sending the address through a socket).
+The integer produced by this function can then be converted
+back to a `SF::IpAddress` with the proper constructor.
+
+*Returns:* 32-bits unsigned integer representation of the address
+
+*See also:* `to_s`
+
+## SF::IpAddress#to_s()
+
+Get a string representation of the address
+
+The returned string is the decimal representation of the
+IP address (like "192.168.1.56"), even if it was constructed
+from a host name.
+
+*Returns:* String representation of the address
+
+*See also:* `to_integer`
+
+# SF::Packet
+
+Utility class to build blocks of data to transfer
+over the network
+
+Packets provide a safe and easy way to serialize data,
+in order to send it over the network using sockets
+(`SF::TcpSocket`, `SF::UdpSocket`).
+
+Packets solve 2 fundamental problems that arise when
+transferring data over the network:
+* data is interpreted correctly according to the endianness
+* the bounds of the packet are preserved (one send == one receive)
+
+The `SF::Packet` class provides both input and output, using `read`
+and `write` methods.
+
+It is recommended to use only fixed-size types (like `Int32`, etc.),
+to avoid possible differences between the sender and the receiver.
+
+Usage example:
+```
+x = 24u32
+s = "hello"
+d = 5.89
+
+# Group the variables to send into a packet
+packet = SF::Packet.new
+packet.write x
+packet.write s
+packet.write d
+
+# Send it over the network (socket is a valid SF::TcpSocket)
+socket.send packet
+
+-----------------------------------------------------------------
+
+# Receive the packet at the other end
+packet = SF::Packet.new
+socket.receive(packet)
+
+# Extract the variables contained in the packet
+x = packet.read UInt32
+s = packet.read String
+d = packet.read Float64
+if packet.valid?
+  # Data extracted successfully...
+end
+```
+
+Packets have overloads of `read` and `write` methods for standard types:
+
+* Bool
+* Fixed-size integer types (`Int8/16/32/64`, `UInt8/16/32/64`)
+* Floating point numbers (`Float32/64`)
+* `String`
+
+Like standard streams, it is also possible to define your own overloads
+of these methods in order to handle your custom types.
+
+```
+struct MyStruct
+  number : Float32
+  integer : Int8
+  str : String
+end
+
+class SF::Packet
+  def write(m : MyStruct)
+    write m.number
+    write m.integer
+    write m.str
+  end
+
+  def read(type : MyStruct.class) : MyStruct
+    MyStruct.new(packet.read(Float32), packet.read(Int8), packet.read(String))
+  end
+end
+```
+
+*See also:* `SF::TcpSocket`, `SF::UdpSocket`
+
+## SF::Packet#append(data)
+
+Append data to the end of the packet
+
+* *data* - Pointer to the sequence of bytes to append
+* *size_in_bytes* - Number of bytes to append
+
+*See also:* `clear`
+
+## SF::Packet#clear()
+
+Clear the packet
+
+After calling Clear, the packet is empty.
+
+*See also:* `append`
+
+## SF::Packet#data()
+
+Get a pointer to the data contained in the packet
+
+Warning: the returned pointer may become invalid after
+you append data to the packet, therefore it should never
+be stored.
+The return pointer is NULL if the packet is empty.
+
+*Returns:* Pointer to the data
+
+*See also:* `data_size`
+
+## SF::Packet#data_size()
+
+Get the size of the data contained in the packet
+
+This function returns the number of bytes pointed to by
+what data returns.
+
+*Returns:* Data size, in bytes
+
+*See also:* `data`
+
+## SF::Packet#end_of_packet()
+
+Tell if the reading position has reached the
+end of the packet
+
+This function is useful to know if there is some data
+left to be read, without actually reading it.
+
+*Returns:* True if all data was read, false otherwise
+
+*See also:* `operator` `bool`
+
+## SF::Packet#finalize()
+
+Virtual destructor
+
+## SF::Packet#initialize()
+
+Default constructor
+
+Creates an empty packet.
+
+## SF::Packet#initialize(copy)
+
+:nodoc:
+
+## SF::Packet#read(type)
+
+Overload of operator &gt;&gt; to read data from the packet
+
+## SF::Packet#read(type)
+
+Read data from the packet. The expected type corresponds to
+what was actually sent.
+
+## SF::Packet#read(type)
+
+\overload
+
+## SF::Packet#read(type)
+
+\overload
+
+## SF::Packet#read(type)
+
+\overload
+
+## SF::Packet#read(type)
+
+\overload
+
+## SF::Packet#read(type)
+
+\overload
+
+## SF::Packet#read(type)
+
+\overload
+
+## SF::Packet#read(type)
+
+\overload
+
+## SF::Packet#read(type)
+
+\overload
+
+## SF::Packet#read(type)
+
+\overload
+
+## SF::Packet#read(type)
+
+\overload
+
+## SF::Packet#valid?()
+
+Test the validity of the packet, for reading
+
+This operator allows to test the packet as a boolean
+variable, to check if a reading operation was successful.
+
+A packet will be in an invalid state if it has no more
+data to read.
+
+This behavior is the same as standard C++ streams.
+
+Usage example:
+```
+x = packet.read(Float32)
+if packet.valid?
+   # ok, x was extracted successfully
+end
+```
+
+*Returns:* True if last data extraction from packet was successful
+
+*See also:* `end_of_packet`
+
+## SF::Packet#write(data)
+
+Overload of operator &lt;&lt; to write data into the packet
+
+## SF::Packet#write(data)
+
+Write data into the packet
+
+## SF::Packet#write(data)
+
+\overload
+
+## SF::Packet#write(data)
+
+\overload
+
+## SF::Packet#write(data)
+
+\overload
+
+## SF::Packet#write(data)
+
+\overload
+
+## SF::Packet#write(data)
+
+\overload
+
+## SF::Packet#write(data)
+
+\overload
+
+## SF::Packet#write(data)
+
+\overload
+
+## SF::Packet#write(data)
+
+\overload
+
+## SF::Packet#write(data)
+
+\overload
+
+## SF::Packet#write(data)
+
+\overload
+
+# SF::Socket
+
+Base class for all the socket types
+
+This class mainly defines internal stuff to be used by
+derived classes.
+
+The only public features that it defines, and which
+is therefore common to all the socket classes, is the
+blocking state. All sockets can be set as blocking or
+non-blocking.
+
+In blocking mode, socket functions will hang until
+the operation completes, which means that the entire
+program (well, in fact the current thread if you use
+multiple ones) will be stuck waiting for your socket
+operation to complete.
+
+In non-blocking mode, all the socket functions will
+return immediately. If the socket is not ready to complete
+the requested operation, the function simply returns
+the proper status code (Socket::NotReady).
+
+The default mode, which is blocking, is the one that is
+generally used, in combination with threads or selectors.
+The non-blocking mode is rather used in real-time
+applications that run an endless loop that can poll
+the socket often enough, and cannot afford blocking
+this loop.
+
+*See also:* `SF::TcpListener`, `SF::TcpSocket`, `SF::UdpSocket`
+
+## SF::Socket::AnyPort
+
+Special value that tells the system to pick any available port
+
+## SF::Socket::Status
+
+Status codes that may be returned by socket functions
+
+### SF::Socket::Status::Disconnected
+
+The TCP socket has been disconnected
+
+### SF::Socket::Status::Done
+
+The socket has sent / received the data
+
+### SF::Socket::Status::Error
+
+An unexpected error happened
+
+### SF::Socket::Status::NotReady
+
+The socket is not ready to send / receive data yet
+
+### SF::Socket::Status::Partial
+
+The socket sent a part of the data
+
+## SF::Socket::Type
+
+Types of protocols that the socket can use
+
+### SF::Socket::Type::Tcp
+
+TCP protocol
+
+### SF::Socket::Type::Udp
+
+UDP protocol
+
+## SF::Socket#blocking?()
+
+Tell whether the socket is in blocking or non-blocking mode
+
+*Returns:* True if the socket is blocking, false otherwise
+
+*See also:* `blocking=`
+
+## SF::Socket#blocking=(blocking)
+
+Set the blocking state of the socket
+
+In blocking mode, calls will not return until they have
+completed their task. For example, a call to Receive in
+blocking mode won't return until some data was actually
+received.
+In non-blocking mode, calls will always return immediately,
+using the return code to signal whether there was data
+available or not.
+By default, all sockets are blocking.
+
+* *blocking* - True to set the socket as blocking, false for non-blocking
+
+*See also:* `blocking?`
+
+## SF::Socket#finalize()
+
+Destructor
+
+## SF::Socket#initialize(type)
+
+Default constructor
+
+This constructor can only be accessed by derived classes.
+
+* *type* - Type of the socket (TCP or UDP)
+
+# SF::SocketSelector
+
+Multiplexer that allows to read from multiple sockets
+
+Socket selectors provide a way to wait until some data is
+available on a set of sockets, instead of just one. This
+is convenient when you have multiple sockets that may
+possibly receive data, but you don't know which one will
+be ready first. In particular, it avoids to use a thread
+for each socket; with selectors, a single thread can handle
+all the sockets.
+
+All types of sockets can be used in a selector:
+* `SF::TcpListener`
+* `SF::TcpSocket`
+* `SF::UdpSocket`
+
+A selector doesn't store its own copies of the sockets
+(socket classes are not copyable anyway), it simply keeps
+a reference to the original sockets that you pass to the
+"add" function. Therefore, you can't use the selector as a
+socket container, you must store them outside and make sure
+that they are alive as long as they are used in the selector.
+
+Using a selector is simple:
+* populate the selector with all the sockets that you want to observe
+* make it wait until there is data available on any of the sockets
+* test each socket to find out which ones are ready
+
+Usage example:
+```
+# Create a socket to listen to new connections
+listener = SF::TcpListener.new
+listener.listen(55001)
+
+# Create an array to store the future clients
+clients = [] of SF::TcpSocket
+
+# Create a selector
+selector = SF::SocketSelector.new
+
+# Add the listener to the selector
+selector.add listener
+
+# Endless loop that waits for new connections
+while running
+  # Make the selector wait for data on any socket
+  if selector.wait()
+    # Test the listener
+    if selector.ready?(listener)
+      # The listener is ready: there is a pending connection
+      client = SF::TcpSocket.new
+      if listener.accept(client) == SF::Socket::Done
+        # Add the new client to the clients list
+        clients << client
+
+        # Add the new client to the selector so that we will
+        # be notified when he sends something
+        selector.add client
+      end
+    else
+      # The listener socket is not ready, test all other sockets (the clients)
+      clients.each do |client|
+        if selector.ready?(client)
+          # The client has sent some data, we can receive it
+          packet = SF::Packet.new
+          if client.receive(packet) == SF::Socket::Done
+              ...
+          end
+        end
+      end
+    end
+  end
+end
+```
+
+*See also:* `SF::Socket`
+
+## SF::SocketSelector#add(socket)
+
+Add a new socket to the selector
+
+This function keeps a weak reference to the socket,
+so you have to make sure that the socket is not destroyed
+while it is stored in the selector.
+This function does nothing if the socket is not valid.
+
+* *socket* - Reference to the socket to add
+
+*See also:* `remove`, `clear`
+
+## SF::SocketSelector#clear()
+
+Remove all the sockets stored in the selector
+
+This function doesn't destroy any instance, it simply
+removes all the references that the selector has to
+external sockets.
+
+*See also:* `add`, `remove`
+
+## SF::SocketSelector#finalize()
+
+Destructor
+
+## SF::SocketSelector#initialize()
+
+Default constructor
+
+## SF::SocketSelector#initialize(copy)
+
+:nodoc:
+
+## SF::SocketSelector#ready?(socket)
+
+Test a socket to know if it is ready to receive data
+
+This function must be used after a call to Wait, to know
+which sockets are ready to receive data. If a socket is
+ready, a call to receive will never block because we know
+that there is data available to read.
+Note that if this function returns true for a TcpListener,
+this means that it is ready to accept a new connection.
+
+* *socket* - Socket to test
+
+*Returns:* True if the socket is ready to read, false otherwise
+
+*See also:* `ready?`
+
+## SF::SocketSelector#remove(socket)
+
+Remove a socket from the selector
+
+This function doesn't destroy the socket, it simply
+removes the reference that the selector has to it.
+
+* *socket* - Reference to the socket to remove
+
+*See also:* `add`, `clear`
+
+## SF::SocketSelector#wait(timeout)
+
+Wait until one or more sockets are ready to receive
+
+This function returns as soon as at least one socket has
+some data available to be received. To know which sockets are
+ready, use the ready? function.
+If you use a timeout and no socket is ready before the timeout
+is over, the function returns false.
+
+* *timeout* - Maximum time to wait, (use Time::Zero for infinity)
+
+*Returns:* True if there are sockets ready, false otherwise
+
+*See also:* `ready?`
+
+# SF::TcpListener
+
+Socket that listens to new TCP connections
+
+A listener socket is a special type of socket that listens to
+a given port and waits for connections on that port.
+This is all it can do.
+
+When a new connection is received, you must call accept and
+the listener returns a new instance of `SF::TcpSocket` that
+is properly initialized and can be used to communicate with
+the new client.
+
+Listener sockets are specific to the TCP protocol,
+UDP sockets are connectionless and can therefore communicate
+directly. As a consequence, a listener socket will always
+return the new connections as `SF::TcpSocket` instances.
+
+A listener is automatically closed on destruction, like all
+other types of socket. However if you want to stop listening
+before the socket is destroyed, you can call its close()
+function.
+
+Usage example:
+```
+# Create a listener socket and make it wait for new
+# connections on port 55001
+listener = SF::TcpListener.new
+listener.listen(55001)
+
+# Endless loop that waits for new connections
+while running
+  client = SF::TcpSocket.new
+  if listener.accept(client) == SF::Socket::Done
+    # A new client just connected!
+    puts "New connection received from #{client.remote_address}"
+    do_something_with client
+  end
+end
+```
+
+*See also:* `SF::TcpSocket`, `SF::Socket`
+
+## SF::TcpListener#accept(socket)
+
+Accept a new connection
+
+If the socket is in blocking mode, this function will
+not return until a connection is actually received.
+
+* *socket* - Socket that will hold the new connection
+
+*Returns:* Status code
+
+*See also:* `listen`
+
+## SF::TcpListener#blocking?()
+
+:nodoc:
+
+## SF::TcpListener#blocking=(blocking)
+
+:nodoc:
+
+## SF::TcpListener#close()
+
+Stop listening and close the socket
+
+This function gracefully stops the listener. If the
+socket is not listening, this function has no effect.
+
+*See also:* `listen`
+
+## SF::TcpListener#initialize()
+
+Default constructor
+
+## SF::TcpListener#listen(port,address)
+
+Start listening for incoming connection attempts
+
+This function makes the socket start listening on the
+specified port, waiting for incoming connection attempts.
+
+If the socket is already listening on a port when this
+function is called, it will stop listening on the old
+port before starting to listen on the new port.
+
+* *port* - Port to listen on for incoming connection attempts
+* *address* - Address of the interface to listen on
+
+*Returns:* Status code
+
+*See also:* `accept`, `close`
+
+## SF::TcpListener#local_port()
+
+Get the port to which the socket is bound locally
+
+If the socket is not listening to a port, this function
+returns 0.
+
+*Returns:* Port to which the socket is bound
+
+*See also:* `listen`
+
+# SF::TcpSocket
+
+Specialized socket using the TCP protocol
+
+TCP is a connected protocol, which means that a TCP
+socket can only communicate with the host it is connected
+to. It can't send or receive anything if it is not connected.
+
+The TCP protocol is reliable but adds a slight overhead.
+It ensures that your data will always be received in order
+and without errors (no data corrupted, lost or duplicated).
+
+When a socket is connected to a remote host, you can
+retrieve informations about this host with the
+remote_address and remote_port functions. You can
+also get the local port to which the socket is bound
+(which is automatically chosen when the socket is connected),
+with the local_port function.
+
+Sending and receiving data can use either the low-level
+or the high-level functions. The low-level functions
+process a raw sequence of bytes, and cannot ensure that
+one call to Send will exactly match one call to Receive
+at the other end of the socket.
+
+The high-level interface uses packets (see `SF::Packet`),
+which are easier to use and provide more safety regarding
+the data that is exchanged. You can look at the `SF::Packet`
+class to get more details about how they work.
+
+The socket is automatically disconnected when it is destroyed,
+but if you want to explicitly close the connection while
+the socket instance is still alive, you can call disconnect.
+
+Usage example:
+```
+# ----- The client -----
+
+# Create a socket and connect it to 192.168.1.50 on port 55001
+socket = SF::TcpSocket.new
+socket.connect("192.168.1.50", 55001)
+
+# Send a message to the connected host
+message = "Hi, I am a client"
+socket.send(message.to_slice)
+
+# Receive an answer from the server
+buffer = Slice(UInt8).new(1024)
+status, received = socket.receive(buffer)
+puts "The server said: #{buffer}"
+
+# ----- The server -----
+
+# Create a listener to wait for incoming connections on port 55001
+listener = SF::TcpListener.new
+listener.listen(55001)
+
+# Wait for a connection
+socket = SF::TcpSocket.new
+listener.accept(socket)
+puts "New client connected: #{socket.remote_address}"
+
+# Receive a message from the client
+buffer = Slice(UInt8).new(1024)
+status, received = socket.receive(buffer)
+puts "The client said: #{buffer}"
+
+# Send an answer
+message = "Welcome, client"
+socket.send(message.to_slice)
+```
+
+*See also:* `SF::Socket`, `SF::UdpSocket`, `SF::Packet`
+
+## SF::TcpSocket#blocking?()
+
+:nodoc:
+
+## SF::TcpSocket#blocking=(blocking)
+
+:nodoc:
+
+## SF::TcpSocket#connect(remote_address,remote_port,timeout)
+
+Connect the socket to a remote peer
+
+In blocking mode, this function may take a while, especially
+if the remote peer is not reachable. The last parameter allows
+you to stop trying to connect after a given timeout.
+If the socket is already connected, the connection is
+forcibly disconnected before attempting to connect again.
+
+* *remote_address* - Address of the remote peer
+* *remote_port* - Port of the remote peer
+* *timeout* - Optional maximum time to wait
+
+*Returns:* Status code
+
+*See also:* `disconnect`
+
+## SF::TcpSocket#disconnect()
+
+Disconnect the socket from its remote peer
+
+This function gracefully closes the connection. If the
+socket is not connected, this function has no effect.
+
+*See also:* `connect`
+
+## SF::TcpSocket#initialize()
+
+Default constructor
+
+## SF::TcpSocket#local_port()
+
+Get the port to which the socket is bound locally
+
+If the socket is not connected, this function returns 0.
+
+*Returns:* Port to which the socket is bound
+
+*See also:* `connect`, `remote_port`
+
+## SF::TcpSocket#receive(data)
+
+Receive raw data from the remote peer
+
+In blocking mode, this function will wait until some
+bytes are actually received.
+This function will fail if the socket is not connected.
+
+* *data* - The slice to fill with the received bytes
+
+*Returns:*
+* Status code
+* The actual number of bytes received
+
+*See also:* `send`
+
+## SF::TcpSocket#receive(packet)
+
+Receive a formatted packet of data from the remote peer
+
+In blocking mode, this function will wait until the whole packet
+has been received.
+This function will fail if the socket is not connected.
+
+* *packet* - Packet to fill with the received data
+
+*Returns:* Status code
+
+*See also:* `send`
+
+## SF::TcpSocket#remote_address()
+
+Get the address of the connected peer
+
+It the socket is not connected, this function returns
+`SF::IpAddress::None`.
+
+*Returns:* Address of the remote peer
+
+*See also:* `remote_port`
+
+## SF::TcpSocket#remote_port()
+
+Get the port of the connected peer to which
+the socket is connected
+
+If the socket is not connected, this function returns 0.
+
+*Returns:* Remote port to which the socket is connected
+
+*See also:* `remote_address`
+
+## SF::TcpSocket#send(data)
+
+Send raw data to the remote peer
+
+To be able to handle partial sends over non-blocking
+sockets, use the send(const void*, std::size_t, std::size_t&)
+overload instead.
+This function will fail if the socket is not connected.
+
+* *data* - Pointer to the sequence of bytes to send
+* *size* - Number of bytes to send
+
+*Returns:* Status code
+
+*See also:* `receive`
+
+## SF::TcpSocket#send(data)
+
+Send raw data to the remote peer
+
+This function will fail if the socket is not connected.
+
+* *data* - Slice containing the bytes to send
+
+*Returns:*
+* Status code
+* The number of bytes sent
+
+*See also:* `receive`
+
+## SF::TcpSocket#send(packet)
+
+Send a formatted packet of data to the remote peer
+
+In non-blocking mode, if this function returns `SF::Socket::Partial`,
+you *must* retry sending the same unmodified packet before sending
+anything else in order to guarantee the packet arrives at the remote
+peer uncorrupted.
+This function will fail if the socket is not connected.
+
+* *packet* - Packet to send
+
+*Returns:* Status code
+
+*See also:* `receive`
+
+# SF::UdpSocket
+
+Specialized socket using the UDP protocol
+
+A UDP socket is a connectionless socket. Instead of
+connecting once to a remote host, like TCP sockets,
+it can send to and receive from any host at any time.
+
+It is a datagram protocol: bounded blocks of data (datagrams)
+are transfered over the network rather than a continuous
+stream of data (TCP). Therefore, one call to send will always
+match one call to receive (if the datagram is not lost),
+with the same data that was sent.
+
+The UDP protocol is lightweight but unreliable. Unreliable
+means that datagrams may be duplicated, be lost or
+arrive reordered. However, if a datagram arrives, its
+data is guaranteed to be valid.
+
+UDP is generally used for real-time communication
+(audio or video streaming, real-time games, etc.) where
+speed is crucial and lost data doesn't matter much.
+
+Sending and receiving data can use either the low-level
+or the high-level functions. The low-level functions
+process a raw sequence of bytes, whereas the high-level
+interface uses packets (see `SF::Packet`), which are easier
+to use and provide more safety regarding the data that is
+exchanged. You can look at the `SF::Packet` class to get
+more details about how they work.
+
+It is important to note that UdpSocket is unable to send
+datagrams bigger than MaxDatagramSize. In this case, it
+returns an error and doesn't send anything. This applies
+to both raw data and packets. Indeed, even packets are
+unable to split and recompose data, due to the unreliability
+of the protocol (dropped, mixed or duplicated datagrams may
+lead to a big mess when trying to recompose a packet).
+
+If the socket is bound to a port, it is automatically
+unbound from it when the socket is destroyed. However,
+you can unbind the socket explicitly with the Unbind
+function if necessary, to stop receiving messages or
+make the port available for other sockets.
+
+Usage example:
+```
+# ----- The client -----
+
+# Create a socket and bind it to the port 55001
+socket = SF::UdpSocket.new
+socket.bind(55001)
+
+# Send a message to 192.168.1.50 on port 55002
+message = "Hi, I am #{SF::IpAddress.local_address}"
+socket.send(message.to_slice, "192.168.1.50", 55002)
+
+# Receive an answer (most likely from 192.168.1.50, but could be anyone else)
+buffer = Slice(UInt8).new(1024)
+status, received, sender, port = socket.receive(buffer)
+puts "#{sender} said: #{buffer}"
+
+# ----- The server -----
+
+# Create a socket and bind it to the port 55002
+socket = SF::UdpSocket.new
+socket.bind(55002)
+
+# Receive a message from anyone
+buffer = Slice(UInt8).new(1024)
+status, received, sender, port = socket.receive(buffer)
+puts "#{sender} said: #{buffer}"
+
+# Send an answer
+message = "Welcome #{sender}"
+socket.send(message.to_slice, sender, port)
+```
+
+*See also:* `SF::Socket`, `SF::TcpSocket`, `SF::Packet`
+
+## SF::UdpSocket::MaxDatagramSize
+
+The maximum number of bytes that can be sent in a single UDP datagram
+
+## SF::UdpSocket#bind(port,address)
+
+Bind the socket to a specific port
+
+Binding the socket to a port is necessary for being
+able to receive data on that port.
+You can use the special value Socket::AnyPort to tell the
+system to automatically pick an available port, and then
+call local_port to retrieve the chosen port.
+
+Since the socket can only be bound to a single port at
+any given moment, if it is already bound when this
+function is called, it will be unbound from the previous
+port before being bound to the new one.
+
+* *port* - Port to bind the socket to
+* *address* - Address of the interface to bind to
+
+*Returns:* Status code
+
+*See also:* `unbind`, `local_port`
+
+## SF::UdpSocket#blocking?()
+
+:nodoc:
+
+## SF::UdpSocket#blocking=(blocking)
+
+:nodoc:
+
+## SF::UdpSocket#initialize()
+
+Default constructor
+
+## SF::UdpSocket#local_port()
+
+Get the port to which the socket is bound locally
+
+If the socket is not bound to a port, this function
+returns 0.
+
+*Returns:* Port to which the socket is bound
+
+*See also:* `bind`
+
+## SF::UdpSocket#receive(data)
+
+Receive raw data from a remote peer
+
+In blocking mode, this function will wait until some
+bytes are actually received.
+Be careful to use a buffer which is large enough for
+the data that you intend to receive, if it is too small
+then an error will be returned and *all* the data will
+be lost.
+
+* *data* - The slice to fill with the received bytes
+
+*Returns:*
+* Status code
+* The actual number of bytes received
+* Address of the peer that sent the data
+* Port of the peer that sent the data
+
+*See also:* `send`
+
+## SF::UdpSocket#receive(packet)
+
+Receive a formatted packet of data from a remote peer
+
+In blocking mode, this function will wait until the whole packet
+has been received.
+
+* *packet* - Packet to fill with the received data
+
+*Returns:*
+* Status code
+* Address of the peer that sent the data
+* Port of the peer that sent the data
+
+*See also:* `send`
+
+## SF::UdpSocket#send(data,remote_address,remote_port)
+
+Send raw data to a remote peer
+
+Make sure that *data* size is not greater than
+`UdpSocket::MaxDatagramSize`, otherwise this function will
+fail and no data will be sent.
+
+* *data* - Slice containing the sequence of bytes to send
+* *remote_address* - Address of the receiver
+* *remote_port* - Port of the receiver to send the data to
+
+*Returns:* Status code
+
+*See also:* `receive`
+
+## SF::UdpSocket#send(packet,remote_address,remote_port)
+
+Send a formatted packet of data to a remote peer
+
+Make sure that the packet size is not greater than
+UdpSocket::MaxDatagramSize, otherwise this function will
+fail and no data will be sent.
+
+* *packet* - Packet to send
+* *remote_address* - Address of the receiver
+* *remote_port* - Port of the receiver to send the data to
+
+*Returns:* Status code
+
+*See also:* `receive`
+
+## SF::UdpSocket#unbind()
+
+Unbind the socket from the local port to which it is bound
+
+The port that the socket was previously bound to is immediately
+made available to the operating system after this function is called.
+This means that a subsequent call to bind() will be able to re-bind
+the port if no other process has done so in the mean time.
+If the socket is not bound to a port, this function has no effect.
+
+*See also:* `bind`
