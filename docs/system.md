@@ -1,3 +1,5 @@
+Based on https://github.com/SFML/SFML/blob/2.5.1/include/SFML/System
+
 # SF::Clock
 
 Utility class that measures the elapsed time

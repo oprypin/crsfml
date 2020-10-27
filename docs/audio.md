@@ -1,3 +1,5 @@
+Based on https://github.com/SFML/SFML/blob/2.5.1/include/SFML/Audio
+
 # SF::AlResource
 
 Empty module that indicates the class requires an OpenAL context

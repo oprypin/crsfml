@@ -1,3 +1,5 @@
+Based on https://github.com/SFML/SFML/blob/2.5.1/include/SFML/Window
+
 # SF::Clipboard
 
 Give access to the system clipboard

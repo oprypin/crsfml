@@ -17,12 +17,14 @@
 # 3. This notice may not be removed or altered from any source distribution.
 
 require "digest/sha1"
+require "./tools/serialize_docs"
 
 
 LIB_NAME = "SFMLExt"
 PREFIX = "sfml_"
 
 DEBUG = ARGV.delete("--debug")
+SAVE_DOCS = ARGV.delete("--save-docs") ? Hash(String, Hash(String, Array(String))).new : nil
 
 INCLUDE_DIR = ARGV[0]? || "/usr/include"
 SFML_PATH = File.join(INCLUDE_DIR,
@@ -156,39 +158,10 @@ def identifier_hash(string) : String
   (number % (base**size)).to_s(base).rjust(3, '0')
 end
 
-def apply_diff(a, diff)
-  b = a.lines(chomp: false)
-  index = 0
-  diff.each_with_index do |d, diff_index|
-    if d.chomp.empty?
-      d = " " + d
-    end
-    if d.starts_with? "@@"
-      index, size = (d.split[2][1..-1] + ",1").split(',').map &.to_i
-      index -= 1 unless size == 0
-      next
-    end
-    if d[0] == '+'
-      b.insert(index, d[1..-1])
-      index += 1
-    elsif d[0] == ' ' || d[0] == '-'
-      if b[index]? != d[1..-1]
-        raise ArgumentError.new("Failed to apply diff (line #{diff_index + 1})")
-      end
-      if d[0] == '-'
-        b.delete_at index
-      else
-        index += 1
-      end
-    end
-  end
-  b.join
-end
-
 
 abstract class CItem
-  def initialize(@name : String?, @visibility = Visibility::Public,
-                 @parent : CNamespace? = nil, @docs : Array(String) = [] of String)
+  def initialize(@name : String?, @visibility = Visibility::Public, @parent : CNamespace? = nil,
+                 @docs : Array(String) = [] of String, @sfmodule : CModule? = nil)
   end
 
   getter parent : CNamespace?
@@ -209,8 +182,12 @@ abstract class CItem
   end
 
   def qualname : String
-    parts = [parent.try(&.qualname), name(Context::Crystal)]
-    parts.compact.reject(&.empty?).join("::")
+    parts = [parent.try(&.qualname) || "SF", name(Context::Crystal)]
+    parts.compact.join("::")
+  end
+
+  def sfmodule : CModule
+    @sfmodule || parent.not_nil!.sfmodule
   end
 
   abstract def render(context : Context, out o : Output)
@@ -262,11 +239,14 @@ abstract class CItem
         prev_line = line
       end
     end
-    if (diff = CModule.doc_diffs[name]?)
-      begin
-        doc = apply_diff(doc, diff)
-        CModule.doc_diffs.delete name
-      rescue
+    if (saved_docs = SAVE_DOCS) && !doc.lines.empty?
+      module_docs = (saved_docs[sfmodule.name] ||= {} of String => Array(String))
+      (module_docs[name] ||= [] of String) << doc
+    end
+    if (docs = CModule.docs[name]?)
+      doc = docs.shift
+      if docs.empty?
+        CModule.docs.delete name
       end
     end
     doc.lines.each do |line|
@@ -752,9 +732,6 @@ class CEnum < CNamespace
     union_enum = (parent.as?(CClass).try &.union?)
     if context.crystal?
       if @name
-        if union_enum
-          o<< "# :nodoc:"
-        end
         render_docs(o, qualname)
         if members.map(&.value).compact.any?(&.includes? "<<")
           o<< "@[Flags]"
@@ -845,8 +822,8 @@ class CFunction < CItem
   end
 
   def qualname(parent : CNamespace? = @parent) : String
-    parts = [parent.try(&.qualname), name(Context::Crystal)]
-    parts.compact.reject(&.empty?).join(static? ? "." : "#")
+    parts = [parent.try(&.qualname) || "SF", name(Context::Crystal)]
+    parts.compact.join(static? ? "." : "#")
   end
 
   def getter_name : String?
@@ -1474,8 +1451,8 @@ class CVariable < CItem
   end
 
   def qualname : String
-    parts = [parent.try(&.qualname), name(Context::Crystal)]
-    parts.compact.reject(&.empty?).join("#")
+    parts = [parent.try(&.qualname) || "SF", name(Context::Crystal)]
+    parts.compact.join("#")
   end
 
   getter type : CType
@@ -1524,31 +1501,22 @@ class CModule < CNamespace
   getter dependencies = [] of String
   @done_files = Set(String).new
 
-  @@doc_diffs = {} of String => Array(String)
-  def self.doc_diffs
-    @@doc_diffs
-  end
+  class_getter docs = {} of String => Array(String)
 
   def initialize(@name : String)
     @parent = nil
 
-    begin
-      diff = [] of String
-      File.each_line(File.join(File.dirname(__FILE__), "docs", "#{name.downcase}.diff"), chomp: false) do |line|
-        if line.starts_with?("+++ SF::") || line.starts_with?("--- SF::")
-          @@doc_diffs[line[8..-1].chomp] = diff = [] of String
-        else
-          diff << line.chomp + "\n"
-        end
-      end
-    rescue
-    end
+    read_docs(name, CModule.docs)
 
     process_file "#{name}.hpp"
   end
 
   def name : String
     @name.not_nil!
+  end
+
+  def sfmodule : CModule
+    self
   end
 
   def render(context : Context, out o : Output)
@@ -1610,7 +1578,7 @@ class CModule < CNamespace
   macro common_info
     %docs = docs_buffer
     docs_buffer = [] of String
-    {parent: parent, visibility: visibility, docs: %docs}
+    {parent: parent, visibility: visibility, docs: %docs, sfmodule: self}
   end
 
   private def process_file(file_name : String)
@@ -1847,9 +1815,9 @@ modules.each do |mod|
   end
 end
 
-unless CModule.doc_diffs.empty?
-  STDERR.puts "Failed to apply doc diff for:"
-  CModule.doc_diffs.each_key do |name|
+unless CModule.docs.empty? || SAVE_DOCS
+  STDERR.puts "Failed to apply docs for:"
+  CModule.docs.each do |name, docs|
     STDERR.puts name
   end
 end
@@ -1872,4 +1840,10 @@ CrystalOutput.write("src/version.cr") do |o|
   o<< "VERSION = #{crsfml_version.inspect}"
   o<< "SFML_VERSION = \"#{sfml_version["MAJOR"]}.#{sfml_version["MINOR"]}.#{sfml_version["PATCH"]}\""
   o<< "end"
+end
+
+if (saved_docs = SAVE_DOCS)
+  saved_docs.each do |mod, docs|
+    write_docs(mod, docs)
+  end
 end

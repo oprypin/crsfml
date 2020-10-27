@@ -27,4 +27,6 @@ After introducing a change to *generate.cr* you can immediately try it out in so
 Contributing documentation
 --------------------------
 
-As mentioned, *CrSFML*'s code is mostly automatically generated, and the documentation is taken automatically from SFML (a C++ library). If you edit _src/*/obj.cr_ files, the changes will not be saved. However, the build process is set up to apply manual edits to the documentation by storing these changes in _docs/*.diff_ files. If you'd like to edit the documentation strings in source code and keep the changes, run `crystal docs/save_docs.cr`. Your edits will be saved into the *diff* files. Note that this requires you to have the latest version of SFML to match what is already stored, otherwise differences in documentation between SFML versions will also be saved, but they're unwanted.
+As mentioned, *CrSFML*'s code is mostly automatically generated, and the documentation is taken automatically from SFML (a C++ library). If you edit _src/*/obj.cr_ files, the changes will not be saved. However, the build process is set up to apply manual edits to the documentation by storing all the docs in _docs/*.md_ files. Please edit those files instead.
+
+To ensure that the documentation files are kept up to date, when upgrading the version of SFML, run `tools/update.cr`.

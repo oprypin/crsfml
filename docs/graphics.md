@@ -1,3 +1,5 @@
+Based on https://github.com/SFML/SFML/blob/2.5.1/include/SFML/Graphics
+
 # SF::BlendMode
 
 Blending modes for drawing

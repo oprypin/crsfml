@@ -14,7 +14,7 @@ all: $(crystal_files) $(obj_files)
 
 .INTERMEDIATE: sources
 $(crystal_files) $(cpp_files): sources ;
-sources: generate.cr shard.yml $(foreach module,$(modules),docs/$(module).diff)
+sources: generate.cr shard.yml $(foreach module,$(modules),docs/$(module).md)
 	$(CRYSTAL) run generate.cr -- $(call shellquote,$(SFML_INCLUDE_DIR))
 
 %.o: %.cpp
