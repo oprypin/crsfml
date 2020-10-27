@@ -376,6 +376,7 @@ To use a `SF::Thread`, you construct it directly with the
 function to execute as the entry point of the thread.
 `SF::Thread` has multiple template constructors, which means
 that you can use several types of entry points:
+
 * non-member functions with no argument
 * non-member functions with one argument of any type
 * functors with no argument (this one is particularly useful for compatibility with boost/std::%bind)

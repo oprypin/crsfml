@@ -442,6 +442,7 @@ module SF
   # by combining this class with the network module.
   #
   # A derived class has to override two virtual functions:
+  #
   # * on_get_data fills a new chunk of audio data to be played
   # * on_seek changes the current playing position in the source
   #
@@ -1049,6 +1050,7 @@ module SF
   #
   # `SF::Sound` is the class to use to play sounds.
   # It provides:
+  #
   # * Control (play, pause, stop)
   # * Ability to modify output parameters in real-time (pitch, volume, ...)
   # * 3D spatial features (position, attenuation, ...).
@@ -1549,10 +1551,12 @@ module SF
   # captured data to a sound buffer (see `SF::SoundBufferRecorder`).
   #
   # A derived class has only one virtual function to override:
+  #
   # * on_process_samples provides the new chunks of audio samples while the capture happens
   #
   # Moreover, two additional virtual functions can be overridden
   # as well if necessary:
+  #
   # * on_start is called before the capture happens, to perform custom initializations
   # * on_stop is called after the capture ends, to perform custom cleanup
   #

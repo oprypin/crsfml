@@ -12,6 +12,7 @@ module SF
   #
   # The struct is composed of 6 components, each of which has its
   # own public member variable:
+  #
   # * Color Source Factor (*color_src_factor*)
   # * Color Destination Factor (*color_dst_factor*)
   # * Color Blend Equation (*color_equation*)
@@ -640,6 +641,7 @@ module SF
   #
   # There are four global states that can be applied to
   # the drawn objects:
+  #
   # * the blend mode: how pixels of the object are blended with the background
   # * the transform: how the object is positioned/rotated/scaled
   # * the texture: what image is mapped to the object
@@ -688,6 +690,7 @@ module SF
     # Constructing a default set of render states is equivalent
     # to using `SF::RenderStates::Default`.
     # The default set defines:
+    #
     # * the BlendAlpha blend mode
     # * the identity transform
     # * a null texture
@@ -1197,6 +1200,7 @@ module SF
   # Utility struct for manipulating RGBA colors
   #
   # `SF::Color` is a simple color struct composed of 4 components:
+  #
   # * Red
   # * Green
   # * Blue
@@ -1668,6 +1672,7 @@ module SF
     #
     # This function defines how the vertices must be interpreted
     # when it's time to draw them:
+    #
     # * As points
     # * As lines
     # * As triangles
@@ -1744,6 +1749,7 @@ module SF
   #
   # In addition to the attributes provided by the specialized
   # shape classes, a shape always has the following attributes:
+  #
   # * a texture
   # * a texture rectangle
   # * a fill color
@@ -1751,12 +1757,14 @@ module SF
   # * an outline thickness
   #
   # Each feature is optional, and can be disabled easily:
+  #
   # * the texture can be null
   # * the fill/outline colors can be `SF::Color::Transparent`
   # * the outline thickness can be zero
   #
   # You can write your own derived shape class, there are only
   # two virtual functions to override:
+  #
   # * `point_count` must return the number of points of the shape
   # * `get_point` must return the points of the shape
   #
@@ -2604,6 +2612,7 @@ module SF
   #
   # The `SF::Glyph` structure provides the information needed
   # to handle the glyph:
+  #
   # * its coordinates in the font's texture
   # * its bounding rectangle
   # * the offset to apply to get the starting position of the next glyph
@@ -3589,6 +3598,7 @@ module SF
   #
   # Once it is loaded, a `SF::Font` instance provides three
   # types of information about the font:
+  #
   # * Global metrics, such as the line spacing
   # * Per-glyph metrics, such as bounding box or kerning
   # * Pixel representation of glyphs
@@ -4387,6 +4397,7 @@ module SF
     # Resizing the view simulates a zoom, as the zone displayed on
     # screen grows or shrinks.
     # *factor* is a multiplier:
+    #
     # * 1 keeps the size unchanged
     # * &gt; 1 makes the view bigger (objects appear smaller)
     # * &lt; 1 makes the view smaller (objects appear bigger)
@@ -4682,6 +4693,7 @@ module SF
     # This function can be used when you mix SFML drawing
     # and direct OpenGL rendering. Combined with pop_gl_states,
     # it ensures that:
+    #
     # * SFML's internal states are not messed up by your OpenGL code
     # * your OpenGL states are not modified by a call to a SFML function
     #
@@ -4770,6 +4782,7 @@ module SF
   # texture rather than being show in a window.
   #
   # Rendering to a texture can be useful in a variety of situations:
+  #
   # * precomputing a complex static texture (like a level's background from multiple tiles)
   # * applying post-effects to the whole scene with shaders
   # * creating a sprite from a 3D object rendered with OpenGL
@@ -5619,6 +5632,7 @@ module SF
   # to apply real-time operations to the rendered entities.
   #
   # There are three kinds of shaders:
+  #
   # * Vertex shaders, that process vertices
   # * Geometry shaders, that process primitives
   # * Fragment (pixel) shaders, that process pixels
@@ -5636,12 +5650,14 @@ module SF
   # Like any C/C++ program, a GLSL shader has its own variables
   # called *uniforms* that you can set from your C++ application.
   # `SF::Shader` handles different types of uniforms:
+  #
   # * scalars: `float`, `int`, `bool`
   # * vectors (2, 3 or 4 components)
   # * matrices (3x3 or 4x4)
   # * samplers (textures)
   #
   # Some SFML-specific types can be converted:
+  #
   # * `SF::Color` as a 4D vector (`vec4`)
   # * `SF::Transform` as matrices (`mat3` or `mat4`)
   #
@@ -5692,6 +5708,7 @@ module SF
   #
   # Shaders can also be used to apply global post-effects to the
   # current contents of the target. This can be done in two different ways:
+  #
   # * draw everything to a `SF::RenderTexture`, then draw it to
   # the main target using the shader
   # * draw everything directly to the main target, then use

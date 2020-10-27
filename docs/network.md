@@ -10,6 +10,7 @@ you to manipulate a remote file system (list files,
 upload, download, create, remove, ...).
 
 Using the FTP client consists of 4 parts:
+
 * Connecting to the FTP server
 * Logging in (either as a registered user or anonymously)
 * Sending commands to the server
@@ -610,12 +611,14 @@ download a remote file, etc. The HTTPS protocol is
 not supported.
 
 The HTTP client is split into 3 classes:
+
 * `SF::Http::Request`
 * `SF::Http::Response`
 * `SF::Http`
 
 `SF::Http::Request` builds the request that will be
 sent to the server. A request is made of:
+
 * a method (what you want to do)
 * a target URI (usually the name of the web page or file)
 * one or more header fields (options that you can pass to the server)
@@ -623,6 +626,7 @@ sent to the server. A request is made of:
 
 `SF::Http::Response` parse the response from the web server
 and provides getters to read them. The response contains:
+
 * a status code
 * header fields (that may be answers to the ones that you requested)
 * a body, which contains the contents of the requested resource
@@ -851,6 +855,7 @@ The server doesn't support the requested HTTP version
 Get the body of the response
 
 The body of a response may contain:
+
 * the requested page (for GET requests)
 * a response from the server (for POST requests)
 * nothing (for HEAD requests)
@@ -1168,6 +1173,7 @@ in order to send it over the network using sockets
 
 Packets solve 2 fundamental problems that arise when
 transferring data over the network:
+
 * data is interpreted correctly according to the endianness
 * the bounds of the packet are preserved (one send == one receive)
 
@@ -1549,6 +1555,7 @@ for each socket; with selectors, a single thread can handle
 all the sockets.
 
 All types of sockets can be used in a selector:
+
 * `SF::TcpListener`
 * `SF::TcpSocket`
 * `SF::UdpSocket`
@@ -1561,6 +1568,7 @@ socket container, you must store them outside and make sure
 that they are alive as long as they are used in the selector.
 
 Using a selector is simple:
+
 * populate the selector with all the sockets that you want to observe
 * make it wait until there is data available on any of the sockets
 * test each socket to find out which ones are ready

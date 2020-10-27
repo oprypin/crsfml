@@ -200,7 +200,11 @@ abstract class CItem
     end
     doc = String.build do |io|
       prev_line = ""
+      in_list = false
       @docs.each do |line|
+        if line == ""
+          in_list = false
+        end
         if line == "\\code"
           in_code = true
           line = "```c++"
@@ -217,7 +221,11 @@ abstract class CItem
           line = line.lstrip if in_annot
 
           line = line.sub /^\\brief\b */, ""
-          line = line.sub /^\\li\b */, "* "
+          line = line.sub /^\\li\b */ do
+            io << "\n" unless in_list
+            in_list = true
+            "* "
+          end
           line = line.sub /^    \b/, "  "
           line = line.sub /^\\param\b +([^ ()]+) +/ { "* *#{CParameter.new($1, make_type("", nil)).name(Context::Crystal)}* - " }
           line = line.sub /^\\(ingroup|relates)\b.*/, ""

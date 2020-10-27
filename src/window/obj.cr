@@ -556,6 +556,7 @@ module SF
   # and no event is triggered.
   #
   # SFML supports:
+  #
   # * 8 joysticks (`SF::Joystick::Count`)
   # * 32 buttons per joystick (`SF::Joystick::ButtonCount`)
   # * 8 axes per joystick (`SF::Joystick::AxisCount`)
