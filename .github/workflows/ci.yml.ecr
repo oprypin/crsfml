@@ -108,8 +108,10 @@ jobs:
     <% build_env += %(LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" ) %>
     <% run_env += %(LD_LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" ) %>
   <% end %>
+  <% if m[:os] != windows %>
       - name: Re-generate sources
         run: crystal generate.cr <%= sfml_include_dir %>
+  <% end %>
       - name: Build CrSFML
         run: \
   <% if m[:os] == windows -%>
