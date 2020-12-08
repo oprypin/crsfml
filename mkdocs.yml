@@ -3,22 +3,35 @@ use_directory_urls: false
 edit_uri: blob/master/
 
 theme:
-  name: readthedocs
-  highlightjs: false
+  name: material
+  features:
+    - navigation.tabs
+  palette:
+    primary: green
+    accent: teal
 
 extra_css:
-  - codehilite.css
   - style.css
 
 markdown_extensions:
-  - codehilite:
-      guess_lang: false
+  - pymdownx.highlight
+  - pymdownx.magiclink
+  - pymdownx.saneheaders
+  - pymdownx.superfences
+  - toc:
+      permalink: "#"
 
 plugins:
   - search
   - markdownextradata
-  - literate-nav:
-      nav_file: README.md
+  - gen-files:
+      scripts:
+        - tools/gen_doc_files.py
+  - mkdocstrings:
+      default_handler: crystal
+      watch: [src]
+  - literate-nav
+  - section-index
 
 extra:
   book:

@@ -1,10 +1,7 @@
 name: Deploy docs
 on:
   push:
-    paths: ['src/**', 'docs/**', '.github/**']
   pull_request:
-    paths: ['src/**', 'docs/**', '.github/**']
-    branches: [master]
   schedule:
     - cron: '0 6 * * 6'
 jobs:
@@ -16,12 +13,15 @@ jobs:
         uses: actions/checkout@v2
       - name: Install Crystal
         uses: oprypin/install-crystal@v1
-      - name: Generate API docs
-        run: docs/build.sh
+      - name: Install Python
+        uses: actions/setup-python@v2
+      - name: Install dependencies
+        run: pip install -r docs/requirements.txt
+      - name: Build site
+        run: mkdocs build
       - name: Deploy to gh-pages
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         uses: oprypin/push-to-gh-pages@v3
         with:
-          publish_dir: api
-          destination_dir: api
-          commit_message: 'Generate API documentation: '
+          publish_dir: site
+          commit_message: 'Generate docs: '
