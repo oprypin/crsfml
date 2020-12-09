@@ -27,6 +27,6 @@ After introducing a change to *generate.cr* you can immediately try it out in so
 Contributing documentation
 --------------------------
 
-As mentioned, *CrSFML*'s code is mostly automatically generated, and the documentation is taken automatically from SFML (a C++ library). If you edit _src/*/obj.cr_ files, the changes will not be saved. However, the build process is set up to apply manual edits to the documentation by storing all the docs in _docs/*.md_ files. Please edit those files instead.
+As mentioned, *CrSFML*'s code is mostly automatically generated, and the documentation is taken automatically from SFML (a C++ library). If you edit _src/*/obj.cr_ files, the changes will not be saved. However, the build process is set up to apply manual edits to the documentation by storing all the docs in _docs/api/*.md_ files. Please edit those files instead.
 
 To ensure that the documentation files are kept up to date, when upgrading the version of SFML, run `tools/update.cr`.

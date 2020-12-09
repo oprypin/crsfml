@@ -1,7 +1,7 @@
 require "./diff_util"
 
 def module_doc_path(mod)
-  "#{__DIR__}/../docs/#{mod.downcase}.md"
+  "#{__DIR__}/../docs/api/#{mod.downcase}.md"
 end
 
 def read_docs(mod, result = {} of String => Array(String))
