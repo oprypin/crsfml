@@ -11,38 +11,40 @@ assert system("crystal build generate.cr")
 
 MODULES = %w[System Window Graphics Audio Network]
 
-docs = MODULES.map do |mod|
-  { {nil.as(GeneratorEpoch?), mod}, read_docs(mod)}
-end .to_h
+merger = UpstreamMerger({String, String, Int32}).new("SFML", File.open(module_doc_path(MODULES[0]), &.read_line))
 
-entries = [] of {String, String, Int32}
-MODULES.each do |mod|
-  docs[{nil, mod}].each do |(name, subdocs)|
-    subdocs.each_index do |i|
-      entries << { mod, name, i }
+macro accept_files(kind)
+  MODULES.each do |mod|
+    read_docs(mod).each do |(name, subdocs)|
+      subdocs.each_with_index do |doc, i|
+        merger.set_{{kind.id}}({mod, name, i}, doc)
+      end
     end
   end
 end
 
-generated = Set{nil.as(GeneratorEpoch?)}
-merged = merge_upstream("SFML", entries, File.open(module_doc_path(MODULES[0]), &.read_line)) do |(mod, name, index), epoch|
-  mod_docs = (docs[{epoch, mod}] ||= begin
-    if generated.add?(epoch)
-      assert system("./generate --save-docs SFML/include")
+accept_files(:modified)
+
+merger.checkout_old
+assert system("git show HEAD:generate.cr >generate_.cr")
+assert system("crystal generate_.cr --save-docs SFML/include")
+accept_files(:old)
+system("rm generate_.cr")
+
+merger.checkout_new
+assert system("./generate --save-docs SFML/include")
+accept_files(:new)
+
+out_docs = MODULES.to_h do |mod|
+  {mod,
+    Hash(String, Array(String)).new do |hash, key|
+      hash[key] = Array(String).new
     end
-    read_docs(mod)
-  end)
-  mod_docs[name][index] rescue nil
+  }
 end
 
-out_docs = MODULES.map do |mod|
-  {mod, docs[{1, mod}].keys.map do |k|
-    {k, [] of String}
-  end .to_h}
-end .to_h
-
-merged.each do |(mod, name, index), doc|
-  out_docs[mod][name] << doc rescue nil
+merger.merge do |(mod, name, index), doc|
+  out_docs[mod][name] << doc
 end
 
 out_docs.each do |mod, mod_docs|
