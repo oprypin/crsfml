@@ -184,7 +184,7 @@ the way it is played (pitch, volume, 3D position, ...), etc.
 
 As a sound stream, a music is played in its own thread in order
 not to block the rest of the program. This means that you can
-leave the music alone after calling play(), it will manage itself
+leave the music alone after calling `play()`, it will manage itself
 very well.
 
 Usage example:
@@ -253,12 +253,12 @@ Get the positions of the of the sound's looping sequence
 
 *Returns:* Loop Time position class.
 
-*Warning:* Since loop_points=() performs some adjustments on the
+*Warning:* Since `loop_points=()` performs some adjustments on the
 provided values and rounds them to internal samples, a call to
 loop_points() is not guaranteed to return the same times passed
-into a previous call to loop_points=(). However, it is guaranteed
+into a previous call to `loop_points=()`. However, it is guaranteed
 to return times that will map to the valid internal samples of
-this Music if they are later passed to loop_points=().
+this Music if they are later passed to `loop_points=()`.
 
 *See also:* `loop_points=`
 
@@ -269,7 +269,7 @@ Sets the beginning and end of the sound's looping sequence using `SF::Time`
 Loop points allow one to specify a pair of positions such that, when the music
 is enabled for looping, it will seamlessly seek to the beginning whenever it
 encounters the end. Valid ranges for time_points.offset and time_points.length are
-[0, Dur) and (0, Dur-offset] respectively, where Dur is the value returned by duration().
+[0, Dur) and (0, Dur-offset] respectively, where Dur is the value returned by `duration()`.
 Note that the EOF "loop point" from the end to the beginning of the stream is still honored,
 in case the caller seeks to a point after the end of the loop range. This function can be
 safely called at any point after a stream is opened, and will be applied to a playing sound
@@ -321,7 +321,7 @@ Change the current playing position in the stream source
 
 Open a music from an audio file
 
-This function doesn't start playing the music (call play()
+This function doesn't start playing the music (call `play()`
 to do so).
 See the documentation of `SF::InputSoundFile` for the list
 of supported formats.
@@ -340,7 +340,7 @@ the `SF::Music` object loads a new music or is destroyed.
 
 Open a music from an audio file in memory
 
-This function doesn't start playing the music (call play()
+This function doesn't start playing the music (call `play()`
 to do so).
 See the documentation of `SF::InputSoundFile` for the list
 of supported formats.
@@ -360,7 +360,7 @@ you can't deallocate the buffer right after calling this function.
 
 Open a music from an audio file in a custom stream
 
-This function doesn't start playing the music (call play()
+This function doesn't start playing the music (call `play()`
 to do so).
 See the documentation of `SF::InputSoundFile` for the list
 of supported formats.
@@ -458,7 +458,7 @@ on streaming).
 
 In order to work, a sound must be given a buffer of audio
 data to play. Audio data (samples) is stored in `SF::SoundBuffer`,
-and attached to a sound with the buffer=() function.
+and attached to a sound with the `buffer=()` function.
 The buffer object attached to a sound must remain alive
 as long as the sound uses it. Note that multiple sounds
 can use the same sound buffer at the same time.
@@ -638,7 +638,7 @@ stop playing the sound
 
 This function stops the sound if it was playing or paused,
 and does nothing if it was already stopped.
-It also resets the playing position (unlike pause()).
+It also resets the playing position (unlike `pause()`).
 
 *See also:* `play`, `pause`
 
@@ -663,7 +663,7 @@ standard rate used for playing CDs). In short, audio samples
 are like texture pixels, and a `SF::SoundBuffer` is similar to
 a `SF::Texture`.
 
-A sound buffer can be loaded from a file (see load_from_file()
+A sound buffer can be loaded from a file (see `load_from_file()`
 for the complete list of supported formats), from memory, from
 a custom stream (see `SF::InputStream`) or directly from an array
 of samples. It can also be saved back to a file.
@@ -795,7 +795,7 @@ of supported formats.
 
 Get the number of samples stored in the buffer
 
-The array of samples can be accessed with the samples()
+The array of samples can be accessed with the `samples()`
 function.
 
 *Returns:* Number of samples
@@ -820,7 +820,7 @@ Get the array of audio samples stored in the buffer
 
 The format of the returned samples is 16 bits signed integer
 (`SF::Int16`). The total number of samples in this array
-is given by the sample_count() function.
+is given by the `sample_count()` function.
 
 *Returns:* Read-only pointer to the array of sound samples
 
@@ -848,11 +848,11 @@ audio data into a sound buffer
 through a `SF::SoundBuffer`, so that it can be played, saved
 to a file, etc.
 
-It has the same simple interface as its base class (start(), stop())
+It has the same simple interface as its base class (start(), `stop()`)
 and adds a function to retrieve the recorded sound buffer
 (buffer()).
 
-As usual, don't forget to call the available?() function
+As usual, don't forget to call the `available?()` function
 before using this class (see `SF::SoundRecorder` for more details
 about this).
 
@@ -983,14 +983,14 @@ the recorded data in real time, for example.
 
 The audio capture feature may not be supported or activated
 on every platform, thus it is recommended to check its
-availability with the available?() function. If it returns
+availability with the `available?()` function. If it returns
 false, then any attempt to use an audio recorder will fail.
 
 If you have multiple sound input devices connected to your
 computer (for example: microphone, external soundcard, webcam mic, ...)
 you can get a list of all available devices through the
 available_devices() function. You can then select a device
-by calling device=() with the appropriate device. Otherwise
+by calling `device=()` with the appropriate device. Otherwise
 the default capturing device will be used.
 
 By default the recording is in 16-bit mono. Using the
@@ -1006,7 +1006,7 @@ program. In particular, the on_process_samples virtual function
 from this separate thread. It is important to keep this in
 mind, because you may have to take care of synchronization
 issues if you share data between threads.
-Another thing to bear in mind is that you must call stop()
+Another thing to bear in mind is that you must call `stop()`
 in the destructor of your derived class, so that the recording
 thread finishes before your object is destroyed.
 
@@ -1210,7 +1210,7 @@ This function uses its own thread so that it doesn't block
 the rest of the program while the capture runs.
 Please note that only one capture can happen at the same time.
 You can select which capture device will be used, by passing
-the name to the device=() method. If none was selected
+the name to the `device=()` method. If none was selected
 before, the default capture device will be used. You can get a
 list of the names of all available capture devices by calling
 available_devices().
@@ -1425,7 +1425,7 @@ Stop playing the sound source
 
 This function stops the source if it was playing or paused,
 and does nothing if it was already stopped.
-It also resets the playing position (unlike pause()).
+It also resets the playing position (unlike `pause()`).
 
 *See also:* `play`, `pause`
 
@@ -1710,7 +1710,7 @@ Stop playing the audio stream
 
 This function stops the stream if it was playing or paused,
 and does nothing if it was already stopped.
-It also resets the playing position (unlike pause()).
+It also resets the playing position (unlike `pause()`).
 
 *See also:* `play`, `pause`
 

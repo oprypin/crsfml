@@ -13,6 +13,7 @@ module SF
   # only provides intersection functions.
   #
   # `SF::Rect` uses the usual rules for its boundaries:
+  #
   # * The left and top edges are included in the rectangle's area
   # * The right (left + width) and bottom (top + height) edges are excluded from the rectangle's area
   #
@@ -21,6 +22,7 @@ module SF
   #
   # `SF::Rect` is a generic and may be used with any numeric type, but
   # for simplicity the instantiations used by SFML are aliased:
+  #
   # * `SF::Rect(Int32)` is `SF::IntRect`
   # * `SF::Rect(Float32)` is `SF::FloatRect`
   #

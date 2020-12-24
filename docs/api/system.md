@@ -32,7 +32,7 @@ microseconds.
 Get the elapsed time
 
 This function returns the time elapsed since the last call
-to restart() (or the construction of the instance if restart()
+to `restart()` (or the construction of the instance if `restart()`
 has not been called).
 
 *Returns:* Time elapsed
@@ -330,10 +330,14 @@ use the helper method `synchronize` to lock/unlock mutexes.
 
 SFML mutexes are recursive, which means that you can lock
 a mutex multiple times in the same thread without creating
-a deadlock. In this case, the first call to lock() behaves
+a deadlock. In this case, the first call to `lock()` behaves
 as usual, and the following ones have no effect.
+However, you must call `unlock()` exactly as many times as you
+called `lock()`. If you don't, the mutex won't be released.
 However, you must call unlock() exactly as many times as you
 called lock(). If you don't, the mutex won't be released.
+
+*See also:* `SF::Lock`
 
 ## SF::Mutex#finalize()
 
@@ -391,7 +395,7 @@ destroyed while the thread is still using it.
 
 The thread ends when its function is terminated. If the
 owner `SF::Thread` instance is destroyed before the
-thread is finished, the destructor will wait (see wait())
+thread is finished, the destructor will wait (see `wait()`)
 
 Usage examples:
 ```c++
@@ -445,7 +449,7 @@ kind of situations, you can use mutexes (see `SF::Mutex`).
 
 Destructor
 
-This destructor calls wait(), so that the internal thread
+This destructor calls `wait()`, so that the internal thread
 cannot survive after its `SF::Thread` instance is destroyed.
 
 ## SF::Thread#initialize(function)
@@ -467,7 +471,7 @@ struct Functor
     void operator()(std::string arg)
 end
 ```
-Note: this does *not* run the thread, use launch().
+Note: this does *not* run the thread, use `launch()`.
 
 * *function* - Functor or free function to use as the entry point of the thread
 * *argument* - argument to forward to the function
@@ -748,7 +752,7 @@ Construct a time value from a number of seconds
 
 Make the current thread sleep for a given duration
 
-`SF::sleep` is the best way to block a program or one of its
+`SF.sleep` is the best way to block a program or one of its
 threads, as it doesn't consume any CPU power.
 
 * *duration* - Time to sleep

@@ -370,8 +370,8 @@ module SF
   # cursor.
   #
   # After loading the cursor the graphical appearance
-  # with either load_from_pixels() or load_from_system(), the
-  # cursor can be changed with `SF::Window::mouse_cursor=`().
+  # with either `load_from_pixels()` or load_from_system(), the
+  # cursor can be changed with `SF::Window.mouse_cursor=()`.
   #
   # The behaviour is undefined if the cursor is destroyed while
   # in use by the window.
@@ -387,7 +387,7 @@ module SF
   #     window.setMouseCursor(cursor);
   # ```
   #
-  # *See also:* `SF::`Window`::mouse_cursor=`
+  # *See also:* `SF::Window.mouse_cursor=`
   class Cursor
     @this : Void*
     # Enumeration of the native system cursor types
@@ -446,7 +446,7 @@ module SF
     #
     # This constructor doesn't actually create the cursor;
     # initially the new instance is invalid and must not be
-    # used until either load_from_pixels() or load_from_system()
+    # used until either `load_from_pixels()` or load_from_system()
     # is called and successfully created a cursor.
     def initialize()
       SFMLExt.sfml_cursor_allocate(out @this)
@@ -484,6 +484,7 @@ module SF
     # * *pixels* - Array of pixels of the image
     # * *size* - Width and height of the image
     # * *hotspot* - (x,y) location of the hotspot
+    #
     # *Returns:* true if the cursor was successfully loaded;
     # false otherwise
     def load_from_pixels(pixels : UInt8*, size : Vector2|Tuple, hotspot : Vector2|Tuple) : Bool
@@ -510,6 +511,7 @@ module SF
     # the operating system.
     #
     # * *type* - Native system cursor type
+    #
     # *Returns:* true if and only if the corresponding cursor is
     # natively supported by the operating system;
     # false otherwise
@@ -562,7 +564,7 @@ module SF
   # * 8 axes per joystick (`SF::Joystick::AxisCount`)
   #
   # Unlike the keyboard or mouse, the state of joysticks is sometimes
-  # not directly available (depending on the OS), therefore an update()
+  # not directly available (depending on the OS), therefore an `update()`
   # function must be called in order to update the current state of
   # joysticks. When you have a window with event handling, this is done
   # automatically, you don't need to call anything. But if you have no
@@ -2038,10 +2040,10 @@ module SF
   # fullscreen_modes().
   #
   # A custom video mode can also be checked directly for
-  # fullscreen compatibility with its valid?() function.
+  # fullscreen compatibility with its `valid?()` function.
   #
   # Additionally, `SF::VideoMode` provides a static function
-  # to get the mode currently used by the desktop: desktop_mode().
+  # to get the mode currently used by the desktop: `desktop_mode()`.
   # This allows to build windows with the same size or pixel
   # depth as the current resolution.
   #
@@ -2242,7 +2244,7 @@ module SF
   #
   # The `SF::Window` class provides a simple interface for manipulating
   # the window: move, resize, show/hide, control mouse cursor, etc.
-  # It also provides event handling through its poll_event() and wait_event()
+  # It also provides event handling through its `poll_event()` and wait_event()
   # functions.
   #
   # Note that OpenGL experts can pass their own parameters (antialiasing
@@ -2291,7 +2293,7 @@ module SF
     # Default constructor
     #
     # This constructor doesn't actually create the window,
-    # use the other constructors or call create() to do so.
+    # use the other constructors or call `create()` to do so.
     def initialize()
       SFMLExt.sfml_window_allocate(out @this)
       SFMLExt.sfml_window_initialize(to_unsafe)
@@ -2385,9 +2387,9 @@ module SF
     # Close the window and destroy all the attached resources
     #
     # After calling this function, the `SF::Window` instance remains
-    # valid and you can call create() to recreate the window.
-    # All other functions such as poll_event() or display() will
-    # still work (i.e. you don't have to test open?() every time),
+    # valid and you can call `create()` to recreate the window.
+    # All other functions such as `poll_event()` or display() will
+    # still work (i.e. you don't have to test `open?()` every time),
     # and will have no effect on closed windows.
     def close()
       SFMLExt.sfml_window_close(to_unsafe)
@@ -2406,7 +2408,7 @@ module SF
     # Get the settings of the OpenGL context of the window
     #
     # Note that these settings may be different from what was
-    # passed to the constructor or the create() function,
+    # passed to the constructor or the `create()` function,
     # if one or more settings were not supported. In this case,
     # SFML chose the closest match.
     #
@@ -2688,8 +2690,8 @@ module SF
     #
     # * *cursor* - Native system cursor type to display
     #
-    # *See also:* `SF::`Cursor`::load_from_system`
-    # *See also:* `SF::`Cursor`::load_from_pixels`
+    # *See also:* `SF::Cursor.load_from_system`
+    # *See also:* `SF::Cursor.load_from_pixels`
     def mouse_cursor=(cursor : Cursor)
       @_window_mouse_cursor = cursor
       SFMLExt.sfml_window_setmousecursor_Voc(to_unsafe, cursor)
@@ -2710,7 +2712,7 @@ module SF
     # Limit the framerate to a maximum fixed frequency
     #
     # If a limit is set, the window will use a small delay after
-    # each call to display() to ensure that the current frame
+    # each call to `display()` to ensure that the current frame
     # lasted long enough to match the framerate limit.
     # SFML will try to match the given limit as much as it can,
     # but since it internally uses `SF.sleep`, whose precision
@@ -2741,7 +2743,7 @@ module SF
     # on the previous thread first if it was active.
     # Only one window can be active on a thread at a time, thus
     # the window previously active (if any) automatically gets deactivated.
-    # This is not to be confused with request_focus().
+    # This is not to be confused with `request_focus()`.
     #
     # * *active* - True to activate, false to deactivate
     #
@@ -2758,7 +2760,7 @@ module SF
     # If a window requests focus, it only hints to the operating
     # system, that it would like to be focused. The operating system
     # is free to deny the request.
-    # This is not to be confused with active=().
+    # This is not to be confused with `active=()`.
     #
     # *See also:* `focus?`
     def request_focus()

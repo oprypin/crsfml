@@ -46,7 +46,7 @@ module SF
   #
   # In SFML, a blend mode can be specified every time you draw a `SF::Drawable`
   # object to a render target. It is part of the `SF::RenderStates` compound
-  # that is passed to the member function `SF::RenderTarget.draw`().
+  # that is passed to the member function `SF::RenderTarget.draw()`.
   #
   # *See also:* `SF::RenderStates`, `SF::RenderTarget`
   struct BlendMode
@@ -59,7 +59,7 @@ module SF
     # Enumeration of the blending factors
     #
     # The factors are mapped directly to their OpenGL equivalents,
-    # specified by gl_blend_func() or gl_blend_func_separate().
+    # specified by `gl_blend_func()` or gl_blend_func_separate().
     enum Factor
       # (0, 0, 0, 0)
       Zero
@@ -86,7 +86,7 @@ module SF
     # Enumeration of the blending equations
     #
     # The equations are mapped directly to their OpenGL equivalents,
-    # specified by gl_blend_equation() or gl_blend_equation_separate().
+    # specified by `gl_blend_equation()` or gl_blend_equation_separate().
     enum Equation
       # Pixel = Src * SrcFactor + Dst * DstFactor
       Add
@@ -926,6 +926,7 @@ module SF
   # In order to render a `SF::Drawable` object pixel-perfectly, make sure
   # the involved coordinates allow a 1:1 mapping of pixels in the window
   # to texels (pixels in the texture). More specifically, this means:
+  #
   # * The object's position, origin and scale have no fractional part
   # * The object's and the view's rotation are a multiple of 90 degrees
   # * The view's center and size have no fractional part
@@ -2924,7 +2925,7 @@ module SF
     #
     # The returned value points to an array of RGBA pixels made of
     # 8 bits integers components. The size of the array is
-    # width * height * 4 (size().x * size().y * 4).
+    # width * height * 4 (size().x * `size()`.y * 4).
     # Warning: the returned pointer may become invalid if you
     # modify the image, so you should never store it for too long.
     # If the image is empty, a null pointer is returned.
@@ -4491,7 +4492,7 @@ module SF
     # so it is not necessary to keep the original one alive
     # after calling this function.
     # To restore the original view of the target, you can pass
-    # the result of default_view() to this function.
+    # the result of `default_view()` to this function.
     #
     # * *view* - New view to use
     #
@@ -4735,7 +4736,7 @@ module SF
     # This function can be used when you mix SFML drawing
     # and direct OpenGL rendering, if you choose not to use
     # push_gl_states/pop_gl_states. It makes sure that all OpenGL
-    # states needed by SFML are set, so that subsequent draw()
+    # states needed by SFML are set, so that subsequent `draw()`
     # calls will work as expected.
     #
     # Example:
@@ -5214,7 +5215,7 @@ module SF
     # Default constructor
     #
     # This constructor doesn't actually create the window,
-    # use the other constructors or call create() to do so.
+    # use the other constructors or call `create()` to do so.
     def initialize()
       SFMLExt.sfml_renderwindow_allocate(out @this)
       SFMLExt.sfml_renderwindow_initialize(to_unsafe)
@@ -5282,7 +5283,7 @@ module SF
     # on the previous thread first if it was active.
     # Only one window can be active on a thread at a time, thus
     # the window previously active (if any) automatically gets deactivated.
-    # This is not to be confused with request_focus().
+    # This is not to be confused with `request_focus()`.
     #
     # * *active* - True to activate, false to deactivate
     #
@@ -5712,7 +5713,7 @@ module SF
   # * draw everything to a `SF::RenderTexture`, then draw it to
   # the main target using the shader
   # * draw everything directly to the main target, then use
-  # `SF::Texture::update(window)` to copy its contents to a texture
+  # `SF::Texture.update(window)` to copy its contents to a texture
   # and draw it to the main target using the shader
   #
   # The first technique is more optimized because it doesn't involve
@@ -6116,7 +6117,7 @@ module SF
     # the geometry shader features. If it returns false, then
     # any attempt to use `SF::Shader` geometry shader features will fail.
     #
-    # This function can only return true if available?() would also
+    # This function can only return true if `available?()` would also
     # return true, since shaders in general have to be supported in
     # order for geometry shaders to be supported as well.
     #
@@ -6635,7 +6636,7 @@ module SF
     #
     # DEPRECATED: There is now fill and outline colors instead
     # of a single global color.
-    # Use fill_color=() or outline_color=() instead.
+    # Use `fill_color=()` or outline_color=() instead.
     def color=(color : Color)
       SFMLExt.sfml_text_setcolor_QVe(to_unsafe, color)
     end
@@ -6739,7 +6740,7 @@ module SF
     #
     # DEPRECATED: There is now fill and outline colors instead
     # of a single global color.
-    # Use fill_color() or outline_color() instead.
+    # Use `fill_color()` or outline_color() instead.
     def color() : Color
       result = Color.allocate
       SFMLExt.sfml_text_getcolor(to_unsafe, result)

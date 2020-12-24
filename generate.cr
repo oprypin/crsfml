@@ -235,6 +235,7 @@ abstract class CItem
           line = line.sub /^\\warning\b */, "*Warning:* "
           line = line.sub /^\\deprecated\b */, "DEPRECATED: "
           line = line.gsub /\bsf(::[^ \.;,()]+)\b/ { "`SF#{$1}`" }
+          line = line.sub /(?<= )[a-z]\w+\b\(\)\B/ { "`#{$0}`" }
           line = line.sub /^\\see\b *(.+)/ { "*See also:* " + $1.gsub(/(?<!`)\b[\w\.]+\b(?!`)/, "`\\0`") }
           line = line.gsub /%([A-Z][a-zA-Z])/ { $1 }
           line = line.gsub /<\/?b>/, "**"

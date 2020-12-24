@@ -12,6 +12,7 @@ module SF
   #
   # You generally don't have to care about the generic form,
   # the most common specializations have special aliases:
+  #
   # * `SF::Vector2(Float32)` is `SF::Vector2f`
   # * `SF::Vector2(Int32)` is `SF::Vector2i`
   #
@@ -163,6 +164,7 @@ module SF
   #
   # You generally don't have to care about the generic form,
   # the most common specialization has a special alias:
+  #
   # * `SF::Vector3(Float32)` is `SF::Vector3f`
   #
   # The `SF::Vector3` struct has a small and simple interface, its

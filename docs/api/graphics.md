@@ -44,7 +44,7 @@ The most common blending modes are defined as constants in the SF module:
 
 In SFML, a blend mode can be specified every time you draw a `SF::Drawable`
 object to a render target. It is part of the `SF::RenderStates` compound
-that is passed to the member function `SF::RenderTarget.draw`().
+that is passed to the member function `SF::RenderTarget.draw()`.
 
 *See also:* `SF::RenderStates`, `SF::RenderTarget`
 
@@ -53,7 +53,7 @@ that is passed to the member function `SF::RenderTarget.draw`().
 Enumeration of the blending equations
 
 The equations are mapped directly to their OpenGL equivalents,
-specified by gl_blend_equation() or gl_blend_equation_separate().
+specified by `gl_blend_equation()` or gl_blend_equation_separate().
 
 ### SF::BlendMode::Equation::Add
 
@@ -72,7 +72,7 @@ Pixel = Src * SrcFactor - Dst * DstFactor
 Enumeration of the blending factors
 
 The factors are mapped directly to their OpenGL equivalents,
-specified by gl_blend_func() or gl_blend_func_separate().
+specified by `gl_blend_func()` or gl_blend_func_separate().
 
 ### SF::BlendMode::Factor::DstAlpha
 
@@ -1274,7 +1274,7 @@ Get a read-only pointer to the array of pixels
 
 The returned value points to an array of RGBA pixels made of
 8 bits integers components. The size of the array is
-width * height * 4 (size().x * size().y * 4).
+width * height * 4 (size().x * `size()`.y * 4).
 Warning: the returned pointer may become invalid if you
 modify the image, so you should never store it for too long.
 If the image is empty, a null pointer is returned.
@@ -1916,7 +1916,7 @@ Reset the internal OpenGL states so that the target is ready for drawing
 This function can be used when you mix SFML drawing
 and direct OpenGL rendering, if you choose not to use
 push_gl_states/pop_gl_states. It makes sure that all OpenGL
-states needed by SFML are set, so that subsequent draw()
+states needed by SFML are set, so that subsequent `draw()`
 calls will work as expected.
 
 Example:
@@ -1957,7 +1957,7 @@ The render target keeps its own copy of the view object,
 so it is not necessary to keep the original one alive
 after calling this function.
 To restore the original view of the target, you can pass
-the result of default_view() to this function.
+the result of `default_view()` to this function.
 
 * *view* - New view to use
 
@@ -2343,7 +2343,7 @@ make it active on another thread you have to deactivate it
 on the previous thread first if it was active.
 Only one window can be active on a thread at a time, thus
 the window previously active (if any) automatically gets deactivated.
-This is not to be confused with request_focus().
+This is not to be confused with `request_focus()`.
 
 * *active* - True to activate, false to deactivate
 
@@ -2431,7 +2431,7 @@ Closes the window and frees all the resources attached to it.
 Default constructor
 
 This constructor doesn't actually create the window,
-use the other constructors or call create() to do so.
+use the other constructors or call `create()` to do so.
 
 ## SF::RenderWindow#initialize(handle,settings)
 
@@ -2674,7 +2674,7 @@ current contents of the target. This can be done in two different ways:
 * draw everything to a `SF::RenderTexture`, then draw it to
 the main target using the shader
 * draw everything directly to the main target, then use
-`SF::Texture::update(window)` to copy its contents to a texture
+`SF::Texture.update(window)` to copy its contents to a texture
 and draw it to the main target using the shader
 
 The first technique is more optimized because it doesn't involve
@@ -2751,7 +2751,7 @@ This function should always be called before using
 the geometry shader features. If it returns false, then
 any attempt to use `SF::Shader` geometry shader features will fail.
 
-This function can only return true if available?() would also
+This function can only return true if `available?()` would also
 return true, since shaders in general have to be supported in
 order for geometry shaders to be supported as well.
 
@@ -3667,7 +3667,7 @@ Get the fill color of the text
 
 DEPRECATED: There is now fill and outline colors instead
 of a single global color.
-Use fill_color() or outline_color() instead.
+Use `fill_color()` or outline_color() instead.
 
 ## SF::Text#color=(color)
 
@@ -3683,7 +3683,7 @@ will cause the outline to be displayed in the fill area of the text.
 
 DEPRECATED: There is now fill and outline colors instead
 of a single global color.
-Use fill_color=() or outline_color=() instead.
+Use `fill_color=()` or outline_color=() instead.
 
 ## SF::Text#draw(target,states)
 
@@ -4993,6 +4993,7 @@ unwanted results in some cases, for example blurred or distorted objects.
 In order to render a `SF::Drawable` object pixel-perfectly, make sure
 the involved coordinates allow a 1:1 mapping of pixels in the window
 to texels (pixels in the texture). More specifically, this means:
+
 * The object's position, origin and scale have no fractional part
 * The object's and the view's rotation are a multiple of 90 degrees
 * The view's center and size have no fractional part
