@@ -1730,123 +1730,123 @@ module SF
       SFMLExt.sfml_packet_operator_bool(to_unsafe, out result)
       return result
     end
-    # Overload of operator &gt;&gt; to read data from the packet
+    # Read data from the packet. The expected type corresponds to
+    # what was actually sent.
     def read(type : Bool.class) : Bool
       SFMLExt.sfml_packet_operator_shr_gRY(to_unsafe, out data)
       return data
     end
-    # Read data from the packet. The expected type corresponds to
-    # what was actually sent.
+    # :ditto:
     def read(type : Int8.class) : Int8
       SFMLExt.sfml_packet_operator_shr_0y9(to_unsafe, out data)
       return data
     end
-    # \overload
+    # :ditto:
     def read(type : UInt8.class) : UInt8
       SFMLExt.sfml_packet_operator_shr_8hc(to_unsafe, out data)
       return data
     end
-    # \overload
+    # :ditto:
     def read(type : Int16.class) : Int16
       SFMLExt.sfml_packet_operator_shr_4k3(to_unsafe, out data)
       return data
     end
-    # \overload
+    # :ditto:
     def read(type : UInt16.class) : UInt16
       SFMLExt.sfml_packet_operator_shr_Xag(to_unsafe, out data)
       return data
     end
-    # \overload
+    # :ditto:
     def read(type : Int32.class) : Int32
       SFMLExt.sfml_packet_operator_shr_NiZ(to_unsafe, out data)
       return data
     end
-    # \overload
+    # :ditto:
     def read(type : UInt32.class) : UInt32
       SFMLExt.sfml_packet_operator_shr_qTz(to_unsafe, out data)
       return data
     end
-    # \overload
+    # :ditto:
     def read(type : Int64.class) : Int64
       SFMLExt.sfml_packet_operator_shr_BuW(to_unsafe, out data)
       return data
     end
-    # \overload
+    # :ditto:
     def read(type : UInt64.class) : UInt64
       SFMLExt.sfml_packet_operator_shr_7H7(to_unsafe, out data)
       return data
     end
-    # \overload
+    # :ditto:
     def read(type : Float32.class) : Float32
       SFMLExt.sfml_packet_operator_shr_ATF(to_unsafe, out data)
       return data
     end
-    # \overload
+    # :ditto:
     def read(type : Float64.class) : Float64
       SFMLExt.sfml_packet_operator_shr_nIp(to_unsafe, out data)
       return data
     end
-    # \overload
+    # :ditto:
     def read(type : String.class) : String
       SFMLExt.sfml_packet_operator_shr_GHF(to_unsafe, out data)
       return String.new(data)
     end
-    # Overload of operator &lt;&lt; to write data into the packet
+    # Write data into the packet
     def write(data : Bool)
       SFMLExt.sfml_packet_operator_shl_GZq(to_unsafe, data)
       self
     end
-    # Write data into the packet
+    # :ditto:
     def write(data : Int8)
       SFMLExt.sfml_packet_operator_shl_k6g(to_unsafe, data)
       self
     end
-    # \overload
+    # :ditto:
     def write(data : UInt8)
       SFMLExt.sfml_packet_operator_shl_9yU(to_unsafe, data)
       self
     end
-    # \overload
+    # :ditto:
     def write(data : Int16)
       SFMLExt.sfml_packet_operator_shl_yAA(to_unsafe, data)
       self
     end
-    # \overload
+    # :ditto:
     def write(data : UInt16)
       SFMLExt.sfml_packet_operator_shl_BtU(to_unsafe, data)
       self
     end
-    # \overload
+    # :ditto:
     def write(data : Int32)
       SFMLExt.sfml_packet_operator_shl_qe2(to_unsafe, data)
       self
     end
-    # \overload
+    # :ditto:
     def write(data : UInt32)
       SFMLExt.sfml_packet_operator_shl_saL(to_unsafe, data)
       self
     end
-    # \overload
+    # :ditto:
     def write(data : Int64)
       SFMLExt.sfml_packet_operator_shl_G4x(to_unsafe, data)
       self
     end
-    # \overload
+    # :ditto:
     def write(data : UInt64)
       SFMLExt.sfml_packet_operator_shl_Jvt(to_unsafe, data)
       self
     end
-    # \overload
+    # :ditto:
     def write(data : Float32)
       SFMLExt.sfml_packet_operator_shl_Bw9(to_unsafe, data)
       self
     end
-    # \overload
+    # :ditto:
     def write(data : Float64)
       SFMLExt.sfml_packet_operator_shl_mYt(to_unsafe, data)
       self
     end
-    # \overload
+    # :ditto:
     def write(data : String)
       SFMLExt.sfml_packet_operator_shl_zkC(to_unsafe, data.bytesize, data)
       self

@@ -1314,52 +1314,52 @@ Creates an empty packet.
 
 ## SF::Packet#read(type)
 
-Overload of operator &gt;&gt; to read data from the packet
-
-## SF::Packet#read(type)
-
 Read data from the packet. The expected type corresponds to
 what was actually sent.
 
 ## SF::Packet#read(type)
 
-\overload
+:ditto:
 
 ## SF::Packet#read(type)
 
-\overload
+:ditto:
 
 ## SF::Packet#read(type)
 
-\overload
+:ditto:
 
 ## SF::Packet#read(type)
 
-\overload
+:ditto:
 
 ## SF::Packet#read(type)
 
-\overload
+:ditto:
 
 ## SF::Packet#read(type)
 
-\overload
+:ditto:
 
 ## SF::Packet#read(type)
 
-\overload
+:ditto:
 
 ## SF::Packet#read(type)
 
-\overload
+:ditto:
 
 ## SF::Packet#read(type)
 
-\overload
+:ditto:
 
 ## SF::Packet#read(type)
 
-\overload
+:ditto:
+
+## SF::Packet#read(type)
+
+:ditto:
 
 ## SF::Packet#valid?()
 
@@ -1387,51 +1387,51 @@ end
 
 ## SF::Packet#write(data)
 
-Overload of operator &lt;&lt; to write data into the packet
-
-## SF::Packet#write(data)
-
 Write data into the packet
 
 ## SF::Packet#write(data)
 
-\overload
+:ditto:
 
 ## SF::Packet#write(data)
 
-\overload
+:ditto:
 
 ## SF::Packet#write(data)
 
-\overload
+:ditto:
 
 ## SF::Packet#write(data)
 
-\overload
+:ditto:
 
 ## SF::Packet#write(data)
 
-\overload
+:ditto:
 
 ## SF::Packet#write(data)
 
-\overload
+:ditto:
 
 ## SF::Packet#write(data)
 
-\overload
+:ditto:
 
 ## SF::Packet#write(data)
 
-\overload
+:ditto:
 
 ## SF::Packet#write(data)
 
-\overload
+:ditto:
 
 ## SF::Packet#write(data)
 
-\overload
+:ditto:
+
+## SF::Packet#write(data)
+
+:ditto:
 
 # SF::Socket
 
