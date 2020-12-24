@@ -2256,7 +2256,7 @@ description of all these features, as well as code examples.
 On top of that, `SF::RenderWindow` adds more features related to
 2D drawing with the graphics module (see its base module
 `SF::RenderTarget` for more details).
-Here is a typical rendering and event loop with a `SF::RenderWindow:`
+Here is a typical rendering and event loop with a `SF::RenderWindow`:
 
 ```
 # Declare and create a new render-window
@@ -2662,7 +2662,7 @@ Shaders can be used on any drawable, but some combinations are
 not interesting. For example, using a vertex shader on a `SF::Sprite`
 is limited because there are only 4 vertices, the sprite would
 have to be subdivided in order to apply wave effects.
-Another bad example is a fragment shader with `SF::Text:` the texture
+Another bad example is a fragment shader with `SF::Text`: the texture
 of the text is not the actual text that you see on screen, it is
 a big texture containing all the characters of the font in an
 arbitrary order; thus, texture lookups on pixels other than the
@@ -3303,7 +3303,7 @@ own transformations, color, etc.
 `SF::Sprite` is a drawable class that allows to easily display
 a texture (or a part of it) on a render target.
 
-It inherits all the functions from `SF::Transformable:`
+It inherits all the functions from `SF::Transformable`:
 position, rotation, scale, origin. It also adds sprite-specific
 properties such as the texture to use, the part of it to display,
 and some convenience functions to change the overall color of the
@@ -3563,7 +3563,7 @@ Graphical text that can be drawn to a render target
 `SF::Text` is a drawable class that allows to easily display
 some text with custom style and color on a render target.
 
-It inherits all the functions from `SF::Transformable:`
+It inherits all the functions from `SF::Transformable`:
 position, rotation, scale, origin. It also adds text-specific
 properties such as the font to use, the character size,
 the font style (bold, italic, underlined and strike through), the
