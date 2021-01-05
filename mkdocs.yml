@@ -1,11 +1,15 @@
 site_name: CrSFML
+site_url: https://oprypin.github.io/crsfml/
+repo_url: https://github.com/oprypin/crsfml
+edit_uri: blob/master/docs/
 use_directory_urls: false
-edit_uri: blob/master/
 
 theme:
   name: material
   features:
     - navigation.tabs
+  icon:
+    repo: fontawesome/brands/github
   palette:
     primary: green
     accent: teal
