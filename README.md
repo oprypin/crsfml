@@ -1,6 +1,6 @@
 # ![CrSFML](logo.png)
 
-#### [Crystal][] bindings to [Simple and Fast Multimedia Library][sfml].
+**[Crystal][] bindings to [Simple and Fast Multimedia Library][sfml].**
 
 Documentation
 -------------
@@ -11,7 +11,7 @@ Documentation
 
 - **[API Documentation][]**
 
-- **[Examples](examples)** / **[Demos][]**
+- **[Examples](https://github.com/oprypin/crsfml/tree/master/examples)** / **[Demos][]**
 
 
 Introduction
@@ -25,7 +25,7 @@ To quote the official site of SFML,
 
 Indeed, SFML is most often used to make video games. It provides features such as hardware-accelerated 2D graphics, handling keyboard, mouse and gamepad input, vector and matrix manipulation, managing windows (can also be used as a base for OpenGL drawing), working with multiple image formats, audio playback and recording, basic networking... Check out some [demos] of *CrSFML* to see what it can do.
 
-*CrSFML* consists almost entirely of automatically generated code, based on SFML's header files. Read more about [generated code](CONTRIBUTING.md) and [API differences between SFML and CrSFML](#api-differences-between-sfml-and-crsfml).
+*CrSFML* consists almost entirely of automatically generated code, based on SFML's header files. Read more about [generated code](https://github.com/oprypin/crsfml/tree/master/CONTRIBUTING.md) and [API differences between SFML and CrSFML](#api-differences-between-sfml-and-crsfml).
 
 
 Installation
@@ -72,7 +72,7 @@ The C++ wrappers require a C++ compiler (C++03 will do).
 
 #### Install SFML
 
-[SFML][] must be installed, with the version that matches `SFML_VERSION` in [src/version.cr](src/version.cr) (usually latest). If it doesn't, no need to look for an older release of *CrSFML*, just [re-generate the sources](#generating-sources) for your version. SFML versions 2.3.x through 2.5.x are supported by *CrSFML*.
+[SFML][] must be installed, with the version that matches `SFML_VERSION` in [src/version.cr](https://github.com/oprypin/crsfml/tree/master/src/version.cr) (usually latest). If it doesn't, no need to look for an older release of *CrSFML*, just [re-generate the sources](#generating-sources) for your version. SFML versions 2.3.x through 2.5.x are supported by *CrSFML*.
 
 There are detailed [official instructions][sfml-install] on how to install SFML manually, but on many systems there are easier ways.
 
@@ -143,7 +143,7 @@ CrSFML's top-level scripts also need the include path to work. E.g. `crystal gen
 
 ### Generating sources
 
-CrSFML's sources come almost entirely from a [generator program](generate.cr). They are based on a particular version of SFML. But as sources for the latest version are already bundled, usually you don't need to do this. [More details](CONTRIBUTING.md).
+CrSFML's sources come almost entirely from a [generator program](https://github.com/oprypin/crsfml/tree/master/generate.cr). They are based on a particular version of SFML. But as sources for the latest version are already bundled, usually you don't need to do this. [More details](https://github.com/oprypin/crsfml/tree/master/CONTRIBUTING.md).
 
 As this is out of scope for [Shards][], let's download the repository separately (then use CrSFML [without Shards](#crsfml-without-shards)).
 
@@ -220,7 +220,7 @@ Credits
 
 *CrSFML* was made by [Oleh Prypin][oprypin].
 
-*CrSFML* is [licensed](LICENSE.md) under the terms and conditions of the *zlib/libpng* license.
+*CrSFML* is [licensed](https://github.com/oprypin/crsfml/tree/master/LICENSE.md) under the terms and conditions of the *zlib/libpng* license.
 
 This library uses and is based on [SFML][sfml-authors].
 

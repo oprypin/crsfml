@@ -8,6 +8,7 @@ theme:
   name: material
   features:
     - navigation.tabs
+  logo: icon.png
   icon:
     repo: fontawesome/brands/github
   palette:
@@ -22,9 +23,10 @@ markdown_extensions:
   - pymdownx.magiclink
   - pymdownx.saneheaders
   - pymdownx.superfences
+  - markdown_include.include
+  - deduplicate-toc
   - toc:
       permalink: "#"
-  - deduplicate-toc
 
 plugins:
   - search
