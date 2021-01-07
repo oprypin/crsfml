@@ -3,7 +3,7 @@ name: CI
 on:
   <% %w[push pull_request].each do |ev| %>
   <%= ev %>:
-    paths-ignore: ['tutorials/**', '*.md']
+    paths-ignore: ['docs/**', '*.md']
   <% end %>
     branches: [master]
   schedule:
