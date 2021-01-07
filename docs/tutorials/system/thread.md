@@ -64,7 +64,7 @@ I'm thread number one
 I'm the main thread
 ```
 
-The entry point of the thread, ie. the function that will be run when the thread is started, must be passed to the constructor of [SF::Thread][]. [SF::Thread][] can accept any kind of [procs](http://crystal-lang.org/docs/syntax_and_semantics/literals/proc.html) without parameters.
+The entry point of the thread, ie. the function that will be run when the thread is started, must be passed to the constructor of [SF::Thread][]. [SF::Thread][] can accept any kind of [procs](https://crystal-lang.org/reference/syntax_and_semantics/literals/proc.html) without parameters.
 
 ## Starting threads
 
@@ -207,7 +207,7 @@ foo.main
 
 ## Common mistakes
 
-One thing that is often overlooked by programmers is that a thread cannot live without its corresponding [SF::Thread][] instance.  
+One thing that is often overlooked by programmers is that a thread cannot live without its corresponding [SF::Thread][] instance.
 The following code is often seen:
 
 ```crystal

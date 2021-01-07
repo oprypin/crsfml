@@ -1,9 +1,9 @@
 CrSFML Tutorials
 ================
 
-#### Tutorials for [CrSFML](http://github.com/oprypin/crsfml) based on the official [Tutorials for SFML](http://www.sfml-dev.org/tutorials/).
+#### Tutorials for [CrSFML](https://github.com/oprypin/crsfml) based on the official [Tutorials for SFML](https://www.sfml-dev.org/tutorials/).
 
-* [Read](http://oprypin.github.io/crsfml/tutorials/) the tutorials
+* [Read](https://oprypin.github.io/crsfml/tutorials/#contents) the tutorials
 * [Source](https://github.com/oprypin/crsfml/tree/master/docs/tutorials) on GitHub
 
 To contribute, edit the Markdown source files and make a pull request.

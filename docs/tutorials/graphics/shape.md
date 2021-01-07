@@ -56,7 +56,7 @@ shape.texture_rect = SF.int_rect(10, 10, 100, 100)
 
 ![A textured shape](images/shape-texture.png)
 
-Note that the outline is not textured.  
+Note that the outline is not textured.
 It is important to know that the texture is modulated (multiplied) with the shape's fill color. If its fill color is `SF::Color::White`, the texture will appear unmodified.
 To disable texturing, call `set_texture(nil, false)`.
 
@@ -147,7 +147,7 @@ The order in which you define the points is very important. They must *all* be d
 
 ![A convex shape](images/shape-convex.png)
 
-Although the name of [SF::ConvexShape][] implies that it should only be used to represent convex shapes, its requirements are a little more relaxed. In fact, the only requirement that your shape must meet is that if you went ahead and drew lines from its *center of gravity* to all of its points, these lines must be drawn in the same order. You are not allowed to "jump behind a previous line". Internally, convex shapes are automatically constructed using [triangle fans](http://en.wikipedia.org/wiki/Triangle_fan "Go to Wikipedia's article about triangle fans"), so if your shape is representable by a triangle fan, you can use [SF::ConvexShape][]. With this relaxed definition, you can draw stars using [SF::ConvexShape][] for example.
+Although the name of [SF::ConvexShape][] implies that it should only be used to represent convex shapes, its requirements are a little more relaxed. In fact, the only requirement that your shape must meet is that if you went ahead and drew lines from its *center of gravity* to all of its points, these lines must be drawn in the same order. You are not allowed to "jump behind a previous line". Internally, convex shapes are automatically constructed using [triangle fans](https://en.wikipedia.org/wiki/Triangle_fan "Go to Wikipedia's article about triangle fans"), so if your shape is representable by a triangle fan, you can use [SF::ConvexShape][]. With this relaxed definition, you can draw stars using [SF::ConvexShape][] for example.
 
 ### Lines
 
@@ -235,5 +235,5 @@ window = SF::RenderWindow.new(
 
 ![Aliased vs antialiased shape](images/shape-antialiasing.png)
 
-Remember that anti-aliasing availability depends on the graphics card: It might not support it, or have it forced to disabled in the driver settings.  
+Remember that anti-aliasing availability depends on the graphics card: It might not support it, or have it forced to disabled in the driver settings.
 Sometimes antialiasing does not work if `depth_bits` is not specified (use 24 if unsure).
