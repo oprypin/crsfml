@@ -11,8 +11,7 @@ theme:
   icon:
     repo: fontawesome/brands/github
   palette:
-    scheme: slate
-    primary: green
+    primary: teal
     accent: green
 
 extra_css:
