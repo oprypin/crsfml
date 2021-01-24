@@ -12,12 +12,12 @@ on:
 <% ubuntu, mac, windows = "Ubuntu", "macOS", "Windows" %>
 <% latest_sfml = "2.5.1" %>
 <% homebrew = "Homebrew" %>
-<% config = {os_ver: nil, sfml: latest_sfml, crystal: "latest", docker: nil, sfml_apt: false} %>
+<% config = {os_ver: nil, sfml: latest_sfml, crystal: "latest", docker: nil, sfml_pkg: false} %>
 <% matrix = [
   config.merge(os: ubuntu, os_ver: "18.04", crystal: "nightly"),
-  config.merge(docker: "crystallang/crystal:0.25.1", os: ubuntu, os_ver: "16.04", sfml_apt: true, sfml: "2.3.2", crystal: "0.25.1"),
+  config.merge(docker: "crystallang/crystal:0.25.1", os: ubuntu, os_ver: "16.04", sfml_pkg: true, sfml: "2.3.2", crystal: "0.25.1"),
   config.merge(os: mac),
-  config.merge(os: mac, sfml: homebrew, crystal: homebrew),
+  config.merge(os: mac, sfml: homebrew, crystal: homebrew, sfml_pkg: true),
   config.merge(os: windows, crystal: "nightly"),
 ] %>
 <% all = {ubuntu, mac, windows} %>
@@ -37,7 +37,6 @@ on:
 
 jobs:
 <% matrix.each_with_index(1) do |m, m_i| %>
-  <% build_env = run_env = "" %>
   job<%= m_i %>:
     name: '<%= m[:os] %><%= " #{m[:os_ver]}" if m[:os_ver] %>: SFML <%= m[:sfml] %>, Crystal <%= m[:crystal] %>'
     runs-on: <%= m[:os].downcase %>-<%= m[:os_ver] || "latest" %>
@@ -47,77 +46,35 @@ jobs:
     steps:
       - name: Download CrSFML source
         uses: actions/checkout@v2
-  <% if m[:os] == ubuntu %>
-    <% if m[:sfml_apt] %>
-      <% pkgs = %w[libsfml-dev xvfb] %>
-    <% else %>
-      <% pkgs = %w[cmake libflac-dev libfreetype6-dev libgl1-mesa-dev libopenal-dev libudev-dev libvorbis-dev libx11-dev libxrandr-dev xvfb] %>
-    <% end %>
-      - name: Install packages
-        run: |
-          <% if !m[:docker] %>sudo <% end %>apt-get -q update
-          <% if !m[:docker] %>sudo <% end %>apt-get -qy install <%= pkgs.sort.join(" ") %>
-  <% end %>
-  <% if m[:os] == mac %>
-      - name: Install packages
-        run: brew install \
-        <% if m[:crystal] == homebrew %>crystal<% end %> \
-        <% if m[:sfml] == homebrew %>sfml<% else %>flac freetype jpeg libogg libvorbis<% end %>
-  <% end %>
-  <% if !m[:docker] && m[:crystal] != homebrew %>
+      - name: Install SFML
+        id: sfml
+        uses: oprypin/install-sfml@v1
+        with:
+          sfml: <%= m[:sfml_pkg] ? "package" : m[:sfml] %>
+  <% if m[:os] == mac && m[:crystal] == homebrew %>
+      - name: Install Crystal
+        run: brew install crystal
+  <% elsif !m[:docker] && m[:crystal] != homebrew %>
       - name: Install Crystal
         uses: oprypin/install-crystal@v1
         with:
           crystal: <%= m[:crystal] %>
   <% end %>
-  <% if m[:sfml] != homebrew && !m[:sfml_apt] %>
-      - name: Cache SFML
-        id: cache-sfml
-        uses: actions/cache@v1
-        with:
-          path: sfml
-          key: sfml-<%= m[:sfml].gsub(".", "_") %>-<%= m[:os].downcase %>-v4
-      - name: Download SFML source
-        if: steps.cache-sfml.outputs.cache-hit != 'true'
-        uses: actions/checkout@v2
-        with:
-          repository: SFML/SFML
-          ref: <%= m[:sfml] %>
-          path: sfml<% if m[:os] == windows %>-src<% end %>
-      - name: Build SFML
-        if: steps.cache-sfml.outputs.cache-hit != 'true'
-        working-directory: ./sfml<% if m[:os] == windows %>-src<% end %>
-        run: |
-          cmake . \
-          <% if m[:os] == windows %>-DCMAKE_INSTALL_PREFIX="$(pwd)/../sfml"<% else %>-DCMAKE_BUILD_TYPE=Release<% end %>
-          cmake --build . \
-          <% if m[:os] == windows %>--target install --config Release<% end %>
-  <% end %>
   <% if m[:os] == windows %>
       - name: Set up environment
         run: |
-          echo "PATH=$(pwd)\sfml\bin;${env:PATH}" >>${env:GITHUB_ENV}
-          echo "LIB=$(pwd)\sfml\lib;${env:LIB}" >>${env:GITHUB_ENV}
-          echo "INCLUDE=$(pwd)\sfml\include;${env:INCLUDE}" >>${env:GITHUB_ENV}
           echo "CRYSTAL_PATH=$(pwd)\..;${env:CRYSTAL_PATH}" >>${env:GITHUB_ENV}
-    <% sfml_include_dir = %("${env:GITHUB_WORKSPACE}\\sfml\\include") %>
-  <% elsif m[:sfml] == homebrew %>
-    <% sfml_include_dir = %(/usr/local/include) %>
-  <% elsif !m[:sfml_apt] %>
-    <% sfml_include_dir = %("$GITHUB_WORKSPACE/sfml/include") %>
-    <% build_env += %(LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" ) %>
-    <% run_env += %(LD_LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" ) %>
   <% end %>
   <% if m[:os] != windows %>
       - name: Re-generate sources
-        run: crystal generate.cr <%= sfml_include_dir %>
+        run: crystal generate.cr "${{steps.sfml.outputs.path}}/include"
   <% end %>
       - name: Build CrSFML
         run: \
   <% if m[:os] == windows -%>
           .\make
   <% else -%>
-          <% if sfml_include_dir %>SFML_INCLUDE_DIR=<%= sfml_include_dir %><% end %> \
+          SFML_INCLUDE_DIR="${{steps.sfml.outputs.path}}/include" \
           make -j
   <% end %>
   <% if m[:sfml] == latest_sfml %>
@@ -128,17 +85,16 @@ jobs:
         run: crystal doc
   <% if m[:os] == ubuntu %>
       - name: Start virtual display
-        run: Xvfb :99 -screen 0 1024x768x24 +extension GLX &
-    <% run_env += "DISPLAY=:99.0 " %>
+        run: |
+          Xvfb :99 -screen 0 1024x768x24 +extension GLX &
+          echo DISPLAY=:99.0 >>$GITHUB_ENV
   <% end %>
-  <% if m[:os] != mac || run_env.empty? %>
       - name: Run tests
-        run: <%= build_env %><%= run_env %>crystal spec
-  <% end %>
+        run: crystal spec
   <% examples.each_key do |example| %>
       - name: Build example "<%= example %>"
         working-directory: ./examples
-        run: <%= build_env %>crystal build <%= example %>.cr
+        run: crystal build <%= example %>.cr
   <% end %>
   <% if m[:sfml].in?(latest_sfml, homebrew) %>
     <% examples.each do |example, run| %>
@@ -152,7 +108,7 @@ jobs:
           Get-Process -Id $proc.Id
           kill $proc
         <% else %>
-          <%= run_env %>./<%= example %> & pid=$!
+          ./<%= example %> & pid=$!
           sleep 3
           kill $pid
         <% end %>

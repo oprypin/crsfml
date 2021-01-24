@@ -14,130 +14,114 @@ jobs:
     steps:
       - name: Download CrSFML source
         uses: actions/checkout@v2
-      - name: Install packages
-        run: |
-          sudo apt-get -q update
-          sudo apt-get -qy install cmake libflac-dev libfreetype6-dev libgl1-mesa-dev libopenal-dev libudev-dev libvorbis-dev libx11-dev libxrandr-dev xvfb
+      - name: Install SFML
+        id: sfml
+        uses: oprypin/install-sfml@v1
+        with:
+          sfml: 2.5.1
       - name: Install Crystal
         uses: oprypin/install-crystal@v1
         with:
           crystal: nightly
-      - name: Cache SFML
-        id: cache-sfml
-        uses: actions/cache@v1
-        with:
-          path: sfml
-          key: sfml-2_5_1-ubuntu-v4
-      - name: Download SFML source
-        if: steps.cache-sfml.outputs.cache-hit != 'true'
-        uses: actions/checkout@v2
-        with:
-          repository: SFML/SFML
-          ref: 2.5.1
-          path: sfml
-      - name: Build SFML
-        if: steps.cache-sfml.outputs.cache-hit != 'true'
-        working-directory: ./sfml
-        run: |
-          cmake . -DCMAKE_BUILD_TYPE=Release
-          cmake --build .
       - name: Re-generate sources
-        run: crystal generate.cr "$GITHUB_WORKSPACE/sfml/include"
+        run: crystal generate.cr "${{steps.sfml.outputs.path}}/include"
       - name: Build CrSFML
-        run: SFML_INCLUDE_DIR="$GITHUB_WORKSPACE/sfml/include" make -j
+        run: SFML_INCLUDE_DIR="${{steps.sfml.outputs.path}}/include" make -j
       - name: Validate freshness of generated files
         run: git diff --exit-code
       - name: Generate docs
         run: crystal doc
       - name: Start virtual display
-        run: Xvfb :99 -screen 0 1024x768x24 +extension GLX &
+        run: |
+          Xvfb :99 -screen 0 1024x768x24 +extension GLX &
+          echo DISPLAY=:99.0 >>$GITHUB_ENV
       - name: Run tests
-        run: LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" LD_LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" DISPLAY=:99.0 crystal spec
+        run: crystal spec
       - name: Build example "simple"
         working-directory: ./examples
-        run: LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" crystal build simple.cr
+        run: crystal build simple.cr
       - name: Build example "flippy_bird"
         working-directory: ./examples
-        run: LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" crystal build flippy_bird.cr
+        run: crystal build flippy_bird.cr
       - name: Build example "snakes"
         working-directory: ./examples
-        run: LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" crystal build snakes.cr
+        run: crystal build snakes.cr
       - name: Build example "transformable"
         working-directory: ./examples
-        run: LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" crystal build transformable.cr
+        run: crystal build transformable.cr
       - name: Build example "text_input"
         working-directory: ./examples
-        run: LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" crystal build text_input.cr
+        run: crystal build text_input.cr
       - name: Build example "diagnostics"
         working-directory: ./examples
-        run: LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" crystal build diagnostics.cr
+        run: crystal build diagnostics.cr
       - name: Build example "sound_capture"
         working-directory: ./examples
-        run: LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" crystal build sound_capture.cr
+        run: crystal build sound_capture.cr
       - name: Build example "shader"
         working-directory: ./examples
-        run: LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" crystal build shader.cr
+        run: crystal build shader.cr
       - name: Build example "shapes"
         working-directory: ./examples
-        run: LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" crystal build shapes.cr
+        run: crystal build shapes.cr
       - name: Build example "gl"
         working-directory: ./examples
-        run: LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" crystal build gl.cr
+        run: crystal build gl.cr
       - name: Build example "echo"
         working-directory: ./examples
-        run: LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" crystal build echo.cr
+        run: crystal build echo.cr
       - name: Run example "simple"
         working-directory: ./examples
         run: |
-          LD_LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" DISPLAY=:99.0 ./simple & pid=$!
+          ./simple & pid=$!
           sleep 3
           kill $pid
       - name: Run example "flippy_bird"
         working-directory: ./examples
         run: |
-          LD_LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" DISPLAY=:99.0 ./flippy_bird & pid=$!
+          ./flippy_bird & pid=$!
           sleep 3
           kill $pid
       - name: Run example "snakes"
         working-directory: ./examples
         run: |
-          LD_LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" DISPLAY=:99.0 ./snakes & pid=$!
+          ./snakes & pid=$!
           sleep 3
           kill $pid
       - name: Run example "transformable"
         working-directory: ./examples
         run: |
-          LD_LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" DISPLAY=:99.0 ./transformable & pid=$!
+          ./transformable & pid=$!
           sleep 3
           kill $pid
       - name: Run example "text_input"
         working-directory: ./examples
         run: |
-          LD_LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" DISPLAY=:99.0 ./text_input & pid=$!
+          ./text_input & pid=$!
           sleep 3
           kill $pid
       - name: Run example "diagnostics"
         working-directory: ./examples
         run: |
-          LD_LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" DISPLAY=:99.0 ./diagnostics & pid=$!
+          ./diagnostics & pid=$!
           sleep 3
           kill $pid
       - name: Run example "shader"
         working-directory: ./examples
         run: |
-          LD_LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" DISPLAY=:99.0 ./shader & pid=$!
+          ./shader & pid=$!
           sleep 3
           kill $pid
       - name: Run example "shapes"
         working-directory: ./examples
         run: |
-          LD_LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" DISPLAY=:99.0 ./shapes & pid=$!
+          ./shapes & pid=$!
           sleep 3
           kill $pid
       - name: Run example "gl"
         working-directory: ./examples
         run: |
-          LD_LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" DISPLAY=:99.0 ./gl & pid=$!
+          ./gl & pid=$!
           sleep 3
           kill $pid
       - name: Stop virtual display
@@ -150,20 +134,23 @@ jobs:
     steps:
       - name: Download CrSFML source
         uses: actions/checkout@v2
-      - name: Install packages
-        run: |
-          apt-get -q update
-          apt-get -qy install libsfml-dev xvfb
+      - name: Install SFML
+        id: sfml
+        uses: oprypin/install-sfml@v1
+        with:
+          sfml: package
       - name: Re-generate sources
-        run: crystal generate.cr
+        run: crystal generate.cr "${{steps.sfml.outputs.path}}/include"
       - name: Build CrSFML
-        run: make -j
+        run: SFML_INCLUDE_DIR="${{steps.sfml.outputs.path}}/include" make -j
       - name: Generate docs
         run: crystal doc
       - name: Start virtual display
-        run: Xvfb :99 -screen 0 1024x768x24 +extension GLX &
+        run: |
+          Xvfb :99 -screen 0 1024x768x24 +extension GLX &
+          echo DISPLAY=:99.0 >>$GITHUB_ENV
       - name: Run tests
-        run: DISPLAY=:99.0 crystal spec
+        run: crystal spec
       - name: Build example "simple"
         working-directory: ./examples
         run: crystal build simple.cr
@@ -203,106 +190,92 @@ jobs:
     steps:
       - name: Download CrSFML source
         uses: actions/checkout@v2
-      - name: Install packages
-        run: brew install flac freetype jpeg libogg libvorbis
+      - name: Install SFML
+        id: sfml
+        uses: oprypin/install-sfml@v1
+        with:
+          sfml: 2.5.1
       - name: Install Crystal
         uses: oprypin/install-crystal@v1
         with:
           crystal: latest
-      - name: Cache SFML
-        id: cache-sfml
-        uses: actions/cache@v1
-        with:
-          path: sfml
-          key: sfml-2_5_1-macos-v4
-      - name: Download SFML source
-        if: steps.cache-sfml.outputs.cache-hit != 'true'
-        uses: actions/checkout@v2
-        with:
-          repository: SFML/SFML
-          ref: 2.5.1
-          path: sfml
-      - name: Build SFML
-        if: steps.cache-sfml.outputs.cache-hit != 'true'
-        working-directory: ./sfml
-        run: |
-          cmake . -DCMAKE_BUILD_TYPE=Release
-          cmake --build .
       - name: Re-generate sources
-        run: crystal generate.cr "$GITHUB_WORKSPACE/sfml/include"
+        run: crystal generate.cr "${{steps.sfml.outputs.path}}/include"
       - name: Build CrSFML
-        run: SFML_INCLUDE_DIR="$GITHUB_WORKSPACE/sfml/include" make -j
+        run: SFML_INCLUDE_DIR="${{steps.sfml.outputs.path}}/include" make -j
       - name: Validate freshness of generated files
         run: git diff --exit-code
       - name: Generate docs
         run: crystal doc
+      - name: Run tests
+        run: crystal spec
       - name: Build example "simple"
         working-directory: ./examples
-        run: LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" crystal build simple.cr
+        run: crystal build simple.cr
       - name: Build example "flippy_bird"
         working-directory: ./examples
-        run: LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" crystal build flippy_bird.cr
+        run: crystal build flippy_bird.cr
       - name: Build example "snakes"
         working-directory: ./examples
-        run: LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" crystal build snakes.cr
+        run: crystal build snakes.cr
       - name: Build example "transformable"
         working-directory: ./examples
-        run: LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" crystal build transformable.cr
+        run: crystal build transformable.cr
       - name: Build example "text_input"
         working-directory: ./examples
-        run: LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" crystal build text_input.cr
+        run: crystal build text_input.cr
       - name: Build example "diagnostics"
         working-directory: ./examples
-        run: LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" crystal build diagnostics.cr
+        run: crystal build diagnostics.cr
       - name: Build example "sound_capture"
         working-directory: ./examples
-        run: LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" crystal build sound_capture.cr
+        run: crystal build sound_capture.cr
       - name: Build example "shader"
         working-directory: ./examples
-        run: LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" crystal build shader.cr
+        run: crystal build shader.cr
       - name: Build example "shapes"
         working-directory: ./examples
-        run: LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" crystal build shapes.cr
+        run: crystal build shapes.cr
       - name: Build example "gl"
         working-directory: ./examples
-        run: LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" crystal build gl.cr
+        run: crystal build gl.cr
       - name: Build example "echo"
         working-directory: ./examples
-        run: LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" crystal build echo.cr
+        run: crystal build echo.cr
       - name: Run example "simple"
         working-directory: ./examples
         run: |
-          LD_LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" ./simple & pid=$!
+          ./simple & pid=$!
           sleep 3
           kill $pid
       - name: Run example "flippy_bird"
         working-directory: ./examples
         run: |
-          LD_LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" ./flippy_bird & pid=$!
+          ./flippy_bird & pid=$!
           sleep 3
           kill $pid
       - name: Run example "transformable"
         working-directory: ./examples
         run: |
-          LD_LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" ./transformable & pid=$!
+          ./transformable & pid=$!
           sleep 3
           kill $pid
       - name: Run example "text_input"
         working-directory: ./examples
         run: |
-          LD_LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" ./text_input & pid=$!
+          ./text_input & pid=$!
           sleep 3
           kill $pid
       - name: Run example "shader"
         working-directory: ./examples
         run: |
-          LD_LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" ./shader & pid=$!
+          ./shader & pid=$!
           sleep 3
           kill $pid
       - name: Run example "gl"
         working-directory: ./examples
         run: |
-          LD_LIBRARY_PATH="$GITHUB_WORKSPACE/sfml/lib" ./gl & pid=$!
+          ./gl & pid=$!
           sleep 3
           kill $pid
   job4:
@@ -311,12 +284,17 @@ jobs:
     steps:
       - name: Download CrSFML source
         uses: actions/checkout@v2
-      - name: Install packages
-        run: brew install crystal sfml
+      - name: Install SFML
+        id: sfml
+        uses: oprypin/install-sfml@v1
+        with:
+          sfml: package
+      - name: Install Crystal
+        run: brew install crystal
       - name: Re-generate sources
-        run: crystal generate.cr /usr/local/include
+        run: crystal generate.cr "${{steps.sfml.outputs.path}}/include"
       - name: Build CrSFML
-        run: SFML_INCLUDE_DIR=/usr/local/include make -j
+        run: SFML_INCLUDE_DIR="${{steps.sfml.outputs.path}}/include" make -j
       - name: Generate docs
         run: crystal doc
       - name: Run tests
@@ -396,34 +374,17 @@ jobs:
     steps:
       - name: Download CrSFML source
         uses: actions/checkout@v2
+      - name: Install SFML
+        id: sfml
+        uses: oprypin/install-sfml@v1
+        with:
+          sfml: 2.5.1
       - name: Install Crystal
         uses: oprypin/install-crystal@v1
         with:
           crystal: nightly
-      - name: Cache SFML
-        id: cache-sfml
-        uses: actions/cache@v1
-        with:
-          path: sfml
-          key: sfml-2_5_1-windows-v4
-      - name: Download SFML source
-        if: steps.cache-sfml.outputs.cache-hit != 'true'
-        uses: actions/checkout@v2
-        with:
-          repository: SFML/SFML
-          ref: 2.5.1
-          path: sfml-src
-      - name: Build SFML
-        if: steps.cache-sfml.outputs.cache-hit != 'true'
-        working-directory: ./sfml-src
-        run: |
-          cmake . -DCMAKE_INSTALL_PREFIX="$(pwd)/../sfml"
-          cmake --build . --target install --config Release
       - name: Set up environment
         run: |
-          echo "PATH=$(pwd)\sfml\bin;${env:PATH}" >>${env:GITHUB_ENV}
-          echo "LIB=$(pwd)\sfml\lib;${env:LIB}" >>${env:GITHUB_ENV}
-          echo "INCLUDE=$(pwd)\sfml\include;${env:INCLUDE}" >>${env:GITHUB_ENV}
           echo "CRYSTAL_PATH=$(pwd)\..;${env:CRYSTAL_PATH}" >>${env:GITHUB_ENV}
       - name: Build CrSFML
         run: .\make
