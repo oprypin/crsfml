@@ -13,8 +13,6 @@ jobs:
         uses: actions/checkout@v2
       - name: Install Crystal
         uses: oprypin/install-crystal@v1
-        with:
-          crystal: nightly
       - name: Install Python
         uses: actions/setup-python@v2
       - name: Install dependencies
