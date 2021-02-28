@@ -36,5 +36,8 @@ plugins:
   - mkdocstrings:
       default_handler: crystal
       watch: [src]
+      handlers:
+        crystal:
+          crystal_docs_flags: [--source-refname=master]
   - literate-nav
   - section-index

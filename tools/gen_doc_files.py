@@ -12,9 +12,7 @@ for module in ["System", "Window", "Graphics", "Audio", "Network", ""]:
 
         with mkdocs_gen_files.open(f"api/{module.lower()}.md", "w") as f:
             f.write(textwrap.dedent(f"""
-                # Top-level
-
-                ::: SF
+                # ::: SF
                     selection:
                       file_filters:
                         - '/{module.lower()}/'
@@ -30,7 +28,11 @@ for module in ["System", "Window", "Graphics", "Audio", "Network", ""]:
             indent = bool(module) + full_name.count("::") - 1
             print("    " * indent + f"* [{name}]({path}.md)", file=nav)
 
-            with mkdocs_gen_files.open(f"api/{path}.md", "w") as f:
+            filename = f"api/{path}.md"
+            with mkdocs_gen_files.open(filename, "w") as f:
                 f.write(textwrap.dedent(f"""\
-                    ::: {full_name}
+                    # ::: {full_name}
                 """))
+
+            if typ.locations:
+                mkdocs_gen_files.set_edit_path(filename, typ.locations[0].url)
