@@ -135,7 +135,7 @@ module SF
   end
 
   alias Vector2i = Vector2(Int32)
-  alias Vector2u = Vector2i
+  alias Vector2u = Vector2(UInt32)
   alias Vector2f = Vector2(Float32)
 
   # Shorthand for `Vector2f.new`
