@@ -150,6 +150,12 @@ module SF
   def vector2i(x : Int, y : Int)
     Vector2i.new(x.to_i32, y.to_i32)
   end
+  # Shorthand for `Vector2u.new`
+  #
+  # Converts arguments to `UInt32`
+  def vector2u(x : Int, y : Int)
+    Vector2i.new(x.to_u32.to_i32!, y.to_u32.to_i32!)
+  end
 
   # Utility generic struct for manipulating 2-dimensional vectors
   #

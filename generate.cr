@@ -1074,7 +1074,7 @@ class CFunction < CItem
           else
             if type.full_name(Context::CPPSource) =~ /^Vector2([fiu])$/
               cr_type = "Vector2|Tuple"
-              conversions << "#{cr_arg} = Vector2#{$1}.new(#{cr_arg}[0].to_#{$1}32, #{cr_arg}[1].to_#{$1}32)" if context.crystal?
+              conversions << "#{cr_arg} = SF.vector2#{$1}(#{cr_arg}[0], #{cr_arg}[1])" if context.crystal?
             end
             c_type = "void*"; cl_type = "Void*"
           end

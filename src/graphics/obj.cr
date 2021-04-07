@@ -332,7 +332,7 @@ module SF
     # *Returns:* Transformed point
     def transform_point(point : Vector2|Tuple) : Vector2f
       result = Vector2f.allocate
-      point = Vector2f.new(point[0].to_f32, point[1].to_f32)
+      point = SF.vector2f(point[0], point[1])
       SFMLExt.sfml_transform_transformpoint_UU2(to_unsafe, point, result)
       return result
     end
@@ -402,7 +402,7 @@ module SF
     # *See also:* `rotate`, `scale`
     def translate(offset : Vector2|Tuple) : Transform
       result = Transform.allocate
-      offset = Vector2f.new(offset[0].to_f32, offset[1].to_f32)
+      offset = SF.vector2f(offset[0], offset[1])
       SFMLExt.sfml_transform_translate_UU2(to_unsafe, offset, result)
       return result
     end
@@ -473,7 +473,7 @@ module SF
     # *See also:* `translate`, `scale`
     def rotate(angle : Number, center : Vector2|Tuple) : Transform
       result = Transform.allocate
-      center = Vector2f.new(center[0].to_f32, center[1].to_f32)
+      center = SF.vector2f(center[0], center[1])
       SFMLExt.sfml_transform_rotate_Bw9UU2(to_unsafe, LibC::Float.new(angle), center, result)
       return result
     end
@@ -540,7 +540,7 @@ module SF
     # *See also:* `translate`, `rotate`
     def scale(factors : Vector2|Tuple) : Transform
       result = Transform.allocate
-      factors = Vector2f.new(factors[0].to_f32, factors[1].to_f32)
+      factors = SF.vector2f(factors[0], factors[1])
       SFMLExt.sfml_transform_scale_UU2(to_unsafe, factors, result)
       return result
     end
@@ -566,8 +566,8 @@ module SF
     # *See also:* `translate`, `rotate`
     def scale(factors : Vector2|Tuple, center : Vector2|Tuple) : Transform
       result = Transform.allocate
-      factors = Vector2f.new(factors[0].to_f32, factors[1].to_f32)
-      center = Vector2f.new(center[0].to_f32, center[1].to_f32)
+      factors = SF.vector2f(factors[0], factors[1])
+      center = SF.vector2f(center[0], center[1])
       SFMLExt.sfml_transform_scale_UU2UU2(to_unsafe, factors, center, result)
       return result
     end
@@ -595,7 +595,7 @@ module SF
     # *Returns:* New transformed point
     def *(right : Vector2|Tuple) : Vector2f
       result = Vector2f.allocate
-      right = Vector2f.new(right[0].to_f32, right[1].to_f32)
+      right = SF.vector2f(right[0], right[1])
       SFMLExt.sfml_operator_mul_FPeUU2(to_unsafe, right, result)
       return result
     end
@@ -967,7 +967,7 @@ module SF
     #
     # *See also:* `move`, `position`
     def position=(position : Vector2|Tuple)
-      position = Vector2f.new(position[0].to_f32, position[1].to_f32)
+      position = SF.vector2f(position[0], position[1])
       SFMLExt.sfml_transformable_setposition_UU2(to_unsafe, position)
     end
     # set the orientation of the object
@@ -1005,7 +1005,7 @@ module SF
     #
     # *See also:* `scale`, `scale`
     def scale=(factors : Vector2|Tuple)
-      factors = Vector2f.new(factors[0].to_f32, factors[1].to_f32)
+      factors = SF.vector2f(factors[0], factors[1])
       SFMLExt.sfml_transformable_setscale_UU2(to_unsafe, factors)
     end
     # set the local origin of the object
@@ -1037,7 +1037,7 @@ module SF
     #
     # *See also:* `origin`
     def origin=(origin : Vector2|Tuple)
-      origin = Vector2f.new(origin[0].to_f32, origin[1].to_f32)
+      origin = SF.vector2f(origin[0], origin[1])
       SFMLExt.sfml_transformable_setorigin_UU2(to_unsafe, origin)
     end
     # get the position of the object
@@ -1111,7 +1111,7 @@ module SF
     #
     # *See also:* `position=`
     def move(offset : Vector2|Tuple)
-      offset = Vector2f.new(offset[0].to_f32, offset[1].to_f32)
+      offset = SF.vector2f(offset[0], offset[1])
       SFMLExt.sfml_transformable_move_UU2(to_unsafe, offset)
     end
     # Rotate the object
@@ -1158,7 +1158,7 @@ module SF
     #
     # *See also:* `scale=`
     def scale(factor : Vector2|Tuple)
-      factor = Vector2f.new(factor[0].to_f32, factor[1].to_f32)
+      factor = SF.vector2f(factor[0], factor[1])
       SFMLExt.sfml_transformable_scale_UU2(to_unsafe, factor)
     end
     # get the combined transform of the object
@@ -1456,7 +1456,7 @@ module SF
       @position = uninitialized Vector2f
       @color = uninitialized Color
       @tex_coords = uninitialized Vector2f
-      position = Vector2f.new(position[0].to_f32, position[1].to_f32)
+      position = SF.vector2f(position[0], position[1])
       SFMLExt.sfml_vertex_initialize_UU2(to_unsafe, position)
     end
     # Construct the vertex from its position and color
@@ -1469,7 +1469,7 @@ module SF
       @position = uninitialized Vector2f
       @color = uninitialized Color
       @tex_coords = uninitialized Vector2f
-      position = Vector2f.new(position[0].to_f32, position[1].to_f32)
+      position = SF.vector2f(position[0], position[1])
       SFMLExt.sfml_vertex_initialize_UU2QVe(to_unsafe, position, color)
     end
     # Construct the vertex from its position and texture coordinates
@@ -1482,8 +1482,8 @@ module SF
       @position = uninitialized Vector2f
       @color = uninitialized Color
       @tex_coords = uninitialized Vector2f
-      position = Vector2f.new(position[0].to_f32, position[1].to_f32)
-      tex_coords = Vector2f.new(tex_coords[0].to_f32, tex_coords[1].to_f32)
+      position = SF.vector2f(position[0], position[1])
+      tex_coords = SF.vector2f(tex_coords[0], tex_coords[1])
       SFMLExt.sfml_vertex_initialize_UU2UU2(to_unsafe, position, tex_coords)
     end
     # Construct the vertex from its position, color and texture coordinates
@@ -1495,8 +1495,8 @@ module SF
       @position = uninitialized Vector2f
       @color = uninitialized Color
       @tex_coords = uninitialized Vector2f
-      position = Vector2f.new(position[0].to_f32, position[1].to_f32)
-      tex_coords = Vector2f.new(tex_coords[0].to_f32, tex_coords[1].to_f32)
+      position = SF.vector2f(position[0], position[1])
+      tex_coords = SF.vector2f(tex_coords[0], tex_coords[1])
       SFMLExt.sfml_vertex_initialize_UU2QVeUU2(to_unsafe, position, color, tex_coords)
     end
     @position : Vector2f
@@ -1505,7 +1505,7 @@ module SF
       @position
     end
     def position=(position : Vector2|Tuple)
-      position = Vector2f.new(position[0].to_f32, position[1].to_f32)
+      position = SF.vector2f(position[0], position[1])
       @position = position
     end
     @color : Color
@@ -1522,7 +1522,7 @@ module SF
       @tex_coords
     end
     def tex_coords=(tex_coords : Vector2|Tuple)
-      tex_coords = Vector2f.new(tex_coords[0].to_f32, tex_coords[1].to_f32)
+      tex_coords = SF.vector2f(tex_coords[0], tex_coords[1])
       @tex_coords = tex_coords
     end
     # :nodoc:
@@ -1978,7 +1978,7 @@ module SF
     end
     # :nodoc:
     def position=(position : Vector2|Tuple)
-      position = Vector2f.new(position[0].to_f32, position[1].to_f32)
+      position = SF.vector2f(position[0], position[1])
       SFMLExt.sfml_shape_setposition_UU2(to_unsafe, position)
     end
     # :nodoc:
@@ -1991,7 +1991,7 @@ module SF
     end
     # :nodoc:
     def scale=(factors : Vector2|Tuple)
-      factors = Vector2f.new(factors[0].to_f32, factors[1].to_f32)
+      factors = SF.vector2f(factors[0], factors[1])
       SFMLExt.sfml_shape_setscale_UU2(to_unsafe, factors)
     end
     # :nodoc:
@@ -2000,7 +2000,7 @@ module SF
     end
     # :nodoc:
     def origin=(origin : Vector2|Tuple)
-      origin = Vector2f.new(origin[0].to_f32, origin[1].to_f32)
+      origin = SF.vector2f(origin[0], origin[1])
       SFMLExt.sfml_shape_setorigin_UU2(to_unsafe, origin)
     end
     # :nodoc:
@@ -2032,7 +2032,7 @@ module SF
     end
     # :nodoc:
     def move(offset : Vector2|Tuple)
-      offset = Vector2f.new(offset[0].to_f32, offset[1].to_f32)
+      offset = SF.vector2f(offset[0], offset[1])
       SFMLExt.sfml_shape_move_UU2(to_unsafe, offset)
     end
     # :nodoc:
@@ -2045,7 +2045,7 @@ module SF
     end
     # :nodoc:
     def scale(factor : Vector2|Tuple)
-      factor = Vector2f.new(factor[0].to_f32, factor[1].to_f32)
+      factor = SF.vector2f(factor[0], factor[1])
       SFMLExt.sfml_shape_scale_UU2(to_unsafe, factor)
     end
     # :nodoc:
@@ -2235,7 +2235,7 @@ module SF
     end
     # :nodoc:
     def position=(position : Vector2|Tuple)
-      position = Vector2f.new(position[0].to_f32, position[1].to_f32)
+      position = SF.vector2f(position[0], position[1])
       SFMLExt.sfml_circleshape_setposition_UU2(to_unsafe, position)
     end
     # :nodoc:
@@ -2248,7 +2248,7 @@ module SF
     end
     # :nodoc:
     def scale=(factors : Vector2|Tuple)
-      factors = Vector2f.new(factors[0].to_f32, factors[1].to_f32)
+      factors = SF.vector2f(factors[0], factors[1])
       SFMLExt.sfml_circleshape_setscale_UU2(to_unsafe, factors)
     end
     # :nodoc:
@@ -2257,7 +2257,7 @@ module SF
     end
     # :nodoc:
     def origin=(origin : Vector2|Tuple)
-      origin = Vector2f.new(origin[0].to_f32, origin[1].to_f32)
+      origin = SF.vector2f(origin[0], origin[1])
       SFMLExt.sfml_circleshape_setorigin_UU2(to_unsafe, origin)
     end
     # :nodoc:
@@ -2289,7 +2289,7 @@ module SF
     end
     # :nodoc:
     def move(offset : Vector2|Tuple)
-      offset = Vector2f.new(offset[0].to_f32, offset[1].to_f32)
+      offset = SF.vector2f(offset[0], offset[1])
       SFMLExt.sfml_circleshape_move_UU2(to_unsafe, offset)
     end
     # :nodoc:
@@ -2302,7 +2302,7 @@ module SF
     end
     # :nodoc:
     def scale(factor : Vector2|Tuple)
-      factor = Vector2f.new(factor[0].to_f32, factor[1].to_f32)
+      factor = SF.vector2f(factor[0], factor[1])
       SFMLExt.sfml_circleshape_scale_UU2(to_unsafe, factor)
     end
     # :nodoc:
@@ -2413,7 +2413,7 @@ module SF
     #
     # *See also:* `point`
     def set_point(index : Int, point : Vector2|Tuple)
-      point = Vector2f.new(point[0].to_f32, point[1].to_f32)
+      point = SF.vector2f(point[0], point[1])
       SFMLExt.sfml_convexshape_setpoint_vgvUU2(to_unsafe, LibC::SizeT.new(index), point)
     end
     # Get the position of a point
@@ -2500,7 +2500,7 @@ module SF
     end
     # :nodoc:
     def position=(position : Vector2|Tuple)
-      position = Vector2f.new(position[0].to_f32, position[1].to_f32)
+      position = SF.vector2f(position[0], position[1])
       SFMLExt.sfml_convexshape_setposition_UU2(to_unsafe, position)
     end
     # :nodoc:
@@ -2513,7 +2513,7 @@ module SF
     end
     # :nodoc:
     def scale=(factors : Vector2|Tuple)
-      factors = Vector2f.new(factors[0].to_f32, factors[1].to_f32)
+      factors = SF.vector2f(factors[0], factors[1])
       SFMLExt.sfml_convexshape_setscale_UU2(to_unsafe, factors)
     end
     # :nodoc:
@@ -2522,7 +2522,7 @@ module SF
     end
     # :nodoc:
     def origin=(origin : Vector2|Tuple)
-      origin = Vector2f.new(origin[0].to_f32, origin[1].to_f32)
+      origin = SF.vector2f(origin[0], origin[1])
       SFMLExt.sfml_convexshape_setorigin_UU2(to_unsafe, origin)
     end
     # :nodoc:
@@ -2554,7 +2554,7 @@ module SF
     end
     # :nodoc:
     def move(offset : Vector2|Tuple)
-      offset = Vector2f.new(offset[0].to_f32, offset[1].to_f32)
+      offset = SF.vector2f(offset[0], offset[1])
       SFMLExt.sfml_convexshape_move_UU2(to_unsafe, offset)
     end
     # :nodoc:
@@ -2567,7 +2567,7 @@ module SF
     end
     # :nodoc:
     def scale(factor : Vector2|Tuple)
-      factor = Vector2f.new(factor[0].to_f32, factor[1].to_f32)
+      factor = SF.vector2f(factor[0], factor[1])
       SFMLExt.sfml_convexshape_scale_UU2(to_unsafe, factor)
     end
     # :nodoc:
@@ -3956,7 +3956,7 @@ module SF
     # * *size* - Size of the rectangle
     def initialize(size : Vector2|Tuple = Vector2.new(0, 0))
       SFMLExt.sfml_rectangleshape_allocate(out @this)
-      size = Vector2f.new(size[0].to_f32, size[1].to_f32)
+      size = SF.vector2f(size[0], size[1])
       SFMLExt.sfml_rectangleshape_initialize_UU2(to_unsafe, size)
     end
     # Set the size of the rectangle
@@ -3965,7 +3965,7 @@ module SF
     #
     # *See also:* `size`
     def size=(size : Vector2|Tuple)
-      size = Vector2f.new(size[0].to_f32, size[1].to_f32)
+      size = SF.vector2f(size[0], size[1])
       SFMLExt.sfml_rectangleshape_setsize_UU2(to_unsafe, size)
     end
     # Get the size of the rectangle
@@ -4068,7 +4068,7 @@ module SF
     end
     # :nodoc:
     def position=(position : Vector2|Tuple)
-      position = Vector2f.new(position[0].to_f32, position[1].to_f32)
+      position = SF.vector2f(position[0], position[1])
       SFMLExt.sfml_rectangleshape_setposition_UU2(to_unsafe, position)
     end
     # :nodoc:
@@ -4081,7 +4081,7 @@ module SF
     end
     # :nodoc:
     def scale=(factors : Vector2|Tuple)
-      factors = Vector2f.new(factors[0].to_f32, factors[1].to_f32)
+      factors = SF.vector2f(factors[0], factors[1])
       SFMLExt.sfml_rectangleshape_setscale_UU2(to_unsafe, factors)
     end
     # :nodoc:
@@ -4090,7 +4090,7 @@ module SF
     end
     # :nodoc:
     def origin=(origin : Vector2|Tuple)
-      origin = Vector2f.new(origin[0].to_f32, origin[1].to_f32)
+      origin = SF.vector2f(origin[0], origin[1])
       SFMLExt.sfml_rectangleshape_setorigin_UU2(to_unsafe, origin)
     end
     # :nodoc:
@@ -4122,7 +4122,7 @@ module SF
     end
     # :nodoc:
     def move(offset : Vector2|Tuple)
-      offset = Vector2f.new(offset[0].to_f32, offset[1].to_f32)
+      offset = SF.vector2f(offset[0], offset[1])
       SFMLExt.sfml_rectangleshape_move_UU2(to_unsafe, offset)
     end
     # :nodoc:
@@ -4135,7 +4135,7 @@ module SF
     end
     # :nodoc:
     def scale(factor : Vector2|Tuple)
-      factor = Vector2f.new(factor[0].to_f32, factor[1].to_f32)
+      factor = SF.vector2f(factor[0], factor[1])
       SFMLExt.sfml_rectangleshape_scale_UU2(to_unsafe, factor)
     end
     # :nodoc:
@@ -4253,8 +4253,8 @@ module SF
     # * *size* - Size of zone to display
     def initialize(center : Vector2|Tuple, size : Vector2|Tuple)
       SFMLExt.sfml_view_allocate(out @this)
-      center = Vector2f.new(center[0].to_f32, center[1].to_f32)
-      size = Vector2f.new(size[0].to_f32, size[1].to_f32)
+      center = SF.vector2f(center[0], center[1])
+      size = SF.vector2f(size[0], size[1])
       SFMLExt.sfml_view_initialize_UU2UU2(to_unsafe, center, size)
     end
     # Set the center of the view
@@ -4272,7 +4272,7 @@ module SF
     #
     # *See also:* `size=`, `center`
     def center=(center : Vector2|Tuple)
-      center = Vector2f.new(center[0].to_f32, center[1].to_f32)
+      center = SF.vector2f(center[0], center[1])
       SFMLExt.sfml_view_setcenter_UU2(to_unsafe, center)
     end
     # Set the size of the view
@@ -4290,7 +4290,7 @@ module SF
     #
     # *See also:* `center=`, `center`
     def size=(size : Vector2|Tuple)
-      size = Vector2f.new(size[0].to_f32, size[1].to_f32)
+      size = SF.vector2f(size[0], size[1])
       SFMLExt.sfml_view_setsize_UU2(to_unsafe, size)
     end
     # Set the orientation of the view
@@ -4382,7 +4382,7 @@ module SF
     #
     # *See also:* `center=`, `rotate`, `zoom`
     def move(offset : Vector2|Tuple)
-      offset = Vector2f.new(offset[0].to_f32, offset[1].to_f32)
+      offset = SF.vector2f(offset[0], offset[1])
       SFMLExt.sfml_view_move_UU2(to_unsafe, offset)
     end
     # Rotate the view relatively to its current orientation
@@ -4554,7 +4554,7 @@ module SF
     # *See also:* `map_coords_to_pixel`
     def map_pixel_to_coords(point : Vector2|Tuple) : Vector2f
       result = Vector2f.allocate
-      point = Vector2i.new(point[0].to_i32, point[1].to_i32)
+      point = SF.vector2i(point[0], point[1])
       SFMLExt.sfml_rendertarget_mappixeltocoords_ufV(to_unsafe, point, result)
       return result
     end
@@ -4586,7 +4586,7 @@ module SF
     # *See also:* `map_coords_to_pixel`
     def map_pixel_to_coords(point : Vector2|Tuple, view : View) : Vector2f
       result = Vector2f.allocate
-      point = Vector2i.new(point[0].to_i32, point[1].to_i32)
+      point = SF.vector2i(point[0], point[1])
       SFMLExt.sfml_rendertarget_mappixeltocoords_ufVDDi(to_unsafe, point, view, result)
       return result
     end
@@ -4607,7 +4607,7 @@ module SF
     # *See also:* `map_pixel_to_coords`
     def map_coords_to_pixel(point : Vector2|Tuple) : Vector2i
       result = Vector2i.allocate
-      point = Vector2f.new(point[0].to_f32, point[1].to_f32)
+      point = SF.vector2f(point[0], point[1])
       SFMLExt.sfml_rendertarget_mapcoordstopixel_UU2(to_unsafe, point, result)
       return result
     end
@@ -4635,7 +4635,7 @@ module SF
     # *See also:* `map_pixel_to_coords`
     def map_coords_to_pixel(point : Vector2|Tuple, view : View) : Vector2i
       result = Vector2i.allocate
-      point = Vector2f.new(point[0].to_f32, point[1].to_f32)
+      point = SF.vector2f(point[0], point[1])
       SFMLExt.sfml_rendertarget_mapcoordstopixel_UU2DDi(to_unsafe, point, view, result)
       return result
     end
@@ -5051,28 +5051,28 @@ module SF
     # :nodoc:
     def map_pixel_to_coords(point : Vector2|Tuple) : Vector2f
       result = Vector2f.allocate
-      point = Vector2i.new(point[0].to_i32, point[1].to_i32)
+      point = SF.vector2i(point[0], point[1])
       SFMLExt.sfml_rendertexture_mappixeltocoords_ufV(to_unsafe, point, result)
       return result
     end
     # :nodoc:
     def map_pixel_to_coords(point : Vector2|Tuple, view : View) : Vector2f
       result = Vector2f.allocate
-      point = Vector2i.new(point[0].to_i32, point[1].to_i32)
+      point = SF.vector2i(point[0], point[1])
       SFMLExt.sfml_rendertexture_mappixeltocoords_ufVDDi(to_unsafe, point, view, result)
       return result
     end
     # :nodoc:
     def map_coords_to_pixel(point : Vector2|Tuple) : Vector2i
       result = Vector2i.allocate
-      point = Vector2f.new(point[0].to_f32, point[1].to_f32)
+      point = SF.vector2f(point[0], point[1])
       SFMLExt.sfml_rendertexture_mapcoordstopixel_UU2(to_unsafe, point, result)
       return result
     end
     # :nodoc:
     def map_coords_to_pixel(point : Vector2|Tuple, view : View) : Vector2i
       result = Vector2i.allocate
-      point = Vector2f.new(point[0].to_f32, point[1].to_f32)
+      point = SF.vector2f(point[0], point[1])
       SFMLExt.sfml_rendertexture_mapcoordstopixel_UU2DDi(to_unsafe, point, view, result)
       return result
     end
@@ -5474,12 +5474,12 @@ module SF
     end
     # :nodoc:
     def position=(position : Vector2|Tuple)
-      position = Vector2i.new(position[0].to_i32, position[1].to_i32)
+      position = SF.vector2i(position[0], position[1])
       SFMLExt.sfml_renderwindow_setposition_ufV(to_unsafe, position)
     end
     # :nodoc:
     def size=(size : Vector2|Tuple)
-      size = Vector2u.new(size[0].to_u32, size[1].to_u32)
+      size = SF.vector2u(size[0], size[1])
       SFMLExt.sfml_renderwindow_setsize_DXO(to_unsafe, size)
     end
     # :nodoc:
@@ -5571,28 +5571,28 @@ module SF
     # :nodoc:
     def map_pixel_to_coords(point : Vector2|Tuple) : Vector2f
       result = Vector2f.allocate
-      point = Vector2i.new(point[0].to_i32, point[1].to_i32)
+      point = SF.vector2i(point[0], point[1])
       SFMLExt.sfml_renderwindow_mappixeltocoords_ufV(to_unsafe, point, result)
       return result
     end
     # :nodoc:
     def map_pixel_to_coords(point : Vector2|Tuple, view : View) : Vector2f
       result = Vector2f.allocate
-      point = Vector2i.new(point[0].to_i32, point[1].to_i32)
+      point = SF.vector2i(point[0], point[1])
       SFMLExt.sfml_renderwindow_mappixeltocoords_ufVDDi(to_unsafe, point, view, result)
       return result
     end
     # :nodoc:
     def map_coords_to_pixel(point : Vector2|Tuple) : Vector2i
       result = Vector2i.allocate
-      point = Vector2f.new(point[0].to_f32, point[1].to_f32)
+      point = SF.vector2f(point[0], point[1])
       SFMLExt.sfml_renderwindow_mapcoordstopixel_UU2(to_unsafe, point, result)
       return result
     end
     # :nodoc:
     def map_coords_to_pixel(point : Vector2|Tuple, view : View) : Vector2i
       result = Vector2i.allocate
-      point = Vector2f.new(point[0].to_f32, point[1].to_f32)
+      point = SF.vector2f(point[0], point[1])
       SFMLExt.sfml_renderwindow_mapcoordstopixel_UU2DDi(to_unsafe, point, view, result)
       return result
     end
@@ -6044,7 +6044,7 @@ module SF
     #
     # DEPRECATED: Use uniform=(const std::string&, const Glsl::Vec2&) instead.
     def set_parameter(name : String, vector : Vector2|Tuple)
-      vector = Vector2f.new(vector[0].to_f32, vector[1].to_f32)
+      vector = SF.vector2f(vector[0], vector[1])
       SFMLExt.sfml_shader_setparameter_zkCUU2(to_unsafe, name.bytesize, name, vector)
     end
     # Change a 3-components vector parameter of the shader
@@ -6337,7 +6337,7 @@ module SF
     end
     # :nodoc:
     def position=(position : Vector2|Tuple)
-      position = Vector2f.new(position[0].to_f32, position[1].to_f32)
+      position = SF.vector2f(position[0], position[1])
       SFMLExt.sfml_sprite_setposition_UU2(to_unsafe, position)
     end
     # :nodoc:
@@ -6350,7 +6350,7 @@ module SF
     end
     # :nodoc:
     def scale=(factors : Vector2|Tuple)
-      factors = Vector2f.new(factors[0].to_f32, factors[1].to_f32)
+      factors = SF.vector2f(factors[0], factors[1])
       SFMLExt.sfml_sprite_setscale_UU2(to_unsafe, factors)
     end
     # :nodoc:
@@ -6359,7 +6359,7 @@ module SF
     end
     # :nodoc:
     def origin=(origin : Vector2|Tuple)
-      origin = Vector2f.new(origin[0].to_f32, origin[1].to_f32)
+      origin = SF.vector2f(origin[0], origin[1])
       SFMLExt.sfml_sprite_setorigin_UU2(to_unsafe, origin)
     end
     # :nodoc:
@@ -6391,7 +6391,7 @@ module SF
     end
     # :nodoc:
     def move(offset : Vector2|Tuple)
-      offset = Vector2f.new(offset[0].to_f32, offset[1].to_f32)
+      offset = SF.vector2f(offset[0], offset[1])
       SFMLExt.sfml_sprite_move_UU2(to_unsafe, offset)
     end
     # :nodoc:
@@ -6404,7 +6404,7 @@ module SF
     end
     # :nodoc:
     def scale(factor : Vector2|Tuple)
-      factor = Vector2f.new(factor[0].to_f32, factor[1].to_f32)
+      factor = SF.vector2f(factor[0], factor[1])
       SFMLExt.sfml_sprite_scale_UU2(to_unsafe, factor)
     end
     # :nodoc:
@@ -6830,7 +6830,7 @@ module SF
     end
     # :nodoc:
     def position=(position : Vector2|Tuple)
-      position = Vector2f.new(position[0].to_f32, position[1].to_f32)
+      position = SF.vector2f(position[0], position[1])
       SFMLExt.sfml_text_setposition_UU2(to_unsafe, position)
     end
     # :nodoc:
@@ -6843,7 +6843,7 @@ module SF
     end
     # :nodoc:
     def scale=(factors : Vector2|Tuple)
-      factors = Vector2f.new(factors[0].to_f32, factors[1].to_f32)
+      factors = SF.vector2f(factors[0], factors[1])
       SFMLExt.sfml_text_setscale_UU2(to_unsafe, factors)
     end
     # :nodoc:
@@ -6852,7 +6852,7 @@ module SF
     end
     # :nodoc:
     def origin=(origin : Vector2|Tuple)
-      origin = Vector2f.new(origin[0].to_f32, origin[1].to_f32)
+      origin = SF.vector2f(origin[0], origin[1])
       SFMLExt.sfml_text_setorigin_UU2(to_unsafe, origin)
     end
     # :nodoc:
@@ -6884,7 +6884,7 @@ module SF
     end
     # :nodoc:
     def move(offset : Vector2|Tuple)
-      offset = Vector2f.new(offset[0].to_f32, offset[1].to_f32)
+      offset = SF.vector2f(offset[0], offset[1])
       SFMLExt.sfml_text_move_UU2(to_unsafe, offset)
     end
     # :nodoc:
@@ -6897,7 +6897,7 @@ module SF
     end
     # :nodoc:
     def scale(factor : Vector2|Tuple)
-      factor = Vector2f.new(factor[0].to_f32, factor[1].to_f32)
+      factor = SF.vector2f(factor[0], factor[1])
       SFMLExt.sfml_text_scale_UU2(to_unsafe, factor)
     end
     # :nodoc:
