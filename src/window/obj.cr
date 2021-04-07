@@ -488,8 +488,8 @@ module SF
     # *Returns:* true if the cursor was successfully loaded;
     # false otherwise
     def load_from_pixels(pixels : UInt8*, size : Vector2|Tuple, hotspot : Vector2|Tuple) : Bool
-      size = Vector2u.new(size[0].to_u32, size[1].to_u32)
-      hotspot = Vector2u.new(hotspot[0].to_u32, hotspot[1].to_u32)
+      size = SF.vector2u(size[0], size[1])
+      hotspot = SF.vector2u(hotspot[0], hotspot[1])
       SFMLExt.sfml_cursor_loadfrompixels_843t9zt9z(to_unsafe, pixels, size, hotspot, out result)
       return result
     end
@@ -1119,7 +1119,7 @@ module SF
     #
     # * *position* - New position of the mouse
     def self.position=(position : Vector2|Tuple)
-      position = Vector2i.new(position[0].to_i32, position[1].to_i32)
+      position = SF.vector2i(position[0], position[1])
       SFMLExt.sfml_mouse_setposition_ufV(position)
     end
     # Set the current position of the mouse in window coordinates
@@ -1130,7 +1130,7 @@ module SF
     # * *position* - New position of the mouse
     # * *relative_to* - Reference window
     def self.set_position(position : Vector2|Tuple, relative_to : Window)
-      position = Vector2i.new(position[0].to_i32, position[1].to_i32)
+      position = SF.vector2i(position[0], position[1])
       SFMLExt.sfml_mouse_setposition_ufVJRh(position, relative_to)
     end
   end
@@ -2588,7 +2588,7 @@ module SF
     #
     # *See also:* `position`
     def position=(position : Vector2|Tuple)
-      position = Vector2i.new(position[0].to_i32, position[1].to_i32)
+      position = SF.vector2i(position[0], position[1])
       SFMLExt.sfml_window_setposition_ufV(to_unsafe, position)
     end
     # Get the size of the rendering region of the window
@@ -2610,7 +2610,7 @@ module SF
     #
     # *See also:* `size`
     def size=(size : Vector2|Tuple)
-      size = Vector2u.new(size[0].to_u32, size[1].to_u32)
+      size = SF.vector2u(size[0], size[1])
       SFMLExt.sfml_window_setsize_DXO(to_unsafe, size)
     end
     # Change the title of the window
