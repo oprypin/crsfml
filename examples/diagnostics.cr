@@ -3,8 +3,7 @@ require "crsfml"
 require "crsfml/audio"
 require "./text_input"
 
-
-FONT = SF::Font.from_file("resources/font/Cantarell-Regular.otf")
+FONT = SF::Font.from_file("#{__DIR__}/resources/font/Cantarell-Regular.otf")
 
 module Color
   BLACK = SF::Color::Black
@@ -120,7 +119,7 @@ class KeyboardView < View
     margin = SF.vector2f(0.1, 0.1)
     @outline_thickness = (3 ** (scale / zoom)).round.to_i
 
-    yaml = YAML.parse(File.read("resources/keyboard-layout.yaml"))
+    yaml = YAML.parse(File.read("#{__DIR__}/resources/keyboard-layout.yaml"))
     y = margin.y * 3
     yaml.as_a.each do |line|
       x = margin.x * 3
