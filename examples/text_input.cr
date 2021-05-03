@@ -360,7 +360,7 @@ end
 
 def main()  # A hack to allow the code above to be reused: `require` and override `main`
   window = SF::RenderWindow.new(SF::VideoMode.new(800, 600), "Typing")
-  text = TypingWidget.new(SF::Font.from_file("resources/font/Cantarell-Regular.otf"), 24)
+  text = TypingWidget.new(SF::Font.from_file("#{__DIR__}/resources/font/Cantarell-Regular.otf"), 24)
 
   while window.open?
     while event = window.poll_event

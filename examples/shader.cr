@@ -4,7 +4,7 @@
 require "crsfml"
 require "crsfml/network"
 
-FONT = SF::Font.from_file("resources/font/Cantarell-Regular.otf")
+FONT = SF::Font.from_file("#{__DIR__}/resources/font/Cantarell-Regular.otf")
 
 def mouse_pos(window)
   cursor = SF::Mouse.get_position(window)
@@ -12,11 +12,11 @@ def mouse_pos(window)
 end
 
 class Scene1
-  BACKGROUND_TEXTURE = SF::Texture.from_file("resources/background.jpg")
+  BACKGROUND_TEXTURE = SF::Texture.from_file("#{__DIR__}/resources/background.jpg")
 
   def initialize
     @sprite = SF::Sprite.new(BACKGROUND_TEXTURE)
-    @shader = SF::Shader.from_file("resources/shaders/pixelate.frag", SF::Shader::Fragment)
+    @shader = SF::Shader.from_file("#{__DIR__}/resources/shaders/pixelate.frag", SF::Shader::Fragment)
     @shader.texture SF::Shader::CurrentTexture
   end
 
@@ -41,7 +41,7 @@ class Scene2
     @text.position = {30, 20}
     @text.color = SF::Color::Black
 
-    @shader = SF::Shader.from_file("resources/shaders/wave.vert", "resources/shaders/blur.frag")
+    @shader = SF::Shader.from_file("#{__DIR__}/resources/shaders/wave.vert", "#{__DIR__}/resources/shaders/blur.frag")
     @clock = SF::Clock.new
   end
 

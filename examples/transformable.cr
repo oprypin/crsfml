@@ -1,7 +1,6 @@
 require "crsfml"
 
-
-FONT = SF::Font.from_file("resources/font/Cantarell-Regular.otf")
+FONT = SF::Font.from_file("#{__DIR__}/resources/font/Cantarell-Regular.otf")
 
 struct SF::Rect
   def center
