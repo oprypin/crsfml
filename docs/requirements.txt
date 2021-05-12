@@ -1,6 +1,6 @@
 mkdocs
 mkdocs-material
-markdown-include
+pymdown-extensions
 git+https://github.com/oprypin/mkdocstrings-crystal@master
 git+https://github.com/oprypin/mkdocs-literate-nav@master
 git+https://github.com/oprypin/mkdocs-section-index@master

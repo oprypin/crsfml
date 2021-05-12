@@ -23,7 +23,7 @@ markdown_extensions:
   - pymdownx.magiclink
   - pymdownx.saneheaders
   - pymdownx.superfences
-  - markdown_include.include
+  - pymdownx.snippets
   - deduplicate-toc
   - toc:
       permalink: "#"
