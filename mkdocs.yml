@@ -25,6 +25,7 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.snippets
   - deduplicate-toc
+  - callouts
   - toc:
       permalink: "#"
 

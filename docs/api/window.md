@@ -55,7 +55,7 @@ Set the content of the clipboard as string data
 This function sets the content of the clipboard as a
 string.
 
-*Warning:* Due to limitations on some operating systems,
+WARNING: Due to limitations on some operating systems,
 setting the clipboard contents is only
 guaranteed to work if there is currently an
 open window for which events are being handled.
@@ -290,7 +290,7 @@ Bits of the stencil buffer
 
 Cursor defines the appearance of a system cursor
 
-*Warning:* Features related to Cursor are not supported on
+WARNING: Features related to Cursor are not supported on
 iOS and Android.
 
 This class abstracts the operating system resources
@@ -429,7 +429,7 @@ which will be located exactly where the mouse pointer
 position is. Any mouse actions that are performed will
 return the window/screen location of the hotspot.
 
-*Warning:* On Unix, the pixels are mapped into a monochrome
+WARNING: On Unix, the pixels are mapped into a monochrome
 bitmap: pixels with an alpha channel to 0 are
 transparent, black if the RGB channel are close
 to zero, and white otherwise.
@@ -2321,10 +2321,10 @@ Set the displayed cursor to a native system cursor
 
 Upon window creation, the arrow cursor is used by default.
 
-*Warning:* The cursor must not be destroyed while in use by
+WARNING: The cursor must not be destroyed while in use by
 the window.
 
-*Warning:* Features related to Cursor are not supported on
+WARNING: Features related to Cursor are not supported on
 iOS and Android.
 
 * *cursor* - Native system cursor type to display

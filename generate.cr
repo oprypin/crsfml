@@ -232,7 +232,7 @@ abstract class CItem
           line = line.gsub /(@ref|\\a)\b *([^ ()]+)/ { "*#{$2.underscore}*" }
           line = line.sub /\\em\b *([^ ]+)/ { "*#{$1}*" }
           line = line.sub /^\\return\b */, "*Returns:* "
-          line = line.sub /^\\warning\b */, "*Warning:* "
+          line = line.sub /^\\warning\b */, "WARNING: "
           line = line.sub /^\\deprecated\b */, "DEPRECATED: "
           line = line.sub /^\\overload\b/, ":ditto:"
           line = line.gsub /\bsf(::[^ \.;,()]+)\b/ { "`SF#{$1}`" }

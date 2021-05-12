@@ -253,7 +253,7 @@ Get the positions of the of the sound's looping sequence
 
 *Returns:* Loop Time position class.
 
-*Warning:* Since `loop_points=()` performs some adjustments on the
+WARNING: Since `loop_points=()` performs some adjustments on the
 provided values and rounds them to internal samples, a call to
 loop_points() is not guaranteed to return the same times passed
 into a previous call to `loop_points=()`. However, it is guaranteed
@@ -275,7 +275,7 @@ in case the caller seeks to a point after the end of the loop range. This functi
 safely called at any point after a stream is opened, and will be applied to a playing sound
 without affecting the current playing offset.
 
-*Warning:* Setting the loop points while the stream's status is Paused
+WARNING: Setting the loop points while the stream's status is Paused
 will set its status to Stopped. The playing offset will be unaffected.
 
 * *time_points* - The definition of the loop. Can be any time points within the sound's length
@@ -326,7 +326,7 @@ to do so).
 See the documentation of `SF::InputSoundFile` for the list
 of supported formats.
 
-*Warning:* Since the music is not loaded at once but rather
+WARNING: Since the music is not loaded at once but rather
 streamed continuously, the file must remain accessible until
 the `SF::Music` object loads a new music or is destroyed.
 
@@ -345,7 +345,7 @@ to do so).
 See the documentation of `SF::InputSoundFile` for the list
 of supported formats.
 
-*Warning:* Since the music is not loaded at once but rather streamed
+WARNING: Since the music is not loaded at once but rather streamed
 continuously, the *data* buffer must remain accessible until
 the `SF::Music` object loads a new music or is destroyed. That is,
 you can't deallocate the buffer right after calling this function.
@@ -365,7 +365,7 @@ to do so).
 See the documentation of `SF::InputSoundFile` for the list
 of supported formats.
 
-*Warning:* Since the music is not loaded at once but rather
+WARNING: Since the music is not loaded at once but rather
 streamed continuously, the *stream* must remain accessible
 until the `SF::Music` object loads a new music or is destroyed.
 

@@ -1007,7 +1007,7 @@ Note that this function knows nothing about the standard
 fonts installed on the user's system, thus you can't
 load them directly.
 
-*Warning:* SFML cannot preload all the font data in this
+WARNING: SFML cannot preload all the font data in this
 function, so the file has to remain accessible until
 the `SF::Font` object loads a new font or is destroyed.
 
@@ -1024,7 +1024,7 @@ Load the font from a file in memory
 The supported font formats are: TrueType, Type 1, CFF,
 OpenType, SFNT, X11 PCF, Windows FNT, BDF, PFR and Type 42.
 
-*Warning:* SFML cannot preload all the font data in this
+WARNING: SFML cannot preload all the font data in this
 function, so the buffer pointed by *data* has to remain
 valid until the `SF::Font` object loads a new font or
 is destroyed.
@@ -1045,7 +1045,7 @@ Warning: SFML cannot preload all the font data in this
 function, so the contents of *stream* have to remain
 valid as long as the font is used.
 
-*Warning:* SFML cannot preload all the font data in this
+WARNING: SFML cannot preload all the font data in this
 function, so the stream has to remain accessible until
 the `SF::Font` object loads a new font or is destroyed.
 
