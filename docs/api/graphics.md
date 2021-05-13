@@ -11,12 +11,12 @@ mixed with the colors that are already in the buffer.
 The struct is composed of 6 components, each of which has its
 own public member variable:
 
-* Color Source Factor (*color_src_factor*)
-* Color Destination Factor (*color_dst_factor*)
-* Color Blend Equation (*color_equation*)
-* Alpha Source Factor (*alpha_src_factor*)
-* Alpha Destination Factor (*alpha_dst_factor*)
-* Alpha Blend Equation (*alpha_equation*)
+* Color Source Factor (`color_src_factor`)
+* Color Destination Factor (`color_dst_factor`)
+* Color Blend Equation (`color_equation`)
+* Alpha Source Factor (`alpha_src_factor`)
+* Alpha Destination Factor (`alpha_dst_factor`)
+* Alpha Blend Equation (`alpha_equation`)
 
 The source factor specifies how the pixel you are drawing contributes
 to the final color. The destination factor specifies how the pixel
@@ -53,7 +53,7 @@ that is passed to the member function `SF::RenderTarget.draw()`.
 Enumeration of the blending equations
 
 The equations are mapped directly to their OpenGL equivalents,
-specified by `gl_blend_equation()` or gl_blend_equation_separate().
+specified by `gl_blend_equation()` or `gl_blend_equation_separate()`.
 
 ### SF::BlendMode::Equation::Add
 
@@ -164,7 +164,7 @@ Construct the blend mode given the factors and equation.
 Construct the blend mode given the factors and equation.
 
 This constructor uses the same factors and equation for both
-color and alpha components. It also defaults to the Add equation.
+color and alpha components. It also defaults to the `Add` equation.
 
 * *source_factor* - Specifies how to compute the source factor for the color and alpha channels.
 * *destination_factor* - Specifies how to compute the destination factor for the color and alpha channels.
@@ -466,7 +466,7 @@ Green component
 Default constructor
 
 Constructs an opaque black color. It is equivalent to
-`SF::Color`(0, 0, 0, 255).
+`SF::Color.new(0, 0, 0, 255)`.
 
 ## SF::Color#initialize(color)
 
@@ -739,7 +739,7 @@ Set the position of a point
 
 Don't forget that the polygon must remain convex, and
 the points need to stay ordered!
-point_count= must be called first in order to set the total
+`point_count=` must be called first in order to set the total
 number of points. The result is undefined if *index* is out
 of the valid range.
 
@@ -824,7 +824,7 @@ Class for loading and manipulating character fonts
 
 Fonts can be loaded from a file, from memory or from a custom
 stream, and supports the most common types of fonts. See
-the load_from_file function for the complete list of supported formats.
+the `load_from_file` function for the complete list of supported formats.
 
 Once it is loaded, a `SF::Font` instance provides three
 types of information about the font:
@@ -931,7 +931,7 @@ kerning offset of zero, though.
 * *second* - Unicode code point of the second character
 * *character_size* - Reference character size
 
-*Returns:* Kerning value for *first* and *second,* in pixels
+*Returns:* Kerning value for *first* and *second*, in pixels
 
 ## SF::Font#get_line_spacing(character_size)
 
@@ -1041,7 +1041,8 @@ Load the font from a custom stream
 
 The supported font formats are: TrueType, Type 1, CFF,
 OpenType, SFNT, X11 PCF, Windows FNT, BDF, PFR and Type 42.
-Warning: SFML cannot preload all the font data in this
+
+WARNING: SFML cannot preload all the font data in this
 function, so the contents of *stream* have to remain
 valid as long as the font is used.
 
@@ -1167,7 +1168,7 @@ Create the image and fill it with a unique color
 Create the image from an array of pixels
 
 The *pixel* array is assumed to contain 32-bits RGBA pixels,
-and have the given *width* and *height.* If not, this is
+and have the given *width* and *height*. If not, this is
 an undefined behavior.
 If *pixels* is null, an empty image is created.
 
@@ -1275,7 +1276,8 @@ Get a read-only pointer to the array of pixels
 The returned value points to an array of RGBA pixels made of
 8 bits integers components. The size of the array is
 width * height * 4 (size().x * `size()`.y * 4).
-Warning: the returned pointer may become invalid if you
+
+WARNING: The returned pointer may become invalid if you
 modify the image, so you should never store it for too long.
 If the image is empty, a null pointer is returned.
 
@@ -1334,7 +1336,7 @@ List of individual lines
 
 ## SF::PrimitiveType::LinesStrip
 
-DEPRECATED: Use LineStrip instead
+DEPRECATED: Use `LineStrip` instead
 
 ## SF::PrimitiveType::Points
 
@@ -1358,11 +1360,11 @@ List of individual triangles
 
 ## SF::PrimitiveType::TrianglesFan
 
-DEPRECATED: Use TriangleFan instead
+DEPRECATED: Use `TriangleFan` instead
 
 ## SF::PrimitiveType::TrianglesStrip
 
-DEPRECATED: Use TriangleStrip instead
+DEPRECATED: Use `TriangleStrip` instead
 
 # SF::RectangleShape
 
@@ -1565,7 +1567,7 @@ Set the size of the rectangle
 
 # SF::RenderStates
 
-Define the states used for drawing to a RenderTarget
+Define the states used for drawing to a `RenderTarget`
 
 There are four global states that can be applied to
 the drawn objects:
@@ -1599,7 +1601,7 @@ shader, you can pass it to the constructor of `SF::RenderStates`.
 window.draw(sprite, SF::RenderStates.new(shader))
 ```
 
-When you're inside the Draw function of a drawable
+When you're inside the `draw` function of a drawable
 object (one that includes `SF::Drawable`), you can
 either pass the render states unmodified, or change
 some of them.
@@ -1621,7 +1623,7 @@ Constructing a default set of render states is equivalent
 to using `SF::RenderStates::Default`.
 The default set defines:
 
-* the BlendAlpha blend mode
+* the `BlendAlpha` blend mode
 * the identity transform
 * a null texture
 * a null shader
@@ -1695,7 +1697,7 @@ On top of that, render targets are still able to render direct
 OpenGL stuff. It is even possible to mix together OpenGL calls
 and regular SFML drawing commands. When doing so, make sure that
 OpenGL states are not messed up by calling the
-push_gl_states/pop_gl_states functions.
+`push_gl_states`/`pop_gl_states` functions.
 
 *See also:* `SF::RenderWindow`, `SF::RenderTexture`, `SF::View`
 
@@ -1871,7 +1873,7 @@ render target.
 
 Restore the previously saved OpenGL render states and matrices
 
-See the description of push_gl_states to get a detailed
+See the description of `push_gl_states` to get a detailed
 description of these functions.
 
 *See also:* `push_gl_states`
@@ -1915,7 +1917,7 @@ Reset the internal OpenGL states so that the target is ready for drawing
 
 This function can be used when you mix SFML drawing
 and direct OpenGL rendering, if you choose not to use
-push_gl_states/pop_gl_states. It makes sure that all OpenGL
+`push_gl_states`/`pop_gl_states`. It makes sure that all OpenGL
 states needed by SFML are set, so that subsequent `draw()`
 calls will work as expected.
 
@@ -2020,7 +2022,7 @@ end
 Like `SF::RenderWindow`, `SF::RenderTexture` is still able to render direct
 OpenGL stuff. It is even possible to mix together OpenGL calls
 and regular SFML drawing commands. If you need a depth buffer for
-3D rendering, don't forget to request it when calling RenderTexture.create.
+3D rendering, don't forget to request it when calling `RenderTexture.create`.
 
 *See also:* `SF::RenderTarget`, `SF::RenderWindow`, `SF::View`, `SF::Texture`
 
@@ -2050,7 +2052,7 @@ Create the render-texture
 Before calling this function, the render-texture is in
 an invalid state, thus it is mandatory to call it before
 doing anything with the render-texture.
-The last parameter, *depth_buffer,* is useful if you want
+The last parameter, *depth_buffer*, is useful if you want
 to use the render-texture for 3D OpenGL rendering that requires
 a depth buffer. Otherwise it is unnecessary, and you should
 leave this parameter to false (which is its default value).
@@ -2061,7 +2063,7 @@ leave this parameter to false (which is its default value).
 
 *Returns:* True if creation has been successful
 
-DEPRECATED: Use create(unsigned int, unsigned int, const ContextSettings&) instead.
+DEPRECATED: Use `create(width, height, settings)` instead.
 
 ## SF::RenderTexture#create(width,height,settings)
 
@@ -2070,7 +2072,7 @@ Create the render-texture
 Before calling this function, the render-texture is in
 an invalid state, thus it is mandatory to call it before
 doing anything with the render-texture.
-The last parameter, *settings,* is useful if you want to enable
+The last parameter, *settings*, is useful if you want to enable
 multi-sampling or use the render-texture for OpenGL rendering that
 requires a depth or stencil buffer. Otherwise it is unnecessary, and
 you should leave this parameter at its default value.
@@ -2179,7 +2181,7 @@ Tell whether the texture is repeated or not
 
 Enable or disable texture repeating
 
-This function is similar to Texture.repeated=.
+This function is similar to `Texture.repeated=`.
 This parameter is disabled by default.
 
 * *repeated* - True to enable repeating, false to disable it
@@ -2211,7 +2213,7 @@ Tell whether the smooth filtering is enabled or not
 
 Enable or disable texture smoothing
 
-This function is similar to Texture.smooth=.
+This function is similar to `Texture.smooth=`.
 This parameter is disabled by default.
 
 * *smooth* - True to enable smoothing, false to disable it
@@ -2447,6 +2449,7 @@ parameters for a regular usage of the graphics module.
 
 * *handle* - Platform-specific handle of the control (*hwnd* on
 Windows, *%window* on Linux/FreeBSD, *ns_window* on OS X)
+
 * *settings* - Additional settings for the underlying OpenGL context
 
 ## SF::RenderWindow#initialize(mode,title,style,settings)
@@ -2454,7 +2457,7 @@ Windows, *%window* on Linux/FreeBSD, *ns_window* on OS X)
 Construct a new window
 
 This constructor creates the window with the size and pixel
-depth defined in *mode.* An optional style can be passed to
+depth defined in *mode*. An optional style can be passed to
 customize the look and behavior of the window (borders,
 title bar, resizable, closable, ...).
 
@@ -2967,8 +2970,6 @@ Change a matrix parameter of the shader
 ## SF::Shader#set_parameter(name,vector)
 
 Change a 2-components vector parameter of the shader
-
-DEPRECATED: Use uniform=(const std::string&, const Glsl::Vec2&) instead.
 
 ## SF::Shader#set_parameter(name,vector)
 
@@ -3667,7 +3668,7 @@ Get the fill color of the text
 
 DEPRECATED: There is now fill and outline colors instead
 of a single global color.
-Use `fill_color()` or outline_color() instead.
+Use `fill_color()` or `outline_color()` instead.
 
 ## SF::Text#color=(color)
 
@@ -3683,7 +3684,7 @@ will cause the outline to be displayed in the fill area of the text.
 
 DEPRECATED: There is now fill and outline colors instead
 of a single global color.
-Use `fill_color=()` or outline_color=() instead.
+Use `fill_color=()` or `outline_color=()` instead.
 
 ## SF::Text#draw(target,states)
 
@@ -3736,7 +3737,7 @@ the string is returned.
 
 Get the text's font
 
-If the text has no font attached, a NULL pointer is returned.
+If the text has no font attached, `nil` is returned.
 The returned pointer is const, which means that you
 cannot modify the font when you get it from this function.
 
@@ -4032,7 +4033,7 @@ so that you don't need an image first for the most common cases.
 However, if you want to perform some modifications on the pixels
 before creating the final texture, you can load your file to a
 `SF::Image`, do whatever you need with the pixels, and then call
-Texture.load_from_image.
+`Texture.load_from_image`.
 
 Since they live in the graphics card memory, the pixels of a texture
 cannot be accessed without a slow copy first. And they cannot be
@@ -4215,7 +4216,7 @@ texture.load_from_image(image, area)
 
 The *area* argument can be used to load only a sub-rectangle
 of the whole image. If you want the entire image then leave
-the default value (which is an empty IntRect).
+the default value (which is an empty `IntRect`).
 If the *area* rectangle crosses the bounds of the image, it
 is adjusted to fit the image size.
 
@@ -4266,7 +4267,7 @@ texture.load_from_image(image, area)
 
 The *area* argument can be used to load only a sub-rectangle
 of the whole image. If you want the entire image then leave
-the default value (which is an empty IntRect).
+the default value (which is an empty `IntRect`).
 If the *area* rectangle crosses the bounds of the image, it
 is adjusted to fit the image size.
 
@@ -4351,7 +4352,8 @@ coordinate (for example, if the X texture coordinate is
 3 * width, the texture will be repeated 3 times).
 If repeat mode is disabled, the "extra space" will instead
 be filled with border pixels.
-Warning: on very old graphics cards, white pixels may appear
+
+WARNING: On very old graphics cards, white pixels may appear
 when the texture is repeated. With such cards, repeat mode
 can be used reliably only if the texture has power-of-two
 dimensions (such as 256x128).
@@ -4604,12 +4606,12 @@ rect = transform.transform_rect(SF.float_rect(0, 0, 10, 100))
 Combine the current transform with another one
 
 The result is a transform that is equivalent to applying
-*this followed by *transform.* Mathematically, it is
+`self` followed by *transform*. Mathematically, it is
 equivalent to a matrix multiplication.
 
 * *transform* - Transform to combine with this transform
 
-*Returns:* Reference to *this
+*Returns:* `self`
 
 ## SF::Transform#initialize()
 
@@ -4663,7 +4665,7 @@ glLoadMatrixf(transform.matrix())
 
 Overload of binary operator * to combine two transforms
 
-This call is equivalent to calling Transform(left).combine(right).
+This call is equivalent to calling `Transform(left).combine(right)`.
 
 * *left* - Left operand (the first transform)
 * *right* - Right operand (the second transform)
@@ -4674,7 +4676,7 @@ This call is equivalent to calling Transform(left).combine(right).
 
 Overload of binary operator * to transform a point
 
-This call is equivalent to calling left.transform_point(right).
+This call is equivalent to calling `left.transform_point(right)`.
 
 * *left* - Left operand (the transform)
 * *right* - Right operand (the point to transform)
@@ -4697,7 +4699,7 @@ left transform with the elements of the right transform.
 
 Overload of binary operator != to compare two transforms
 
-This call is equivalent to !(left == right).
+This call is equivalent to `!(left == right)`.
 
 * *left* - Left operand (the first transform)
 * *right* - Right operand (the second transform)
@@ -4708,7 +4710,7 @@ This call is equivalent to !(left == right).
 
 Combine the current transform with a rotation
 
-This function returns a reference to *this, so that calls
+This function returns `self`, so that calls
 can be chained.
 ```
 transform = SF::Transform.new
@@ -4717,7 +4719,7 @@ transform.rotate(90).translate(50, 20)
 
 * *angle* - Rotation angle, in degrees
 
-*Returns:* Reference to *this
+*Returns:* `self`
 
 *See also:* `translate`, `scale`
 
@@ -4728,9 +4730,9 @@ Combine the current transform with a rotation
 The center of rotation is provided for convenience as a second
 argument, so that you can build rotations around arbitrary points
 more easily (and efficiently) than the usual
-translate(-center).rotate(angle).translate(center).
+`translate(-center).rotate(angle).translate(center)`.
 
-This function returns a reference to *this, so that calls
+This function returns `self`, so that calls
 can be chained.
 ```
 transform = SF::Transform.new
@@ -4740,7 +4742,7 @@ transform.rotate(90, SF.vector2f(8, 3)).translate(SF.vector2f(50, 20))
 * *angle* - Rotation angle, in degrees
 * *center* - Center of rotation
 
-*Returns:* Reference to *this
+*Returns:* `self`
 
 *See also:* `translate`, `scale`
 
@@ -4751,9 +4753,9 @@ Combine the current transform with a rotation
 The center of rotation is provided for convenience as a second
 argument, so that you can build rotations around arbitrary points
 more easily (and efficiently) than the usual
-translate(-center).rotate(angle).translate(center).
+`translate(-center).rotate(angle).translate(center)`.
 
-This function returns a reference to *this, so that calls
+This function returns `self`, so that calls
 can be chained.
 ```
 transform = SF::Transform.new
@@ -4764,7 +4766,7 @@ transform.rotate(90, 8, 3).translate(50, 20)
 * *center_x* - X coordinate of the center of rotation
 * *center_y* - Y coordinate of the center of rotation
 
-*Returns:* Reference to *this
+*Returns:* `self`
 
 *See also:* `translate`, `scale`
 
@@ -4772,7 +4774,7 @@ transform.rotate(90, 8, 3).translate(50, 20)
 
 Combine the current transform with a scaling
 
-This function returns a reference to *this, so that calls
+This function returns `self`, so that calls
 can be chained.
 ```
 transform = SF::Transform.new
@@ -4781,7 +4783,7 @@ transform.scale(SF.vector2f(2, 1)).rotate(45)
 
 * *factors* - Scaling factors
 
-*Returns:* Reference to *this
+*Returns:* `self`
 
 *See also:* `translate`, `rotate`
 
@@ -4792,9 +4794,9 @@ Combine the current transform with a scaling
 The center of scaling is provided for convenience as a second
 argument, so that you can build scaling around arbitrary points
 more easily (and efficiently) than the usual
-translate(-center).scale(factors).translate(center).
+`translate(-center).scale(factors).translate(center)`.
 
-This function returns a reference to *this, so that calls
+This function returns `self`, so that calls
 can be chained.
 ```
 transform = SF::Transform.new
@@ -4804,7 +4806,7 @@ transform.scale(SF.vector2f(2, 1), SF.vector2f(8, 3)).rotate(45)
 * *factors* - Scaling factors
 * *center* - Center of scaling
 
-*Returns:* Reference to *this
+*Returns:* `self`
 
 *See also:* `translate`, `rotate`
 
@@ -4812,7 +4814,7 @@ transform.scale(SF.vector2f(2, 1), SF.vector2f(8, 3)).rotate(45)
 
 Combine the current transform with a scaling
 
-This function returns a reference to *this, so that calls
+This function returns `self`, so that calls
 can be chained.
 ```
 transform = SF::Transform.new
@@ -4822,7 +4824,7 @@ transform.scale(2, 1).rotate(45)
 * *scale_x* - Scaling factor on the X axis
 * *scale_y* - Scaling factor on the Y axis
 
-*Returns:* Reference to *this
+*Returns:* `self`
 
 *See also:* `translate`, `rotate`
 
@@ -4833,9 +4835,9 @@ Combine the current transform with a scaling
 The center of scaling is provided for convenience as a second
 argument, so that you can build scaling around arbitrary points
 more easily (and efficiently) than the usual
-translate(-center).scale(factors).translate(center).
+`translate(-center).scale(factors).translate(center)`.
 
-This function returns a reference to *this, so that calls
+This function returns `self`, so that calls
 can be chained.
 ```
 transform = SF::Transform.new
@@ -4847,7 +4849,7 @@ transform.scale(2, 1, 8, 3).rotate(45)
 * *center_x* - X coordinate of the center of scaling
 * *center_y* - Y coordinate of the center of scaling
 
-*Returns:* Reference to *this
+*Returns:* `self`
 
 *See also:* `translate`, `rotate`
 
@@ -4886,7 +4888,7 @@ is returned.
 
 Combine the current transform with a translation
 
-This function returns a reference to *this, so that calls
+This function returns `self`, so that calls
 can be chained.
 ```
 transform = SF::Transform.new
@@ -4895,7 +4897,7 @@ transform.translate(SF.vector2f(100, 200)).rotate(45)
 
 * *offset* - Translation offset to apply
 
-*Returns:* Reference to *this
+*Returns:* `self`
 
 *See also:* `rotate`, `scale`
 
@@ -4903,7 +4905,7 @@ transform.translate(SF.vector2f(100, 200)).rotate(45)
 
 Combine the current transform with a translation
 
-This function returns a reference to *this, so that calls
+This function returns `self`, so that calls
 can be chained.
 ```
 transform = SF::Transform.new
@@ -4913,7 +4915,7 @@ transform.translate(100, 200).rotate(45)
 * *x* - Offset to apply on X axis
 * *y* - Offset to apply on Y axis
 
-*Returns:* Reference to *this
+*Returns:* `self`
 
 *See also:* `rotate`, `scale`
 
@@ -5100,7 +5102,7 @@ The default position of a transformable object is (0, 0).
 Rotate the object
 
 This function adds to the current rotation of the object,
-unlike rotation= which overwrites it.
+unlike `rotation=` which overwrites it.
 Thus, it is equivalent to the following code:
 ```
 object.rotation += angle
@@ -5143,7 +5145,7 @@ get the current scale of the object
 Scale the object
 
 This function multiplies the current scale of the object,
-unlike scale= which overwrites it.
+unlike `scale=` which overwrites it.
 Thus, it is equivalent to the following code:
 ```
 scale = object.scale
@@ -5159,7 +5161,7 @@ object.scale = {scale.x * factor.x, scale.y * factor.y}
 Scale the object
 
 This function multiplies the current scale of the object,
-unlike scale= which overwrites it.
+unlike `scale=` which overwrites it.
 Thus, it is equivalent to the following code:
 ```
 scale = object.scale
@@ -5529,9 +5531,9 @@ window.draw(triangles);
 Usage specifiers
 
 If data is going to be updated once or more every frame,
-set the usage to Stream. If data is going to be set once
+set the usage to `Stream`. If data is going to be set once
 and used for a long time without being modified, set the
-usage to Static. For everything else Dynamic should be a
+usage to `Static`. For everything else `Dynamic` should be a
 good compromise.
 
 ### SF::VertexBuffer::Usage::Dynamic
@@ -5582,11 +5584,11 @@ sf::VertexBuffer::bind(NULL);
 Create the vertex buffer
 
 Creates the vertex buffer and allocates enough graphics
-memory to hold \p vertex_count vertices. Any previously
+memory to hold *vertex_count* vertices. Any previously
 allocated memory is freed in the process.
 
 In order to deallocate previously allocated memory pass 0
-as \p vertex_count. Don't forget to recreate with a non-zero
+as *vertex_count*. Don't forget to recreate with a non-zero
 value when graphics memory should be allocated again.
 
 * *vertex_count* - Number of vertices worth of memory to allocate
@@ -5623,7 +5625,7 @@ Creates an empty vertex buffer.
 
 Construct a VertexBuffer with a specific PrimitiveType
 
-Creates an empty vertex buffer and sets its primitive type to \p type.
+Creates an empty vertex buffer and sets its primitive type to *type*.
 
 * *type* - Type of primitive
 
@@ -5632,7 +5634,7 @@ Creates an empty vertex buffer and sets its primitive type to \p type.
 Construct a VertexBuffer with a specific PrimitiveType and usage specifier
 
 Creates an empty vertex buffer and sets its primitive type
-to \p type and usage to \p usage.
+to *type* and usage to *usage*.
 
 * *type* - Type of primitive
 * *usage* - Usage specifier
@@ -5641,7 +5643,7 @@ to \p type and usage to \p usage.
 
 Construct a VertexBuffer with a specific usage specifier
 
-Creates an empty vertex buffer and sets its usage to \p usage.
+Creates an empty vertex buffer and sets its usage to *usage*.
 
 * *usage* - Usage specifier
 
@@ -5708,21 +5710,21 @@ buffer was not previously created.
 
 Update a part of the buffer from an array of vertices
 
-\p offset is specified as the number of vertices to skip
+*offset* is specified as the number of vertices to skip
 from the beginning of the buffer.
 
-If \p offset is 0 and \p vertex_count is equal to the size of
+If *offset* is 0 and *vertex_count* is equal to the size of
 the currently created buffer, its whole contents are replaced.
 
-If \p offset is 0 and \p vertex_count is greater than the
+If *offset* is 0 and *vertex_count* is greater than the
 size of the currently created buffer, a new buffer is created
 containing the vertex data.
 
-If \p offset is 0 and \p vertex_count is less than the size of
+If *offset* is 0 and *vertex_count* is less than the size of
 the currently created buffer, only the corresponding region
 is updated.
 
-If \p offset is not 0 and \p offset + \p vertex_count is greater
+If *offset* is not 0 and *offset* + *vertex_count* is greater
 than the size of the currently created buffer, the update fails.
 
 No additional check is performed on the size of the vertex
@@ -5979,7 +5981,7 @@ The viewport is the rectangle into which the contents of the
 view are displayed, expressed as a factor (between 0 and 1)
 of the size of the RenderTarget to which the view is applied.
 For example, a view which takes the left side of the target would
-be defined with View.viewport=(`SF::FloatRect`(0, 0, 0.5, 1)).
+be defined with `View.viewport = SF::FloatRect.new(0, 0, 0.5, 1)`.
 By default, a view has a viewport which covers the entire target.
 
 * *viewport* - New viewport rectangle

@@ -643,7 +643,7 @@ module SF
     #
     # This function can be overridden by derived classes to
     # allow implementation of custom loop points. Otherwise,
-    # it just calls on_seek(Time::Zero) and returns 0.
+    # it just calls `on_seek(Time::Zero)` and returns 0.
     #
     # *Returns:* The seek position after looping (or -1 if there's no loop)
     def on_loop() : Int64
@@ -873,7 +873,7 @@ module SF
     #
     # WARNING: Since `loop_points=()` performs some adjustments on the
     # provided values and rounds them to internal samples, a call to
-    # loop_points() is not guaranteed to return the same times passed
+    # `loop_points()` is not guaranteed to return the same times passed
     # into a previous call to `loop_points=()`. However, it is guaranteed
     # to return times that will map to the valid internal samples of
     # this Music if they are later passed to `loop_points=()`.
@@ -895,8 +895,8 @@ module SF
     # safely called at any point after a stream is opened, and will be applied to a playing sound
     # without affecting the current playing offset.
     #
-    # WARNING: Setting the loop points while the stream's status is Paused
-    # will set its status to Stopped. The playing offset will be unaffected.
+    # WARNING: Setting the loop points while the stream's status is `Paused`
+    # will set its status to `Stopped`. The playing offset will be unaffected.
     #
     # * *time_points* - The definition of the loop. Can be any time points within the sound's length
     #
@@ -1147,7 +1147,7 @@ module SF
     #
     # If set, the sound will restart from beginning after
     # reaching the end and so on, until it is stopped or
-    # loop=(false) is called.
+    # `loop=(false)` is called.
     # The default looping state for sound is false.
     #
     # * *loop* - True to play in loop, false to play once
@@ -1557,11 +1557,11 @@ module SF
   # Moreover, two additional virtual functions can be overridden
   # as well if necessary:
   #
-  # * on_start is called before the capture happens, to perform custom initializations
-  # * on_stop is called after the capture ends, to perform custom cleanup
+  # * `on_start` is called before the capture happens, to perform custom initializations
+  # * `on_stop` is called after the capture ends, to perform custom cleanup
   #
   # A derived class can also control the frequency of the on_process_samples
-  # calls, with the processing_interval= protected function. The default
+  # calls, with the `processing_interval=` protected function. The default
   # interval is chosen so that recording thread doesn't consume too much
   # CPU, but it can be changed to a smaller value if you need to process
   # the recorded data in real time, for example.
@@ -1709,7 +1709,7 @@ module SF
     # Set the audio capture device
     #
     # This function sets the audio capture device to the device
-    # with the given *name.* It can be called on the fly (i.e:
+    # with the given *name*. It can be called on the fly (i.e:
     # while recording). If you do so while recording and
     # opening the device fails, it stops the recording.
     #
@@ -1840,9 +1840,9 @@ module SF
   # through a `SF::SoundBuffer`, so that it can be played, saved
   # to a file, etc.
   #
-  # It has the same simple interface as its base class (start(), `stop()`)
+  # It has the same simple interface as its base class (`start()`, `stop()`)
   # and adds a function to retrieve the recorded sound buffer
-  # (buffer()).
+  # (`buffer()`).
   #
   # As usual, don't forget to call the `available?()` function
   # before using this class (see `SF::SoundRecorder` for more details

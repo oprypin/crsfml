@@ -13,12 +13,12 @@ module SF
   # The struct is composed of 6 components, each of which has its
   # own public member variable:
   #
-  # * Color Source Factor (*color_src_factor*)
-  # * Color Destination Factor (*color_dst_factor*)
-  # * Color Blend Equation (*color_equation*)
-  # * Alpha Source Factor (*alpha_src_factor*)
-  # * Alpha Destination Factor (*alpha_dst_factor*)
-  # * Alpha Blend Equation (*alpha_equation*)
+  # * Color Source Factor (`color_src_factor`)
+  # * Color Destination Factor (`color_dst_factor`)
+  # * Color Blend Equation (`color_equation`)
+  # * Alpha Source Factor (`alpha_src_factor`)
+  # * Alpha Destination Factor (`alpha_dst_factor`)
+  # * Alpha Blend Equation (`alpha_equation`)
   #
   # The source factor specifies how the pixel you are drawing contributes
   # to the final color. The destination factor specifies how the pixel
@@ -86,7 +86,7 @@ module SF
     # Enumeration of the blending equations
     #
     # The equations are mapped directly to their OpenGL equivalents,
-    # specified by `gl_blend_equation()` or gl_blend_equation_separate().
+    # specified by `gl_blend_equation()` or `gl_blend_equation_separate()`.
     enum Equation
       # Pixel = Src * SrcFactor + Dst * DstFactor
       Add
@@ -111,7 +111,7 @@ module SF
     # Construct the blend mode given the factors and equation.
     #
     # This constructor uses the same factors and equation for both
-    # color and alpha components. It also defaults to the Add equation.
+    # color and alpha components. It also defaults to the `Add` equation.
     #
     # * *source_factor* - Specifies how to compute the source factor for the color and alpha channels.
     # * *destination_factor* - Specifies how to compute the destination factor for the color and alpha channels.
@@ -355,12 +355,12 @@ module SF
     # Combine the current transform with another one
     #
     # The result is a transform that is equivalent to applying
-    # *this followed by *transform.* Mathematically, it is
+    # `self` followed by *transform*. Mathematically, it is
     # equivalent to a matrix multiplication.
     #
     # * *transform* - Transform to combine with this transform
     #
-    # *Returns:* Reference to *this
+    # *Returns:* `self`
     def combine(transform : Transform) : Transform
       result = Transform.allocate
       SFMLExt.sfml_transform_combine_FPe(to_unsafe, transform, result)
@@ -368,7 +368,7 @@ module SF
     end
     # Combine the current transform with a translation
     #
-    # This function returns a reference to *this, so that calls
+    # This function returns `self`, so that calls
     # can be chained.
     # ```
     # transform = SF::Transform.new
@@ -378,7 +378,7 @@ module SF
     # * *x* - Offset to apply on X axis
     # * *y* - Offset to apply on Y axis
     #
-    # *Returns:* Reference to *this
+    # *Returns:* `self`
     #
     # *See also:* `rotate`, `scale`
     def translate(x : Number, y : Number) : Transform
@@ -388,7 +388,7 @@ module SF
     end
     # Combine the current transform with a translation
     #
-    # This function returns a reference to *this, so that calls
+    # This function returns `self`, so that calls
     # can be chained.
     # ```
     # transform = SF::Transform.new
@@ -397,7 +397,7 @@ module SF
     #
     # * *offset* - Translation offset to apply
     #
-    # *Returns:* Reference to *this
+    # *Returns:* `self`
     #
     # *See also:* `rotate`, `scale`
     def translate(offset : Vector2|Tuple) : Transform
@@ -408,7 +408,7 @@ module SF
     end
     # Combine the current transform with a rotation
     #
-    # This function returns a reference to *this, so that calls
+    # This function returns `self`, so that calls
     # can be chained.
     # ```
     # transform = SF::Transform.new
@@ -417,7 +417,7 @@ module SF
     #
     # * *angle* - Rotation angle, in degrees
     #
-    # *Returns:* Reference to *this
+    # *Returns:* `self`
     #
     # *See also:* `translate`, `scale`
     def rotate(angle : Number) : Transform
@@ -430,9 +430,9 @@ module SF
     # The center of rotation is provided for convenience as a second
     # argument, so that you can build rotations around arbitrary points
     # more easily (and efficiently) than the usual
-    # translate(-center).rotate(angle).translate(center).
+    # `translate(-center).rotate(angle).translate(center)`.
     #
-    # This function returns a reference to *this, so that calls
+    # This function returns `self`, so that calls
     # can be chained.
     # ```
     # transform = SF::Transform.new
@@ -443,7 +443,7 @@ module SF
     # * *center_x* - X coordinate of the center of rotation
     # * *center_y* - Y coordinate of the center of rotation
     #
-    # *Returns:* Reference to *this
+    # *Returns:* `self`
     #
     # *See also:* `translate`, `scale`
     def rotate(angle : Number, center_x : Number, center_y : Number) : Transform
@@ -456,9 +456,9 @@ module SF
     # The center of rotation is provided for convenience as a second
     # argument, so that you can build rotations around arbitrary points
     # more easily (and efficiently) than the usual
-    # translate(-center).rotate(angle).translate(center).
+    # `translate(-center).rotate(angle).translate(center)`.
     #
-    # This function returns a reference to *this, so that calls
+    # This function returns `self`, so that calls
     # can be chained.
     # ```
     # transform = SF::Transform.new
@@ -468,7 +468,7 @@ module SF
     # * *angle* - Rotation angle, in degrees
     # * *center* - Center of rotation
     #
-    # *Returns:* Reference to *this
+    # *Returns:* `self`
     #
     # *See also:* `translate`, `scale`
     def rotate(angle : Number, center : Vector2|Tuple) : Transform
@@ -479,7 +479,7 @@ module SF
     end
     # Combine the current transform with a scaling
     #
-    # This function returns a reference to *this, so that calls
+    # This function returns `self`, so that calls
     # can be chained.
     # ```
     # transform = SF::Transform.new
@@ -489,7 +489,7 @@ module SF
     # * *scale_x* - Scaling factor on the X axis
     # * *scale_y* - Scaling factor on the Y axis
     #
-    # *Returns:* Reference to *this
+    # *Returns:* `self`
     #
     # *See also:* `translate`, `rotate`
     def scale(scale_x : Number, scale_y : Number) : Transform
@@ -502,9 +502,9 @@ module SF
     # The center of scaling is provided for convenience as a second
     # argument, so that you can build scaling around arbitrary points
     # more easily (and efficiently) than the usual
-    # translate(-center).scale(factors).translate(center).
+    # `translate(-center).scale(factors).translate(center)`.
     #
-    # This function returns a reference to *this, so that calls
+    # This function returns `self`, so that calls
     # can be chained.
     # ```
     # transform = SF::Transform.new
@@ -516,7 +516,7 @@ module SF
     # * *center_x* - X coordinate of the center of scaling
     # * *center_y* - Y coordinate of the center of scaling
     #
-    # *Returns:* Reference to *this
+    # *Returns:* `self`
     #
     # *See also:* `translate`, `rotate`
     def scale(scale_x : Number, scale_y : Number, center_x : Number, center_y : Number) : Transform
@@ -526,7 +526,7 @@ module SF
     end
     # Combine the current transform with a scaling
     #
-    # This function returns a reference to *this, so that calls
+    # This function returns `self`, so that calls
     # can be chained.
     # ```
     # transform = SF::Transform.new
@@ -535,7 +535,7 @@ module SF
     #
     # * *factors* - Scaling factors
     #
-    # *Returns:* Reference to *this
+    # *Returns:* `self`
     #
     # *See also:* `translate`, `rotate`
     def scale(factors : Vector2|Tuple) : Transform
@@ -549,9 +549,9 @@ module SF
     # The center of scaling is provided for convenience as a second
     # argument, so that you can build scaling around arbitrary points
     # more easily (and efficiently) than the usual
-    # translate(-center).scale(factors).translate(center).
+    # `translate(-center).scale(factors).translate(center)`.
     #
-    # This function returns a reference to *this, so that calls
+    # This function returns `self`, so that calls
     # can be chained.
     # ```
     # transform = SF::Transform.new
@@ -561,7 +561,7 @@ module SF
     # * *factors* - Scaling factors
     # * *center* - Center of scaling
     #
-    # *Returns:* Reference to *this
+    # *Returns:* `self`
     #
     # *See also:* `translate`, `rotate`
     def scale(factors : Vector2|Tuple, center : Vector2|Tuple) : Transform
@@ -574,7 +574,7 @@ module SF
     @matrix : LibC::Float[16]
     # Overload of binary operator * to combine two transforms
     #
-    # This call is equivalent to calling Transform(left).combine(right).
+    # This call is equivalent to calling `Transform(left).combine(right)`.
     #
     # * *left* - Left operand (the first transform)
     # * *right* - Right operand (the second transform)
@@ -587,7 +587,7 @@ module SF
     end
     # Overload of binary operator * to transform a point
     #
-    # This call is equivalent to calling left.transform_point(right).
+    # This call is equivalent to calling `left.transform_point(right)`.
     #
     # * *left* - Left operand (the transform)
     # * *right* - Right operand (the point to transform)
@@ -614,7 +614,7 @@ module SF
     end
     # Overload of binary operator != to compare two transforms
     #
-    # This call is equivalent to !(left == right).
+    # This call is equivalent to `!(left == right)`.
     #
     # * *left* - Left operand (the first transform)
     # * *right* - Right operand (the second transform)
@@ -637,7 +637,7 @@ module SF
       return Transform.new(self)
     end
   end
-  # Define the states used for drawing to a RenderTarget
+  # Define the states used for drawing to a `RenderTarget`
   #
   # There are four global states that can be applied to
   # the drawn objects:
@@ -671,7 +671,7 @@ module SF
   # window.draw(sprite, SF::RenderStates.new(shader))
   # ```
   #
-  # When you're inside the Draw function of a drawable
+  # When you're inside the `draw` function of a drawable
   # object (one that includes `SF::Drawable`), you can
   # either pass the render states unmodified, or change
   # some of them.
@@ -691,7 +691,7 @@ module SF
     # to using `SF::RenderStates::Default`.
     # The default set defines:
     #
-    # * the BlendAlpha blend mode
+    # * the `BlendAlpha` blend mode
     # * the identity transform
     # * a null texture
     # * a null shader
@@ -1117,7 +1117,7 @@ module SF
     # Rotate the object
     #
     # This function adds to the current rotation of the object,
-    # unlike rotation= which overwrites it.
+    # unlike `rotation=` which overwrites it.
     # Thus, it is equivalent to the following code:
     # ```
     # object.rotation += angle
@@ -1130,7 +1130,7 @@ module SF
     # Scale the object
     #
     # This function multiplies the current scale of the object,
-    # unlike scale= which overwrites it.
+    # unlike `scale=` which overwrites it.
     # Thus, it is equivalent to the following code:
     # ```
     # scale = object.scale
@@ -1147,7 +1147,7 @@ module SF
     # Scale the object
     #
     # This function multiplies the current scale of the object,
-    # unlike scale= which overwrites it.
+    # unlike `scale=` which overwrites it.
     # Thus, it is equivalent to the following code:
     # ```
     # scale = object.scale
@@ -1246,7 +1246,7 @@ module SF
     # Default constructor
     #
     # Constructs an opaque black color. It is equivalent to
-    # `SF::Color`(0, 0, 0, 255).
+    # `SF::Color.new(0, 0, 0, 255)`.
     def initialize()
       @r = uninitialized UInt8
       @g = uninitialized UInt8
@@ -1560,11 +1560,11 @@ module SF
     TriangleFan
     # List of individual quads (deprecated, don't work with OpenGL ES)
     Quads
-    # DEPRECATED: Use LineStrip instead
+    # DEPRECATED: Use `LineStrip` instead
     LinesStrip = LineStrip
-    # DEPRECATED: Use TriangleStrip instead
+    # DEPRECATED: Use `TriangleStrip` instead
     TrianglesStrip = TriangleStrip
-    # DEPRECATED: Use TriangleFan instead
+    # DEPRECATED: Use `TriangleFan` instead
     TrianglesFan = TriangleFan
   end
   Util.extract PrimitiveType
@@ -2404,7 +2404,7 @@ module SF
     #
     # Don't forget that the polygon must remain convex, and
     # the points need to stay ordered!
-    # point_count= must be called first in order to set the total
+    # `point_count=` must be called first in order to set the total
     # number of points. The result is undefined if *index* is out
     # of the valid range.
     #
@@ -2741,7 +2741,7 @@ module SF
     # Create the image from an array of pixels
     #
     # The *pixel* array is assumed to contain 32-bits RGBA pixels,
-    # and have the given *width* and *height.* If not, this is
+    # and have the given *width* and *height*. If not, this is
     # an undefined behavior.
     # If *pixels* is null, an empty image is created.
     #
@@ -2926,7 +2926,8 @@ module SF
     # The returned value points to an array of RGBA pixels made of
     # 8 bits integers components. The size of the array is
     # width * height * 4 (size().x * `size()`.y * 4).
-    # Warning: the returned pointer may become invalid if you
+    #
+    # WARNING: The returned pointer may become invalid if you
     # modify the image, so you should never store it for too long.
     # If the image is empty, a null pointer is returned.
     #
@@ -2984,7 +2985,7 @@ module SF
   # However, if you want to perform some modifications on the pixels
   # before creating the final texture, you can load your file to a
   # `SF::Image`, do whatever you need with the pixels, and then call
-  # Texture.load_from_image.
+  # `Texture.load_from_image`.
   #
   # Since they live in the graphics card memory, the pixels of a texture
   # cannot be accessed without a slow copy first. And they cannot be
@@ -3103,7 +3104,7 @@ module SF
     #
     # The *area* argument can be used to load only a sub-rectangle
     # of the whole image. If you want the entire image then leave
-    # the default value (which is an empty IntRect).
+    # the default value (which is an empty `IntRect`).
     # If the *area* rectangle crosses the bounds of the image, it
     # is adjusted to fit the image size.
     #
@@ -3143,7 +3144,7 @@ module SF
     #
     # The *area* argument can be used to load only a sub-rectangle
     # of the whole image. If you want the entire image then leave
-    # the default value (which is an empty IntRect).
+    # the default value (which is an empty `IntRect`).
     # If the *area* rectangle crosses the bounds of the image, it
     # is adjusted to fit the image size.
     #
@@ -3468,7 +3469,8 @@ module SF
     # 3 * width, the texture will be repeated 3 times).
     # If repeat mode is disabled, the "extra space" will instead
     # be filled with border pixels.
-    # Warning: on very old graphics cards, white pixels may appear
+    #
+    # WARNING: On very old graphics cards, white pixels may appear
     # when the texture is repeated. With such cards, repeat mode
     # can be used reliably only if the texture has power-of-two
     # dimensions (such as 256x128).
@@ -3595,7 +3597,7 @@ module SF
   #
   # Fonts can be loaded from a file, from memory or from a custom
   # stream, and supports the most common types of fonts. See
-  # the load_from_file function for the complete list of supported formats.
+  # the `load_from_file` function for the complete list of supported formats.
   #
   # Once it is loaded, a `SF::Font` instance provides three
   # types of information about the font:
@@ -3767,7 +3769,8 @@ module SF
     #
     # The supported font formats are: TrueType, Type 1, CFF,
     # OpenType, SFNT, X11 PCF, Windows FNT, BDF, PFR and Type 42.
-    # Warning: SFML cannot preload all the font data in this
+    #
+    # WARNING: SFML cannot preload all the font data in this
     # function, so the contents of *stream* have to remain
     # valid as long as the font is used.
     #
@@ -3833,7 +3836,7 @@ module SF
     # * *second* - Unicode code point of the second character
     # * *character_size* - Reference character size
     #
-    # *Returns:* Kerning value for *first* and *second,* in pixels
+    # *Returns:* Kerning value for *first* and *second*, in pixels
     def get_kerning(first : Int, second : Int, character_size : Int) : Float32
       SFMLExt.sfml_font_getkerning_saLsaLemS(to_unsafe, UInt32.new(first), UInt32.new(second), LibC::UInt.new(character_size), out result)
       return result
@@ -4309,7 +4312,7 @@ module SF
     # view are displayed, expressed as a factor (between 0 and 1)
     # of the size of the RenderTarget to which the view is applied.
     # For example, a view which takes the left side of the target would
-    # be defined with View.viewport=(`SF::FloatRect`(0, 0, 0.5, 1)).
+    # be defined with `View.viewport = SF::FloatRect.new(0, 0, 0.5, 1)`.
     # By default, a view has a viewport which covers the entire target.
     #
     # * *viewport* - New viewport rectangle
@@ -4468,7 +4471,7 @@ module SF
   # OpenGL stuff. It is even possible to mix together OpenGL calls
   # and regular SFML drawing commands. When doing so, make sure that
   # OpenGL states are not messed up by calling the
-  # push_gl_states/pop_gl_states functions.
+  # `push_gl_states`/`pop_gl_states` functions.
   #
   # *See also:* `SF::RenderWindow`, `SF::RenderTexture`, `SF::View`
   module RenderTarget
@@ -4724,7 +4727,7 @@ module SF
     end
     # Restore the previously saved OpenGL render states and matrices
     #
-    # See the description of push_gl_states to get a detailed
+    # See the description of `push_gl_states` to get a detailed
     # description of these functions.
     #
     # *See also:* `push_gl_states`
@@ -4735,7 +4738,7 @@ module SF
     #
     # This function can be used when you mix SFML drawing
     # and direct OpenGL rendering, if you choose not to use
-    # push_gl_states/pop_gl_states. It makes sure that all OpenGL
+    # `push_gl_states`/`pop_gl_states`. It makes sure that all OpenGL
     # states needed by SFML are set, so that subsequent `draw()`
     # calls will work as expected.
     #
@@ -4829,7 +4832,7 @@ module SF
   # Like `SF::RenderWindow`, `SF::RenderTexture` is still able to render direct
   # OpenGL stuff. It is even possible to mix together OpenGL calls
   # and regular SFML drawing commands. If you need a depth buffer for
-  # 3D rendering, don't forget to request it when calling RenderTexture.create.
+  # 3D rendering, don't forget to request it when calling `RenderTexture.create`.
   #
   # *See also:* `SF::RenderTarget`, `SF::RenderWindow`, `SF::View`, `SF::Texture`
   class RenderTexture
@@ -4854,7 +4857,7 @@ module SF
     # Before calling this function, the render-texture is in
     # an invalid state, thus it is mandatory to call it before
     # doing anything with the render-texture.
-    # The last parameter, *depth_buffer,* is useful if you want
+    # The last parameter, *depth_buffer*, is useful if you want
     # to use the render-texture for 3D OpenGL rendering that requires
     # a depth buffer. Otherwise it is unnecessary, and you should
     # leave this parameter to false (which is its default value).
@@ -4865,7 +4868,7 @@ module SF
     #
     # *Returns:* True if creation has been successful
     #
-    # DEPRECATED: Use create(unsigned int, unsigned int, const ContextSettings&) instead.
+    # DEPRECATED: Use `create(width, height, settings)` instead.
     def create(width : Int, height : Int, depth_buffer : Bool) : Bool
       SFMLExt.sfml_rendertexture_create_emSemSGZq(to_unsafe, LibC::UInt.new(width), LibC::UInt.new(height), depth_buffer, out result)
       return result
@@ -4885,7 +4888,7 @@ module SF
     # Before calling this function, the render-texture is in
     # an invalid state, thus it is mandatory to call it before
     # doing anything with the render-texture.
-    # The last parameter, *settings,* is useful if you want to enable
+    # The last parameter, *settings*, is useful if you want to enable
     # multi-sampling or use the render-texture for OpenGL rendering that
     # requires a depth or stencil buffer. Otherwise it is unnecessary, and
     # you should leave this parameter at its default value.
@@ -4918,7 +4921,7 @@ module SF
     end
     # Enable or disable texture smoothing
     #
-    # This function is similar to Texture.smooth=.
+    # This function is similar to `Texture.smooth=`.
     # This parameter is disabled by default.
     #
     # * *smooth* - True to enable smoothing, false to disable it
@@ -4938,7 +4941,7 @@ module SF
     end
     # Enable or disable texture repeating
     #
-    # This function is similar to Texture.repeated=.
+    # This function is similar to `Texture.repeated=`.
     # This parameter is disabled by default.
     #
     # * *repeated* - True to enable repeating, false to disable it
@@ -5223,7 +5226,7 @@ module SF
     # Construct a new window
     #
     # This constructor creates the window with the size and pixel
-    # depth defined in *mode.* An optional style can be passed to
+    # depth defined in *mode*. An optional style can be passed to
     # customize the look and behavior of the window (borders,
     # title bar, resizable, closable, ...).
     #
@@ -5252,6 +5255,7 @@ module SF
     #
     # * *handle* - Platform-specific handle of the control (*hwnd* on
     # Windows, *%window* on Linux/FreeBSD, *ns_window* on OS X)
+    #
     # * *settings* - Additional settings for the underlying OpenGL context
     def initialize(handle : WindowHandle, settings : ContextSettings = ContextSettings.new())
       SFMLExt.sfml_renderwindow_allocate(out @this)
@@ -6041,8 +6045,6 @@ module SF
       SFMLExt.sfml_shader_setparameter_zkCBw9Bw9Bw9Bw9(to_unsafe, name.bytesize, name, LibC::Float.new(x), LibC::Float.new(y), LibC::Float.new(z), LibC::Float.new(w))
     end
     # Change a 2-components vector parameter of the shader
-    #
-    # DEPRECATED: Use uniform=(const std::string&, const Glsl::Vec2&) instead.
     def set_parameter(name : String, vector : Vector2|Tuple)
       vector = SF.vector2f(vector[0], vector[1])
       SFMLExt.sfml_shader_setparameter_zkCUU2(to_unsafe, name.bytesize, name, vector)
@@ -6636,7 +6638,7 @@ module SF
     #
     # DEPRECATED: There is now fill and outline colors instead
     # of a single global color.
-    # Use `fill_color=()` or outline_color=() instead.
+    # Use `fill_color=()` or `outline_color=()` instead.
     def color=(color : Color)
       SFMLExt.sfml_text_setcolor_QVe(to_unsafe, color)
     end
@@ -6686,7 +6688,7 @@ module SF
     end
     # Get the text's font
     #
-    # If the text has no font attached, a NULL pointer is returned.
+    # If the text has no font attached, `nil` is returned.
     # The returned pointer is const, which means that you
     # cannot modify the font when you get it from this function.
     #
@@ -6740,7 +6742,7 @@ module SF
     #
     # DEPRECATED: There is now fill and outline colors instead
     # of a single global color.
-    # Use `fill_color()` or outline_color() instead.
+    # Use `fill_color()` or `outline_color()` instead.
     def color() : Color
       result = Color.allocate
       SFMLExt.sfml_text_getcolor(to_unsafe, result)
@@ -6999,9 +7001,9 @@ module SF
     # Usage specifiers
     #
     # If data is going to be updated once or more every frame,
-    # set the usage to Stream. If data is going to be set once
+    # set the usage to `Stream`. If data is going to be set once
     # and used for a long time without being modified, set the
-    # usage to Static. For everything else Dynamic should be a
+    # usage to `Static`. For everything else `Dynamic` should be a
     # good compromise.
     enum Usage
       # Constantly changing data
@@ -7021,7 +7023,7 @@ module SF
     end
     # Construct a VertexBuffer with a specific PrimitiveType
     #
-    # Creates an empty vertex buffer and sets its primitive type to \p type.
+    # Creates an empty vertex buffer and sets its primitive type to *type*.
     #
     # * *type* - Type of primitive
     def initialize(type : PrimitiveType)
@@ -7030,7 +7032,7 @@ module SF
     end
     # Construct a VertexBuffer with a specific usage specifier
     #
-    # Creates an empty vertex buffer and sets its usage to \p usage.
+    # Creates an empty vertex buffer and sets its usage to *usage*.
     #
     # * *usage* - Usage specifier
     def initialize(usage : VertexBuffer::Usage)
@@ -7040,7 +7042,7 @@ module SF
     # Construct a VertexBuffer with a specific PrimitiveType and usage specifier
     #
     # Creates an empty vertex buffer and sets its primitive type
-    # to \p type and usage to \p usage.
+    # to *type* and usage to *usage*.
     #
     # * *type* - Type of primitive
     # * *usage* - Usage specifier
@@ -7056,11 +7058,11 @@ module SF
     # Create the vertex buffer
     #
     # Creates the vertex buffer and allocates enough graphics
-    # memory to hold \p vertex_count vertices. Any previously
+    # memory to hold *vertex_count* vertices. Any previously
     # allocated memory is freed in the process.
     #
     # In order to deallocate previously allocated memory pass 0
-    # as \p vertex_count. Don't forget to recreate with a non-zero
+    # as *vertex_count*. Don't forget to recreate with a non-zero
     # value when graphics memory should be allocated again.
     #
     # * *vertex_count* - Number of vertices worth of memory to allocate
@@ -7108,21 +7110,21 @@ module SF
     end
     # Update a part of the buffer from an array of vertices
     #
-    # \p offset is specified as the number of vertices to skip
+    # *offset* is specified as the number of vertices to skip
     # from the beginning of the buffer.
     #
-    # If \p offset is 0 and \p vertex_count is equal to the size of
+    # If *offset* is 0 and *vertex_count* is equal to the size of
     # the currently created buffer, its whole contents are replaced.
     #
-    # If \p offset is 0 and \p vertex_count is greater than the
+    # If *offset* is 0 and *vertex_count* is greater than the
     # size of the currently created buffer, a new buffer is created
     # containing the vertex data.
     #
-    # If \p offset is 0 and \p vertex_count is less than the size of
+    # If *offset* is 0 and *vertex_count* is less than the size of
     # the currently created buffer, only the corresponding region
     # is updated.
     #
-    # If \p offset is not 0 and \p offset + \p vertex_count is greater
+    # If *offset* is not 0 and *offset* + *vertex_count* is greater
     # than the size of the currently created buffer, the update fails.
     #
     # No additional check is performed on the size of the vertex

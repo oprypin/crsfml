@@ -227,13 +227,17 @@ abstract class CItem
             "* "
           end
           line = line.sub /^    \b/, "  "
+          old_line = line
           line = line.sub /^\\param\b +([^ ()]+) +/ { "* *#{CParameter.new($1, make_type("", nil)).name(Context::Crystal)}* - " }
           line = line.sub /^\\(ingroup|relates)\b.*/, ""
-          line = line.gsub /(@ref|\\a)\b *([^ ()]+)/ { "*#{$2.underscore}*" }
-          line = line.sub /\\em\b *([^ ]+)/ { "*#{$1}*" }
-          line = line.sub /^\\return\b */, "*Returns:* "
-          line = line.sub /^\\warning\b */, "WARNING: "
+          line = line.sub /^\\return +/, "*Returns:* "
+          line = line.sub /^(\\warning\b|Warning:) +/, "WARNING: "
           line = line.sub /^\\deprecated\b */, "DEPRECATED: "
+          if old_line != line && prev_line != "" && line.starts_with?("* ") != prev_line.starts_with?("* ")
+            io << "\n"
+          end
+          line = line.gsub /(@ref|\\a) +([^ (),.]+)/ { "*#{$2.underscore}*" }
+          line = line.gsub /\\(em|p) +([^ (),.]+)/ { "*#{$2}*" }
           line = line.sub /^\\overload\b/, ":ditto:"
           line = line.gsub /\bsf(::[^ \.;,()]+)\b/ { "`SF#{$1}`" }
           line = line.sub /(?<= )[a-z]\w+\b\(\)\B/ { "`#{$0}`" }

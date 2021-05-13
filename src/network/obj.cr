@@ -937,8 +937,8 @@ module SF
     # functions in the `SF::Ftp` class, this method can be used
     # to send any FTP command to the server. If the command
     # requires one or more parameters, they can be specified
-    # in *parameter.* If the server returns information, you
-    # can extract it from the response using Response.message().
+    # in *parameter*. If the server returns information, you
+    # can extract it from the response using `Response.message()`.
     #
     # * *command* - Command to send
     # * *parameter* - Command parameter
@@ -1530,7 +1530,8 @@ module SF
     # You must have a valid host before sending a request (see host=).
     # Any missing mandatory header field in the request will be added
     # with an appropriate value.
-    # Warning: this function waits for the server's response and may
+    #
+    # WARNING: This function waits for the server's response and may
     # not return instantly; use a thread if you don't want to block your
     # application, or use a timeout to limit the time to wait. A value
     # of Time::Zero means that the client will use the system default timeout
@@ -1668,7 +1669,7 @@ module SF
     end
     # Get a pointer to the data contained in the packet
     #
-    # Warning: the returned pointer may become invalid after
+    # WARNING: The returned pointer may become invalid after
     # you append data to the packet, therefore it should never
     # be stored.
     # The return pointer is NULL if the packet is empty.

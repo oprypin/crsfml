@@ -470,21 +470,21 @@ module SF
   end
   # Implementation of input stream based on a file
   #
-  # This class is a specialization of InputStream that
+  # This class is a specialization of `InputStream` that
   # reads from a file on disk.
   #
-  # It wraps a file in the common InputStream interface
+  # It wraps a file in the common `InputStream` interface
   # and therefore allows to use generic classes or functions
   # that accept such a stream, with a file on disk as the data
   # source.
   #
   # In addition to the virtual functions inherited from
-  # InputStream, FileInputStream adds a function to
+  # `InputStream`, `FileInputStream` adds a function to
   # specify the file to open.
   #
   # SFML resource classes can usually be loaded directly from
   # a filename, so this class shouldn't be useful to you unless
-  # you create your own algorithms that operate on an InputStream.
+  # you create your own algorithms that operate on an `InputStream`
   #
   # Usage example:
   # ```
@@ -495,7 +495,7 @@ module SF
   # process(stream)
   # ```
   #
-  # InputStream, MemoryInputStream
+  # See also: `InputStream`, `MemoryInputStream`
   class FileInputStream < InputStream
     @this : Void*
     # Default constructor
@@ -570,15 +570,15 @@ module SF
   end
   # Implementation of input stream based on a memory chunk
   #
-  # This class is a specialization of InputStream that
+  # This class is a specialization of `InputStream` that
   # reads from data in memory.
   #
-  # It wraps a memory chunk in the common InputStream interface
+  # It wraps a memory chunk in the common `InputStream` interface
   # and therefore allows to use generic classes or functions
   # that accept such a stream, with content already loaded in memory.
   #
   # In addition to the virtual functions inherited from
-  # InputStream, MemoryInputStream adds a function to
+  # `InputStream`, `MemoryInputStream` adds a function to
   # specify the pointer and size of the data in memory.
   #
   # SFML resource classes can usually be loaded directly from
@@ -594,7 +594,7 @@ module SF
   # process(stream)
   # ```
   #
-  # InputStream, FileInputStream
+  # See also: `InputStream`, `FileInputStream`
   class MemoryInputStream < InputStream
     @this : Void*
     def finalize()
@@ -886,7 +886,8 @@ module SF
     #
     # This function will block the execution until the
     # thread's function ends.
-    # Warning: if the thread function never ends, the calling
+    #
+    # WARNING: If the thread function never ends, the calling
     # thread will block forever.
     # If this function is called from its owner thread, it
     # returns without doing anything.
