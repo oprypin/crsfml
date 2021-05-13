@@ -16,7 +16,7 @@ In order to define your own audio stream, you need to inherit from the [SF::Soun
 
 ```crystal
 class MyAudioStream < SF::SoundStream
-  def on_get_data() : Slice(Int16)?
+  def on_get_data : Slice(Int16)?
   end
 
   def on_seek(time_offset : Time)
@@ -28,7 +28,7 @@ end
 
 ```crystal
 class MyAudioStream < SF::SoundStream
-  def get_data()
+  def get_data
     samples_array.to_slice
   end
 end
@@ -82,7 +82,7 @@ class MyStream < SF::SoundStream
     super(buffer.channel_count, buffer.sample_rate)
   end
 
-  def on_get_data()
+  def on_get_data
     # number of samples to stream every time the function is called;
     # in a more robust implementation, it should be a fixed
     # amount of time rather than an arbitrary number of samples

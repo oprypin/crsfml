@@ -203,7 +203,7 @@ circle.radius = 150
 circle.outline_color = SF::Color::Red
 circle.outline_thickness = 5
 circle.position = {10, 20}
-...
+[...]
 window.draw circle
 ```
 
@@ -580,7 +580,7 @@ polygon[2] = SF.vector2f(25, 5)
 polygon.outline_color = SF::Color::Red
 polygon.outline_thickness = 5
 polygon.position = {10, 20}
-...
+[...]
 window.draw polygon
 ```
 
@@ -806,7 +806,7 @@ class MyDrawable
 
     # ... or draw with OpenGL directly
     glBegin(GL_QUADS)
-    ...
+    [...]
     glEnd()
   end
 
@@ -1381,7 +1381,7 @@ rectangle.size = SF.vector2f(100, 50)
 rectangle.outline_color = SF::Color::Red
 rectangle.outline_thickness = 5
 rectangle.position = {10, 20}
-...
+[...]
 window.draw rectangle
 ```
 
@@ -2301,16 +2301,16 @@ window = SF::RenderWindow.new(SF::VideoMode.new(800, 600), "SFML OpenGL")
 # Create a sprite and a text to display
 sprite = SF::Sprite.new
 text = SF::Text.new
-...
+[...]
 
 # Perform OpenGL initializations
 glMatrixMode(GL_PROJECTION)
-...
+[...]
 
 # Start the rendering loop
 while window.open?
   # Process events
-  ...
+  [...]
 
   # Draw a background sprite
   window.push_gl_states()

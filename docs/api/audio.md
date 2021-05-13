@@ -862,7 +862,7 @@ if SF::SoundBufferRecorder.available?
   # Record some audio data
   recorder = SF::SoundBufferRecorder.new
   recorder.start()
-  ...
+  [...]
   recorder.stop()
 
   # Get the buffer containing the captured audio data
@@ -1020,7 +1020,7 @@ class CustomRecorder < SF::SoundRecorder
 
   def on_start() # optional
     # Initialize whatever has to be done before the capture starts
-    ...
+    [...]
 
     # Return true to start playing
     true
@@ -1028,7 +1028,7 @@ class CustomRecorder < SF::SoundRecorder
 
   def on_process_samples(samples)
     # Do something with the new chunk of samples (store them, send them, ...)
-    ...
+    [...]
 
     # Return true to continue playing
     true
@@ -1036,7 +1036,7 @@ class CustomRecorder < SF::SoundRecorder
 
   def on_stop() # optional
     # Clean up whatever has to be done after the capture ends
-    ...
+    [...]
   end
 end
 
@@ -1047,7 +1047,7 @@ if (CustomRecorder.isAvailable())
     if (!recorder.start())
         return -1
 
-    ...
+    [...]
     recorder.stop()
 end
 ```
@@ -1486,7 +1486,7 @@ Usage example:
 class CustomStream < SF::SoundStream
   def initialize(location : String)
     # Open the source and get audio settings
-    ...
+    [...]
 
     # Initialize the stream -- important!
     super(channel_count, sample_rate)

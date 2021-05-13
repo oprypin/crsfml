@@ -44,7 +44,7 @@ text.color = SF::Color::Red
 # set the text style
 text.style = (SF::Text::Bold | SF::Text::Underlined)
 
-...
+[...]
 
 # inside the main loop, between window.clear() and window.display()
 window.draw(text)
@@ -87,4 +87,3 @@ line_spacing = font.get_line_spacing(character_size)
 
 kerning = font.get_kerning(character_1, character_2, character_size)
 ```
-

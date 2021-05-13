@@ -51,14 +51,14 @@ Shaders can also be loaded directly from strings, with the `from_memory` class m
 vertex_shader = "
     void main()
     {
-        ...
+        [...]
     }
 "
 
 fragment_shader = "
     void main()
     {
-        ...
+        [...]
     }
 "
 
@@ -177,7 +177,7 @@ To activate a [SF::Shader][] for drawing (the equivalent of `glUseProgram`), you
 
 ```crystal
 shader = SF::Shader.new
-...
+[...]
 
 # bind the shader
 SF::Shader.bind(shader)
@@ -187,4 +187,3 @@ SF::Shader.bind(shader)
 # bind no shader
 SF::Shader.bind(nil)
 ```
-

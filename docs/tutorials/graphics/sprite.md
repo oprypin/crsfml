@@ -109,7 +109,7 @@ sprite.texture_rect = SF.int_rect(10, 10, 32, 32)
 You can also change the color of a sprite. The color that you set is modulated (multiplied) with the texture of the sprite. This can also be used to change the global transparency (alpha) of the sprite.
 
 ```crystal
-sprite.color = SF.color(0, 255, 0) # green
+sprite.color = SF.color(0, 255, 0)          # green
 sprite.color = SF.color(255, 255, 255, 128) # half transparent
 ```
 
@@ -122,15 +122,15 @@ Sprites can also be transformed: They have a position, an orientation and a scal
 ```crystal
 # position
 sprite.position = SF.vector2(10, 50) # absolute position
-sprite.move(SF.vector2(5, 10)) # offset relative to the current position
+sprite.move(SF.vector2(5, 10))       # offset relative to the current position
 
 # rotation
 sprite.rotation = 90 # absolute angle
-sprite.rotate(15) # offset relative to the current angle
+sprite.rotate(15)    # offset relative to the current angle
 
 # scale
 sprite.scale = SF.vector2(0.5, 2.0) # absolute scale factor
-sprite.scale(SF.vector2(1.5, 3.0)) # factor relative to the current scale
+sprite.scale(SF.vector2(1.5, 3.0))  # factor relative to the current scale
 ```
 
 By default, the origin for these three transformations is the top-left corner of the sprite. If you want to set the origin to a different point (for example the center of the sprite, or another corner), you can use the `origin=` method.
@@ -156,7 +156,7 @@ If you're using OpenGL rather than the graphics entities of CrSFML, you can stil
 To bind a [SF::Texture][] for drawing (basically `glBindTexture`), you call the `bind` class method:
 
 ```crystal
-texture = ...
+texture = [...]
 
 # bind the texture
 SF::Texture.bind texture
@@ -166,4 +166,3 @@ SF::Texture.bind texture
 # bind no texture
 SF::Texture.bind nil
 ```
-

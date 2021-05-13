@@ -58,14 +58,11 @@ To be clear, here is what a typical event loop looks like:
 while event = window.poll_event
   # check the type of the event...
   case event
-    # window closed
-    when SF::Event::Closed
-      window.close
-    # key pressed
-    when SF::Event::KeyPressed
-      ...
-    # we don't process other types of events
-  end
+  when SF::Event::Closed # window closed
+    window.close
+  when SF::Event::KeyPressed # key pressed
+    [...]
+  end # we don't process other types of events
 end
 ```
 
@@ -301,4 +298,3 @@ when SF::Event::JoystickDisconnected
   puts "joystick disconnected: #{event.joystick_id}"
 end
 ```
-

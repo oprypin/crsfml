@@ -42,3 +42,15 @@ plugins:
           crystal_docs_flags: [--source-refname=master]
   - literate-nav
   - section-index
+  - code-validator:
+      enabled: false
+      enable_on_env: LINT
+      identifiers:
+        crystal:
+          validators:
+            - crystal tool format --check -
+        crystal-play:
+          language: crystal
+          validators:
+            - crystal tool format --check -
+            - crystal build --no-codegen $<

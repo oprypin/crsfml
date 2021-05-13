@@ -21,7 +21,7 @@ Note that these three times are all equal.
 Similarly, a [SF::Time][] can be converted back to either seconds, milliseconds or microseconds:
 
 ```crystal
-time = ...
+time = [...]
 
 microseconds = time.as_microseconds
 milliseconds = time.as_milliseconds
@@ -33,7 +33,7 @@ seconds = time.as_seconds
 [SF::Time][] is just an amount of time, so it supports arithmetic operations such as addition, subtraction, comparison, etc. Times can also be negative.
 
 ```crystal
-t1 = ...
+t1 = [...]
 t2 = t1 * 2
 t3 = t1 + t2
 t4 = -t3
@@ -74,6 +74,6 @@ clock = SF::Clock.new
 while window.open?
   elapsed = clock.restart
   update_game(elapsed)
-  ...
+  [...]
 end
 ```

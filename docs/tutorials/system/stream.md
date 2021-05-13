@@ -16,8 +16,8 @@ The [SF::InputStream][] class declares four virtual methods:
 abstract class InputStream
   abstract def read(data : Slice) : Int64
   abstract def seek(position : Int) : Int64
-  abstract def tell() : Int64
-  abstract def size() : Int64
+  abstract def tell : Int64
+  abstract def size : Int64
 end
 ```
 

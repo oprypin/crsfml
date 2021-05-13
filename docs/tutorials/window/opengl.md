@@ -19,15 +19,15 @@ Since SFML is based on OpenGL, its windows are ready for OpenGL calls without an
 ```crystal
 @[Link("GL")] # Use @[Link(framework: "OpenGL")] on Mac OSX
 lib GL
- fun enable = glEnable(cap : Int32)
- TEXTURE_2D = 3553
+  fun enable = glEnable(cap : Int32)
+  TEXTURE_2D = 3553
 end
 
 window = SF::RenderWindow.new(SF::VideoMode.new(800, 600), "OpenGL")
 
 # it works out of the box
 GL.enable(GL::TEXTURE_2D)
-...
+[...]
 ```
 
 In case you think it is *too* automatic, [SF::Window][]'s constructor has an extra argument that allows you to change the settings of the underlying OpenGL context. This argument is an instance of the structure, it provides access to the following settings:
@@ -44,8 +44,8 @@ settings = SF::ContextSettings.new(
 )
 
 window = SF::RenderWindow.new(
-    SF::VideoMode.new(800, 600),
-    "OpenGL", settings: settings
+  SF::VideoMode.new(800, 600),
+  "OpenGL", settings: settings
 )
 ```
 
@@ -76,9 +76,9 @@ lib GL
   fun enable = glEnable(cap : Int32)
   fun viewport = glViewport(x : Int32, y : Int32, width : Int32, height : Int32)
   fun clear = glClear(mask : Int32)
-  TEXTURE_2D = 3553
+  TEXTURE_2D       =  3553
   COLOR_BUFFER_BIT = 16384
-  DEPTH_BUFFER_BIT = 256
+  DEPTH_BUFFER_BIT =   256
 end
 
 GL.enable(GL::TEXTURE_2D)
@@ -158,7 +158,7 @@ The only way to avoid conflicts between SFML and your own OpenGL states, is to s
 The easiest solution is to let CrSFML do it for you, with the `push_gl_states`/`pop_gl_states` methods:
 
 ```crystal
-glDraw...
+glDraw(...)
 
 window.push_gl_states
 
@@ -166,23 +166,23 @@ window.draw(...)
 
 window.pop_gl_states
 
-glDraw...
+glDraw(...)
 ```
 
 Since it has no knowledge about your OpenGL code, SFML can't optimize these steps and as a result it saves/restores all available OpenGL states and matrices. This may be acceptable for small projects, but it might also be too slow for bigger programs that require maximum performance. In this case, you can handle saving and restoring the OpenGL states yourself, with `glPushAttrib`/`glPopAttrib`, `glPushMatrix`/`glPopMatrix`, etc.  
 If you do this, you'll still need to restore SFML's own states before drawing. This is done with the `reset_gl_states` method.
 
 ```crystal
-glDraw...
+glDraw(...)
 
-glPush...
+glPush(...)
 window.reset_gl_states
 
 window.draw(...)
 
-glPop...
+glPop(...)
 
-glDraw...
+glDraw(...)
 ```
 
 By saving and restoring OpenGL states yourself, you can manage only the ones that you really need which leads to reducing the number of unnecessary driver calls.
