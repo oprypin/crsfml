@@ -18,7 +18,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r docs/requirements.txt
       - name: Build site
-        run: LINT=1 mkdocs build
+        run: LINT=1 mkdocs build --strict
       - name: Deploy to gh-pages
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         uses: oprypin/push-to-gh-pages@v3
