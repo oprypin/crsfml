@@ -44,7 +44,7 @@ text.color = SF::Color::Red
 # set the text style
 text.style = (SF::Text::Bold | SF::Text::Underlined)
 
-[...]
+# [...]
 
 # inside the main loop, between window.clear() and window.display()
 window.draw(text)

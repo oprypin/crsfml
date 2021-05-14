@@ -20,7 +20,7 @@ module SF
   # contains static functions and doesn't have to be instantiated.
   #
   # Usage example:
-  # ```
+  # ```crystal
   # # Move the listener to the position (1, 0, -5)
   # SF::Listener.set_position(1, 0, -5)
   #
@@ -454,11 +454,11 @@ module SF
   # care of synchronization issues if you share data between threads.
   #
   # Usage example:
-  # ```
+  # ```crystal
   # class CustomStream < SF::SoundStream
   #   def initialize(location : String)
   #     # Open the source and get audio settings
-  #     ...
+  #     # [...]
   #
   #     # Initialize the stream -- important!
   #     super(channel_count, sample_rate)
@@ -736,7 +736,7 @@ module SF
   # very well.
   #
   # Usage example:
-  # ```
+  # ```crystal
   # # Declare a new music
   # music = SF::Music.new
   #
@@ -1069,7 +1069,7 @@ module SF
   # can use the same sound buffer at the same time.
   #
   # Usage example:
-  # ```
+  # ```crystal
   # buffer = SF::SoundBuffer.from_file("sound.wav")
   #
   # sound = SF::Sound.new
@@ -1313,7 +1313,7 @@ module SF
   # uses a local `SF::SoundBuffer` instance for loading a sound).
   #
   # Usage example:
-  # ```
+  # ```crystal
   # # Load a new sound buffer from a file
   # buffer = SF::SoundBuffer.from_file("sound.wav")
   #
@@ -1596,7 +1596,7 @@ module SF
   # thread finishes before your object is destroyed.
   #
   # Usage example:
-  # ```
+  # ```crystal
   # class CustomRecorder < SF::SoundRecorder
   #   def finalize
   #     # Make sure to stop the recording thread
@@ -1605,7 +1605,7 @@ module SF
   #
   #   def on_start() # optional
   #     # Initialize whatever has to be done before the capture starts
-  #     ...
+  #     # [...]
   #
   #     # Return true to start playing
   #     true
@@ -1613,7 +1613,7 @@ module SF
   #
   #   def on_process_samples(samples)
   #     # Do something with the new chunk of samples (store them, send them, ...)
-  #     ...
+  #     # [...]
   #
   #     # Return true to continue playing
   #     true
@@ -1621,7 +1621,7 @@ module SF
   #
   #   def on_stop() # optional
   #     # Clean up whatever has to be done after the capture ends
-  #     ...
+  #     # [...]
   #   end
   # end
   #
@@ -1632,7 +1632,7 @@ module SF
   #     if (!recorder.start())
   #         return -1
   #
-  #     ...
+  #     # [...]
   #     recorder.stop()
   # end
   # ```
@@ -1849,12 +1849,12 @@ module SF
   # about this).
   #
   # Usage example:
-  # ```
+  # ```crystal
   # if SF::SoundBufferRecorder.available?
   #   # Record some audio data
   #   recorder = SF::SoundBufferRecorder.new
   #   recorder.start()
-  #   ...
+  #   # [...]
   #   recorder.stop()
   #
   #   # Get the buffer containing the captured audio data

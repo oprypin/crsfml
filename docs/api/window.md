@@ -477,8 +477,8 @@ event.key member, all other members such as event.mouse_move
 or event.text will have undefined values.
 
 Usage example:
-```
-while (event = window.poll_event())
+```crystal
+while (event = window.poll_event)
   case event
   # Request for closing the window
   when SF::Event::Closed
@@ -965,7 +965,7 @@ window, or if you want to check joysticks state before creating one,
 you must call `SF::Joystick.update` explicitly.
 
 Usage example:
-```
+```crystal
 # Is joystick #0 connected?
 connected = SF::Joystick.connected?(0)
 
@@ -1139,7 +1139,7 @@ pressed or released when your window is out of focus and no
 event is triggered.
 
 Usage example:
-```
+```crystal
 if SF::Keyboard.key_pressed?(SF::Keyboard::Left)
   # move left...
 elsif SF::Keyboard.key_pressed?(SF::Keyboard::Right)
@@ -1634,7 +1634,7 @@ to the desktop) and one that operates in window coordinates
 (relative to a specific window).
 
 Usage example:
-```
+```crystal
 if SF::Mouse.button_pressed?(SF::Mouse::Left)
   # left click...
 end
@@ -1768,7 +1768,7 @@ all disabled by default. You must call `SF::Sensor.set_enabled` for each
 sensor in which you are interested.
 
 Usage example:
-```
+```crystal
 if SF::Sensor.available?(SF::Sensor::Gravity)
   # gravity sensor is available
 end
@@ -1896,7 +1896,7 @@ sequential (i.e. touch number 0 may be released while touch number 1
 is still down).
 
 Usage example:
-```
+```crystal
 if SF::Touch.down?(0)
   # touch 0 is down
 end
@@ -1968,7 +1968,7 @@ This allows to build windows with the same size or pixel
 depth as the current resolution.
 
 Usage example:
-```
+```crystal
 # Display the list of all the video modes available for fullscreen
 SF::VideoMode.fullscreen_modes.each do |mode|
   puts "Mode ##{i}: #{mode.width}x#{mode.height} - #{mode.bits_per_pixel} bpp"
@@ -2128,7 +2128,7 @@ that is compiled and linked into the final application. The macro
 should be placed outside of any scopes in the global namespace.
 
 Usage example:
-```
+```crystal
 # Declare and create a new window
 window = SF::Window.new(SF::VideoMode.new(800, 600), "SFML window")
 
@@ -2138,10 +2138,10 @@ window.framerate_limit = 60
 # The main loop - ends as soon as the window is closed
 while window.open?
   # Event processing
-  while (event = window.poll_event())
+  while (event = window.poll_event)
     # Request for closing the window
     if event.is_a?(SF::Event::Closed)
-      window.close()
+      window.close
     end
   end
 
@@ -2151,7 +2151,7 @@ while window.open?
   # OpenGL drawing commands go here...
 
   # End the current frame and display its contents on screen
-  window.display()
+  window.display
 end
 ```
 
@@ -2371,8 +2371,8 @@ it will return false and leave *event* unmodified.
 Note that more than one event may be present in the event queue,
 thus you should always call this function in a loop
 to make sure that you process every pending event.
-```
-while (event = window.poll_event())
+```crystal
+while (event = window.poll_event)
   # process event...
 end
 ```
@@ -2516,8 +2516,8 @@ the *event* object is always valid and filled properly.
 This function is typically used when you have a thread that
 is dedicated to events handling: you want to make this thread
 sleep as long as no new event is received.
-```
-if (event = window.wait_event())
+```crystal
+if (event = window.wait_event)
   # process event...
 end
 ```

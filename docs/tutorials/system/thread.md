@@ -87,7 +87,7 @@ thread = SF::Thread.new(->func)
 # start the thread
 thread.launch
 
-[...]
+# [...]
 
 # block execution until the thread is finished
 thread.wait
@@ -220,7 +220,7 @@ def start_thread
 end
 
 start_thread
-[...]
+# [...]
 ```
 
 Programmers who write this kind of code expect the `start_thread` function to start a thread that will live on its own and be destroyed when the threaded function ends. This is not what happens. The threaded function appears to block the main thread, as if the thread wasn't working.

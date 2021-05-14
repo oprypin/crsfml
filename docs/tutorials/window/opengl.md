@@ -27,7 +27,7 @@ window = SF::RenderWindow.new(SF::VideoMode.new(800, 600), "OpenGL")
 
 # it works out of the box
 GL.enable(GL::TEXTURE_2D)
-[...]
+# [...]
 ```
 
 In case you think it is *too* automatic, [SF::Window][]'s constructor has an extra argument that allows you to change the settings of the underlying OpenGL context. This argument is an instance of the structure, it provides access to the following settings:

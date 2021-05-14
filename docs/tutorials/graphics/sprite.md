@@ -156,7 +156,7 @@ If you're using OpenGL rather than the graphics entities of CrSFML, you can stil
 To bind a [SF::Texture][] for drawing (basically `glBindTexture`), you call the `bind` class method:
 
 ```crystal
-texture = [...]
+texture = (...)
 
 # bind the texture
 SF::Texture.bind texture

@@ -15,7 +15,7 @@ require "crsfml"
 
 window = SF::RenderWindow.new(SF::VideoMode.new(800, 600), "My window")
 
-[...]
+# [...]
 ```
 
 The first argument, the *video mode*, defines the size of the window (the inner size, without the title bar and borders). Here, we create a window with a size of 800x600 pixels.
@@ -114,7 +114,7 @@ size = window.size
 width = size.x
 height = size.y
 
-[...]
+# [...]
 ```
 
 You can refer to the API documentation for a complete list of [SF::Window][]'s methods.

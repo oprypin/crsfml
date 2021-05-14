@@ -51,14 +51,14 @@ Shaders can also be loaded directly from strings, with the `from_memory` class m
 vertex_shader = "
     void main()
     {
-        [...]
+        // [...]
     }
 "
 
 fragment_shader = "
     void main()
     {
-        [...]
+        // [...]
     }
 "
 
@@ -161,7 +161,7 @@ void main()
 
 The current texture is not automatic, you need to treat it like you do the other input variables, and explicitly set it from your C++ program. Since each entity can have a different texture, and worse, there might be no way for you to get it and pass it to the shader, SFML provides a special overload of the `set_parameter` method that does this job for you.
 
-```
+```crystal
 shader.set_parameter "texture", SF::Shader::CurrentTexture
 ```
 
@@ -177,7 +177,7 @@ To activate a [SF::Shader][] for drawing (the equivalent of `glUseProgram`), you
 
 ```crystal
 shader = SF::Shader.new
-[...]
+# [...]
 
 # bind the shader
 SF::Shader.bind(shader)

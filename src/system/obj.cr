@@ -22,7 +22,7 @@ module SF
   # value, times can also be negative.
   #
   # Usage example:
-  # ```
+  # ```crystal
   # t1 = SF.seconds(0.1)
   # milli = t1.as_milliseconds # 100
   #
@@ -33,7 +33,7 @@ module SF
   # sec = t3.as_seconds # -0.8
   # ```
   #
-  # ```
+  # ```crystal
   # def update(elapsed : SF::Time)
   #   @position += @speed * elapsed.as_seconds
   # end
@@ -296,11 +296,11 @@ module SF
   # changed.
   #
   # Usage example:
-  # ```
+  # ```crystal
   # clock = SF::Clock.new
-  # ...
+  # # [...]
   # time1 = clock.elapsed_time
-  # ...
+  # # [...]
   # time2 = clock.restart()
   # ```
   #
@@ -392,7 +392,7 @@ module SF
   # their load_from_stream function.
   #
   # Usage example:
-  # ```
+  # ```crystal
   # # custom stream class that reads from inside a zip file
   # class ZipStream < SF::InputStream
   #     def initialize(archive : String)
@@ -403,11 +403,11 @@ module SF
   #
   #     def seek(position : Int) : Int64
   #
-  #     def tell() : Int64
+  #     def tell : Int64
   #
-  #     def size() : Int64
+  #     def size : Int64
   #
-  #     ...
+  #     # [...]
   # end
   #
   # # now you can load textures...
@@ -487,7 +487,7 @@ module SF
   # you create your own algorithms that operate on an `InputStream`
   #
   # Usage example:
-  # ```
+  # ```crystal
   # def process(stream : InputStream)
   # end
   #
@@ -586,7 +586,7 @@ module SF
   # you create your own algorithms that operate on an InputStream.
   #
   # Usage example:
-  # ```
+  # ```crystal
   # def process(stream : InputStream)
   # end
   #
@@ -680,7 +680,7 @@ module SF
   # one thread at a time to access a critical region of your code.
   #
   # Usage example:
-  # ```
+  # ```crystal
   # @database = Database.new # this is a critical resource that needs some protection
   # @mutex = SF::Mutex.new
   #
@@ -795,7 +795,7 @@ module SF
   # # example 1: non member function with one argument
   #
   # void threadFunc(int argument)
-  #     ...
+  #     // [...]
   # end
   #
   # thread = SF::Thread.new(&threadFunc, 5)
@@ -808,7 +808,7 @@ module SF
   # class Task
   # public:
   #     void run()
-  #         ...
+  #         // [...]
   #     end
   # end
   #
@@ -822,7 +822,7 @@ module SF
   #
   # struct Task
   #     void operator()()
-  #         ...
+  #         // [...]
   #     end
   # end
   #
@@ -856,6 +856,7 @@ module SF
     #     void operator()(std::string arg)
     # end
     # ```
+    #
     # Note: this does *not* run the thread, use `launch()`.
     #
     # * *function* - Functor or free function to use as the entry point of the thread

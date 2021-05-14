@@ -61,7 +61,7 @@ while event = window.poll_event
   when SF::Event::Closed # window closed
     window.close
   when SF::Event::KeyPressed # key pressed
-    [...]
+    # [...]
   end # we don't process other types of events
 end
 ```

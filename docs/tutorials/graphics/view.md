@@ -135,7 +135,7 @@ window.draw(some_sprite)
 # want to do visibility checks? retrieve the view
 current_view = window.view
 
-[...]
+# [...]
 ```
 
 The view remains active until you set another one. This means that there is always a view which defines what appears in the target, and where it is drawn. If you don't explicitly set any view, the render-target uses its own default view, which matches its size 1:1. You can get the default view of a render-target with the `default_view` method. This can be useful if you want to define your own view based on it, or restore it to draw fixed entities (like a GUI) on top of your scene.
@@ -162,7 +162,7 @@ If, instead of this default behavior, you'd like to show more/less stuff dependi
 ```crystal
 # the event loop
 while event = window.poll_event
-  [...]
+  # [...]
 
   # catch the resize events
   if event.is_a? SF::Event::Resized

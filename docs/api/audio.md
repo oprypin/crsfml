@@ -23,7 +23,7 @@ Because the listener is unique in the scene, `SF::Listener` only
 contains static functions and doesn't have to be instantiated.
 
 Usage example:
-```
+```crystal
 # Move the listener to the position (1, 0, -5)
 SF::Listener.set_position(1, 0, -5)
 
@@ -188,7 +188,7 @@ leave the music alone after calling `play()`, it will manage itself
 very well.
 
 Usage example:
-```
+```crystal
 # Declare a new music
 music = SF::Music.new
 
@@ -464,7 +464,7 @@ as long as the sound uses it. Note that multiple sounds
 can use the same sound buffer at the same time.
 
 Usage example:
-```
+```crystal
 buffer = SF::SoundBuffer.from_file("sound.wav")
 
 sound = SF::Sound.new
@@ -687,7 +687,7 @@ used by a `SF::Sound` (i.e. never write a function that
 uses a local `SF::SoundBuffer` instance for loading a sound).
 
 Usage example:
-```
+```crystal
 # Load a new sound buffer from a file
 buffer = SF::SoundBuffer.from_file("sound.wav")
 
@@ -696,7 +696,7 @@ sound1 = SF::Sound.new
 sound1.buffer = buffer
 
 # Play the sound
-sound1.play()
+sound1.play
 
 # Create another sound source bound to the same buffer
 sound2 = SF::Sound.new
@@ -704,7 +704,7 @@ sound2.buffer = buffer
 
 # Play it with a higher pitch -- the first sound remains unchanged
 sound2.pitch = 2
-sound2.play()
+sound2.play
 ```
 
 *See also:* `SF::Sound`, `SF::SoundBufferRecorder`
@@ -857,13 +857,13 @@ before using this class (see `SF::SoundRecorder` for more details
 about this).
 
 Usage example:
-```
+```crystal
 if SF::SoundBufferRecorder.available?
   # Record some audio data
   recorder = SF::SoundBufferRecorder.new
-  recorder.start()
-  [...]
-  recorder.stop()
+  recorder.start
+  # [...]
+  recorder.stop
 
   # Get the buffer containing the captured audio data
   buffer = recorder.buffer
@@ -1011,7 +1011,7 @@ in the destructor of your derived class, so that the recording
 thread finishes before your object is destroyed.
 
 Usage example:
-```
+```crystal
 class CustomRecorder < SF::SoundRecorder
   def finalize
     # Make sure to stop the recording thread
@@ -1020,7 +1020,7 @@ class CustomRecorder < SF::SoundRecorder
 
   def on_start() # optional
     # Initialize whatever has to be done before the capture starts
-    [...]
+    # [...]
 
     # Return true to start playing
     true
@@ -1028,7 +1028,7 @@ class CustomRecorder < SF::SoundRecorder
 
   def on_process_samples(samples)
     # Do something with the new chunk of samples (store them, send them, ...)
-    [...]
+    # [...]
 
     # Return true to continue playing
     true
@@ -1036,19 +1036,20 @@ class CustomRecorder < SF::SoundRecorder
 
   def on_stop() # optional
     # Clean up whatever has to be done after the capture ends
-    [...]
+    # [...]
   end
 end
 
 # Usage
-if (CustomRecorder.isAvailable())
-    CustomRecorder recorder
+if CustomRecorder.available?
+  recorder = CustomRecorder.new
 
-    if (!recorder.start())
-        return -1
+  if !recorder.start()
+    return -1
+  end
 
-    [...]
-    recorder.stop()
+  # [...]
+  recorder.stop()
 end
 ```
 
@@ -1482,17 +1483,17 @@ It is important to keep this in mind, because you may have to take
 care of synchronization issues if you share data between threads.
 
 Usage example:
-```
+```crystal
 class CustomStream < SF::SoundStream
   def initialize(location : String)
     # Open the source and get audio settings
-    [...]
+    # [...]
 
     # Initialize the stream -- important!
     super(channel_count, sample_rate)
   end
 
-  def on_get_data()
+  def on_get_data
     # Return a slice with audio data from the stream source
     # (note: must not be empty if you want to continue playing)
     Slice.new(samples.to_unsafe, samples.size)
@@ -1505,7 +1506,7 @@ end
 
 # Usage
 stream = CustomStream.new("path/to/stream")
-stream.play()
+stream.play
 ```
 
 *See also:* `SF::Music`

@@ -110,10 +110,10 @@ Texture coordinates are defined in *pixels* (just like the `texture_rect` of spr
 Vertex arrays are low-level entities, they only deal with geometry and do not store additional attributes like a texture. To draw a vertex array with a texture, you must pass it directly to the `draw` method, through a [SF::RenderStates][] object:
 
 ```crystal
-vertices = [...] # SF::VertexArray
-texture = [...]  # SF::Texture
+vertices = (...) # SF::VertexArray
+texture = (...)  # SF::Texture
 
-[...]
+# [...]
 
 states = SF::RenderStates.new
 states.texture = texture
@@ -126,10 +126,10 @@ window.draw(vertices, states)
 Transforming is similar to texturing. The transform is not stored in the vertex array, you must pass it to the `draw` method.
 
 ```crystal
-vertices = [...]  # SF::VertexArray
-transform = [...] # SF::Transform
+vertices = (...)  # SF::VertexArray
+transform = (...) # SF::Transform
 
-[...]
+# [...]
 
 states = SF::RenderStates.new
 states.transform = transform

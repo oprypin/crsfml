@@ -573,7 +573,7 @@ module SF
   # you must call `SF::Joystick.update` explicitly.
   #
   # Usage example:
-  # ```
+  # ```crystal
   # # Is joystick #0 connected?
   # connected = SF::Joystick.connected?(0)
   #
@@ -763,7 +763,7 @@ module SF
   # event is triggered.
   #
   # Usage example:
-  # ```
+  # ```crystal
   # if SF::Keyboard.key_pressed?(SF::Keyboard::Left)
   #   # move left...
   # elsif SF::Keyboard.key_pressed?(SF::Keyboard::Right)
@@ -1042,7 +1042,7 @@ module SF
   # (relative to a specific window).
   #
   # Usage example:
-  # ```
+  # ```crystal
   # if SF::Mouse.button_pressed?(SF::Mouse::Left)
   #   # left click...
   # end
@@ -1166,7 +1166,7 @@ module SF
   # sensor in which you are interested.
   #
   # Usage example:
-  # ```
+  # ```crystal
   # if SF::Sensor.available?(SF::Sensor::Gravity)
   #   # gravity sensor is available
   # end
@@ -1247,8 +1247,8 @@ module SF
   # or event.text will have undefined values.
   #
   # Usage example:
-  # ```
-  # while (event = window.poll_event())
+  # ```crystal
+  # while (event = window.poll_event)
   #   case event
   #   # Request for closing the window
   #   when SF::Event::Closed
@@ -1973,7 +1973,7 @@ module SF
   # is still down).
   #
   # Usage example:
-  # ```
+  # ```crystal
   # if SF::Touch.down?(0)
   #   # touch 0 is down
   # end
@@ -2049,7 +2049,7 @@ module SF
   # depth as the current resolution.
   #
   # Usage example:
-  # ```
+  # ```crystal
   # # Display the list of all the video modes available for fullscreen
   # SF::VideoMode.fullscreen_modes.each do |mode|
   #   puts "Mode ##{i}: #{mode.width}x#{mode.height} - #{mode.bits_per_pixel} bpp"
@@ -2263,7 +2263,7 @@ module SF
   # should be placed outside of any scopes in the global namespace.
   #
   # Usage example:
-  # ```
+  # ```crystal
   # # Declare and create a new window
   # window = SF::Window.new(SF::VideoMode.new(800, 600), "SFML window")
   #
@@ -2273,7 +2273,7 @@ module SF
   # # The main loop - ends as soon as the window is closed
   # while window.open?
   #   # Event processing
-  #   while (event = window.poll_event())
+  #   while (event = window.poll_event)
   #     # Request for closing the window
   #     if event.is_a?(SF::Event::Closed)
   #       window.close()
@@ -2426,8 +2426,8 @@ module SF
     # Note that more than one event may be present in the event queue,
     # thus you should always call this function in a loop
     # to make sure that you process every pending event.
-    # ```
-    # while (event = window.poll_event())
+    # ```crystal
+    # while (event = window.poll_event)
     #   # process event...
     # end
     # ```
@@ -2502,8 +2502,8 @@ module SF
     # This function is typically used when you have a thread that
     # is dedicated to events handling: you want to make this thread
     # sleep as long as no new event is received.
-    # ```
-    # if (event = window.wait_event())
+    # ```crystal
+    # if (event = window.wait_event)
     #   # process event...
     # end
     # ```

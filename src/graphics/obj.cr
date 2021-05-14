@@ -34,10 +34,11 @@ module SF
   # to the following formula (*src* is the color of the source pixel, *dst*
   # the color of the destination pixel, the other variables correspond to the
   # public members, with the equations being + or - operators):
-  # ```
+  # ```text
   # dst.rgb = color_src_factor * src.rgb (color_equation) color_dst_factor * dst.rgb
   # dst.a   = alpha_src_factor * src.a   (alpha_equation) alpha_dst_factor * dst.a
   # ```
+  #
   # All factors and colors are represented as floating point numbers between
   # 0 and 1. Where necessary, the result is clamped to fit in that range.
   #
@@ -245,7 +246,7 @@ module SF
   # detection).
   #
   # Example:
-  # ```
+  # ```crystal
   # # define a translation transform
   # translation = SF::Transform.new
   # translation.translate(20, 50)
@@ -293,8 +294,8 @@ module SF
     # containing the transform elements as a 4x4 matrix, which
     # is directly compatible with OpenGL functions.
     #
-    # ```
-    # transform = ...
+    # ```crystal
+    # transform = (...)
     # glLoadMatrixf(transform.matrix())
     # ```
     #
@@ -370,7 +371,7 @@ module SF
     #
     # This function returns `self`, so that calls
     # can be chained.
-    # ```
+    # ```crystal
     # transform = SF::Transform.new
     # transform.translate(100, 200).rotate(45)
     # ```
@@ -390,7 +391,7 @@ module SF
     #
     # This function returns `self`, so that calls
     # can be chained.
-    # ```
+    # ```crystal
     # transform = SF::Transform.new
     # transform.translate(SF.vector2f(100, 200)).rotate(45)
     # ```
@@ -410,7 +411,7 @@ module SF
     #
     # This function returns `self`, so that calls
     # can be chained.
-    # ```
+    # ```crystal
     # transform = SF::Transform.new
     # transform.rotate(90).translate(50, 20)
     # ```
@@ -434,7 +435,7 @@ module SF
     #
     # This function returns `self`, so that calls
     # can be chained.
-    # ```
+    # ```crystal
     # transform = SF::Transform.new
     # transform.rotate(90, 8, 3).translate(50, 20)
     # ```
@@ -460,7 +461,7 @@ module SF
     #
     # This function returns `self`, so that calls
     # can be chained.
-    # ```
+    # ```crystal
     # transform = SF::Transform.new
     # transform.rotate(90, SF.vector2f(8, 3)).translate(SF.vector2f(50, 20))
     # ```
@@ -481,7 +482,7 @@ module SF
     #
     # This function returns `self`, so that calls
     # can be chained.
-    # ```
+    # ```crystal
     # transform = SF::Transform.new
     # transform.scale(2, 1).rotate(45)
     # ```
@@ -506,7 +507,7 @@ module SF
     #
     # This function returns `self`, so that calls
     # can be chained.
-    # ```
+    # ```crystal
     # transform = SF::Transform.new
     # transform.scale(2, 1, 8, 3).rotate(45)
     # ```
@@ -528,7 +529,7 @@ module SF
     #
     # This function returns `self`, so that calls
     # can be chained.
-    # ```
+    # ```crystal
     # transform = SF::Transform.new
     # transform.scale(SF.vector2f(2, 1)).rotate(45)
     # ```
@@ -553,7 +554,7 @@ module SF
     #
     # This function returns `self`, so that calls
     # can be chained.
-    # ```
+    # ```crystal
     # transform = SF::Transform.new
     # transform.scale(SF.vector2f(2, 1), SF.vector2f(8, 3)).rotate(45)
     # ```
@@ -661,13 +662,13 @@ module SF
   # Most objects, especially high-level drawables, can be drawn
   # directly without defining render states explicitly -- the
   # default set of states is OK in most cases.
-  # ```
+  # ```crystal
   # window.draw(sprite)
   # ```
   #
   # If you want to use a single specific render state, for example a
   # shader, you can pass it to the constructor of `SF::RenderStates`.
-  # ```
+  # ```crystal
   # window.draw(sprite, SF::RenderStates.new(shader))
   # ```
   #
@@ -826,7 +827,7 @@ module SF
   # SFML classes.
   #
   # Example:
-  # ```
+  # ```crystal
   # class MyDrawable
   #   include SF::Drawable
   #   def draw(target : SF::RenderTarget, states : SF::RenderStates)
@@ -839,7 +840,7 @@ module SF
   #
   #     # ... or draw with OpenGL directly
   #     glBegin(GL_QUADS)
-  #     ...
+  #     # [...]
   #     glEnd()
   #   end
   #
@@ -892,7 +893,7 @@ module SF
   # `SF::Transformable` can be used as a base class. It is often
   # combined with `SF::Drawable` -- that's what SFML's sprites,
   # texts and shapes do.
-  # ```
+  # ```crystal
   # class MyEntity < SF::Transformable
   #   include SF::Drawable
   #
@@ -911,7 +912,7 @@ module SF
   # It can also be used as a member, if you don't want to use
   # its API directly (because you don't need all its functions,
   # or you have different naming conventions for example).
-  # ```
+  # ```crystal
   # class MyEntity
   #   @transform : SF::Transformable
   #   forward_missing_to @transform
@@ -1086,7 +1087,7 @@ module SF
     # This function adds to the current position of the object,
     # unlike position= which overwrites it.
     # Thus, it is equivalent to the following code:
-    # ```
+    # ```crystal
     # pos = object.position
     # object.set_position(pos.x + offset_x, pos.y + offset_y)
     # ```
@@ -1103,7 +1104,7 @@ module SF
     # This function adds to the current position of the object,
     # unlike position= which overwrites it.
     # Thus, it is equivalent to the following code:
-    # ```
+    # ```crystal
     # object.position += offset
     # ```
     #
@@ -1119,7 +1120,7 @@ module SF
     # This function adds to the current rotation of the object,
     # unlike `rotation=` which overwrites it.
     # Thus, it is equivalent to the following code:
-    # ```
+    # ```crystal
     # object.rotation += angle
     # ```
     #
@@ -1132,7 +1133,7 @@ module SF
     # This function multiplies the current scale of the object,
     # unlike `scale=` which overwrites it.
     # Thus, it is equivalent to the following code:
-    # ```
+    # ```crystal
     # scale = object.scale
     # object.set_scale(scale.x * factor_x, scale.y * factor_y)
     # ```
@@ -1149,7 +1150,7 @@ module SF
     # This function multiplies the current scale of the object,
     # unlike `scale=` which overwrites it.
     # Thus, it is equivalent to the following code:
-    # ```
+    # ```crystal
     # scale = object.scale
     # object.scale = {scale.x * factor.x, scale.y * factor.y}
     # ```
@@ -1211,7 +1212,7 @@ module SF
   # the range `0..255`. Thus, colors can be constructed and
   # manipulated very easily:
   #
-  # ```
+  # ```crystal
   # color = SF::Color.new(255, 0, 0) # red
   # color.r = 0                      # make it black
   # color.b = 128                    # make it dark blue
@@ -1224,7 +1225,7 @@ module SF
   # other components is.
   #
   # The most common colors are already defined as static variables:
-  # ```
+  # ```crystal
   # black       = SF::Color::Black
   # white       = SF::Color::White
   # red         = SF::Color::Red
@@ -1418,13 +1419,13 @@ module SF
   # systems, using vertices will allow you to get maximum performances.
   #
   # Example:
-  # ```
+  # ```crystal
   # # define a 100x100 square, red, with a 10x10 texture mapped on it
   # vertices = [
-  #   SF::Vertex.new(SF.vector2f(  0,   0), SF::Color::Red, SF.vector2f( 0,  0)),
-  #   SF::Vertex.new(SF.vector2f(  0, 100), SF::Color::Red, SF.vector2f( 0, 10)),
+  #   SF::Vertex.new(SF.vector2f(0, 0), SF::Color::Red, SF.vector2f(0, 0)),
+  #   SF::Vertex.new(SF.vector2f(0, 100), SF::Color::Red, SF.vector2f(0, 10)),
   #   SF::Vertex.new(SF.vector2f(100, 100), SF::Color::Red, SF.vector2f(10, 10)),
-  #   SF::Vertex.new(SF.vector2f(100,   0), SF::Color::Red, SF.vector2f(10,  0)),
+  #   SF::Vertex.new(SF.vector2f(100, 0), SF::Color::Red, SF.vector2f(10, 0)),
   # ]
   #
   # # draw it
@@ -1577,7 +1578,7 @@ module SF
   # is not transformable.
   #
   # Example:
-  # ```
+  # ```crystal
   # lines = SF::VertexArray.new(SF::LineStrip, 4)
   # lines[0] = SF::Vertex.new(SF.vector2f(10, 0))
   # lines[1] = SF::Vertex.new(SF.vector2f(20, 0))
@@ -2085,13 +2086,13 @@ module SF
   # functions of `SF::Shape` (outline, color, texture, ...).
   #
   # Usage example:
-  # ```
+  # ```crystal
   # circle = SF::CircleShape.new
   # circle.radius = 150
   # circle.outline_color = SF::Color::Red
   # circle.outline_thickness = 5
   # circle.position = {10, 20}
-  # ...
+  # # [...]
   # window.draw circle
   # ```
   #
@@ -2354,7 +2355,7 @@ module SF
   # order would result in an incorrect shape.
   #
   # Usage example:
-  # ```
+  # ```crystal
   # polygon = SF::ConvexShape.new
   # polygon.point_count = 3
   # polygon[0] = SF.vector2f(0, 0)
@@ -2363,7 +2364,7 @@ module SF
   # polygon.outline_color = SF::Color::Red
   # polygon.outline_thickness = 5
   # polygon.position = {10, 20}
-  # ...
+  # # [...]
   # window.draw polygon
   # ```
   #
@@ -2690,7 +2691,7 @@ module SF
   # pass or return them to avoid useless copies.
   #
   # Usage example:
-  # ```
+  # ```crystal
   # # Load an image file from a file
   # background = SF::Image.from_file("background.jpg")
   #
@@ -3000,7 +3001,7 @@ module SF
   # alpha channels -- just like a `SF::Color`.
   #
   # Usage example:
-  # ```
+  # ```crystal
   # # This example shows the most common use of SF::Texture:
   # # drawing a sprite
   #
@@ -3014,7 +3015,7 @@ module SF
   # window.draw sprite
   # ```
   #
-  # ```
+  # ```crystal
   # # This example shows another common use of SF::Texture:
   # # streaming real-time data, like video frames
   #
@@ -3025,7 +3026,7 @@ module SF
   # sprite = SF::Sprite.new(texture)
   #
   # loop do # the main loop
-  #   ...
+  #   # [...]
   #
   #   # update the texture
   #   pixels = (...).to_unsafe # get a fresh chunk of pixels (the next frame of a movie, for example)
@@ -3034,7 +3035,7 @@ module SF
   #   # draw it
   #   window.draw sprite
   #
-  #   ...
+  #   # [...]
   # end
   #
   # ```
@@ -3042,9 +3043,9 @@ module SF
   # Like `SF::Shader` that can be used as a raw OpenGL shader,
   # `SF::Texture` can also be used directly as a raw texture for
   # custom OpenGL geometry.
-  # ```
+  # ```crystal
   # SF::Texture.bind(texture)
-  # ... render OpenGL geometry ...
+  # # [... render OpenGL geometry ...]
   # SF::Texture.bind(nil)
   # ```
   #
@@ -3096,7 +3097,7 @@ module SF
     # Load the texture from a file on disk
     #
     # This function is a shortcut for the following code:
-    # ```
+    # ```crystal
     # image = SF::Image.new
     # image.load_from_file(filename)
     # texture.load_from_image(image, area)
@@ -3136,7 +3137,7 @@ module SF
     # Load the texture from a file in memory
     #
     # This function is a shortcut for the following code:
-    # ```
+    # ```crystal
     # image = SF::Image.new
     # image.load_from_memory(data, size)
     # texture.load_from_image(image, area)
@@ -3176,7 +3177,7 @@ module SF
     # Load the texture from a custom stream
     #
     # This function is a shortcut for the following code:
-    # ```
+    # ```crystal
     # image = SF::Image.new
     # image.load_from_stream(stream)
     # texture.load_from_image(image, area)
@@ -3538,10 +3539,10 @@ module SF
     # used when drawing SFML entities. It must be used only if you
     # mix `SF::Texture` with OpenGL code.
     #
-    # ```
+    # ```crystal
     # t1 = SF::Texture.new
     # t2 = SF::Texture.new
-    # ...
+    # # [...]
     # SF::Texture.bind t1
     # # draw OpenGL stuff that use t1...
     # SF::Texture.bind t2
@@ -3627,7 +3628,7 @@ module SF
   # uses a local `SF::Font` instance for creating a text).
   #
   # Usage example:
-  # ```
+  # ```crystal
   # # Load a new font from file
   # font = SF::Font.from_file("arial.ttf")
   #
@@ -3937,13 +3938,13 @@ module SF
   # functions of `SF::Shape` (outline, color, texture, ...).
   #
   # Usage example:
-  # ```
+  # ```crystal
   # rectangle = SF::RectangleShape.new
   # rectangle.size = SF.vector2f(100, 50)
   # rectangle.outline_color = SF::Color::Red
   # rectangle.outline_thickness = 5
   # rectangle.position = {10, 20}
-  # ...
+  # # [...]
   # window.draw rectangle
   # ```
   #
@@ -4201,7 +4202,7 @@ module SF
   # affected by the view until you use another view.
   #
   # Usage example:
-  # ```
+  # ```crystal
   # window = SF::RenderWindow.new
   # view = SF::View.new
   #
@@ -4546,7 +4547,7 @@ module SF
     # This function is an overload of the map_pixel_to_coords
     # function that implicitly uses the current view.
     # It is equivalent to:
-    # ```
+    # ```crystal
     # target.map_pixel_to_coords(point, target.view)
     # ```
     #
@@ -4599,7 +4600,7 @@ module SF
     # This function is an overload of the map_coords_to_pixel
     # function that implicitly uses the current view.
     # It is equivalent to:
-    # ```
+    # ```crystal
     # target.map_coords_to_pixel(point, target.view)
     # ```
     #
@@ -4703,7 +4704,7 @@ module SF
     #
     # More specifically, it must be used around code that
     # calls Draw functions. Example:
-    # ```
+    # ```crystal
     # # OpenGL code here...
     # window.push_gl_states()
     # window.draw(...)
@@ -4743,7 +4744,7 @@ module SF
     # calls will work as expected.
     #
     # Example:
-    # ```
+    # ```crystal
     # # OpenGL code here...
     # glPushAttrib(...)
     # window.reset_gl_states()
@@ -4794,7 +4795,7 @@ module SF
   #
   # Usage example:
   #
-  # ```
+  # ```crystal
   # # Create a new render-window
   # window = SF::RenderWindow.new(SF::VideoMode.new(800, 600), "SFML window")
   #
@@ -5139,7 +5140,7 @@ module SF
   # `SF::RenderTarget` for more details).
   # Here is a typical rendering and event loop with a `SF::RenderWindow`:
   #
-  # ```
+  # ```crystal
   # # Declare and create a new render-window
   # window = SF::RenderWindow.new(SF::VideoMode.new(800, 600), "SFML window")
   #
@@ -5173,23 +5174,23 @@ module SF
   # OpenGL stuff. It is even possible to mix together OpenGL calls
   # and regular SFML drawing commands.
   #
-  # ```
+  # ```crystal
   # # Create the render window
   # window = SF::RenderWindow.new(SF::VideoMode.new(800, 600), "SFML OpenGL")
   #
   # # Create a sprite and a text to display
   # sprite = SF::Sprite.new
   # text = SF::Text.new
-  # ...
+  # # [...]
   #
   # # Perform OpenGL initializations
   # glMatrixMode(GL_PROJECTION)
-  # ...
+  # # [...]
   #
   # # Start the rendering loop
   # while window.open?
   #   # Process events
-  #   ...
+  #   # [...]
   #
   #   # Draw a background sprite
   #   window.push_gl_states()
@@ -5199,7 +5200,7 @@ module SF
   #   # Draw a 3D object using OpenGL
   #   glBegin(GL_QUADS)
   #     glVertex3f(...)
-  #     ...
+  #     # [...]
   #   glEnd()
   #
   #   # Draw text on top of the 3D object
@@ -5301,7 +5302,8 @@ module SF
     # DEPRECATED:
     # Use a `SF::Texture` and its `SF::Texture#update(window)`
     # method and copy its contents into an `SF::Image` instead.
-    # ```
+    #
+    # ```crystal
     # texture = SF::Texture.new(window.size.x, window.size.y)
     # texture.update(window)
     # screenshot = texture.copy_to_image()
@@ -5677,8 +5679,9 @@ module SF
   # uniform sampler2D overlay;
   # uniform sampler2D current;
   # ```
+  #
   # You can set their values from Crystal code as follows:
-  # ```
+  # ```crystal
   # shader.offset 2.0
   # shader.point 0.5, 0.8, 0.3
   # shader.color color          # color is a SF::Color
@@ -5693,7 +5696,7 @@ module SF
   #
   # To apply a shader to a drawable, you must pass it as an
   # additional parameter to the `Window.draw` function:
-  # ```
+  # ```crystal
   # states = SF::RenderStates.new(shader)
   # window.draw(sprite, states)
   # ```
@@ -5728,7 +5731,7 @@ module SF
   # Like `SF::Texture` that can be used as a raw OpenGL texture,
   # `SF::Shader` can also be used directly as a raw shader for
   # custom OpenGL geometry.
-  # ```
+  # ```crystal
   # SF::Shader.bind shader
   # ... render OpenGL geometry ...
   # SF::Shader.bind nil
@@ -6086,10 +6089,10 @@ module SF
     # used when drawing SFML entities. It must be used only if you
     # mix `SF::Shader` with OpenGL code.
     #
-    # ```
+    # ```crystal
     # s1 = SF::Shader.new
     # s2 = SF::Shader.new
-    # ...
+    # # [...]
     # SF::Shader.bind s1
     # # draw OpenGL stuff that use s1...
     # SF::Shader.bind s2
@@ -6173,7 +6176,7 @@ module SF
   # See also the note on coordinates and undistorted rendering in `SF::Transformable`.
   #
   # Usage example:
-  # ```
+  # ```crystal
   # # Declare and load a texture
   # texture = SF::Texture.from_file("texture.png")
   #
@@ -6481,7 +6484,7 @@ module SF
   # See also the note on coordinates and undistorted rendering in `SF::Transformable`.
   #
   # Usage example:
-  # ```
+  # ```crystal
   # # Declare and load a font
   # font = SF::Font.from_file("arial.ttf")
   #
@@ -6987,11 +6990,11 @@ module SF
   # Example:
   # ```c++
   # sf::Vertex vertices[15];
-  # ...
+  # // [...]
   # sf::VertexBuffer triangles(sf::Triangles);
   # triangles.create(15);
   # triangles.update(vertices);
-  # ...
+  # // [...]
   # window.draw(triangles);
   # ```
   #

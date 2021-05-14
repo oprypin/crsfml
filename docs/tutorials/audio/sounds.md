@@ -36,7 +36,7 @@ Now that the audio data is loaded, we can play it with a [SF::Sound][] instance.
 
 ```crystal
 # load something into the sound buffer...
-buffer = [...]
+buffer = (...)
 
 sound = SF::Sound.new(buffer)
 sound.play
@@ -125,7 +125,7 @@ Remember that a music needs its source as long as it is played. A music file on 
 
 ```crystal
 # we start with a music file in memory (imagine that we extracted it from a zip archive)
-file_data = [...]
+file_data = (...)
 
 # we play it
 music = SF::Music.from_memory(file_data)

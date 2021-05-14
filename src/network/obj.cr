@@ -141,7 +141,7 @@ module SF
   # the socket instance is still alive, you can call disconnect.
   #
   # Usage example:
-  # ```
+  # ```crystal
   # # ----- The client -----
   #
   # # Create a socket and connect it to 192.168.1.50 on port 55001
@@ -382,7 +382,7 @@ module SF
   # the task.
   #
   # Usage example:
-  # ```
+  # ```crystal
   # # Create a new FTP client
   # ftp = SF::Ftp.new
   #
@@ -967,7 +967,7 @@ module SF
   # address from/to various representations.
   #
   # Usage example:
-  # ```
+  # ```crystal
   # a0 = SF::IpAddress.new                    # an invalid address
   # a1 = SF::IpAddress::None                  # an invalid address (same as a0)
   # a2 = SF::IpAddress.new("127.0.0.1")       # the local host address
@@ -1226,7 +1226,7 @@ module SF
   # from the server.
   #
   # Usage example:
-  # ```
+  # ```crystal
   # # Create a new HTTP client
   # http = SF::Http.new("http://www.sfml-dev.org")
   #
@@ -1576,7 +1576,7 @@ module SF
   # to avoid possible differences between the sender and the receiver.
   #
   # Usage example:
-  # ```
+  # ```crystal
   # x = 24u32
   # s = "hello"
   # d = 5.89
@@ -1615,7 +1615,7 @@ module SF
   # Like standard streams, it is also possible to define your own overloads
   # of these methods in order to handle your custom types.
   #
-  # ```
+  # ```crystal
   # struct MyStruct
   #   number : Float32
   #   integer : Int8
@@ -1717,7 +1717,7 @@ module SF
     # This behavior is the same as standard C++ streams.
     #
     # Usage example:
-    # ```
+    # ```crystal
     # x = packet.read(Float32)
     # if packet.valid?
     #    # ok, x was extracted successfully
@@ -1899,7 +1899,7 @@ module SF
   # * test each socket to find out which ones are ready
   #
   # Usage example:
-  # ```
+  # ```crystal
   # # Create a socket to listen to new connections
   # listener = SF::TcpListener.new
   # listener.listen(55001)
@@ -1936,7 +1936,7 @@ module SF
   #           # The client has sent some data, we can receive it
   #           packet = SF::Packet.new
   #           if client.receive(packet) == SF::Socket::Done
-  #               ...
+  #             [...]
   #           end
   #         end
   #       end
@@ -2066,7 +2066,7 @@ module SF
   # function.
   #
   # Usage example:
-  # ```
+  # ```crystal
   # # Create a listener socket and make it wait for new
   # # connections on port 55001
   # listener = SF::TcpListener.new
@@ -2207,7 +2207,7 @@ module SF
   # make the port available for other sockets.
   #
   # Usage example:
-  # ```
+  # ```crystal
   # # ----- The client -----
   #
   # # Create a socket and bind it to the port 55001
