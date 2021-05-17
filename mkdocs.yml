@@ -40,7 +40,8 @@ plugins:
       handlers:
         crystal:
           crystal_docs_flags: [--source-refname=master]
-  - literate-nav
+  - literate-nav:
+      nav_file: README.md
   - section-index
   - code-validator:
       enabled: false
