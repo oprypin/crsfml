@@ -44,14 +44,8 @@ plugins:
       nav_file: README.md
   - section-index
   - code-validator:
-      enabled: false
-      enable_on_env: LINT
+      enabled: !ENV [LINT, false]
       identifiers:
         crystal:
           validators:
             - crystal tool format --check -
-        crystal-play:
-          language: crystal
-          validators:
-            - crystal tool format --check -
-            - crystal build --no-codegen $<
