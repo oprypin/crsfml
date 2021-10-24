@@ -2276,7 +2276,7 @@ module SF
   #   while (event = window.poll_event)
   #     # Request for closing the window
   #     if event.is_a?(SF::Event::Closed)
-  #       window.close()
+  #       window.close
   #     end
   #   end
   #
@@ -2286,7 +2286,7 @@ module SF
   #   # OpenGL drawing commands go here...
   #
   #   # End the current frame and display its contents on screen
-  #   window.display()
+  #   window.display
   # end
   # ```
   class Window

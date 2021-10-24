@@ -212,6 +212,9 @@ class ControllerView < View
     @js = (0...SF::Joystick::Count).find { |js|
       SF::Joystick.connected?(js)
     } || raise "Couldn't detect any joystick"
+    (0...SF::Joystick::Count).each do |js|
+      puts SF::Joystick.connected?(js) && SF::Joystick.get_identification(@js).name
+    end
     @text = SF::Text.new(SF::Joystick.get_identification(@js).name, FONT, 24)
   end
 

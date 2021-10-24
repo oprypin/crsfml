@@ -464,7 +464,7 @@ module SF
   #     super(channel_count, sample_rate)
   #   end
   #
-  #   def on_get_data()
+  #   def on_get_data
   #     # Return a slice with audio data from the stream source
   #     # (note: must not be empty if you want to continue playing)
   #     Slice.new(samples.to_unsafe, samples.size)
@@ -477,7 +477,7 @@ module SF
   #
   # # Usage
   # stream = CustomStream.new("path/to/stream")
-  # stream.play()
+  # stream.play
   # ```
   #
   # *See also:* `SF::Music`
@@ -1322,7 +1322,7 @@ module SF
   # sound1.buffer = buffer
   #
   # # Play the sound
-  # sound1.play()
+  # sound1.play
   #
   # # Create another sound source bound to the same buffer
   # sound2 = SF::Sound.new
@@ -1330,7 +1330,7 @@ module SF
   #
   # # Play it with a higher pitch -- the first sound remains unchanged
   # sound2.pitch = 2
-  # sound2.play()
+  # sound2.play
   # ```
   #
   # *See also:* `SF::Sound`, `SF::SoundBufferRecorder`
@@ -1626,14 +1626,15 @@ module SF
   # end
   #
   # # Usage
-  # if (CustomRecorder.isAvailable())
-  #     CustomRecorder recorder
+  # if CustomRecorder.available?
+  #   recorder = CustomRecorder.new
   #
-  #     if (!recorder.start())
-  #         return -1
+  #   if !recorder.start()
+  #     return -1
+  #   end
   #
-  #     # [...]
-  #     recorder.stop()
+  #   # [...]
+  #   recorder.stop()
   # end
   # ```
   #
@@ -1853,9 +1854,9 @@ module SF
   # if SF::SoundBufferRecorder.available?
   #   # Record some audio data
   #   recorder = SF::SoundBufferRecorder.new
-  #   recorder.start()
+  #   recorder.start
   #   # [...]
-  #   recorder.stop()
+  #   recorder.stop
   #
   #   # Get the buffer containing the captured audio data
   #   buffer = recorder.buffer

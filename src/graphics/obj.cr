@@ -296,7 +296,7 @@ module SF
     #
     # ```crystal
     # transform = (...)
-    # glLoadMatrixf(transform.matrix())
+    # glLoadMatrixf(transform.matrix)
     # ```
     #
     # *Returns:* Pointer to a 4x4 matrix
@@ -3025,7 +3025,8 @@ module SF
   # # Create a sprite that will display the texture
   # sprite = SF::Sprite.new(texture)
   #
-  # loop do # the main loop
+  # # The main loop
+  # loop do
   #   # [...]
   #
   #   # update the texture
@@ -3037,7 +3038,6 @@ module SF
   #
   #   # [...]
   # end
-  #
   # ```
   #
   # Like `SF::Shader` that can be used as a raw OpenGL shader,
