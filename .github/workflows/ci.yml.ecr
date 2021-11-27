@@ -39,9 +39,11 @@ jobs:
 <% matrix.each_with_index(1) do |m, m_i| %>
   job<%= m_i %>:
     name: '<%= m[:os] %><%= " #{m[:os_ver]}" if m[:os_ver] %>: SFML <%= m[:sfml] %>, Crystal <%= m[:crystal] %>'
-    runs-on: <%= m[:os].downcase %>-<%= m[:os_ver] || "latest" %>
   <% if m[:docker] %>
     container: <%= m[:docker] %>
+    runs-on: ubuntu-latest
+  <% else %>
+    runs-on: <%= m[:os].downcase %>-<%= m[:os_ver] || "latest" %>
   <% end %>
     steps:
       - name: Download CrSFML source

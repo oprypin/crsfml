@@ -129,8 +129,8 @@ jobs:
         if: always()
   job2:
     name: 'Ubuntu 16.04: SFML 2.3.2, Crystal 0.28.0'
-    runs-on: ubuntu-16.04
     container: crystallang/crystal:0.28.0
+    runs-on: ubuntu-latest
     steps:
       - name: Download CrSFML source
         uses: actions/checkout@v2
