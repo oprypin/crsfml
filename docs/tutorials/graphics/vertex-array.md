@@ -215,7 +215,7 @@ class TileMap < SF::Transformable
 
     @vertices = SF::VertexArray.new(SF::Quads)
 
-    tiles_per_row = @tileset.size.x / tile_size.x
+    tiles_per_row = @tileset.size.x // tile_size.x
 
     # populate the vertex array, with one quad per tile
     (0...height).each do |y|
@@ -226,7 +226,7 @@ class TileMap < SF::Transformable
         # find its position in the tileset texture
         tile_pos = SF.vector2(
           tile_index % tiles_per_row,
-          tile_index / tiles_per_row
+          tile_index // tiles_per_row
         )
 
         destination = SF.vector2(x, y)
