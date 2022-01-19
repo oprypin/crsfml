@@ -55,7 +55,7 @@ Set the content of the clipboard as string data
 This function sets the content of the clipboard as a
 string.
 
-*Warning:* Due to limitations on some operating systems,
+WARNING: Due to limitations on some operating systems,
 setting the clipboard contents is only
 guaranteed to work if there is currently an
 open window for which events are being handled.
@@ -202,9 +202,10 @@ and 3.1 there is only the core profile. By default a
 compatibility context is created. You only need to specify
 the core flag if you want a core profile context to use with
 your own OpenGL rendering.
-**Warning: The graphics module will not function if you
+
+WARNING: The graphics module will not function if you
 request a core profile context. Make sure the attributes are
-set to Default if you want to use the graphics module.**
+set to Default if you want to use the graphics module.
 
 Setting the debug attribute flag will request a context with
 additional debugging features enabled. Depending on the
@@ -290,7 +291,7 @@ Bits of the stencil buffer
 
 Cursor defines the appearance of a system cursor
 
-*Warning:* Features related to Cursor are not supported on
+WARNING: Features related to Cursor are not supported on
 iOS and Android.
 
 This class abstracts the operating system resources
@@ -340,7 +341,7 @@ is available on which platform.
  `SF::Cursor::Help`                   |  yes  |    yes*  |   yes    |
  `SF::Cursor::NotAllowed`             |  yes  |    yes   |   yes    |
 
- * These cursor types are undocumented so may not
+\* These cursor types are undocumented so may not
    be available on all versions, but have been tested on 10.13
 
 ### SF::Cursor::Type::Arrow
@@ -429,7 +430,7 @@ which will be located exactly where the mouse pointer
 position is. Any mouse actions that are performed will
 return the window/screen location of the hotspot.
 
-*Warning:* On Unix, the pixels are mapped into a monochrome
+WARNING: On Unix, the pixels are mapped into a monochrome
 bitmap: pixels with an alpha channel to 0 are
 transparent, black if the RGB channel are close
 to zero, and white otherwise.
@@ -476,24 +477,18 @@ event.key member, all other members such as event.mouse_move
 or event.text will have undefined values.
 
 Usage example:
-```
-while (event = window.poll_event())
+```crystal
+while (event = window.poll_event)
   case event
-  # Request for closing the window
-  when SF::Event::Closed
-    window.close()
-
-  # The escape key was pressed
-  when SF::Event::KeyPressed
+  when SF::Event::Closed # Request for closing the window
+    window.close
+  when SF::Event::KeyPressed # The escape key was pressed
     if event.code == SF::Keyboard::Escape
-      window.close()
+      window.close
     end
-
-  # The window was resized
-  when SF::Event::Resized
+  when SF::Event::Resized # The window was resized
     do_something(event.width, event.height)
-
-  # etc ...
+    # etc ...
   end
 end
 ```
@@ -610,7 +605,7 @@ The window gained the focus (no data)
 ## SF::Event::JoystickButtonEvent
 
 Joystick buttons events parameters
-(JoystickButtonPressed, JoystickButtonReleased)
+(see `JoystickButtonPressed`, `JoystickButtonReleased`)
 
 ### SF::Event::JoystickButtonEvent#button()
 
@@ -626,16 +621,16 @@ Index of the joystick (in range `0 ... Joystick::Count`)
 
 ## SF::Event::JoystickButtonPressed
 
-A joystick button was pressed (data in event.joystick_button)
+A joystick button was pressed (subtype of `JoystickButtonEvent`)
 
 ## SF::Event::JoystickButtonReleased
 
-A joystick button was released (data in event.joystick_button)
+A joystick button was released (subtype of `JoystickButtonEvent`)
 
 ## SF::Event::JoystickConnectEvent
 
 Joystick connection events parameters
-(JoystickConnected, JoystickDisconnected)
+(see `JoystickConnected`, `JoystickDisconnected`)
 
 ### SF::Event::JoystickConnectEvent#initialize(copy)
 
@@ -647,15 +642,15 @@ Index of the joystick (in range `0 ... Joystick::Count`)
 
 ## SF::Event::JoystickConnected
 
-A joystick was connected (data in event.joystick_connect)
+A joystick was connected (subtype of `JoystickConnectEvent`)
 
 ## SF::Event::JoystickDisconnected
 
-A joystick was disconnected (data in event.joystick_connect)
+A joystick was disconnected (subtype of `JoystickConnectEvent`)
 
 ## SF::Event::JoystickMoveEvent
 
-Joystick axis move event parameters (JoystickMoved)
+Joystick axis move event parameters (see `JoystickMoved`)
 
 ### SF::Event::JoystickMoveEvent#axis()
 
@@ -675,11 +670,11 @@ New position on the axis (in range `-100 .. 100`)
 
 ## SF::Event::JoystickMoved
 
-The joystick moved along an axis (data in event.joystick_move)
+The joystick moved along an axis (subtype of `JoystickMoveEvent`)
 
 ## SF::Event::KeyEvent
 
-Keyboard event parameters (KeyPressed, KeyReleased)
+Keyboard event parameters (see `KeyPressed`, `KeyReleased`)
 
 ### SF::Event::KeyEvent#alt()
 
@@ -707,11 +702,11 @@ Is the System key pressed?
 
 ## SF::Event::KeyPressed
 
-A key was pressed (data in event.key)
+A key was pressed (subtype of `KeyEvent`)
 
 ## SF::Event::KeyReleased
 
-A key was released (data in event.key)
+A key was released (subtype of `KeyEvent`)
 
 ## SF::Event::LostFocus
 
@@ -720,7 +715,7 @@ The window lost the focus (no data)
 ## SF::Event::MouseButtonEvent
 
 Mouse buttons events parameters
-(MouseButtonPressed, MouseButtonReleased)
+(see `MouseButtonPressed`, `MouseButtonReleased`)
 
 ### SF::Event::MouseButtonEvent#button()
 
@@ -740,11 +735,11 @@ Y position of the mouse pointer, relative to the top of the owner window
 
 ## SF::Event::MouseButtonPressed
 
-A mouse button was pressed (data in event.mouse_button)
+A mouse button was pressed (subtype of `MouseButtonEvent`)
 
 ## SF::Event::MouseButtonReleased
 
-A mouse button was released (data in event.mouse_button)
+A mouse button was released (subtype of `MouseButtonEvent`)
 
 ## SF::Event::MouseEntered
 
@@ -756,7 +751,7 @@ The mouse cursor left the area of the window (no data)
 
 ## SF::Event::MouseMoveEvent
 
-Mouse move event parameters (MouseMoved)
+Mouse move event parameters (see `MouseMoved`)
 
 ### SF::Event::MouseMoveEvent#initialize(copy)
 
@@ -772,14 +767,14 @@ Y position of the mouse pointer, relative to the top of the owner window
 
 ## SF::Event::MouseMoved
 
-The mouse cursor moved (data in event.mouse_move)
+The mouse cursor moved (subtype of `MouseMoveEvent`)
 
 ## SF::Event::MouseWheelEvent
 
-Mouse wheel events parameters (MouseWheelMoved)
+Mouse wheel events parameters (see `MouseWheelMoved`)
 
 DEPRECATED: This event is deprecated and potentially inaccurate.
-Use MouseWheelScrollEvent instead.
+Use `MouseWheelScrollEvent` instead.
 
 ### SF::Event::MouseWheelEvent#delta()
 
@@ -799,11 +794,11 @@ Y position of the mouse pointer, relative to the top of the owner window
 
 ## SF::Event::MouseWheelMoved
 
-The mouse wheel was scrolled (data in event.mouse_wheel) (deprecated)
+The mouse wheel was scrolled (subtype of `MouseWheelEvent`) (deprecated)
 
 ## SF::Event::MouseWheelScrollEvent
 
-Mouse wheel events parameters (MouseWheelScrolled)
+Mouse wheel events parameters (see `MouseWheelScrolled`)
 
 ### SF::Event::MouseWheelScrollEvent#delta()
 
@@ -827,19 +822,19 @@ Y position of the mouse pointer, relative to the top of the owner window
 
 ## SF::Event::MouseWheelScrolled
 
-The mouse wheel was scrolled (data in event.mouse_wheel_scroll)
+The mouse wheel was scrolled (subtype of `MouseWheelScrollEvent`)
 
 ## SF::Event::Resized
 
-The window was resized (data in event.size)
+The window was resized (subtype of `SizeEvent`)
 
 ## SF::Event::SensorChanged
 
-A sensor value changed (data in event.sensor)
+A sensor value changed (subtype of `SensorEvent`)
 
 ## SF::Event::SensorEvent
 
-Sensor event parameters (SensorChanged)
+Sensor event parameters (see `SensorChanged`)
 
 ### SF::Event::SensorEvent#initialize(copy)
 
@@ -863,7 +858,7 @@ Current value of the sensor on Z axis
 
 ## SF::Event::SizeEvent
 
-Size events parameters (Resized)
+Size events parameters (see `Resized`)
 
 ### SF::Event::SizeEvent#height()
 
@@ -879,11 +874,11 @@ New width, in pixels
 
 ## SF::Event::TextEntered
 
-A character was entered (data in event.text)
+A character was entered (subtype of `TextEvent`)
 
 ## SF::Event::TextEvent
 
-Text event parameters (TextEntered)
+Text event parameters (see `TextEntered`)
 
 ### SF::Event::TextEvent#initialize(copy)
 
@@ -895,15 +890,15 @@ UTF-32 Unicode value of the character
 
 ## SF::Event::TouchBegan
 
-A touch event began (data in event.touch)
+A touch event began (subtype of `TouchEvent`)
 
 ## SF::Event::TouchEnded
 
-A touch event ended (data in event.touch)
+A touch event ended (subtype of `TouchEvent`)
 
 ## SF::Event::TouchEvent
 
-Touch events parameters (TouchBegan, TouchMoved, TouchEnded)
+Touch events parameters (see `TouchBegan`, `TouchMoved`, `TouchEnded`)
 
 ### SF::Event::TouchEvent#finger()
 
@@ -923,7 +918,7 @@ Y position of the touch, relative to the top of the owner window
 
 ## SF::Event::TouchMoved
 
-A touch moved (data in event.touch)
+A touch moved (subtype of `TouchEvent`)
 
 # SF::GlResource
 
@@ -964,7 +959,7 @@ window, or if you want to check joysticks state before creating one,
 you must call `SF::Joystick.update` explicitly.
 
 Usage example:
-```
+```crystal
 # Is joystick #0 connected?
 connected = SF::Joystick.connected?(0)
 
@@ -1138,7 +1133,7 @@ pressed or released when your window is out of focus and no
 event is triggered.
 
 Usage example:
-```
+```crystal
 if SF::Keyboard.key_pressed?(SF::Keyboard::Left)
   # move left...
 elsif SF::Keyboard.key_pressed?(SF::Keyboard::Right)
@@ -1168,11 +1163,11 @@ The B key
 
 ### SF::Keyboard::Key::BackSlash
 
-DEPRECATED: Use Backslash instead
+DEPRECATED: Use `Backslash` instead
 
 ### SF::Keyboard::Key::BackSpace
 
-DEPRECATED: Use Backspace instead
+DEPRECATED: Use `Backspace` instead
 
 ### SF::Keyboard::Key::Backslash
 
@@ -1196,7 +1191,7 @@ The D key
 
 ### SF::Keyboard::Key::Dash
 
-DEPRECATED: Use Hyphen instead
+DEPRECATED: Use `Hyphen` instead
 
 ### SF::Keyboard::Key::Delete
 
@@ -1512,7 +1507,7 @@ The right OS specific key: window (Windows and Linux), apple (MacOS X), ...
 
 ### SF::Keyboard::Key::Return
 
-DEPRECATED: Use Enter instead
+DEPRECATED: Use `Enter` instead
 
 ### SF::Keyboard::Key::Right
 
@@ -1524,7 +1519,7 @@ The S key
 
 ### SF::Keyboard::Key::SemiColon
 
-DEPRECATED: Use Semicolon instead
+DEPRECATED: Use `Semicolon` instead
 
 ### SF::Keyboard::Key::Semicolon
 
@@ -1598,7 +1593,7 @@ Check if a key is pressed
 
 Show or hide the virtual keyboard
 
-Warning: the virtual keyboard is not supported on all
+WARNING: The virtual keyboard is not supported on all
 systems. It will typically be implemented on mobile OSes
 (Android, iOS) but not on desktop OSes (Windows, Linux, ...).
 
@@ -1633,7 +1628,7 @@ to the desktop) and one that operates in window coordinates
 (relative to a specific window).
 
 Usage example:
-```
+```crystal
 if SF::Mouse.button_pressed?(SF::Mouse::Left)
   # left click...
 end
@@ -1744,7 +1739,7 @@ functions, so it's not meant to be instantiated.
 
 This module allows users to query the sensors values at any
 time and directly, without having to deal with a window and
-its events. Compared to the `SensorChanged` event, `SF::Sensor`
+its events. Compared to the `Event::SensorChanged` event, `SF::Sensor`
 can retrieve the state of a sensor at any time (you don't need to
 store and update its current value on your side).
 
@@ -1754,7 +1749,7 @@ the availability of a sensor before trying to read it, with the
 `SF::Sensor.available?` function.
 
 You may wonder why some sensor types look so similar, for example
-Accelerometer and Gravity / UserAcceleration. The first one
+`Type::Accelerometer` and `Type::Gravity` / `Type::UserAcceleration`. The first one
 is the raw measurement of the acceleration, and takes into account
 both the earth gravity and the user movement. The others are
 more precise: they provide these components separately, which is
@@ -1763,11 +1758,11 @@ are computed internally based on the raw acceleration and other sensors.
 This is exactly the same for Gyroscope vs Orientation.
 
 Because sensors consume a non-negligible amount of current, they are
-all disabled by default. You must call `SF::Sensor.enabled=` for each
+all disabled by default. You must call `SF::Sensor.set_enabled` for each
 sensor in which you are interested.
 
 Usage example:
-```
+```crystal
 if SF::Sensor.available?(SF::Sensor::Gravity)
   # gravity sensor is available
 end
@@ -1874,8 +1869,8 @@ meant to be instantiated.
 
 This module allows users to query the touches state at any
 time and directly, without having to deal with a window and
-its events. Compared to the TouchBegan, TouchMoved
-and TouchEnded events, `SF::Touch` can retrieve the
+its events. Compared to the `TouchBegan`, `TouchMoved`
+and `TouchEnded` events, `SF::Touch` can retrieve the
 state of the touches at any time (you don't need to store and
 update a boolean on your side in order to know if a touch is down),
 and you always get the real state of the touches, even if they
@@ -1895,7 +1890,7 @@ sequential (i.e. touch number 0 may be released while touch number 1
 is still down).
 
 Usage example:
-```
+```crystal
 if SF::Touch.down?(0)
   # touch 0 is down
 end
@@ -1926,7 +1921,7 @@ in global (desktop) coordinates.
 
 * *finger* - Finger index
 
-*Returns:* Current position of *finger,* or undefined if it's not down
+*Returns:* Current position of *finger*, or undefined if it's not down
 
 ## SF::Touch.get_position(finger,relative_to)
 
@@ -1938,7 +1933,7 @@ relative to the given window.
 * *finger* - Finger index
 * *relative_to* - Reference window
 
-*Returns:* Current position of *finger,* or undefined if it's not down
+*Returns:* Current position of *finger*, or undefined if it's not down
 
 # SF::VideoMode
 
@@ -1956,7 +1951,7 @@ creation will just fail.
 
 `SF::VideoMode` provides a static function for retrieving
 the list of all the video modes supported by the system:
-fullscreen_modes().
+`fullscreen_modes()`.
 
 A custom video mode can also be checked directly for
 fullscreen compatibility with its `valid?()` function.
@@ -1967,7 +1962,7 @@ This allows to build windows with the same size or pixel
 depth as the current resolution.
 
 Usage example:
-```
+```crystal
 # Display the list of all the video modes available for fullscreen
 SF::VideoMode.fullscreen_modes.each do |mode|
   puts "Mode ##{i}: #{mode.width}x#{mode.height} - #{mode.bits_per_pixel} bpp"
@@ -2127,7 +2122,7 @@ that is compiled and linked into the final application. The macro
 should be placed outside of any scopes in the global namespace.
 
 Usage example:
-```
+```crystal
 # Declare and create a new window
 window = SF::Window.new(SF::VideoMode.new(800, 600), "SFML window")
 
@@ -2137,10 +2132,10 @@ window.framerate_limit = 60
 # The main loop - ends as soon as the window is closed
 while window.open?
   # Event processing
-  while (event = window.poll_event())
+  while (event = window.poll_event)
     # Request for closing the window
     if event.is_a?(SF::Event::Closed)
-      window.close()
+      window.close
     end
   end
 
@@ -2150,7 +2145,7 @@ while window.open?
   # OpenGL drawing commands go here...
 
   # End the current frame and display its contents on screen
-  window.display()
+  window.display
 end
 ```
 
@@ -2200,7 +2195,7 @@ depth-buffer bits, etc.
 Create (or recreate) the window
 
 If the window was already created, it closes it first.
-If *style* contains Style::Fullscreen, then *mode*
+If *style* contains `Style::Fullscreen`, then *mode*
 must be a valid video mode.
 
 The fourth parameter is an optional structure specifying
@@ -2278,7 +2273,7 @@ depth-buffer bits, etc.
 Construct a new window
 
 This constructor creates the window with the size and pixel
-depth defined in *mode.* An optional style can be passed to
+depth defined in *mode*. An optional style can be passed to
 customize the look and behavior of the window (borders,
 title bar, resizable, closable, ...). If *style* contains
 Style::Fullscreen, then *mode* must be a valid video mode.
@@ -2321,10 +2316,10 @@ Set the displayed cursor to a native system cursor
 
 Upon window creation, the arrow cursor is used by default.
 
-*Warning:* The cursor must not be destroyed while in use by
+WARNING: The cursor must not be destroyed while in use by
 the window.
 
-*Warning:* Features related to Cursor are not supported on
+WARNING: Features related to Cursor are not supported on
 iOS and Android.
 
 * *cursor* - Native system cursor type to display
@@ -2356,7 +2351,7 @@ The mouse cursor is visible by default.
 Tell whether or not the window is open
 
 This function returns whether or not the window exists.
-Note that a hidden window (visible=(false)) is open
+Note that a hidden window (`visible=false`) is open
 (therefore this function would return true).
 
 *Returns:* True if the window is open, false if it has been closed
@@ -2370,8 +2365,8 @@ it will return false and leave *event* unmodified.
 Note that more than one event may be present in the event queue,
 thus you should always call this function in a loop
 to make sure that you process every pending event.
-```
-while (event = window.poll_event())
+```crystal
+while (event = window.poll_event)
   # process event...
 end
 ```
@@ -2515,8 +2510,8 @@ the *event* object is always valid and filled properly.
 This function is typically used when you have a thread that
 is dedicated to events handling: you want to make this thread
 sleep as long as no new event is received.
-```
-if (event = window.wait_event())
+```crystal
+if (event = window.wait_event)
   # process event...
 end
 ```

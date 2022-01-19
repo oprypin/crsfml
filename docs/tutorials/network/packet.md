@@ -21,7 +21,7 @@ x = 10_u16
 s = "hello"
 d = 0.6_f64
 
-packet = SF::Packet.new()
+packet = SF::Packet.new
 packet.write(x)
 packet.write(s)
 packet.write(d)

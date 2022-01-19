@@ -1,7 +1,10 @@
-mkdocs
-mkdocs-material
-markdown-include
-git+https://github.com/oprypin/mkdocstrings-crystal@master
-git+https://github.com/oprypin/mkdocs-literate-nav@master
-git+https://github.com/oprypin/mkdocs-section-index@master
-git+https://github.com/oprypin/mkdocs-gen-files@master
+markdown-callouts>=0.1.0
+mkdocs>=1.2.1
+mkdocs-code-validator>=0.1.0
+mkdocs-gen-files>=0.3.2
+mkdocs-literate-nav>=0.3.1
+mkdocs-material>=7.1.4
+mkdocs-section-index>=0.3.0
+mkdocstrings>=0.15.0
+mkdocstrings-crystal>=0.3.1
+pymdown-extensions>=8.2

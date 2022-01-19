@@ -95,7 +95,7 @@ Note that changing the origin also changes where the entity is drawn on screen, 
 
 ```crystal
 class MyGraphicalEntity < SF::Transformable
-  # ...
+  # [...]
 end
 
 entity.position = SF.vector2(10, 30)
@@ -169,14 +169,14 @@ The bounding box is very useful when implementing collision detection: Checks ag
 bounding_box = entity.global_bounds
 
 # check collision with a point
-point = ...
+point = (...)
 
 if bounding_box.contains? point
   # collision!
 end
 
 # check collision with another box (like the bounding box of another entity)
-other_box = ...
+other_box = (...)
 
 if bounding_box.intersects? other_box
   # collision!
@@ -212,7 +212,7 @@ class Node
   end
 
   private def on_draw(target, transform)
-    ...
+    # [...]
   end
 end
 

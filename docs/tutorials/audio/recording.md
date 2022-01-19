@@ -12,7 +12,7 @@ This can be achieved with the very simple interface of the [SF::SoundBufferRecor
 # first check if an input audio device is available on the system
 if !SF::SoundBufferRecorder.available?
   # error: audio capture is not available on this system
-  ...
+  # [...]
 end
 
 # create the recorder
@@ -79,8 +79,8 @@ recorder = SF::SoundBufferRecorder.new
 
 # set the device
 unless recorder.device = input_device
-    # error: device selection failed
-    ...
+  # error: device selection failed
+  # [...]
 end
 
 # use recorder as usual
@@ -106,7 +106,7 @@ Here is the skeleton of a complete derived class:
 class MyRecorder < SF::SoundRecorder
   def on_start # optional
     # initialize whatever has to be done before the capture starts
-    ...
+    # [...]
 
     # return true to start the capture, or false to cancel it
     true
@@ -114,7 +114,7 @@ class MyRecorder < SF::SoundRecorder
 
   def on_process_samples(samples, sample_count)
     # do something useful with the new chunk of samples
-    ...
+    # [...]
 
     # return true to continue the capture, or false to stop it
     true
@@ -122,7 +122,7 @@ class MyRecorder < SF::SoundRecorder
 
   def on_stop # optional
     # clean up whatever has to be done after the capture is finished
-    ...
+    # [...]
   end
 end
 ```
@@ -136,7 +136,7 @@ end
 
 recorder = MyRecorder.new
 recorder.start
-...
+# [...]
 recorder.stop
 ```
 

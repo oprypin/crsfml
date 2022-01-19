@@ -55,7 +55,7 @@ module SF
     # This function sets the content of the clipboard as a
     # string.
     #
-    # *Warning:* Due to limitations on some operating systems,
+    # WARNING: Due to limitations on some operating systems,
     # setting the clipboard contents is only
     # guaranteed to work if there is currently an
     # open window for which events are being handled.
@@ -101,9 +101,10 @@ module SF
   # compatibility context is created. You only need to specify
   # the core flag if you want a core profile context to use with
   # your own OpenGL rendering.
-  # **Warning: The graphics module will not function if you
+  #
+  # WARNING: The graphics module will not function if you
   # request a core profile context. Make sure the attributes are
-  # set to Default if you want to use the graphics module.**
+  # set to Default if you want to use the graphics module.
   #
   # Setting the debug attribute flag will request a context with
   # additional debugging features enabled. Depending on the
@@ -362,7 +363,7 @@ module SF
   end
   # Cursor defines the appearance of a system cursor
   #
-  # *Warning:* Features related to Cursor are not supported on
+  # WARNING: Features related to Cursor are not supported on
   # iOS and Android.
   #
   # This class abstracts the operating system resources
@@ -411,7 +412,7 @@ module SF
     #  `SF::Cursor::Help`                   |  yes  |    yes*  |   yes    |
     #  `SF::Cursor::NotAllowed`             |  yes  |    yes   |   yes    |
     #
-    #  * These cursor types are undocumented so may not
+    # \* These cursor types are undocumented so may not
     #    be available on all versions, but have been tested on 10.13
     enum Type
       # Arrow cursor (default)
@@ -476,7 +477,7 @@ module SF
     # position is. Any mouse actions that are performed will
     # return the window/screen location of the hotspot.
     #
-    # *Warning:* On Unix, the pixels are mapped into a monochrome
+    # WARNING: On Unix, the pixels are mapped into a monochrome
     # bitmap: pixels with an alpha channel to 0 are
     # transparent, black if the RGB channel are close
     # to zero, and white otherwise.
@@ -572,7 +573,7 @@ module SF
   # you must call `SF::Joystick.update` explicitly.
   #
   # Usage example:
-  # ```
+  # ```crystal
   # # Is joystick #0 connected?
   # connected = SF::Joystick.connected?(0)
   #
@@ -762,7 +763,7 @@ module SF
   # event is triggered.
   #
   # Usage example:
-  # ```
+  # ```crystal
   # if SF::Keyboard.key_pressed?(SF::Keyboard::Left)
   #   # move left...
   # elsif SF::Keyboard.key_pressed?(SF::Keyboard::Right)
@@ -982,15 +983,15 @@ module SF
       Pause
       # Keep last -- the total number of keyboard keys
       KeyCount
-      # DEPRECATED: Use Hyphen instead
+      # DEPRECATED: Use `Hyphen` instead
       Dash = Hyphen
-      # DEPRECATED: Use Backspace instead
+      # DEPRECATED: Use `Backspace` instead
       BackSpace = Backspace
-      # DEPRECATED: Use Backslash instead
+      # DEPRECATED: Use `Backslash` instead
       BackSlash = Backslash
-      # DEPRECATED: Use Semicolon instead
+      # DEPRECATED: Use `Semicolon` instead
       SemiColon = Semicolon
-      # DEPRECATED: Use Enter instead
+      # DEPRECATED: Use `Enter` instead
       Return = Enter
     end
     Util.extract Keyboard::Key
@@ -1005,7 +1006,7 @@ module SF
     end
     # Show or hide the virtual keyboard
     #
-    # Warning: the virtual keyboard is not supported on all
+    # WARNING: The virtual keyboard is not supported on all
     # systems. It will typically be implemented on mobile OSes
     # (Android, iOS) but not on desktop OSes (Windows, Linux, ...).
     #
@@ -1041,7 +1042,7 @@ module SF
   # (relative to a specific window).
   #
   # Usage example:
-  # ```
+  # ```crystal
   # if SF::Mouse.button_pressed?(SF::Mouse::Left)
   #   # left click...
   # end
@@ -1142,7 +1143,7 @@ module SF
   #
   # This module allows users to query the sensors values at any
   # time and directly, without having to deal with a window and
-  # its events. Compared to the `SensorChanged` event, `SF::Sensor`
+  # its events. Compared to the `Event::SensorChanged` event, `SF::Sensor`
   # can retrieve the state of a sensor at any time (you don't need to
   # store and update its current value on your side).
   #
@@ -1152,7 +1153,7 @@ module SF
   # `SF::Sensor.available?` function.
   #
   # You may wonder why some sensor types look so similar, for example
-  # Accelerometer and Gravity / UserAcceleration. The first one
+  # `Type::Accelerometer` and `Type::Gravity` / `Type::UserAcceleration`. The first one
   # is the raw measurement of the acceleration, and takes into account
   # both the earth gravity and the user movement. The others are
   # more precise: they provide these components separately, which is
@@ -1161,11 +1162,11 @@ module SF
   # This is exactly the same for Gyroscope vs Orientation.
   #
   # Because sensors consume a non-negligible amount of current, they are
-  # all disabled by default. You must call `SF::Sensor.enabled=` for each
+  # all disabled by default. You must call `SF::Sensor.set_enabled` for each
   # sensor in which you are interested.
   #
   # Usage example:
-  # ```
+  # ```crystal
   # if SF::Sensor.available?(SF::Sensor::Gravity)
   #   # gravity sensor is available
   # end
@@ -1246,24 +1247,18 @@ module SF
   # or event.text will have undefined values.
   #
   # Usage example:
-  # ```
-  # while (event = window.poll_event())
+  # ```crystal
+  # while (event = window.poll_event)
   #   case event
-  #   # Request for closing the window
-  #   when SF::Event::Closed
-  #     window.close()
-  #
-  #   # The escape key was pressed
-  #   when SF::Event::KeyPressed
+  #   when SF::Event::Closed # Request for closing the window
+  #     window.close
+  #   when SF::Event::KeyPressed # The escape key was pressed
   #     if event.code == SF::Keyboard::Escape
-  #       window.close()
+  #       window.close
   #     end
-  #
-  #   # The window was resized
-  #   when SF::Event::Resized
+  #   when SF::Event::Resized # The window was resized
   #     do_something(event.width, event.height)
-  #
-  #   # etc ...
+  #     # etc ...
   #   end
   # end
   # ```
@@ -1273,7 +1268,7 @@ module SF
     def to_unsafe()
       pointerof(@_type)
     end
-    # Size events parameters (Resized)
+    # Size events parameters (see `Resized`)
     abstract struct SizeEvent < Event
       def initialize()
         @width = uninitialized UInt32
@@ -1308,7 +1303,7 @@ module SF
         return SizeEvent.new(self)
       end
     end
-    # Keyboard event parameters (KeyPressed, KeyReleased)
+    # Keyboard event parameters (see `KeyPressed`, `KeyReleased`)
     abstract struct KeyEvent < Event
       def initialize()
         @code = uninitialized Keyboard::Key
@@ -1376,7 +1371,7 @@ module SF
         return KeyEvent.new(self)
       end
     end
-    # Text event parameters (TextEntered)
+    # Text event parameters (see `TextEntered`)
     abstract struct TextEvent < Event
       def initialize()
         @unicode = uninitialized UInt32
@@ -1400,7 +1395,7 @@ module SF
         return TextEvent.new(self)
       end
     end
-    # Mouse move event parameters (MouseMoved)
+    # Mouse move event parameters (see `MouseMoved`)
     abstract struct MouseMoveEvent < Event
       def initialize()
         @x = uninitialized Int32
@@ -1436,7 +1431,7 @@ module SF
       end
     end
     # Mouse buttons events parameters
-    # (MouseButtonPressed, MouseButtonReleased)
+    # (see `MouseButtonPressed`, `MouseButtonReleased`)
     abstract struct MouseButtonEvent < Event
       def initialize()
         @button = uninitialized Mouse::Button
@@ -1482,10 +1477,10 @@ module SF
         return MouseButtonEvent.new(self)
       end
     end
-    # Mouse wheel events parameters (MouseWheelMoved)
+    # Mouse wheel events parameters (see `MouseWheelMoved`)
     #
     # DEPRECATED: This event is deprecated and potentially inaccurate.
-    # Use MouseWheelScrollEvent instead.
+    # Use `MouseWheelScrollEvent` instead.
     abstract struct MouseWheelEvent < Event
       def initialize()
         @delta = uninitialized Int32
@@ -1531,7 +1526,7 @@ module SF
         return MouseWheelEvent.new(self)
       end
     end
-    # Mouse wheel events parameters (MouseWheelScrolled)
+    # Mouse wheel events parameters (see `MouseWheelScrolled`)
     abstract struct MouseWheelScrollEvent < Event
       def initialize()
         @wheel = uninitialized Mouse::Wheel
@@ -1589,7 +1584,7 @@ module SF
       end
     end
     # Joystick connection events parameters
-    # (JoystickConnected, JoystickDisconnected)
+    # (see `JoystickConnected`, `JoystickDisconnected`)
     abstract struct JoystickConnectEvent < Event
       def initialize()
         @joystick_id = uninitialized UInt32
@@ -1613,7 +1608,7 @@ module SF
         return JoystickConnectEvent.new(self)
       end
     end
-    # Joystick axis move event parameters (JoystickMoved)
+    # Joystick axis move event parameters (see `JoystickMoved`)
     abstract struct JoystickMoveEvent < Event
       def initialize()
         @joystick_id = uninitialized UInt32
@@ -1660,7 +1655,7 @@ module SF
       end
     end
     # Joystick buttons events parameters
-    # (JoystickButtonPressed, JoystickButtonReleased)
+    # (see `JoystickButtonPressed`, `JoystickButtonReleased`)
     abstract struct JoystickButtonEvent < Event
       def initialize()
         @joystick_id = uninitialized UInt32
@@ -1695,7 +1690,7 @@ module SF
         return JoystickButtonEvent.new(self)
       end
     end
-    # Touch events parameters (TouchBegan, TouchMoved, TouchEnded)
+    # Touch events parameters (see `TouchBegan`, `TouchMoved`, `TouchEnded`)
     abstract struct TouchEvent < Event
       def initialize()
         @finger = uninitialized UInt32
@@ -1741,7 +1736,7 @@ module SF
         return TouchEvent.new(self)
       end
     end
-    # Sensor event parameters (SensorChanged)
+    # Sensor event parameters (see `SensorChanged`)
     abstract struct SensorEvent < Event
       def initialize()
         @type = uninitialized Sensor::Type
@@ -1854,7 +1849,7 @@ module SF
     struct Closed < Event
       @_type = Event::EventType::Closed
     end
-    # The window was resized (data in event.size)
+    # The window was resized (subtype of `SizeEvent`)
     struct Resized < SizeEvent
       @_type = Event::EventType::Resized
     end
@@ -1866,35 +1861,35 @@ module SF
     struct GainedFocus < Event
       @_type = Event::EventType::GainedFocus
     end
-    # A character was entered (data in event.text)
+    # A character was entered (subtype of `TextEvent`)
     struct TextEntered < TextEvent
       @_type = Event::EventType::TextEntered
     end
-    # A key was pressed (data in event.key)
+    # A key was pressed (subtype of `KeyEvent`)
     struct KeyPressed < KeyEvent
       @_type = Event::EventType::KeyPressed
     end
-    # A key was released (data in event.key)
+    # A key was released (subtype of `KeyEvent`)
     struct KeyReleased < KeyEvent
       @_type = Event::EventType::KeyReleased
     end
-    # The mouse wheel was scrolled (data in event.mouse_wheel) (deprecated)
+    # The mouse wheel was scrolled (subtype of `MouseWheelEvent`) (deprecated)
     struct MouseWheelMoved < MouseWheelEvent
       @_type = Event::EventType::MouseWheelMoved
     end
-    # The mouse wheel was scrolled (data in event.mouse_wheel_scroll)
+    # The mouse wheel was scrolled (subtype of `MouseWheelScrollEvent`)
     struct MouseWheelScrolled < MouseWheelScrollEvent
       @_type = Event::EventType::MouseWheelScrolled
     end
-    # A mouse button was pressed (data in event.mouse_button)
+    # A mouse button was pressed (subtype of `MouseButtonEvent`)
     struct MouseButtonPressed < MouseButtonEvent
       @_type = Event::EventType::MouseButtonPressed
     end
-    # A mouse button was released (data in event.mouse_button)
+    # A mouse button was released (subtype of `MouseButtonEvent`)
     struct MouseButtonReleased < MouseButtonEvent
       @_type = Event::EventType::MouseButtonReleased
     end
-    # The mouse cursor moved (data in event.mouse_move)
+    # The mouse cursor moved (subtype of `MouseMoveEvent`)
     struct MouseMoved < MouseMoveEvent
       @_type = Event::EventType::MouseMoved
     end
@@ -1906,39 +1901,39 @@ module SF
     struct MouseLeft < Event
       @_type = Event::EventType::MouseLeft
     end
-    # A joystick button was pressed (data in event.joystick_button)
+    # A joystick button was pressed (subtype of `JoystickButtonEvent`)
     struct JoystickButtonPressed < JoystickButtonEvent
       @_type = Event::EventType::JoystickButtonPressed
     end
-    # A joystick button was released (data in event.joystick_button)
+    # A joystick button was released (subtype of `JoystickButtonEvent`)
     struct JoystickButtonReleased < JoystickButtonEvent
       @_type = Event::EventType::JoystickButtonReleased
     end
-    # The joystick moved along an axis (data in event.joystick_move)
+    # The joystick moved along an axis (subtype of `JoystickMoveEvent`)
     struct JoystickMoved < JoystickMoveEvent
       @_type = Event::EventType::JoystickMoved
     end
-    # A joystick was connected (data in event.joystick_connect)
+    # A joystick was connected (subtype of `JoystickConnectEvent`)
     struct JoystickConnected < JoystickConnectEvent
       @_type = Event::EventType::JoystickConnected
     end
-    # A joystick was disconnected (data in event.joystick_connect)
+    # A joystick was disconnected (subtype of `JoystickConnectEvent`)
     struct JoystickDisconnected < JoystickConnectEvent
       @_type = Event::EventType::JoystickDisconnected
     end
-    # A touch event began (data in event.touch)
+    # A touch event began (subtype of `TouchEvent`)
     struct TouchBegan < TouchEvent
       @_type = Event::EventType::TouchBegan
     end
-    # A touch moved (data in event.touch)
+    # A touch moved (subtype of `TouchEvent`)
     struct TouchMoved < TouchEvent
       @_type = Event::EventType::TouchMoved
     end
-    # A touch event ended (data in event.touch)
+    # A touch event ended (subtype of `TouchEvent`)
     struct TouchEnded < TouchEvent
       @_type = Event::EventType::TouchEnded
     end
-    # A sensor value changed (data in event.sensor)
+    # A sensor value changed (subtype of `SensorEvent`)
     struct SensorChanged < SensorEvent
       @_type = Event::EventType::SensorChanged
     end
@@ -1951,8 +1946,8 @@ module SF
   #
   # This module allows users to query the touches state at any
   # time and directly, without having to deal with a window and
-  # its events. Compared to the TouchBegan, TouchMoved
-  # and TouchEnded events, `SF::Touch` can retrieve the
+  # its events. Compared to the `TouchBegan`, `TouchMoved`
+  # and `TouchEnded` events, `SF::Touch` can retrieve the
   # state of the touches at any time (you don't need to store and
   # update a boolean on your side in order to know if a touch is down),
   # and you always get the real state of the touches, even if they
@@ -1972,7 +1967,7 @@ module SF
   # is still down).
   #
   # Usage example:
-  # ```
+  # ```crystal
   # if SF::Touch.down?(0)
   #   # touch 0 is down
   # end
@@ -2002,7 +1997,7 @@ module SF
     #
     # * *finger* - Finger index
     #
-    # *Returns:* Current position of *finger,* or undefined if it's not down
+    # *Returns:* Current position of *finger*, or undefined if it's not down
     def self.get_position(finger : Int) : Vector2i
       result = Vector2i.allocate
       SFMLExt.sfml_touch_getposition_emS(LibC::UInt.new(finger), result)
@@ -2016,7 +2011,7 @@ module SF
     # * *finger* - Finger index
     # * *relative_to* - Reference window
     #
-    # *Returns:* Current position of *finger,* or undefined if it's not down
+    # *Returns:* Current position of *finger*, or undefined if it's not down
     def self.get_position(finger : Int, relative_to : Window) : Vector2i
       result = Vector2i.allocate
       SFMLExt.sfml_touch_getposition_emSJRh(LibC::UInt.new(finger), relative_to, result)
@@ -2037,7 +2032,7 @@ module SF
   #
   # `SF::VideoMode` provides a static function for retrieving
   # the list of all the video modes supported by the system:
-  # fullscreen_modes().
+  # `fullscreen_modes()`.
   #
   # A custom video mode can also be checked directly for
   # fullscreen compatibility with its `valid?()` function.
@@ -2048,7 +2043,7 @@ module SF
   # depth as the current resolution.
   #
   # Usage example:
-  # ```
+  # ```crystal
   # # Display the list of all the video modes available for fullscreen
   # SF::VideoMode.fullscreen_modes.each do |mode|
   #   puts "Mode ##{i}: #{mode.width}x#{mode.height} - #{mode.bits_per_pixel} bpp"
@@ -2262,7 +2257,7 @@ module SF
   # should be placed outside of any scopes in the global namespace.
   #
   # Usage example:
-  # ```
+  # ```crystal
   # # Declare and create a new window
   # window = SF::Window.new(SF::VideoMode.new(800, 600), "SFML window")
   #
@@ -2272,10 +2267,10 @@ module SF
   # # The main loop - ends as soon as the window is closed
   # while window.open?
   #   # Event processing
-  #   while (event = window.poll_event())
+  #   while (event = window.poll_event)
   #     # Request for closing the window
   #     if event.is_a?(SF::Event::Closed)
-  #       window.close()
+  #       window.close
   #     end
   #   end
   #
@@ -2285,7 +2280,7 @@ module SF
   #   # OpenGL drawing commands go here...
   #
   #   # End the current frame and display its contents on screen
-  #   window.display()
+  #   window.display
   # end
   # ```
   class Window
@@ -2301,7 +2296,7 @@ module SF
     # Construct a new window
     #
     # This constructor creates the window with the size and pixel
-    # depth defined in *mode.* An optional style can be passed to
+    # depth defined in *mode*. An optional style can be passed to
     # customize the look and behavior of the window (borders,
     # title bar, resizable, closable, ...). If *style* contains
     # Style::Fullscreen, then *mode* must be a valid video mode.
@@ -2343,7 +2338,7 @@ module SF
     # Create (or recreate) the window
     #
     # If the window was already created, it closes it first.
-    # If *style* contains Style::Fullscreen, then *mode*
+    # If *style* contains `Style::Fullscreen`, then *mode*
     # must be a valid video mode.
     #
     # The fourth parameter is an optional structure specifying
@@ -2397,7 +2392,7 @@ module SF
     # Tell whether or not the window is open
     #
     # This function returns whether or not the window exists.
-    # Note that a hidden window (visible=(false)) is open
+    # Note that a hidden window (`visible=false`) is open
     # (therefore this function would return true).
     #
     # *Returns:* True if the window is open, false if it has been closed
@@ -2425,8 +2420,8 @@ module SF
     # Note that more than one event may be present in the event queue,
     # thus you should always call this function in a loop
     # to make sure that you process every pending event.
-    # ```
-    # while (event = window.poll_event())
+    # ```crystal
+    # while (event = window.poll_event)
     #   # process event...
     # end
     # ```
@@ -2501,8 +2496,8 @@ module SF
     # This function is typically used when you have a thread that
     # is dedicated to events handling: you want to make this thread
     # sleep as long as no new event is received.
-    # ```
-    # if (event = window.wait_event())
+    # ```crystal
+    # if (event = window.wait_event)
     #   # process event...
     # end
     # ```
@@ -2682,10 +2677,10 @@ module SF
     #
     # Upon window creation, the arrow cursor is used by default.
     #
-    # *Warning:* The cursor must not be destroyed while in use by
+    # WARNING: The cursor must not be destroyed while in use by
     # the window.
     #
-    # *Warning:* Features related to Cursor are not supported on
+    # WARNING: Features related to Cursor are not supported on
     # iOS and Android.
     #
     # * *cursor* - Native system cursor type to display

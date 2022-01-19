@@ -23,7 +23,7 @@ Because the listener is unique in the scene, `SF::Listener` only
 contains static functions and doesn't have to be instantiated.
 
 Usage example:
-```
+```crystal
 # Move the listener to the position (1, 0, -5)
 SF::Listener.set_position(1, 0, -5)
 
@@ -188,13 +188,13 @@ leave the music alone after calling `play()`, it will manage itself
 very well.
 
 Usage example:
-```
+```crystal
 # Declare a new music
 music = SF::Music.new
 
 # Open it from an audio file
 if !music.open_from_file("music.ogg")
-    # error...
+  # error...
 end
 
 # Change some parameters
@@ -204,7 +204,7 @@ music.volume = 50            # reduce the volume
 music.loop = true            # make it loop
 
 # Play it
-music.play()
+music.play
 ```
 
 *See also:* `SF::Sound`, `SF::SoundStream`
@@ -253,9 +253,9 @@ Get the positions of the of the sound's looping sequence
 
 *Returns:* Loop Time position class.
 
-*Warning:* Since `loop_points=()` performs some adjustments on the
+WARNING: Since `loop_points=()` performs some adjustments on the
 provided values and rounds them to internal samples, a call to
-loop_points() is not guaranteed to return the same times passed
+`loop_points()` is not guaranteed to return the same times passed
 into a previous call to `loop_points=()`. However, it is guaranteed
 to return times that will map to the valid internal samples of
 this Music if they are later passed to `loop_points=()`.
@@ -275,8 +275,8 @@ in case the caller seeks to a point after the end of the loop range. This functi
 safely called at any point after a stream is opened, and will be applied to a playing sound
 without affecting the current playing offset.
 
-*Warning:* Setting the loop points while the stream's status is Paused
-will set its status to Stopped. The playing offset will be unaffected.
+WARNING: Setting the loop points while the stream's status is `Paused`
+will set its status to `Stopped`. The playing offset will be unaffected.
 
 * *time_points* - The definition of the loop. Can be any time points within the sound's length
 
@@ -326,7 +326,7 @@ to do so).
 See the documentation of `SF::InputSoundFile` for the list
 of supported formats.
 
-*Warning:* Since the music is not loaded at once but rather
+WARNING: Since the music is not loaded at once but rather
 streamed continuously, the file must remain accessible until
 the `SF::Music` object loads a new music or is destroyed.
 
@@ -345,7 +345,7 @@ to do so).
 See the documentation of `SF::InputSoundFile` for the list
 of supported formats.
 
-*Warning:* Since the music is not loaded at once but rather streamed
+WARNING: Since the music is not loaded at once but rather streamed
 continuously, the *data* buffer must remain accessible until
 the `SF::Music` object loads a new music or is destroyed. That is,
 you can't deallocate the buffer right after calling this function.
@@ -365,7 +365,7 @@ to do so).
 See the documentation of `SF::InputSoundFile` for the list
 of supported formats.
 
-*Warning:* Since the music is not loaded at once but rather
+WARNING: Since the music is not loaded at once but rather
 streamed continuously, the *stream* must remain accessible
 until the `SF::Music` object loads a new music or is destroyed.
 
@@ -464,12 +464,12 @@ as long as the sound uses it. Note that multiple sounds
 can use the same sound buffer at the same time.
 
 Usage example:
-```
+```crystal
 buffer = SF::SoundBuffer.from_file("sound.wav")
 
 sound = SF::Sound.new
 sound.buffer = buffer
-sound.play()
+sound.play
 ```
 
 *See also:* `SF::SoundBuffer`, `SF::Music`
@@ -532,7 +532,7 @@ Set whether or not the sound should loop after reaching the end
 
 If set, the sound will restart from beginning after
 reaching the end and so on, until it is stopped or
-loop=(false) is called.
+`loop=(false)` is called.
 The default looping state for sound is false.
 
 * *loop* - True to play in loop, false to play once
@@ -687,7 +687,7 @@ used by a `SF::Sound` (i.e. never write a function that
 uses a local `SF::SoundBuffer` instance for loading a sound).
 
 Usage example:
-```
+```crystal
 # Load a new sound buffer from a file
 buffer = SF::SoundBuffer.from_file("sound.wav")
 
@@ -696,7 +696,7 @@ sound1 = SF::Sound.new
 sound1.buffer = buffer
 
 # Play the sound
-sound1.play()
+sound1.play
 
 # Create another sound source bound to the same buffer
 sound2 = SF::Sound.new
@@ -704,7 +704,7 @@ sound2.buffer = buffer
 
 # Play it with a higher pitch -- the first sound remains unchanged
 sound2.pitch = 2
-sound2.play()
+sound2.play
 ```
 
 *See also:* `SF::Sound`, `SF::SoundBufferRecorder`
@@ -848,22 +848,22 @@ audio data into a sound buffer
 through a `SF::SoundBuffer`, so that it can be played, saved
 to a file, etc.
 
-It has the same simple interface as its base class (start(), `stop()`)
+It has the same simple interface as its base class (`start()`, `stop()`)
 and adds a function to retrieve the recorded sound buffer
-(buffer()).
+(`buffer()`).
 
 As usual, don't forget to call the `available?()` function
 before using this class (see `SF::SoundRecorder` for more details
 about this).
 
 Usage example:
-```
+```crystal
 if SF::SoundBufferRecorder.available?
   # Record some audio data
   recorder = SF::SoundBufferRecorder.new
-  recorder.start()
-  ...
-  recorder.stop()
+  recorder.start
+  # [...]
+  recorder.stop
 
   # Get the buffer containing the captured audio data
   buffer = recorder.buffer
@@ -972,11 +972,11 @@ A derived class has only one virtual function to override:
 Moreover, two additional virtual functions can be overridden
 as well if necessary:
 
-* on_start is called before the capture happens, to perform custom initializations
-* on_stop is called after the capture ends, to perform custom cleanup
+* `on_start` is called before the capture happens, to perform custom initializations
+* `on_stop` is called after the capture ends, to perform custom cleanup
 
 A derived class can also control the frequency of the on_process_samples
-calls, with the processing_interval= protected function. The default
+calls, with the `processing_interval=` protected function. The default
 interval is chosen so that recording thread doesn't consume too much
 CPU, but it can be changed to a smaller value if you need to process
 the recorded data in real time, for example.
@@ -1011,16 +1011,16 @@ in the destructor of your derived class, so that the recording
 thread finishes before your object is destroyed.
 
 Usage example:
-```
+```crystal
 class CustomRecorder < SF::SoundRecorder
   def finalize
     # Make sure to stop the recording thread
-    stop()
+    stop
   end
 
-  def on_start() # optional
+  def on_start # optional
     # Initialize whatever has to be done before the capture starts
-    ...
+    # [...]
 
     # Return true to start playing
     true
@@ -1028,27 +1028,28 @@ class CustomRecorder < SF::SoundRecorder
 
   def on_process_samples(samples)
     # Do something with the new chunk of samples (store them, send them, ...)
-    ...
+    # [...]
 
     # Return true to continue playing
     true
   end
 
-  def on_stop() # optional
+  def on_stop # optional
     # Clean up whatever has to be done after the capture ends
-    ...
+    # [...]
   end
 end
 
 # Usage
-if (CustomRecorder.isAvailable())
-    CustomRecorder recorder
+if CustomRecorder.available?
+  recorder = CustomRecorder.new
 
-    if (!recorder.start())
-        return -1
+  if !recorder.start
+    return -1
+  end
 
-    ...
-    recorder.stop()
+  # [...]
+  recorder.stop
 end
 ```
 
@@ -1119,7 +1120,7 @@ Get the name of the current audio capture device
 Set the audio capture device
 
 This function sets the audio capture device to the device
-with the given *name.* It can be called on the fly (i.e:
+with the given *name*. It can be called on the fly (i.e:
 while recording). If you do so while recording and
 opening the device fails, it stops the recording.
 
@@ -1482,17 +1483,17 @@ It is important to keep this in mind, because you may have to take
 care of synchronization issues if you share data between threads.
 
 Usage example:
-```
+```crystal
 class CustomStream < SF::SoundStream
   def initialize(location : String)
     # Open the source and get audio settings
-    ...
+    # [...]
 
     # Initialize the stream -- important!
     super(channel_count, sample_rate)
   end
 
-  def on_get_data()
+  def on_get_data
     # Return a slice with audio data from the stream source
     # (note: must not be empty if you want to continue playing)
     Slice.new(samples.to_unsafe, samples.size)
@@ -1505,7 +1506,7 @@ end
 
 # Usage
 stream = CustomStream.new("path/to/stream")
-stream.play()
+stream.play
 ```
 
 *See also:* `SF::Music`
@@ -1606,7 +1607,7 @@ Change the current playing position in the stream source to the beginning of the
 
 This function can be overridden by derived classes to
 allow implementation of custom loop points. Otherwise,
-it just calls on_seek(Time::Zero) and returns 0.
+it just calls `on_seek(Time::Zero)` and returns 0.
 
 *Returns:* The seek position after looping (or -1 if there's no loop)
 

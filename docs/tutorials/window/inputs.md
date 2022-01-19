@@ -71,7 +71,7 @@ You can check whether a joystick is connected or not:
 ```crystal
 if SF::Joystick.connected?(0)
   # joystick number 0 is connected
-  ...
+  # [...]
 end
 ```
 

@@ -167,7 +167,7 @@ Line without thickness:
 ```crystal
 line = [
   SF::Vertex.new(SF.vector2(10, 10)),
-  SF::Vertex.new(SF.vector2(150, 150))
+  SF::Vertex.new(SF.vector2(150, 150)),
 ]
 
 window.draw(line, SF::Lines)
@@ -193,21 +193,23 @@ Here is a complete example of a custom shape class: `EllipseShape`.
 ```crystal
 class EllipseShape < SF::Shape
   def initialize(@radius : SF::Vector2f)
-    super()
-    update()
+    super
+    update
   end
 
   def radius
     @radius
   end
+
   def radius=(radius : SF::Vector2f)
     @radius = radius
     update
   end
 
   def point_count
-    40  # fixed, but could be an attribute of the class if needed
+    40 # fixed, but could be an attribute of the class if needed
   end
+
   def get_point(index)
     angle = index * 2*Math::PI / point_count
 

@@ -67,7 +67,7 @@ Note that you don't have to use the [SF::VertexArray][] class. It's just defined
 ```crystal
 vertices = [
   SF::Vertex.new(...),
-  SF::Vertex.new(...)
+  SF::Vertex.new(...),
 ]
 
 window.draw(vertices, SF::Lines)
@@ -99,10 +99,10 @@ quad = SF::VertexArray.new(SF::Quads, 4)
 
 # define it as a rectangle, located at (10, 10) and with size 100x100
 # define its texture area to be a 25x50 rectangle starting at (0, 0)
-quad.append SF::Vertex.new({ 10,  10}, tex_coords: { 0,  0})
-quad.append SF::Vertex.new({110,  10}, tex_coords: {25,  0})
+quad.append SF::Vertex.new({10, 10}, tex_coords: {0, 0})
+quad.append SF::Vertex.new({110, 10}, tex_coords: {25, 0})
 quad.append SF::Vertex.new({110, 110}, tex_coords: {25, 50})
-quad.append SF::Vertex.new({ 10, 110}, tex_coords: { 0, 50})
+quad.append SF::Vertex.new({10, 110}, tex_coords: {0, 50})
 ```
 
 Texture coordinates are defined in *pixels* (just like the `texture_rect` of sprites and shapes). They are *not* normalized (between 0 and 1), as people who are used to OpenGL programming might expect.
@@ -110,10 +110,10 @@ Texture coordinates are defined in *pixels* (just like the `texture_rect` of spr
 Vertex arrays are low-level entities, they only deal with geometry and do not store additional attributes like a texture. To draw a vertex array with a texture, you must pass it directly to the `draw` method, through a [SF::RenderStates][] object:
 
 ```crystal
-vertices = ... # SF::VertexArray
-texture = ... # SF::Texture
+vertices = (...) # SF::VertexArray
+texture = (...)  # SF::Texture
 
-...
+# [...]
 
 states = SF::RenderStates.new
 states.texture = texture
@@ -126,10 +126,10 @@ window.draw(vertices, states)
 Transforming is similar to texturing. The transform is not stored in the vertex array, you must pass it to the `draw` method.
 
 ```crystal
-vertices = ... # SF::VertexArray
-transform = ... # SF::Transform
+vertices = (...)  # SF::VertexArray
+transform = (...) # SF::Transform
 
-...
+# [...]
 
 states = SF::RenderStates.new
 states.transform = transform
@@ -208,7 +208,7 @@ class TileMap < SF::Transformable
   include SF::Drawable
 
   def initialize(tileset, tile_size, tiles, width, height)
-    super()
+    super
 
     # load the tileset texture
     @tileset = SF::Texture.from_file(tileset)
@@ -244,7 +244,7 @@ class TileMap < SF::Transformable
 
   def draw(target, states)
     # apply the transform
-    states.transform *= transform()
+    states.transform *= transform
 
     # apply the tileset texture
     states.texture = @tileset
@@ -270,7 +270,7 @@ level = [
   0, 1, 1, 0, 3, 3, 3, 0, 0, 0, 1, 1, 1, 2, 0, 0,
   0, 0, 1, 0, 3, 0, 2, 2, 0, 0, 1, 1, 1, 1, 2, 0,
   2, 0, 1, 0, 3, 0, 2, 2, 2, 0, 1, 1, 1, 1, 1, 1,
-  0, 0, 1, 0, 3, 2, 2, 2, 0, 0, 0, 0, 1, 1, 1, 1
+  0, 0, 1, 0, 3, 2, 2, 2, 0, 0, 0, 0, 1, 1, 1, 1,
 ]
 
 # create the tilemap from the level definition
@@ -303,6 +303,7 @@ struct Particle
   def initialize(@velocity, @lifetime, @position)
     @total_lifetime = @lifetime
   end
+
   property velocity : SF::Vector2f
   property lifetime : SF::Time
   property position : SF::Vector2f
@@ -313,7 +314,7 @@ class ParticleSystem < SF::Transformable
   include SF::Drawable
 
   def initialize(@count : Int32)
-    super()
+    super
 
     @particles = [] of Particle
     @emitter = SF::Vector2f.new(0.0f32, 0.0f32)
@@ -353,7 +354,7 @@ class ParticleSystem < SF::Transformable
     end
 
     # apply the transform
-    states.transform *= transform()
+    states.transform *= transform
 
     # draw the vertex array
     target.draw(vertices, SF::Points, states)
@@ -385,7 +386,6 @@ clock = SF::Clock.new
 
 # run the main loop
 while window.open?
-
   # handle events
   while event = window.poll_event
     if event.is_a? SF::Event::Closed

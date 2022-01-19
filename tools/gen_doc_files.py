@@ -4,7 +4,7 @@ import mkdocs_gen_files
 
 root = mkdocs_gen_files.config["plugins"]["mkdocstrings"].get_handler("crystal").collector.root
 
-nav = mkdocs_gen_files.open(f"api/index.md", "w")
+nav = mkdocs_gen_files.open(f"api/README.md", "w")
 
 for module in ["System", "Window", "Graphics", "Audio", "Network", ""]:
     if module:

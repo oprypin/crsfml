@@ -18,7 +18,7 @@ Using the FTP client consists of 4 parts:
 
 Every command returns a FTP response, which contains the
 status code as well as a message from the server. Some
-commands such as `working_directory()` and directory_listing()
+commands such as `working_directory()` and `directory_listing()`
 return additional data, and use a class derived from
 `SF::Ftp::Response` to provide this data. The most often used
 commands are directly provided as member functions, but it is
@@ -33,7 +33,7 @@ to block your application while the server is completing
 the task.
 
 Usage example:
-```
+```crystal
 # Create a new FTP client
 ftp = SF::Ftp.new
 
@@ -50,7 +50,7 @@ if response.ok?
 end
 
 # Print the working directory
-directory = ftp.working_directory()
+directory = ftp.working_directory
 if directory.ok?
   puts "Working directory: #{directory.directory}"
 end
@@ -63,7 +63,7 @@ end
 
 # Upload a file to this new directory
 response = ftp.upload("local-path/file.txt", "files", SF::Ftp::Ascii)
-if response.ok?)
+if response.ok?
   puts "File uploaded"
 end
 
@@ -74,7 +74,7 @@ if response.ok?
 end
 
 # Disconnect from the server
-ftp.disconnect()
+ftp.disconnect
 ```
 
 ## SF::Ftp::DirectoryResponse
@@ -560,8 +560,8 @@ While the most often used commands are provided as member
 functions in the `SF::Ftp` class, this method can be used
 to send any FTP command to the server. If the command
 requires one or more parameters, they can be specified
-in *parameter.* If the server returns information, you
-can extract it from the response using Response.message().
+in *parameter*. If the server returns information, you
+can extract it from the response using `Response.message()`.
 
 * *command* - Command to send
 * *parameter* - Command parameter
@@ -636,7 +636,7 @@ and provides getters to read them. The response contains:
 from the server.
 
 Usage example:
-```
+```crystal
 # Create a new HTTP client
 http = SF::Http.new("http://www.sfml-dev.org")
 
@@ -647,11 +647,11 @@ request = SF::Http::Request.new("features.php")
 response = http.send_request request
 
 # Check the status code and display the result
-SF::Http::Response::Status status = response.getStatus()
-if response.status == SF::Http::Response::Ok
-    puts response.body
+status = response.status
+if status.ok?
+  puts response.body
 else
-    puts "Error #{response.status}"
+  puts "Error #{response.status}"
 end
 ```
 
@@ -937,7 +937,8 @@ Send a HTTP request and return the server's response.
 You must have a valid host before sending a request (see host=).
 Any missing mandatory header field in the request will be added
 with an appropriate value.
-Warning: this function waits for the server's response and may
+
+WARNING: This function waits for the server's response and may
 not return instantly; use a thread if you don't want to block your
 application, or use a timeout to limit the time to wait. A value
 of Time::Zero means that the client will use the system default timeout
@@ -973,17 +974,17 @@ conversion functions to easily build or transform an IP
 address from/to various representations.
 
 Usage example:
-```
-a0 = SF::IpAddress.new                    # an invalid address
-a1 = SF::IpAddress::None                  # an invalid address (same as a0)
-a2 = SF::IpAddress.new("127.0.0.1")       # the local host address
-a3 = SF::IpAddress::Broadcast             # the broadcast address
-a4 = SF::IpAddress.new(192, 168, 1, 56)   # a local address
-a5 = SF::IpAddress.new("my_computer")     # a local address created from a network name
-a6 = SF::IpAddress.new("89.54.1.169")     # a distant address
-a7 = SF::IpAddress.new("www.google.com")  # a distant address created from a network name
-a8 = SF::IpAddress.local_address          # my address on the local network
-a9 = SF::IpAddress.get_public_address()   # my address on the internet
+```crystal
+a0 = SF::IpAddress.new                   # an invalid address
+a1 = SF::IpAddress::None                 # an invalid address (same as a0)
+a2 = SF::IpAddress.new("127.0.0.1")      # the local host address
+a3 = SF::IpAddress::Broadcast            # the broadcast address
+a4 = SF::IpAddress.new(192, 168, 1, 56)  # a local address
+a5 = SF::IpAddress.new("my_computer")    # a local address created from a network name
+a6 = SF::IpAddress.new("89.54.1.169")    # a distant address
+a7 = SF::IpAddress.new("www.google.com") # a distant address created from a network name
+a8 = SF::IpAddress.local_address         # my address on the local network
+a9 = SF::IpAddress.get_public_address    # my address on the internet
 ```
 
 Note that `SF::IpAddress` currently doesn't support IPv6
@@ -1184,7 +1185,7 @@ It is recommended to use only fixed-size types (like `Int32`, etc.),
 to avoid possible differences between the sender and the receiver.
 
 Usage example:
-```
+```crystal
 x = 24u32
 s = "hello"
 d = 5.89
@@ -1198,7 +1199,7 @@ packet.write d
 # Send it over the network (socket is a valid SF::TcpSocket)
 socket.send packet
 
------------------------------------------------------------------
+# -----------------------------------------------------------------
 
 # Receive the packet at the other end
 packet = SF::Packet.new
@@ -1223,7 +1224,7 @@ Packets have overloads of `read` and `write` methods for standard types:
 Like standard streams, it is also possible to define your own overloads
 of these methods in order to handle your custom types.
 
-```
+```crystal
 struct MyStruct
   number : Float32
   integer : Int8
@@ -1266,7 +1267,7 @@ After calling Clear, the packet is empty.
 
 Get a pointer to the data contained in the packet
 
-Warning: the returned pointer may become invalid after
+WARNING: The returned pointer may become invalid after
 you append data to the packet, therefore it should never
 be stored.
 The return pointer is NULL if the packet is empty.
@@ -1374,10 +1375,10 @@ data to read.
 This behavior is the same as standard C++ streams.
 
 Usage example:
-```
+```crystal
 x = packet.read(Float32)
 if packet.valid?
-   # ok, x was extracted successfully
+  # ok, x was extracted successfully
 end
 ```
 
@@ -1574,7 +1575,7 @@ Using a selector is simple:
 * test each socket to find out which ones are ready
 
 Usage example:
-```
+```crystal
 # Create a socket to listen to new connections
 listener = SF::TcpListener.new
 listener.listen(55001)
@@ -1591,7 +1592,7 @@ selector.add listener
 # Endless loop that waits for new connections
 while running
   # Make the selector wait for data on any socket
-  if selector.wait()
+  if selector.wait
     # Test the listener
     if selector.ready?(listener)
       # The listener is ready: there is a pending connection
@@ -1611,7 +1612,7 @@ while running
           # The client has sent some data, we can receive it
           packet = SF::Packet.new
           if client.receive(packet) == SF::Socket::Done
-              ...
+            [...]
           end
         end
       end
@@ -1725,7 +1726,7 @@ before the socket is destroyed, you can call its `close()`
 function.
 
 Usage example:
-```
+```crystal
 # Create a listener socket and make it wait for new
 # connections on port 55001
 listener = SF::TcpListener.new
@@ -1842,7 +1843,7 @@ but if you want to explicitly close the connection while
 the socket instance is still alive, you can call disconnect.
 
 Usage example:
-```
+```crystal
 # ----- The client -----
 
 # Create a socket and connect it to 192.168.1.50 on port 55001
@@ -2076,7 +2077,7 @@ function if necessary, to stop receiving messages or
 make the port available for other sockets.
 
 Usage example:
-```
+```crystal
 # ----- The client -----
 
 # Create a socket and bind it to the port 55001

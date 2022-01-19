@@ -13,12 +13,12 @@ time can never go backward, even if the system time is
 changed.
 
 Usage example:
-```
+```crystal
 clock = SF::Clock.new
-...
+# [...]
 time1 = clock.elapsed_time
-...
-time2 = clock.restart()
+# [...]
+time2 = clock.restart
 ```
 
 The `SF::Time` value returned by the clock can then be
@@ -60,24 +60,24 @@ It also returns the time elapsed since the clock was started.
 
 Implementation of input stream based on a file
 
-This class is a specialization of InputStream that
+This class is a specialization of `InputStream` that
 reads from a file on disk.
 
-It wraps a file in the common InputStream interface
+It wraps a file in the common `InputStream` interface
 and therefore allows to use generic classes or functions
 that accept such a stream, with a file on disk as the data
 source.
 
 In addition to the virtual functions inherited from
-InputStream, FileInputStream adds a function to
+`InputStream`, `FileInputStream` adds a function to
 specify the file to open.
 
 SFML resource classes can usually be loaded directly from
 a filename, so this class shouldn't be useful to you unless
-you create your own algorithms that operate on an InputStream.
+you create your own algorithms that operate on an `InputStream`
 
 Usage example:
-```
+```crystal
 def process(stream : InputStream)
 end
 
@@ -85,7 +85,7 @@ stream = SF::FileInputStream.open("some_file.dat")
 process(stream)
 ```
 
-InputStream, MemoryInputStream
+See also: `InputStream`, `MemoryInputStream`
 
 ## SF::FileInputStream#finalize()
 
@@ -150,22 +150,28 @@ own class from `SF::InputStream` and load SFML resources with
 their load_from_stream function.
 
 Usage example:
-```
+```crystal
 # custom stream class that reads from inside a zip file
 class ZipStream < SF::InputStream
-    def initialize(archive : String)
+  def initialize(archive : String)
+  end
 
-    def open(filename : String)
+  def open(filename : String)
+  end
 
-    def read(data : Slice) : Int64
+  def read(data : Slice) : Int64
+  end
 
-    def seek(position : Int) : Int64
+  def seek(position : Int) : Int64
+  end
 
-    def tell() : Int64
+  def tell : Int64
+  end
 
-    def size() : Int64
+  def size : Int64
+  end
 
-    ...
+  # [...]
 end
 
 # now you can load textures...
@@ -216,15 +222,15 @@ Get the current reading position in the stream
 
 Implementation of input stream based on a memory chunk
 
-This class is a specialization of InputStream that
+This class is a specialization of `InputStream` that
 reads from data in memory.
 
-It wraps a memory chunk in the common InputStream interface
+It wraps a memory chunk in the common `InputStream` interface
 and therefore allows to use generic classes or functions
 that accept such a stream, with content already loaded in memory.
 
 In addition to the virtual functions inherited from
-InputStream, MemoryInputStream adds a function to
+`InputStream`, `MemoryInputStream` adds a function to
 specify the pointer and size of the data in memory.
 
 SFML resource classes can usually be loaded directly from
@@ -232,7 +238,7 @@ memory, so this class shouldn't be useful to you unless
 you create your own algorithms that operate on an InputStream.
 
 Usage example:
-```
+```crystal
 def process(stream : InputStream)
 end
 
@@ -240,7 +246,7 @@ stream = SF::MemoryInputStream.open(slice)
 process(stream)
 ```
 
-InputStream, FileInputStream
+See also: `InputStream`, `FileInputStream`
 
 ## SF::MemoryInputStream#initialize()
 
@@ -303,20 +309,20 @@ by the thread that locked it. This way, you can allow only
 one thread at a time to access a critical region of your code.
 
 Usage example:
-```
+```crystal
 @database = Database.new # this is a critical resource that needs some protection
 @mutex = SF::Mutex.new
 
-def thread1()
-  @mutex.lock() # this call will block the thread if the mutex is already locked by thread2
+def thread1
+  @mutex.lock # this call will block the thread if the mutex is already locked by thread2
   @database.write(...)
-  @mutex.unlock() # if thread2 was waiting, it will now be unblocked
+  @mutex.unlock # if thread2 was waiting, it will now be unblocked
 end
 
-def thread2()
-  @mutex.lock() # this call will block the thread if the mutex is already locked by thread1
+def thread2
+  @mutex.lock # this call will block the thread if the mutex is already locked by thread1
   @database.write(...)
-  @mutex.unlock() # if thread1 was waiting, it will now be unblocked
+  @mutex.unlock # if thread1 was waiting, it will now be unblocked
 end
 ```
 
@@ -402,7 +408,7 @@ Usage examples:
 # example 1: non member function with one argument
 
 void threadFunc(int argument)
-    ...
+    // [...]
 end
 
 thread = SF::Thread.new(&threadFunc, 5)
@@ -415,7 +421,7 @@ thread.launch() # start the thread (internally calls threadFunc(5))
 class Task
 public:
     void run()
-        ...
+        // [...]
     end
 end
 
@@ -429,7 +435,7 @@ thread.launch() # start the thread (internally calls task.run())
 
 struct Task
     void operator()()
-        ...
+        // [...]
     end
 end
 
@@ -471,6 +477,7 @@ struct Functor
     void operator()(std::string arg)
 end
 ```
+
 Note: this does *not* run the thread, use `launch()`.
 
 * *function* - Functor or free function to use as the entry point of the thread
@@ -502,7 +509,8 @@ Wait until the thread finishes
 
 This function will block the execution until the
 thread's function ends.
-Warning: if the thread function never ends, the calling
+
+WARNING: If the thread function never ends, the calling
 thread will block forever.
 If this function is called from its owner thread, it
 returns without doing anything.
@@ -529,7 +537,7 @@ Since they represent a time span and not an absolute time
 value, times can also be negative.
 
 Usage example:
-```
+```crystal
 t1 = SF.seconds(0.1)
 milli = t1.as_milliseconds # 100
 
@@ -540,7 +548,7 @@ t3 = SF.microseconds(-800000)
 sec = t3.as_seconds # -0.8
 ```
 
-```
+```crystal
 def update(elapsed : SF::Time)
   @position += @speed * elapsed.as_seconds
 end

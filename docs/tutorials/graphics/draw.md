@@ -117,7 +117,7 @@ thread.launch
 
 # the event/logic/whatever loop
 while window.open?
-  ...
+  # [...]
 end
 ```
 

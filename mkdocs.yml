@@ -23,8 +23,9 @@ markdown_extensions:
   - pymdownx.magiclink
   - pymdownx.saneheaders
   - pymdownx.superfences
-  - markdown_include.include
+  - pymdownx.snippets
   - deduplicate-toc
+  - callouts
   - toc:
       permalink: "#"
 
@@ -39,5 +40,12 @@ plugins:
       handlers:
         crystal:
           crystal_docs_flags: [--source-refname=master]
-  - literate-nav
+  - literate-nav:
+      nav_file: README.md
   - section-index
+  - code-validator:
+      enabled: !ENV [LINT, false]
+      identifiers:
+        crystal:
+          validators:
+            - crystal tool format --check -

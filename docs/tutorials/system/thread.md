@@ -34,7 +34,7 @@ end
 thread = SF::Thread.new(->func)
 
 # run it
-thread.launch()
+thread.launch
 
 # the main thread continues to run...
 SF.sleep SF.seconds(0.15)
@@ -72,7 +72,7 @@ Once you've created a [SF::Thread][] instance, you must start it with the `launc
 
 ```crystal
 thread = SF::Thread.new(->func)
-thread.launch()
+thread.launch
 ```
 
 `launch` calls the function that you passed to the constructor in a new thread, and returns immediately so that the calling thread can continue to run.
@@ -82,15 +82,15 @@ thread.launch()
 A thread automatically stops when its entry point function returns. If you want to wait for a thread to finish from another thread, you can call its `wait` method.
 
 ```crystal
-thread = SF::Thread(->func)
+thread = SF::Thread.new(->func)
 
 # start the thread
-thread.launch()
+thread.launch
 
-...
+# [...]
 
 # block execution until the thread is finished
-thread.wait()
+thread.wait
 ```
 
 The `wait` method is also implicitly called by the destructor of [SF::Thread][], so that a thread cannot remain alive (and out of control) after its owner [SF::Thread][] instance is destroyed. Keep this in mind when you manage your threads (see the last section of this tutorial).
@@ -219,8 +219,8 @@ def start_thread
   SF::Thread.new(->func).launch
 end
 
-start_thread()
-# ...
+start_thread
+# [...]
 ```
 
 Programmers who write this kind of code expect the `start_thread` function to start a thread that will live on its own and be destroyed when the threaded function ends. This is not what happens. The threaded function appears to block the main thread, as if the thread wasn't working.
