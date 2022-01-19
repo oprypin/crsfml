@@ -60,7 +60,7 @@ module SF
     # Enumeration of the blending factors
     #
     # The factors are mapped directly to their OpenGL equivalents,
-    # specified by `gl_blend_func()` or gl_blend_func_separate().
+    # specified by `gl_blend_func()` or `gl_blend_func_separate()`.
     enum Factor
       # (0, 0, 0, 0)
       Zero
@@ -830,6 +830,7 @@ module SF
   # ```crystal
   # class MyDrawable
   #   include SF::Drawable
+  #
   #   def draw(target : SF::RenderTarget, states : SF::RenderStates)
   #     # You can draw other high-level objects
   #     target.draw(@sprite, states)
@@ -1226,14 +1227,14 @@ module SF
   #
   # The most common colors are already defined as static variables:
   # ```crystal
-  # black       = SF::Color::Black
-  # white       = SF::Color::White
-  # red         = SF::Color::Red
-  # green       = SF::Color::Green
-  # blue        = SF::Color::Blue
-  # yellow      = SF::Color::Yellow
-  # magenta     = SF::Color::Magenta
-  # cyan        = SF::Color::Cyan
+  # black = SF::Color::Black
+  # white = SF::Color::White
+  # red = SF::Color::Red
+  # green = SF::Color::Green
+  # blue = SF::Color::Blue
+  # yellow = SF::Color::Yellow
+  # magenta = SF::Color::Magenta
+  # cyan = SF::Color::Cyan
   # transparent = SF::Color::Transparent
   # ```
   #
@@ -4706,10 +4707,10 @@ module SF
     # calls Draw functions. Example:
     # ```crystal
     # # OpenGL code here...
-    # window.push_gl_states()
+    # window.push_gl_states
     # window.draw(...)
     # window.draw(...)
-    # window.pop_gl_states()
+    # window.pop_gl_states
     # # OpenGL code here...
     # ```
     #
@@ -4747,7 +4748,7 @@ module SF
     # ```crystal
     # # OpenGL code here...
     # glPushAttrib(...)
-    # window.reset_gl_states()
+    # window.reset_gl_states
     # window.draw(...)
     # window.draw(...)
     # glPopAttrib(...)
@@ -4811,22 +4812,22 @@ module SF
   #   texture.clear(SF::Color::Red)
   #
   #   # Draw stuff to the texture
-  #   texture.draw(sprite)  # sprite is a SF::Sprite
-  #   texture.draw(shape)   # shape is a SF::Shape
-  #   texture.draw(text)    # text is a SF::Text
+  #   texture.draw(sprite) # sprite is a SF::Sprite
+  #   texture.draw(shape)  # shape is a SF::Shape
+  #   texture.draw(text)   # text is a SF::Text
   #
   #   # We're done drawing to the texture
-  #   texture.display()
+  #   texture.display
   #
   #   # Now we start rendering to the window, clear it first
-  #   window.clear()
+  #   window.clear
   #
   #   # Draw the texture
-  #   sprite = SF::Sprite(texture.texture)
+  #   sprite = SF::Sprite.new(texture.texture)
   #   window.draw(sprite)
   #
   #   # End the current frame and display its contents on screen
-  #   window.display()
+  #   window.display
   # end
   # ```
   #
@@ -5153,12 +5154,12 @@ module SF
   #   while (event = window.poll_event)
   #     # Request for closing the window
   #     if event.is_a? SF::Event::Closed
-  #       window.close()
+  #       window.close
   #     end
   #   end
   #
   #   # Clear the whole window before rendering a new frame
-  #   window.clear()
+  #   window.clear
   #
   #   # Draw some graphical entities
   #   window.draw sprite
@@ -5166,7 +5167,7 @@ module SF
   #   window.draw text
   #
   #   # End the current frame and display its contents on screen
-  #   window.display()
+  #   window.display
   # end
   # ```
   #
@@ -5193,23 +5194,23 @@ module SF
   #   # [...]
   #
   #   # Draw a background sprite
-  #   window.push_gl_states()
+  #   window.push_gl_states
   #   window.draw sprite
-  #   window.pop_gl_states()
+  #   window.pop_gl_states
   #
   #   # Draw a 3D object using OpenGL
   #   glBegin(GL_QUADS)
-  #     glVertex3f(...)
-  #     # [...]
-  #   glEnd()
+  #   glVertex3f(...)
+  #   # [...]
+  #   glEnd
   #
   #   # Draw text on top of the 3D object
-  #   window.push_gl_states()
+  #   window.push_gl_states
   #   window.draw text
-  #   window.pop_gl_states()
+  #   window.pop_gl_states
   #
   #   # Finally, display the rendered frame on screen
-  #   window.display()
+  #   window.display
   # end
   # ```
   #
@@ -5306,7 +5307,7 @@ module SF
     # ```crystal
     # texture = SF::Texture.new(window.size.x, window.size.y)
     # texture.update(window)
-    # screenshot = texture.copy_to_image()
+    # screenshot = texture.copy_to_image
     # ```
     #
     # This is a slow operation, whose main purpose is to make
@@ -5684,9 +5685,9 @@ module SF
   # ```crystal
   # shader.offset 2.0
   # shader.point 0.5, 0.8, 0.3
-  # shader.color color          # color is a SF::Color
-  # shader.matrix transform     # transform is a SF::Transform
-  # shader.overlay texture      # texture is a SF::Texture
+  # shader.color color      # color is a SF::Color
+  # shader.matrix transform # transform is a SF::Transform
+  # shader.overlay texture  # texture is a SF::Texture
   # shader.current SF::Shader::CurrentTexture
   # ```
   #
@@ -5733,7 +5734,7 @@ module SF
   # custom OpenGL geometry.
   # ```crystal
   # SF::Shader.bind shader
-  # ... render OpenGL geometry ...
+  # # ... render OpenGL geometry ...
   # SF::Shader.bind nil
   # ```
   class Shader

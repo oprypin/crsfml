@@ -194,7 +194,7 @@ music = SF::Music.new
 
 # Open it from an audio file
 if !music.open_from_file("music.ogg")
-    # error...
+  # error...
 end
 
 # Change some parameters
@@ -204,7 +204,7 @@ music.volume = 50            # reduce the volume
 music.loop = true            # make it loop
 
 # Play it
-music.play()
+music.play
 ```
 
 *See also:* `SF::Sound`, `SF::SoundStream`
@@ -469,7 +469,7 @@ buffer = SF::SoundBuffer.from_file("sound.wav")
 
 sound = SF::Sound.new
 sound.buffer = buffer
-sound.play()
+sound.play
 ```
 
 *See also:* `SF::SoundBuffer`, `SF::Music`
@@ -1015,10 +1015,10 @@ Usage example:
 class CustomRecorder < SF::SoundRecorder
   def finalize
     # Make sure to stop the recording thread
-    stop()
+    stop
   end
 
-  def on_start() # optional
+  def on_start # optional
     # Initialize whatever has to be done before the capture starts
     # [...]
 
@@ -1034,7 +1034,7 @@ class CustomRecorder < SF::SoundRecorder
     true
   end
 
-  def on_stop() # optional
+  def on_stop # optional
     # Clean up whatever has to be done after the capture ends
     # [...]
   end
@@ -1044,12 +1044,12 @@ end
 if CustomRecorder.available?
   recorder = CustomRecorder.new
 
-  if !recorder.start()
+  if !recorder.start
     return -1
   end
 
   # [...]
-  recorder.stop()
+  recorder.stop
 end
 ```
 

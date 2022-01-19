@@ -367,7 +367,7 @@ module SF
   #
   # Every command returns a FTP response, which contains the
   # status code as well as a message from the server. Some
-  # commands such as `working_directory()` and directory_listing()
+  # commands such as `working_directory()` and `directory_listing()`
   # return additional data, and use a class derived from
   # `SF::Ftp::Response` to provide this data. The most often used
   # commands are directly provided as member functions, but it is
@@ -399,7 +399,7 @@ module SF
   # end
   #
   # # Print the working directory
-  # directory = ftp.working_directory()
+  # directory = ftp.working_directory
   # if directory.ok?
   #   puts "Working directory: #{directory.directory}"
   # end
@@ -412,7 +412,7 @@ module SF
   #
   # # Upload a file to this new directory
   # response = ftp.upload("local-path/file.txt", "files", SF::Ftp::Ascii)
-  # if response.ok?)
+  # if response.ok?
   #   puts "File uploaded"
   # end
   #
@@ -423,7 +423,7 @@ module SF
   # end
   #
   # # Disconnect from the server
-  # ftp.disconnect()
+  # ftp.disconnect
   # ```
   class Ftp
     @this : Void*
@@ -968,16 +968,16 @@ module SF
   #
   # Usage example:
   # ```crystal
-  # a0 = SF::IpAddress.new                    # an invalid address
-  # a1 = SF::IpAddress::None                  # an invalid address (same as a0)
-  # a2 = SF::IpAddress.new("127.0.0.1")       # the local host address
-  # a3 = SF::IpAddress::Broadcast             # the broadcast address
-  # a4 = SF::IpAddress.new(192, 168, 1, 56)   # a local address
-  # a5 = SF::IpAddress.new("my_computer")     # a local address created from a network name
-  # a6 = SF::IpAddress.new("89.54.1.169")     # a distant address
-  # a7 = SF::IpAddress.new("www.google.com")  # a distant address created from a network name
-  # a8 = SF::IpAddress.local_address          # my address on the local network
-  # a9 = SF::IpAddress.get_public_address()   # my address on the internet
+  # a0 = SF::IpAddress.new                   # an invalid address
+  # a1 = SF::IpAddress::None                 # an invalid address (same as a0)
+  # a2 = SF::IpAddress.new("127.0.0.1")      # the local host address
+  # a3 = SF::IpAddress::Broadcast            # the broadcast address
+  # a4 = SF::IpAddress.new(192, 168, 1, 56)  # a local address
+  # a5 = SF::IpAddress.new("my_computer")    # a local address created from a network name
+  # a6 = SF::IpAddress.new("89.54.1.169")    # a distant address
+  # a7 = SF::IpAddress.new("www.google.com") # a distant address created from a network name
+  # a8 = SF::IpAddress.local_address         # my address on the local network
+  # a9 = SF::IpAddress.get_public_address    # my address on the internet
   # ```
   #
   # Note that `SF::IpAddress` currently doesn't support IPv6
@@ -1237,11 +1237,11 @@ module SF
   # response = http.send_request request
   #
   # # Check the status code and display the result
-  # SF::Http::Response::Status status = response.getStatus()
-  # if response.status == SF::Http::Response::Ok
-  #     puts response.body
+  # status = response.status
+  # if status.ok?
+  #   puts response.body
   # else
-  #     puts "Error #{response.status}"
+  #   puts "Error #{response.status}"
   # end
   # ```
   class Http
@@ -1590,7 +1590,7 @@ module SF
   # # Send it over the network (socket is a valid SF::TcpSocket)
   # socket.send packet
   #
-  # -----------------------------------------------------------------
+  # # -----------------------------------------------------------------
   #
   # # Receive the packet at the other end
   # packet = SF::Packet.new
@@ -1720,7 +1720,7 @@ module SF
     # ```crystal
     # x = packet.read(Float32)
     # if packet.valid?
-    #    # ok, x was extracted successfully
+    #   # ok, x was extracted successfully
     # end
     # ```
     #
@@ -1916,7 +1916,7 @@ module SF
   # # Endless loop that waits for new connections
   # while running
   #   # Make the selector wait for data on any socket
-  #   if selector.wait()
+  #   if selector.wait
   #     # Test the listener
   #     if selector.ready?(listener)
   #       # The listener is ready: there is a pending connection

@@ -193,8 +193,8 @@ Here is a complete example of a custom shape class: `EllipseShape`.
 ```crystal
 class EllipseShape < SF::Shape
   def initialize(@radius : SF::Vector2f)
-    super()
-    update()
+    super
+    update
   end
 
   def radius

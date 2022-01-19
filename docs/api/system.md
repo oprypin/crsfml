@@ -18,7 +18,7 @@ clock = SF::Clock.new
 # [...]
 time1 = clock.elapsed_time
 # [...]
-time2 = clock.restart()
+time2 = clock.restart
 ```
 
 The `SF::Time` value returned by the clock can then be
@@ -153,19 +153,25 @@ Usage example:
 ```crystal
 # custom stream class that reads from inside a zip file
 class ZipStream < SF::InputStream
-    def initialize(archive : String)
+  def initialize(archive : String)
+  end
 
-    def open(filename : String)
+  def open(filename : String)
+  end
 
-    def read(data : Slice) : Int64
+  def read(data : Slice) : Int64
+  end
 
-    def seek(position : Int) : Int64
+  def seek(position : Int) : Int64
+  end
 
-    def tell : Int64
+  def tell : Int64
+  end
 
-    def size : Int64
+  def size : Int64
+  end
 
-    # [...]
+  # [...]
 end
 
 # now you can load textures...
@@ -307,16 +313,16 @@ Usage example:
 @database = Database.new # this is a critical resource that needs some protection
 @mutex = SF::Mutex.new
 
-def thread1()
-  @mutex.lock() # this call will block the thread if the mutex is already locked by thread2
+def thread1
+  @mutex.lock # this call will block the thread if the mutex is already locked by thread2
   @database.write(...)
-  @mutex.unlock() # if thread2 was waiting, it will now be unblocked
+  @mutex.unlock # if thread2 was waiting, it will now be unblocked
 end
 
-def thread2()
-  @mutex.lock() # this call will block the thread if the mutex is already locked by thread1
+def thread2
+  @mutex.lock # this call will block the thread if the mutex is already locked by thread1
   @database.write(...)
-  @mutex.unlock() # if thread1 was waiting, it will now be unblocked
+  @mutex.unlock # if thread1 was waiting, it will now be unblocked
 end
 ```
 

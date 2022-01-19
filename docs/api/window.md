@@ -480,21 +480,15 @@ Usage example:
 ```crystal
 while (event = window.poll_event)
   case event
-  # Request for closing the window
-  when SF::Event::Closed
-    window.close()
-
-  # The escape key was pressed
-  when SF::Event::KeyPressed
+  when SF::Event::Closed # Request for closing the window
+    window.close
+  when SF::Event::KeyPressed # The escape key was pressed
     if event.code == SF::Keyboard::Escape
-      window.close()
+      window.close
     end
-
-  # The window was resized
-  when SF::Event::Resized
+  when SF::Event::Resized # The window was resized
     do_something(event.width, event.height)
-
-  # etc ...
+    # etc ...
   end
 end
 ```

@@ -208,7 +208,7 @@ class TileMap < SF::Transformable
   include SF::Drawable
 
   def initialize(tileset, tile_size, tiles, width, height)
-    super()
+    super
 
     # load the tileset texture
     @tileset = SF::Texture.from_file(tileset)
@@ -314,7 +314,7 @@ class ParticleSystem < SF::Transformable
   include SF::Drawable
 
   def initialize(@count : Int32)
-    super()
+    super
 
     @particles = [] of Particle
     @emitter = SF::Vector2f.new(0.0f32, 0.0f32)
