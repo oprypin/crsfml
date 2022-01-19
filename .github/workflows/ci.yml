@@ -383,9 +383,8 @@ jobs:
         uses: oprypin/install-crystal@v1
         with:
           crystal: nightly
-      - name: Set up environment
-        run: |
-          echo "CRYSTAL_PATH=$(pwd)\..;${env:CRYSTAL_PATH}" >>${env:GITHUB_ENV}
+      - name: Enable Developer Command Prompt
+        uses: ilammy/msvc-dev-cmd@ed94116c4d30d2091601b81f339a2eaa1c2ba0a6
       - name: Build CrSFML
         run: .\make
       - name: Validate freshness of generated files
