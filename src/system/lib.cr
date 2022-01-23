@@ -4,9 +4,9 @@ require "../common"
 {% end %}
 @[Link("sfml-system")]
 {% if flag?(:win32) %}
-@[Link(ldflags: "#{__DIR__}\\ext.obj")]
+@[Link(ldflags: "\"#{__DIR__}\\ext.obj\"")]
 {% else %}
-@[Link(ldflags: "#{__DIR__}/ext.o")]
+@[Link(ldflags: "'#{__DIR__}/ext.o'")]
 {% end %}
 lib SFMLExt
   fun sfml_time_allocate(result : Void**)

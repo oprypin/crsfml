@@ -1552,9 +1552,9 @@ class CModule < CNamespace
       o<< "\{% end %}"
       o<< "@[Link(\"sfml-#{name.downcase}\")]"
       o<< "\{% if flag?(:win32) %}"
-      o<< %q(@[Link(ldflags: "#{__DIR__}\\ext.obj")])
+      o<< %q(@[Link(ldflags: "\"#{__DIR__}\\ext.obj\"")])
       o<< "\{% else %}"
-      o<< %q(@[Link(ldflags: "#{__DIR__}/ext.o")])
+      o<< %q(@[Link(ldflags: "'#{__DIR__}/ext.o'")])
       o<< "\{% end %}"
       o<< "lib #{LIB_NAME}"
     when .crystal?

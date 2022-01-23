@@ -6,9 +6,9 @@ require "../system/lib"
 {% end %}
 @[Link("sfml-graphics")]
 {% if flag?(:win32) %}
-@[Link(ldflags: "#{__DIR__}\\ext.obj")]
+@[Link(ldflags: "\"#{__DIR__}\\ext.obj\"")]
 {% else %}
-@[Link(ldflags: "#{__DIR__}/ext.o")]
+@[Link(ldflags: "'#{__DIR__}/ext.o'")]
 {% end %}
 lib SFMLExt
   fun sfml_blendmode_allocate(result : Void**)
