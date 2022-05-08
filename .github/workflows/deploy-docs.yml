@@ -16,7 +16,7 @@ jobs:
       - name: Install Python
         uses: actions/setup-python@v2
       - name: Install dependencies
-        run: pip install -r docs/requirements.txt
+        run: pip install --no-deps -r docs/requirements.txt
       - name: Build site
         run: LINT=true mkdocs build --strict
       - name: Deploy to gh-pages
