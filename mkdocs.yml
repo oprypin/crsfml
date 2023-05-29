@@ -18,6 +18,9 @@ theme:
 extra_css:
   - style.css
 
+watch:
+  - src
+
 markdown_extensions:
   - pymdownx.highlight
   - pymdownx.magiclink
@@ -36,7 +39,6 @@ plugins:
         - tools/gen_doc_files.py
   - mkdocstrings:
       default_handler: crystal
-      watch: [src]
       handlers:
         crystal:
           crystal_docs_flags: [--source-refname=master]

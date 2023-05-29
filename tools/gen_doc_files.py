@@ -13,7 +13,7 @@ for module in ["System", "Window", "Graphics", "Audio", "Network", ""]:
         with mkdocs_gen_files.open(f"api/{module.lower()}.md", "w") as f:
             f.write(textwrap.dedent(f"""
                 # ::: SF
-                    selection:
+                    options:
                       file_filters:
                         - '/{module.lower()}/'
             """))
