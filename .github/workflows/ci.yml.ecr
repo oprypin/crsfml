@@ -14,7 +14,7 @@ on:
 <% homebrew = "Homebrew" %>
 <% config = {os_ver: nil, sfml: latest_sfml, crystal: "latest", docker: nil, sfml_pkg: false} %>
 <% matrix = [
-  config.merge(os: ubuntu, os_ver: "18.04", crystal: "nightly"),
+  config.merge(os: ubuntu, os_ver: "22.04", crystal: "nightly"),
   config.merge(docker: "crystallang/crystal:0.28.0", os: ubuntu, os_ver: "16.04", sfml_pkg: true, sfml: "2.3.2", crystal: "0.28.0"),
   config.merge(os: mac),
   config.merge(os: mac, sfml: homebrew, crystal: homebrew, sfml_pkg: true),

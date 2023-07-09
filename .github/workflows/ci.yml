@@ -9,8 +9,8 @@ on:
     - cron: '0 6 * * 6'
 jobs:
   job1:
-    name: 'Ubuntu 18.04: SFML 2.5.1, Crystal nightly'
-    runs-on: ubuntu-18.04
+    name: 'Ubuntu 22.04: SFML 2.5.1, Crystal nightly'
+    runs-on: ubuntu-22.04
     steps:
       - name: Download CrSFML source
         uses: actions/checkout@v3
