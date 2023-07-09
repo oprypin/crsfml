@@ -10,13 +10,14 @@ on:
     - cron: '0 6 * * 6'
 
 <% ubuntu, mac, windows = "Ubuntu", "macOS", "Windows" %>
-<% latest_sfml = "2.5.1" %>
+<% latest_sfml = "2.6.0" %>
 <% homebrew = "Homebrew" %>
 <% config = {os_ver: nil, sfml: latest_sfml, crystal: "latest", docker: nil, sfml_pkg: false} %>
 <% matrix = [
-  config.merge(os: ubuntu, os_ver: "22.04", crystal: "nightly"),
+  config.merge(os: ubuntu, os_ver: "22.04", sfml: "2.5.1", crystal: "nightly"),
+  config.merge(os: ubuntu, os_ver: "22.04"),
   config.merge(docker: "crystallang/crystal:0.28.0", os: ubuntu, os_ver: "16.04", sfml_pkg: true, sfml: "2.3.2", crystal: "0.28.0"),
-  config.merge(os: mac),
+  config.merge(os: mac, sfml: "2.5.1"),
   config.merge(os: mac, sfml: homebrew, crystal: homebrew, sfml_pkg: true),
   config.merge(os: windows, crystal: "nightly"),
 ] %>
@@ -97,7 +98,7 @@ jobs:
         working-directory: ./examples
         run: crystal build <%= example %>.cr
   <% end %>
-  <% if m[:sfml].in?(latest_sfml, homebrew) %>
+  <% if m[:sfml].in?("2.5.1", latest_sfml, homebrew) %>
     <% examples.each do |example, run| %>
       <% if run.includes?(m[:os]) %>
       - name: Run example "<%= example %>"

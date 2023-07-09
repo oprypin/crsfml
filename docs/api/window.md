@@ -1,4 +1,4 @@
-Based on https://github.com/SFML/SFML/blob/2.5.1/include/SFML/Window
+Based on https://github.com/SFML/SFML/blob/2.6.0/include/SFML/Window
 
 # SF::Clipboard
 
@@ -328,13 +328,23 @@ is available on which platform.
  `SF::Cursor::SizeVertical`           |  yes  |    yes   |   yes    |
  `SF::Cursor::SizeTopLeftBottomRight` |  no   |    yes*  |   yes    |
  `SF::Cursor::SizeBottomLeftTopRight` |  no   |    yes*  |   yes    |
+ `SF::Cursor::SizeLeft`               |  yes  |    yes** |   yes**  |
+ `SF::Cursor::SizeRight`              |  yes  |    yes** |   yes**  |
+ `SF::Cursor::SizeTop`                |  yes  |    yes** |   yes**  |
+ `SF::Cursor::SizeBottom`             |  yes  |    yes** |   yes**  |
+ `SF::Cursor::SizeTopLeft`            |  yes  |    yes** |   yes**  |
+ `SF::Cursor::SizeTopRight`           |  yes  |    yes** |   yes**  |
+ `SF::Cursor::SizeBottomLeft`         |  yes  |    yes** |   yes**  |
+ `SF::Cursor::SizeBottomRight`        |  yes  |    yes** |   yes**  |
  `SF::Cursor::SizeAll`                |  yes  |    no    |   yes    |
  `SF::Cursor::Cross`                  |  yes  |    yes   |   yes    |
  `SF::Cursor::Help`                   |  yes  |    yes*  |   yes    |
  `SF::Cursor::NotAllowed`             |  yes  |    yes   |   yes    |
 
-\* These cursor types are undocumented so may not
+ \* These cursor types are undocumented so may not
    be available on all versions, but have been tested on 10.13
+
+ \** On Windows and macOS, double-headed arrows are used
 
 ### SF::Cursor::Type::Arrow
 
@@ -364,17 +374,49 @@ Action not allowed cursor
 
 Combination of SizeHorizontal and SizeVertical
 
+### SF::Cursor::Type::SizeBottom
+
+Down arrow cursor on Linux, same as SizeVertical on other platforms
+
+### SF::Cursor::Type::SizeBottomLeft
+
+Bottom-left arrow cursor on Linux, same as SizeBottomLeftTopRight on other platforms
+
 ### SF::Cursor::Type::SizeBottomLeftTopRight
 
 Double arrow cursor going from bottom-left to top-right
+
+### SF::Cursor::Type::SizeBottomRight
+
+Bottom-right arrow cursor on Linux, same as SizeTopLeftBottomRight on other platforms
 
 ### SF::Cursor::Type::SizeHorizontal
 
 Horizontal double arrow cursor
 
+### SF::Cursor::Type::SizeLeft
+
+Left arrow cursor on Linux, same as SizeHorizontal on other platforms
+
+### SF::Cursor::Type::SizeRight
+
+Right arrow cursor on Linux, same as SizeHorizontal on other platforms
+
+### SF::Cursor::Type::SizeTop
+
+Up arrow cursor on Linux, same as SizeVertical on other platforms
+
+### SF::Cursor::Type::SizeTopLeft
+
+Top-left arrow cursor on Linux, same as SizeTopLeftBottomRight on other platforms
+
 ### SF::Cursor::Type::SizeTopLeftBottomRight
 
 Double arrow cursor going from top-left to bottom-right
+
+### SF::Cursor::Type::SizeTopRight
+
+Top-right arrow cursor on Linux, same as SizeBottomLeftTopRight on other platforms
 
 ### SF::Cursor::Type::SizeVertical
 
@@ -422,7 +464,8 @@ which will be located exactly where the mouse pointer
 position is. Any mouse actions that are performed will
 return the window/screen location of the hotspot.
 
-WARNING: On Unix, the pixels are mapped into a monochrome
+WARNING: On Unix platforms which do not support colored
+cursors, the pixels are mapped into a monochrome
 bitmap: pixels with an alpha channel to 0 are
 transparent, black if the RGB channel are close
 to zero, and white otherwise.
@@ -667,6 +710,10 @@ Code of the key that has been pressed
 ### SF::Event::KeyEvent#control()
 
 Is the Control key pressed?
+
+### SF::Event::KeyEvent#scancode()
+
+Physical code of the key that has been pressed
 
 ### SF::Event::KeyEvent#shift()
 
@@ -1080,6 +1127,8 @@ elsif SF::Keyboard.key_pressed?(SF::Keyboard::Right)
   # move right...
 elsif SF::Keyboard.key_pressed?(SF::Keyboard::Escape)
   # quit...
+elsif SF::Keyboard.key_pressed?(SF::Keyboard::Scan::Grave)
+  # open in-game command line (if it's not already open)
 end
 ```
 
@@ -1089,6 +1138,10 @@ end
 
 Key codes
 
+The enumerators refer to the "localized" key; i.e. depending
+on the layout set by the operating system, a key can be mapped
+to `Y` or `Z`.
+
 ### SF::Keyboard::Key::A
 
 The A key
@@ -1096,6 +1149,10 @@ The A key
 ### SF::Keyboard::Key::Add
 
 The + key
+
+### SF::Keyboard::Key::Apostrophe
+
+The ' key
 
 ### SF::Keyboard::Key::B
 
@@ -1233,6 +1290,10 @@ The F9 key
 
 The G key
 
+### SF::Keyboard::Key::Grave
+
+The ` key
+
 ### SF::Keyboard::Key::H
 
 The H key
@@ -1287,7 +1348,7 @@ The left Shift key
 
 ### SF::Keyboard::Key::LSystem
 
-The left OS specific key: window (Windows and Linux), apple (MacOS X), ...
+The left OS specific key: window (Windows and Linux), apple (macOS), ...
 
 ### SF::Keyboard::Key::Left
 
@@ -1419,7 +1480,7 @@ The Q key
 
 ### SF::Keyboard::Key::Quote
 
-The ' key
+DEPRECATED: Use Apostrophe instead
 
 ### SF::Keyboard::Key::R
 
@@ -1443,7 +1504,7 @@ The right Shift key
 
 ### SF::Keyboard::Key::RSystem
 
-The right OS specific key: window (Windows and Linux), apple (MacOS X), ...
+The right OS specific key: window (Windows and Linux), apple (macOS), ...
 
 ### SF::Keyboard::Key::Return
 
@@ -1487,7 +1548,7 @@ The Tabulation key
 
 ### SF::Keyboard::Key::Tilde
 
-The ~ key
+DEPRECATED: Use Grave instead
 
 ### SF::Keyboard::Key::U
 
@@ -1521,6 +1582,646 @@ The Y key
 
 The Z key
 
+## SF::Keyboard::Scan
+
+Scancodes
+
+The enumerators are bound to a physical key and do not depend on
+the keyboard layout used by the operating system. Usually, the AT-101
+keyboard can be used as reference for the physical position of the keys.
+
+#### SF::Keyboard::Scan::Scancode::A
+
+Keyboard a and A key
+
+#### SF::Keyboard::Scan::Scancode::Apostrophe
+
+Keyboard ' and " key
+
+#### SF::Keyboard::Scan::Scancode::Application
+
+Keyboard Application key
+
+#### SF::Keyboard::Scan::Scancode::B
+
+Keyboard b and B key
+
+#### SF::Keyboard::Scan::Scancode::Back
+
+Keyboard Back key
+
+#### SF::Keyboard::Scan::Scancode::Backslash
+
+Keyboard \ and | key OR various keys for Non-US keyboards
+
+#### SF::Keyboard::Scan::Scancode::Backspace
+
+Keyboard Backspace key
+
+#### SF::Keyboard::Scan::Scancode::C
+
+Keyboard c and C key
+
+#### SF::Keyboard::Scan::Scancode::CapsLock
+
+Keyboard Caps Lock key
+
+#### SF::Keyboard::Scan::Scancode::Comma
+
+Keyboard , and &lt; key
+
+#### SF::Keyboard::Scan::Scancode::Copy
+
+Keyboard Copy key
+
+#### SF::Keyboard::Scan::Scancode::Cut
+
+Keyboard Cut key
+
+#### SF::Keyboard::Scan::Scancode::D
+
+Keyboard d and D key
+
+#### SF::Keyboard::Scan::Scancode::Delete
+
+Keyboard Delete Forward key
+
+#### SF::Keyboard::Scan::Scancode::Down
+
+Keyboard Down Arrow key
+
+#### SF::Keyboard::Scan::Scancode::E
+
+Keyboard e and E key
+
+#### SF::Keyboard::Scan::Scancode::End
+
+Keyboard End key
+
+#### SF::Keyboard::Scan::Scancode::Enter
+
+Keyboard Enter/Return key
+
+#### SF::Keyboard::Scan::Scancode::Equal
+
+Keyboard = and +
+
+#### SF::Keyboard::Scan::Scancode::Escape
+
+Keyboard Escape key
+
+#### SF::Keyboard::Scan::Scancode::Execute
+
+Keyboard Execute key
+
+#### SF::Keyboard::Scan::Scancode::F
+
+Keyboard f and F key
+
+#### SF::Keyboard::Scan::Scancode::F1
+
+Keyboard F1 key
+
+#### SF::Keyboard::Scan::Scancode::F10
+
+Keyboard F10 key
+
+#### SF::Keyboard::Scan::Scancode::F11
+
+Keyboard F11 key
+
+#### SF::Keyboard::Scan::Scancode::F12
+
+Keyboard F12 key
+
+#### SF::Keyboard::Scan::Scancode::F13
+
+Keyboard F13 key
+
+#### SF::Keyboard::Scan::Scancode::F14
+
+Keyboard F14 key
+
+#### SF::Keyboard::Scan::Scancode::F15
+
+Keyboard F15 key
+
+#### SF::Keyboard::Scan::Scancode::F16
+
+Keyboard F16 key
+
+#### SF::Keyboard::Scan::Scancode::F17
+
+Keyboard F17 key
+
+#### SF::Keyboard::Scan::Scancode::F18
+
+Keyboard F18 key
+
+#### SF::Keyboard::Scan::Scancode::F19
+
+Keyboard F19 key
+
+#### SF::Keyboard::Scan::Scancode::F2
+
+Keyboard F2 key
+
+#### SF::Keyboard::Scan::Scancode::F20
+
+Keyboard F20 key
+
+#### SF::Keyboard::Scan::Scancode::F21
+
+Keyboard F21 key
+
+#### SF::Keyboard::Scan::Scancode::F22
+
+Keyboard F22 key
+
+#### SF::Keyboard::Scan::Scancode::F23
+
+Keyboard F23 key
+
+#### SF::Keyboard::Scan::Scancode::F24
+
+Keyboard F24 key
+
+#### SF::Keyboard::Scan::Scancode::F3
+
+Keyboard F3 key
+
+#### SF::Keyboard::Scan::Scancode::F4
+
+Keyboard F4 key
+
+#### SF::Keyboard::Scan::Scancode::F5
+
+Keyboard F5 key
+
+#### SF::Keyboard::Scan::Scancode::F6
+
+Keyboard F6 key
+
+#### SF::Keyboard::Scan::Scancode::F7
+
+Keyboard F7 key
+
+#### SF::Keyboard::Scan::Scancode::F8
+
+Keyboard F8 key
+
+#### SF::Keyboard::Scan::Scancode::F9
+
+Keyboard F9 key
+
+#### SF::Keyboard::Scan::Scancode::Favorites
+
+Keyboard Favorites key
+
+#### SF::Keyboard::Scan::Scancode::Forward
+
+Keyboard Forward key
+
+#### SF::Keyboard::Scan::Scancode::G
+
+Keyboard g and G key
+
+#### SF::Keyboard::Scan::Scancode::Grave
+
+Keyboard ` and ~ key
+
+#### SF::Keyboard::Scan::Scancode::H
+
+Keyboard h and H key
+
+#### SF::Keyboard::Scan::Scancode::Help
+
+Keyboard Help key
+
+#### SF::Keyboard::Scan::Scancode::Home
+
+Keyboard Home key
+
+#### SF::Keyboard::Scan::Scancode::HomePage
+
+Keyboard Home Page key
+
+#### SF::Keyboard::Scan::Scancode::Hyphen
+
+Keyboard - and _ key
+
+#### SF::Keyboard::Scan::Scancode::I
+
+Keyboard i and I key
+
+#### SF::Keyboard::Scan::Scancode::Insert
+
+Keyboard Insert key
+
+#### SF::Keyboard::Scan::Scancode::J
+
+Keyboard j and J key
+
+#### SF::Keyboard::Scan::Scancode::K
+
+Keyboard k and K key
+
+#### SF::Keyboard::Scan::Scancode::L
+
+Keyboard l and L key
+
+#### SF::Keyboard::Scan::Scancode::LAlt
+
+Keyboard Left Alt key
+
+#### SF::Keyboard::Scan::Scancode::LBracket
+
+Keyboard [ and { key
+
+#### SF::Keyboard::Scan::Scancode::LControl
+
+Keyboard Left Control key
+
+#### SF::Keyboard::Scan::Scancode::LShift
+
+Keyboard Left Shift key
+
+#### SF::Keyboard::Scan::Scancode::LSystem
+
+Keyboard Left System key
+
+#### SF::Keyboard::Scan::Scancode::LaunchApplication1
+
+Keyboard Launch Application 1 key
+
+#### SF::Keyboard::Scan::Scancode::LaunchApplication2
+
+Keyboard Launch Application 2 key
+
+#### SF::Keyboard::Scan::Scancode::LaunchMail
+
+Keyboard Launch Mail key
+
+#### SF::Keyboard::Scan::Scancode::LaunchMediaSelect
+
+Keyboard Launch Media Select key
+
+#### SF::Keyboard::Scan::Scancode::Left
+
+Keyboard Left Arrow key
+
+#### SF::Keyboard::Scan::Scancode::M
+
+Keyboard m and M key
+
+#### SF::Keyboard::Scan::Scancode::MediaNextTrack
+
+Keyboard Media Next Track key
+
+#### SF::Keyboard::Scan::Scancode::MediaPlayPause
+
+Keyboard Media Play Pause key
+
+#### SF::Keyboard::Scan::Scancode::MediaPreviousTrack
+
+Keyboard Media Previous Track key
+
+#### SF::Keyboard::Scan::Scancode::MediaStop
+
+Keyboard Media Stop key
+
+#### SF::Keyboard::Scan::Scancode::Menu
+
+Keyboard Menu key
+
+#### SF::Keyboard::Scan::Scancode::ModeChange
+
+Keyboard Mode Change key
+
+#### SF::Keyboard::Scan::Scancode::N
+
+Keyboard n and N key
+
+#### SF::Keyboard::Scan::Scancode::NonUsBackslash
+
+Keyboard Non-US \ and | key
+
+#### SF::Keyboard::Scan::Scancode::Num0
+
+Keyboard 0 and ) key
+
+#### SF::Keyboard::Scan::Scancode::Num1
+
+Keyboard 1 and ! key
+
+#### SF::Keyboard::Scan::Scancode::Num2
+
+Keyboard 2 and @ key
+
+#### SF::Keyboard::Scan::Scancode::Num3
+
+Keyboard 3 and # key
+
+#### SF::Keyboard::Scan::Scancode::Num4
+
+Keyboard 4 and $ key
+
+#### SF::Keyboard::Scan::Scancode::Num5
+
+Keyboard 5 and % key
+
+#### SF::Keyboard::Scan::Scancode::Num6
+
+Keyboard 6 and ^ key
+
+#### SF::Keyboard::Scan::Scancode::Num7
+
+Keyboard 7 and & key
+
+#### SF::Keyboard::Scan::Scancode::Num8
+
+Keyboard 8 and * key
+
+#### SF::Keyboard::Scan::Scancode::Num9
+
+Keyboard 9 and ) key
+
+#### SF::Keyboard::Scan::Scancode::NumLock
+
+Keypad Num Lock and Clear key
+
+#### SF::Keyboard::Scan::Scancode::Numpad0
+
+Keypad 0 and Insert key
+
+#### SF::Keyboard::Scan::Scancode::Numpad1
+
+Keypad 1 and End key
+
+#### SF::Keyboard::Scan::Scancode::Numpad2
+
+Keypad 2 and Down Arrow key
+
+#### SF::Keyboard::Scan::Scancode::Numpad3
+
+Keypad 3 and Page Down key
+
+#### SF::Keyboard::Scan::Scancode::Numpad4
+
+Keypad 4 and Left Arrow key
+
+#### SF::Keyboard::Scan::Scancode::Numpad5
+
+Keypad 5 key
+
+#### SF::Keyboard::Scan::Scancode::Numpad6
+
+Keypad 6 and Right Arrow key
+
+#### SF::Keyboard::Scan::Scancode::Numpad7
+
+Keypad 7 and Home key
+
+#### SF::Keyboard::Scan::Scancode::Numpad8
+
+Keypad 8 and Up Arrow key
+
+#### SF::Keyboard::Scan::Scancode::Numpad9
+
+Keypad 9 and Page Up key
+
+#### SF::Keyboard::Scan::Scancode::NumpadDecimal
+
+Keypad . and Delete key
+
+#### SF::Keyboard::Scan::Scancode::NumpadDivide
+
+Keypad / key
+
+#### SF::Keyboard::Scan::Scancode::NumpadEnter
+
+Keypad Enter/Return key
+
+#### SF::Keyboard::Scan::Scancode::NumpadEqual
+
+keypad = key
+
+#### SF::Keyboard::Scan::Scancode::NumpadMinus
+
+Keypad - key
+
+#### SF::Keyboard::Scan::Scancode::NumpadMultiply
+
+Keypad * key
+
+#### SF::Keyboard::Scan::Scancode::NumpadPlus
+
+Keypad + key
+
+#### SF::Keyboard::Scan::Scancode::O
+
+Keyboard o and O key
+
+#### SF::Keyboard::Scan::Scancode::P
+
+Keyboard p and P key
+
+#### SF::Keyboard::Scan::Scancode::PageDown
+
+Keyboard Page Down key
+
+#### SF::Keyboard::Scan::Scancode::PageUp
+
+Keyboard Page Up key
+
+#### SF::Keyboard::Scan::Scancode::Paste
+
+Keyboard Paste key
+
+#### SF::Keyboard::Scan::Scancode::Pause
+
+Keyboard Pause key
+
+#### SF::Keyboard::Scan::Scancode::Period
+
+Keyboard . and &gt; key
+
+#### SF::Keyboard::Scan::Scancode::PrintScreen
+
+Keyboard Print Screen key
+
+#### SF::Keyboard::Scan::Scancode::Q
+
+Keyboard q and Q key
+
+#### SF::Keyboard::Scan::Scancode::R
+
+Keyboard r and R key
+
+#### SF::Keyboard::Scan::Scancode::RAlt
+
+Keyboard Right Alt key
+
+#### SF::Keyboard::Scan::Scancode::RBracket
+
+Keyboard ] and } key
+
+#### SF::Keyboard::Scan::Scancode::RControl
+
+Keyboard Right Control key
+
+#### SF::Keyboard::Scan::Scancode::RShift
+
+Keyboard Right Shift key
+
+#### SF::Keyboard::Scan::Scancode::RSystem
+
+Keyboard Right System key
+
+#### SF::Keyboard::Scan::Scancode::Redo
+
+Keyboard Redo key
+
+#### SF::Keyboard::Scan::Scancode::Refresh
+
+Keyboard Refresh key
+
+#### SF::Keyboard::Scan::Scancode::Right
+
+Keyboard Right Arrow key
+
+#### SF::Keyboard::Scan::Scancode::S
+
+Keyboard s and S key
+
+#### SF::Keyboard::Scan::Scancode::ScancodeCount
+
+Keep last -- the total number of scancodes
+
+#### SF::Keyboard::Scan::Scancode::ScrollLock
+
+Keyboard Scroll Lock key
+
+#### SF::Keyboard::Scan::Scancode::Search
+
+Keyboard Search key
+
+#### SF::Keyboard::Scan::Scancode::Select
+
+Keyboard Select key
+
+#### SF::Keyboard::Scan::Scancode::Semicolon
+
+Keyboard ; and : key
+
+#### SF::Keyboard::Scan::Scancode::Slash
+
+Keyboard / and ? key
+
+#### SF::Keyboard::Scan::Scancode::Space
+
+Keyboard Space key
+
+#### SF::Keyboard::Scan::Scancode::Stop
+
+Keyboard Stop key
+
+#### SF::Keyboard::Scan::Scancode::T
+
+Keyboard t and T key
+
+#### SF::Keyboard::Scan::Scancode::Tab
+
+Keyboard Tab key
+
+#### SF::Keyboard::Scan::Scancode::U
+
+Keyboard u and U key
+
+#### SF::Keyboard::Scan::Scancode::Undo
+
+Keyboard Undo key
+
+#### SF::Keyboard::Scan::Scancode::Unknown
+
+Represents any scancode not present in this enum
+
+#### SF::Keyboard::Scan::Scancode::Up
+
+Keyboard Up Arrow key
+
+#### SF::Keyboard::Scan::Scancode::V
+
+Keyboard v and V key
+
+#### SF::Keyboard::Scan::Scancode::VolumeDown
+
+Keyboard Volume Down key
+
+#### SF::Keyboard::Scan::Scancode::VolumeMute
+
+Keyboard Volume Mute key
+
+#### SF::Keyboard::Scan::Scancode::VolumeUp
+
+Keyboard Volume Up key
+
+#### SF::Keyboard::Scan::Scancode::W
+
+Keyboard w and W key
+
+#### SF::Keyboard::Scan::Scancode::X
+
+Keyboard x and X key
+
+#### SF::Keyboard::Scan::Scancode::Y
+
+Keyboard y and Y key
+
+#### SF::Keyboard::Scan::Scancode::Z
+
+Keyboard z and Z key
+
+## SF::Keyboard.delocalize(key)
+
+Identify the physical key corresponding to a logical one
+
+* *key* - Key to "delocalize"
+
+*Returns:* The scancode corresponding to the key under the current
+keyboard layout used by the operating system, or
+`SF::Keyboard::Scan::Unknown` when the key cannot be mapped
+to a `SF::Keyboard::Scancode`.
+
+*See also:* `localize`
+
+## SF::Keyboard.get_description(code)
+
+Provide a string representation for a given scancode
+
+The returned string is a short, non-technical description of
+the key represented with the given scancode. Most effectively
+used in user interfaces, as the description for the key takes
+the users keyboard layout into consideration.
+
+WARNING: The result is OS-dependent: for example, `SF::Keyboard::Scan::LSystem`
+is "Left Meta" on Linux, "Left Windows" on Windows and
+"Left Command" on macOS.
+
+The current keyboard layout set by the operating system is used to
+interpret the scancode: for example, `SF::Keyboard::Semicolon` is
+mapped to ";" for layout and to "é" for others.
+
+*Returns:* The localized description of the code
+
+## SF::Keyboard.key_pressed?(code)
+
+Check if a key is pressed
+
+* *code* - Scancode to check
+
+*Returns:* True if the physical key is pressed, false otherwise
+
 ## SF::Keyboard.key_pressed?(key)
 
 Check if a key is pressed
@@ -1528,6 +2229,19 @@ Check if a key is pressed
 * *key* - Key to check
 
 *Returns:* True if the key is pressed, false otherwise
+
+## SF::Keyboard.localize(code)
+
+Localize a physical key to a logical one
+
+* *code* - Scancode to localize
+
+*Returns:* The key corresponding to the scancode under the current
+keyboard layout used by the operating system, or
+`SF::Keyboard::Unknown` when the scancode cannot be mapped
+to a Key.
+
+*See also:* `delocalize`
 
 ## SF::Keyboard.virtual_keyboard_visible=(visible)
 
@@ -1625,6 +2339,9 @@ The vertical mouse wheel
 ## SF::Mouse.button_pressed?(button)
 
 Check if a mouse button is pressed
+
+WARNING: Checking the state of buttons Mouse::XButton1 and
+Mouse::XButton2 is not supported on Linux with X11.
 
 * *button* - Button to check
 
@@ -2023,6 +2740,40 @@ with no restriction.
 
 Video mode width, in pixels
 
+# SF::Vulkan
+
+Vulkan helper functions
+
+## SF::Vulkan.available?(require_graphics)
+
+Tell whether or not the system supports Vulkan
+
+This function should always be called before using
+the Vulkan features. If it returns false, then
+any attempt to use Vulkan will fail.
+
+If only compute is required, set *require_graphics*
+to false to skip checking for the extensions necessary
+for graphics rendering.
+
+\param require_graphics
+
+*Returns:* True if Vulkan is supported, false otherwise
+
+## SF::Vulkan.get_function(name)
+
+Get the address of a Vulkan function
+
+* *name* - Name of the function to get the address of
+
+*Returns:* Address of the Vulkan function, 0 on failure
+
+## SF::Vulkan.graphics_required_instance_extensions()
+
+Get Vulkan instance extensions required for graphics
+
+*Returns:* Vulkan instance extensions required for graphics
+
 # SF::Window
 
 Window that serves as a target for OpenGL rendering
@@ -2111,6 +2862,16 @@ All other functions such as `poll_event()` or display() will
 still work (i.e. you don't have to test `open?()` every time),
 and will have no effect on closed windows.
 
+## SF::Window#create(handle)
+
+Create (or recreate) the window from an existing control
+
+Use this function if you want to create an OpenGL
+rendering area into an already existing control.
+If the window was already created, it closes it first.
+
+* *handle* - Platform-specific handle of the control
+
 ## SF::Window#create(handle,settings)
 
 Create (or recreate) the window from an existing control
@@ -2125,6 +2886,18 @@ depth-buffer bits, etc.
 
 * *handle* - Platform-specific handle of the control
 * *settings* - Additional settings for the underlying OpenGL context
+
+## SF::Window#create(mode,title,style)
+
+Create (or recreate) the window
+
+If the window was already created, it closes it first.
+If *style* contains Style::Fullscreen, then *mode*
+must be a valid video mode.
+
+* *mode* - Video mode to use (defines the width, height and depth of the rendering area of the window)
+* *title* - Title of the window
+* *style* - Window style, a bitwise OR combination of `SF::Style` enumerators
 
 ## SF::Window#create(mode,title,style,settings)
 
@@ -2156,17 +2929,6 @@ it on screen.
 Destructor
 
 Closes the window and frees all the resources attached to it.
-
-## SF::Window#focus?()
-
-Check whether the window has the input focus
-
-At any given time, only one window may have the input focus
-to receive input events such as keystrokes or most mouse
-events.
-
-*Returns:* True if window has focus, false otherwise
-*See also:* `request_focus`
 
 ## SF::Window#framerate_limit=(limit)
 
@@ -2223,7 +2985,148 @@ depth-buffer bits, etc.
 * *style* - Window style, a bitwise OR combination of `SF::Style` enumerators
 * *settings* - Additional settings for the underlying OpenGL context
 
-## SF::Window#joystick_threshold=(threshold)
+## SF::Window#settings()
+
+Get the settings of the OpenGL context of the window
+
+Note that these settings may be different from what was
+passed to the constructor or the `create()` function,
+if one or more settings were not supported. In this case,
+SFML chose the closest match.
+
+*Returns:* Structure containing the OpenGL context settings
+
+## SF::Window#vertical_sync_enabled=(enabled)
+
+Enable or disable vertical synchronization
+
+Activating vertical synchronization will limit the number
+of frames displayed to the refresh rate of the monitor.
+This can avoid some visual artifacts, and limit the framerate
+to a good value (but not constant across different computers).
+
+Vertical synchronization is disabled by default.
+
+* *enabled* - True to enable v-sync, false to deactivate it
+
+# SF::WindowBase
+
+Window that serves as a base for other windows
+
+`SF::WindowBase` serves as the base class for all Windows.
+
+A `SF::WindowBase` can create its own new window, or be embedded into
+an already existing control using the create(handle) function.
+
+The `SF::WindowBase` class provides a simple interface for manipulating
+the window: move, resize, show/hide, control mouse cursor, etc.
+It also provides event handling through its `poll_event()` and wait_event()
+functions.
+
+Usage example:
+```c++
+// Declare and create a new window
+sf::WindowBase window(sf::VideoMode(800, 600), "SFML window");
+
+// The main loop - ends as soon as the window is closed
+while (window.isOpen())
+{
+   // Event processing
+   sf::Event event;
+   while (window.pollEvent(event))
+   {
+       // Request for closing the window
+       if (event.type == sf::Event::Closed)
+           window.close();
+   }
+
+   // Do things with the window here...
+}
+```
+
+## SF::WindowBase#close()
+
+Close the window and destroy all the attached resources
+
+After calling this function, the `SF::Window` instance remains
+valid and you can call `create()` to recreate the window.
+All other functions such as `poll_event()` or display() will
+still work (i.e. you don't have to test `open?()` every time),
+and will have no effect on closed windows.
+
+## SF::WindowBase#create(handle)
+
+Create (or recreate) the window from an existing control
+
+* *handle* - Platform-specific handle of the control
+
+## SF::WindowBase#create(mode,title,style)
+
+Create (or recreate) the window
+
+If the window was already created, it closes it first.
+If *style* contains Style::Fullscreen, then *mode*
+must be a valid video mode.
+
+* *mode* - Video mode to use (defines the width, height and depth of the rendering area of the window)
+* *title* - Title of the window
+* *style* - Window style, a bitwise OR combination of `SF::Style` enumerators
+
+## SF::WindowBase#create_vulkan_surface(instance,surface,allocator)
+
+Create a Vulkan rendering surface
+
+* *instance* - Vulkan instance
+* *surface* - Created surface
+* *allocator* - Allocator to use
+
+*Returns:* True if surface creation was successful, false otherwise
+
+## SF::WindowBase#finalize()
+
+Destructor
+
+Closes the window and frees all the resources attached to it.
+
+## SF::WindowBase#focus?()
+
+Check whether the window has the input focus
+
+At any given time, only one window may have the input focus
+to receive input events such as keystrokes or most mouse
+events.
+
+*Returns:* True if window has focus, false otherwise
+*See also:* `request_focus`
+
+## SF::WindowBase#initialize()
+
+Default constructor
+
+This constructor doesn't actually create the window,
+use the other constructors or call `create()` to do so.
+
+## SF::WindowBase#initialize(handle)
+
+Construct the window from an existing control
+
+* *handle* - Platform-specific handle of the control
+
+## SF::WindowBase#initialize(mode,title,style)
+
+Construct a new window
+
+This constructor creates the window with the size and pixel
+depth defined in *mode*. An optional style can be passed to
+customize the look and behavior of the window (borders,
+title bar, resizable, closable, ...). If *style* contains
+Style::Fullscreen, then *mode* must be a valid video mode.
+
+* *mode* - Video mode to use (defines the width, height and depth of the rendering area of the window)
+* *title* - Title of the window
+* *style* - Window style, a bitwise OR combination of `SF::Style` enumerators
+
+## SF::WindowBase#joystick_threshold=(threshold)
 
 Change the joystick threshold
 
@@ -2234,7 +3137,7 @@ The threshold value is 0.1 by default.
 
 * *threshold* - New threshold, in the range `0.0 .. 100.0`
 
-## SF::Window#key_repeat_enabled=(enabled)
+## SF::WindowBase#key_repeat_enabled=(enabled)
 
 Enable or disable automatic key-repeat
 
@@ -2246,7 +3149,7 @@ Key repeat is enabled by default.
 
 * *enabled* - True to enable, false to disable
 
-## SF::Window#mouse_cursor=(cursor)
+## SF::WindowBase#mouse_cursor=(cursor)
 
 Set the displayed cursor to a native system cursor
 
@@ -2263,7 +3166,7 @@ iOS and Android.
 *See also:* `SF::Cursor.load_from_system`
 *See also:* `SF::Cursor.load_from_pixels`
 
-## SF::Window#mouse_cursor_grabbed=(grabbed)
+## SF::WindowBase#mouse_cursor_grabbed=(grabbed)
 
 Grab or release the mouse cursor
 
@@ -2274,7 +3177,7 @@ focus.
 
 * *grabbed* - True to enable, false to disable
 
-## SF::Window#mouse_cursor_visible=(visible)
+## SF::WindowBase#mouse_cursor_visible=(visible)
 
 Show or hide the mouse cursor
 
@@ -2282,7 +3185,7 @@ The mouse cursor is visible by default.
 
 * *visible* - True to show the mouse cursor, false to hide it
 
-## SF::Window#open?()
+## SF::WindowBase#open?()
 
 Tell whether or not the window is open
 
@@ -2292,7 +3195,7 @@ Note that a hidden window (`visible=false`) is open
 
 *Returns:* True if the window is open, false if it has been closed
 
-## SF::Window#poll_event()
+## SF::WindowBase#poll_event()
 
 Pop the event on top of the event queue, if any, and return it
 
@@ -2313,7 +3216,7 @@ end
 
 *See also:* `wait_event`
 
-## SF::Window#position()
+## SF::WindowBase#position()
 
 Get the position of the window
 
@@ -2321,7 +3224,7 @@ Get the position of the window
 
 *See also:* `position=`
 
-## SF::Window#position=(position)
+## SF::WindowBase#position=(position)
 
 Change the position of the window on screen
 
@@ -2333,7 +3236,7 @@ the handle of a child window/control).
 
 *See also:* `position`
 
-## SF::Window#request_focus()
+## SF::WindowBase#request_focus()
 
 Request the current window to be made the active
 foreground window
@@ -2347,7 +3250,7 @@ This is not to be confused with `active=()`.
 
 *See also:* `focus?`
 
-## SF::Window#set_icon(width,height,pixels)
+## SF::WindowBase#set_icon(width,height,pixels)
 
 Change the window's icon
 
@@ -2364,18 +3267,7 @@ source alive after calling this function.
 
 *See also:* `title=`
 
-## SF::Window#settings()
-
-Get the settings of the OpenGL context of the window
-
-Note that these settings may be different from what was
-passed to the constructor or the `create()` function,
-if one or more settings were not supported. In this case,
-SFML chose the closest match.
-
-*Returns:* Structure containing the OpenGL context settings
-
-## SF::Window#size()
+## SF::WindowBase#size()
 
 Get the size of the rendering region of the window
 
@@ -2386,7 +3278,7 @@ of the window.
 
 *See also:* `size=`
 
-## SF::Window#size=(size)
+## SF::WindowBase#size=(size)
 
 Change the size of the rendering region of the window
 
@@ -2394,7 +3286,7 @@ Change the size of the rendering region of the window
 
 *See also:* `size`
 
-## SF::Window#system_handle()
+## SF::WindowBase#system_handle()
 
 Get the OS-specific handle of the window
 
@@ -2406,7 +3298,7 @@ or implement a temporary workaround until a bug is fixed.
 
 *Returns:* System handle of the window
 
-## SF::Window#title=(title)
+## SF::WindowBase#title=(title)
 
 Change the title of the window
 
@@ -2414,20 +3306,7 @@ Change the title of the window
 
 *See also:* `icon=`
 
-## SF::Window#vertical_sync_enabled=(enabled)
-
-Enable or disable vertical synchronization
-
-Activating vertical synchronization will limit the number
-of frames displayed to the refresh rate of the monitor.
-This can avoid some visual artifacts, and limit the framerate
-to a good value (but not constant across different computers).
-
-Vertical synchronization is disabled by default.
-
-* *enabled* - True to enable v-sync, false to deactivate it
-
-## SF::Window#visible=(visible)
+## SF::WindowBase#visible=(visible)
 
 Show or hide the window
 
@@ -2435,7 +3314,7 @@ The window is shown by default.
 
 * *visible* - True to show the window, false to hide it
 
-## SF::Window#wait_event()
+## SF::WindowBase#wait_event()
 
 Wait for an event and return it
 

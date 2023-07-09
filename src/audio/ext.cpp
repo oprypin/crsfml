@@ -160,6 +160,7 @@ public:
         _sfml_soundstream_onloop_callback(parent, (Int64*)&result);
         return result;
     }
+    using SoundStream::setProcessingInterval;
 };
 void sfml_soundstream_parent(void* self, void* parent) {
     ((_SoundStream*)self)->parent = parent;
@@ -211,6 +212,9 @@ void sfml_soundstream_initialize_emSemS(void* self, unsigned int channel_count, 
 }
 void sfml_soundstream_onloop(void* self, Int64* result) {
     *(Int64*)result = ((_SoundStream*)self)->onLoop();
+}
+void sfml_soundstream_setprocessinginterval_f4T(void* self, void* interval) {
+    ((_SoundStream*)self)->setProcessingInterval(*(Time*)interval);
 }
 void sfml_soundstream_setpitch_Bw9(void* self, float pitch) {
     ((_SoundStream*)self)->setPitch(pitch);

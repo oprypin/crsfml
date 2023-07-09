@@ -650,6 +650,18 @@ module SF
       SFMLExt.sfml_soundstream_onloop(to_unsafe, out result)
       return result
     end
+    # Set the processing interval
+    #
+    # The processing interval controls the period at which the
+    # audio buffers are filled by calls to on_get_data. A smaller
+    # interval may be useful for low-latency streams. Note that
+    # the given period is only a hint and the actual period may
+    # vary. The default processing interval is 10 ms.
+    #
+    # * *interval* - Processing interval
+    def processing_interval=(interval : Time)
+      SFMLExt.sfml_soundstream_setprocessinginterval_f4T(to_unsafe, interval)
+    end
     # :nodoc:
     def pitch=(pitch : Number)
       SFMLExt.sfml_soundstream_setpitch_Bw9(to_unsafe, LibC::Float.new(pitch))
@@ -884,11 +896,11 @@ module SF
       SFMLExt.sfml_music_getlooppoints(to_unsafe, result)
       return result
     end
-    # Sets the beginning and end of the sound's looping sequence using `SF::Time`
+    # Sets the beginning and duration of the sound's looping sequence using `SF::Time`
     #
-    # Loop points allow one to specify a pair of positions such that, when the music
+    # loop_points=() allows for specifying the beginning offset and the duration of the loop such that, when the music
     # is enabled for looping, it will seamlessly seek to the beginning whenever it
-    # encounters the end. Valid ranges for time_points.offset and time_points.length are
+    # encounters the end of the duration. Valid ranges for time_points.offset and time_points.length are
     # [0, Dur) and (0, Dur-offset] respectively, where Dur is the value returned by `duration()`.
     # Note that the EOF "loop point" from the end to the beginning of the stream is still honored,
     # in case the caller seeks to a point after the end of the loop range. This function can be
@@ -981,6 +993,9 @@ module SF
       SFMLExt.sfml_music_allocate(out @this)
       SFMLExt.sfml_music_initialize(to_unsafe)
       SFMLExt.sfml_music_initialize_emSemS(to_unsafe, LibC::UInt.new(channel_count), LibC::UInt.new(sample_rate))
+    end
+    # :nodoc:
+    def processing_interval=(interval : Time)
     end
     # :nodoc:
     def pitch=(pitch : Number)

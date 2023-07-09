@@ -203,7 +203,7 @@ module SF
     end
     # Get the address of the connected peer
     #
-    # It the socket is not connected, this function returns
+    # If the socket is not connected, this function returns
     # `SF::IpAddress::None`.
     #
     # *Returns:* Address of the remote peer
@@ -1656,8 +1656,20 @@ module SF
     # * *size_in_bytes* - Number of bytes to append
     #
     # *See also:* `clear`
+    # *See also:* `read_position`
     def append(data : Slice)
       SFMLExt.sfml_packet_append_5h8vgv(to_unsafe, data, data.bytesize)
+    end
+    # Get the current reading position in the packet
+    #
+    # The next read operation will read data from this position
+    #
+    # *Returns:* The byte offset of the current read position
+    #
+    # *See also:* `append`
+    def read_position() : Int32
+      SFMLExt.sfml_packet_getreadposition(to_unsafe, out result)
+      return result.to_i
     end
     # Clear the packet
     #
@@ -2116,6 +2128,10 @@ module SF
     # function is called, it will stop listening on the old
     # port before starting to listen on the new port.
     #
+    # When providing `SF::Socket::AnyPort` as port, the listener
+    # will request an available port from the system.
+    # The chosen port can be retrieved by calling `local_port()`.
+    #
     # * *port* - Port to listen on for incoming connection attempts
     # * *address* - Address of the interface to listen on
     #
@@ -2269,9 +2285,10 @@ module SF
     #
     # Binding the socket to a port is necessary for being
     # able to receive data on that port.
-    # You can use the special value Socket::AnyPort to tell the
-    # system to automatically pick an available port, and then
-    # call local_port to retrieve the chosen port.
+    #
+    # When providing `SF::Socket::AnyPort` as port, the listener
+    # will request an available port from the system.
+    # The chosen port can be retrieved by calling `local_port()`.
     #
     # Since the socket can only be bound to a single port at
     # any given moment, if it is already bound when this

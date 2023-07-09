@@ -1,4 +1,4 @@
-Based on https://github.com/SFML/SFML/blob/2.5.1/include/SFML/Graphics
+Based on https://github.com/SFML/SFML/blob/2.6.0/include/SFML/Graphics
 
 # SF::BlendMode
 
@@ -59,6 +59,14 @@ specified by `gl_blend_equation()` or `gl_blend_equation_separate()`.
 ### SF::BlendMode::Equation::Add
 
 Pixel = Src * SrcFactor + Dst * DstFactor
+
+### SF::BlendMode::Equation::Max
+
+Pixel = max(Dst, Src)
+
+### SF::BlendMode::Equation::Min
+
+Pixel = min(Dst, Src)
 
 ### SF::BlendMode::Equation::ReverseSubtract
 
@@ -625,6 +633,10 @@ If the font is a bitmap font, not all character sizes
 might be available. If the glyph is not available at the
 requested size, an empty glyph is returned.
 
+You may want to use \ref glyph? to determine if the
+glyph exists before requesting it. If the glyph does not
+exist, a font specific default is returned.
+
 Be aware that using a negative value for the outline
 thickness will cause distorted rendering.
 
@@ -635,7 +647,7 @@ thickness will cause distorted rendering.
 
 *Returns:* The glyph corresponding to *code_point* and *character_size*
 
-## SF::Font#get_kerning(first,second,character_size)
+## SF::Font#get_kerning(first,second,character_size,bold)
 
 Get the kerning offset of two glyphs
 
@@ -698,6 +710,22 @@ Underline thickness is the vertical size of the underline.
 *Returns:* Underline thickness, in pixels
 
 *See also:* `underline_position`
+
+## SF::Font#glyph?(code_point)
+
+Determine if this font has a glyph representing the requested code point
+
+Most fonts only include a very limited selection of glyphs from
+specific Unicode subsets, like Latin, Cyrillic, or Asian characters.
+
+While code points without representation will return a font specific
+default character, it might be useful to verify whether specific
+code points are included to determine whether a font is suited
+to display text in a specific language.
+
+* *code_point* - Unicode code point to check
+
+*Returns:* True if the codepoint has a glyph representation, false otherwise
 
 ## SF::Font#info()
 
@@ -770,6 +798,28 @@ the `SF::Font` object loads a new font or is destroyed.
 
 *See also:* `load_from_file`, `load_from_memory`
 
+## SF::Font#smooth?()
+
+Tell whether the smooth filter is enabled or not
+
+*Returns:* True if smoothing is enabled, false if it is disabled
+
+*See also:* `smooth=`
+
+## SF::Font#smooth=(smooth)
+
+Enable or disable the smooth filter
+
+When the filter is activated, the font appears smoother
+so that pixels are less noticeable. However if you want
+the font to look exactly the same as its source file,
+you should disable it.
+The smooth filter is enabled by default.
+
+* *smooth* - True to enable smoothing, false to disable it
+
+*See also:* `smooth?`
+
 # SF::Glyph
 
 Structure describing a glyph
@@ -796,6 +846,14 @@ Bounding rectangle of the glyph, in coordinates relative to the baseline
 ## SF::Glyph#initialize()
 
 Default constructor
+
+## SF::Glyph#lsb_delta()
+
+Left offset after forced autohint. Internally used by `kerning()`
+
+## SF::Glyph#rsb_delta()
+
+Right offset after forced autohint. Internally used by `kerning()`
 
 ## SF::Glyph#texture_rect()
 
@@ -855,9 +913,13 @@ static image from several others, but if you need this
 kind of feature in real-time you'd better use `SF::RenderTexture`.
 
 If *source_rect* is empty, the whole image is copied.
-If *apply_alpha* is set to true, the transparency of
-source pixels is applied. If it is false, the pixels are
-copied unchanged with their alpha value.
+If *apply_alpha* is set to true, alpha blending is
+applied from the source pixels to the destination pixels
+using the **over** operator. If it is false, the source
+pixels are copied unchanged with their alpha value.
+
+See https://en.wikipedia.org/wiki/Alpha_compositing for
+details on the **over** operator.
 
 * *source* - Source image to copy
 * *dest_x* - X coordinate of the destination position
@@ -935,8 +997,8 @@ Creates an empty image.
 Load the image from a file on disk
 
 The supported image formats are bmp, png, tga, jpg, gif,
-psd, hdr and pic. Some format options are not supported,
-like progressive jpeg.
+psd, hdr, pic and pnm. Some format options are not supported,
+like jpeg with arithmetic coding or ASCII pnm.
 If this function fails, the image is left unchanged.
 
 * *filename* - Path of the image file to load
@@ -950,8 +1012,8 @@ If this function fails, the image is left unchanged.
 Load the image from a file in memory
 
 The supported image formats are bmp, png, tga, jpg, gif,
-psd, hdr and pic. Some format options are not supported,
-like progressive jpeg.
+psd, hdr, pic and pnm. Some format options are not supported,
+like jpeg with arithmetic coding or ASCII pnm.
 If this function fails, the image is left unchanged.
 
 * *data* - Slice containing the file data in memory
@@ -965,8 +1027,8 @@ If this function fails, the image is left unchanged.
 Load the image from a custom stream
 
 The supported image formats are bmp, png, tga, jpg, gif,
-psd, hdr and pic. Some format options are not supported,
-like progressive jpeg.
+psd, hdr, pic and pnm. Some format options are not supported,
+like jpeg with arithmetic coding or ASCII pnm.
 If this function fails, the image is left unchanged.
 
 * *stream* - Source stream to read from
@@ -1003,6 +1065,22 @@ if it already exists. This function fails if the image is empty.
 *Returns:* True if saving was successful
 
 *See also:* `create`, `load_from_file`, `load_from_memory`
+
+## SF::Image#save_to_memory(output,format)
+
+Save the image to a buffer in memory
+
+The format of the image must be specified.
+The supported image formats are bmp, png, tga and jpg.
+This function fails if the image is empty, or if
+the format was invalid.
+
+* *output* - Buffer to fill with encoded data
+* *format* - Encoding format to use
+
+*Returns:* True if saving was successful
+
+*See also:* `create`, `load_from_file`, `load_from_memory`, `save_to_file`
 
 ## SF::Image#set_pixel(x,y,color)
 
@@ -1504,6 +1582,12 @@ Return the size of the rendering region of the target
 
 *Returns:* Size in pixels
 
+## SF::RenderTarget#srgb?()
+
+Tell if the render target will use sRGB encoding when drawing on it
+
+*Returns:* True if the render target use sRGB encoding, false otherwise
+
 ## SF::RenderTarget#view()
 
 Get the view currently in use in the render target
@@ -1734,6 +1818,15 @@ This parameter is disabled by default.
 
 *See also:* `smooth?`
 
+## SF::RenderTexture#srgb?()
+
+Tell if the render-texture will use sRGB encoding when drawing on it
+
+You can request sRGB encoding for a render-texture
+by having the sRgbCapable flag set for the context parameter of `create()` method
+
+*Returns:* True if the render-texture use sRGB encoding, false otherwise
+
 ## SF::RenderTexture#texture()
 
 Get a read-only reference to the target texture
@@ -1938,6 +2031,14 @@ The size doesn't include the titlebar and borders
 of the window.
 
 *Returns:* Size in pixels
+
+## SF::RenderWindow#srgb?()
+
+Tell if the window will use sRGB encoding when drawing on it
+
+You can request sRGB encoding for a window by having the sRgbCapable flag set in the ContextSettings
+
+*Returns:* True if the window use sRGB encoding, false otherwise
 
 # SF::Shader
 
@@ -3682,8 +3783,14 @@ rect = transform.transform_rect(SF.float_rect(0, 0, 10, 100))
 Combine the current transform with another one
 
 The result is a transform that is equivalent to applying
-`self` followed by *transform*. Mathematically, it is
-equivalent to a matrix multiplication.
+*transform* followed by `self`. Mathematically, it is
+equivalent to a matrix multiplication `self * transform`.
+
+These two statements are equivalent:
+```text
+left.combine(right)
+left *= right
+```
 
 * *transform* - Transform to combine with this transform
 
@@ -3929,6 +4036,12 @@ transform.scale(2, 1, 8, 3).rotate(45)
 
 Transform a 2D point
 
+These two statements are equivalent:
+```crystal
+transformed_point = matrix.transformPoint(point)
+transformed_point = matrix * point
+```
+
 * *point* - Point to transform
 
 *Returns:* Transformed point
@@ -3936,6 +4049,12 @@ Transform a 2D point
 ## SF::Transform#transform_point(x,y)
 
 Transform a 2D point
+
+These two statements are equivalent:
+```crystal
+transformed_point = matrix.transformPoint(x, y)
+transformed_point = matrix * SF.vector2f(x, y)
+```
 
 * *x* - X coordinate of the point to transform
 * *y* - Y coordinate of the point to transform

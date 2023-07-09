@@ -127,6 +127,7 @@ lib SFMLExt
   fun sfml_packet_initialize(self : Void*)
   fun sfml_packet_finalize(self : Void*)
   fun sfml_packet_append_5h8vgv(self : Void*, data : UInt8*, size_in_bytes : LibC::SizeT)
+  fun sfml_packet_getreadposition(self : Void*, result : LibC::SizeT*)
   fun sfml_packet_clear(self : Void*)
   fun sfml_packet_getdata(self : Void*, result : UInt8**)
   fun sfml_packet_getdatasize(self : Void*, result : LibC::SizeT*)

@@ -67,6 +67,7 @@ lib SFMLExt
   fun sfml_soundstream_initialize(self : Void*)
   fun sfml_soundstream_initialize_emSemS(self : Void*, channel_count : LibC::UInt, sample_rate : LibC::UInt)
   fun sfml_soundstream_onloop(self : Void*, result : Int64*)
+  fun sfml_soundstream_setprocessinginterval_f4T(self : Void*, interval : Void*)
   fun sfml_soundstream_setpitch_Bw9(self : Void*, pitch : LibC::Float)
   fun sfml_soundstream_setvolume_Bw9(self : Void*, volume : LibC::Float)
   fun sfml_soundstream_setposition_Bw9Bw9Bw9(self : Void*, x : LibC::Float, y : LibC::Float, z : LibC::Float)

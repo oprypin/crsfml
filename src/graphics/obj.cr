@@ -95,6 +95,10 @@ module SF
       Subtract
       # Pixel = Dst * DstFactor - Src * SrcFactor
       ReverseSubtract
+      # Pixel = min(Dst, Src)
+      Min
+      # Pixel = max(Dst, Src)
+      Max
     end
     Util.extract BlendMode::Equation
     # Default constructor
@@ -317,6 +321,12 @@ module SF
     end
     # Transform a 2D point
     #
+    # These two statements are equivalent:
+    # ```crystal
+    # transformed_point = matrix.transformPoint(x, y)
+    # transformed_point = matrix * SF.vector2f(x, y)
+    # ```
+    #
     # * *x* - X coordinate of the point to transform
     # * *y* - Y coordinate of the point to transform
     #
@@ -327,6 +337,12 @@ module SF
       return result
     end
     # Transform a 2D point
+    #
+    # These two statements are equivalent:
+    # ```crystal
+    # transformed_point = matrix.transformPoint(point)
+    # transformed_point = matrix * point
+    # ```
     #
     # * *point* - Point to transform
     #
@@ -356,8 +372,14 @@ module SF
     # Combine the current transform with another one
     #
     # The result is a transform that is equivalent to applying
-    # `self` followed by *transform*. Mathematically, it is
-    # equivalent to a matrix multiplication.
+    # *transform* followed by `self`. Mathematically, it is
+    # equivalent to a matrix multiplication `self * transform`.
+    #
+    # These two statements are equivalent:
+    # ```text
+    # left.combine(right)
+    # left *= right
+    # ```
     #
     # * *transform* - Transform to combine with this transform
     #
@@ -2623,11 +2645,15 @@ module SF
   # *See also:* `SF::Font`
   struct Glyph
     @advance : LibC::Float
+    @lsb_delta : LibC::Int
+    @rsb_delta : LibC::Int
     @bounds : FloatRect
     @texture_rect : IntRect
     # Default constructor
     def initialize()
       @advance = uninitialized Float32
+      @lsb_delta = uninitialized Int32
+      @rsb_delta = uninitialized Int32
       @bounds = uninitialized FloatRect
       @texture_rect = uninitialized IntRect
       SFMLExt.sfml_glyph_initialize(to_unsafe)
@@ -2639,6 +2665,22 @@ module SF
     end
     def advance=(advance : Number)
       @advance = LibC::Float.new(advance)
+    end
+    @lsb_delta : LibC::Int
+    # Left offset after forced autohint. Internally used by `kerning()`
+    def lsb_delta : Int32
+      @lsb_delta
+    end
+    def lsb_delta=(lsb_delta : Int)
+      @lsb_delta = LibC::Int.new(lsb_delta)
+    end
+    @rsb_delta : LibC::Int
+    # Right offset after forced autohint. Internally used by `kerning()`
+    def rsb_delta : Int32
+      @rsb_delta
+    end
+    def rsb_delta=(rsb_delta : Int)
+      @rsb_delta = LibC::Int.new(rsb_delta)
     end
     @bounds : FloatRect
     # Bounding rectangle of the glyph, in coordinates relative to the baseline
@@ -2663,6 +2705,8 @@ module SF
     # :nodoc:
     def initialize(copy : Glyph)
       @advance = uninitialized Float32
+      @lsb_delta = uninitialized Int32
+      @rsb_delta = uninitialized Int32
       @bounds = uninitialized FloatRect
       @texture_rect = uninitialized IntRect
       SFMLExt.sfml_glyph_initialize_UlF(to_unsafe, copy)
@@ -2762,8 +2806,8 @@ module SF
     # Load the image from a file on disk
     #
     # The supported image formats are bmp, png, tga, jpg, gif,
-    # psd, hdr and pic. Some format options are not supported,
-    # like progressive jpeg.
+    # psd, hdr, pic and pnm. Some format options are not supported,
+    # like jpeg with arithmetic coding or ASCII pnm.
     # If this function fails, the image is left unchanged.
     #
     # * *filename* - Path of the image file to load
@@ -2788,8 +2832,8 @@ module SF
     # Load the image from a file in memory
     #
     # The supported image formats are bmp, png, tga, jpg, gif,
-    # psd, hdr and pic. Some format options are not supported,
-    # like progressive jpeg.
+    # psd, hdr, pic and pnm. Some format options are not supported,
+    # like jpeg with arithmetic coding or ASCII pnm.
     # If this function fails, the image is left unchanged.
     #
     # * *data* - Slice containing the file data in memory
@@ -2814,8 +2858,8 @@ module SF
     # Load the image from a custom stream
     #
     # The supported image formats are bmp, png, tga, jpg, gif,
-    # psd, hdr and pic. Some format options are not supported,
-    # like progressive jpeg.
+    # psd, hdr, pic and pnm. Some format options are not supported,
+    # like jpeg with arithmetic coding or ASCII pnm.
     # If this function fails, the image is left unchanged.
     #
     # * *stream* - Source stream to read from
@@ -2853,6 +2897,23 @@ module SF
       SFMLExt.sfml_image_savetofile_zkC(to_unsafe, filename.bytesize, filename, out result)
       return result
     end
+    # Save the image to a buffer in memory
+    #
+    # The format of the image must be specified.
+    # The supported image formats are bmp, png, tga and jpg.
+    # This function fails if the image is empty, or if
+    # the format was invalid.
+    #
+    # * *output* - Buffer to fill with encoded data
+    # * *format* - Encoding format to use
+    #
+    # *Returns:* True if saving was successful
+    #
+    # *See also:* `create`, `load_from_file`, `load_from_memory`, `save_to_file`
+    def save_to_memory(output : MemoryBuffer, format : String) : Bool
+      SFMLExt.sfml_image_savetomemory_AoazkC(to_unsafe, output, format.bytesize, format, out result)
+      return result
+    end
     # Return the size (width and height) of the image
     #
     # *Returns:* Size of the image, in pixels
@@ -2880,9 +2941,13 @@ module SF
     # kind of feature in real-time you'd better use `SF::RenderTexture`.
     #
     # If *source_rect* is empty, the whole image is copied.
-    # If *apply_alpha* is set to true, the transparency of
-    # source pixels is applied. If it is false, the pixels are
-    # copied unchanged with their alpha value.
+    # If *apply_alpha* is set to true, alpha blending is
+    # applied from the source pixels to the destination pixels
+    # using the **over** operator. If it is false, the source
+    # pixels are copied unchanged with their alpha value.
+    #
+    # See https://en.wikipedia.org/wiki/Alpha_compositing for
+    # details on the **over** operator.
     #
     # * *source* - Source image to copy
     # * *dest_x* - X coordinate of the destination position
@@ -3812,6 +3877,10 @@ module SF
     # might be available. If the glyph is not available at the
     # requested size, an empty glyph is returned.
     #
+    # You may want to use \ref glyph? to determine if the
+    # glyph exists before requesting it. If the glyph does not
+    # exist, a font specific default is returned.
+    #
     # Be aware that using a negative value for the outline
     # thickness will cause distorted rendering.
     #
@@ -3824,6 +3893,23 @@ module SF
     def get_glyph(code_point : Int, character_size : Int, bold : Bool, outline_thickness : Number = 0) : Glyph
       result = Glyph.allocate
       SFMLExt.sfml_font_getglyph_saLemSGZqBw9(to_unsafe, UInt32.new(code_point), LibC::UInt.new(character_size), bold, LibC::Float.new(outline_thickness), result)
+      return result
+    end
+    # Determine if this font has a glyph representing the requested code point
+    #
+    # Most fonts only include a very limited selection of glyphs from
+    # specific Unicode subsets, like Latin, Cyrillic, or Asian characters.
+    #
+    # While code points without representation will return a font specific
+    # default character, it might be useful to verify whether specific
+    # code points are included to determine whether a font is suited
+    # to display text in a specific language.
+    #
+    # * *code_point* - Unicode code point to check
+    #
+    # *Returns:* True if the codepoint has a glyph representation, false otherwise
+    def glyph?(code_point : Int) : Bool
+      SFMLExt.sfml_font_hasglyph_saL(to_unsafe, UInt32.new(code_point), out result)
       return result
     end
     # Get the kerning offset of two glyphs
@@ -3839,8 +3925,8 @@ module SF
     # * *character_size* - Reference character size
     #
     # *Returns:* Kerning value for *first* and *second*, in pixels
-    def get_kerning(first : Int, second : Int, character_size : Int) : Float32
-      SFMLExt.sfml_font_getkerning_saLsaLemS(to_unsafe, UInt32.new(first), UInt32.new(second), LibC::UInt.new(character_size), out result)
+    def get_kerning(first : Int, second : Int, character_size : Int, bold : Bool = false) : Float32
+      SFMLExt.sfml_font_getkerning_saLsaLemSGZq(to_unsafe, UInt32.new(first), UInt32.new(second), LibC::UInt.new(character_size), bold, out result)
       return result
     end
     # Get the line spacing
@@ -3894,6 +3980,29 @@ module SF
     def get_texture(character_size : Int) : Texture
       SFMLExt.sfml_font_gettexture_emS(to_unsafe, LibC::UInt.new(character_size), out result)
       return Texture::Reference.new(result, self)
+    end
+    # Enable or disable the smooth filter
+    #
+    # When the filter is activated, the font appears smoother
+    # so that pixels are less noticeable. However if you want
+    # the font to look exactly the same as its source file,
+    # you should disable it.
+    # The smooth filter is enabled by default.
+    #
+    # * *smooth* - True to enable smoothing, false to disable it
+    #
+    # *See also:* `smooth?`
+    def smooth=(smooth : Bool)
+      SFMLExt.sfml_font_setsmooth_GZq(to_unsafe, smooth)
+    end
+    # Tell whether the smooth filter is enabled or not
+    #
+    # *Returns:* True if smoothing is enabled, false if it is disabled
+    #
+    # *See also:* `smooth=`
+    def smooth?() : Bool
+      SFMLExt.sfml_font_issmooth(to_unsafe, out result)
+      return result
     end
     # :nodoc:
     def to_unsafe()
@@ -4673,6 +4782,13 @@ module SF
     #
     # *Returns:* Size in pixels
     abstract def size() : Vector2u
+    # Tell if the render target will use sRGB encoding when drawing on it
+    #
+    # *Returns:* True if the render target use sRGB encoding, false otherwise
+    def srgb?() : Bool
+      SFMLExt.sfml_rendertarget_issrgb(to_unsafe, out result)
+      return result
+    end
     # Activate or deactivate the render target for rendering
     #
     # This function makes the render target's context current for
@@ -5012,6 +5128,16 @@ module SF
       SFMLExt.sfml_rendertexture_getsize(to_unsafe, result)
       return result
     end
+    # Tell if the render-texture will use sRGB encoding when drawing on it
+    #
+    # You can request sRGB encoding for a render-texture
+    # by having the sRgbCapable flag set for the context parameter of `create()` method
+    #
+    # *Returns:* True if the render-texture use sRGB encoding, false otherwise
+    def srgb?() : Bool
+      SFMLExt.sfml_rendertexture_issrgb(to_unsafe, out result)
+      return result
+    end
     # Get a read-only reference to the target texture
     #
     # After drawing to the render-texture and calling Display,
@@ -5281,6 +5407,15 @@ module SF
       SFMLExt.sfml_renderwindow_getsize(to_unsafe, result)
       return result
     end
+    # Tell if the window will use sRGB encoding when drawing on it
+    #
+    # You can request sRGB encoding for a window by having the sRgbCapable flag set in the ContextSettings
+    #
+    # *Returns:* True if the window use sRGB encoding, false otherwise
+    def srgb?() : Bool
+      SFMLExt.sfml_renderwindow_issrgb(to_unsafe, out result)
+      return result
+    end
     # Activate or deactivate the window as the current target
     # for OpenGL rendering
     #
@@ -5325,7 +5460,17 @@ module SF
       return result
     end
     # :nodoc:
-    def create(mode : VideoMode, title : String, style : Style = Style::Default, settings : ContextSettings = ContextSettings.new())
+    def create(mode : VideoMode, title : String, style : Style = Style::Default)
+      SFMLExt.sfml_renderwindow_create_wg0bQssaL(to_unsafe, mode, title.size, title.chars, style)
+    end
+    # Shorthand for `render_window = RenderWindow.new; render_window.create(...); render_window`
+    def self.new(*args, **kwargs) : self
+      obj = new
+      obj.create(*args, **kwargs)
+      obj
+    end
+    # :nodoc:
+    def create(mode : VideoMode, title : String, style : Style, settings : ContextSettings)
       SFMLExt.sfml_renderwindow_create_wg0bQssaLFw4(to_unsafe, mode, title.size, title.chars, style, settings)
     end
     # Shorthand for `render_window = RenderWindow.new; render_window.create(...); render_window`
@@ -5335,7 +5480,17 @@ module SF
       obj
     end
     # :nodoc:
-    def create(handle : WindowHandle, settings : ContextSettings = ContextSettings.new())
+    def create(handle : WindowHandle)
+      SFMLExt.sfml_renderwindow_create_rLQ(to_unsafe, handle)
+    end
+    # Shorthand for `render_window = RenderWindow.new; render_window.create(...); render_window`
+    def self.new(*args, **kwargs) : self
+      obj = new
+      obj.create(*args, **kwargs)
+      obj
+    end
+    # :nodoc:
+    def create(handle : WindowHandle, settings : ContextSettings)
       SFMLExt.sfml_renderwindow_create_rLQFw4(to_unsafe, handle, settings)
     end
     # Shorthand for `render_window = RenderWindow.new; render_window.create(...); render_window`
@@ -5349,14 +5504,104 @@ module SF
       SFMLExt.sfml_renderwindow_close(to_unsafe)
     end
     # :nodoc:
-    def open?() : Bool
-      SFMLExt.sfml_renderwindow_isopen(to_unsafe, out result)
-      return result
-    end
-    # :nodoc:
     def settings() : ContextSettings
       result = ContextSettings.allocate
       SFMLExt.sfml_renderwindow_getsettings(to_unsafe, result)
+      return result
+    end
+    # :nodoc:
+    def vertical_sync_enabled=(enabled : Bool)
+      SFMLExt.sfml_renderwindow_setverticalsyncenabled_GZq(to_unsafe, enabled)
+    end
+    # :nodoc:
+    def framerate_limit=(limit : Int)
+      SFMLExt.sfml_renderwindow_setframeratelimit_emS(to_unsafe, LibC::UInt.new(limit))
+    end
+    # :nodoc:
+    def display()
+      SFMLExt.sfml_renderwindow_display(to_unsafe)
+    end
+    # :nodoc:
+    def clear(color : Color = Color.new(0, 0, 0, 255))
+      SFMLExt.sfml_renderwindow_clear_QVe(to_unsafe, color)
+    end
+    # :nodoc:
+    def view=(view : View)
+      @_renderwindow_view = view
+      SFMLExt.sfml_renderwindow_setview_DDi(to_unsafe, view)
+    end
+    @_renderwindow_view : View? = nil
+    # :nodoc:
+    def view() : View
+      SFMLExt.sfml_renderwindow_getview(to_unsafe, out result)
+      return View::Reference.new(result, self)
+    end
+    # :nodoc:
+    def default_view() : View
+      SFMLExt.sfml_renderwindow_getdefaultview(to_unsafe, out result)
+      return View::Reference.new(result, self)
+    end
+    # :nodoc:
+    def get_viewport(view : View) : IntRect
+      result = IntRect.allocate
+      SFMLExt.sfml_renderwindow_getviewport_DDi(to_unsafe, view, result)
+      return result
+    end
+    # :nodoc:
+    def map_pixel_to_coords(point : Vector2|Tuple) : Vector2f
+      result = Vector2f.allocate
+      point = SF.vector2i(point[0], point[1])
+      SFMLExt.sfml_renderwindow_mappixeltocoords_ufV(to_unsafe, point, result)
+      return result
+    end
+    # :nodoc:
+    def map_pixel_to_coords(point : Vector2|Tuple, view : View) : Vector2f
+      result = Vector2f.allocate
+      point = SF.vector2i(point[0], point[1])
+      SFMLExt.sfml_renderwindow_mappixeltocoords_ufVDDi(to_unsafe, point, view, result)
+      return result
+    end
+    # :nodoc:
+    def map_coords_to_pixel(point : Vector2|Tuple) : Vector2i
+      result = Vector2i.allocate
+      point = SF.vector2f(point[0], point[1])
+      SFMLExt.sfml_renderwindow_mapcoordstopixel_UU2(to_unsafe, point, result)
+      return result
+    end
+    # :nodoc:
+    def map_coords_to_pixel(point : Vector2|Tuple, view : View) : Vector2i
+      result = Vector2i.allocate
+      point = SF.vector2f(point[0], point[1])
+      SFMLExt.sfml_renderwindow_mapcoordstopixel_UU2DDi(to_unsafe, point, view, result)
+      return result
+    end
+    # :nodoc:
+    def draw(vertices : Array(Vertex) | Slice(Vertex), type : PrimitiveType, states : RenderStates = RenderStates::Default)
+      SFMLExt.sfml_renderwindow_draw_46svgvu9wmi4(to_unsafe, vertices, vertices.size, type, states)
+    end
+    # :nodoc:
+    def draw(vertex_buffer : VertexBuffer, states : RenderStates = RenderStates::Default)
+      SFMLExt.sfml_renderwindow_draw_U2Dmi4(to_unsafe, vertex_buffer, states)
+    end
+    # :nodoc:
+    def draw(vertex_buffer : VertexBuffer, first_vertex : Int, vertex_count : Int, states : RenderStates = RenderStates::Default)
+      SFMLExt.sfml_renderwindow_draw_U2Dvgvvgvmi4(to_unsafe, vertex_buffer, LibC::SizeT.new(first_vertex), LibC::SizeT.new(vertex_count), states)
+    end
+    # :nodoc:
+    def push_gl_states()
+      SFMLExt.sfml_renderwindow_pushglstates(to_unsafe)
+    end
+    # :nodoc:
+    def pop_gl_states()
+      SFMLExt.sfml_renderwindow_popglstates(to_unsafe)
+    end
+    # :nodoc:
+    def reset_gl_states()
+      SFMLExt.sfml_renderwindow_resetglstates(to_unsafe)
+    end
+    # :nodoc:
+    def open?() : Bool
+      SFMLExt.sfml_renderwindow_isopen(to_unsafe, out result)
       return result
     end
     # :nodoc:
@@ -5502,10 +5747,6 @@ module SF
       SFMLExt.sfml_renderwindow_setvisible_GZq(to_unsafe, visible)
     end
     # :nodoc:
-    def vertical_sync_enabled=(enabled : Bool)
-      SFMLExt.sfml_renderwindow_setverticalsyncenabled_GZq(to_unsafe, enabled)
-    end
-    # :nodoc:
     def mouse_cursor_visible=(visible : Bool)
       SFMLExt.sfml_renderwindow_setmousecursorvisible_GZq(to_unsafe, visible)
     end
@@ -5524,10 +5765,6 @@ module SF
       SFMLExt.sfml_renderwindow_setkeyrepeatenabled_GZq(to_unsafe, enabled)
     end
     # :nodoc:
-    def framerate_limit=(limit : Int)
-      SFMLExt.sfml_renderwindow_setframeratelimit_emS(to_unsafe, LibC::UInt.new(limit))
-    end
-    # :nodoc:
     def joystick_threshold=(threshold : Number)
       SFMLExt.sfml_renderwindow_setjoystickthreshold_Bw9(to_unsafe, LibC::Float.new(threshold))
     end
@@ -5541,91 +5778,14 @@ module SF
       return result
     end
     # :nodoc:
-    def display()
-      SFMLExt.sfml_renderwindow_display(to_unsafe)
-    end
-    # :nodoc:
     def system_handle() : WindowHandle
       SFMLExt.sfml_renderwindow_getsystemhandle(to_unsafe, out result)
       return result
     end
     # :nodoc:
-    def clear(color : Color = Color.new(0, 0, 0, 255))
-      SFMLExt.sfml_renderwindow_clear_QVe(to_unsafe, color)
-    end
-    # :nodoc:
-    def view=(view : View)
-      @_renderwindow_view = view
-      SFMLExt.sfml_renderwindow_setview_DDi(to_unsafe, view)
-    end
-    @_renderwindow_view : View? = nil
-    # :nodoc:
-    def view() : View
-      SFMLExt.sfml_renderwindow_getview(to_unsafe, out result)
-      return View::Reference.new(result, self)
-    end
-    # :nodoc:
-    def default_view() : View
-      SFMLExt.sfml_renderwindow_getdefaultview(to_unsafe, out result)
-      return View::Reference.new(result, self)
-    end
-    # :nodoc:
-    def get_viewport(view : View) : IntRect
-      result = IntRect.allocate
-      SFMLExt.sfml_renderwindow_getviewport_DDi(to_unsafe, view, result)
+    def create_vulkan_surface(instance : VkInstance, surface : VkSurfaceKHR, allocator : VkAllocationCallbacks? = nil) : Bool
+      SFMLExt.sfml_renderwindow_createvulkansurface_M35HMp7QC(to_unsafe, instance, surface, allocator, out result)
       return result
-    end
-    # :nodoc:
-    def map_pixel_to_coords(point : Vector2|Tuple) : Vector2f
-      result = Vector2f.allocate
-      point = SF.vector2i(point[0], point[1])
-      SFMLExt.sfml_renderwindow_mappixeltocoords_ufV(to_unsafe, point, result)
-      return result
-    end
-    # :nodoc:
-    def map_pixel_to_coords(point : Vector2|Tuple, view : View) : Vector2f
-      result = Vector2f.allocate
-      point = SF.vector2i(point[0], point[1])
-      SFMLExt.sfml_renderwindow_mappixeltocoords_ufVDDi(to_unsafe, point, view, result)
-      return result
-    end
-    # :nodoc:
-    def map_coords_to_pixel(point : Vector2|Tuple) : Vector2i
-      result = Vector2i.allocate
-      point = SF.vector2f(point[0], point[1])
-      SFMLExt.sfml_renderwindow_mapcoordstopixel_UU2(to_unsafe, point, result)
-      return result
-    end
-    # :nodoc:
-    def map_coords_to_pixel(point : Vector2|Tuple, view : View) : Vector2i
-      result = Vector2i.allocate
-      point = SF.vector2f(point[0], point[1])
-      SFMLExt.sfml_renderwindow_mapcoordstopixel_UU2DDi(to_unsafe, point, view, result)
-      return result
-    end
-    # :nodoc:
-    def draw(vertices : Array(Vertex) | Slice(Vertex), type : PrimitiveType, states : RenderStates = RenderStates::Default)
-      SFMLExt.sfml_renderwindow_draw_46svgvu9wmi4(to_unsafe, vertices, vertices.size, type, states)
-    end
-    # :nodoc:
-    def draw(vertex_buffer : VertexBuffer, states : RenderStates = RenderStates::Default)
-      SFMLExt.sfml_renderwindow_draw_U2Dmi4(to_unsafe, vertex_buffer, states)
-    end
-    # :nodoc:
-    def draw(vertex_buffer : VertexBuffer, first_vertex : Int, vertex_count : Int, states : RenderStates = RenderStates::Default)
-      SFMLExt.sfml_renderwindow_draw_U2Dvgvvgvmi4(to_unsafe, vertex_buffer, LibC::SizeT.new(first_vertex), LibC::SizeT.new(vertex_count), states)
-    end
-    # :nodoc:
-    def push_gl_states()
-      SFMLExt.sfml_renderwindow_pushglstates(to_unsafe)
-    end
-    # :nodoc:
-    def pop_gl_states()
-      SFMLExt.sfml_renderwindow_popglstates(to_unsafe)
-    end
-    # :nodoc:
-    def reset_gl_states()
-      SFMLExt.sfml_renderwindow_resetglstates(to_unsafe)
     end
     include RenderTarget
     # :nodoc:

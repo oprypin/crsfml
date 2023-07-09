@@ -27,6 +27,123 @@ jobs:
         run: crystal generate.cr "${{steps.sfml.outputs.path}}/include"
       - name: Build CrSFML
         run: SFML_INCLUDE_DIR="${{steps.sfml.outputs.path}}/include" make -j
+      - name: Generate docs
+        run: crystal doc
+      - name: Start virtual display
+        run: |
+          Xvfb :99 -screen 0 1024x768x24 +extension GLX &
+          echo DISPLAY=:99.0 >>$GITHUB_ENV
+      - name: Run tests
+        run: crystal spec
+      - name: Build example "simple"
+        working-directory: ./examples
+        run: crystal build simple.cr
+      - name: Build example "flippy_bird"
+        working-directory: ./examples
+        run: crystal build flippy_bird.cr
+      - name: Build example "snakes"
+        working-directory: ./examples
+        run: crystal build snakes.cr
+      - name: Build example "transformable"
+        working-directory: ./examples
+        run: crystal build transformable.cr
+      - name: Build example "text_input"
+        working-directory: ./examples
+        run: crystal build text_input.cr
+      - name: Build example "diagnostics"
+        working-directory: ./examples
+        run: crystal build diagnostics.cr
+      - name: Build example "sound_capture"
+        working-directory: ./examples
+        run: crystal build sound_capture.cr
+      - name: Build example "shader"
+        working-directory: ./examples
+        run: crystal build shader.cr
+      - name: Build example "shapes"
+        working-directory: ./examples
+        run: crystal build shapes.cr
+      - name: Build example "gl"
+        working-directory: ./examples
+        run: crystal build gl.cr
+      - name: Build example "echo"
+        working-directory: ./examples
+        run: crystal build echo.cr
+      - name: Run example "simple"
+        working-directory: ./examples
+        run: |
+          ./simple & pid=$!
+          sleep 3
+          kill $pid
+      - name: Run example "flippy_bird"
+        working-directory: ./examples
+        run: |
+          ./flippy_bird & pid=$!
+          sleep 3
+          kill $pid
+      - name: Run example "snakes"
+        working-directory: ./examples
+        run: |
+          ./snakes & pid=$!
+          sleep 3
+          kill $pid
+      - name: Run example "transformable"
+        working-directory: ./examples
+        run: |
+          ./transformable & pid=$!
+          sleep 3
+          kill $pid
+      - name: Run example "text_input"
+        working-directory: ./examples
+        run: |
+          ./text_input & pid=$!
+          sleep 3
+          kill $pid
+      - name: Run example "diagnostics"
+        working-directory: ./examples
+        run: |
+          ./diagnostics & pid=$!
+          sleep 3
+          kill $pid
+      - name: Run example "shader"
+        working-directory: ./examples
+        run: |
+          ./shader & pid=$!
+          sleep 3
+          kill $pid
+      - name: Run example "shapes"
+        working-directory: ./examples
+        run: |
+          ./shapes & pid=$!
+          sleep 3
+          kill $pid
+      - name: Run example "gl"
+        working-directory: ./examples
+        run: |
+          ./gl & pid=$!
+          sleep 3
+          kill $pid
+      - name: Stop virtual display
+        run: killall Xvfb
+        if: always()
+  job2:
+    name: 'Ubuntu 22.04: SFML 2.6.0, Crystal latest'
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Download CrSFML source
+        uses: actions/checkout@v3
+      - name: Install SFML
+        id: sfml
+        uses: oprypin/install-sfml@v1
+        with:
+          sfml: 2.6.0
+      - name: Install Crystal
+        uses: oprypin/install-crystal@v1
+        with:
+          crystal: latest
+      - name: Re-generate sources
+        run: crystal generate.cr "${{steps.sfml.outputs.path}}/include"
+      - name: Build CrSFML
+        run: SFML_INCLUDE_DIR="${{steps.sfml.outputs.path}}/include" make -j
       - name: Validate freshness of generated files
         run: git diff --exit-code
       - name: Generate docs
@@ -127,7 +244,7 @@ jobs:
       - name: Stop virtual display
         run: killall Xvfb
         if: always()
-  job2:
+  job3:
     name: 'Ubuntu 16.04: SFML 2.3.2, Crystal 0.28.0'
     container: crystallang/crystal:0.28.0
     runs-on: ubuntu-latest
@@ -184,7 +301,7 @@ jobs:
       - name: Build example "echo"
         working-directory: ./examples
         run: crystal build echo.cr
-  job3:
+  job4:
     name: 'macOS: SFML 2.5.1, Crystal latest'
     runs-on: macos-latest
     steps:
@@ -203,8 +320,6 @@ jobs:
         run: crystal generate.cr "${{steps.sfml.outputs.path}}/include"
       - name: Build CrSFML
         run: SFML_INCLUDE_DIR="${{steps.sfml.outputs.path}}/include" make -j
-      - name: Validate freshness of generated files
-        run: git diff --exit-code
       - name: Generate docs
         run: crystal doc
       - name: Run tests
@@ -278,7 +393,7 @@ jobs:
           ./gl & pid=$!
           sleep 3
           kill $pid
-  job4:
+  job5:
     name: 'macOS: SFML Homebrew, Crystal Homebrew'
     runs-on: macos-latest
     steps:
@@ -368,8 +483,8 @@ jobs:
           ./gl & pid=$!
           sleep 3
           kill $pid
-  job5:
-    name: 'Windows: SFML 2.5.1, Crystal nightly'
+  job6:
+    name: 'Windows: SFML 2.6.0, Crystal nightly'
     runs-on: windows-latest
     steps:
       - name: Download CrSFML source
@@ -378,7 +493,7 @@ jobs:
         id: sfml
         uses: oprypin/install-sfml@v1
         with:
-          sfml: 2.5.1
+          sfml: 2.6.0
       - name: Install Crystal
         uses: oprypin/install-crystal@v1
         with:

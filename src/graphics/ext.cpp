@@ -775,6 +775,12 @@ void sfml_glyph_initialize(void* self) {
 void sfml_glyph_setadvance_Bw9(void* self, float advance) {
     ((Glyph*)self)->advance = advance;
 }
+void sfml_glyph_setlsbdelta_2mh(void* self, int lsb_delta) {
+    ((Glyph*)self)->lsbDelta = lsb_delta;
+}
+void sfml_glyph_setrsbdelta_2mh(void* self, int rsb_delta) {
+    ((Glyph*)self)->rsbDelta = rsb_delta;
+}
 void sfml_glyph_setbounds_5MC(void* self, void* bounds) {
     ((Glyph*)self)->bounds = *(FloatRect*)bounds;
 }
@@ -813,6 +819,9 @@ void sfml_image_loadfromstream_PO0(void* self, void* stream, Int8* result) {
 }
 void sfml_image_savetofile_zkC(void* self, std::size_t filename_size, char* filename, Int8* result) {
     *(bool*)result = ((Image*)self)->saveToFile(std::string(filename, filename_size));
+}
+void sfml_image_savetomemory_AoazkC(void* self, void* output, std::size_t format_size, char* format, Int8* result) {
+    *(bool*)result = ((Image*)self)->saveToMemory(*(MemoryBuffer*)output, std::string(format, format_size));
 }
 void sfml_image_getsize(void* self, void* result) {
     *(Vector2u*)result = ((Image*)self)->getSize();
@@ -984,8 +993,11 @@ void sfml_font_getinfo(void* self, void** result) {
 void sfml_font_getglyph_saLemSGZqBw9(void* self, Uint32 code_point, unsigned int character_size, Int8 bold, float outline_thickness, void* result) {
     *(Glyph*)result = ((Font*)self)->getGlyph(code_point, character_size, bold != 0, outline_thickness);
 }
-void sfml_font_getkerning_saLsaLemS(void* self, Uint32 first, Uint32 second, unsigned int character_size, float* result) {
-    *(float*)result = ((Font*)self)->getKerning(first, second, character_size);
+void sfml_font_hasglyph_saL(void* self, Uint32 code_point, Int8* result) {
+    *(bool*)result = ((Font*)self)->hasGlyph(code_point);
+}
+void sfml_font_getkerning_saLsaLemSGZq(void* self, Uint32 first, Uint32 second, unsigned int character_size, Int8 bold, float* result) {
+    *(float*)result = ((Font*)self)->getKerning(first, second, character_size, bold != 0);
 }
 void sfml_font_getlinespacing_emS(void* self, unsigned int character_size, float* result) {
     *(float*)result = ((Font*)self)->getLineSpacing(character_size);
@@ -998,6 +1010,12 @@ void sfml_font_getunderlinethickness_emS(void* self, unsigned int character_size
 }
 void sfml_font_gettexture_emS(void* self, unsigned int character_size, void** result) {
     *(Texture**)result = const_cast<Texture*>(&((Font*)self)->getTexture(character_size));
+}
+void sfml_font_setsmooth_GZq(void* self, Int8 smooth) {
+    ((Font*)self)->setSmooth(smooth != 0);
+}
+void sfml_font_issmooth(void* self, Int8* result) {
+    *(bool*)result = ((Font*)self)->isSmooth();
 }
 void sfml_font_initialize_7CF(void* self, void* copy) {
     new(self) Font(*(Font*)copy);
@@ -1242,6 +1260,9 @@ void sfml_rendertarget_draw_U2Dmi4(void* self, void* vertex_buffer, void* states
 void sfml_rendertarget_draw_U2Dvgvvgvmi4(void* self, void* vertex_buffer, std::size_t first_vertex, std::size_t vertex_count, void* states) {
     ((RenderTarget*)self)->draw(*(VertexBuffer*)vertex_buffer, first_vertex, vertex_count, *(RenderStates*)states);
 }
+void sfml_rendertarget_issrgb(void* self, Int8* result) {
+    *(bool*)result = ((RenderTarget*)self)->isSrgb();
+}
 void sfml_rendertarget_setactive_GZq(void* self, Int8 active, Int8* result) {
     *(bool*)result = ((RenderTarget*)self)->setActive(active != 0);
 }
@@ -1298,6 +1319,9 @@ void sfml_rendertexture_display(void* self) {
 }
 void sfml_rendertexture_getsize(void* self, void* result) {
     *(Vector2u*)result = ((RenderTexture*)self)->getSize();
+}
+void sfml_rendertexture_issrgb(void* self, Int8* result) {
+    *(bool*)result = ((RenderTexture*)self)->isSrgb();
 }
 void sfml_rendertexture_gettexture(void* self, void** result) {
     *(Texture**)result = const_cast<Texture*>(&((RenderTexture*)self)->getTexture());
@@ -1368,14 +1392,23 @@ void sfml_renderwindow_finalize(void* self) {
 void sfml_renderwindow_getsize(void* self, void* result) {
     *(Vector2u*)result = ((RenderWindow*)self)->getSize();
 }
+void sfml_renderwindow_issrgb(void* self, Int8* result) {
+    *(bool*)result = ((RenderWindow*)self)->isSrgb();
+}
 void sfml_renderwindow_setactive_GZq(void* self, Int8 active, Int8* result) {
     *(bool*)result = ((RenderWindow*)self)->setActive(active != 0);
 }
 void sfml_renderwindow_capture(void* self, void* result) {
     *(Image*)result = ((RenderWindow*)self)->capture();
 }
+void sfml_renderwindow_create_wg0bQssaL(void* self, void* mode, std::size_t title_size, Uint32* title, Uint32 style) {
+    ((RenderWindow*)self)->create(*(VideoMode*)mode, String::fromUtf32(title, title+title_size), style);
+}
 void sfml_renderwindow_create_wg0bQssaLFw4(void* self, void* mode, std::size_t title_size, Uint32* title, Uint32 style, void* settings) {
     ((RenderWindow*)self)->create(*(VideoMode*)mode, String::fromUtf32(title, title+title_size), style, *(ContextSettings*)settings);
+}
+void sfml_renderwindow_create_rLQ(void* self, WindowHandle handle) {
+    ((RenderWindow*)self)->create(handle);
 }
 void sfml_renderwindow_create_rLQFw4(void* self, WindowHandle handle, void* settings) {
     ((RenderWindow*)self)->create(handle, *(ContextSettings*)settings);
@@ -1383,68 +1416,17 @@ void sfml_renderwindow_create_rLQFw4(void* self, WindowHandle handle, void* sett
 void sfml_renderwindow_close(void* self) {
     ((RenderWindow*)self)->close();
 }
-void sfml_renderwindow_isopen(void* self, Int8* result) {
-    *(bool*)result = ((RenderWindow*)self)->isOpen();
-}
 void sfml_renderwindow_getsettings(void* self, void* result) {
     *(ContextSettings*)result = ((RenderWindow*)self)->getSettings();
-}
-void sfml_renderwindow_pollevent_YJW(void* self, void* event, Int8* result) {
-    *(bool*)result = ((RenderWindow*)self)->pollEvent(*(Event*)event);
-}
-void sfml_renderwindow_waitevent_YJW(void* self, void* event, Int8* result) {
-    *(bool*)result = ((RenderWindow*)self)->waitEvent(*(Event*)event);
-}
-void sfml_renderwindow_getposition(void* self, void* result) {
-    *(Vector2i*)result = ((RenderWindow*)self)->getPosition();
-}
-void sfml_renderwindow_setposition_ufV(void* self, void* position) {
-    ((RenderWindow*)self)->setPosition(*(Vector2i*)position);
-}
-void sfml_renderwindow_setsize_DXO(void* self, void* size) {
-    ((RenderWindow*)self)->setSize(*(Vector2u*)size);
-}
-void sfml_renderwindow_settitle_bQs(void* self, std::size_t title_size, Uint32* title) {
-    ((RenderWindow*)self)->setTitle(String::fromUtf32(title, title+title_size));
-}
-void sfml_renderwindow_seticon_emSemS843(void* self, unsigned int width, unsigned int height, Uint8* pixels) {
-    ((RenderWindow*)self)->setIcon(width, height, pixels);
-}
-void sfml_renderwindow_setvisible_GZq(void* self, Int8 visible) {
-    ((RenderWindow*)self)->setVisible(visible != 0);
 }
 void sfml_renderwindow_setverticalsyncenabled_GZq(void* self, Int8 enabled) {
     ((RenderWindow*)self)->setVerticalSyncEnabled(enabled != 0);
 }
-void sfml_renderwindow_setmousecursorvisible_GZq(void* self, Int8 visible) {
-    ((RenderWindow*)self)->setMouseCursorVisible(visible != 0);
-}
-void sfml_renderwindow_setmousecursorgrabbed_GZq(void* self, Int8 grabbed) {
-    ((RenderWindow*)self)->setMouseCursorGrabbed(grabbed != 0);
-}
-void sfml_renderwindow_setmousecursor_Voc(void* self, void* cursor) {
-    ((RenderWindow*)self)->setMouseCursor(*(Cursor*)cursor);
-}
-void sfml_renderwindow_setkeyrepeatenabled_GZq(void* self, Int8 enabled) {
-    ((RenderWindow*)self)->setKeyRepeatEnabled(enabled != 0);
-}
 void sfml_renderwindow_setframeratelimit_emS(void* self, unsigned int limit) {
     ((RenderWindow*)self)->setFramerateLimit(limit);
 }
-void sfml_renderwindow_setjoystickthreshold_Bw9(void* self, float threshold) {
-    ((RenderWindow*)self)->setJoystickThreshold(threshold);
-}
-void sfml_renderwindow_requestfocus(void* self) {
-    ((RenderWindow*)self)->requestFocus();
-}
-void sfml_renderwindow_hasfocus(void* self, Int8* result) {
-    *(bool*)result = ((RenderWindow*)self)->hasFocus();
-}
 void sfml_renderwindow_display(void* self) {
     ((RenderWindow*)self)->display();
-}
-void sfml_renderwindow_getsystemhandle(void* self, WindowHandle* result) {
-    *(WindowHandle*)result = ((RenderWindow*)self)->getSystemHandle();
 }
 void sfml_renderwindow_clear_QVe(void* self, void* color) {
     ((RenderWindow*)self)->clear(*(Color*)color);
@@ -1490,6 +1472,60 @@ void sfml_renderwindow_popglstates(void* self) {
 }
 void sfml_renderwindow_resetglstates(void* self) {
     ((RenderWindow*)self)->resetGLStates();
+}
+void sfml_renderwindow_isopen(void* self, Int8* result) {
+    *(bool*)result = ((RenderWindow*)self)->isOpen();
+}
+void sfml_renderwindow_pollevent_YJW(void* self, void* event, Int8* result) {
+    *(bool*)result = ((RenderWindow*)self)->pollEvent(*(Event*)event);
+}
+void sfml_renderwindow_waitevent_YJW(void* self, void* event, Int8* result) {
+    *(bool*)result = ((RenderWindow*)self)->waitEvent(*(Event*)event);
+}
+void sfml_renderwindow_getposition(void* self, void* result) {
+    *(Vector2i*)result = ((RenderWindow*)self)->getPosition();
+}
+void sfml_renderwindow_setposition_ufV(void* self, void* position) {
+    ((RenderWindow*)self)->setPosition(*(Vector2i*)position);
+}
+void sfml_renderwindow_setsize_DXO(void* self, void* size) {
+    ((RenderWindow*)self)->setSize(*(Vector2u*)size);
+}
+void sfml_renderwindow_settitle_bQs(void* self, std::size_t title_size, Uint32* title) {
+    ((RenderWindow*)self)->setTitle(String::fromUtf32(title, title+title_size));
+}
+void sfml_renderwindow_seticon_emSemS843(void* self, unsigned int width, unsigned int height, Uint8* pixels) {
+    ((RenderWindow*)self)->setIcon(width, height, pixels);
+}
+void sfml_renderwindow_setvisible_GZq(void* self, Int8 visible) {
+    ((RenderWindow*)self)->setVisible(visible != 0);
+}
+void sfml_renderwindow_setmousecursorvisible_GZq(void* self, Int8 visible) {
+    ((RenderWindow*)self)->setMouseCursorVisible(visible != 0);
+}
+void sfml_renderwindow_setmousecursorgrabbed_GZq(void* self, Int8 grabbed) {
+    ((RenderWindow*)self)->setMouseCursorGrabbed(grabbed != 0);
+}
+void sfml_renderwindow_setmousecursor_Voc(void* self, void* cursor) {
+    ((RenderWindow*)self)->setMouseCursor(*(Cursor*)cursor);
+}
+void sfml_renderwindow_setkeyrepeatenabled_GZq(void* self, Int8 enabled) {
+    ((RenderWindow*)self)->setKeyRepeatEnabled(enabled != 0);
+}
+void sfml_renderwindow_setjoystickthreshold_Bw9(void* self, float threshold) {
+    ((RenderWindow*)self)->setJoystickThreshold(threshold);
+}
+void sfml_renderwindow_requestfocus(void* self) {
+    ((RenderWindow*)self)->requestFocus();
+}
+void sfml_renderwindow_hasfocus(void* self, Int8* result) {
+    *(bool*)result = ((RenderWindow*)self)->hasFocus();
+}
+void sfml_renderwindow_getsystemhandle(void* self, WindowHandle* result) {
+    *(WindowHandle*)result = ((RenderWindow*)self)->getSystemHandle();
+}
+void sfml_renderwindow_createvulkansurface_M35HMp7QC(void* self, void* instance, void* surface, void* allocator, Int8* result) {
+    *(bool*)result = ((RenderWindow*)self)->createVulkanSurface(*(VkInstance*)instance, *(VkSurfaceKHR*)surface, (VkAllocationCallbacks*)allocator);
 }
 void sfml_shader_allocate(void** result) {
     *result = malloc(sizeof(Shader));

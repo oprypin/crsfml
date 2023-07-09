@@ -375,6 +375,9 @@ void sfml_packet_finalize(void* self) {
 void sfml_packet_append_5h8vgv(void* self, void* data, std::size_t size_in_bytes) {
     ((Packet*)self)->append(data, size_in_bytes);
 }
+void sfml_packet_getreadposition(void* self, std::size_t* result) {
+    *(std::size_t*)result = ((Packet*)self)->getReadPosition();
+}
 void sfml_packet_clear(void* self) {
     ((Packet*)self)->clear();
 }

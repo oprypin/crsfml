@@ -1,4 +1,4 @@
-Based on https://github.com/SFML/SFML/blob/2.5.1/include/SFML/Audio
+Based on https://github.com/SFML/SFML/blob/2.6.0/include/SFML/Audio
 
 # SF::AlResource
 
@@ -240,11 +240,11 @@ this Music if they are later passed to `loop_points=()`.
 
 ## SF::Music#loop_points=(time_points)
 
-Sets the beginning and end of the sound's looping sequence using `SF::Time`
+Sets the beginning and duration of the sound's looping sequence using `SF::Time`
 
-Loop points allow one to specify a pair of positions such that, when the music
+loop_points=() allows for specifying the beginning offset and the duration of the loop such that, when the music
 is enabled for looping, it will seamlessly seek to the beginning whenever it
-encounters the end. Valid ranges for time_points.offset and time_points.length are
+encounters the end of the duration. Valid ranges for time_points.offset and time_points.length are
 [0, Dur) and (0, Dur-offset] respectively, where Dur is the value returned by `duration()`.
 Note that the EOF "loop point" from the end to the beginning of the stream is still honored,
 in case the caller seeks to a point after the end of the loop range. This function can be
@@ -1449,6 +1449,18 @@ the stream would reset its position.
 * *time_offset* - New playing position, from the beginning of the stream
 
 *See also:* `playing_offset`
+
+## SF::SoundStream#processing_interval=(interval)
+
+Set the processing interval
+
+The processing interval controls the period at which the
+audio buffers are filled by calls to on_get_data. A smaller
+interval may be useful for low-latency streams. Note that
+the given period is only a hint and the actual period may
+vary. The default processing interval is 10 ms.
+
+* *interval* - Processing interval
 
 ## SF::SoundStream#sample_rate()
 

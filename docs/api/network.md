@@ -1,4 +1,4 @@
-Based on https://github.com/SFML/SFML/blob/2.5.1/include/SFML/Network
+Based on https://github.com/SFML/SFML/blob/2.6.0/include/SFML/Network
 
 # SF::Ftp
 
@@ -1206,6 +1206,7 @@ Append data to the end of the packet
 * *size_in_bytes* - Number of bytes to append
 
 *See also:* `clear`
+*See also:* `read_position`
 
 ## SF::Packet#clear()
 
@@ -1309,6 +1310,16 @@ what was actually sent.
 ## SF::Packet#read(type)
 
 :ditto:
+
+## SF::Packet#read_position()
+
+Get the current reading position in the packet
+
+The next read operation will read data from this position
+
+*Returns:* The byte offset of the current read position
+
+*See also:* `append`
 
 ## SF::Packet#valid?()
 
@@ -1726,6 +1737,10 @@ If the socket is already listening on a port when this
 function is called, it will stop listening on the old
 port before starting to listen on the new port.
 
+When providing `SF::Socket::AnyPort` as port, the listener
+will request an available port from the system.
+The chosen port can be retrieved by calling `local_port()`.
+
 * *port* - Port to listen on for incoming connection attempts
 * *address* - Address of the interface to listen on
 
@@ -1894,7 +1909,7 @@ This function will fail if the socket is not connected.
 
 Get the address of the connected peer
 
-It the socket is not connected, this function returns
+If the socket is not connected, this function returns
 `SF::IpAddress::None`.
 
 *Returns:* Address of the remote peer
@@ -2049,9 +2064,10 @@ Bind the socket to a specific port
 
 Binding the socket to a port is necessary for being
 able to receive data on that port.
-You can use the special value Socket::AnyPort to tell the
-system to automatically pick an available port, and then
-call local_port to retrieve the chosen port.
+
+When providing `SF::Socket::AnyPort` as port, the listener
+will request an available port from the system.
+The chosen port can be retrieved by calling `local_port()`.
 
 Since the socket can only be bound to a single port at
 any given moment, if it is already bound when this

@@ -407,13 +407,23 @@ module SF
     #  `SF::Cursor::SizeVertical`           |  yes  |    yes   |   yes    |
     #  `SF::Cursor::SizeTopLeftBottomRight` |  no   |    yes*  |   yes    |
     #  `SF::Cursor::SizeBottomLeftTopRight` |  no   |    yes*  |   yes    |
+    #  `SF::Cursor::SizeLeft`               |  yes  |    yes** |   yes**  |
+    #  `SF::Cursor::SizeRight`              |  yes  |    yes** |   yes**  |
+    #  `SF::Cursor::SizeTop`                |  yes  |    yes** |   yes**  |
+    #  `SF::Cursor::SizeBottom`             |  yes  |    yes** |   yes**  |
+    #  `SF::Cursor::SizeTopLeft`            |  yes  |    yes** |   yes**  |
+    #  `SF::Cursor::SizeTopRight`           |  yes  |    yes** |   yes**  |
+    #  `SF::Cursor::SizeBottomLeft`         |  yes  |    yes** |   yes**  |
+    #  `SF::Cursor::SizeBottomRight`        |  yes  |    yes** |   yes**  |
     #  `SF::Cursor::SizeAll`                |  yes  |    no    |   yes    |
     #  `SF::Cursor::Cross`                  |  yes  |    yes   |   yes    |
     #  `SF::Cursor::Help`                   |  yes  |    yes*  |   yes    |
     #  `SF::Cursor::NotAllowed`             |  yes  |    yes   |   yes    |
     #
-    # \* These cursor types are undocumented so may not
+    #  \* These cursor types are undocumented so may not
     #    be available on all versions, but have been tested on 10.13
+    #
+    #  \** On Windows and macOS, double-headed arrows are used
     enum Type
       # Arrow cursor (default)
       Arrow
@@ -433,6 +443,22 @@ module SF
       SizeTopLeftBottomRight
       # Double arrow cursor going from bottom-left to top-right
       SizeBottomLeftTopRight
+      # Left arrow cursor on Linux, same as SizeHorizontal on other platforms
+      SizeLeft
+      # Right arrow cursor on Linux, same as SizeHorizontal on other platforms
+      SizeRight
+      # Up arrow cursor on Linux, same as SizeVertical on other platforms
+      SizeTop
+      # Down arrow cursor on Linux, same as SizeVertical on other platforms
+      SizeBottom
+      # Top-left arrow cursor on Linux, same as SizeTopLeftBottomRight on other platforms
+      SizeTopLeft
+      # Bottom-right arrow cursor on Linux, same as SizeTopLeftBottomRight on other platforms
+      SizeBottomRight
+      # Bottom-left arrow cursor on Linux, same as SizeBottomLeftTopRight on other platforms
+      SizeBottomLeft
+      # Top-right arrow cursor on Linux, same as SizeBottomLeftTopRight on other platforms
+      SizeTopRight
       # Combination of SizeHorizontal and SizeVertical
       SizeAll
       # Crosshair cursor
@@ -477,7 +503,8 @@ module SF
     # position is. Any mouse actions that are performed will
     # return the window/screen location of the hotspot.
     #
-    # WARNING: On Unix, the pixels are mapped into a monochrome
+    # WARNING: On Unix platforms which do not support colored
+    # cursors, the pixels are mapped into a monochrome
     # bitmap: pixels with an alpha channel to 0 are
     # transparent, black if the RGB channel are close
     # to zero, and white otherwise.
@@ -770,12 +797,18 @@ module SF
   #   # move right...
   # elsif SF::Keyboard.key_pressed?(SF::Keyboard::Escape)
   #   # quit...
+  # elsif SF::Keyboard.key_pressed?(SF::Keyboard::Scan::Grave)
+  #   # open in-game command line (if it's not already open)
   # end
   # ```
   #
   # *See also:* `SF::Joystick`, `SF::Mouse`, `SF::Touch`
   module Keyboard
     # Key codes
+    #
+    # The enumerators refer to the "localized" key; i.e. depending
+    # on the layout set by the operating system, a key can be mapped
+    # to `Y` or `Z`.
     enum Key
       # Unhandled key
       Unknown = -1
@@ -859,7 +892,7 @@ module SF
       LShift
       # The left Alt key
       LAlt
-      # The left OS specific key: window (Windows and Linux), apple (MacOS X), ...
+      # The left OS specific key: window (Windows and Linux), apple (macOS), ...
       LSystem
       # The right Control key
       RControl
@@ -867,7 +900,7 @@ module SF
       RShift
       # The right Alt key
       RAlt
-      # The right OS specific key: window (Windows and Linux), apple (MacOS X), ...
+      # The right OS specific key: window (Windows and Linux), apple (macOS), ...
       RSystem
       # The Menu key
       Menu
@@ -882,13 +915,13 @@ module SF
       # The . key
       Period
       # The ' key
-      Quote
+      Apostrophe
       # The / key
       Slash
       # The \ key
       Backslash
-      # The ~ key
-      Tilde
+      # The ` key
+      Grave
       # The = key
       Equal
       # The - key (hyphen)
@@ -983,6 +1016,8 @@ module SF
       Pause
       # Keep last -- the total number of keyboard keys
       KeyCount
+      # DEPRECATED: Use Grave instead
+      Tilde = Grave
       # DEPRECATED: Use `Hyphen` instead
       Dash = Hyphen
       # DEPRECATED: Use `Backspace` instead
@@ -993,8 +1028,316 @@ module SF
       SemiColon = Semicolon
       # DEPRECATED: Use `Enter` instead
       Return = Enter
+      # DEPRECATED: Use Apostrophe instead
+      Quote = Apostrophe
     end
     Util.extract Keyboard::Key
+    # Scancodes
+    #
+    # The enumerators are bound to a physical key and do not depend on
+    # the keyboard layout used by the operating system. Usually, the AT-101
+    # keyboard can be used as reference for the physical position of the keys.
+    module Scan
+      enum Scancode
+        # Represents any scancode not present in this enum
+        Unknown = -1
+        # Keyboard a and A key
+        A = 0
+        # Keyboard b and B key
+        B
+        # Keyboard c and C key
+        C
+        # Keyboard d and D key
+        D
+        # Keyboard e and E key
+        E
+        # Keyboard f and F key
+        F
+        # Keyboard g and G key
+        G
+        # Keyboard h and H key
+        H
+        # Keyboard i and I key
+        I
+        # Keyboard j and J key
+        J
+        # Keyboard k and K key
+        K
+        # Keyboard l and L key
+        L
+        # Keyboard m and M key
+        M
+        # Keyboard n and N key
+        N
+        # Keyboard o and O key
+        O
+        # Keyboard p and P key
+        P
+        # Keyboard q and Q key
+        Q
+        # Keyboard r and R key
+        R
+        # Keyboard s and S key
+        S
+        # Keyboard t and T key
+        T
+        # Keyboard u and U key
+        U
+        # Keyboard v and V key
+        V
+        # Keyboard w and W key
+        W
+        # Keyboard x and X key
+        X
+        # Keyboard y and Y key
+        Y
+        # Keyboard z and Z key
+        Z
+        # Keyboard 1 and ! key
+        Num1
+        # Keyboard 2 and @ key
+        Num2
+        # Keyboard 3 and # key
+        Num3
+        # Keyboard 4 and $ key
+        Num4
+        # Keyboard 5 and % key
+        Num5
+        # Keyboard 6 and ^ key
+        Num6
+        # Keyboard 7 and & key
+        Num7
+        # Keyboard 8 and * key
+        Num8
+        # Keyboard 9 and ) key
+        Num9
+        # Keyboard 0 and ) key
+        Num0
+        # Keyboard Enter/Return key
+        Enter
+        # Keyboard Escape key
+        Escape
+        # Keyboard Backspace key
+        Backspace
+        # Keyboard Tab key
+        Tab
+        # Keyboard Space key
+        Space
+        # Keyboard - and _ key
+        Hyphen
+        # Keyboard = and +
+        Equal
+        # Keyboard [ and { key
+        LBracket
+        # Keyboard ] and } key
+        RBracket
+        # Keyboard \ and | key OR various keys for Non-US keyboards
+        Backslash
+        # Keyboard ; and : key
+        Semicolon
+        # Keyboard ' and " key
+        Apostrophe
+        # Keyboard ` and ~ key
+        Grave
+        # Keyboard , and &lt; key
+        Comma
+        # Keyboard . and &gt; key
+        Period
+        # Keyboard / and ? key
+        Slash
+        # Keyboard F1 key
+        F1
+        # Keyboard F2 key
+        F2
+        # Keyboard F3 key
+        F3
+        # Keyboard F4 key
+        F4
+        # Keyboard F5 key
+        F5
+        # Keyboard F6 key
+        F6
+        # Keyboard F7 key
+        F7
+        # Keyboard F8 key
+        F8
+        # Keyboard F9 key
+        F9
+        # Keyboard F10 key
+        F10
+        # Keyboard F11 key
+        F11
+        # Keyboard F12 key
+        F12
+        # Keyboard F13 key
+        F13
+        # Keyboard F14 key
+        F14
+        # Keyboard F15 key
+        F15
+        # Keyboard F16 key
+        F16
+        # Keyboard F17 key
+        F17
+        # Keyboard F18 key
+        F18
+        # Keyboard F19 key
+        F19
+        # Keyboard F20 key
+        F20
+        # Keyboard F21 key
+        F21
+        # Keyboard F22 key
+        F22
+        # Keyboard F23 key
+        F23
+        # Keyboard F24 key
+        F24
+        # Keyboard Caps Lock key
+        CapsLock
+        # Keyboard Print Screen key
+        PrintScreen
+        # Keyboard Scroll Lock key
+        ScrollLock
+        # Keyboard Pause key
+        Pause
+        # Keyboard Insert key
+        Insert
+        # Keyboard Home key
+        Home
+        # Keyboard Page Up key
+        PageUp
+        # Keyboard Delete Forward key
+        Delete
+        # Keyboard End key
+        End
+        # Keyboard Page Down key
+        PageDown
+        # Keyboard Right Arrow key
+        Right
+        # Keyboard Left Arrow key
+        Left
+        # Keyboard Down Arrow key
+        Down
+        # Keyboard Up Arrow key
+        Up
+        # Keypad Num Lock and Clear key
+        NumLock
+        # Keypad / key
+        NumpadDivide
+        # Keypad * key
+        NumpadMultiply
+        # Keypad - key
+        NumpadMinus
+        # Keypad + key
+        NumpadPlus
+        # keypad = key
+        NumpadEqual
+        # Keypad Enter/Return key
+        NumpadEnter
+        # Keypad . and Delete key
+        NumpadDecimal
+        # Keypad 1 and End key
+        Numpad1
+        # Keypad 2 and Down Arrow key
+        Numpad2
+        # Keypad 3 and Page Down key
+        Numpad3
+        # Keypad 4 and Left Arrow key
+        Numpad4
+        # Keypad 5 key
+        Numpad5
+        # Keypad 6 and Right Arrow key
+        Numpad6
+        # Keypad 7 and Home key
+        Numpad7
+        # Keypad 8 and Up Arrow key
+        Numpad8
+        # Keypad 9 and Page Up key
+        Numpad9
+        # Keypad 0 and Insert key
+        Numpad0
+        # Keyboard Non-US \ and | key
+        NonUsBackslash
+        # Keyboard Application key
+        Application
+        # Keyboard Execute key
+        Execute
+        # Keyboard Mode Change key
+        ModeChange
+        # Keyboard Help key
+        Help
+        # Keyboard Menu key
+        Menu
+        # Keyboard Select key
+        Select
+        # Keyboard Redo key
+        Redo
+        # Keyboard Undo key
+        Undo
+        # Keyboard Cut key
+        Cut
+        # Keyboard Copy key
+        Copy
+        # Keyboard Paste key
+        Paste
+        # Keyboard Volume Mute key
+        VolumeMute
+        # Keyboard Volume Up key
+        VolumeUp
+        # Keyboard Volume Down key
+        VolumeDown
+        # Keyboard Media Play Pause key
+        MediaPlayPause
+        # Keyboard Media Stop key
+        MediaStop
+        # Keyboard Media Next Track key
+        MediaNextTrack
+        # Keyboard Media Previous Track key
+        MediaPreviousTrack
+        # Keyboard Left Control key
+        LControl
+        # Keyboard Left Shift key
+        LShift
+        # Keyboard Left Alt key
+        LAlt
+        # Keyboard Left System key
+        LSystem
+        # Keyboard Right Control key
+        RControl
+        # Keyboard Right Shift key
+        RShift
+        # Keyboard Right Alt key
+        RAlt
+        # Keyboard Right System key
+        RSystem
+        # Keyboard Back key
+        Back
+        # Keyboard Forward key
+        Forward
+        # Keyboard Refresh key
+        Refresh
+        # Keyboard Stop key
+        Stop
+        # Keyboard Search key
+        Search
+        # Keyboard Favorites key
+        Favorites
+        # Keyboard Home Page key
+        HomePage
+        # Keyboard Launch Application 1 key
+        LaunchApplication1
+        # Keyboard Launch Application 2 key
+        LaunchApplication2
+        # Keyboard Launch Mail key
+        LaunchMail
+        # Keyboard Launch Media Select key
+        LaunchMediaSelect
+        # Keep last -- the total number of scancodes
+        ScancodeCount
+      end
+      Util.extract Keyboard::Scan::Scancode
+    end
     # Check if a key is pressed
     #
     # * *key* - Key to check
@@ -1003,6 +1346,63 @@ module SF
     def self.key_pressed?(key : Keyboard::Key) : Bool
       SFMLExt.sfml_keyboard_iskeypressed_cKW(key, out result)
       return result
+    end
+    # Check if a key is pressed
+    #
+    # * *code* - Scancode to check
+    #
+    # *Returns:* True if the physical key is pressed, false otherwise
+    def self.key_pressed?(code : Keyboard::Scan::Scancode) : Bool
+      SFMLExt.sfml_keyboard_iskeypressed_1Us(code, out result)
+      return result
+    end
+    # Localize a physical key to a logical one
+    #
+    # * *code* - Scancode to localize
+    #
+    # *Returns:* The key corresponding to the scancode under the current
+    # keyboard layout used by the operating system, or
+    # `SF::Keyboard::Unknown` when the scancode cannot be mapped
+    # to a Key.
+    #
+    # *See also:* `delocalize`
+    def self.localize(code : Keyboard::Scan::Scancode) : Keyboard::Key
+      SFMLExt.sfml_keyboard_localize_1Us(code, out result)
+      return Keyboard::Key.new(result)
+    end
+    # Identify the physical key corresponding to a logical one
+    #
+    # * *key* - Key to "delocalize"
+    #
+    # *Returns:* The scancode corresponding to the key under the current
+    # keyboard layout used by the operating system, or
+    # `SF::Keyboard::Scan::Unknown` when the key cannot be mapped
+    # to a `SF::Keyboard::Scancode`.
+    #
+    # *See also:* `localize`
+    def self.delocalize(key : Keyboard::Key) : Keyboard::Scan::Scancode
+      SFMLExt.sfml_keyboard_delocalize_cKW(key, out result)
+      return Keyboard::Scan::Scancode.new(result)
+    end
+    # Provide a string representation for a given scancode
+    #
+    # The returned string is a short, non-technical description of
+    # the key represented with the given scancode. Most effectively
+    # used in user interfaces, as the description for the key takes
+    # the users keyboard layout into consideration.
+    #
+    # WARNING: The result is OS-dependent: for example, `SF::Keyboard::Scan::LSystem`
+    # is "Left Meta" on Linux, "Left Windows" on Windows and
+    # "Left Command" on macOS.
+    #
+    # The current keyboard layout set by the operating system is used to
+    # interpret the scancode: for example, `SF::Keyboard::Semicolon` is
+    # mapped to ";" for layout and to "é" for others.
+    #
+    # *Returns:* The localized description of the code
+    def self.get_description(code : Keyboard::Scan::Scancode) : String
+      SFMLExt.sfml_keyboard_getdescription_1Us(code, out result)
+      return String.build { |io| while (v = result.value) != '\0'; io << v; result += 1; end }
     end
     # Show or hide the virtual keyboard
     #
@@ -1082,6 +1482,9 @@ module SF
     Util.extract Mouse::Wheel
     # Check if a mouse button is pressed
     #
+    # WARNING: Checking the state of buttons Mouse::XButton1 and
+    # Mouse::XButton2 is not supported on Linux with X11.
+    #
     # * *button* - Button to check
     #
     # *Returns:* True if the button is pressed, false otherwise
@@ -1108,9 +1511,9 @@ module SF
     # * *relative_to* - Reference window
     #
     # *Returns:* Current position of the mouse
-    def self.get_position(relative_to : Window) : Vector2i
+    def self.get_position(relative_to : WindowBase) : Vector2i
       result = Vector2i.allocate
-      SFMLExt.sfml_mouse_getposition_JRh(relative_to, result)
+      SFMLExt.sfml_mouse_getposition_occ(relative_to, result)
       return result
     end
     # Set the current position of the mouse in desktop coordinates
@@ -1130,9 +1533,9 @@ module SF
     #
     # * *position* - New position of the mouse
     # * *relative_to* - Reference window
-    def self.set_position(position : Vector2|Tuple, relative_to : Window)
+    def self.set_position(position : Vector2|Tuple, relative_to : WindowBase)
       position = SF.vector2i(position[0], position[1])
-      SFMLExt.sfml_mouse_setposition_ufVJRh(position, relative_to)
+      SFMLExt.sfml_mouse_setposition_ufVocc(position, relative_to)
     end
   end
   # Give access to the real-time state of the sensors
@@ -1307,6 +1710,7 @@ module SF
     abstract struct KeyEvent < Event
       def initialize()
         @code = uninitialized Keyboard::Key
+        @scancode = uninitialized Keyboard::Scan::Scancode
         @alt = uninitialized Bool
         @control = uninitialized Bool
         @shift = uninitialized Bool
@@ -1314,6 +1718,7 @@ module SF
         SFMLExt.sfml_event_keyevent_initialize(to_unsafe)
       end
       @code : Keyboard::Key
+      @scancode : Keyboard::Scan::Scancode
       @alt : Bool
       @control : Bool
       @shift : Bool
@@ -1325,6 +1730,14 @@ module SF
       end
       def code=(code : Keyboard::Key)
         @code = code
+      end
+      @scancode : Keyboard::Scan::Scancode
+      # Physical code of the key that has been pressed
+      def scancode : Keyboard::Scan::Scancode
+        @scancode
+      end
+      def scancode=(scancode : Keyboard::Scan::Scancode)
+        @scancode = scancode
       end
       @alt : Bool
       # Is the Alt key pressed?
@@ -1361,6 +1774,7 @@ module SF
       # :nodoc:
       def initialize(copy : Event::KeyEvent)
         @code = uninitialized Keyboard::Key
+        @scancode = uninitialized Keyboard::Scan::Scancode
         @alt = uninitialized Bool
         @control = uninitialized Bool
         @shift = uninitialized Bool
@@ -2012,9 +2426,9 @@ module SF
     # * *relative_to* - Reference window
     #
     # *Returns:* Current position of *finger*, or undefined if it's not down
-    def self.get_position(finger : Int, relative_to : Window) : Vector2i
+    def self.get_position(finger : Int, relative_to : WindowBase) : Vector2i
       result = Vector2i.allocate
-      SFMLExt.sfml_touch_getposition_emSJRh(LibC::UInt.new(finger), relative_to, result)
+      SFMLExt.sfml_touch_getposition_emSocc(LibC::UInt.new(finger), relative_to, result)
       return result
     end
   end
@@ -2210,6 +2624,43 @@ module SF
       return VideoMode.new(self)
     end
   end
+  # Vulkan helper functions
+  module Vulkan
+    # Tell whether or not the system supports Vulkan
+    #
+    # This function should always be called before using
+    # the Vulkan features. If it returns false, then
+    # any attempt to use Vulkan will fail.
+    #
+    # If only compute is required, set *require_graphics*
+    # to false to skip checking for the extensions necessary
+    # for graphics rendering.
+    #
+    # \param require_graphics
+    #
+    # *Returns:* True if Vulkan is supported, false otherwise
+    def self.available?(require_graphics : Bool = true) : Bool
+      SFMLExt.sfml_vulkan_isavailable_GZq(require_graphics, out result)
+      return result
+    end
+    # Get the address of a Vulkan function
+    #
+    # * *name* - Name of the function to get the address of
+    #
+    # *Returns:* Address of the Vulkan function, 0 on failure
+    def self.get_function(name : String) : VulkanFunctionPointer
+      result = VulkanFunctionPointer.new
+      SFMLExt.sfml_vulkan_getfunction_Yy6(name, result)
+      return result
+    end
+    # Get Vulkan instance extensions required for graphics
+    #
+    # *Returns:* Vulkan instance extensions required for graphics
+    def self.graphics_required_instance_extensions() : Array(String)*
+      SFMLExt.sfml_vulkan_getgraphicsrequiredinstanceextensions(out result, out result_size)
+      return Array.new(result_size.to_i) { |i| String.new(result[i]) }
+    end
+  end
   # Enumeration of the window styles
   @[Flags]
   enum Style
@@ -2224,74 +2675,47 @@ module SF
     # Default window style
     Default = Titlebar | Resize | Close
   end
-  # Window that serves as a target for OpenGL rendering
+  # Window that serves as a base for other windows
   #
-  # `SF::Window` is the main class of the Window module. It defines
-  # an OS window that is able to receive an OpenGL rendering.
+  # `SF::WindowBase` serves as the base class for all Windows.
   #
-  # A `SF::Window` can create its own new window, or be embedded into
+  # A `SF::WindowBase` can create its own new window, or be embedded into
   # an already existing control using the create(handle) function.
-  # This can be useful for embedding an OpenGL rendering area into
-  # a view which is part of a bigger GUI with existing windows,
-  # controls, etc. It can also serve as embedding an OpenGL rendering
-  # area into a window created by another (probably richer) GUI library
-  # like Qt or wx_widgets.
   #
-  # The `SF::Window` class provides a simple interface for manipulating
+  # The `SF::WindowBase` class provides a simple interface for manipulating
   # the window: move, resize, show/hide, control mouse cursor, etc.
   # It also provides event handling through its `poll_event()` and wait_event()
   # functions.
   #
-  # Note that OpenGL experts can pass their own parameters (antialiasing
-  # level, bits for the depth and stencil buffers, etc.) to the
-  # OpenGL context attached to the window, with the `SF::ContextSettings`
-  # structure which is passed as an optional argument when creating the
-  # window.
-  #
-  # On dual-graphics systems consisting of a low-power integrated GPU
-  # and a powerful discrete GPU, the driver picks which GPU will run an
-  # SFML application. In order to inform the driver that an SFML application
-  # can benefit from being run on the more powerful discrete GPU,
-  # #SFML_DEFINE_DISCRETE_GPU_PREFERENCE can be placed in a source file
-  # that is compiled and linked into the final application. The macro
-  # should be placed outside of any scopes in the global namespace.
-  #
   # Usage example:
-  # ```crystal
-  # # Declare and create a new window
-  # window = SF::Window.new(SF::VideoMode.new(800, 600), "SFML window")
+  # ```c++
+  # // Declare and create a new window
+  # sf::WindowBase window(sf::VideoMode(800, 600), "SFML window");
   #
-  # # Limit the framerate to 60 frames per second (this step is optional)
-  # window.framerate_limit = 60
+  # // The main loop - ends as soon as the window is closed
+  # while (window.isOpen())
+  # {
+  #    // Event processing
+  #    sf::Event event;
+  #    while (window.pollEvent(event))
+  #    {
+  #        // Request for closing the window
+  #        if (event.type == sf::Event::Closed)
+  #            window.close();
+  #    }
   #
-  # # The main loop - ends as soon as the window is closed
-  # while window.open?
-  #   # Event processing
-  #   while (event = window.poll_event)
-  #     # Request for closing the window
-  #     if event.is_a?(SF::Event::Closed)
-  #       window.close
-  #     end
-  #   end
-  #
-  #   # Activate the window for OpenGL rendering
-  #   window.active = true
-  #
-  #   # OpenGL drawing commands go here...
-  #
-  #   # End the current frame and display its contents on screen
-  #   window.display
-  # end
+  #    // Do things with the window here...
+  # }
   # ```
-  class Window
+  class WindowBase
     @this : Void*
     # Default constructor
     #
     # This constructor doesn't actually create the window,
     # use the other constructors or call `create()` to do so.
     def initialize()
-      SFMLExt.sfml_window_allocate(out @this)
-      SFMLExt.sfml_window_initialize(to_unsafe)
+      SFMLExt.sfml_windowbase_allocate(out @this)
+      SFMLExt.sfml_windowbase_initialize(to_unsafe)
     end
     # Construct a new window
     #
@@ -2301,58 +2725,40 @@ module SF
     # title bar, resizable, closable, ...). If *style* contains
     # Style::Fullscreen, then *mode* must be a valid video mode.
     #
-    # The fourth parameter is an optional structure specifying
-    # advanced OpenGL context settings such as antialiasing,
-    # depth-buffer bits, etc.
-    #
     # * *mode* - Video mode to use (defines the width, height and depth of the rendering area of the window)
     # * *title* - Title of the window
     # * *style* - Window style, a bitwise OR combination of `SF::Style` enumerators
-    # * *settings* - Additional settings for the underlying OpenGL context
-    def initialize(mode : VideoMode, title : String, style : Style = Style::Default, settings : ContextSettings = ContextSettings.new())
-      SFMLExt.sfml_window_allocate(out @this)
-      SFMLExt.sfml_window_initialize_wg0bQssaLFw4(to_unsafe, mode, title.size, title.chars, style, settings)
+    def initialize(mode : VideoMode, title : String, style : Style = Style::Default)
+      SFMLExt.sfml_windowbase_allocate(out @this)
+      SFMLExt.sfml_windowbase_initialize_wg0bQssaL(to_unsafe, mode, title.size, title.chars, style)
     end
     # Construct the window from an existing control
     #
-    # Use this constructor if you want to create an OpenGL
-    # rendering area into an already existing control.
-    #
-    # The second parameter is an optional structure specifying
-    # advanced OpenGL context settings such as antialiasing,
-    # depth-buffer bits, etc.
-    #
     # * *handle* - Platform-specific handle of the control
-    # * *settings* - Additional settings for the underlying OpenGL context
-    def initialize(handle : WindowHandle, settings : ContextSettings = ContextSettings.new())
-      SFMLExt.sfml_window_allocate(out @this)
-      SFMLExt.sfml_window_initialize_rLQFw4(to_unsafe, handle, settings)
+    def initialize(handle : WindowHandle)
+      SFMLExt.sfml_windowbase_allocate(out @this)
+      SFMLExt.sfml_windowbase_initialize_rLQ(to_unsafe, handle)
     end
     # Destructor
     #
     # Closes the window and frees all the resources attached to it.
     def finalize()
-      SFMLExt.sfml_window_finalize(to_unsafe)
-      SFMLExt.sfml_window_free(@this)
+      SFMLExt.sfml_windowbase_finalize(to_unsafe)
+      SFMLExt.sfml_windowbase_free(@this)
     end
     # Create (or recreate) the window
     #
     # If the window was already created, it closes it first.
-    # If *style* contains `Style::Fullscreen`, then *mode*
+    # If *style* contains Style::Fullscreen, then *mode*
     # must be a valid video mode.
-    #
-    # The fourth parameter is an optional structure specifying
-    # advanced OpenGL context settings such as antialiasing,
-    # depth-buffer bits, etc.
     #
     # * *mode* - Video mode to use (defines the width, height and depth of the rendering area of the window)
     # * *title* - Title of the window
     # * *style* - Window style, a bitwise OR combination of `SF::Style` enumerators
-    # * *settings* - Additional settings for the underlying OpenGL context
-    def create(mode : VideoMode, title : String, style : Style = Style::Default, settings : ContextSettings = ContextSettings.new())
-      SFMLExt.sfml_window_create_wg0bQssaLFw4(to_unsafe, mode, title.size, title.chars, style, settings)
+    def create(mode : VideoMode, title : String, style : Style = Style::Default)
+      SFMLExt.sfml_windowbase_create_wg0bQssaL(to_unsafe, mode, title.size, title.chars, style)
     end
-    # Shorthand for `window = Window.new; window.create(...); window`
+    # Shorthand for `window_base = WindowBase.new; window_base.create(...); window_base`
     def self.new(*args, **kwargs) : self
       obj = new
       obj.create(*args, **kwargs)
@@ -2360,20 +2766,11 @@ module SF
     end
     # Create (or recreate) the window from an existing control
     #
-    # Use this function if you want to create an OpenGL
-    # rendering area into an already existing control.
-    # If the window was already created, it closes it first.
-    #
-    # The second parameter is an optional structure specifying
-    # advanced OpenGL context settings such as antialiasing,
-    # depth-buffer bits, etc.
-    #
     # * *handle* - Platform-specific handle of the control
-    # * *settings* - Additional settings for the underlying OpenGL context
-    def create(handle : WindowHandle, settings : ContextSettings = ContextSettings.new())
-      SFMLExt.sfml_window_create_rLQFw4(to_unsafe, handle, settings)
+    def create(handle : WindowHandle)
+      SFMLExt.sfml_windowbase_create_rLQ(to_unsafe, handle)
     end
-    # Shorthand for `window = Window.new; window.create(...); window`
+    # Shorthand for `window_base = WindowBase.new; window_base.create(...); window_base`
     def self.new(*args, **kwargs) : self
       obj = new
       obj.create(*args, **kwargs)
@@ -2387,7 +2784,7 @@ module SF
     # still work (i.e. you don't have to test `open?()` every time),
     # and will have no effect on closed windows.
     def close()
-      SFMLExt.sfml_window_close(to_unsafe)
+      SFMLExt.sfml_windowbase_close(to_unsafe)
     end
     # Tell whether or not the window is open
     #
@@ -2397,20 +2794,7 @@ module SF
     #
     # *Returns:* True if the window is open, false if it has been closed
     def open?() : Bool
-      SFMLExt.sfml_window_isopen(to_unsafe, out result)
-      return result
-    end
-    # Get the settings of the OpenGL context of the window
-    #
-    # Note that these settings may be different from what was
-    # passed to the constructor or the `create()` function,
-    # if one or more settings were not supported. In this case,
-    # SFML chose the closest match.
-    #
-    # *Returns:* Structure containing the OpenGL context settings
-    def settings() : ContextSettings
-      result = ContextSettings.allocate
-      SFMLExt.sfml_window_getsettings(to_unsafe, result)
+      SFMLExt.sfml_windowbase_isopen(to_unsafe, out result)
       return result
     end
     # Pop the event on top of the event queue, if any, and return it
@@ -2433,7 +2817,7 @@ module SF
     # *See also:* `wait_event`
     def poll_event() : Event?
       SFMLExt.sfml_event_allocate(out event)
-      SFMLExt.sfml_window_pollevent_YJW(to_unsafe, event, out result)
+      SFMLExt.sfml_windowbase_pollevent_YJW(to_unsafe, event, out result)
       if result
         case (event_id = event.as(Event::EventType*).value)
         when .closed?
@@ -2509,7 +2893,7 @@ module SF
     # *See also:* `poll_event`
     def wait_event() : Event?
       SFMLExt.sfml_event_allocate(out event)
-      SFMLExt.sfml_window_waitevent_YJW(to_unsafe, event, out result)
+      SFMLExt.sfml_windowbase_waitevent_YJW(to_unsafe, event, out result)
       if result
         case (event_id = event.as(Event::EventType*).value)
         when .closed?
@@ -2570,7 +2954,7 @@ module SF
     # *See also:* `position=`
     def position() : Vector2i
       result = Vector2i.allocate
-      SFMLExt.sfml_window_getposition(to_unsafe, result)
+      SFMLExt.sfml_windowbase_getposition(to_unsafe, result)
       return result
     end
     # Change the position of the window on screen
@@ -2584,7 +2968,7 @@ module SF
     # *See also:* `position`
     def position=(position : Vector2|Tuple)
       position = SF.vector2i(position[0], position[1])
-      SFMLExt.sfml_window_setposition_ufV(to_unsafe, position)
+      SFMLExt.sfml_windowbase_setposition_ufV(to_unsafe, position)
     end
     # Get the size of the rendering region of the window
     #
@@ -2596,7 +2980,7 @@ module SF
     # *See also:* `size=`
     def size() : Vector2u
       result = Vector2u.allocate
-      SFMLExt.sfml_window_getsize(to_unsafe, result)
+      SFMLExt.sfml_windowbase_getsize(to_unsafe, result)
       return result
     end
     # Change the size of the rendering region of the window
@@ -2606,7 +2990,7 @@ module SF
     # *See also:* `size`
     def size=(size : Vector2|Tuple)
       size = SF.vector2u(size[0], size[1])
-      SFMLExt.sfml_window_setsize_DXO(to_unsafe, size)
+      SFMLExt.sfml_windowbase_setsize_DXO(to_unsafe, size)
     end
     # Change the title of the window
     #
@@ -2614,7 +2998,7 @@ module SF
     #
     # *See also:* `icon=`
     def title=(title : String)
-      SFMLExt.sfml_window_settitle_bQs(to_unsafe, title.size, title.chars)
+      SFMLExt.sfml_windowbase_settitle_bQs(to_unsafe, title.size, title.chars)
     end
     # Change the window's icon
     #
@@ -2631,7 +3015,7 @@ module SF
     #
     # *See also:* `title=`
     def set_icon(width : Int, height : Int, pixels : UInt8*)
-      SFMLExt.sfml_window_seticon_emSemS843(to_unsafe, LibC::UInt.new(width), LibC::UInt.new(height), pixels)
+      SFMLExt.sfml_windowbase_seticon_emSemS843(to_unsafe, LibC::UInt.new(width), LibC::UInt.new(height), pixels)
     end
     # Show or hide the window
     #
@@ -2639,20 +3023,7 @@ module SF
     #
     # * *visible* - True to show the window, false to hide it
     def visible=(visible : Bool)
-      SFMLExt.sfml_window_setvisible_GZq(to_unsafe, visible)
-    end
-    # Enable or disable vertical synchronization
-    #
-    # Activating vertical synchronization will limit the number
-    # of frames displayed to the refresh rate of the monitor.
-    # This can avoid some visual artifacts, and limit the framerate
-    # to a good value (but not constant across different computers).
-    #
-    # Vertical synchronization is disabled by default.
-    #
-    # * *enabled* - True to enable v-sync, false to deactivate it
-    def vertical_sync_enabled=(enabled : Bool)
-      SFMLExt.sfml_window_setverticalsyncenabled_GZq(to_unsafe, enabled)
+      SFMLExt.sfml_windowbase_setvisible_GZq(to_unsafe, visible)
     end
     # Show or hide the mouse cursor
     #
@@ -2660,7 +3031,7 @@ module SF
     #
     # * *visible* - True to show the mouse cursor, false to hide it
     def mouse_cursor_visible=(visible : Bool)
-      SFMLExt.sfml_window_setmousecursorvisible_GZq(to_unsafe, visible)
+      SFMLExt.sfml_windowbase_setmousecursorvisible_GZq(to_unsafe, visible)
     end
     # Grab or release the mouse cursor
     #
@@ -2671,7 +3042,7 @@ module SF
     #
     # * *grabbed* - True to enable, false to disable
     def mouse_cursor_grabbed=(grabbed : Bool)
-      SFMLExt.sfml_window_setmousecursorgrabbed_GZq(to_unsafe, grabbed)
+      SFMLExt.sfml_windowbase_setmousecursorgrabbed_GZq(to_unsafe, grabbed)
     end
     # Set the displayed cursor to a native system cursor
     #
@@ -2688,10 +3059,10 @@ module SF
     # *See also:* `SF::Cursor.load_from_system`
     # *See also:* `SF::Cursor.load_from_pixels`
     def mouse_cursor=(cursor : Cursor)
-      @_window_mouse_cursor = cursor
-      SFMLExt.sfml_window_setmousecursor_Voc(to_unsafe, cursor)
+      @_windowbase_mouse_cursor = cursor
+      SFMLExt.sfml_windowbase_setmousecursor_Voc(to_unsafe, cursor)
     end
-    @_window_mouse_cursor : Cursor? = nil
+    @_windowbase_mouse_cursor : Cursor? = nil
     # Enable or disable automatic key-repeat
     #
     # If key repeat is enabled, you will receive repeated
@@ -2702,7 +3073,303 @@ module SF
     #
     # * *enabled* - True to enable, false to disable
     def key_repeat_enabled=(enabled : Bool)
-      SFMLExt.sfml_window_setkeyrepeatenabled_GZq(to_unsafe, enabled)
+      SFMLExt.sfml_windowbase_setkeyrepeatenabled_GZq(to_unsafe, enabled)
+    end
+    # Change the joystick threshold
+    #
+    # The joystick threshold is the value below which
+    # no JoystickMoved event will be generated.
+    #
+    # The threshold value is 0.1 by default.
+    #
+    # * *threshold* - New threshold, in the range `0.0 .. 100.0`
+    def joystick_threshold=(threshold : Number)
+      SFMLExt.sfml_windowbase_setjoystickthreshold_Bw9(to_unsafe, LibC::Float.new(threshold))
+    end
+    # Request the current window to be made the active
+    # foreground window
+    #
+    # At any given time, only one window may have the input focus
+    # to receive input events such as keystrokes or mouse events.
+    # If a window requests focus, it only hints to the operating
+    # system, that it would like to be focused. The operating system
+    # is free to deny the request.
+    # This is not to be confused with `active=()`.
+    #
+    # *See also:* `focus?`
+    def request_focus()
+      SFMLExt.sfml_windowbase_requestfocus(to_unsafe)
+    end
+    # Check whether the window has the input focus
+    #
+    # At any given time, only one window may have the input focus
+    # to receive input events such as keystrokes or most mouse
+    # events.
+    #
+    # *Returns:* True if window has focus, false otherwise
+    # *See also:* `request_focus`
+    def focus?() : Bool
+      SFMLExt.sfml_windowbase_hasfocus(to_unsafe, out result)
+      return result
+    end
+    # Get the OS-specific handle of the window
+    #
+    # The type of the returned handle is `SF::WindowHandle`,
+    # which is a typedef to the handle type defined by the OS.
+    # You shouldn't need to use this function, unless you have
+    # very specific stuff to implement that SFML doesn't support,
+    # or implement a temporary workaround until a bug is fixed.
+    #
+    # *Returns:* System handle of the window
+    def system_handle() : WindowHandle
+      SFMLExt.sfml_windowbase_getsystemhandle(to_unsafe, out result)
+      return result
+    end
+    # Create a Vulkan rendering surface
+    #
+    # * *instance* - Vulkan instance
+    # * *surface* - Created surface
+    # * *allocator* - Allocator to use
+    #
+    # *Returns:* True if surface creation was successful, false otherwise
+    def create_vulkan_surface(instance : VkInstance, surface : VkSurfaceKHR, allocator : VkAllocationCallbacks? = nil) : Bool
+      SFMLExt.sfml_windowbase_createvulkansurface_M35HMp7QC(to_unsafe, instance, surface, allocator, out result)
+      return result
+    end
+    include NonCopyable
+    # :nodoc:
+    def to_unsafe()
+      @this
+    end
+    # :nodoc:
+    def inspect(io)
+      to_s(io)
+    end
+  end
+  # Window that serves as a target for OpenGL rendering
+  #
+  # `SF::Window` is the main class of the Window module. It defines
+  # an OS window that is able to receive an OpenGL rendering.
+  #
+  # A `SF::Window` can create its own new window, or be embedded into
+  # an already existing control using the create(handle) function.
+  # This can be useful for embedding an OpenGL rendering area into
+  # a view which is part of a bigger GUI with existing windows,
+  # controls, etc. It can also serve as embedding an OpenGL rendering
+  # area into a window created by another (probably richer) GUI library
+  # like Qt or wx_widgets.
+  #
+  # The `SF::Window` class provides a simple interface for manipulating
+  # the window: move, resize, show/hide, control mouse cursor, etc.
+  # It also provides event handling through its `poll_event()` and wait_event()
+  # functions.
+  #
+  # Note that OpenGL experts can pass their own parameters (antialiasing
+  # level, bits for the depth and stencil buffers, etc.) to the
+  # OpenGL context attached to the window, with the `SF::ContextSettings`
+  # structure which is passed as an optional argument when creating the
+  # window.
+  #
+  # On dual-graphics systems consisting of a low-power integrated GPU
+  # and a powerful discrete GPU, the driver picks which GPU will run an
+  # SFML application. In order to inform the driver that an SFML application
+  # can benefit from being run on the more powerful discrete GPU,
+  # #SFML_DEFINE_DISCRETE_GPU_PREFERENCE can be placed in a source file
+  # that is compiled and linked into the final application. The macro
+  # should be placed outside of any scopes in the global namespace.
+  #
+  # Usage example:
+  # ```crystal
+  # # Declare and create a new window
+  # window = SF::Window.new(SF::VideoMode.new(800, 600), "SFML window")
+  #
+  # # Limit the framerate to 60 frames per second (this step is optional)
+  # window.framerate_limit = 60
+  #
+  # # The main loop - ends as soon as the window is closed
+  # while window.open?
+  #   # Event processing
+  #   while (event = window.poll_event)
+  #     # Request for closing the window
+  #     if event.is_a?(SF::Event::Closed)
+  #       window.close
+  #     end
+  #   end
+  #
+  #   # Activate the window for OpenGL rendering
+  #   window.active = true
+  #
+  #   # OpenGL drawing commands go here...
+  #
+  #   # End the current frame and display its contents on screen
+  #   window.display
+  # end
+  # ```
+  class Window < WindowBase
+    @this : Void*
+    # Default constructor
+    #
+    # This constructor doesn't actually create the window,
+    # use the other constructors or call `create()` to do so.
+    def initialize()
+      SFMLExt.sfml_window_allocate(out @this)
+      SFMLExt.sfml_window_initialize(to_unsafe)
+    end
+    # Construct a new window
+    #
+    # This constructor creates the window with the size and pixel
+    # depth defined in *mode*. An optional style can be passed to
+    # customize the look and behavior of the window (borders,
+    # title bar, resizable, closable, ...). If *style* contains
+    # Style::Fullscreen, then *mode* must be a valid video mode.
+    #
+    # The fourth parameter is an optional structure specifying
+    # advanced OpenGL context settings such as antialiasing,
+    # depth-buffer bits, etc.
+    #
+    # * *mode* - Video mode to use (defines the width, height and depth of the rendering area of the window)
+    # * *title* - Title of the window
+    # * *style* - Window style, a bitwise OR combination of `SF::Style` enumerators
+    # * *settings* - Additional settings for the underlying OpenGL context
+    def initialize(mode : VideoMode, title : String, style : Style = Style::Default, settings : ContextSettings = ContextSettings.new())
+      SFMLExt.sfml_window_allocate(out @this)
+      SFMLExt.sfml_window_initialize_wg0bQssaLFw4(to_unsafe, mode, title.size, title.chars, style, settings)
+    end
+    # Construct the window from an existing control
+    #
+    # Use this constructor if you want to create an OpenGL
+    # rendering area into an already existing control.
+    #
+    # The second parameter is an optional structure specifying
+    # advanced OpenGL context settings such as antialiasing,
+    # depth-buffer bits, etc.
+    #
+    # * *handle* - Platform-specific handle of the control
+    # * *settings* - Additional settings for the underlying OpenGL context
+    def initialize(handle : WindowHandle, settings : ContextSettings = ContextSettings.new())
+      SFMLExt.sfml_window_allocate(out @this)
+      SFMLExt.sfml_window_initialize_rLQFw4(to_unsafe, handle, settings)
+    end
+    # Destructor
+    #
+    # Closes the window and frees all the resources attached to it.
+    def finalize()
+      SFMLExt.sfml_window_finalize(to_unsafe)
+      SFMLExt.sfml_window_free(@this)
+    end
+    # Create (or recreate) the window
+    #
+    # If the window was already created, it closes it first.
+    # If *style* contains Style::Fullscreen, then *mode*
+    # must be a valid video mode.
+    #
+    # * *mode* - Video mode to use (defines the width, height and depth of the rendering area of the window)
+    # * *title* - Title of the window
+    # * *style* - Window style, a bitwise OR combination of `SF::Style` enumerators
+    def create(mode : VideoMode, title : String, style : Style = Style::Default)
+      SFMLExt.sfml_window_create_wg0bQssaL(to_unsafe, mode, title.size, title.chars, style)
+    end
+    # Shorthand for `window = Window.new; window.create(...); window`
+    def self.new(*args, **kwargs) : self
+      obj = new
+      obj.create(*args, **kwargs)
+      obj
+    end
+    # Create (or recreate) the window
+    #
+    # If the window was already created, it closes it first.
+    # If *style* contains `Style::Fullscreen`, then *mode*
+    # must be a valid video mode.
+    #
+    # The fourth parameter is an optional structure specifying
+    # advanced OpenGL context settings such as antialiasing,
+    # depth-buffer bits, etc.
+    #
+    # * *mode* - Video mode to use (defines the width, height and depth of the rendering area of the window)
+    # * *title* - Title of the window
+    # * *style* - Window style, a bitwise OR combination of `SF::Style` enumerators
+    # * *settings* - Additional settings for the underlying OpenGL context
+    def create(mode : VideoMode, title : String, style : Style, settings : ContextSettings)
+      SFMLExt.sfml_window_create_wg0bQssaLFw4(to_unsafe, mode, title.size, title.chars, style, settings)
+    end
+    # Shorthand for `window = Window.new; window.create(...); window`
+    def self.new(*args, **kwargs) : self
+      obj = new
+      obj.create(*args, **kwargs)
+      obj
+    end
+    # Create (or recreate) the window from an existing control
+    #
+    # Use this function if you want to create an OpenGL
+    # rendering area into an already existing control.
+    # If the window was already created, it closes it first.
+    #
+    # * *handle* - Platform-specific handle of the control
+    def create(handle : WindowHandle)
+      SFMLExt.sfml_window_create_rLQ(to_unsafe, handle)
+    end
+    # Shorthand for `window = Window.new; window.create(...); window`
+    def self.new(*args, **kwargs) : self
+      obj = new
+      obj.create(*args, **kwargs)
+      obj
+    end
+    # Create (or recreate) the window from an existing control
+    #
+    # Use this function if you want to create an OpenGL
+    # rendering area into an already existing control.
+    # If the window was already created, it closes it first.
+    #
+    # The second parameter is an optional structure specifying
+    # advanced OpenGL context settings such as antialiasing,
+    # depth-buffer bits, etc.
+    #
+    # * *handle* - Platform-specific handle of the control
+    # * *settings* - Additional settings for the underlying OpenGL context
+    def create(handle : WindowHandle, settings : ContextSettings)
+      SFMLExt.sfml_window_create_rLQFw4(to_unsafe, handle, settings)
+    end
+    # Shorthand for `window = Window.new; window.create(...); window`
+    def self.new(*args, **kwargs) : self
+      obj = new
+      obj.create(*args, **kwargs)
+      obj
+    end
+    # Close the window and destroy all the attached resources
+    #
+    # After calling this function, the `SF::Window` instance remains
+    # valid and you can call `create()` to recreate the window.
+    # All other functions such as `poll_event()` or display() will
+    # still work (i.e. you don't have to test `open?()` every time),
+    # and will have no effect on closed windows.
+    def close()
+      SFMLExt.sfml_window_close(to_unsafe)
+    end
+    # Get the settings of the OpenGL context of the window
+    #
+    # Note that these settings may be different from what was
+    # passed to the constructor or the `create()` function,
+    # if one or more settings were not supported. In this case,
+    # SFML chose the closest match.
+    #
+    # *Returns:* Structure containing the OpenGL context settings
+    def settings() : ContextSettings
+      result = ContextSettings.allocate
+      SFMLExt.sfml_window_getsettings(to_unsafe, result)
+      return result
+    end
+    # Enable or disable vertical synchronization
+    #
+    # Activating vertical synchronization will limit the number
+    # of frames displayed to the refresh rate of the monitor.
+    # This can avoid some visual artifacts, and limit the framerate
+    # to a good value (but not constant across different computers).
+    #
+    # Vertical synchronization is disabled by default.
+    #
+    # * *enabled* - True to enable v-sync, false to deactivate it
+    def vertical_sync_enabled=(enabled : Bool)
+      SFMLExt.sfml_window_setverticalsyncenabled_GZq(to_unsafe, enabled)
     end
     # Limit the framerate to a maximum fixed frequency
     #
@@ -2718,17 +3385,6 @@ module SF
     # * *limit* - Framerate limit, in frames per seconds (use 0 to disable limit)
     def framerate_limit=(limit : Int)
       SFMLExt.sfml_window_setframeratelimit_emS(to_unsafe, LibC::UInt.new(limit))
-    end
-    # Change the joystick threshold
-    #
-    # The joystick threshold is the value below which
-    # no JoystickMoved event will be generated.
-    #
-    # The threshold value is 0.1 by default.
-    #
-    # * *threshold* - New threshold, in the range `0.0 .. 100.0`
-    def joystick_threshold=(threshold : Number)
-      SFMLExt.sfml_window_setjoystickthreshold_Bw9(to_unsafe, LibC::Float.new(threshold))
     end
     # Activate or deactivate the window as the current target
     # for OpenGL rendering
@@ -2747,32 +3403,6 @@ module SF
       SFMLExt.sfml_window_setactive_GZq(to_unsafe, active, out result)
       return result
     end
-    # Request the current window to be made the active
-    # foreground window
-    #
-    # At any given time, only one window may have the input focus
-    # to receive input events such as keystrokes or mouse events.
-    # If a window requests focus, it only hints to the operating
-    # system, that it would like to be focused. The operating system
-    # is free to deny the request.
-    # This is not to be confused with `active=()`.
-    #
-    # *See also:* `focus?`
-    def request_focus()
-      SFMLExt.sfml_window_requestfocus(to_unsafe)
-    end
-    # Check whether the window has the input focus
-    #
-    # At any given time, only one window may have the input focus
-    # to receive input events such as keystrokes or most mouse
-    # events.
-    #
-    # *Returns:* True if window has focus, false otherwise
-    # *See also:* `request_focus`
-    def focus?() : Bool
-      SFMLExt.sfml_window_hasfocus(to_unsafe, out result)
-      return result
-    end
     # Display on screen what has been rendered to the window so far
     #
     # This function is typically called after all OpenGL rendering
@@ -2781,25 +3411,201 @@ module SF
     def display()
       SFMLExt.sfml_window_display(to_unsafe)
     end
-    # Get the OS-specific handle of the window
-    #
-    # The type of the returned handle is `SF::WindowHandle`,
-    # which is a typedef to the handle type defined by the OS.
-    # You shouldn't need to use this function, unless you have
-    # very specific stuff to implement that SFML doesn't support,
-    # or implement a temporary workaround until a bug is fixed.
-    #
-    # *Returns:* System handle of the window
+    # :nodoc:
+    def open?() : Bool
+      SFMLExt.sfml_window_isopen(to_unsafe, out result)
+      return result
+    end
+    # :nodoc:
+    def poll_event() : Event?
+      SFMLExt.sfml_event_allocate(out event)
+      SFMLExt.sfml_window_pollevent_YJW(to_unsafe, event, out result)
+      if result
+        case (event_id = event.as(Event::EventType*).value)
+        when .closed?
+          event.as(Event::Closed*).value
+        when .resized?
+          event.as(Event::Resized*).value
+        when .lost_focus?
+          event.as(Event::LostFocus*).value
+        when .gained_focus?
+          event.as(Event::GainedFocus*).value
+        when .text_entered?
+          event.as(Event::TextEntered*).value
+        when .key_pressed?
+          event.as(Event::KeyPressed*).value
+        when .key_released?
+          event.as(Event::KeyReleased*).value
+        when .mouse_wheel_moved?
+          event.as(Event::MouseWheelMoved*).value
+        when .mouse_wheel_scrolled?
+          event.as(Event::MouseWheelScrolled*).value
+        when .mouse_button_pressed?
+          event.as(Event::MouseButtonPressed*).value
+        when .mouse_button_released?
+          event.as(Event::MouseButtonReleased*).value
+        when .mouse_moved?
+          event.as(Event::MouseMoved*).value
+        when .mouse_entered?
+          event.as(Event::MouseEntered*).value
+        when .mouse_left?
+          event.as(Event::MouseLeft*).value
+        when .joystick_button_pressed?
+          event.as(Event::JoystickButtonPressed*).value
+        when .joystick_button_released?
+          event.as(Event::JoystickButtonReleased*).value
+        when .joystick_moved?
+          event.as(Event::JoystickMoved*).value
+        when .joystick_connected?
+          event.as(Event::JoystickConnected*).value
+        when .joystick_disconnected?
+          event.as(Event::JoystickDisconnected*).value
+        when .touch_began?
+          event.as(Event::TouchBegan*).value
+        when .touch_moved?
+          event.as(Event::TouchMoved*).value
+        when .touch_ended?
+          event.as(Event::TouchEnded*).value
+        when .sensor_changed?
+          event.as(Event::SensorChanged*).value
+        else
+          raise "Unknown SFML event ID #{event_id.value}"
+        end
+      end
+    end
+    # :nodoc:
+    def wait_event() : Event?
+      SFMLExt.sfml_event_allocate(out event)
+      SFMLExt.sfml_window_waitevent_YJW(to_unsafe, event, out result)
+      if result
+        case (event_id = event.as(Event::EventType*).value)
+        when .closed?
+          event.as(Event::Closed*).value
+        when .resized?
+          event.as(Event::Resized*).value
+        when .lost_focus?
+          event.as(Event::LostFocus*).value
+        when .gained_focus?
+          event.as(Event::GainedFocus*).value
+        when .text_entered?
+          event.as(Event::TextEntered*).value
+        when .key_pressed?
+          event.as(Event::KeyPressed*).value
+        when .key_released?
+          event.as(Event::KeyReleased*).value
+        when .mouse_wheel_moved?
+          event.as(Event::MouseWheelMoved*).value
+        when .mouse_wheel_scrolled?
+          event.as(Event::MouseWheelScrolled*).value
+        when .mouse_button_pressed?
+          event.as(Event::MouseButtonPressed*).value
+        when .mouse_button_released?
+          event.as(Event::MouseButtonReleased*).value
+        when .mouse_moved?
+          event.as(Event::MouseMoved*).value
+        when .mouse_entered?
+          event.as(Event::MouseEntered*).value
+        when .mouse_left?
+          event.as(Event::MouseLeft*).value
+        when .joystick_button_pressed?
+          event.as(Event::JoystickButtonPressed*).value
+        when .joystick_button_released?
+          event.as(Event::JoystickButtonReleased*).value
+        when .joystick_moved?
+          event.as(Event::JoystickMoved*).value
+        when .joystick_connected?
+          event.as(Event::JoystickConnected*).value
+        when .joystick_disconnected?
+          event.as(Event::JoystickDisconnected*).value
+        when .touch_began?
+          event.as(Event::TouchBegan*).value
+        when .touch_moved?
+          event.as(Event::TouchMoved*).value
+        when .touch_ended?
+          event.as(Event::TouchEnded*).value
+        when .sensor_changed?
+          event.as(Event::SensorChanged*).value
+        else
+          raise "Unknown SFML event ID #{event_id.value}"
+        end
+      end
+    end
+    # :nodoc:
+    def position() : Vector2i
+      result = Vector2i.allocate
+      SFMLExt.sfml_window_getposition(to_unsafe, result)
+      return result
+    end
+    # :nodoc:
+    def position=(position : Vector2|Tuple)
+      position = SF.vector2i(position[0], position[1])
+      SFMLExt.sfml_window_setposition_ufV(to_unsafe, position)
+    end
+    # :nodoc:
+    def size() : Vector2u
+      result = Vector2u.allocate
+      SFMLExt.sfml_window_getsize(to_unsafe, result)
+      return result
+    end
+    # :nodoc:
+    def size=(size : Vector2|Tuple)
+      size = SF.vector2u(size[0], size[1])
+      SFMLExt.sfml_window_setsize_DXO(to_unsafe, size)
+    end
+    # :nodoc:
+    def title=(title : String)
+      SFMLExt.sfml_window_settitle_bQs(to_unsafe, title.size, title.chars)
+    end
+    # :nodoc:
+    def set_icon(width : Int, height : Int, pixels : UInt8*)
+      SFMLExt.sfml_window_seticon_emSemS843(to_unsafe, LibC::UInt.new(width), LibC::UInt.new(height), pixels)
+    end
+    # :nodoc:
+    def visible=(visible : Bool)
+      SFMLExt.sfml_window_setvisible_GZq(to_unsafe, visible)
+    end
+    # :nodoc:
+    def mouse_cursor_visible=(visible : Bool)
+      SFMLExt.sfml_window_setmousecursorvisible_GZq(to_unsafe, visible)
+    end
+    # :nodoc:
+    def mouse_cursor_grabbed=(grabbed : Bool)
+      SFMLExt.sfml_window_setmousecursorgrabbed_GZq(to_unsafe, grabbed)
+    end
+    # :nodoc:
+    def mouse_cursor=(cursor : Cursor)
+      @_window_mouse_cursor = cursor
+      SFMLExt.sfml_window_setmousecursor_Voc(to_unsafe, cursor)
+    end
+    @_window_mouse_cursor : Cursor? = nil
+    # :nodoc:
+    def key_repeat_enabled=(enabled : Bool)
+      SFMLExt.sfml_window_setkeyrepeatenabled_GZq(to_unsafe, enabled)
+    end
+    # :nodoc:
+    def joystick_threshold=(threshold : Number)
+      SFMLExt.sfml_window_setjoystickthreshold_Bw9(to_unsafe, LibC::Float.new(threshold))
+    end
+    # :nodoc:
+    def request_focus()
+      SFMLExt.sfml_window_requestfocus(to_unsafe)
+    end
+    # :nodoc:
+    def focus?() : Bool
+      SFMLExt.sfml_window_hasfocus(to_unsafe, out result)
+      return result
+    end
+    # :nodoc:
     def system_handle() : WindowHandle
       SFMLExt.sfml_window_getsystemhandle(to_unsafe, out result)
       return result
     end
-    include GlResource
-    include NonCopyable
     # :nodoc:
-    def to_unsafe()
-      @this
+    def create_vulkan_surface(instance : VkInstance, surface : VkSurfaceKHR, allocator : VkAllocationCallbacks? = nil) : Bool
+      SFMLExt.sfml_window_createvulkansurface_M35HMp7QC(to_unsafe, instance, surface, allocator, out result)
+      return result
     end
+    include GlResource
     # :nodoc:
     def inspect(io)
       to_s(io)
