@@ -1,5 +1,7 @@
 #include <SFML/System.hpp>
 using namespace sf;
+#include <vector>
+typedef std::vector<Uint8> MemoryBuffer;
 extern "C" {
 void sfml_time_allocate(void** result) {
     *result = malloc(sizeof(Time));
@@ -256,6 +258,30 @@ void sfml_thread_wait(void* self) {
 }
 void sfml_thread_terminate(void* self) {
     ((Thread*)self)->terminate();
+}
+void sfml_memorybuffer_allocate(void** result) {
+    *result = malloc(sizeof(MemoryBuffer));
+}
+void sfml_memorybuffer_initialize(void* self) {
+    new(self) MemoryBuffer();
+}
+void sfml_memorybuffer_finalize(void* self) {
+    ((MemoryBuffer*)self)->~MemoryBuffer();
+}
+void sfml_memorybuffer_free(void* self) {
+    free(self);
+}
+void sfml_memorybuffer_data(void* self, Uint8** result) {
+    *(Uint8**)result = ((MemoryBuffer*)self)->data();
+}
+void sfml_memorybuffer_size(void* self, std::size_t* result) {
+    *(std::size_t*)result = ((MemoryBuffer*)self)->size();
+}
+void sfml_memorybuffer_clear(void* self) {
+    ((MemoryBuffer*)self)->clear();
+}
+void sfml_memorybuffer_initialize_FlS(void* self, void* copy) {
+    new(self) MemoryBuffer(*(MemoryBuffer*)copy);
 }
 void sfml_system_version(int* major, int* minor, int* patch) {
     *major = SFML_VERSION_MAJOR;

@@ -2,6 +2,8 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 using namespace sf;
+#include <vector>
+typedef std::vector<Uint8> MemoryBuffer;
 extern "C" {
 void sfml_blendmode_allocate(void** result) {
     *result = malloc(sizeof(BlendMode));

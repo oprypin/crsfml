@@ -86,14 +86,23 @@ class CType
 end
 
 
-def register_type(type : CTypeBase)
-  CType.all[type.full_name] = type
+def register_type(type : CTypeBase, full_name : String = type.full_name)
+  CType.all[full_name] = type
   CType.all["String"] = CNativeType.new("String")
 end
 
 STRUCTS.each do |name|
   register_type CClass.new(name)
 end
+%w[VkInstance VkSurfaceKHR VulkanFunctionPointer].each do |name|
+  register_type CClass.new(name)
+end
+
+memory_buffer = CClass.new("MemoryBuffer")
+memory_buffer << CFunction.new(name: "data", type: make_type("Uint8*", nil), parameters: [] of CParameter, parent: memory_buffer)
+memory_buffer << CFunction.new(name: "size", type: make_type("std::size_t", nil), parameters: [] of CParameter, parent: memory_buffer)
+memory_buffer << CFunction.new(name: "clear", type: nil, parameters: [] of CParameter, parent: memory_buffer)
+register_type memory_buffer
 
 
 def find_type(name : String, parent : CNamespace?) : CTypeBase
@@ -141,6 +150,9 @@ def make_type(name : String, parent : CNamespace?) : CType
     array: array,
   }
   name = name.strip
+  if name == "std::vector<sf::Uint8>"
+    name = "MemoryBuffer"
+  end
 
   type = find_type(name, parent)
   CType.new(type, **info)
@@ -238,6 +250,7 @@ abstract class CItem
           end
           line = line.gsub /(@ref|\\a) +([^ (),.]+)/ { "*#{$2.underscore}*" }
           line = line.gsub /\\(em|p) +([^ (),.]+)/ { "*#{$2}*" }
+          line = line.gsub /\\b +([^ (),.]+)/ { "**#{$1}**" }
           line = line.sub /^\\overload\b/, ":ditto:"
           line = line.gsub /\bsf(::[^ \.;,()]+)\b/ { "`SF#{$1}`" }
           line = line.sub /(?<= )[a-z]\w+\b\(\)\B/ { "`#{$0}`" }
@@ -668,6 +681,10 @@ class CNativeType
       if $1 == "std::string"
         c_type = "char**"
         cl_type = "LibC::Char**"
+        cr_type = "Array(String)"
+      elsif $1 == " char"
+        c_type = "char*"
+        cl_type = "LibC::Char*"
         cr_type = "Array(String)"
       else
         c_type = "void*"
@@ -1121,7 +1138,11 @@ class CFunction < CItem
       end
 
       if default = param.default
-        default = default.gsub("(", ".new(").gsub(/\bVector2.\b/, "Vector2")
+        if default == "0" && param.type.pointer > 0
+          default = "nil"
+        else
+          default = default.gsub("(", ".new(").gsub(/\bVector2.\b/, "Vector2")
+        end
         default = " = #{default}"
       end
       unless return_params.includes?(param)
@@ -1363,6 +1384,14 @@ class CFunction < CItem
             o<< "for (std::size_t i = 0; i < strs.size(); ++i) bufs[i] = const_cast<char*>(strs[i].c_str());"
             o<< "*result_size = bufs.size();"
             cpp_asgn, cpp_call = "*result = ", "&bufs[0]"
+          elsif type.full_name(context) =~ /\b(std::vector< char>)/
+            o<< "static std::vector<const char*> strs;"
+            o<< "static std::vector<char*> bufs;"
+            o<< "strs = #{cpp_call};"
+            o<< "bufs.resize(strs.size());"
+            o<< "for (std::size_t i = 0; i < strs.size(); ++i) bufs[i] = const_cast<char*>(strs[i]);"
+            o<< "*result_size = bufs.size();"
+            cpp_asgn, cpp_call = "*result = ", "&bufs[0]"
           elsif type.full_name(context) =~ /\b(std::vector<.+>)/
             o<< "static #{$1} objs;"
             o<< "objs = const_cast<#{$1}&>(#{cpp_call});"
@@ -1395,7 +1424,7 @@ class CFunction < CItem
             "String.build { |io| while (v = #{name}.value) != '\\0'; io << v; #{name} += 1; end }"
           elsif typ == "std::string"
             "String.new(#{name})"
-          elsif typ =~ /\bstd::vector<std::string>/
+          elsif typ =~ /\bstd::vector<(std::string| char)>/
             "Array.new(#{name}_size.to_i) { |i| String.new(#{name}[i]) }"
           elsif typ =~ /\bstd::vector<(.+)>/
             "Array.new(#{name}_size.to_i) { |i| #{name}.as(#{$1}*)[i] }"
@@ -1540,6 +1569,8 @@ class CModule < CNamespace
         o<< "#include <SFML/#{dep}.hpp>"
       end
       o<< "using namespace sf;"
+      o<< "#include <vector>"
+      o<< "typedef std::vector<Uint8> MemoryBuffer;"
       o<< "extern \"C\" {"
     when .crystal_lib?
       o<< "require \"../common\""
@@ -1630,7 +1661,7 @@ class CModule < CNamespace
       end
 
       if (enu = stack.last?).is_a? CEnum
-        if line =~ %r(^(\w+)( *= *([^,/]+))?,?( +///< (.+))?$)
+        if line =~ %r(^(\w+)( *= *([^,/]+))?,?( +//[/!]< (.+))?$)
           member = CEnumMember.new($1, value: $3?,
                                    parent: enu, docs: [$5?].compact)
           enu.add member
@@ -1679,6 +1710,9 @@ class CModule < CNamespace
         enu = CEnum.new(name, **common_info)
         (parent || self) << enu
         register_type enu
+        if enu.full_name(Context::CPPSource) == "Keyboard::Scan::Scancode"
+          register_type enu, "Keyboard::Scancode"
+        end
         upcoming_namespace = enu
 
       when /^typedef /
@@ -1717,7 +1751,7 @@ class CModule < CNamespace
         end
         (parent || self) << func
 
-      when %r(^([^\(\)\/;]+) ([a-z]\w*)(\[[0-9]+\])?;( +///< (.+))$)
+      when %r(^([^\(\)\/;]+) ([a-z]\w*)(\[[0-9]+\])?;( +//[/!]< (.+))$)
         docs_buffer.clear
         var = CVariable.new(type: make_type("#{$1}#{$3?}", parent),
                             name: $2, parent: parent,
@@ -1806,9 +1840,11 @@ class CrystalOutput < Output
 end
 
 
-modules = %w[System Window Graphics Audio Network].map { |m| CModule.new(m) }
+modules = %w[System Window Graphics Audio Network].map { |m| {m, CModule.new(m)} }.to_h
 
-modules.each do |mod|
+modules["System"] << memory_buffer
+
+modules.each_value do |mod|
   name = mod.name.downcase
   Context.values.each do |context|
     filename = case context

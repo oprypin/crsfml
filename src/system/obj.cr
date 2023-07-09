@@ -922,6 +922,44 @@ module SF
       to_s(io)
     end
   end
+  class MemoryBuffer
+    @this : Void*
+    def initialize()
+      SFMLExt.sfml_memorybuffer_allocate(out @this)
+      SFMLExt.sfml_memorybuffer_initialize(to_unsafe)
+    end
+    def finalize()
+      SFMLExt.sfml_memorybuffer_finalize(to_unsafe)
+      SFMLExt.sfml_memorybuffer_free(@this)
+    end
+    def data() : UInt8*
+      SFMLExt.sfml_memorybuffer_data(to_unsafe, out result)
+      return result
+    end
+    def size() : Int32
+      SFMLExt.sfml_memorybuffer_size(to_unsafe, out result)
+      return result.to_i
+    end
+    def clear()
+      SFMLExt.sfml_memorybuffer_clear(to_unsafe)
+    end
+    # :nodoc:
+    def to_unsafe()
+      @this
+    end
+    # :nodoc:
+    def inspect(io)
+      to_s(io)
+    end
+    # :nodoc:
+    def initialize(copy : MemoryBuffer)
+      SFMLExt.sfml_memorybuffer_allocate(out @this)
+      SFMLExt.sfml_memorybuffer_initialize_FlS(to_unsafe, copy)
+    end
+    def dup() : MemoryBuffer
+      return MemoryBuffer.new(self)
+    end
+  end
   SFMLExt.sfml_system_version(out major, out minor, out patch)
   if SFML_VERSION != (ver = "#{major}.#{minor}.#{patch}")
     STDERR.puts "Warning: CrSFML was built for SFML #{SFML_VERSION}, found SFML #{ver}"

@@ -85,5 +85,13 @@ lib SFMLExt
   fun sfml_thread_launch(self : Void*)
   fun sfml_thread_wait(self : Void*)
   fun sfml_thread_terminate(self : Void*)
+  fun sfml_memorybuffer_allocate(result : Void**)
+  fun sfml_memorybuffer_initialize(self : Void*)
+  fun sfml_memorybuffer_finalize(self : Void*)
+  fun sfml_memorybuffer_free(self : Void*)
+  fun sfml_memorybuffer_data(self : Void*, result : UInt8**)
+  fun sfml_memorybuffer_size(self : Void*, result : LibC::SizeT*)
+  fun sfml_memorybuffer_clear(self : Void*)
+  fun sfml_memorybuffer_initialize_FlS(self : Void*, copy : Void*)
   fun sfml_system_version(LibC::Int*, LibC::Int*, LibC::Int*)
 end
