@@ -55,7 +55,7 @@ void sfml_transform_initialize(void* self) {
     new(self) Transform();
 }
 void sfml_transform_initialize_Bw9Bw9Bw9Bw9Bw9Bw9Bw9Bw9Bw9(void* self, float a00, float a01, float a02, float a10, float a11, float a12, float a20, float a21, float a22) {
-    new(self) Transform((float)a00, (float)a01, (float)a02, (float)a10, (float)a11, (float)a12, (float)a20, (float)a21, (float)a22);
+    new(self) Transform(a00, a01, a02, a10, a11, a12, a20, a21, a22);
 }
 void sfml_transform_getmatrix(void* self, float** result) {
     *(float**)result = const_cast<float*>(((Transform*)self)->getMatrix());
@@ -64,7 +64,7 @@ void sfml_transform_getinverse(void* self, void* result) {
     *(Transform*)result = ((Transform*)self)->getInverse();
 }
 void sfml_transform_transformpoint_Bw9Bw9(void* self, float x, float y, void* result) {
-    *(Vector2f*)result = ((Transform*)self)->transformPoint((float)x, (float)y);
+    *(Vector2f*)result = ((Transform*)self)->transformPoint(x, y);
 }
 void sfml_transform_transformpoint_UU2(void* self, void* point, void* result) {
     *(Vector2f*)result = ((Transform*)self)->transformPoint(*(Vector2f*)point);
@@ -76,25 +76,25 @@ void sfml_transform_combine_FPe(void* self, void* transform, void* result) {
     *(Transform*)result = ((Transform*)self)->combine(*(Transform*)transform);
 }
 void sfml_transform_translate_Bw9Bw9(void* self, float x, float y, void* result) {
-    *(Transform*)result = ((Transform*)self)->translate((float)x, (float)y);
+    *(Transform*)result = ((Transform*)self)->translate(x, y);
 }
 void sfml_transform_translate_UU2(void* self, void* offset, void* result) {
     *(Transform*)result = ((Transform*)self)->translate(*(Vector2f*)offset);
 }
 void sfml_transform_rotate_Bw9(void* self, float angle, void* result) {
-    *(Transform*)result = ((Transform*)self)->rotate((float)angle);
+    *(Transform*)result = ((Transform*)self)->rotate(angle);
 }
 void sfml_transform_rotate_Bw9Bw9Bw9(void* self, float angle, float center_x, float center_y, void* result) {
-    *(Transform*)result = ((Transform*)self)->rotate((float)angle, (float)center_x, (float)center_y);
+    *(Transform*)result = ((Transform*)self)->rotate(angle, center_x, center_y);
 }
 void sfml_transform_rotate_Bw9UU2(void* self, float angle, void* center, void* result) {
-    *(Transform*)result = ((Transform*)self)->rotate((float)angle, *(Vector2f*)center);
+    *(Transform*)result = ((Transform*)self)->rotate(angle, *(Vector2f*)center);
 }
 void sfml_transform_scale_Bw9Bw9(void* self, float scale_x, float scale_y, void* result) {
-    *(Transform*)result = ((Transform*)self)->scale((float)scale_x, (float)scale_y);
+    *(Transform*)result = ((Transform*)self)->scale(scale_x, scale_y);
 }
 void sfml_transform_scale_Bw9Bw9Bw9Bw9(void* self, float scale_x, float scale_y, float center_x, float center_y, void* result) {
-    *(Transform*)result = ((Transform*)self)->scale((float)scale_x, (float)scale_y, (float)center_x, (float)center_y);
+    *(Transform*)result = ((Transform*)self)->scale(scale_x, scale_y, center_x, center_y);
 }
 void sfml_transform_scale_UU2(void* self, void* factors, void* result) {
     *(Transform*)result = ((Transform*)self)->scale(*(Vector2f*)factors);
@@ -175,22 +175,22 @@ void sfml_transformable_finalize(void* self) {
     ((Transformable*)self)->~Transformable();
 }
 void sfml_transformable_setposition_Bw9Bw9(void* self, float x, float y) {
-    ((Transformable*)self)->setPosition((float)x, (float)y);
+    ((Transformable*)self)->setPosition(x, y);
 }
 void sfml_transformable_setposition_UU2(void* self, void* position) {
     ((Transformable*)self)->setPosition(*(Vector2f*)position);
 }
 void sfml_transformable_setrotation_Bw9(void* self, float angle) {
-    ((Transformable*)self)->setRotation((float)angle);
+    ((Transformable*)self)->setRotation(angle);
 }
 void sfml_transformable_setscale_Bw9Bw9(void* self, float factor_x, float factor_y) {
-    ((Transformable*)self)->setScale((float)factor_x, (float)factor_y);
+    ((Transformable*)self)->setScale(factor_x, factor_y);
 }
 void sfml_transformable_setscale_UU2(void* self, void* factors) {
     ((Transformable*)self)->setScale(*(Vector2f*)factors);
 }
 void sfml_transformable_setorigin_Bw9Bw9(void* self, float x, float y) {
-    ((Transformable*)self)->setOrigin((float)x, (float)y);
+    ((Transformable*)self)->setOrigin(x, y);
 }
 void sfml_transformable_setorigin_UU2(void* self, void* origin) {
     ((Transformable*)self)->setOrigin(*(Vector2f*)origin);
@@ -208,16 +208,16 @@ void sfml_transformable_getorigin(void* self, void* result) {
     *(Vector2f*)result = ((Transformable*)self)->getOrigin();
 }
 void sfml_transformable_move_Bw9Bw9(void* self, float offset_x, float offset_y) {
-    ((Transformable*)self)->move((float)offset_x, (float)offset_y);
+    ((Transformable*)self)->move(offset_x, offset_y);
 }
 void sfml_transformable_move_UU2(void* self, void* offset) {
     ((Transformable*)self)->move(*(Vector2f*)offset);
 }
 void sfml_transformable_rotate_Bw9(void* self, float angle) {
-    ((Transformable*)self)->rotate((float)angle);
+    ((Transformable*)self)->rotate(angle);
 }
 void sfml_transformable_scale_Bw9Bw9(void* self, float factor_x, float factor_y) {
-    ((Transformable*)self)->scale((float)factor_x, (float)factor_y);
+    ((Transformable*)self)->scale(factor_x, factor_y);
 }
 void sfml_transformable_scale_UU2(void* self, void* factor) {
     ((Transformable*)self)->scale(*(Vector2f*)factor);
@@ -241,25 +241,25 @@ void sfml_color_initialize(void* self) {
     new(self) Color();
 }
 void sfml_color_initialize_9yU9yU9yU9yU(void* self, Uint8 red, Uint8 green, Uint8 blue, Uint8 alpha) {
-    new(self) Color((Uint8)red, (Uint8)green, (Uint8)blue, (Uint8)alpha);
+    new(self) Color(red, green, blue, alpha);
 }
 void sfml_color_initialize_saL(void* self, Uint32 color) {
-    new(self) Color((Uint32)color);
+    new(self) Color(color);
 }
 void sfml_color_tointeger(void* self, Uint32* result) {
     *(Uint32*)result = ((Color*)self)->toInteger();
 }
 void sfml_color_setr_9yU(void* self, Uint8 r) {
-    ((Color*)self)->r = (Uint8)r;
+    ((Color*)self)->r = r;
 }
 void sfml_color_setg_9yU(void* self, Uint8 g) {
-    ((Color*)self)->g = (Uint8)g;
+    ((Color*)self)->g = g;
 }
 void sfml_color_setb_9yU(void* self, Uint8 b) {
-    ((Color*)self)->b = (Uint8)b;
+    ((Color*)self)->b = b;
 }
 void sfml_color_seta_9yU(void* self, Uint8 a) {
-    ((Color*)self)->a = (Uint8)a;
+    ((Color*)self)->a = a;
 }
 void sfml_operator_eq_QVeQVe(void* left, void* right, Int8* result) {
     *(bool*)result = operator==(*(Color*)left, *(Color*)right);
@@ -325,22 +325,22 @@ void sfml_vertexarray_initialize(void* self) {
     new(self) VertexArray();
 }
 void sfml_vertexarray_initialize_u9wvgv(void* self, int type, std::size_t vertex_count) {
-    new(self) VertexArray((PrimitiveType)type, (std::size_t)vertex_count);
+    new(self) VertexArray((PrimitiveType)type, vertex_count);
 }
 void sfml_vertexarray_getvertexcount(void* self, std::size_t* result) {
     *(std::size_t*)result = ((VertexArray*)self)->getVertexCount();
 }
 void sfml_vertexarray_operator_indexset_vgvRos(void* self, std::size_t index, void* value) {
-    ((VertexArray*)self)->operator[]((std::size_t)index) = *(Vertex*)value;
+    ((VertexArray*)self)->operator[](index) = *(Vertex*)value;
 }
 void sfml_vertexarray_operator_index_vgv(void* self, std::size_t index, void* result) {
-    *(Vertex*)result = ((VertexArray*)self)->operator[]((std::size_t)index);
+    *(Vertex*)result = ((VertexArray*)self)->operator[](index);
 }
 void sfml_vertexarray_clear(void* self) {
     ((VertexArray*)self)->clear();
 }
 void sfml_vertexarray_resize_vgv(void* self, std::size_t vertex_count) {
-    ((VertexArray*)self)->resize((std::size_t)vertex_count);
+    ((VertexArray*)self)->resize(vertex_count);
 }
 void sfml_vertexarray_append_Y3J(void* self, void* vertex) {
     ((VertexArray*)self)->append(*(Vertex*)vertex);
@@ -414,7 +414,7 @@ void sfml_shape_setoutlinecolor_QVe(void* self, void* color) {
     ((_Shape*)self)->setOutlineColor(*(Color*)color);
 }
 void sfml_shape_setoutlinethickness_Bw9(void* self, float thickness) {
-    ((_Shape*)self)->setOutlineThickness((float)thickness);
+    ((_Shape*)self)->setOutlineThickness(thickness);
 }
 void sfml_shape_gettexture(void* self, void** result) {
     *(Texture**)result = const_cast<Texture*>(((_Shape*)self)->getTexture());
@@ -444,22 +444,22 @@ void sfml_shape_update(void* self) {
     ((_Shape*)self)->update();
 }
 void sfml_shape_setposition_Bw9Bw9(void* self, float x, float y) {
-    ((_Shape*)self)->setPosition((float)x, (float)y);
+    ((_Shape*)self)->setPosition(x, y);
 }
 void sfml_shape_setposition_UU2(void* self, void* position) {
     ((_Shape*)self)->setPosition(*(Vector2f*)position);
 }
 void sfml_shape_setrotation_Bw9(void* self, float angle) {
-    ((_Shape*)self)->setRotation((float)angle);
+    ((_Shape*)self)->setRotation(angle);
 }
 void sfml_shape_setscale_Bw9Bw9(void* self, float factor_x, float factor_y) {
-    ((_Shape*)self)->setScale((float)factor_x, (float)factor_y);
+    ((_Shape*)self)->setScale(factor_x, factor_y);
 }
 void sfml_shape_setscale_UU2(void* self, void* factors) {
     ((_Shape*)self)->setScale(*(Vector2f*)factors);
 }
 void sfml_shape_setorigin_Bw9Bw9(void* self, float x, float y) {
-    ((_Shape*)self)->setOrigin((float)x, (float)y);
+    ((_Shape*)self)->setOrigin(x, y);
 }
 void sfml_shape_setorigin_UU2(void* self, void* origin) {
     ((_Shape*)self)->setOrigin(*(Vector2f*)origin);
@@ -477,16 +477,16 @@ void sfml_shape_getorigin(void* self, void* result) {
     *(Vector2f*)result = ((_Shape*)self)->getOrigin();
 }
 void sfml_shape_move_Bw9Bw9(void* self, float offset_x, float offset_y) {
-    ((_Shape*)self)->move((float)offset_x, (float)offset_y);
+    ((_Shape*)self)->move(offset_x, offset_y);
 }
 void sfml_shape_move_UU2(void* self, void* offset) {
     ((_Shape*)self)->move(*(Vector2f*)offset);
 }
 void sfml_shape_rotate_Bw9(void* self, float angle) {
-    ((_Shape*)self)->rotate((float)angle);
+    ((_Shape*)self)->rotate(angle);
 }
 void sfml_shape_scale_Bw9Bw9(void* self, float factor_x, float factor_y) {
-    ((_Shape*)self)->scale((float)factor_x, (float)factor_y);
+    ((_Shape*)self)->scale(factor_x, factor_y);
 }
 void sfml_shape_scale_UU2(void* self, void* factor) {
     ((_Shape*)self)->scale(*(Vector2f*)factor);
@@ -516,22 +516,22 @@ void sfml_circleshape_free(void* self) {
     free(self);
 }
 void sfml_circleshape_initialize_Bw9vgv(void* self, float radius, std::size_t point_count) {
-    new(self) CircleShape((float)radius, (std::size_t)point_count);
+    new(self) CircleShape(radius, point_count);
 }
 void sfml_circleshape_setradius_Bw9(void* self, float radius) {
-    ((CircleShape*)self)->setRadius((float)radius);
+    ((CircleShape*)self)->setRadius(radius);
 }
 void sfml_circleshape_getradius(void* self, float* result) {
     *(float*)result = ((CircleShape*)self)->getRadius();
 }
 void sfml_circleshape_setpointcount_vgv(void* self, std::size_t count) {
-    ((CircleShape*)self)->setPointCount((std::size_t)count);
+    ((CircleShape*)self)->setPointCount(count);
 }
 void sfml_circleshape_getpointcount(void* self, std::size_t* result) {
     *(std::size_t*)result = ((CircleShape*)self)->getPointCount();
 }
 void sfml_circleshape_getpoint_vgv(void* self, std::size_t index, void* result) {
-    *(Vector2f*)result = ((CircleShape*)self)->getPoint((std::size_t)index);
+    *(Vector2f*)result = ((CircleShape*)self)->getPoint(index);
 }
 void sfml_circleshape_settexture_MXdGZq(void* self, void* texture, Int8 reset_rect) {
     ((CircleShape*)self)->setTexture((Texture*)texture, reset_rect != 0);
@@ -546,7 +546,7 @@ void sfml_circleshape_setoutlinecolor_QVe(void* self, void* color) {
     ((CircleShape*)self)->setOutlineColor(*(Color*)color);
 }
 void sfml_circleshape_setoutlinethickness_Bw9(void* self, float thickness) {
-    ((CircleShape*)self)->setOutlineThickness((float)thickness);
+    ((CircleShape*)self)->setOutlineThickness(thickness);
 }
 void sfml_circleshape_gettexture(void* self, void** result) {
     *(Texture**)result = const_cast<Texture*>(((CircleShape*)self)->getTexture());
@@ -570,22 +570,22 @@ void sfml_circleshape_getglobalbounds(void* self, void* result) {
     *(FloatRect*)result = ((CircleShape*)self)->getGlobalBounds();
 }
 void sfml_circleshape_setposition_Bw9Bw9(void* self, float x, float y) {
-    ((CircleShape*)self)->setPosition((float)x, (float)y);
+    ((CircleShape*)self)->setPosition(x, y);
 }
 void sfml_circleshape_setposition_UU2(void* self, void* position) {
     ((CircleShape*)self)->setPosition(*(Vector2f*)position);
 }
 void sfml_circleshape_setrotation_Bw9(void* self, float angle) {
-    ((CircleShape*)self)->setRotation((float)angle);
+    ((CircleShape*)self)->setRotation(angle);
 }
 void sfml_circleshape_setscale_Bw9Bw9(void* self, float factor_x, float factor_y) {
-    ((CircleShape*)self)->setScale((float)factor_x, (float)factor_y);
+    ((CircleShape*)self)->setScale(factor_x, factor_y);
 }
 void sfml_circleshape_setscale_UU2(void* self, void* factors) {
     ((CircleShape*)self)->setScale(*(Vector2f*)factors);
 }
 void sfml_circleshape_setorigin_Bw9Bw9(void* self, float x, float y) {
-    ((CircleShape*)self)->setOrigin((float)x, (float)y);
+    ((CircleShape*)self)->setOrigin(x, y);
 }
 void sfml_circleshape_setorigin_UU2(void* self, void* origin) {
     ((CircleShape*)self)->setOrigin(*(Vector2f*)origin);
@@ -603,16 +603,16 @@ void sfml_circleshape_getorigin(void* self, void* result) {
     *(Vector2f*)result = ((CircleShape*)self)->getOrigin();
 }
 void sfml_circleshape_move_Bw9Bw9(void* self, float offset_x, float offset_y) {
-    ((CircleShape*)self)->move((float)offset_x, (float)offset_y);
+    ((CircleShape*)self)->move(offset_x, offset_y);
 }
 void sfml_circleshape_move_UU2(void* self, void* offset) {
     ((CircleShape*)self)->move(*(Vector2f*)offset);
 }
 void sfml_circleshape_rotate_Bw9(void* self, float angle) {
-    ((CircleShape*)self)->rotate((float)angle);
+    ((CircleShape*)self)->rotate(angle);
 }
 void sfml_circleshape_scale_Bw9Bw9(void* self, float factor_x, float factor_y) {
-    ((CircleShape*)self)->scale((float)factor_x, (float)factor_y);
+    ((CircleShape*)self)->scale(factor_x, factor_y);
 }
 void sfml_circleshape_scale_UU2(void* self, void* factor) {
     ((CircleShape*)self)->scale(*(Vector2f*)factor);
@@ -645,19 +645,19 @@ void sfml_convexshape_free(void* self) {
     free(self);
 }
 void sfml_convexshape_initialize_vgv(void* self, std::size_t point_count) {
-    new(self) ConvexShape((std::size_t)point_count);
+    new(self) ConvexShape(point_count);
 }
 void sfml_convexshape_setpointcount_vgv(void* self, std::size_t count) {
-    ((ConvexShape*)self)->setPointCount((std::size_t)count);
+    ((ConvexShape*)self)->setPointCount(count);
 }
 void sfml_convexshape_getpointcount(void* self, std::size_t* result) {
     *(std::size_t*)result = ((ConvexShape*)self)->getPointCount();
 }
 void sfml_convexshape_setpoint_vgvUU2(void* self, std::size_t index, void* point) {
-    ((ConvexShape*)self)->setPoint((std::size_t)index, *(Vector2f*)point);
+    ((ConvexShape*)self)->setPoint(index, *(Vector2f*)point);
 }
 void sfml_convexshape_getpoint_vgv(void* self, std::size_t index, void* result) {
-    *(Vector2f*)result = ((ConvexShape*)self)->getPoint((std::size_t)index);
+    *(Vector2f*)result = ((ConvexShape*)self)->getPoint(index);
 }
 void sfml_convexshape_settexture_MXdGZq(void* self, void* texture, Int8 reset_rect) {
     ((ConvexShape*)self)->setTexture((Texture*)texture, reset_rect != 0);
@@ -672,7 +672,7 @@ void sfml_convexshape_setoutlinecolor_QVe(void* self, void* color) {
     ((ConvexShape*)self)->setOutlineColor(*(Color*)color);
 }
 void sfml_convexshape_setoutlinethickness_Bw9(void* self, float thickness) {
-    ((ConvexShape*)self)->setOutlineThickness((float)thickness);
+    ((ConvexShape*)self)->setOutlineThickness(thickness);
 }
 void sfml_convexshape_gettexture(void* self, void** result) {
     *(Texture**)result = const_cast<Texture*>(((ConvexShape*)self)->getTexture());
@@ -696,22 +696,22 @@ void sfml_convexshape_getglobalbounds(void* self, void* result) {
     *(FloatRect*)result = ((ConvexShape*)self)->getGlobalBounds();
 }
 void sfml_convexshape_setposition_Bw9Bw9(void* self, float x, float y) {
-    ((ConvexShape*)self)->setPosition((float)x, (float)y);
+    ((ConvexShape*)self)->setPosition(x, y);
 }
 void sfml_convexshape_setposition_UU2(void* self, void* position) {
     ((ConvexShape*)self)->setPosition(*(Vector2f*)position);
 }
 void sfml_convexshape_setrotation_Bw9(void* self, float angle) {
-    ((ConvexShape*)self)->setRotation((float)angle);
+    ((ConvexShape*)self)->setRotation(angle);
 }
 void sfml_convexshape_setscale_Bw9Bw9(void* self, float factor_x, float factor_y) {
-    ((ConvexShape*)self)->setScale((float)factor_x, (float)factor_y);
+    ((ConvexShape*)self)->setScale(factor_x, factor_y);
 }
 void sfml_convexshape_setscale_UU2(void* self, void* factors) {
     ((ConvexShape*)self)->setScale(*(Vector2f*)factors);
 }
 void sfml_convexshape_setorigin_Bw9Bw9(void* self, float x, float y) {
-    ((ConvexShape*)self)->setOrigin((float)x, (float)y);
+    ((ConvexShape*)self)->setOrigin(x, y);
 }
 void sfml_convexshape_setorigin_UU2(void* self, void* origin) {
     ((ConvexShape*)self)->setOrigin(*(Vector2f*)origin);
@@ -729,16 +729,16 @@ void sfml_convexshape_getorigin(void* self, void* result) {
     *(Vector2f*)result = ((ConvexShape*)self)->getOrigin();
 }
 void sfml_convexshape_move_Bw9Bw9(void* self, float offset_x, float offset_y) {
-    ((ConvexShape*)self)->move((float)offset_x, (float)offset_y);
+    ((ConvexShape*)self)->move(offset_x, offset_y);
 }
 void sfml_convexshape_move_UU2(void* self, void* offset) {
     ((ConvexShape*)self)->move(*(Vector2f*)offset);
 }
 void sfml_convexshape_rotate_Bw9(void* self, float angle) {
-    ((ConvexShape*)self)->rotate((float)angle);
+    ((ConvexShape*)self)->rotate(angle);
 }
 void sfml_convexshape_scale_Bw9Bw9(void* self, float factor_x, float factor_y) {
-    ((ConvexShape*)self)->scale((float)factor_x, (float)factor_y);
+    ((ConvexShape*)self)->scale(factor_x, factor_y);
 }
 void sfml_convexshape_scale_UU2(void* self, void* factor) {
     ((ConvexShape*)self)->scale(*(Vector2f*)factor);
@@ -771,7 +771,7 @@ void sfml_glyph_initialize(void* self) {
     new(self) Glyph();
 }
 void sfml_glyph_setadvance_Bw9(void* self, float advance) {
-    ((Glyph*)self)->advance = (float)advance;
+    ((Glyph*)self)->advance = advance;
 }
 void sfml_glyph_setbounds_5MC(void* self, void* bounds) {
     ((Glyph*)self)->bounds = *(FloatRect*)bounds;
@@ -795,10 +795,10 @@ void sfml_image_finalize(void* self) {
     ((Image*)self)->~Image();
 }
 void sfml_image_create_emSemSQVe(void* self, unsigned int width, unsigned int height, void* color) {
-    ((Image*)self)->create((unsigned int)width, (unsigned int)height, *(Color*)color);
+    ((Image*)self)->create(width, height, *(Color*)color);
 }
 void sfml_image_create_emSemS843(void* self, unsigned int width, unsigned int height, Uint8* pixels) {
-    ((Image*)self)->create((unsigned int)width, (unsigned int)height, (Uint8 const*)pixels);
+    ((Image*)self)->create(width, height, pixels);
 }
 void sfml_image_loadfromfile_zkC(void* self, std::size_t filename_size, char* filename, Int8* result) {
     *(bool*)result = ((Image*)self)->loadFromFile(std::string(filename, filename_size));
@@ -816,16 +816,16 @@ void sfml_image_getsize(void* self, void* result) {
     *(Vector2u*)result = ((Image*)self)->getSize();
 }
 void sfml_image_createmaskfromcolor_QVe9yU(void* self, void* color, Uint8 alpha) {
-    ((Image*)self)->createMaskFromColor(*(Color*)color, (Uint8)alpha);
+    ((Image*)self)->createMaskFromColor(*(Color*)color, alpha);
 }
 void sfml_image_copy_dptemSemS2k1GZq(void* self, void* source, unsigned int dest_x, unsigned int dest_y, void* source_rect, Int8 apply_alpha) {
-    ((Image*)self)->copy(*(Image*)source, (unsigned int)dest_x, (unsigned int)dest_y, *(IntRect*)source_rect, apply_alpha != 0);
+    ((Image*)self)->copy(*(Image*)source, dest_x, dest_y, *(IntRect*)source_rect, apply_alpha != 0);
 }
 void sfml_image_setpixel_emSemSQVe(void* self, unsigned int x, unsigned int y, void* color) {
-    ((Image*)self)->setPixel((unsigned int)x, (unsigned int)y, *(Color*)color);
+    ((Image*)self)->setPixel(x, y, *(Color*)color);
 }
 void sfml_image_getpixel_emSemS(void* self, unsigned int x, unsigned int y, void* result) {
-    *(Color*)result = ((Image*)self)->getPixel((unsigned int)x, (unsigned int)y);
+    *(Color*)result = ((Image*)self)->getPixel(x, y);
 }
 void sfml_image_getpixelsptr(void* self, Uint8** result) {
     *(Uint8**)result = const_cast<Uint8*>(((Image*)self)->getPixelsPtr());
@@ -852,7 +852,7 @@ void sfml_texture_finalize(void* self) {
     ((Texture*)self)->~Texture();
 }
 void sfml_texture_create_emSemS(void* self, unsigned int width, unsigned int height, Int8* result) {
-    *(bool*)result = ((Texture*)self)->create((unsigned int)width, (unsigned int)height);
+    *(bool*)result = ((Texture*)self)->create(width, height);
 }
 void sfml_texture_loadfromfile_zkC2k1(void* self, std::size_t filename_size, char* filename, void* area, Int8* result) {
     *(bool*)result = ((Texture*)self)->loadFromFile(std::string(filename, filename_size), *(IntRect*)area);
@@ -873,28 +873,28 @@ void sfml_texture_copytoimage(void* self, void* result) {
     *(Image*)result = ((Texture*)self)->copyToImage();
 }
 void sfml_texture_update_843(void* self, Uint8* pixels) {
-    ((Texture*)self)->update((Uint8 const*)pixels);
+    ((Texture*)self)->update(pixels);
 }
 void sfml_texture_update_843emSemSemSemS(void* self, Uint8* pixels, unsigned int width, unsigned int height, unsigned int x, unsigned int y) {
-    ((Texture*)self)->update((Uint8 const*)pixels, (unsigned int)width, (unsigned int)height, (unsigned int)x, (unsigned int)y);
+    ((Texture*)self)->update(pixels, width, height, x, y);
 }
 void sfml_texture_update_DJb(void* self, void* texture) {
     ((Texture*)self)->update(*(Texture*)texture);
 }
 void sfml_texture_update_DJbemSemS(void* self, void* texture, unsigned int x, unsigned int y) {
-    ((Texture*)self)->update(*(Texture*)texture, (unsigned int)x, (unsigned int)y);
+    ((Texture*)self)->update(*(Texture*)texture, x, y);
 }
 void sfml_texture_update_dpt(void* self, void* image) {
     ((Texture*)self)->update(*(Image*)image);
 }
 void sfml_texture_update_dptemSemS(void* self, void* image, unsigned int x, unsigned int y) {
-    ((Texture*)self)->update(*(Image*)image, (unsigned int)x, (unsigned int)y);
+    ((Texture*)self)->update(*(Image*)image, x, y);
 }
 void sfml_texture_update_JRh(void* self, void* window) {
     ((Texture*)self)->update(*(Window*)window);
 }
 void sfml_texture_update_JRhemSemS(void* self, void* window, unsigned int x, unsigned int y) {
-    ((Texture*)self)->update(*(Window*)window, (unsigned int)x, (unsigned int)y);
+    ((Texture*)self)->update(*(Window*)window, x, y);
 }
 void sfml_texture_setsmooth_GZq(void* self, Int8 smooth) {
     ((Texture*)self)->setSmooth(smooth != 0);
@@ -980,22 +980,22 @@ void sfml_font_getinfo(void* self, void** result) {
     *(Font::Info**)result = const_cast<Font::Info*>(&((Font*)self)->getInfo());
 }
 void sfml_font_getglyph_saLemSGZqBw9(void* self, Uint32 code_point, unsigned int character_size, Int8 bold, float outline_thickness, void* result) {
-    *(Glyph*)result = ((Font*)self)->getGlyph((Uint32)code_point, (unsigned int)character_size, bold != 0, (float)outline_thickness);
+    *(Glyph*)result = ((Font*)self)->getGlyph(code_point, character_size, bold != 0, outline_thickness);
 }
 void sfml_font_getkerning_saLsaLemS(void* self, Uint32 first, Uint32 second, unsigned int character_size, float* result) {
-    *(float*)result = ((Font*)self)->getKerning((Uint32)first, (Uint32)second, (unsigned int)character_size);
+    *(float*)result = ((Font*)self)->getKerning(first, second, character_size);
 }
 void sfml_font_getlinespacing_emS(void* self, unsigned int character_size, float* result) {
-    *(float*)result = ((Font*)self)->getLineSpacing((unsigned int)character_size);
+    *(float*)result = ((Font*)self)->getLineSpacing(character_size);
 }
 void sfml_font_getunderlineposition_emS(void* self, unsigned int character_size, float* result) {
-    *(float*)result = ((Font*)self)->getUnderlinePosition((unsigned int)character_size);
+    *(float*)result = ((Font*)self)->getUnderlinePosition(character_size);
 }
 void sfml_font_getunderlinethickness_emS(void* self, unsigned int character_size, float* result) {
-    *(float*)result = ((Font*)self)->getUnderlineThickness((unsigned int)character_size);
+    *(float*)result = ((Font*)self)->getUnderlineThickness(character_size);
 }
 void sfml_font_gettexture_emS(void* self, unsigned int character_size, void** result) {
-    *(Texture**)result = const_cast<Texture*>(&((Font*)self)->getTexture((unsigned int)character_size));
+    *(Texture**)result = const_cast<Texture*>(&((Font*)self)->getTexture(character_size));
 }
 void sfml_font_initialize_7CF(void* self, void* copy) {
     new(self) Font(*(Font*)copy);
@@ -1022,7 +1022,7 @@ void sfml_rectangleshape_getpointcount(void* self, std::size_t* result) {
     *(std::size_t*)result = ((RectangleShape*)self)->getPointCount();
 }
 void sfml_rectangleshape_getpoint_vgv(void* self, std::size_t index, void* result) {
-    *(Vector2f*)result = ((RectangleShape*)self)->getPoint((std::size_t)index);
+    *(Vector2f*)result = ((RectangleShape*)self)->getPoint(index);
 }
 void sfml_rectangleshape_settexture_MXdGZq(void* self, void* texture, Int8 reset_rect) {
     ((RectangleShape*)self)->setTexture((Texture*)texture, reset_rect != 0);
@@ -1037,7 +1037,7 @@ void sfml_rectangleshape_setoutlinecolor_QVe(void* self, void* color) {
     ((RectangleShape*)self)->setOutlineColor(*(Color*)color);
 }
 void sfml_rectangleshape_setoutlinethickness_Bw9(void* self, float thickness) {
-    ((RectangleShape*)self)->setOutlineThickness((float)thickness);
+    ((RectangleShape*)self)->setOutlineThickness(thickness);
 }
 void sfml_rectangleshape_gettexture(void* self, void** result) {
     *(Texture**)result = const_cast<Texture*>(((RectangleShape*)self)->getTexture());
@@ -1061,22 +1061,22 @@ void sfml_rectangleshape_getglobalbounds(void* self, void* result) {
     *(FloatRect*)result = ((RectangleShape*)self)->getGlobalBounds();
 }
 void sfml_rectangleshape_setposition_Bw9Bw9(void* self, float x, float y) {
-    ((RectangleShape*)self)->setPosition((float)x, (float)y);
+    ((RectangleShape*)self)->setPosition(x, y);
 }
 void sfml_rectangleshape_setposition_UU2(void* self, void* position) {
     ((RectangleShape*)self)->setPosition(*(Vector2f*)position);
 }
 void sfml_rectangleshape_setrotation_Bw9(void* self, float angle) {
-    ((RectangleShape*)self)->setRotation((float)angle);
+    ((RectangleShape*)self)->setRotation(angle);
 }
 void sfml_rectangleshape_setscale_Bw9Bw9(void* self, float factor_x, float factor_y) {
-    ((RectangleShape*)self)->setScale((float)factor_x, (float)factor_y);
+    ((RectangleShape*)self)->setScale(factor_x, factor_y);
 }
 void sfml_rectangleshape_setscale_UU2(void* self, void* factors) {
     ((RectangleShape*)self)->setScale(*(Vector2f*)factors);
 }
 void sfml_rectangleshape_setorigin_Bw9Bw9(void* self, float x, float y) {
-    ((RectangleShape*)self)->setOrigin((float)x, (float)y);
+    ((RectangleShape*)self)->setOrigin(x, y);
 }
 void sfml_rectangleshape_setorigin_UU2(void* self, void* origin) {
     ((RectangleShape*)self)->setOrigin(*(Vector2f*)origin);
@@ -1094,16 +1094,16 @@ void sfml_rectangleshape_getorigin(void* self, void* result) {
     *(Vector2f*)result = ((RectangleShape*)self)->getOrigin();
 }
 void sfml_rectangleshape_move_Bw9Bw9(void* self, float offset_x, float offset_y) {
-    ((RectangleShape*)self)->move((float)offset_x, (float)offset_y);
+    ((RectangleShape*)self)->move(offset_x, offset_y);
 }
 void sfml_rectangleshape_move_UU2(void* self, void* offset) {
     ((RectangleShape*)self)->move(*(Vector2f*)offset);
 }
 void sfml_rectangleshape_rotate_Bw9(void* self, float angle) {
-    ((RectangleShape*)self)->rotate((float)angle);
+    ((RectangleShape*)self)->rotate(angle);
 }
 void sfml_rectangleshape_scale_Bw9Bw9(void* self, float factor_x, float factor_y) {
-    ((RectangleShape*)self)->scale((float)factor_x, (float)factor_y);
+    ((RectangleShape*)self)->scale(factor_x, factor_y);
 }
 void sfml_rectangleshape_scale_UU2(void* self, void* factor) {
     ((RectangleShape*)self)->scale(*(Vector2f*)factor);
@@ -1145,19 +1145,19 @@ void sfml_view_initialize_UU2UU2(void* self, void* center, void* size) {
     new(self) View(*(Vector2f*)center, *(Vector2f*)size);
 }
 void sfml_view_setcenter_Bw9Bw9(void* self, float x, float y) {
-    ((View*)self)->setCenter((float)x, (float)y);
+    ((View*)self)->setCenter(x, y);
 }
 void sfml_view_setcenter_UU2(void* self, void* center) {
     ((View*)self)->setCenter(*(Vector2f*)center);
 }
 void sfml_view_setsize_Bw9Bw9(void* self, float width, float height) {
-    ((View*)self)->setSize((float)width, (float)height);
+    ((View*)self)->setSize(width, height);
 }
 void sfml_view_setsize_UU2(void* self, void* size) {
     ((View*)self)->setSize(*(Vector2f*)size);
 }
 void sfml_view_setrotation_Bw9(void* self, float angle) {
-    ((View*)self)->setRotation((float)angle);
+    ((View*)self)->setRotation(angle);
 }
 void sfml_view_setviewport_WPZ(void* self, void* viewport) {
     ((View*)self)->setViewport(*(FloatRect*)viewport);
@@ -1178,16 +1178,16 @@ void sfml_view_getviewport(void* self, void* result) {
     *(FloatRect*)result = ((View*)self)->getViewport();
 }
 void sfml_view_move_Bw9Bw9(void* self, float offset_x, float offset_y) {
-    ((View*)self)->move((float)offset_x, (float)offset_y);
+    ((View*)self)->move(offset_x, offset_y);
 }
 void sfml_view_move_UU2(void* self, void* offset) {
     ((View*)self)->move(*(Vector2f*)offset);
 }
 void sfml_view_rotate_Bw9(void* self, float angle) {
-    ((View*)self)->rotate((float)angle);
+    ((View*)self)->rotate(angle);
 }
 void sfml_view_zoom_Bw9(void* self, float factor) {
-    ((View*)self)->zoom((float)factor);
+    ((View*)self)->zoom(factor);
 }
 void sfml_view_gettransform(void* self, void* result) {
     *(Transform*)result = ((View*)self)->getTransform();
@@ -1238,7 +1238,7 @@ void sfml_rendertarget_draw_U2Dmi4(void* self, void* vertex_buffer, void* states
     ((RenderTarget*)self)->draw(*(VertexBuffer*)vertex_buffer, *(RenderStates*)states);
 }
 void sfml_rendertarget_draw_U2Dvgvvgvmi4(void* self, void* vertex_buffer, std::size_t first_vertex, std::size_t vertex_count, void* states) {
-    ((RenderTarget*)self)->draw(*(VertexBuffer*)vertex_buffer, (std::size_t)first_vertex, (std::size_t)vertex_count, *(RenderStates*)states);
+    ((RenderTarget*)self)->draw(*(VertexBuffer*)vertex_buffer, first_vertex, vertex_count, *(RenderStates*)states);
 }
 void sfml_rendertarget_setactive_GZq(void* self, Int8 active, Int8* result) {
     *(bool*)result = ((RenderTarget*)self)->setActive(active != 0);
@@ -1265,10 +1265,10 @@ void sfml_rendertexture_finalize(void* self) {
     ((RenderTexture*)self)->~RenderTexture();
 }
 void sfml_rendertexture_create_emSemSGZq(void* self, unsigned int width, unsigned int height, Int8 depth_buffer, Int8* result) {
-    *(bool*)result = ((RenderTexture*)self)->create((unsigned int)width, (unsigned int)height, depth_buffer != 0);
+    *(bool*)result = ((RenderTexture*)self)->create(width, height, depth_buffer != 0);
 }
 void sfml_rendertexture_create_emSemSFw4(void* self, unsigned int width, unsigned int height, void* settings, Int8* result) {
-    *(bool*)result = ((RenderTexture*)self)->create((unsigned int)width, (unsigned int)height, *(ContextSettings*)settings);
+    *(bool*)result = ((RenderTexture*)self)->create(width, height, *(ContextSettings*)settings);
 }
 void sfml_rendertexture_getmaximumantialiasinglevel(unsigned int* result) {
     *(unsigned int*)result = RenderTexture::getMaximumAntialiasingLevel();
@@ -1334,7 +1334,7 @@ void sfml_rendertexture_draw_U2Dmi4(void* self, void* vertex_buffer, void* state
     ((RenderTexture*)self)->draw(*(VertexBuffer*)vertex_buffer, *(RenderStates*)states);
 }
 void sfml_rendertexture_draw_U2Dvgvvgvmi4(void* self, void* vertex_buffer, std::size_t first_vertex, std::size_t vertex_count, void* states) {
-    ((RenderTexture*)self)->draw(*(VertexBuffer*)vertex_buffer, (std::size_t)first_vertex, (std::size_t)vertex_count, *(RenderStates*)states);
+    ((RenderTexture*)self)->draw(*(VertexBuffer*)vertex_buffer, first_vertex, vertex_count, *(RenderStates*)states);
 }
 void sfml_rendertexture_pushglstates(void* self) {
     ((RenderTexture*)self)->pushGLStates();
@@ -1355,10 +1355,10 @@ void sfml_renderwindow_initialize(void* self) {
     new(self) RenderWindow();
 }
 void sfml_renderwindow_initialize_wg0bQssaLFw4(void* self, void* mode, std::size_t title_size, Uint32* title, Uint32 style, void* settings) {
-    new(self) RenderWindow(*(VideoMode*)mode, String::fromUtf32(title, title+title_size), (Uint32)style, *(ContextSettings*)settings);
+    new(self) RenderWindow(*(VideoMode*)mode, String::fromUtf32(title, title+title_size), style, *(ContextSettings*)settings);
 }
 void sfml_renderwindow_initialize_rLQFw4(void* self, WindowHandle handle, void* settings) {
-    new(self) RenderWindow((WindowHandle)handle, *(ContextSettings*)settings);
+    new(self) RenderWindow(handle, *(ContextSettings*)settings);
 }
 void sfml_renderwindow_finalize(void* self) {
     ((RenderWindow*)self)->~RenderWindow();
@@ -1373,10 +1373,10 @@ void sfml_renderwindow_capture(void* self, void* result) {
     *(Image*)result = ((RenderWindow*)self)->capture();
 }
 void sfml_renderwindow_create_wg0bQssaLFw4(void* self, void* mode, std::size_t title_size, Uint32* title, Uint32 style, void* settings) {
-    ((RenderWindow*)self)->create(*(VideoMode*)mode, String::fromUtf32(title, title+title_size), (Uint32)style, *(ContextSettings*)settings);
+    ((RenderWindow*)self)->create(*(VideoMode*)mode, String::fromUtf32(title, title+title_size), style, *(ContextSettings*)settings);
 }
 void sfml_renderwindow_create_rLQFw4(void* self, WindowHandle handle, void* settings) {
-    ((RenderWindow*)self)->create((WindowHandle)handle, *(ContextSettings*)settings);
+    ((RenderWindow*)self)->create(handle, *(ContextSettings*)settings);
 }
 void sfml_renderwindow_close(void* self) {
     ((RenderWindow*)self)->close();
@@ -1406,7 +1406,7 @@ void sfml_renderwindow_settitle_bQs(void* self, std::size_t title_size, Uint32* 
     ((RenderWindow*)self)->setTitle(String::fromUtf32(title, title+title_size));
 }
 void sfml_renderwindow_seticon_emSemS843(void* self, unsigned int width, unsigned int height, Uint8* pixels) {
-    ((RenderWindow*)self)->setIcon((unsigned int)width, (unsigned int)height, (Uint8 const*)pixels);
+    ((RenderWindow*)self)->setIcon(width, height, pixels);
 }
 void sfml_renderwindow_setvisible_GZq(void* self, Int8 visible) {
     ((RenderWindow*)self)->setVisible(visible != 0);
@@ -1427,10 +1427,10 @@ void sfml_renderwindow_setkeyrepeatenabled_GZq(void* self, Int8 enabled) {
     ((RenderWindow*)self)->setKeyRepeatEnabled(enabled != 0);
 }
 void sfml_renderwindow_setframeratelimit_emS(void* self, unsigned int limit) {
-    ((RenderWindow*)self)->setFramerateLimit((unsigned int)limit);
+    ((RenderWindow*)self)->setFramerateLimit(limit);
 }
 void sfml_renderwindow_setjoystickthreshold_Bw9(void* self, float threshold) {
-    ((RenderWindow*)self)->setJoystickThreshold((float)threshold);
+    ((RenderWindow*)self)->setJoystickThreshold(threshold);
 }
 void sfml_renderwindow_requestfocus(void* self) {
     ((RenderWindow*)self)->requestFocus();
@@ -1478,7 +1478,7 @@ void sfml_renderwindow_draw_U2Dmi4(void* self, void* vertex_buffer, void* states
     ((RenderWindow*)self)->draw(*(VertexBuffer*)vertex_buffer, *(RenderStates*)states);
 }
 void sfml_renderwindow_draw_U2Dvgvvgvmi4(void* self, void* vertex_buffer, std::size_t first_vertex, std::size_t vertex_count, void* states) {
-    ((RenderWindow*)self)->draw(*(VertexBuffer*)vertex_buffer, (std::size_t)first_vertex, (std::size_t)vertex_count, *(RenderStates*)states);
+    ((RenderWindow*)self)->draw(*(VertexBuffer*)vertex_buffer, first_vertex, vertex_count, *(RenderStates*)states);
 }
 void sfml_renderwindow_pushglstates(void* self) {
     ((RenderWindow*)self)->pushGLStates();
@@ -1529,16 +1529,16 @@ void sfml_shader_loadfromstream_PO0PO0PO0(void* self, void* vertex_shader_stream
     *(bool*)result = ((Shader*)self)->loadFromStream(*(InputStream*)vertex_shader_stream, *(InputStream*)geometry_shader_stream, *(InputStream*)fragment_shader_stream);
 }
 void sfml_shader_setparameter_zkCBw9(void* self, std::size_t name_size, char* name, float x) {
-    ((Shader*)self)->setParameter(std::string(name, name_size), (float)x);
+    ((Shader*)self)->setParameter(std::string(name, name_size), x);
 }
 void sfml_shader_setparameter_zkCBw9Bw9(void* self, std::size_t name_size, char* name, float x, float y) {
-    ((Shader*)self)->setParameter(std::string(name, name_size), (float)x, (float)y);
+    ((Shader*)self)->setParameter(std::string(name, name_size), x, y);
 }
 void sfml_shader_setparameter_zkCBw9Bw9Bw9(void* self, std::size_t name_size, char* name, float x, float y, float z) {
-    ((Shader*)self)->setParameter(std::string(name, name_size), (float)x, (float)y, (float)z);
+    ((Shader*)self)->setParameter(std::string(name, name_size), x, y, z);
 }
 void sfml_shader_setparameter_zkCBw9Bw9Bw9Bw9(void* self, std::size_t name_size, char* name, float x, float y, float z, float w) {
-    ((Shader*)self)->setParameter(std::string(name, name_size), (float)x, (float)y, (float)z, (float)w);
+    ((Shader*)self)->setParameter(std::string(name, name_size), x, y, z, w);
 }
 void sfml_shader_setparameter_zkCUU2(void* self, std::size_t name_size, char* name, void* vector) {
     ((Shader*)self)->setParameter(std::string(name, name_size), *(Vector2f*)vector);
@@ -1613,22 +1613,22 @@ void sfml_sprite_getglobalbounds(void* self, void* result) {
     *(FloatRect*)result = ((Sprite*)self)->getGlobalBounds();
 }
 void sfml_sprite_setposition_Bw9Bw9(void* self, float x, float y) {
-    ((Sprite*)self)->setPosition((float)x, (float)y);
+    ((Sprite*)self)->setPosition(x, y);
 }
 void sfml_sprite_setposition_UU2(void* self, void* position) {
     ((Sprite*)self)->setPosition(*(Vector2f*)position);
 }
 void sfml_sprite_setrotation_Bw9(void* self, float angle) {
-    ((Sprite*)self)->setRotation((float)angle);
+    ((Sprite*)self)->setRotation(angle);
 }
 void sfml_sprite_setscale_Bw9Bw9(void* self, float factor_x, float factor_y) {
-    ((Sprite*)self)->setScale((float)factor_x, (float)factor_y);
+    ((Sprite*)self)->setScale(factor_x, factor_y);
 }
 void sfml_sprite_setscale_UU2(void* self, void* factors) {
     ((Sprite*)self)->setScale(*(Vector2f*)factors);
 }
 void sfml_sprite_setorigin_Bw9Bw9(void* self, float x, float y) {
-    ((Sprite*)self)->setOrigin((float)x, (float)y);
+    ((Sprite*)self)->setOrigin(x, y);
 }
 void sfml_sprite_setorigin_UU2(void* self, void* origin) {
     ((Sprite*)self)->setOrigin(*(Vector2f*)origin);
@@ -1646,16 +1646,16 @@ void sfml_sprite_getorigin(void* self, void* result) {
     *(Vector2f*)result = ((Sprite*)self)->getOrigin();
 }
 void sfml_sprite_move_Bw9Bw9(void* self, float offset_x, float offset_y) {
-    ((Sprite*)self)->move((float)offset_x, (float)offset_y);
+    ((Sprite*)self)->move(offset_x, offset_y);
 }
 void sfml_sprite_move_UU2(void* self, void* offset) {
     ((Sprite*)self)->move(*(Vector2f*)offset);
 }
 void sfml_sprite_rotate_Bw9(void* self, float angle) {
-    ((Sprite*)self)->rotate((float)angle);
+    ((Sprite*)self)->rotate(angle);
 }
 void sfml_sprite_scale_Bw9Bw9(void* self, float factor_x, float factor_y) {
-    ((Sprite*)self)->scale((float)factor_x, (float)factor_y);
+    ((Sprite*)self)->scale(factor_x, factor_y);
 }
 void sfml_sprite_scale_UU2(void* self, void* factor) {
     ((Sprite*)self)->scale(*(Vector2f*)factor);
@@ -1691,7 +1691,7 @@ void sfml_text_initialize(void* self) {
     new(self) Text();
 }
 void sfml_text_initialize_bQs7CFemS(void* self, std::size_t string_size, Uint32* string, void* font, unsigned int character_size) {
-    new(self) Text(String::fromUtf32(string, string+string_size), *(Font*)font, (unsigned int)character_size);
+    new(self) Text(String::fromUtf32(string, string+string_size), *(Font*)font, character_size);
 }
 void sfml_text_setstring_bQs(void* self, std::size_t string_size, Uint32* string) {
     ((Text*)self)->setString(String::fromUtf32(string, string+string_size));
@@ -1700,16 +1700,16 @@ void sfml_text_setfont_7CF(void* self, void* font) {
     ((Text*)self)->setFont(*(Font*)font);
 }
 void sfml_text_setcharactersize_emS(void* self, unsigned int size) {
-    ((Text*)self)->setCharacterSize((unsigned int)size);
+    ((Text*)self)->setCharacterSize(size);
 }
 void sfml_text_setlinespacing_Bw9(void* self, float spacing_factor) {
-    ((Text*)self)->setLineSpacing((float)spacing_factor);
+    ((Text*)self)->setLineSpacing(spacing_factor);
 }
 void sfml_text_setletterspacing_Bw9(void* self, float spacing_factor) {
-    ((Text*)self)->setLetterSpacing((float)spacing_factor);
+    ((Text*)self)->setLetterSpacing(spacing_factor);
 }
 void sfml_text_setstyle_saL(void* self, Uint32 style) {
-    ((Text*)self)->setStyle((Uint32)style);
+    ((Text*)self)->setStyle(style);
 }
 void sfml_text_setcolor_QVe(void* self, void* color) {
     ((Text*)self)->setColor(*(Color*)color);
@@ -1721,7 +1721,7 @@ void sfml_text_setoutlinecolor_QVe(void* self, void* color) {
     ((Text*)self)->setOutlineColor(*(Color*)color);
 }
 void sfml_text_setoutlinethickness_Bw9(void* self, float thickness) {
-    ((Text*)self)->setOutlineThickness((float)thickness);
+    ((Text*)self)->setOutlineThickness(thickness);
 }
 void sfml_text_getstring(void* self, Uint32** result) {
     static String str;
@@ -1756,7 +1756,7 @@ void sfml_text_getoutlinethickness(void* self, float* result) {
     *(float*)result = ((Text*)self)->getOutlineThickness();
 }
 void sfml_text_findcharacterpos_vgv(void* self, std::size_t index, void* result) {
-    *(Vector2f*)result = ((Text*)self)->findCharacterPos((std::size_t)index);
+    *(Vector2f*)result = ((Text*)self)->findCharacterPos(index);
 }
 void sfml_text_getlocalbounds(void* self, void* result) {
     *(FloatRect*)result = ((Text*)self)->getLocalBounds();
@@ -1765,22 +1765,22 @@ void sfml_text_getglobalbounds(void* self, void* result) {
     *(FloatRect*)result = ((Text*)self)->getGlobalBounds();
 }
 void sfml_text_setposition_Bw9Bw9(void* self, float x, float y) {
-    ((Text*)self)->setPosition((float)x, (float)y);
+    ((Text*)self)->setPosition(x, y);
 }
 void sfml_text_setposition_UU2(void* self, void* position) {
     ((Text*)self)->setPosition(*(Vector2f*)position);
 }
 void sfml_text_setrotation_Bw9(void* self, float angle) {
-    ((Text*)self)->setRotation((float)angle);
+    ((Text*)self)->setRotation(angle);
 }
 void sfml_text_setscale_Bw9Bw9(void* self, float factor_x, float factor_y) {
-    ((Text*)self)->setScale((float)factor_x, (float)factor_y);
+    ((Text*)self)->setScale(factor_x, factor_y);
 }
 void sfml_text_setscale_UU2(void* self, void* factors) {
     ((Text*)self)->setScale(*(Vector2f*)factors);
 }
 void sfml_text_setorigin_Bw9Bw9(void* self, float x, float y) {
-    ((Text*)self)->setOrigin((float)x, (float)y);
+    ((Text*)self)->setOrigin(x, y);
 }
 void sfml_text_setorigin_UU2(void* self, void* origin) {
     ((Text*)self)->setOrigin(*(Vector2f*)origin);
@@ -1798,16 +1798,16 @@ void sfml_text_getorigin(void* self, void* result) {
     *(Vector2f*)result = ((Text*)self)->getOrigin();
 }
 void sfml_text_move_Bw9Bw9(void* self, float offset_x, float offset_y) {
-    ((Text*)self)->move((float)offset_x, (float)offset_y);
+    ((Text*)self)->move(offset_x, offset_y);
 }
 void sfml_text_move_UU2(void* self, void* offset) {
     ((Text*)self)->move(*(Vector2f*)offset);
 }
 void sfml_text_rotate_Bw9(void* self, float angle) {
-    ((Text*)self)->rotate((float)angle);
+    ((Text*)self)->rotate(angle);
 }
 void sfml_text_scale_Bw9Bw9(void* self, float factor_x, float factor_y) {
-    ((Text*)self)->scale((float)factor_x, (float)factor_y);
+    ((Text*)self)->scale(factor_x, factor_y);
 }
 void sfml_text_scale_UU2(void* self, void* factor) {
     ((Text*)self)->scale(*(Vector2f*)factor);
@@ -1852,7 +1852,7 @@ void sfml_vertexbuffer_finalize(void* self) {
     ((VertexBuffer*)self)->~VertexBuffer();
 }
 void sfml_vertexbuffer_create_vgv(void* self, std::size_t vertex_count, Int8* result) {
-    *(bool*)result = ((VertexBuffer*)self)->create((std::size_t)vertex_count);
+    *(bool*)result = ((VertexBuffer*)self)->create(vertex_count);
 }
 void sfml_vertexbuffer_getvertexcount(void* self, std::size_t* result) {
     *(std::size_t*)result = ((VertexBuffer*)self)->getVertexCount();
@@ -1861,7 +1861,7 @@ void sfml_vertexbuffer_update_46s(void* self, void* vertices, Int8* result) {
     *(bool*)result = ((VertexBuffer*)self)->update((Vertex*)vertices);
 }
 void sfml_vertexbuffer_update_46svgvemS(void* self, void* vertices, std::size_t vertex_count, unsigned int offset, Int8* result) {
-    *(bool*)result = ((VertexBuffer*)self)->update((Vertex*)vertices, vertex_count, (unsigned int)offset);
+    *(bool*)result = ((VertexBuffer*)self)->update((Vertex*)vertices, vertex_count, offset);
 }
 void sfml_vertexbuffer_update_U2D(void* self, void* vertex_buffer, Int8* result) {
     *(bool*)result = ((VertexBuffer*)self)->update(*(VertexBuffer*)vertex_buffer);

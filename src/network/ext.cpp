@@ -39,7 +39,7 @@ void sfml_tcpsocket_getremoteport(void* self, unsigned short* result) {
     *(unsigned short*)result = ((TcpSocket*)self)->getRemotePort();
 }
 void sfml_tcpsocket_connect_BfEbxif4T(void* self, void* remote_address, unsigned short remote_port, void* timeout, int* result) {
-    *(Socket::Status*)result = ((TcpSocket*)self)->connect(*(IpAddress*)remote_address, (unsigned short)remote_port, *(Time*)timeout);
+    *(Socket::Status*)result = ((TcpSocket*)self)->connect(*(IpAddress*)remote_address, remote_port, *(Time*)timeout);
 }
 void sfml_tcpsocket_disconnect(void* self) {
     ((TcpSocket*)self)->disconnect();
@@ -48,10 +48,10 @@ void sfml_tcpsocket_send_5h8vgv(void* self, void* data, std::size_t size, int* r
     *(Socket::Status*)result = ((TcpSocket*)self)->send(data, size);
 }
 void sfml_tcpsocket_send_5h8vgvi49(void* self, void* data, std::size_t size, std::size_t* sent, int* result) {
-    *(Socket::Status*)result = ((TcpSocket*)self)->send(data, size, *(std::size_t*)sent);
+    *(Socket::Status*)result = ((TcpSocket*)self)->send(data, size, *sent);
 }
 void sfml_tcpsocket_receive_xALvgvi49(void* self, void* data, std::size_t size, std::size_t* received, int* result) {
-    *(Socket::Status*)result = ((TcpSocket*)self)->receive(data, size, *(std::size_t*)received);
+    *(Socket::Status*)result = ((TcpSocket*)self)->receive(data, size, *received);
 }
 void sfml_tcpsocket_send_jyF(void* self, void* packet, int* result) {
     *(Socket::Status*)result = ((TcpSocket*)self)->send(*(Packet*)packet);
@@ -170,7 +170,7 @@ void sfml_ftp_finalize(void* self) {
     ((Ftp*)self)->~Ftp();
 }
 void sfml_ftp_connect_BfEbxif4T(void* self, void* server, unsigned short port, void* timeout, void* result) {
-    *(Ftp::Response*)result = ((Ftp*)self)->connect(*(IpAddress*)server, (unsigned short)port, *(Time*)timeout);
+    *(Ftp::Response*)result = ((Ftp*)self)->connect(*(IpAddress*)server, port, *(Time*)timeout);
 }
 void sfml_ftp_disconnect(void* self, void* result) {
     *(Ftp::Response*)result = ((Ftp*)self)->disconnect();
@@ -233,10 +233,10 @@ void sfml_ipaddress_initialize_Yy6(void* self, char* address) {
     new(self) IpAddress(address);
 }
 void sfml_ipaddress_initialize_9yU9yU9yU9yU(void* self, Uint8 byte0, Uint8 byte1, Uint8 byte2, Uint8 byte3) {
-    new(self) IpAddress((Uint8)byte0, (Uint8)byte1, (Uint8)byte2, (Uint8)byte3);
+    new(self) IpAddress(byte0, byte1, byte2, byte3);
 }
 void sfml_ipaddress_initialize_saL(void* self, Uint32 address) {
-    new(self) IpAddress((Uint32)address);
+    new(self) IpAddress(address);
 }
 void sfml_ipaddress_tostring(void* self, char** result) {
     static std::string str;
@@ -304,7 +304,7 @@ void sfml_http_request_seturi_zkC(void* self, std::size_t uri_size, char* uri) {
     ((Http::Request*)self)->setUri(std::string(uri, uri_size));
 }
 void sfml_http_request_sethttpversion_emSemS(void* self, unsigned int major, unsigned int minor) {
-    ((Http::Request*)self)->setHttpVersion((unsigned int)major, (unsigned int)minor);
+    ((Http::Request*)self)->setHttpVersion(major, minor);
 }
 void sfml_http_request_setbody_zkC(void* self, std::size_t body_size, char* body) {
     ((Http::Request*)self)->setBody(std::string(body, body_size));
@@ -350,10 +350,10 @@ void sfml_http_initialize(void* self) {
     new(self) Http();
 }
 void sfml_http_initialize_zkCbxi(void* self, std::size_t host_size, char* host, unsigned short port) {
-    new(self) Http(std::string(host, host_size), (unsigned short)port);
+    new(self) Http(std::string(host, host_size), port);
 }
 void sfml_http_sethost_zkCbxi(void* self, std::size_t host_size, char* host, unsigned short port) {
-    ((Http*)self)->setHost(std::string(host, host_size), (unsigned short)port);
+    ((Http*)self)->setHost(std::string(host, host_size), port);
 }
 void sfml_http_sendrequest_Jatf4T(void* self, void* request, void* timeout, void* result) {
     *(Http::Response*)result = ((Http*)self)->sendRequest(*(Http::Request*)request, *(Time*)timeout);
@@ -389,37 +389,37 @@ void sfml_packet_operator_bool(void* self, Int8* result) {
     *(bool*)result = (bool)((Packet*)self);
 }
 void sfml_packet_operator_shr_gRY(void* self, Int8* data) {
-    ((Packet*)self)->operator>>(*(bool*)data);
+    ((Packet*)self)->operator>>(*data);
 }
 void sfml_packet_operator_shr_0y9(void* self, Int8* data) {
-    ((Packet*)self)->operator>>(*(Int8*)data);
+    ((Packet*)self)->operator>>(*data);
 }
 void sfml_packet_operator_shr_8hc(void* self, Uint8* data) {
-    ((Packet*)self)->operator>>(*(Uint8*)data);
+    ((Packet*)self)->operator>>(*data);
 }
 void sfml_packet_operator_shr_4k3(void* self, Int16* data) {
-    ((Packet*)self)->operator>>(*(Int16*)data);
+    ((Packet*)self)->operator>>(*data);
 }
 void sfml_packet_operator_shr_Xag(void* self, Uint16* data) {
-    ((Packet*)self)->operator>>(*(Uint16*)data);
+    ((Packet*)self)->operator>>(*data);
 }
 void sfml_packet_operator_shr_NiZ(void* self, Int32* data) {
-    ((Packet*)self)->operator>>(*(Int32*)data);
+    ((Packet*)self)->operator>>(*data);
 }
 void sfml_packet_operator_shr_qTz(void* self, Uint32* data) {
-    ((Packet*)self)->operator>>(*(Uint32*)data);
+    ((Packet*)self)->operator>>(*data);
 }
 void sfml_packet_operator_shr_BuW(void* self, Int64* data) {
-    ((Packet*)self)->operator>>(*(Int64*)data);
+    ((Packet*)self)->operator>>(*data);
 }
 void sfml_packet_operator_shr_7H7(void* self, Uint64* data) {
-    ((Packet*)self)->operator>>(*(Uint64*)data);
+    ((Packet*)self)->operator>>(*data);
 }
 void sfml_packet_operator_shr_ATF(void* self, float* data) {
-    ((Packet*)self)->operator>>(*(float*)data);
+    ((Packet*)self)->operator>>(*data);
 }
 void sfml_packet_operator_shr_nIp(void* self, double* data) {
-    ((Packet*)self)->operator>>(*(double*)data);
+    ((Packet*)self)->operator>>(*data);
 }
 void sfml_packet_operator_shr_GHF(void* self, char** data) {
     static std::string str;
@@ -430,34 +430,34 @@ void sfml_packet_operator_shl_GZq(void* self, Int8 data) {
     ((Packet*)self)->operator<<(data != 0);
 }
 void sfml_packet_operator_shl_k6g(void* self, Int8 data) {
-    ((Packet*)self)->operator<<((Int8)data);
+    ((Packet*)self)->operator<<(data);
 }
 void sfml_packet_operator_shl_9yU(void* self, Uint8 data) {
-    ((Packet*)self)->operator<<((Uint8)data);
+    ((Packet*)self)->operator<<(data);
 }
 void sfml_packet_operator_shl_yAA(void* self, Int16 data) {
-    ((Packet*)self)->operator<<((Int16)data);
+    ((Packet*)self)->operator<<(data);
 }
 void sfml_packet_operator_shl_BtU(void* self, Uint16 data) {
-    ((Packet*)self)->operator<<((Uint16)data);
+    ((Packet*)self)->operator<<(data);
 }
 void sfml_packet_operator_shl_qe2(void* self, Int32 data) {
-    ((Packet*)self)->operator<<((Int32)data);
+    ((Packet*)self)->operator<<(data);
 }
 void sfml_packet_operator_shl_saL(void* self, Uint32 data) {
-    ((Packet*)self)->operator<<((Uint32)data);
+    ((Packet*)self)->operator<<(data);
 }
 void sfml_packet_operator_shl_G4x(void* self, Int64 data) {
-    ((Packet*)self)->operator<<((Int64)data);
+    ((Packet*)self)->operator<<(data);
 }
 void sfml_packet_operator_shl_Jvt(void* self, Uint64 data) {
-    ((Packet*)self)->operator<<((Uint64)data);
+    ((Packet*)self)->operator<<(data);
 }
 void sfml_packet_operator_shl_Bw9(void* self, float data) {
-    ((Packet*)self)->operator<<((float)data);
+    ((Packet*)self)->operator<<(data);
 }
 void sfml_packet_operator_shl_mYt(void* self, double data) {
-    ((Packet*)self)->operator<<((double)data);
+    ((Packet*)self)->operator<<(data);
 }
 void sfml_packet_operator_shl_zkC(void* self, std::size_t data_size, char* data) {
     ((Packet*)self)->operator<<(std::string(data, data_size));
@@ -511,7 +511,7 @@ void sfml_tcplistener_getlocalport(void* self, unsigned short* result) {
     *(unsigned short*)result = ((TcpListener*)self)->getLocalPort();
 }
 void sfml_tcplistener_listen_bxiBfE(void* self, unsigned short port, void* address, int* result) {
-    *(Socket::Status*)result = ((TcpListener*)self)->listen((unsigned short)port, *(IpAddress*)address);
+    *(Socket::Status*)result = ((TcpListener*)self)->listen(port, *(IpAddress*)address);
 }
 void sfml_tcplistener_close(void* self) {
     ((TcpListener*)self)->close();
@@ -541,22 +541,22 @@ void sfml_udpsocket_getlocalport(void* self, unsigned short* result) {
     *(unsigned short*)result = ((UdpSocket*)self)->getLocalPort();
 }
 void sfml_udpsocket_bind_bxiBfE(void* self, unsigned short port, void* address, int* result) {
-    *(Socket::Status*)result = ((UdpSocket*)self)->bind((unsigned short)port, *(IpAddress*)address);
+    *(Socket::Status*)result = ((UdpSocket*)self)->bind(port, *(IpAddress*)address);
 }
 void sfml_udpsocket_unbind(void* self) {
     ((UdpSocket*)self)->unbind();
 }
 void sfml_udpsocket_send_5h8vgvBfEbxi(void* self, void* data, std::size_t size, void* remote_address, unsigned short remote_port, int* result) {
-    *(Socket::Status*)result = ((UdpSocket*)self)->send(data, size, *(IpAddress*)remote_address, (unsigned short)remote_port);
+    *(Socket::Status*)result = ((UdpSocket*)self)->send(data, size, *(IpAddress*)remote_address, remote_port);
 }
 void sfml_udpsocket_receive_xALvgvi499ylYII(void* self, void* data, std::size_t size, std::size_t* received, void* remote_address, unsigned short* remote_port, int* result) {
-    *(Socket::Status*)result = ((UdpSocket*)self)->receive(data, size, *(std::size_t*)received, *(IpAddress*)remote_address, *(unsigned short*)remote_port);
+    *(Socket::Status*)result = ((UdpSocket*)self)->receive(data, size, *received, *(IpAddress*)remote_address, *remote_port);
 }
 void sfml_udpsocket_send_jyFBfEbxi(void* self, void* packet, void* remote_address, unsigned short remote_port, int* result) {
-    *(Socket::Status*)result = ((UdpSocket*)self)->send(*(Packet*)packet, *(IpAddress*)remote_address, (unsigned short)remote_port);
+    *(Socket::Status*)result = ((UdpSocket*)self)->send(*(Packet*)packet, *(IpAddress*)remote_address, remote_port);
 }
 void sfml_udpsocket_receive_jyF9ylYII(void* self, void* packet, void* remote_address, unsigned short* remote_port, int* result) {
-    *(Socket::Status*)result = ((UdpSocket*)self)->receive(*(Packet*)packet, *(IpAddress*)remote_address, *(unsigned short*)remote_port);
+    *(Socket::Status*)result = ((UdpSocket*)self)->receive(*(Packet*)packet, *(IpAddress*)remote_address, *remote_port);
 }
 void sfml_udpsocket_setblocking_GZq(void* self, Int8 blocking) {
     ((UdpSocket*)self)->setBlocking(blocking != 0);

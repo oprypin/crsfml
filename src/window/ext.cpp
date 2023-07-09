@@ -29,25 +29,25 @@ void sfml_contextsettings_free(void* self) {
     free(self);
 }
 void sfml_contextsettings_initialize_emSemSemSemSemSemSGZq(void* self, unsigned int depth, unsigned int stencil, unsigned int antialiasing, unsigned int major, unsigned int minor, unsigned int attributes, Int8 s_rgb) {
-    new(self) ContextSettings((unsigned int)depth, (unsigned int)stencil, (unsigned int)antialiasing, (unsigned int)major, (unsigned int)minor, (unsigned int)attributes, s_rgb != 0);
+    new(self) ContextSettings(depth, stencil, antialiasing, major, minor, attributes, s_rgb != 0);
 }
 void sfml_contextsettings_setdepthbits_emS(void* self, unsigned int depth_bits) {
-    ((ContextSettings*)self)->depthBits = (unsigned int)depth_bits;
+    ((ContextSettings*)self)->depthBits = depth_bits;
 }
 void sfml_contextsettings_setstencilbits_emS(void* self, unsigned int stencil_bits) {
-    ((ContextSettings*)self)->stencilBits = (unsigned int)stencil_bits;
+    ((ContextSettings*)self)->stencilBits = stencil_bits;
 }
 void sfml_contextsettings_setantialiasinglevel_emS(void* self, unsigned int antialiasing_level) {
-    ((ContextSettings*)self)->antialiasingLevel = (unsigned int)antialiasing_level;
+    ((ContextSettings*)self)->antialiasingLevel = antialiasing_level;
 }
 void sfml_contextsettings_setmajorversion_emS(void* self, unsigned int major_version) {
-    ((ContextSettings*)self)->majorVersion = (unsigned int)major_version;
+    ((ContextSettings*)self)->majorVersion = major_version;
 }
 void sfml_contextsettings_setminorversion_emS(void* self, unsigned int minor_version) {
-    ((ContextSettings*)self)->minorVersion = (unsigned int)minor_version;
+    ((ContextSettings*)self)->minorVersion = minor_version;
 }
 void sfml_contextsettings_setattributeflags_saL(void* self, Uint32 attribute_flags) {
-    ((ContextSettings*)self)->attributeFlags = (Uint32)attribute_flags;
+    ((ContextSettings*)self)->attributeFlags = attribute_flags;
 }
 void sfml_contextsettings_setsrgbcapable_GZq(void* self, Int8 s_rgb_capable) {
     ((ContextSettings*)self)->sRgbCapable = s_rgb_capable != 0;
@@ -83,7 +83,7 @@ void sfml_context_getactivecontextid(Uint64* result) {
     *(Uint64*)result = Context::getActiveContextId();
 }
 void sfml_context_initialize_Fw4emSemS(void* self, void* settings, unsigned int width, unsigned int height) {
-    new(self) Context(*(ContextSettings*)settings, (unsigned int)width, (unsigned int)height);
+    new(self) Context(*(ContextSettings*)settings, width, height);
 }
 void sfml_cursor_allocate(void** result) {
     *result = malloc(sizeof(Cursor));
@@ -98,7 +98,7 @@ void sfml_cursor_finalize(void* self) {
     ((Cursor*)self)->~Cursor();
 }
 void sfml_cursor_loadfrompixels_843t9zt9z(void* self, Uint8* pixels, void* size, void* hotspot, Int8* result) {
-    *(bool*)result = ((Cursor*)self)->loadFromPixels((Uint8 const*)pixels, *(Vector2u*)size, *(Vector2u*)hotspot);
+    *(bool*)result = ((Cursor*)self)->loadFromPixels(pixels, *(Vector2u*)size, *(Vector2u*)hotspot);
 }
 void sfml_cursor_loadfromsystem_yAZ(void* self, int type, Int8* result) {
     *(bool*)result = ((Cursor*)self)->loadFromSystem((Cursor::Type)type);
@@ -133,34 +133,34 @@ void sfml_joystick_identification_getvendorid(void* self, unsigned int* result) 
     *(unsigned int*)result = ((Joystick::Identification*)self)->vendorId;
 }
 void sfml_joystick_identification_setvendorid_emS(void* self, unsigned int vendor_id) {
-    ((Joystick::Identification*)self)->vendorId = (unsigned int)vendor_id;
+    ((Joystick::Identification*)self)->vendorId = vendor_id;
 }
 void sfml_joystick_identification_getproductid(void* self, unsigned int* result) {
     *(unsigned int*)result = ((Joystick::Identification*)self)->productId;
 }
 void sfml_joystick_identification_setproductid_emS(void* self, unsigned int product_id) {
-    ((Joystick::Identification*)self)->productId = (unsigned int)product_id;
+    ((Joystick::Identification*)self)->productId = product_id;
 }
 void sfml_joystick_identification_initialize_ISj(void* self, void* copy) {
     new(self) Joystick::Identification(*(Joystick::Identification*)copy);
 }
 void sfml_joystick_isconnected_emS(unsigned int joystick, Int8* result) {
-    *(bool*)result = Joystick::isConnected((unsigned int)joystick);
+    *(bool*)result = Joystick::isConnected(joystick);
 }
 void sfml_joystick_getbuttoncount_emS(unsigned int joystick, unsigned int* result) {
-    *(unsigned int*)result = Joystick::getButtonCount((unsigned int)joystick);
+    *(unsigned int*)result = Joystick::getButtonCount(joystick);
 }
 void sfml_joystick_hasaxis_emSHdj(unsigned int joystick, int axis, Int8* result) {
-    *(bool*)result = Joystick::hasAxis((unsigned int)joystick, (Joystick::Axis)axis);
+    *(bool*)result = Joystick::hasAxis(joystick, (Joystick::Axis)axis);
 }
 void sfml_joystick_isbuttonpressed_emSemS(unsigned int joystick, unsigned int button, Int8* result) {
-    *(bool*)result = Joystick::isButtonPressed((unsigned int)joystick, (unsigned int)button);
+    *(bool*)result = Joystick::isButtonPressed(joystick, button);
 }
 void sfml_joystick_getaxisposition_emSHdj(unsigned int joystick, int axis, float* result) {
-    *(float*)result = Joystick::getAxisPosition((unsigned int)joystick, (Joystick::Axis)axis);
+    *(float*)result = Joystick::getAxisPosition(joystick, (Joystick::Axis)axis);
 }
 void sfml_joystick_getidentification_emS(unsigned int joystick, void* result) {
-    *(Joystick::Identification*)result = Joystick::getIdentification((unsigned int)joystick);
+    *(Joystick::Identification*)result = Joystick::getIdentification(joystick);
 }
 void sfml_joystick_update() {
     Joystick::update();
@@ -229,10 +229,10 @@ void sfml_event_sizeevent_free(void* self) {
     free(self);
 }
 void sfml_event_sizeevent_setwidth_emS(void* self, unsigned int width) {
-    ((Event::SizeEvent*)self)->width = (unsigned int)width;
+    ((Event::SizeEvent*)self)->width = width;
 }
 void sfml_event_sizeevent_setheight_emS(void* self, unsigned int height) {
-    ((Event::SizeEvent*)self)->height = (unsigned int)height;
+    ((Event::SizeEvent*)self)->height = height;
 }
 void sfml_event_sizeevent_initialize_isq(void* self, void* copy) {
     new(self) Event::SizeEvent(*(Event::SizeEvent*)copy);
@@ -274,7 +274,7 @@ void sfml_event_textevent_free(void* self) {
     free(self);
 }
 void sfml_event_textevent_setunicode_saL(void* self, Uint32 unicode) {
-    ((Event::TextEvent*)self)->unicode = (Uint32)unicode;
+    ((Event::TextEvent*)self)->unicode = unicode;
 }
 void sfml_event_textevent_initialize_uku(void* self, void* copy) {
     new(self) Event::TextEvent(*(Event::TextEvent*)copy);
@@ -289,10 +289,10 @@ void sfml_event_mousemoveevent_free(void* self) {
     free(self);
 }
 void sfml_event_mousemoveevent_setx_2mh(void* self, int x) {
-    ((Event::MouseMoveEvent*)self)->x = (int)x;
+    ((Event::MouseMoveEvent*)self)->x = x;
 }
 void sfml_event_mousemoveevent_sety_2mh(void* self, int y) {
-    ((Event::MouseMoveEvent*)self)->y = (int)y;
+    ((Event::MouseMoveEvent*)self)->y = y;
 }
 void sfml_event_mousemoveevent_initialize_1i3(void* self, void* copy) {
     new(self) Event::MouseMoveEvent(*(Event::MouseMoveEvent*)copy);
@@ -310,10 +310,10 @@ void sfml_event_mousebuttonevent_setbutton_Zxg(void* self, int button) {
     ((Event::MouseButtonEvent*)self)->button = (Mouse::Button)button;
 }
 void sfml_event_mousebuttonevent_setx_2mh(void* self, int x) {
-    ((Event::MouseButtonEvent*)self)->x = (int)x;
+    ((Event::MouseButtonEvent*)self)->x = x;
 }
 void sfml_event_mousebuttonevent_sety_2mh(void* self, int y) {
-    ((Event::MouseButtonEvent*)self)->y = (int)y;
+    ((Event::MouseButtonEvent*)self)->y = y;
 }
 void sfml_event_mousebuttonevent_initialize_Tjo(void* self, void* copy) {
     new(self) Event::MouseButtonEvent(*(Event::MouseButtonEvent*)copy);
@@ -328,13 +328,13 @@ void sfml_event_mousewheelevent_free(void* self) {
     free(self);
 }
 void sfml_event_mousewheelevent_setdelta_2mh(void* self, int delta) {
-    ((Event::MouseWheelEvent*)self)->delta = (int)delta;
+    ((Event::MouseWheelEvent*)self)->delta = delta;
 }
 void sfml_event_mousewheelevent_setx_2mh(void* self, int x) {
-    ((Event::MouseWheelEvent*)self)->x = (int)x;
+    ((Event::MouseWheelEvent*)self)->x = x;
 }
 void sfml_event_mousewheelevent_sety_2mh(void* self, int y) {
-    ((Event::MouseWheelEvent*)self)->y = (int)y;
+    ((Event::MouseWheelEvent*)self)->y = y;
 }
 void sfml_event_mousewheelevent_initialize_Wk7(void* self, void* copy) {
     new(self) Event::MouseWheelEvent(*(Event::MouseWheelEvent*)copy);
@@ -352,13 +352,13 @@ void sfml_event_mousewheelscrollevent_setwheel_yiC(void* self, int wheel) {
     ((Event::MouseWheelScrollEvent*)self)->wheel = (Mouse::Wheel)wheel;
 }
 void sfml_event_mousewheelscrollevent_setdelta_Bw9(void* self, float delta) {
-    ((Event::MouseWheelScrollEvent*)self)->delta = (float)delta;
+    ((Event::MouseWheelScrollEvent*)self)->delta = delta;
 }
 void sfml_event_mousewheelscrollevent_setx_2mh(void* self, int x) {
-    ((Event::MouseWheelScrollEvent*)self)->x = (int)x;
+    ((Event::MouseWheelScrollEvent*)self)->x = x;
 }
 void sfml_event_mousewheelscrollevent_sety_2mh(void* self, int y) {
-    ((Event::MouseWheelScrollEvent*)self)->y = (int)y;
+    ((Event::MouseWheelScrollEvent*)self)->y = y;
 }
 void sfml_event_mousewheelscrollevent_initialize_Am0(void* self, void* copy) {
     new(self) Event::MouseWheelScrollEvent(*(Event::MouseWheelScrollEvent*)copy);
@@ -373,7 +373,7 @@ void sfml_event_joystickconnectevent_free(void* self) {
     free(self);
 }
 void sfml_event_joystickconnectevent_setjoystickid_emS(void* self, unsigned int joystick_id) {
-    ((Event::JoystickConnectEvent*)self)->joystickId = (unsigned int)joystick_id;
+    ((Event::JoystickConnectEvent*)self)->joystickId = joystick_id;
 }
 void sfml_event_joystickconnectevent_initialize_rYL(void* self, void* copy) {
     new(self) Event::JoystickConnectEvent(*(Event::JoystickConnectEvent*)copy);
@@ -388,13 +388,13 @@ void sfml_event_joystickmoveevent_free(void* self) {
     free(self);
 }
 void sfml_event_joystickmoveevent_setjoystickid_emS(void* self, unsigned int joystick_id) {
-    ((Event::JoystickMoveEvent*)self)->joystickId = (unsigned int)joystick_id;
+    ((Event::JoystickMoveEvent*)self)->joystickId = joystick_id;
 }
 void sfml_event_joystickmoveevent_setaxis_Hdj(void* self, int axis) {
     ((Event::JoystickMoveEvent*)self)->axis = (Joystick::Axis)axis;
 }
 void sfml_event_joystickmoveevent_setposition_Bw9(void* self, float position) {
-    ((Event::JoystickMoveEvent*)self)->position = (float)position;
+    ((Event::JoystickMoveEvent*)self)->position = position;
 }
 void sfml_event_joystickmoveevent_initialize_S8f(void* self, void* copy) {
     new(self) Event::JoystickMoveEvent(*(Event::JoystickMoveEvent*)copy);
@@ -409,10 +409,10 @@ void sfml_event_joystickbuttonevent_free(void* self) {
     free(self);
 }
 void sfml_event_joystickbuttonevent_setjoystickid_emS(void* self, unsigned int joystick_id) {
-    ((Event::JoystickButtonEvent*)self)->joystickId = (unsigned int)joystick_id;
+    ((Event::JoystickButtonEvent*)self)->joystickId = joystick_id;
 }
 void sfml_event_joystickbuttonevent_setbutton_emS(void* self, unsigned int button) {
-    ((Event::JoystickButtonEvent*)self)->button = (unsigned int)button;
+    ((Event::JoystickButtonEvent*)self)->button = button;
 }
 void sfml_event_joystickbuttonevent_initialize_V0a(void* self, void* copy) {
     new(self) Event::JoystickButtonEvent(*(Event::JoystickButtonEvent*)copy);
@@ -427,13 +427,13 @@ void sfml_event_touchevent_free(void* self) {
     free(self);
 }
 void sfml_event_touchevent_setfinger_emS(void* self, unsigned int finger) {
-    ((Event::TouchEvent*)self)->finger = (unsigned int)finger;
+    ((Event::TouchEvent*)self)->finger = finger;
 }
 void sfml_event_touchevent_setx_2mh(void* self, int x) {
-    ((Event::TouchEvent*)self)->x = (int)x;
+    ((Event::TouchEvent*)self)->x = x;
 }
 void sfml_event_touchevent_sety_2mh(void* self, int y) {
-    ((Event::TouchEvent*)self)->y = (int)y;
+    ((Event::TouchEvent*)self)->y = y;
 }
 void sfml_event_touchevent_initialize_1F1(void* self, void* copy) {
     new(self) Event::TouchEvent(*(Event::TouchEvent*)copy);
@@ -451,13 +451,13 @@ void sfml_event_sensorevent_settype_jRE(void* self, int type) {
     ((Event::SensorEvent*)self)->type = (Sensor::Type)type;
 }
 void sfml_event_sensorevent_setx_Bw9(void* self, float x) {
-    ((Event::SensorEvent*)self)->x = (float)x;
+    ((Event::SensorEvent*)self)->x = x;
 }
 void sfml_event_sensorevent_sety_Bw9(void* self, float y) {
-    ((Event::SensorEvent*)self)->y = (float)y;
+    ((Event::SensorEvent*)self)->y = y;
 }
 void sfml_event_sensorevent_setz_Bw9(void* self, float z) {
-    ((Event::SensorEvent*)self)->z = (float)z;
+    ((Event::SensorEvent*)self)->z = z;
 }
 void sfml_event_sensorevent_initialize_0L9(void* self, void* copy) {
     new(self) Event::SensorEvent(*(Event::SensorEvent*)copy);
@@ -469,13 +469,13 @@ void sfml_touch_free(void* self) {
     free(self);
 }
 void sfml_touch_isdown_emS(unsigned int finger, Int8* result) {
-    *(bool*)result = Touch::isDown((unsigned int)finger);
+    *(bool*)result = Touch::isDown(finger);
 }
 void sfml_touch_getposition_emS(unsigned int finger, void* result) {
-    *(Vector2i*)result = Touch::getPosition((unsigned int)finger);
+    *(Vector2i*)result = Touch::getPosition(finger);
 }
 void sfml_touch_getposition_emSJRh(unsigned int finger, void* relative_to, void* result) {
-    *(Vector2i*)result = Touch::getPosition((unsigned int)finger, *(Window*)relative_to);
+    *(Vector2i*)result = Touch::getPosition(finger, *(Window*)relative_to);
 }
 void sfml_videomode_allocate(void** result) {
     *result = malloc(sizeof(VideoMode));
@@ -487,7 +487,7 @@ void sfml_videomode_initialize(void* self) {
     new(self) VideoMode();
 }
 void sfml_videomode_initialize_emSemSemS(void* self, unsigned int width, unsigned int height, unsigned int bits_per_pixel) {
-    new(self) VideoMode((unsigned int)width, (unsigned int)height, (unsigned int)bits_per_pixel);
+    new(self) VideoMode(width, height, bits_per_pixel);
 }
 void sfml_videomode_getdesktopmode(void* result) {
     *(VideoMode*)result = VideoMode::getDesktopMode();
@@ -502,13 +502,13 @@ void sfml_videomode_isvalid(void* self, Int8* result) {
     *(bool*)result = ((VideoMode*)self)->isValid();
 }
 void sfml_videomode_setwidth_emS(void* self, unsigned int width) {
-    ((VideoMode*)self)->width = (unsigned int)width;
+    ((VideoMode*)self)->width = width;
 }
 void sfml_videomode_setheight_emS(void* self, unsigned int height) {
-    ((VideoMode*)self)->height = (unsigned int)height;
+    ((VideoMode*)self)->height = height;
 }
 void sfml_videomode_setbitsperpixel_emS(void* self, unsigned int bits_per_pixel) {
-    ((VideoMode*)self)->bitsPerPixel = (unsigned int)bits_per_pixel;
+    ((VideoMode*)self)->bitsPerPixel = bits_per_pixel;
 }
 void sfml_operator_eq_asWasW(void* left, void* right, Int8* result) {
     *(bool*)result = operator==(*(VideoMode*)left, *(VideoMode*)right);
@@ -541,19 +541,19 @@ void sfml_window_initialize(void* self) {
     new(self) Window();
 }
 void sfml_window_initialize_wg0bQssaLFw4(void* self, void* mode, std::size_t title_size, Uint32* title, Uint32 style, void* settings) {
-    new(self) Window(*(VideoMode*)mode, String::fromUtf32(title, title+title_size), (Uint32)style, *(ContextSettings*)settings);
+    new(self) Window(*(VideoMode*)mode, String::fromUtf32(title, title+title_size), style, *(ContextSettings*)settings);
 }
 void sfml_window_initialize_rLQFw4(void* self, WindowHandle handle, void* settings) {
-    new(self) Window((WindowHandle)handle, *(ContextSettings*)settings);
+    new(self) Window(handle, *(ContextSettings*)settings);
 }
 void sfml_window_finalize(void* self) {
     ((Window*)self)->~Window();
 }
 void sfml_window_create_wg0bQssaLFw4(void* self, void* mode, std::size_t title_size, Uint32* title, Uint32 style, void* settings) {
-    ((Window*)self)->create(*(VideoMode*)mode, String::fromUtf32(title, title+title_size), (Uint32)style, *(ContextSettings*)settings);
+    ((Window*)self)->create(*(VideoMode*)mode, String::fromUtf32(title, title+title_size), style, *(ContextSettings*)settings);
 }
 void sfml_window_create_rLQFw4(void* self, WindowHandle handle, void* settings) {
-    ((Window*)self)->create((WindowHandle)handle, *(ContextSettings*)settings);
+    ((Window*)self)->create(handle, *(ContextSettings*)settings);
 }
 void sfml_window_close(void* self) {
     ((Window*)self)->close();
@@ -586,7 +586,7 @@ void sfml_window_settitle_bQs(void* self, std::size_t title_size, Uint32* title)
     ((Window*)self)->setTitle(String::fromUtf32(title, title+title_size));
 }
 void sfml_window_seticon_emSemS843(void* self, unsigned int width, unsigned int height, Uint8* pixels) {
-    ((Window*)self)->setIcon((unsigned int)width, (unsigned int)height, (Uint8 const*)pixels);
+    ((Window*)self)->setIcon(width, height, pixels);
 }
 void sfml_window_setvisible_GZq(void* self, Int8 visible) {
     ((Window*)self)->setVisible(visible != 0);
@@ -607,10 +607,10 @@ void sfml_window_setkeyrepeatenabled_GZq(void* self, Int8 enabled) {
     ((Window*)self)->setKeyRepeatEnabled(enabled != 0);
 }
 void sfml_window_setframeratelimit_emS(void* self, unsigned int limit) {
-    ((Window*)self)->setFramerateLimit((unsigned int)limit);
+    ((Window*)self)->setFramerateLimit(limit);
 }
 void sfml_window_setjoystickthreshold_Bw9(void* self, float threshold) {
-    ((Window*)self)->setJoystickThreshold((float)threshold);
+    ((Window*)self)->setJoystickThreshold(threshold);
 }
 void sfml_window_setactive_GZq(void* self, Int8 active, Int8* result) {
     *(bool*)result = ((Window*)self)->setActive(active != 0);

@@ -47,16 +47,16 @@ void sfml_operator_sub_f4Tf4T(void* left, void* right, void* result) {
     *(Time*)result = operator-(*(Time*)left, *(Time*)right);
 }
 void sfml_operator_mul_f4TBw9(void* left, float right, void* result) {
-    *(Time*)result = operator*(*(Time*)left, (float)right);
+    *(Time*)result = operator*(*(Time*)left, right);
 }
 void sfml_operator_mul_f4TG4x(void* left, Int64 right, void* result) {
-    *(Time*)result = operator*(*(Time*)left, (Int64)right);
+    *(Time*)result = operator*(*(Time*)left, right);
 }
 void sfml_operator_div_f4TBw9(void* left, float right, void* result) {
-    *(Time*)result = operator/(*(Time*)left, (float)right);
+    *(Time*)result = operator/(*(Time*)left, right);
 }
 void sfml_operator_div_f4TG4x(void* left, Int64 right, void* result) {
-    *(Time*)result = operator/(*(Time*)left, (Int64)right);
+    *(Time*)result = operator/(*(Time*)left, right);
 }
 void sfml_operator_div_f4Tf4T(void* left, void* right, float* result) {
     *(float*)result = operator/(*(Time*)left, *(Time*)right);
@@ -68,13 +68,13 @@ void sfml_time_initialize_PxG(void* self, void* copy) {
     new(self) Time(*(Time*)copy);
 }
 void sfml_seconds_Bw9(float amount, void* result) {
-    *(Time*)result = seconds((float)amount);
+    *(Time*)result = seconds(amount);
 }
 void sfml_milliseconds_qe2(Int32 amount, void* result) {
-    *(Time*)result = milliseconds((Int32)amount);
+    *(Time*)result = milliseconds(amount);
 }
 void sfml_microseconds_G4x(Int64 amount, void* result) {
-    *(Time*)result = microseconds((Int64)amount);
+    *(Time*)result = microseconds(amount);
 }
 void sfml_clock_allocate(void** result) {
     *result = malloc(sizeof(Clock));
@@ -177,7 +177,7 @@ void sfml_fileinputstream_read_xALG4x(void* self, void* data, Int64 size, Int64*
     *(Int64*)result = ((FileInputStream*)self)->read(data, size);
 }
 void sfml_fileinputstream_seek_G4x(void* self, Int64 position, Int64* result) {
-    *(Int64*)result = ((FileInputStream*)self)->seek((Int64)position);
+    *(Int64*)result = ((FileInputStream*)self)->seek(position);
 }
 void sfml_fileinputstream_tell(void* self, Int64* result) {
     *(Int64*)result = ((FileInputStream*)self)->tell();
@@ -204,7 +204,7 @@ void sfml_memoryinputstream_read_xALG4x(void* self, void* data, Int64 size, Int6
     *(Int64*)result = ((MemoryInputStream*)self)->read(data, size);
 }
 void sfml_memoryinputstream_seek_G4x(void* self, Int64 position, Int64* result) {
-    *(Int64*)result = ((MemoryInputStream*)self)->seek((Int64)position);
+    *(Int64*)result = ((MemoryInputStream*)self)->seek(position);
 }
 void sfml_memoryinputstream_tell(void* self, Int64* result) {
     *(Int64*)result = ((MemoryInputStream*)self)->tell();

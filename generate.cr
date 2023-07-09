@@ -1108,7 +1108,6 @@ class CFunction < CItem
           else
             cr_type += "*"*param.type.pointer
           end
-          cpp_arg = "(#{param.type.full_name.sub('&', '*')})#{cpp_arg}"
           if return_params.includes? param
             cpp_arg = "*#{cpp_arg}"
           end

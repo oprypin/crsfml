@@ -9,13 +9,13 @@ void sfml_listener_free(void* self) {
     free(self);
 }
 void sfml_listener_setglobalvolume_Bw9(float volume) {
-    Listener::setGlobalVolume((float)volume);
+    Listener::setGlobalVolume(volume);
 }
 void sfml_listener_getglobalvolume(float* result) {
     *(float*)result = Listener::getGlobalVolume();
 }
 void sfml_listener_setposition_Bw9Bw9Bw9(float x, float y, float z) {
-    Listener::setPosition((float)x, (float)y, (float)z);
+    Listener::setPosition(x, y, z);
 }
 void sfml_listener_setposition_NzM(void* position) {
     Listener::setPosition(*(Vector3f*)position);
@@ -24,7 +24,7 @@ void sfml_listener_getposition(void* result) {
     *(Vector3f*)result = Listener::getPosition();
 }
 void sfml_listener_setdirection_Bw9Bw9Bw9(float x, float y, float z) {
-    Listener::setDirection((float)x, (float)y, (float)z);
+    Listener::setDirection(x, y, z);
 }
 void sfml_listener_setdirection_NzM(void* direction) {
     Listener::setDirection(*(Vector3f*)direction);
@@ -33,7 +33,7 @@ void sfml_listener_getdirection(void* result) {
     *(Vector3f*)result = Listener::getDirection();
 }
 void sfml_listener_setupvector_Bw9Bw9Bw9(float x, float y, float z) {
-    Listener::setUpVector((float)x, (float)y, (float)z);
+    Listener::setUpVector(x, y, z);
 }
 void sfml_listener_setupvector_NzM(void* up_vector) {
     Listener::setUpVector(*(Vector3f*)up_vector);
@@ -85,13 +85,13 @@ void sfml_soundsource_finalize(void* self) {
     ((_SoundSource*)self)->~_SoundSource();
 }
 void sfml_soundsource_setpitch_Bw9(void* self, float pitch) {
-    ((_SoundSource*)self)->setPitch((float)pitch);
+    ((_SoundSource*)self)->setPitch(pitch);
 }
 void sfml_soundsource_setvolume_Bw9(void* self, float volume) {
-    ((_SoundSource*)self)->setVolume((float)volume);
+    ((_SoundSource*)self)->setVolume(volume);
 }
 void sfml_soundsource_setposition_Bw9Bw9Bw9(void* self, float x, float y, float z) {
-    ((_SoundSource*)self)->setPosition((float)x, (float)y, (float)z);
+    ((_SoundSource*)self)->setPosition(x, y, z);
 }
 void sfml_soundsource_setposition_NzM(void* self, void* position) {
     ((_SoundSource*)self)->setPosition(*(Vector3f*)position);
@@ -100,10 +100,10 @@ void sfml_soundsource_setrelativetolistener_GZq(void* self, Int8 relative) {
     ((_SoundSource*)self)->setRelativeToListener(relative != 0);
 }
 void sfml_soundsource_setmindistance_Bw9(void* self, float distance) {
-    ((_SoundSource*)self)->setMinDistance((float)distance);
+    ((_SoundSource*)self)->setMinDistance(distance);
 }
 void sfml_soundsource_setattenuation_Bw9(void* self, float attenuation) {
-    ((_SoundSource*)self)->setAttenuation((float)attenuation);
+    ((_SoundSource*)self)->setAttenuation(attenuation);
 }
 void sfml_soundsource_getpitch(void* self, float* result) {
     *(float*)result = ((_SoundSource*)self)->getPitch();
@@ -205,19 +205,19 @@ void sfml_soundstream_initialize(void* self) {
     new(self) _SoundStream();
 }
 void sfml_soundstream_initialize_emSemS(void* self, unsigned int channel_count, unsigned int sample_rate) {
-    ((_SoundStream*)self)->initialize((unsigned int)channel_count, (unsigned int)sample_rate);
+    ((_SoundStream*)self)->initialize(channel_count, sample_rate);
 }
 void sfml_soundstream_onloop(void* self, Int64* result) {
     *(Int64*)result = ((_SoundStream*)self)->onLoop();
 }
 void sfml_soundstream_setpitch_Bw9(void* self, float pitch) {
-    ((_SoundStream*)self)->setPitch((float)pitch);
+    ((_SoundStream*)self)->setPitch(pitch);
 }
 void sfml_soundstream_setvolume_Bw9(void* self, float volume) {
-    ((_SoundStream*)self)->setVolume((float)volume);
+    ((_SoundStream*)self)->setVolume(volume);
 }
 void sfml_soundstream_setposition_Bw9Bw9Bw9(void* self, float x, float y, float z) {
-    ((_SoundStream*)self)->setPosition((float)x, (float)y, (float)z);
+    ((_SoundStream*)self)->setPosition(x, y, z);
 }
 void sfml_soundstream_setposition_NzM(void* self, void* position) {
     ((_SoundStream*)self)->setPosition(*(Vector3f*)position);
@@ -226,10 +226,10 @@ void sfml_soundstream_setrelativetolistener_GZq(void* self, Int8 relative) {
     ((_SoundStream*)self)->setRelativeToListener(relative != 0);
 }
 void sfml_soundstream_setmindistance_Bw9(void* self, float distance) {
-    ((_SoundStream*)self)->setMinDistance((float)distance);
+    ((_SoundStream*)self)->setMinDistance(distance);
 }
 void sfml_soundstream_setattenuation_Bw9(void* self, float attenuation) {
-    ((_SoundStream*)self)->setAttenuation((float)attenuation);
+    ((_SoundStream*)self)->setAttenuation(attenuation);
 }
 void sfml_soundstream_getpitch(void* self, float* result) {
     *(float*)result = ((_SoundStream*)self)->getPitch();
@@ -310,13 +310,13 @@ void sfml_music_getloop(void* self, Int8* result) {
     *(bool*)result = ((Music*)self)->getLoop();
 }
 void sfml_music_setpitch_Bw9(void* self, float pitch) {
-    ((Music*)self)->setPitch((float)pitch);
+    ((Music*)self)->setPitch(pitch);
 }
 void sfml_music_setvolume_Bw9(void* self, float volume) {
-    ((Music*)self)->setVolume((float)volume);
+    ((Music*)self)->setVolume(volume);
 }
 void sfml_music_setposition_Bw9Bw9Bw9(void* self, float x, float y, float z) {
-    ((Music*)self)->setPosition((float)x, (float)y, (float)z);
+    ((Music*)self)->setPosition(x, y, z);
 }
 void sfml_music_setposition_NzM(void* self, void* position) {
     ((Music*)self)->setPosition(*(Vector3f*)position);
@@ -325,10 +325,10 @@ void sfml_music_setrelativetolistener_GZq(void* self, Int8 relative) {
     ((Music*)self)->setRelativeToListener(relative != 0);
 }
 void sfml_music_setmindistance_Bw9(void* self, float distance) {
-    ((Music*)self)->setMinDistance((float)distance);
+    ((Music*)self)->setMinDistance(distance);
 }
 void sfml_music_setattenuation_Bw9(void* self, float attenuation) {
-    ((Music*)self)->setAttenuation((float)attenuation);
+    ((Music*)self)->setAttenuation(attenuation);
 }
 void sfml_music_getpitch(void* self, float* result) {
     *(float*)result = ((Music*)self)->getPitch();
@@ -397,13 +397,13 @@ void sfml_sound_resetbuffer(void* self) {
     ((Sound*)self)->resetBuffer();
 }
 void sfml_sound_setpitch_Bw9(void* self, float pitch) {
-    ((Sound*)self)->setPitch((float)pitch);
+    ((Sound*)self)->setPitch(pitch);
 }
 void sfml_sound_setvolume_Bw9(void* self, float volume) {
-    ((Sound*)self)->setVolume((float)volume);
+    ((Sound*)self)->setVolume(volume);
 }
 void sfml_sound_setposition_Bw9Bw9Bw9(void* self, float x, float y, float z) {
-    ((Sound*)self)->setPosition((float)x, (float)y, (float)z);
+    ((Sound*)self)->setPosition(x, y, z);
 }
 void sfml_sound_setposition_NzM(void* self, void* position) {
     ((Sound*)self)->setPosition(*(Vector3f*)position);
@@ -412,10 +412,10 @@ void sfml_sound_setrelativetolistener_GZq(void* self, Int8 relative) {
     ((Sound*)self)->setRelativeToListener(relative != 0);
 }
 void sfml_sound_setmindistance_Bw9(void* self, float distance) {
-    ((Sound*)self)->setMinDistance((float)distance);
+    ((Sound*)self)->setMinDistance(distance);
 }
 void sfml_sound_setattenuation_Bw9(void* self, float attenuation) {
-    ((Sound*)self)->setAttenuation((float)attenuation);
+    ((Sound*)self)->setAttenuation(attenuation);
 }
 void sfml_sound_getpitch(void* self, float* result) {
     *(float*)result = ((Sound*)self)->getPitch();
@@ -457,7 +457,7 @@ void sfml_soundbuffer_loadfromstream_PO0(void* self, void* stream, Int8* result)
     *(bool*)result = ((SoundBuffer*)self)->loadFromStream(*(InputStream*)stream);
 }
 void sfml_soundbuffer_loadfromsamples_xzLJvtemSemS(void* self, Int16* samples, Uint64 sample_count, unsigned int channel_count, unsigned int sample_rate, Int8* result) {
-    *(bool*)result = ((SoundBuffer*)self)->loadFromSamples((Int16 const*)samples, sample_count, (unsigned int)channel_count, (unsigned int)sample_rate);
+    *(bool*)result = ((SoundBuffer*)self)->loadFromSamples(samples, sample_count, channel_count, sample_rate);
 }
 void sfml_soundbuffer_savetofile_zkC(void* self, std::size_t filename_size, char* filename, Int8* result) {
     *(bool*)result = ((SoundBuffer*)self)->saveToFile(std::string(filename, filename_size));
@@ -520,7 +520,7 @@ void sfml_soundrecorder_finalize(void* self) {
     ((_SoundRecorder*)self)->~_SoundRecorder();
 }
 void sfml_soundrecorder_start_emS(void* self, unsigned int sample_rate, Int8* result) {
-    *(bool*)result = ((_SoundRecorder*)self)->start((unsigned int)sample_rate);
+    *(bool*)result = ((_SoundRecorder*)self)->start(sample_rate);
 }
 void sfml_soundrecorder_stop(void* self) {
     ((_SoundRecorder*)self)->stop();
@@ -551,7 +551,7 @@ void sfml_soundrecorder_getdevice(void* self, char** result) {
     *result = const_cast<char*>(str.c_str());
 }
 void sfml_soundrecorder_setchannelcount_emS(void* self, unsigned int channel_count) {
-    ((_SoundRecorder*)self)->setChannelCount((unsigned int)channel_count);
+    ((_SoundRecorder*)self)->setChannelCount(channel_count);
 }
 void sfml_soundrecorder_getchannelcount(void* self, unsigned int* result) {
     *(unsigned int*)result = ((_SoundRecorder*)self)->getChannelCount();
@@ -587,7 +587,7 @@ void sfml_soundbufferrecorder_getbuffer(void* self, void** result) {
     *(SoundBuffer**)result = const_cast<SoundBuffer*>(&((SoundBufferRecorder*)self)->getBuffer());
 }
 void sfml_soundbufferrecorder_start_emS(void* self, unsigned int sample_rate, Int8* result) {
-    *(bool*)result = ((SoundBufferRecorder*)self)->start((unsigned int)sample_rate);
+    *(bool*)result = ((SoundBufferRecorder*)self)->start(sample_rate);
 }
 void sfml_soundbufferrecorder_stop(void* self) {
     ((SoundBufferRecorder*)self)->stop();
@@ -618,7 +618,7 @@ void sfml_soundbufferrecorder_getdevice(void* self, char** result) {
     *result = const_cast<char*>(str.c_str());
 }
 void sfml_soundbufferrecorder_setchannelcount_emS(void* self, unsigned int channel_count) {
-    ((SoundBufferRecorder*)self)->setChannelCount((unsigned int)channel_count);
+    ((SoundBufferRecorder*)self)->setChannelCount(channel_count);
 }
 void sfml_soundbufferrecorder_getchannelcount(void* self, unsigned int* result) {
     *(unsigned int*)result = ((SoundBufferRecorder*)self)->getChannelCount();
