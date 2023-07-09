@@ -156,10 +156,6 @@ Construct the blend mode given the factors and equation.
 * *alpha_destination_factor* - Specifies how to compute the destination factor.
 * *alpha_blend_equation* - Specifies how to combine the source and destination alphas.
 
-## SF::BlendMode#initialize(copy)
-
-:nodoc:
-
 ## SF::BlendMode#initialize(source_factor,destination_factor,blend_equation)
 
 Construct the blend mode given the factors and equation.
@@ -219,26 +215,6 @@ equilateral triangle, square, pentagon, hexagon, ...
 
 *See also:* `SF::Shape`, `SF::RectangleShape`, `SF::ConvexShape`
 
-## SF::CircleShape#draw(target,states)
-
-:nodoc:
-
-## SF::CircleShape#draw(target,states)
-
-:nodoc:
-
-## SF::CircleShape#draw(target,states)
-
-:nodoc:
-
-## SF::CircleShape#fill_color()
-
-:nodoc:
-
-## SF::CircleShape#fill_color=(color)
-
-:nodoc:
-
 ## SF::CircleShape#get_point(index)
 
 Get a point of the circle
@@ -252,60 +228,12 @@ The result is undefined if *index* is out of the valid range.
 
 *Returns:* index-th point of the shape
 
-## SF::CircleShape#global_bounds()
-
-:nodoc:
-
-## SF::CircleShape#initialize(copy)
-
-:nodoc:
-
 ## SF::CircleShape#initialize(radius,point_count)
 
 Default constructor
 
 * *radius* - Radius of the circle
 * *point_count* - Number of points composing the circle
-
-## SF::CircleShape#inverse_transform()
-
-:nodoc:
-
-## SF::CircleShape#local_bounds()
-
-:nodoc:
-
-## SF::CircleShape#move(offset)
-
-:nodoc:
-
-## SF::CircleShape#move(offset_x,offset_y)
-
-:nodoc:
-
-## SF::CircleShape#origin()
-
-:nodoc:
-
-## SF::CircleShape#origin=(origin)
-
-:nodoc:
-
-## SF::CircleShape#outline_color()
-
-:nodoc:
-
-## SF::CircleShape#outline_color=(color)
-
-:nodoc:
-
-## SF::CircleShape#outline_thickness()
-
-:nodoc:
-
-## SF::CircleShape#outline_thickness=(thickness)
-
-:nodoc:
 
 ## SF::CircleShape#point_count()
 
@@ -323,14 +251,6 @@ Set the number of points of the circle
 
 *See also:* `point_count`
 
-## SF::CircleShape#position()
-
-:nodoc:
-
-## SF::CircleShape#position=(position)
-
-:nodoc:
-
 ## SF::CircleShape#radius()
 
 Get the radius of the circle
@@ -346,66 +266,6 @@ Set the radius of the circle
 * *radius* - New radius of the circle
 
 *See also:* `radius`
-
-## SF::CircleShape#rotate(angle)
-
-:nodoc:
-
-## SF::CircleShape#rotation()
-
-:nodoc:
-
-## SF::CircleShape#rotation=(angle)
-
-:nodoc:
-
-## SF::CircleShape#scale()
-
-:nodoc:
-
-## SF::CircleShape#scale(factor)
-
-:nodoc:
-
-## SF::CircleShape#scale(factor_x,factor_y)
-
-:nodoc:
-
-## SF::CircleShape#scale=(factors)
-
-:nodoc:
-
-## SF::CircleShape#set_origin(x,y)
-
-:nodoc:
-
-## SF::CircleShape#set_position(x,y)
-
-:nodoc:
-
-## SF::CircleShape#set_scale(factor_x,factor_y)
-
-:nodoc:
-
-## SF::CircleShape#set_texture(texture,reset_rect)
-
-:nodoc:
-
-## SF::CircleShape#texture()
-
-:nodoc:
-
-## SF::CircleShape#texture_rect()
-
-:nodoc:
-
-## SF::CircleShape#texture_rect=(rect)
-
-:nodoc:
-
-## SF::CircleShape#transform()
-
-:nodoc:
 
 # SF::Color
 
@@ -474,10 +334,6 @@ Constructs an opaque black color. It is equivalent to
 Construct the color from 32-bit unsigned integer
 
 * *color* - Number containing the RGBA components (in that order)
-
-## SF::Color#initialize(copy)
-
-:nodoc:
 
 ## SF::Color#initialize(red,green,blue,alpha)
 
@@ -587,26 +443,6 @@ window.draw polygon
 
 *See also:* `SF::Shape`, `SF::RectangleShape`, `SF::CircleShape`
 
-## SF::ConvexShape#draw(target,states)
-
-:nodoc:
-
-## SF::ConvexShape#draw(target,states)
-
-:nodoc:
-
-## SF::ConvexShape#draw(target,states)
-
-:nodoc:
-
-## SF::ConvexShape#fill_color()
-
-:nodoc:
-
-## SF::ConvexShape#fill_color=(color)
-
-:nodoc:
-
 ## SF::ConvexShape#get_point(index)
 
 Get the position of a point
@@ -622,59 +458,11 @@ The result is undefined if *index* is out of the valid range.
 
 *See also:* `point=`
 
-## SF::ConvexShape#global_bounds()
-
-:nodoc:
-
-## SF::ConvexShape#initialize(copy)
-
-:nodoc:
-
 ## SF::ConvexShape#initialize(point_count)
 
 Default constructor
 
 * *point_count* - Number of points of the polygon
-
-## SF::ConvexShape#inverse_transform()
-
-:nodoc:
-
-## SF::ConvexShape#local_bounds()
-
-:nodoc:
-
-## SF::ConvexShape#move(offset)
-
-:nodoc:
-
-## SF::ConvexShape#move(offset_x,offset_y)
-
-:nodoc:
-
-## SF::ConvexShape#origin()
-
-:nodoc:
-
-## SF::ConvexShape#origin=(origin)
-
-:nodoc:
-
-## SF::ConvexShape#outline_color()
-
-:nodoc:
-
-## SF::ConvexShape#outline_color=(color)
-
-:nodoc:
-
-## SF::ConvexShape#outline_thickness()
-
-:nodoc:
-
-## SF::ConvexShape#outline_thickness=(thickness)
-
-:nodoc:
 
 ## SF::ConvexShape#point_count()
 
@@ -694,46 +482,6 @@ Set the number of points of the polygon
 
 *See also:* `point_count`
 
-## SF::ConvexShape#position()
-
-:nodoc:
-
-## SF::ConvexShape#position=(position)
-
-:nodoc:
-
-## SF::ConvexShape#rotate(angle)
-
-:nodoc:
-
-## SF::ConvexShape#rotation()
-
-:nodoc:
-
-## SF::ConvexShape#rotation=(angle)
-
-:nodoc:
-
-## SF::ConvexShape#scale()
-
-:nodoc:
-
-## SF::ConvexShape#scale(factor)
-
-:nodoc:
-
-## SF::ConvexShape#scale(factor_x,factor_y)
-
-:nodoc:
-
-## SF::ConvexShape#scale=(factors)
-
-:nodoc:
-
-## SF::ConvexShape#set_origin(x,y)
-
-:nodoc:
-
 ## SF::ConvexShape#set_point(index,point)
 
 Set the position of a point
@@ -748,34 +496,6 @@ of the valid range.
 * *point* - New position of the point
 
 *See also:* `point`
-
-## SF::ConvexShape#set_position(x,y)
-
-:nodoc:
-
-## SF::ConvexShape#set_scale(factor_x,factor_y)
-
-:nodoc:
-
-## SF::ConvexShape#set_texture(texture,reset_rect)
-
-:nodoc:
-
-## SF::ConvexShape#texture()
-
-:nodoc:
-
-## SF::ConvexShape#texture_rect()
-
-:nodoc:
-
-## SF::ConvexShape#texture_rect=(rect)
-
-:nodoc:
-
-## SF::ConvexShape#transform()
-
-:nodoc:
 
 # SF::Drawable
 
@@ -891,10 +611,6 @@ Holds various information about a font
 
 The font family
 
-### SF::Font::Info#initialize(copy)
-
-:nodoc:
-
 ## SF::Font#finalize()
 
 Destructor
@@ -995,10 +711,6 @@ Default constructor
 
 This constructor defines an empty font
 
-## SF::Font#initialize(copy)
-
-:nodoc:
-
 ## SF::Font#load_from_file(filename)
 
 Load the font from a file
@@ -1084,10 +796,6 @@ Bounding rectangle of the glyph, in coordinates relative to the baseline
 ## SF::Glyph#initialize()
 
 Default constructor
-
-## SF::Glyph#initialize(copy)
-
-:nodoc:
 
 ## SF::Glyph#texture_rect()
 
@@ -1221,10 +929,6 @@ an undefined behavior.
 Default constructor
 
 Creates an empty image.
-
-## SF::Image#initialize(copy)
-
-:nodoc:
 
 ## SF::Image#load_from_file(filename)
 
@@ -1389,26 +1093,6 @@ window.draw rectangle
 
 *See also:* `SF::Shape`, `SF::CircleShape`, `SF::ConvexShape`
 
-## SF::RectangleShape#draw(target,states)
-
-:nodoc:
-
-## SF::RectangleShape#draw(target,states)
-
-:nodoc:
-
-## SF::RectangleShape#draw(target,states)
-
-:nodoc:
-
-## SF::RectangleShape#fill_color()
-
-:nodoc:
-
-## SF::RectangleShape#fill_color=(color)
-
-:nodoc:
-
 ## SF::RectangleShape#get_point(index)
 
 Get a point of the rectangle
@@ -1422,59 +1106,11 @@ The result is undefined if *index* is out of the valid range.
 
 *Returns:* index-th point of the shape
 
-## SF::RectangleShape#global_bounds()
-
-:nodoc:
-
-## SF::RectangleShape#initialize(copy)
-
-:nodoc:
-
 ## SF::RectangleShape#initialize(size)
 
 Default constructor
 
 * *size* - Size of the rectangle
-
-## SF::RectangleShape#inverse_transform()
-
-:nodoc:
-
-## SF::RectangleShape#local_bounds()
-
-:nodoc:
-
-## SF::RectangleShape#move(offset)
-
-:nodoc:
-
-## SF::RectangleShape#move(offset_x,offset_y)
-
-:nodoc:
-
-## SF::RectangleShape#origin()
-
-:nodoc:
-
-## SF::RectangleShape#origin=(origin)
-
-:nodoc:
-
-## SF::RectangleShape#outline_color()
-
-:nodoc:
-
-## SF::RectangleShape#outline_color=(color)
-
-:nodoc:
-
-## SF::RectangleShape#outline_thickness()
-
-:nodoc:
-
-## SF::RectangleShape#outline_thickness=(thickness)
-
-:nodoc:
 
 ## SF::RectangleShape#point_count()
 
@@ -1482,58 +1118,6 @@ Get the number of points defining the shape
 
 *Returns:* Number of points of the shape. For rectangle
 shapes, this number is always 4.
-
-## SF::RectangleShape#position()
-
-:nodoc:
-
-## SF::RectangleShape#position=(position)
-
-:nodoc:
-
-## SF::RectangleShape#rotate(angle)
-
-:nodoc:
-
-## SF::RectangleShape#rotation()
-
-:nodoc:
-
-## SF::RectangleShape#rotation=(angle)
-
-:nodoc:
-
-## SF::RectangleShape#scale()
-
-:nodoc:
-
-## SF::RectangleShape#scale(factor)
-
-:nodoc:
-
-## SF::RectangleShape#scale(factor_x,factor_y)
-
-:nodoc:
-
-## SF::RectangleShape#scale=(factors)
-
-:nodoc:
-
-## SF::RectangleShape#set_origin(x,y)
-
-:nodoc:
-
-## SF::RectangleShape#set_position(x,y)
-
-:nodoc:
-
-## SF::RectangleShape#set_scale(factor_x,factor_y)
-
-:nodoc:
-
-## SF::RectangleShape#set_texture(texture,reset_rect)
-
-:nodoc:
 
 ## SF::RectangleShape#size()
 
@@ -1550,22 +1134,6 @@ Set the size of the rectangle
 * *size* - New size of the rectangle
 
 *See also:* `size`
-
-## SF::RectangleShape#texture()
-
-:nodoc:
-
-## SF::RectangleShape#texture_rect()
-
-:nodoc:
-
-## SF::RectangleShape#texture_rect=(rect)
-
-:nodoc:
-
-## SF::RectangleShape#transform()
-
-:nodoc:
 
 # SF::RenderStates
 
@@ -1644,10 +1212,6 @@ Construct a set of render states with all its attributes
 * *transform* - Transform to use
 * *texture* - Texture to use
 * *shader* - Shader to use
-
-## SF::RenderStates#initialize(copy)
-
-:nodoc:
 
 ## SF::RenderStates#initialize(shader)
 
@@ -2043,10 +1607,6 @@ want to draw OpenGL geometry to another render target
 
 *Returns:* True if operation was successful, false otherwise
 
-## SF::RenderTexture#clear(color)
-
-:nodoc:
-
 ## SF::RenderTexture#create(width,height,depth_buffer)
 
 Create the render-texture
@@ -2085,10 +1645,6 @@ you should leave this parameter at its default value.
 
 *Returns:* True if creation has been successful
 
-## SF::RenderTexture#default_view()
-
-:nodoc:
-
 ## SF::RenderTexture#display()
 
 Update the contents of the target texture
@@ -2097,18 +1653,6 @@ This function updates the target texture with what
 has been drawn so far. Like for windows, calling this
 function is mandatory at the end of rendering. Not calling
 it may leave the texture in an undefined state.
-
-## SF::RenderTexture#draw(vertex_buffer,first_vertex,vertex_count,states)
-
-:nodoc:
-
-## SF::RenderTexture#draw(vertex_buffer,states)
-
-:nodoc:
-
-## SF::RenderTexture#draw(vertices,type,states)
-
-:nodoc:
 
 ## SF::RenderTexture#finalize()
 
@@ -2128,10 +1672,6 @@ had been previously generated.
 
 *Returns:* True if mipmap generation was successful, false if unsuccessful
 
-## SF::RenderTexture#get_viewport(view)
-
-:nodoc:
-
 ## SF::RenderTexture#initialize()
 
 Default constructor
@@ -2141,35 +1681,11 @@ call create to have a valid render-texture.
 
 *See also:* `create`
 
-## SF::RenderTexture#map_coords_to_pixel(point)
-
-:nodoc:
-
-## SF::RenderTexture#map_coords_to_pixel(point,view)
-
-:nodoc:
-
-## SF::RenderTexture#map_pixel_to_coords(point)
-
-:nodoc:
-
-## SF::RenderTexture#map_pixel_to_coords(point,view)
-
-:nodoc:
-
 ## SF::RenderTexture.maximum_antialiasing_level()
 
 Get the maximum anti-aliasing level supported by the system
 
 *Returns:* The maximum anti-aliasing level supported by the system
-
-## SF::RenderTexture#pop_gl_states()
-
-:nodoc:
-
-## SF::RenderTexture#push_gl_states()
-
-:nodoc:
 
 ## SF::RenderTexture#repeated?()
 
@@ -2189,10 +1705,6 @@ This parameter is disabled by default.
 * *repeated* - True to enable repeating, false to disable it
 
 *See also:* `repeated?`
-
-## SF::RenderTexture#reset_gl_states()
-
-:nodoc:
 
 ## SF::RenderTexture#size()
 
@@ -2235,14 +1747,6 @@ once and keep a reference to the texture even after it is
 modified.
 
 *Returns:* Const reference to the texture
-
-## SF::RenderTexture#view()
-
-:nodoc:
-
-## SF::RenderTexture#view=(view)
-
-:nodoc:
 
 # SF::RenderWindow
 
@@ -2377,59 +1881,11 @@ You can also draw things directly to a texture with the
 
 *Returns:* Image containing the captured contents
 
-## SF::RenderWindow#clear(color)
-
-:nodoc:
-
-## SF::RenderWindow#close()
-
-:nodoc:
-
-## SF::RenderWindow#create(handle,settings)
-
-:nodoc:
-
-## SF::RenderWindow#create(mode,title,style,settings)
-
-:nodoc:
-
-## SF::RenderWindow#default_view()
-
-:nodoc:
-
-## SF::RenderWindow#display()
-
-:nodoc:
-
-## SF::RenderWindow#draw(vertex_buffer,first_vertex,vertex_count,states)
-
-:nodoc:
-
-## SF::RenderWindow#draw(vertex_buffer,states)
-
-:nodoc:
-
-## SF::RenderWindow#draw(vertices,type,states)
-
-:nodoc:
-
 ## SF::RenderWindow#finalize()
 
 Destructor
 
 Closes the window and frees all the resources attached to it.
-
-## SF::RenderWindow#focus?()
-
-:nodoc:
-
-## SF::RenderWindow#framerate_limit=(limit)
-
-:nodoc:
-
-## SF::RenderWindow#get_viewport(view)
-
-:nodoc:
 
 ## SF::RenderWindow#initialize()
 
@@ -2474,82 +1930,6 @@ parameters for a regular usage of the graphics module.
 * *style* - Window style, a bitwise OR combination of `SF::Style` enumerators
 * *settings* - Additional settings for the underlying OpenGL context
 
-## SF::RenderWindow#joystick_threshold=(threshold)
-
-:nodoc:
-
-## SF::RenderWindow#key_repeat_enabled=(enabled)
-
-:nodoc:
-
-## SF::RenderWindow#map_coords_to_pixel(point)
-
-:nodoc:
-
-## SF::RenderWindow#map_coords_to_pixel(point,view)
-
-:nodoc:
-
-## SF::RenderWindow#map_pixel_to_coords(point)
-
-:nodoc:
-
-## SF::RenderWindow#map_pixel_to_coords(point,view)
-
-:nodoc:
-
-## SF::RenderWindow#mouse_cursor=(cursor)
-
-:nodoc:
-
-## SF::RenderWindow#mouse_cursor_grabbed=(grabbed)
-
-:nodoc:
-
-## SF::RenderWindow#mouse_cursor_visible=(visible)
-
-:nodoc:
-
-## SF::RenderWindow#open?()
-
-:nodoc:
-
-## SF::RenderWindow#poll_event()
-
-:nodoc:
-
-## SF::RenderWindow#pop_gl_states()
-
-:nodoc:
-
-## SF::RenderWindow#position()
-
-:nodoc:
-
-## SF::RenderWindow#position=(position)
-
-:nodoc:
-
-## SF::RenderWindow#push_gl_states()
-
-:nodoc:
-
-## SF::RenderWindow#request_focus()
-
-:nodoc:
-
-## SF::RenderWindow#reset_gl_states()
-
-:nodoc:
-
-## SF::RenderWindow#set_icon(width,height,pixels)
-
-:nodoc:
-
-## SF::RenderWindow#settings()
-
-:nodoc:
-
 ## SF::RenderWindow#size()
 
 Get the size of the rendering region of the window
@@ -2558,38 +1938,6 @@ The size doesn't include the titlebar and borders
 of the window.
 
 *Returns:* Size in pixels
-
-## SF::RenderWindow#size=(size)
-
-:nodoc:
-
-## SF::RenderWindow#system_handle()
-
-:nodoc:
-
-## SF::RenderWindow#title=(title)
-
-:nodoc:
-
-## SF::RenderWindow#vertical_sync_enabled=(enabled)
-
-:nodoc:
-
-## SF::RenderWindow#view()
-
-:nodoc:
-
-## SF::RenderWindow#view=(view)
-
-:nodoc:
-
-## SF::RenderWindow#visible=(visible)
-
-:nodoc:
-
-## SF::RenderWindow#wait_event()
-
-:nodoc:
 
 # SF::Shader
 
@@ -3028,18 +2376,6 @@ two virtual functions to override:
 
 *See also:* `SF::RectangleShape`, `SF::CircleShape`, `SF::ConvexShape`, `SF::Transformable`
 
-## SF::Shape#draw(target,states)
-
-:nodoc:
-
-## SF::Shape#draw(target,states)
-
-:nodoc:
-
-## SF::Shape#draw(target,states)
-
-:nodoc:
-
 ## SF::Shape#fill_color()
 
 Get the fill color of the shape
@@ -3105,10 +2441,6 @@ on top of that.
 
 Default constructor
 
-## SF::Shape#inverse_transform()
-
-:nodoc:
-
 ## SF::Shape#local_bounds()
 
 Get the local bounding rectangle of the entity
@@ -3120,22 +2452,6 @@ In other words, this function returns the bounds of the
 entity in the entity's coordinate system.
 
 *Returns:* Local bounding rectangle of the entity
-
-## SF::Shape#move(offset)
-
-:nodoc:
-
-## SF::Shape#move(offset_x,offset_y)
-
-:nodoc:
-
-## SF::Shape#origin()
-
-:nodoc:
-
-## SF::Shape#origin=(origin)
-
-:nodoc:
 
 ## SF::Shape#outline_color()
 
@@ -3184,54 +2500,6 @@ Get the total number of points of the shape
 
 *See also:* `point`
 
-## SF::Shape#position()
-
-:nodoc:
-
-## SF::Shape#position=(position)
-
-:nodoc:
-
-## SF::Shape#rotate(angle)
-
-:nodoc:
-
-## SF::Shape#rotation()
-
-:nodoc:
-
-## SF::Shape#rotation=(angle)
-
-:nodoc:
-
-## SF::Shape#scale()
-
-:nodoc:
-
-## SF::Shape#scale(factor)
-
-:nodoc:
-
-## SF::Shape#scale(factor_x,factor_y)
-
-:nodoc:
-
-## SF::Shape#scale=(factors)
-
-:nodoc:
-
-## SF::Shape#set_origin(x,y)
-
-:nodoc:
-
-## SF::Shape#set_position(x,y)
-
-:nodoc:
-
-## SF::Shape#set_scale(factor_x,factor_y)
-
-:nodoc:
-
 ## SF::Shape#set_texture(texture,reset_rect)
 
 Change the source texture of the shape
@@ -3264,10 +2532,6 @@ modify the texture when you retrieve it with this function.
 
 *See also:* `texture=`
 
-## SF::Shape#texture()
-
-:nodoc:
-
 ## SF::Shape#texture_rect()
 
 Get the sub-rectangle of the texture displayed by the shape
@@ -3287,10 +2551,6 @@ By default, the texture rect covers the entire texture.
 * *rect* - Rectangle defining the region of the texture to display
 
 *See also:* `texture_rect`, `texture=`
-
-## SF::Shape#transform()
-
-:nodoc:
 
 ## SF::Shape#update()
 
@@ -3371,18 +2631,6 @@ By default, the sprite's color is opaque white.
 
 *See also:* `color`
 
-## SF::Sprite#draw(target,states)
-
-:nodoc:
-
-## SF::Sprite#draw(target,states)
-
-:nodoc:
-
-## SF::Sprite#draw(target,states)
-
-:nodoc:
-
 ## SF::Sprite#global_bounds()
 
 Get the global bounding rectangle of the entity
@@ -3401,10 +2649,6 @@ Default constructor
 
 Creates an empty sprite with no source texture.
 
-## SF::Sprite#initialize(copy)
-
-:nodoc:
-
 ## SF::Sprite#initialize(texture)
 
 Construct the sprite from a source texture
@@ -3422,10 +2666,6 @@ Construct the sprite from a sub-rectangle of a source texture
 
 *See also:* `texture=`, `texture_rect=`
 
-## SF::Sprite#inverse_transform()
-
-:nodoc:
-
 ## SF::Sprite#local_bounds()
 
 Get the local bounding rectangle of the entity
@@ -3437,70 +2677,6 @@ In other words, this function returns the bounds of the
 entity in the entity's coordinate system.
 
 *Returns:* Local bounding rectangle of the entity
-
-## SF::Sprite#move(offset)
-
-:nodoc:
-
-## SF::Sprite#move(offset_x,offset_y)
-
-:nodoc:
-
-## SF::Sprite#origin()
-
-:nodoc:
-
-## SF::Sprite#origin=(origin)
-
-:nodoc:
-
-## SF::Sprite#position()
-
-:nodoc:
-
-## SF::Sprite#position=(position)
-
-:nodoc:
-
-## SF::Sprite#rotate(angle)
-
-:nodoc:
-
-## SF::Sprite#rotation()
-
-:nodoc:
-
-## SF::Sprite#rotation=(angle)
-
-:nodoc:
-
-## SF::Sprite#scale()
-
-:nodoc:
-
-## SF::Sprite#scale(factor)
-
-:nodoc:
-
-## SF::Sprite#scale(factor_x,factor_y)
-
-:nodoc:
-
-## SF::Sprite#scale=(factors)
-
-:nodoc:
-
-## SF::Sprite#set_origin(x,y)
-
-:nodoc:
-
-## SF::Sprite#set_position(x,y)
-
-:nodoc:
-
-## SF::Sprite#set_scale(factor_x,factor_y)
-
-:nodoc:
 
 ## SF::Sprite#set_texture(texture,reset_rect)
 
@@ -3533,10 +2709,6 @@ modify the texture when you retrieve it with this function.
 
 *See also:* `texture=`
 
-## SF::Sprite#texture()
-
-:nodoc:
-
 ## SF::Sprite#texture_rect()
 
 Get the sub-rectangle of the texture displayed by the sprite
@@ -3556,10 +2728,6 @@ By default, the texture rect covers the entire texture.
 * *rectangle* - Rectangle defining the region of the texture to display
 
 *See also:* `texture_rect`, `texture=`
-
-## SF::Sprite#transform()
-
-:nodoc:
 
 # SF::Text
 
@@ -3690,18 +2858,6 @@ DEPRECATED: There is now fill and outline colors instead
 of a single global color.
 Use `fill_color=()` or `outline_color=()` instead.
 
-## SF::Text#draw(target,states)
-
-:nodoc:
-
-## SF::Text#draw(target,states)
-
-:nodoc:
-
-## SF::Text#draw(target,states)
-
-:nodoc:
-
 ## SF::Text#fill_color()
 
 Get the fill color of the text
@@ -3749,10 +2905,6 @@ cannot modify the font when you get it from this function.
 
 *See also:* `font=`
 
-## SF::Text#font()
-
-:nodoc:
-
 ## SF::Text#font=(font)
 
 Set the text's font
@@ -3786,10 +2938,6 @@ Default constructor
 
 Creates an empty text.
 
-## SF::Text#initialize(copy)
-
-:nodoc:
-
 ## SF::Text#initialize(string,font,character_size)
 
 Construct the text from a string, font and size
@@ -3804,10 +2952,6 @@ font that supports that size is used.
 * *string* - Text assigned to the string
 * *font* - Font used to draw the string
 * *character_size* - Base size of characters, in pixels
-
-## SF::Text#inverse_transform()
-
-:nodoc:
 
 ## SF::Text#letter_spacing()
 
@@ -3866,22 +3010,6 @@ entity in the entity's coordinate system.
 
 *Returns:* Local bounding rectangle of the entity
 
-## SF::Text#move(offset)
-
-:nodoc:
-
-## SF::Text#move(offset_x,offset_y)
-
-:nodoc:
-
-## SF::Text#origin()
-
-:nodoc:
-
-## SF::Text#origin=(origin)
-
-:nodoc:
-
 ## SF::Text#outline_color()
 
 Get the outline color of the text
@@ -3921,54 +3049,6 @@ thickness will cause distorted rendering.
 
 *See also:* `outline_thickness`
 
-## SF::Text#position()
-
-:nodoc:
-
-## SF::Text#position=(position)
-
-:nodoc:
-
-## SF::Text#rotate(angle)
-
-:nodoc:
-
-## SF::Text#rotation()
-
-:nodoc:
-
-## SF::Text#rotation=(angle)
-
-:nodoc:
-
-## SF::Text#scale()
-
-:nodoc:
-
-## SF::Text#scale(factor)
-
-:nodoc:
-
-## SF::Text#scale(factor_x,factor_y)
-
-:nodoc:
-
-## SF::Text#scale=(factors)
-
-:nodoc:
-
-## SF::Text#set_origin(x,y)
-
-:nodoc:
-
-## SF::Text#set_position(x,y)
-
-:nodoc:
-
-## SF::Text#set_scale(factor_x,factor_y)
-
-:nodoc:
-
 ## SF::Text#string()
 
 Get the text's string
@@ -4006,10 +3086,6 @@ The default style is `SF::Text::Regular`.
 * *style* - New style
 
 *See also:* `style`
-
-## SF::Text#transform()
-
-:nodoc:
 
 # SF::Texture
 
@@ -4202,10 +3278,6 @@ regenerate it.
 Default constructor
 
 Creates an empty texture.
-
-## SF::Texture#initialize(copy)
-
-:nodoc:
 
 ## SF::Texture#load_from_file(filename,area)
 
@@ -4637,10 +3709,6 @@ Construct a transform from a 3x3 matrix
 * *a21* - Element (2, 1) of the matrix
 * *a22* - Element (2, 2) of the matrix
 
-## SF::Transform#initialize(copy)
-
-:nodoc:
-
 ## SF::Transform#inverse()
 
 Return the inverse of the transform
@@ -5014,10 +4082,6 @@ Virtual destructor
 
 Default constructor
 
-## SF::Transformable#initialize(copy)
-
-:nodoc:
-
 ## SF::Transformable#inverse_transform()
 
 get the inverse of the combined transform of the object
@@ -5286,10 +4350,6 @@ Color of the vertex
 
 Default constructor
 
-## SF::Vertex#initialize(copy)
-
-:nodoc:
-
 ## SF::Vertex#initialize(position)
 
 Construct the vertex from its position
@@ -5379,18 +4439,6 @@ It doesn't deallocate the corresponding memory, so that
 adding new vertices after clearing doesn't involve
 reallocating all the memory.
 
-## SF::VertexArray#draw(target,states)
-
-:nodoc:
-
-## SF::VertexArray#draw(target,states)
-
-:nodoc:
-
-## SF::VertexArray#draw(target,states)
-
-:nodoc:
-
 ## SF::VertexArray#[](index)
 
 Get the vertex by its index
@@ -5420,10 +4468,6 @@ This method doesn't check *index*, it must be in range
 Default constructor
 
 Creates an empty vertex array.
-
-## SF::VertexArray#initialize(copy)
-
-:nodoc:
 
 ## SF::VertexArray#initialize(type,vertex_count)
 
@@ -5599,18 +4643,6 @@ value when graphics memory should be allocated again.
 
 *Returns:* True if creation was successful
 
-## SF::VertexBuffer#draw(target,states)
-
-:nodoc:
-
-## SF::VertexBuffer#draw(target,states)
-
-:nodoc:
-
-## SF::VertexBuffer#draw(target,states)
-
-:nodoc:
-
 ## SF::VertexBuffer#finalize()
 
 Destructor
@@ -5620,10 +4652,6 @@ Destructor
 Default constructor
 
 Creates an empty vertex buffer.
-
-## SF::VertexBuffer#initialize(copy)
-
-:nodoc:
 
 ## SF::VertexBuffer#initialize(type)
 
@@ -5851,10 +4879,6 @@ Construct the view from its center and size
 
 * *center* - Center of the zone to display
 * *size* - Size of zone to display
-
-## SF::View#initialize(copy)
-
-:nodoc:
 
 ## SF::View#initialize(rectangle)
 

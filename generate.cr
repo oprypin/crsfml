@@ -253,7 +253,7 @@ abstract class CItem
         prev_line = line
       end
     end
-    if (saved_docs = SAVE_DOCS) && !doc.lines.empty?
+    if (saved_docs = SAVE_DOCS) && !{"", ":nodoc:"}.includes?(doc.strip)
       module_docs = (saved_docs[sfmodule.name] ||= {} of String => Array(String))
       (module_docs[name] ||= [] of String) << doc
     end

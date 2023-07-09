@@ -87,36 +87,16 @@ Get the directory returned in the response
 
 *Returns:* Directory name
 
-### SF::Ftp::DirectoryResponse#initialize(copy)
-
-:nodoc:
-
 ### SF::Ftp::DirectoryResponse#initialize(response)
 
 Default constructor
 
 * *response* - Source response
 
-### SF::Ftp::DirectoryResponse#message()
-
-:nodoc:
-
-### SF::Ftp::DirectoryResponse#ok?()
-
-:nodoc:
-
-### SF::Ftp::DirectoryResponse#status()
-
-:nodoc:
-
 ## SF::Ftp::ListingResponse
 
 Specialization of FTP response returning a
 filename listing
-
-### SF::Ftp::ListingResponse#initialize(copy)
-
-:nodoc:
 
 ### SF::Ftp::ListingResponse#initialize(response,data)
 
@@ -130,18 +110,6 @@ Default constructor
 Return the array of directory/file names
 
 *Returns:* Array containing the requested listing
-
-### SF::Ftp::ListingResponse#message()
-
-:nodoc:
-
-### SF::Ftp::ListingResponse#ok?()
-
-:nodoc:
-
-### SF::Ftp::ListingResponse#status()
-
-:nodoc:
 
 ## SF::Ftp::Response
 
@@ -332,10 +300,6 @@ the response.
 
 * *code* - Response status code
 * *message* - Response message
-
-### SF::Ftp::Response#initialize(copy)
-
-:nodoc:
 
 ### SF::Ftp::Response#message()
 
@@ -693,10 +657,6 @@ The body is empty by default.
 
 * *body* - Content of the body
 
-### SF::Http::Request#initialize(copy)
-
-:nodoc:
-
 ### SF::Http::Request#initialize(uri,method,body)
 
 Default constructor
@@ -881,10 +841,6 @@ Default constructor
 
 Constructs an empty response.
 
-### SF::Http::Response#initialize(copy)
-
-:nodoc:
-
 ### SF::Http::Response#major_http_version()
 
 Get the major HTTP version number of the response
@@ -1064,10 +1020,6 @@ parse a string to get the address components.
 * *byte1* - Second byte of the address
 * *byte2* - Third byte of the address
 * *byte3* - Fourth byte of the address
-
-## SF::IpAddress#initialize(copy)
-
-:nodoc:
 
 ## SF::IpAddress.local_address()
 
@@ -1308,10 +1260,6 @@ Virtual destructor
 Default constructor
 
 Creates an empty packet.
-
-## SF::Packet#initialize(copy)
-
-:nodoc:
 
 ## SF::Packet#read(type)
 
@@ -1654,10 +1602,6 @@ Destructor
 
 Default constructor
 
-## SF::SocketSelector#initialize(copy)
-
-:nodoc:
-
 ## SF::SocketSelector#ready?(socket)
 
 Test a socket to know if it is ready to receive data
@@ -1757,14 +1701,6 @@ not return until a connection is actually received.
 *Returns:* Status code
 
 *See also:* `listen`
-
-## SF::TcpListener#blocking?()
-
-:nodoc:
-
-## SF::TcpListener#blocking=(blocking)
-
-:nodoc:
 
 ## SF::TcpListener#close()
 
@@ -1881,14 +1817,6 @@ socket.send(message.to_slice)
 ```
 
 *See also:* `SF::Socket`, `SF::UdpSocket`, `SF::Packet`
-
-## SF::TcpSocket#blocking?()
-
-:nodoc:
-
-## SF::TcpSocket#blocking=(blocking)
-
-:nodoc:
 
 ## SF::TcpSocket#connect(remote_address,remote_port,timeout)
 
@@ -2136,14 +2064,6 @@ port before being bound to the new one.
 *Returns:* Status code
 
 *See also:* `unbind`, `local_port`
-
-## SF::UdpSocket#blocking?()
-
-:nodoc:
-
-## SF::UdpSocket#blocking=(blocking)
-
-:nodoc:
 
 ## SF::UdpSocket#initialize()
 

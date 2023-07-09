@@ -114,10 +114,6 @@ use will not be returned by this function.
 
 *Returns:* The currently active context or NULL if none is active
 
-## SF::Context.active_context()
-
-:nodoc:
-
 ## SF::Context.active_context_id()
 
 Get the currently active context's ID
@@ -254,10 +250,6 @@ The attribute flags to create the context with
 ## SF::ContextSettings#depth_bits()
 
 Bits of the depth buffer
-
-## SF::ContextSettings#initialize(copy)
-
-:nodoc:
 
 ## SF::ContextSettings#initialize(depth,stencil,antialiasing,major,minor,attributes,s_rgb)
 
@@ -611,10 +603,6 @@ Joystick buttons events parameters
 
 Index of the button that has been pressed (in range `0 ... Joystick::ButtonCount`)
 
-### SF::Event::JoystickButtonEvent#initialize(copy)
-
-:nodoc:
-
 ### SF::Event::JoystickButtonEvent#joystick_id()
 
 Index of the joystick (in range `0 ... Joystick::Count`)
@@ -631,10 +619,6 @@ A joystick button was released (subtype of `JoystickButtonEvent`)
 
 Joystick connection events parameters
 (see `JoystickConnected`, `JoystickDisconnected`)
-
-### SF::Event::JoystickConnectEvent#initialize(copy)
-
-:nodoc:
 
 ### SF::Event::JoystickConnectEvent#joystick_id()
 
@@ -655,10 +639,6 @@ Joystick axis move event parameters (see `JoystickMoved`)
 ### SF::Event::JoystickMoveEvent#axis()
 
 Axis on which the joystick moved
-
-### SF::Event::JoystickMoveEvent#initialize(copy)
-
-:nodoc:
 
 ### SF::Event::JoystickMoveEvent#joystick_id()
 
@@ -687,10 +667,6 @@ Code of the key that has been pressed
 ### SF::Event::KeyEvent#control()
 
 Is the Control key pressed?
-
-### SF::Event::KeyEvent#initialize(copy)
-
-:nodoc:
 
 ### SF::Event::KeyEvent#shift()
 
@@ -721,10 +697,6 @@ Mouse buttons events parameters
 
 Code of the button that has been pressed
 
-### SF::Event::MouseButtonEvent#initialize(copy)
-
-:nodoc:
-
 ### SF::Event::MouseButtonEvent#x()
 
 X position of the mouse pointer, relative to the left of the owner window
@@ -753,10 +725,6 @@ The mouse cursor left the area of the window (no data)
 
 Mouse move event parameters (see `MouseMoved`)
 
-### SF::Event::MouseMoveEvent#initialize(copy)
-
-:nodoc:
-
 ### SF::Event::MouseMoveEvent#x()
 
 X position of the mouse pointer, relative to the left of the owner window
@@ -780,10 +748,6 @@ Use `MouseWheelScrollEvent` instead.
 
 Number of ticks the wheel has moved (positive is up, negative is down)
 
-### SF::Event::MouseWheelEvent#initialize(copy)
-
-:nodoc:
-
 ### SF::Event::MouseWheelEvent#x()
 
 X position of the mouse pointer, relative to the left of the owner window
@@ -803,10 +767,6 @@ Mouse wheel events parameters (see `MouseWheelScrolled`)
 ### SF::Event::MouseWheelScrollEvent#delta()
 
 Wheel offset (positive is up/left, negative is down/right). High-precision mice may use non-integral offsets.
-
-### SF::Event::MouseWheelScrollEvent#initialize(copy)
-
-:nodoc:
 
 ### SF::Event::MouseWheelScrollEvent#wheel()
 
@@ -836,10 +796,6 @@ A sensor value changed (subtype of `SensorEvent`)
 
 Sensor event parameters (see `SensorChanged`)
 
-### SF::Event::SensorEvent#initialize(copy)
-
-:nodoc:
-
 ### SF::Event::SensorEvent#type()
 
 Type of the sensor
@@ -864,10 +820,6 @@ Size events parameters (see `Resized`)
 
 New height, in pixels
 
-### SF::Event::SizeEvent#initialize(copy)
-
-:nodoc:
-
 ### SF::Event::SizeEvent#width()
 
 New width, in pixels
@@ -879,10 +831,6 @@ A character was entered (subtype of `TextEvent`)
 ## SF::Event::TextEvent
 
 Text event parameters (see `TextEntered`)
-
-### SF::Event::TextEvent#initialize(copy)
-
-:nodoc:
 
 ### SF::Event::TextEvent#unicode()
 
@@ -903,10 +851,6 @@ Touch events parameters (see `TouchBegan`, `TouchMoved`, `TouchEnded`)
 ### SF::Event::TouchEvent#finger()
 
 Index of the finger in case of multi-touch events
-
-### SF::Event::TouchEvent#initialize(copy)
-
-:nodoc:
 
 ### SF::Event::TouchEvent#x()
 
@@ -1029,10 +973,6 @@ Maximum number of supported joysticks
 ## SF::Joystick::Identification
 
 Structure holding a joystick's identification
-
-### SF::Joystick::Identification#initialize(copy)
-
-:nodoc:
 
 ### SF::Joystick::Identification#name()
 
@@ -2006,10 +1946,6 @@ Video mode height, in pixels
 Default constructor
 
 This constructors initializes all members to 0.
-
-## SF::VideoMode#initialize(copy)
-
-:nodoc:
 
 ## SF::VideoMode#initialize(width,height,bits_per_pixel)
 

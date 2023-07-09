@@ -209,18 +209,6 @@ music.play
 
 *See also:* `SF::Sound`, `SF::SoundStream`
 
-## SF::Music#attenuation()
-
-:nodoc:
-
-## SF::Music#attenuation=(attenuation)
-
-:nodoc:
-
-## SF::Music#channel_count()
-
-:nodoc:
-
 ## SF::Music#duration()
 
 Get the total duration of the music
@@ -234,18 +222,6 @@ Destructor
 ## SF::Music#initialize()
 
 Default constructor
-
-## SF::Music#initialize(channel_count,sample_rate)
-
-:nodoc:
-
-## SF::Music#loop()
-
-:nodoc:
-
-## SF::Music#loop=(loop)
-
-:nodoc:
 
 ## SF::Music#loop_points()
 
@@ -281,14 +257,6 @@ will set its status to `Stopped`. The playing offset will be unaffected.
 * *time_points* - The definition of the loop. Can be any time points within the sound's length
 
 *See also:* `loop_points`
-
-## SF::Music#min_distance()
-
-:nodoc:
-
-## SF::Music#min_distance=(distance)
-
-:nodoc:
 
 ## SF::Music#on_get_data()
 
@@ -375,70 +343,6 @@ until the `SF::Music` object loads a new music or is destroyed.
 
 *See also:* `open_from_file`, `open_from_memory`
 
-## SF::Music#pause()
-
-:nodoc:
-
-## SF::Music#pitch()
-
-:nodoc:
-
-## SF::Music#pitch=(pitch)
-
-:nodoc:
-
-## SF::Music#play()
-
-:nodoc:
-
-## SF::Music#playing_offset()
-
-:nodoc:
-
-## SF::Music#playing_offset=(time_offset)
-
-:nodoc:
-
-## SF::Music#position()
-
-:nodoc:
-
-## SF::Music#position=(position)
-
-:nodoc:
-
-## SF::Music#relative_to_listener?()
-
-:nodoc:
-
-## SF::Music#relative_to_listener=(relative)
-
-:nodoc:
-
-## SF::Music#sample_rate()
-
-:nodoc:
-
-## SF::Music#set_position(x,y,z)
-
-:nodoc:
-
-## SF::Music#status()
-
-:nodoc:
-
-## SF::Music#stop()
-
-:nodoc:
-
-## SF::Music#volume()
-
-:nodoc:
-
-## SF::Music#volume=(volume)
-
-:nodoc:
-
 # SF::Sound
 
 Regular sound that can be played in the audio environment
@@ -474,23 +378,11 @@ sound.play
 
 *See also:* `SF::SoundBuffer`, `SF::Music`
 
-## SF::Sound#attenuation()
-
-:nodoc:
-
-## SF::Sound#attenuation=(attenuation)
-
-:nodoc:
-
 ## SF::Sound#buffer()
 
 Get the audio buffer attached to the sound
 
 *Returns:* Sound buffer attached to the sound (can be NULL)
-
-## SF::Sound#buffer()
-
-:nodoc:
 
 ## SF::Sound#buffer=(buffer)
 
@@ -539,14 +431,6 @@ The default looping state for sound is false.
 
 *See also:* `loop`
 
-## SF::Sound#min_distance()
-
-:nodoc:
-
-## SF::Sound#min_distance=(distance)
-
-:nodoc:
-
 ## SF::Sound#pause()
 
 Pause the sound
@@ -555,14 +439,6 @@ This function pauses the sound if it was playing,
 otherwise (sound already paused or stopped) it has no effect.
 
 *See also:* `play`, `stop`
-
-## SF::Sound#pitch()
-
-:nodoc:
-
-## SF::Sound#pitch=(pitch)
-
-:nodoc:
 
 ## SF::Sound#play()
 
@@ -597,22 +473,6 @@ the sound will reset its position.
 
 *See also:* `playing_offset`
 
-## SF::Sound#position()
-
-:nodoc:
-
-## SF::Sound#position=(position)
-
-:nodoc:
-
-## SF::Sound#relative_to_listener?()
-
-:nodoc:
-
-## SF::Sound#relative_to_listener=(relative)
-
-:nodoc:
-
 ## SF::Sound#reset_buffer()
 
 Reset the internal buffer of the sound
@@ -621,10 +481,6 @@ This function is for internal use only, you don't have
 to use it. It is called by the `SF::SoundBuffer` that
 this sound uses, when it is destroyed in order to prevent
 the sound from using a dead buffer.
-
-## SF::Sound#set_position(x,y,z)
-
-:nodoc:
 
 ## SF::Sound#status()
 
@@ -641,14 +497,6 @@ and does nothing if it was already stopped.
 It also resets the playing position (unlike `pause()`).
 
 *See also:* `play`, `pause`
-
-## SF::Sound#volume()
-
-:nodoc:
-
-## SF::Sound#volume=(volume)
-
-:nodoc:
 
 # SF::SoundBuffer
 
@@ -875,14 +723,6 @@ end
 
 *See also:* `SF::SoundRecorder`
 
-## SF::SoundBufferRecorder.available?()
-
-:nodoc:
-
-## SF::SoundBufferRecorder.available_devices()
-
-:nodoc:
-
 ## SF::SoundBufferRecorder#buffer()
 
 Get the sound buffer containing the captured audio data
@@ -893,26 +733,6 @@ sound buffer, but it can be copied if you need to
 make any modification to it.
 
 *Returns:* Read-only access to the sound buffer
-
-## SF::SoundBufferRecorder#channel_count()
-
-:nodoc:
-
-## SF::SoundBufferRecorder#channel_count=(channel_count)
-
-:nodoc:
-
-## SF::SoundBufferRecorder.default_device()
-
-:nodoc:
-
-## SF::SoundBufferRecorder#device()
-
-:nodoc:
-
-## SF::SoundBufferRecorder#device=(name)
-
-:nodoc:
 
 ## SF::SoundBufferRecorder#finalize()
 
@@ -936,22 +756,6 @@ Start capturing audio data
 ## SF::SoundBufferRecorder#on_stop()
 
 Stop capturing audio data
-
-## SF::SoundBufferRecorder#processing_interval=(interval)
-
-:nodoc:
-
-## SF::SoundBufferRecorder#sample_rate()
-
-:nodoc:
-
-## SF::SoundBufferRecorder#start(sample_rate)
-
-:nodoc:
-
-## SF::SoundBufferRecorder#stop()
-
-:nodoc:
 
 # SF::SoundRecorder
 
@@ -1515,14 +1319,6 @@ stream.play
 
 "Invalid" end_seeks value, telling us to continue uninterrupted
 
-## SF::SoundStream#attenuation()
-
-:nodoc:
-
-## SF::SoundStream#attenuation=(attenuation)
-
-:nodoc:
-
 ## SF::SoundStream#channel_count()
 
 Return the number of channels of the stream
@@ -1576,14 +1372,6 @@ The default looping state for streams is false.
 
 *See also:* `loop`
 
-## SF::SoundStream#min_distance()
-
-:nodoc:
-
-## SF::SoundStream#min_distance=(distance)
-
-:nodoc:
-
 ## SF::SoundStream#on_get_data()
 
 Request a new chunk of audio samples from the stream source
@@ -1629,14 +1417,6 @@ otherwise (stream already paused or stopped) it has no effect.
 
 *See also:* `play`, `stop`
 
-## SF::SoundStream#pitch()
-
-:nodoc:
-
-## SF::SoundStream#pitch=(pitch)
-
-:nodoc:
-
 ## SF::SoundStream#play()
 
 Start or resume playing the audio stream
@@ -1670,22 +1450,6 @@ the stream would reset its position.
 
 *See also:* `playing_offset`
 
-## SF::SoundStream#position()
-
-:nodoc:
-
-## SF::SoundStream#position=(position)
-
-:nodoc:
-
-## SF::SoundStream#relative_to_listener?()
-
-:nodoc:
-
-## SF::SoundStream#relative_to_listener=(relative)
-
-:nodoc:
-
 ## SF::SoundStream#sample_rate()
 
 Get the stream sample rate of the stream
@@ -1694,10 +1458,6 @@ The sample rate is the number of audio samples played per
 second. The higher, the better the quality.
 
 *Returns:* Sample rate, in number of samples per second
-
-## SF::SoundStream#set_position(x,y,z)
-
-:nodoc:
 
 ## SF::SoundStream#status()
 
@@ -1714,11 +1474,3 @@ and does nothing if it was already stopped.
 It also resets the playing position (unlike `pause()`).
 
 *See also:* `play`, `pause`
-
-## SF::SoundStream#volume()
-
-:nodoc:
-
-## SF::SoundStream#volume=(volume)
-
-:nodoc:

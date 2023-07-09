@@ -43,10 +43,6 @@ Default constructor
 
 The clock starts automatically after being constructed.
 
-## SF::Clock#initialize(copy)
-
-:nodoc:
-
 ## SF::Clock#restart()
 
 Restart the clock
@@ -251,10 +247,6 @@ See also: `InputStream`, `FileInputStream`
 ## SF::MemoryInputStream#initialize()
 
 Default constructor
-
-## SF::MemoryInputStream#initialize(copy)
-
-:nodoc:
 
 ## SF::MemoryInputStream#open(data)
 
@@ -595,10 +587,6 @@ Return the time value as a number of seconds
 Default constructor
 
 Sets the time value to zero.
-
-## SF::Time#initialize(copy)
-
-:nodoc:
 
 ## SF::Time#==(right)
 
