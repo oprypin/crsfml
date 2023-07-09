@@ -8,8 +8,8 @@ class CustomShape < SF::Shape
   def point_count : Int32
     3
   end
-  def get_point(i : Int) : SF::Vector2f
-    case i
+  def get_point(index : Int) : SF::Vector2f
+    case index
     when 0
       SF.vector2f(100, 200)
     when 1

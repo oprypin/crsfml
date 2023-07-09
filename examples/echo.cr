@@ -33,7 +33,7 @@ class MySoundStream < SF::SoundStream
     @mutex.unlock
     @result.to_unsafe.to_slice(@result.size)
   end
-  def on_seek(position)
+  def on_seek(time_offset)
   end
 end
 
