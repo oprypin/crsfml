@@ -283,6 +283,12 @@ module SF
       end
     end
   end
+
+  class MemoryBuffer
+    def to_slice : Bytes
+      Slice.new(data, size)
+    end
+  end
 end
 
 require "./obj"
