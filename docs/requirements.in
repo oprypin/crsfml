@@ -1,5 +1,5 @@
 markdown-callouts>=0.1.0
-mkdocs>=1.2.1
+mkdocs>=1.5
 mkdocs-code-validator>=0.1.0
 mkdocs-gen-files>=0.3.2
 mkdocs-literate-nav>=0.3.1

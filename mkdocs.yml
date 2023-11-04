@@ -7,6 +7,7 @@ use_directory_urls: false
 theme:
   name: material
   features:
+    - content.action.edit
     - navigation.tabs
   logo: icon.png
   icon:
@@ -26,7 +27,9 @@ markdown_extensions:
   - pymdownx.magiclink
   - pymdownx.saneheaders
   - pymdownx.superfences
-  - pymdownx.snippets
+  - pymdownx.snippets:
+      base_path:
+        - !relative $config_dir
   - deduplicate-toc
   - callouts
   - toc:
@@ -51,3 +54,9 @@ plugins:
         crystal:
           validators:
             - crystal tool format --check -
+
+validation:
+  omitted_files: warn
+  absolute_links: warn
+  nav:
+    absolute_links: ignore
