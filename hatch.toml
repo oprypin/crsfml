@@ -1,0 +1,10 @@
+[env]
+requires = [
+    "hatch-mkdocs",
+    "hatch-pip-compile",
+]
+
+[env.collectors.mkdocs.docs]
+[envs.docs]
+type = "pip-compile"
+pip-compile-hashes = false
