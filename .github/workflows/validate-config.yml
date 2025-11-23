@@ -11,9 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install Crystal
-        uses: oprypin/install-crystal@v1
+        uses: crystal-lang/install-crystal@v1
       - name: Download sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
       - name: Generate config
         run: crystal run .github/workflows/generate.cr
       - name: Validate freshness

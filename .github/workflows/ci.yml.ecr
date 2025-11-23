@@ -17,8 +17,8 @@ on:
   config.merge(os: ubuntu, os_ver: "22.04", sfml: "2.5.1", crystal: "nightly"),
   config.merge(os: ubuntu, os_ver: "22.04"),
   config.merge(docker: "crystallang/crystal:1.5.1-build", os: ubuntu, os_ver: "22.04", sfml_pkg: true, sfml: "2.4.2", crystal: "1.5.1"),
-  config.merge(os: mac, os_ver: "13", sfml: "2.5.1"),
-  config.merge(os: mac, os_ver: "13", sfml: homebrew, crystal: homebrew, sfml_pkg: true),
+  config.merge(os: mac, os_ver: "15-intel", sfml: "2.5.1"),
+  config.merge(os: mac, os_ver: "15-intel", sfml: homebrew, crystal: homebrew, sfml_pkg: true),
   config.merge(os: windows, crystal: "nightly"),
 ] %>
 <% all = {ubuntu, mac, windows} %>
@@ -48,7 +48,7 @@ jobs:
   <% end %>
     steps:
       - name: Download CrSFML source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Install SFML
         id: sfml
         uses: oprypin/install-sfml@v1

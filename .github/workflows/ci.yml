@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Download CrSFML source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Install SFML
         id: sfml
         uses: oprypin/install-sfml@v1
@@ -130,7 +130,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Download CrSFML source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Install SFML
         id: sfml
         uses: oprypin/install-sfml@v1
@@ -250,7 +250,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download CrSFML source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Install SFML
         id: sfml
         uses: oprypin/install-sfml@v1
@@ -302,11 +302,11 @@ jobs:
         working-directory: ./examples
         run: crystal build echo.cr
   job4:
-    name: 'macOS 13: SFML 2.5.1, Crystal latest'
-    runs-on: macos-13
+    name: 'macOS 15-intel: SFML 2.5.1, Crystal latest'
+    runs-on: macos-15-intel
     steps:
       - name: Download CrSFML source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Install SFML
         id: sfml
         uses: oprypin/install-sfml@v1
@@ -394,11 +394,11 @@ jobs:
           sleep 3
           kill $pid
   job5:
-    name: 'macOS 13: SFML Homebrew, Crystal Homebrew'
-    runs-on: macos-13
+    name: 'macOS 15-intel: SFML Homebrew, Crystal Homebrew'
+    runs-on: macos-15-intel
     steps:
       - name: Download CrSFML source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Install SFML
         id: sfml
         uses: oprypin/install-sfml@v1
@@ -488,7 +488,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Download CrSFML source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Install SFML
         id: sfml
         uses: oprypin/install-sfml@v1
